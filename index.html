@@ -30,10 +30,6 @@ body {
     transition: transform 0.3s ease;
 }
 
-.product:hover img {
-    transform: scale(1.2);
-}
-
 .product-info {
     float: right;
     width: calc(100% - 180px);
@@ -65,7 +61,7 @@ body {
 <div class="search-bar">
     <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="ابحث فى ADGER...">
 </div>
-<p>  ابعت رقم المنتج والوكيشن الى تحب يوصله المنتج عند الضغط على زر ارسال رسالة واتساب , سعر التوصيل\ €30🛒</p>
+<p>  ابعت رقم المنتج والوكيشن الى تحب يوصله المنتج عند الضغط على زر ارسال رسالة واتساب , سعر التوصيل€30🛒</p>
 <hr>
 <div class="product" id="product">
     <img src="1.jpg" alt="product">
@@ -73,86 +69,56 @@ body {
         <h2>ساعه من فيترون</h2>
         <p>اللون فضى فى ذهبى مستورد من الكويت</p>
         <p>السعر :€600</p>
-            <!DOCTYPE html>
-              <html lang="en">
-              <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>WhatsApp Message Button</title>
-              </head>
-              <body>
-              <!-- Replace "1234567890" with the desired phone number -->
-              <a href="https://wa.me/+201152366798 target="_blank">
-                <button>إرسال رسالة واتساب</button>
-              </a>    
-              </body>
-              </html>
-            </button>
-        </body>
-        </html>
         <button class="copy-button" onclick="copyText('رقم المنتج|1')">رقم المنتج|1</button>
+        <!-- WhatsApp Message Button -->
+        <a href="https://wa.me/+201152366798" target="_blank">
+            <button>إرسال رسالة واتساب</button>
+        </a>
     </div>
     <div style="clear:both;"></div>
 </div>
 
-
 <div class="product" id="product">
-  <img src="2.jpg" alt="product">
-  <div class="product-info">
-<h2>قاعدة ماوس كبيره </h2>
-  <p></p>
-      <p>السعر :€50</p>
-          <!DOCTYPE html>
-            <html lang="en">
-            <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>WhatsApp Message Button</title>
-            </head>
-            <body>
-            <!-- Replace "1234567890" with the desired phone number -->
-            <a href="https://wa.me/+201152366798 target="_blank">
-              <button>إرسال رسالة واتساب</button>
-            </a>    
-            </body>
-            </html>
-          </button>
-      </body>
-      </html>
-      <button class="copy-button" onclick="copyText('رقم المنتج|2')">رقم المنتج|2</button>
-  </div>
-  <div style="clear:both;"></div>
+    <img src="2.jpg" alt="product">
+    <div class="product-info">
+        <h2>قاعدة ماوس كبيره</h2>
+        <p></p>
+        <p>السعر :€50</p>
+        <button class="copy-button" onclick="copyText('رقم المنتج|2')">رقم المنتج|2</button>
+        <!-- WhatsApp Message Button -->
+        <a href="https://wa.me/+201152366798" target="_blank">
+            <button>إرسال رسالة واتساب</button>
+        </a>
+    </div>
+    <div style="clear:both;"></div>
 </div>
 
-
 <div class="product" id="product">
-  <img src="3.jpg" alt="product">
-  <div class="product-info">
-      <h2>ماوس لا سلكى من xo</h2>
-      <p>24GHZ , G620</p>
-      <p>السعر :€135</p>
-          <!DOCTYPE html>
-            <html lang="en">
-            <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>WhatsApp Message Button</title>
-            </head>
-            <body>
-            <!-- Replace "1234567890" with the desired phone number -->
-            <a href="https://wa.me/+201152366798 target="_blank">
-              <button>إرسال رسالة واتساب</button>
-            </a>    
-            </body>
-            </html>
-          </button>
-      </body>
-      </html>
-      <button class="copy-button" onclick="copyText('رقم المنتج|3')">رقم المنتج|3</button>
-  </div>
-  <div style="clear:both;"></div>
+    <img src="3.jpg" alt="product">
+    <div class="product-info">
+        <h2>ماوس لا سلكى من xo</h2>
+        <p>24GHZ , G620</p>
+        <p>السعر :€135</p>
+        <button class="copy-button" onclick="copyText('رقم المنتج|3')">رقم المنتج|3</button>
+        <!-- WhatsApp Message Button -->
+        <a href="https://wa.me/+201152366798" target="_blank">
+            <button>إرسال رسالة واتساب</button>
+        </a>
+    </div>
+    <div style="clear:both;"></div>
 </div>
 
+<script>
+    function copyText(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('تم نسخ النص: ' + text);
+    }
+</script>
 
 
 
