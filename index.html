@@ -26,7 +26,7 @@
         }
 
         .copy-button {
-            background-color: #014ceebb;
+            background-color: rgb(255, 230, 0);
             border: none;
             color: white;
             padding: 8px 16px;
@@ -47,7 +47,7 @@
 
         .search-bar {
             padding: 10px;
-            border: 1px solid #0032bb;
+            border: 1px solid #0004dd;
             border-radius: 5px;
             width: 100%;
             box-sizing: border-box;
@@ -100,10 +100,10 @@
 
         .whatsapp-button {
     display: inline-block;
-    background-color: hsl(51,100%,54%); /* لون الخلفية */
+    background-color: hsl(115, 100%, 50%); /* لون الخلفية */
     color: #fff; /* لون النص */
     font-family: Arial, sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     padding: 9px 11px;
     text-decoration: none;
     border-radius: 5px;
@@ -111,9 +111,6 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.whatsapp-button:hover {
-    background-color: #ffee07ef; /* لون الخلفية عند التحويم */
-}
 
 
 
@@ -599,9 +596,20 @@
             <p>السعر: €35</p>
             <button class="copy-button" onclick="copyText('رقم المنتج|16')">رقم المنتج|16</button>
             <!-- WhatsApp Message Button -->
-            <a href="https://wa.me/+201152366798" target="_blank">
-                <button>إرسال رسالة واتساب</button>
-            </a>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>WhatsApp Button</title>
+                <link rel="stylesheet" href="styles.css">
+            </head>
+            <body>
+                <a href="https://wa.me/+201152366798" class="whatsapp-button" target="_blank">
+ارسال رسالة واتساب
+                </a>
+            </body>
+            </html>
         </div>
         <div class="product-images">
             <img src="16.jpg" alt="product" onclick="openLightbox('16.jpg')">
@@ -1200,7 +1208,7 @@
 
 
 
-    
+
 
    
 
