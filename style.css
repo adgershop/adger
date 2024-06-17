@@ -1,0 +1,19 @@
+/* تهيئة الخلفية الثابتة */
+body {
+    background-image: url('b.jpg'); /* ضع هنا مسار الصورة */
+    background-size: cover; /* لتغطية كامل الشاشة */
+    background-repeat: no-repeat; /* لمنع تكرار الصورة */
+    background-attachment: fixed; /* لجعل الخلفية ثابتة عند التمرير */
+    background-position: center; /* لجعل الصورة في المركز */
+    margin: 0; /* لإزالة الهوامش الافتراضية */
+    padding: 0; /* لإزالة الحشوات الافتراضية */
+    height: 100vh; /* لجعل ارتفاع الجسم يغطي كامل الشاشة */
+}
+
+/* تنسيق محتوى الصفحة */
+.content {
+    text-align: center;
+    color: white; /* يمكنك تغيير اللون حسب رغبتك */
+    margin: 0;
+    padding: 20px;
+}
