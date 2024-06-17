@@ -23,24 +23,3 @@ h3 {
 
 
 
-
-
-
-/* تهيئة الخلفية الثابتة */
-body {
-    background-image: url('b.jpg'); /* ضع هنا مسار الصورة */
-    background-size: cover; /* لتغطية كامل الشاشة */
-    background-repeat: no-repeat; /* لمنع تكرار الصورة */
-    background-attachment: fixed; /* لجعل الخلفية ثابتة عند التمرير */
-    background-position: center; /* لجعل الصورة في المركز */
-    padding: 0; /* لإزالة الحشوات الافتراضية */
-    height: 100vh; /* لجعل ارتفاع الجسم يغطي كامل الشاشة */
-}
-
-/* تنسيق محتوى الصفحة */
-.content {
-    text-align: center;
-    color: rgb(177, 0, 0); /* يمكنك تغيير اللون حسب رغبتك */
-    margin: 0;
- padding: 0;
-}
