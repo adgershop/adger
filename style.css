@@ -16,3 +16,22 @@ body {
     margin: 0;
  padding: 0;
 }
+
+
+
+
+h3 {
+    font-size: 14px; /* التحكم في حجم h3 */
+}
+
+.price-label {
+    color: rgb(90, 91, 104); /* لون النص "السعر:" */
+}
+
+.price-amount {
+    color: rgb(209, 22, 22); /* لون الرقم "600" */
+}
+
+.price-currency {
+    color: rgb(90, 91, 104); /* لون النص "جنيه" */
+}
