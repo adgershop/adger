@@ -37,30 +37,3 @@ h3 {
 
 
 
-
-
-
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: outfit;
-}
-
-
-body{
-background: #dadada;}
-
-
-a{
-    text-decoration: none;
-    color: inherit;
-}
-nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #131921;
-    padding: 10px 20px;
-    color: #fff;
-}
