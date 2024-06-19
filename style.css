@@ -9,7 +9,7 @@ h3 {
 }
 
 .price-label {
-    color: rgb(101, 117, 91); /* لون النص "السعر:" */
+    color: rgb(91, 128, 138); /* لون النص "السعر:" */
 }
 
 .price-amount {
@@ -17,7 +17,7 @@ h3 {
 }
 
 .price-currency {
-    color: rgb(101, 117, 91); /* لون النص "جنيه" */
+    color: rgb(91, 128, 138); /* لون النص "جنيه" */
 }
 
 
@@ -25,7 +25,7 @@ h3 {
 
 .show-instructions {
     cursor: pointer;
-    color: blue;
+    color: rgb(0, 0, 255);
     background-color: lightblue; /* خلفية جديدة للكلمة "هنا" */
     padding: 2px 5px; /* تعديل التباعد داخلي للنص */
     border-radius: 4px; /* تقويس حواف الخلفية */
@@ -37,3 +37,44 @@ h3 {
 
 
 
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px;
+    background-color: #4f4f57;
+    border-radius: 5px;
+  }
+  
+  .search-bar {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: calc(100% - 130px); /* Adjusted width calculation */
+    max-width: 600px;
+    flex-grow: 1; /* Allow the search bar to grow and take available space */
+  }
+  
+  .show-instructions {
+    cursor: pointer;
+    color: blue;
+    padding: 13px 11px;
+    background-color: #d45114;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+  }
+
+
+
+
+
+  
+  body {
+    background-image: url('.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
