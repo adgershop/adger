@@ -2837,57 +2837,32 @@ color: rgb(208, 255, 0); /* لون النص */
 
             <button class="copy-button" onclick="copyText('رقم المنتج|50')">رقم المنتج|50</button>
             <!-- WhatsApp Message Button -->
+            
             <!DOCTYPE html>
-            <html lang="en">
+            <html lang="ar">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>WhatsApp Button</title>
-                <link rel="stylesheet" href="styles.css">
+                <title>اشترِ الآن</title>
             </head>
             <body>
-              
-    <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>فتح Gmail</title>
-        <style>
-            button {
-                background-color: #06d40d; /* خلفية الزر */
-                border: none; /* إزالة الحدود */
-                color: white; /* لون النص */
-                padding: 9px 11px; /* الحشوة الداخلية */
-                text-align: center; /* محاذاة النص */
-                text-decoration: none; /* إزالة التسطير */
-                display: inline-block; /* جعل العنصر في خط */
-                font-size: 16px; /* حجم الخط */
-                margin: 4px 2px; /* الهوامش */
-                cursor: pointer; /* مؤشر الفأرة */
-                border-radius: 12px; /* حواف مستديرة */
-            }
-        </style>
-    </head>
-    <body>
-        <button onclick="openGmail()">اشترِ الآن</button>
-    
-        <script>
-            function openGmail() {
-                // البريد الإلكتروني المرسل إليه
-                var email = "adger.shop@gmail.com"; // ضع بريدك الإلكتروني هنا
-                // موضوع الرسالة
-                var subject = " رقم المنتج|"; // ضع الموضوع الذي تريده هنا
-                // نص الرسالة
-                var body = "يرجى كتابة اسمك ورقم هاتفك  لإتمام عملية الشراء:\n\nالاسم: \nرقم الهاتف: "; // ضع النص الذي تريده هنا
-    
-                // فتح Gmail بكتابة البريد الإلكتروني، الموضوع، ونص الرسالة
-                var mailto_link = 'https://mail.google.com/mail/?view=cm&fs=1&to=' ;
-                window.open(mailto_link, '_blank');
-            }
-        </script>
-    </body>
-    </html>
+                <button onclick="sendEmail()">اشترِ الآن</button>
+            
+                <script>
+                    function sendEmail() {
+                        var phoneNumber = prompt("الرجاء إدخال رقم هاتفك:");
+                        if (phoneNumber) {
+                            var email = "your-email@example.com"; // استبدل هذا ببريدك الإلكتروني
+                            var subject = phoneNumber;
+                            var mailto_link = "mailto:" + email + "?subject=" + subject;
+                            window.location.href = mailto_link;
+                        }
+                    }
+                </script>
+            </body>
+            </html>
+            
+
 
             </body>
             </html>
