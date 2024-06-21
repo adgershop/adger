@@ -2837,31 +2837,31 @@ color: rgb(208, 255, 0); /* لون النص */
 
             <button class="copy-button" onclick="copyText('رقم المنتج|50')">رقم المنتج|50</button>
             <!-- WhatsApp Message Button -->
-            
             <!DOCTYPE html>
-            <html lang="ar">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>اشترِ الآن</title>
-            </head>
-            <body>
-                <button onclick="sendEmail()">اشترِ الآن</button>
-            
-                <script>
-                    function sendEmail() {
-                        var userName = prompt("الرجاء إدخال اسمك:");
-                        var phoneNumber = prompt("الرجاء إدخال رقم هاتفك:");
-                        if (userName && phoneNumber) {
-                            var email = "your-email@example.com"; // استبدل هذا ببريدك الإلكتروني
-                            var subject = userName + " - " + phoneNumber;
-                            var mailto_link = "mailto:" + email + "?subject=" + subject;
-                            window.location.href = mailto_link;
-                        }
-                    }
-                </script>
-            </body>
-            </html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اشترِ الآن</title>
+</head>
+<body>
+    <button onclick="sendEmail()">اشترِ الآن</button>
+
+    <script>
+        function sendEmail() {
+            var phoneNumber = prompt("الرجاء إدخال رقم هاتفك:");
+            var phoneNumber = prompt("الرجاء إدخال رقم هاتفك:");
+            if (phoneNumber) {
+                var email = "your-email@example.com"; // استبدل هذا ببريدك الإلكتروني
+                var subject = phoneNumber;
+                var mailto_link = "mailto:" + email + "?subject=" + subject;
+                window.location.href = mailto_link;
+            }
+        }
+    </script>
+</body>
+</html>
+
             
             
 
