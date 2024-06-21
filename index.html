@@ -2838,7 +2838,6 @@ color: rgb(208, 255, 0); /* لون النص */
       
             
             
-
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -2856,7 +2855,7 @@ color: rgb(208, 255, 0); /* لون النص */
               var name = prompt("الرجاء إدخال اسمك:");
               
               if (phoneNumber && name) {
-                var subject = encodeURIComponent("معلومات طلب الشراء");
+                var subject = encodeURIComponent("معلومات طلب الشراء: " + name);
                 var body = encodeURIComponent("الاسم: " + name + "\nرقم الهاتف: " + phoneNumber);
                 window.location.href = "mailto:your-email@example.com?subject=" + subject + "&body=" + body;
               } else {
@@ -2867,6 +2866,7 @@ color: rgb(208, 255, 0); /* لون النص */
             
             </body>
             </html>
+            
             
 
             
