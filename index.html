@@ -2498,31 +2498,57 @@ color: rgb(208, 255, 0); /* لون النص */
 </body>
 </html>
 <style>
-.custom-paragraph {
-font-size: 15px; /* حجم النص */
-color: rgb(208, 255, 0); /* لون النص */
-}
+    .custom-paragraph {
+        font-size: 22px;
+        direction: rtl; /* لضبط النص من اليمين إلى اليسار */
+    }
+    .custom-paragraph .star {
+        color: gold; /* لون النجوم المملوءة */
+    }
+    .custom-paragraph .star.empty {
+        color: transparent; /* جعل النجوم الفارغة شفافة */
+        -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
+        text-stroke: 1px gold; /* دعم للمتصفحات الأخرى */
+    }
 </style>
 </head>
 <body>
-<p class="custom-paragraph">⭐⭐⭐⭐⭐</p>
+<p class="custom-paragraph">
+    <span class="star">★</span>
+    <span class="star">★</span>
+    <span class="star">★</span>
+    <span class="star">★</span>
+    <span class="star">★</span>
+</p>
 </body>
 </html>
-<br>
-            <button class="copy-button" onclick="copyText('رقم المنتج|44')">رقم المنتج|44</button>
-            <!-- WhatsApp Message Button -->
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>WhatsApp Button</title>
-                <link rel="stylesheet" href="styles.css">
-            </head>
-            <body>
-                <a href="https://wa.me/+201152366798" class="whatsapp-button" target="_blank">
-ارسال رسالة واتساب
-                </a>
+
+    <!-- WhatsApp Message Button -->
+
+        <style>
+            .buy-button {
+                display: inline-block;
+                padding: 9px 23px;
+                font-size: 16px;
+                color: #fff;
+                background-color: #19d300;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 11px;
+                transition: background-color 0.3s ease;
+            }
+    
+            .buy-button:hover {
+                background-color: #0ec508;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="https://wa.me/+201152366798?text= 6 عبوات زجاجة بخاخ فارغه                           الاسم الثلاثى:" target="_blank" class="buy-button">
+            اشترِ الآن
+        </a>
+    </body>
+    </html>
             </body>
             </html>
         </div>
@@ -2596,7 +2622,7 @@ color: rgb(208, 255, 0); /* لون النص */
         </style>
     </head>
     <body>
-        <a href="https://wa.me/+201152366798?text= مفرقعات زينه                           الاسم الثلاثى:" target="_blank" class="buy-button">
+        <a href="https://wa.me/+201152366798?text= مفرقعات زينه                            الاسم الثلاثى:" target="_blank" class="buy-button">
             اشترِ الآن
         </a>
     </body>
