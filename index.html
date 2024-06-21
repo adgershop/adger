@@ -2835,8 +2835,6 @@ color: rgb(208, 255, 0); /* لون النص */
 
             <button class="copy-button" onclick="copyText('رقم المنتج|50')">رقم المنتج|50</button>
             <!-- WhatsApp Message Button -->
-          
-            
             <!DOCTYPE html>
             <html lang="ar">
             <head>
@@ -2845,76 +2843,32 @@ color: rgb(208, 255, 0); /* لون النص */
                 <title>اشترِ الآن</title>
             </head>
             <body>
-                <form id="emailForm">
-                    <label for="name">الاسم:</label>
-                    <input type="text" id="name" name="name" required><br><br>
+                <label for="name">الاسم:</label>
+                <input type="text" id="name" name="name" required><br><br>
             
-                    <label for="phone">رقم الهاتف:</label>
-                    <input type="text" id="phone" name="phone" required><br><br>
+                <label for="phone">رقم الهاتف:</label>
+                <input type="text" id="phone" name="phone" required><br><br>
             
-                    <button type="submit">اشترِ الآن</button>
-                </form>
+                <button onclick="sendEmail()">اشترِ الآن</button>
             
                 <script>
-                    document.getElementById("emailForm").addEventListener("submit", function(event) {
-                        event.preventDefault();
-                        sendEmail();
-                    });
-            
                     function sendEmail() {
-                        var formData = new FormData(document.getElementById("emailForm"));
-                        var name = formData.get("name");
-                        var phone = formData.get("phone");
+                        var name = document.getElementById("name").value;
+                        var phone = document.getElementById("phone").value;
             
-                        // إرسال البيانات إلى خدمة SendGrid عبر HTTP POST
-                        var url = "https://api.sendgrid.com/v3/mail/send";
-                        var apiKey = "YOUR_SENDGRID_API_KEY"; // استبدل بمفتاح API الخاص بك
-                        
-                        var data = {
-                            "personalizations": [
-                                {
-                                    "to": [
-                                        {
-                                            "email": "your-email@example.com" // بريدك الإلكتروني هنا
-                                        }
-                                    ],
-                                    "subject": "رسالة جديدة من موقعك"
-                                }
-                            ],
-                            "from": {
-                                "email": "your-email@example.com" // بريدك الإلكتروني هنا
-                            },
-                            "content": [
-                                {
-                                    "type": "text/plain",
-                                    "value": "اسم المرسل: " + name + "\n" + "رقم الهاتف: " + phone
-                                }
-                            ]
-                        };
+                        var email = "your-email@example.com"; // استبدل هذا ببريدك الإلكتروني
             
-                        fetch(url, {
-                            method: "POST",
-                            headers: {
-                                "Authorization": "Bearer " + apiKey,
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(data)
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            alert("تم إرسال الرسالة بنجاح.");
-                            document.getElementById("emailForm").reset();
-                        })
-                        .catch(error => {
-                            console.error('There has been a problem with your fetch operation:', error);
-                            alert("حدث خطأ أثناء إرسال الرسالة.");
-                        });
+                        var subject = name + " - " + phone;
+                        var body = "الاسم: " + name + "\n";
+                        body += "رقم الهاتف: " + phone + "\n";
+            
+                        var mailto_link = "mailto:" + email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+                        window.location.href = mailto_link;
                     }
                 </script>
             </body>
             </html>
+            
             
             
 
