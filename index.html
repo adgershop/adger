@@ -2948,57 +2948,28 @@ color: rgb(208, 255, 0); /* لون النص */
 
 
 
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>فتح Gmail</title>
-        <style>
-            button {
-                background-color: #4CAF50; /* خلفية الزر */
-                border: none; /* إزالة الحدود */
-                color: white; /* لون النص */
-                padding: 15px 32px; /* الحشوة الداخلية */
-                text-align: center; /* محاذاة النص */
-                text-decoration: none; /* إزالة التسطير */
-                display: inline-block; /* جعل العنصر في خط */
-                font-size: 16px; /* حجم الخط */
-                margin: 4px 2px; /* الهوامش */
-                cursor: pointer; /* مؤشر الفأرة */
-                border-radius: 12px; /* حواف مستديرة */
-            }
-    
-            button:hover {
-                background-color: #45a049; /* تغيير الخلفية عند التمرير */
-            }
-        </style>
     </head>
     <body>
         <button onclick="openGmail()">إضافة إلى العربية</button>
     
         <script>
             function openGmail() {
-                // البريد الإلكتروني المرسل إليه
-                var email = "your-email@gmail.com"; // ضع بريدك الإلكتروني هنا
-                // موضوع الرسالة
-                var subject = "إتمام الشراء"; // ضع الموضوع الذي تريده هنا
-                // نص الرسالة
-                var body = "يرجى كتابة رقم هاتفك واسمك لإتمام عملية الشراء:\n\nالاسم: \nرقم الهاتف: "; // ضع النص الذي تريده هنا
+                var email = "your-email@gmail.com"; // Replace with your email
+                var subject = "الموضوع هنا"; // Replace with your subject
+                var body = "اسم الشخص: [اسم الشخص]\nرقم الهاتف: [رقم الهاتف]\n"; // Replace with your body text
     
-                // فتح Gmail بكتابة البريد الإلكتروني، الموضوع، ونص الرسالة
-                var mailto_link = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + email + '&su=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-                window.open(mailto_link, '_blank');
+                var mailto_link = 'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                window.location.href = mailto_link;
             }
         </script>
     </body>
     </html>
-
-
-
-
-
 
 
 
