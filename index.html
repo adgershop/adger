@@ -2946,8 +2946,6 @@ color: rgb(208, 255, 0); /* لون النص */
   
 
 
-
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -2962,7 +2960,10 @@ color: rgb(208, 255, 0); /* لون النص */
             function openGmail() {
                 var email = "your-email@gmail.com"; // Replace with your email
                 var subject = "الموضوع هنا"; // Replace with your subject
-                var body = "اسم الشخص: [اسم الشخص]\nرقم الهاتف: [رقم الهاتف]\n"; // Replace with your body text
+                var name = "اسم الشخص"; // Replace with the actual name
+                var phoneNumber = "رقم الهاتف"; // Replace with the actual phone number
+    
+                var body = "اسم الشخص: " + name + "\nرقم الهاتف: " + phoneNumber + "\n\n"; // Body text
     
                 var mailto_link = 'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
                 window.location.href = mailto_link;
@@ -2970,14 +2971,6 @@ color: rgb(208, 255, 0); /* لون النص */
         </script>
     </body>
     </html>
-
-
-
-
-
-
-
-
 
 
 
