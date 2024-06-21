@@ -144,78 +144,34 @@
     border-radius: 5px;
     width: 59vw; /* 70% of the viewport width */
     max-width: 6001px; /* Maximum width for the search bar */
-    margin-right: 10px; /* Add space between search box and button */
-  }
-  .show-instructions {
-    cursor: pointer;
-    color: blue;
-    padding: 10px 10px;
-    background-color: #d45114; /* Button background color */
-    color: white; /* Button text color */
-    border: none;
-    border-radius: 5px;
-    margin: 10px;
-    width: 97px;
-  }
-  .show-instructions:hover {
-    background-color: #d37f00; /* Darker color on hover */
-  }
-  /* Instructions box styles */
-  .instructions {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(255, 255, 255);
-    padding: 20px;
-    border: 1px solid #ccc;
-    z-index: 1000;
-    width: 300px;
-    max-width: 90%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: right; /* Right align text */
-  }
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    color: #706a6a;
-  }
+    margin-right: 10px; /* Add space between search box and button */}
+ 
+  
 </style>
-<title>إرشادات</title>
 </head>
 <body>
     <div class="search-container">
         <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
-    <button class="show-instructions" id="showInstructions">عرض الإرشادات</button>
+   
+
+
+
+
+
+
+
+
+
+</html>
+   </div>
+
+
+
+<script src="script.js"></script>
   </div>
 
-  <div class="instructions" id="instructions">
-    <span class="close-button" id="closeInstructions">X</span>
-    <p>اتبع الأرشادات لأتمام عملية الشراء</p>
-    <ul>
-      <li>يمكنك نسخ رقم المنتج بالضغط عليه (1) <br> <img src="ر.jpg" alt="صوره" width="105"></li>
-      <li>ابعت رقم المنتج والوكيشن بالضغط على زر ارسال رسالة واتساب (2) <br> <img src="ا.jpg" alt="صوره" width="105">  </li>
-    </ul>
-  </div>
  
 
-  <script>
-    // عند النقر على عرض الإرشادات
-    document.getElementById('showInstructions').addEventListener('click', function() {
-      document.getElementById('instructions').style.display = 'block';
-    });
-
-    // عند النقر على X لإغلاق الإرشادات
-    document.getElementById('closeInstructions').addEventListener('click', function() {
-      document.getElementById('instructions').style.display = 'none';
-    });
-  </script>
-</body>
-</html>
 
 <style>
     p {
@@ -235,8 +191,6 @@
             <h2 style="font-size: 17px;">ساعة من فيترون</h2>
             <p>اللون فضي في ذهبي مستورد من الكويت</p>
          
-
-            
                 <link rel="stylesheet" href="styles.css">
             </head>
             <body>
@@ -2944,58 +2898,6 @@ color: rgb(208, 255, 0); /* لون النص */
         <div style="clear:both;"></div>
     </div>
   
-
-    <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>فتح Gmail</title>
-    </head>
-    <body>
-        <button onclick="openGmail()">إضافة إلى العربية</button>
-    
-        <script>
-            function openGmail() {
-                var email = "your-email@gmail.com"; // Replace with your email
-                var subject = "الموضوع هنا"; // Replace with your subject
-                var name = "اسم الشخص"; // Replace with the actual name
-                var phoneNumber = "رقم الهاتف"; // Replace with the actual phone number
-    
-                var body = "اسم الشخص: " + name + "\nرقم الهاتف: " + phoneNumber + "\n"; // Body text
-    
-                // Construct Gmail URL with parameters
-                var gmail_url = 'https://mail.google.com/mail/u/0/?view=cm&fs=1&to=' + encodeURIComponent(email) + '&su=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    
-                // Open Gmail in a new tab
-                var win = window.open(gmail_url, '_blank');
-                if (win) {
-                    // Browser has allowed it to be opened
-                    win.focus();
-                } else {
-                    // Browser has blocked it
-                    alert('يرجى السماح لمتصفحك بفتح نوافذ جديدة.');
-                }
-            }
-        </script>
-    </body>
-    </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
