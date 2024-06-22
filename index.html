@@ -253,15 +253,7 @@
         
             <div class="product-container" id="productContainer">
                 <!-- ضع هنا عناصر المنتجات، كمثال: -->
-                <div class="product">
-                    <p>منتج 1</p>
-                    <button onclick="addToCart(this)">أضف إلى العربة</button>
-                </div>
-                <div class="product">
-                    <p>منتج 2</p>
-                    <button onclick="addToCart(this)">أضف إلى العربة</button>
-                </div>
-            </div>
+               
         
             <script>
                 var cartCount = 0;
@@ -283,9 +275,6 @@
                     // إضافة العنصر إلى العربة
                     document.getElementById('cartItems').appendChild(cartItem);
         
-                    // إزالة العنصر من الصفحة الرئيسية
-                    product.remove();
-        
                     // تحديث العداد
                     cartCount++;
                     updateCartCount();
@@ -298,8 +287,10 @@
                     var cartPage = document.getElementById('cartPage');
                     if (cartPage.style.display === 'none' || cartPage.style.display === '') {
                         cartPage.style.display = 'block';
+                        document.getElementById('productContainer').style.display = 'none';
                     } else {
                         cartPage.style.display = 'none';
+                        document.getElementById('productContainer').style.display = 'block';
                     }
                 }
         
