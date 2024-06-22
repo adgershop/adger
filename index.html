@@ -152,151 +152,158 @@
 <body>
     <div class="search-container">
         <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
-     
         <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عربة التسوق</title>
-    <style>
-        .product {
-            border: 1px solid #ddd;
-            padding: 10px;
-        }
-
-        .cart-page {
-            display: none; /* إخفاء الصفحة في البداية */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: hsl(100, 100%, 99%);
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: hidden; /* منع التمرير على الصفحة البيضاء */
-        }
-
-        .cart-items {
-            overflow-y: auto; /* السماح بالتمرير العمودي فقط للمنتجات المحفوظة */
-            max-height: calc(100% - 60px); /* السماح بتحديد ارتفاع معقول للمنتجات */
-        }
-
-        .product-item {
-            width: 50px;
-            height: 200px;
-            margin: 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            cursor: pointer; /* تغيير شكل المؤشر عند التحريك */
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .search-bar {
-            flex: 1;
-            margin-right: 0px;
-        }
-
-        .cart-icon-container {
-            position: relative;
-        }
-
-        .cart-icon {
-            cursor: pointer;
-            width: 80px; /* تكبير حجم الأيقونة */
-            height: 80px;
-        }
-
-        .cart-count {
-            position: absolute;
-            bottom: 5px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: red;
-            color: rgb(255, 255, 255);
-            border-radius: 50%;
-            padding: 5px 10px;
-            font-size: 16px; /* تكبير حجم النص */
-        }
-
-        .close-cart {
-            cursor: pointer;
-            color: red;
-            font-size: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="cart-icon-container">
-        <div class="cart-icon" onclick="toggleCart()">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
-            </svg>
-        </div>
-        <div class="cart-count" id="cartCount">0</div>
-    </div>
-
-    <div class="cart-page" id="cartPage">
-        <span class="close-cart" onclick="toggleCart()">&#10005; رجوع</span>
-        <h2>عربة التسوق</h2>
-        <div class="cart-items" id="cartItems"></div>
-    </div>
-
-    <script>
-        var cartCount = 0;
-
-        function addToCart(button) {
-            // الحصول على معلومات المنتج
-            var product = button.parentElement;
-
-            // نسخ محتويات المنتج
-            var cartItem = product.cloneNode(true);
-            cartItem.querySelector('button').innerText = 'حذف';
-            cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(this)');
-
-            // إضافة العنصر إلى العربة
-            document.getElementById('cartItems').appendChild(cartItem);
-
-            // تحديث العداد
-            cartCount++;
-            updateCartCount();
-        }
-
-        function toggleCart() {
-            var cartPage = document.getElementById('cartPage');
-            if (cartPage.style.display === 'none' || cartPage.style.display === '') {
-                cartPage.style.display = 'block';
-            } else {
-                cartPage.style.display = 'none';
-            }
-        }
-
-        function removeFromCart(button) {
-            var cartItem = button.parentElement;
-            cartItem.remove();
-
-            // تحديث العداد
-            cartCount--;
-            updateCartCount();
-        }
-
-        function updateCartCount() {
-            document.getElementById('cartCount').innerText = cartCount;
-        }
-    </script>
-</body>
-</html>
-
+        <html lang="ar">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>عربة التسوق</title>
+            <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+                    font-family: Arial, sans-serif;
+                }
+        
+                .product {
+                    border: 1px solid #ddd;
+                    padding: 10px;
+                }
+        
+                .cart-page {
+                    display: none; /* إخفاء الصفحة في البداية */
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: hsl(100, 100%, 99%);
+                    z-index: 1000;
+                    padding: 20px;
+                    box-sizing: border-box;
+                    overflow: hidden; /* منع التمرير على الصفحة البيضاء */
+                }
+        
+                .cart-items {
+                    overflow-y: auto; /* السماح بالتمرير العمودي فقط للمنتجات المحفوظة */
+                    max-height: calc(100% - 60px); /* السماح بتحديد ارتفاع معقول للمنتجات */
+                }
+        
+                .product-item {
+                    width: 100px;
+                    height: 200px;
+                    margin: 10px;
+                    background-color: #f0f0f0;
+                    border: 1px solid #ccc;
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+                    cursor: pointer; /* تغيير شكل المؤشر عند التحريك */
+                }
+        
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 10px;
+                    border-bottom: 1px solid #ddd;
+                }
+        
+                .search-bar {
+                    flex: 1;
+                    margin-right: 0px;
+                }
+        
+                .cart-icon-container {
+                    position: relative;
+                }
+        
+                .cart-icon {
+                    cursor: pointer;
+                    width: 80px; /* تكبير حجم الأيقونة */
+                    height: 80px;
+                }
+        
+                .cart-count {
+                    position: absolute;
+                    bottom: 5px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: red;
+                    color: rgb(255, 255, 255);
+                    border-radius: 50%;
+                    padding: 5px 10px;
+                    font-size: 16px; /* تكبير حجم النص */
+                }
+        
+                .close-cart {
+                    cursor: pointer;
+                    color: red;
+                    font-size: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="cart-icon-container">
+                <div class="cart-icon" onclick="toggleCart()">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+                    </svg>
+                </div>
+                <div class="cart-count" id="cartCount">0</div>
+            </div>
+        
+            <div class="cart-page" id="cartPage">
+                <span class="close-cart" onclick="toggleCart()">&#10005; رجوع</span>
+                <h2>عربة التسوق</h2>
+                <div class="cart-items" id="cartItems"></div>
+            </div>
+        
+            <script>
+                var cartCount = 0;
+        
+                function addToCart(button) {
+                    // الحصول على معلومات المنتج
+                    var product = button.parentElement;
+        
+                    // نسخ محتويات المنتج
+                    var cartItem = product.cloneNode(true);
+                    cartItem.querySelector('button').innerText = 'حذف';
+                    cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(this)');
+        
+                    // إضافة العنصر إلى العربة
+                    document.getElementById('cartItems').appendChild(cartItem);
+        
+                    // تحديث العداد
+                    cartCount++;
+                    updateCartCount();
+                }
+        
+                function toggleCart() {
+                    var cartPage = document.getElementById('cartPage');
+                    if (cartPage.style.display === 'none' || cartPage.style.display === '') {
+                        cartPage.style.display = 'block';
+                        document.body.style.overflow = 'hidden'; // منع التمرير على خلفية الصفحة الأساسية
+                    } else {
+                        cartPage.style.display = 'none';
+                        document.body.style.overflow = 'auto'; // إعادة التمرير على خلفية الصفحة الأساسية
+                    }
+                }
+        
+                function removeFromCart(button) {
+                    var cartItem = button.parentElement;
+                    cartItem.remove();
+        
+                    // تحديث العداد
+                    cartCount--;
+                    updateCartCount();
+                }
+        
+                function updateCartCount() {
+                    document.getElementById('cartCount').innerText = cartCount;
+                }
+            </script>
+        </body>
+        </html>
+        
         
 
 
