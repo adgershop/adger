@@ -285,12 +285,13 @@
         
                 function toggleCart() {
                     var cartPage = document.getElementById('cartPage');
+                    var productContainer = document.getElementById('productContainer');
                     if (cartPage.style.display === 'none' || cartPage.style.display === '') {
                         cartPage.style.display = 'block';
-                        document.getElementById('productContainer').style.display = 'none';
+                        productContainer.style.display = 'none';
                     } else {
                         cartPage.style.display = 'none';
-                        document.getElementById('productContainer').style.display = 'block';
+                        productContainer.style.display = 'block';
                     }
                 }
         
@@ -341,6 +342,7 @@
             </script>
         </body>
         </html>
+        
         
 
 
