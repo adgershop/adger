@@ -254,6 +254,11 @@
             <script>
                 var cartCount = 0;
         
+                // تحميل العناصر من Local Storage عند تحميل الصفحة
+                window.onload = function() {
+                    loadCartFromLocalStorage();
+                };
+        
                 function addToCart(button) {
                     // الحصول على معلومات المنتج
                     var product = button.parentElement;
@@ -269,6 +274,9 @@
                     // تحديث العداد
                     cartCount++;
                     updateCartCount();
+        
+                    // حفظ العربة في Local Storage
+                    saveCartToLocalStorage();
                 }
         
                 function toggleCart() {
@@ -287,10 +295,42 @@
                     // تحديث العداد
                     cartCount--;
                     updateCartCount();
+        
+                    // حفظ العربة في Local Storage
+                    saveCartToLocalStorage();
                 }
         
                 function updateCartCount() {
                     document.getElementById('cartCount').innerText = cartCount;
+                }
+        
+                function saveCartToLocalStorage() {
+                    var cartItems = document.getElementById('cartItems').children;
+                    var cartArray = [];
+        
+                    for (var i = 0; i < cartItems.length; i++) {
+                        cartArray.push(cartItems[i].outerHTML);
+                    }
+        
+                    localStorage.setItem('cart', JSON.stringify(cartArray));
+                    localStorage.setItem('cartCount', cartCount);
+                }
+        
+                function loadCartFromLocalStorage() {
+                    var savedCart = JSON.parse(localStorage.getItem('cart'));
+                    var savedCartCount = localStorage.getItem('cartCount');
+        
+                    if (savedCart && savedCartCount) {
+                        var cartItemsContainer = document.getElementById('cartItems');
+                        cartItemsContainer.innerHTML = '';
+        
+                        for (var i = 0; i < savedCart.length; i++) {
+                            cartItemsContainer.innerHTML += savedCart[i];
+                        }
+        
+                        cartCount = parseInt(savedCartCount);
+                        updateCartCount();
+                    }
                 }
             </script>
         </body>
