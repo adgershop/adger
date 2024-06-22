@@ -262,83 +262,53 @@
                 <div class="cart-items" id="cartItems"></div>
             </div>
         
-        
             <script>
                 var cartCount = 0;
         
                 function addToCart(button) {
+                    // الحصول على معلومات المنتج
                     var product = button.parentElement;
-                    var productId = product.id;
         
+                    // نسخ محتويات المنتج
                     var cartItem = product.cloneNode(true);
                     cartItem.classList.add('product-item');
                     cartItem.querySelector('button').innerText = 'حذف';
                     cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(this)');
         
+                    // إضافة العنصر إلى العربة
                     document.getElementById('cartItems').appendChild(cartItem);
         
+                    // تحديث العداد
                     cartCount++;
                     updateCartCount();
-        
-                    saveCartItems();
-                }
-        
-                function removeFromCart(button) {
-                    var cartItem = button.parentElement;
-                    cartItem.remove();
-        
-                    cartCount--;
-                    updateCartCount();
-        
-                    saveCartItems();
                 }
         
                 function toggleCart() {
                     var cartPage = document.getElementById('cartPage');
                     if (cartPage.style.display === 'none' || cartPage.style.display === '') {
                         cartPage.style.display = 'block';
-                        document.body.style.overflow = 'hidden';
+                        document.body.style.overflow = 'hidden'; // منع التمرير على خلفية الصفحة الأساسية
                     } else {
                         cartPage.style.display = 'none';
-                        document.body.style.overflow = 'auto';
+                        document.body.style.overflow = 'auto'; // إعادة التمرير على خلفية الصفحة الأساسية
                     }
+                }
+        
+                function removeFromCart(button) {
+                    var cartItem = button.parentElement;
+                    cartItem.remove();
+        
+                    // تحديث العداد
+                    cartCount--;
+                    updateCartCount();
                 }
         
                 function updateCartCount() {
                     document.getElementById('cartCount').innerText = cartCount;
                 }
-        
-                function saveCartItems() {
-                    var cartItems = document.querySelectorAll('.cart-items .product-item');
-                    var cartData = [];
-                    cartItems.forEach(function(item) {
-                        cartData.push(item.id);
-                    });
-                    localStorage.setItem('cartItems', JSON.stringify(cartData));
-                }
-        
-                function loadCartItems() {
-                    var cartData = localStorage.getItem('cartItems');
-                    if (cartData) {
-                        cartData = JSON.parse(cartData);
-                        cartData.forEach(function(productId) {
-                            var product = document.getElementById(productId);
-                            var cartItem = product.cloneNode(true);
-                            cartItem.classList.add('product-item');
-                            cartItem.querySelector('button').innerText = 'حذف';
-                            cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(this)');
-                            document.getElementById('cartItems').appendChild(cartItem);
-                            cartCount++;
-                        });
-                        updateCartCount();
-                    }
-                }
-        
-                window.onload = loadCartItems;
             </script>
         </body>
         </html>
-        
         
 
 
