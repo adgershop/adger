@@ -159,12 +159,6 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>عربة التسوق</title>
             <style>
-                body {
-                    margin: 0;
-                    padding: 0;
-                    font-family: Arial, sans-serif;
-                }
-        
                 .product {
                     border: 1px solid #ddd;
                     padding: 10px;
@@ -190,7 +184,7 @@
                 }
         
                 .product-item {
-                    width: 100px;
+                    width: 50px;
                     height: 200px;
                     margin: 10px;
                     background-color: #f0f0f0;
@@ -281,10 +275,8 @@
                     var cartPage = document.getElementById('cartPage');
                     if (cartPage.style.display === 'none' || cartPage.style.display === '') {
                         cartPage.style.display = 'block';
-                        document.body.style.overflow = 'hidden'; // منع التمرير على خلفية الصفحة الأساسية
                     } else {
                         cartPage.style.display = 'none';
-                        document.body.style.overflow = 'auto'; // إعادة التمرير على خلفية الصفحة الأساسية
                     }
                 }
         
