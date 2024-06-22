@@ -153,7 +153,6 @@
     <div class="search-container">
         <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
      
-
         <!DOCTYPE html>
         <html lang="ar">
         <head>
@@ -164,7 +163,7 @@
                 .product {
                     border: 1px solid #ddd;
                     padding: 10px;
-                    margin: 10px;
+                
                 }
                 .cart-page {
                     display: none;
@@ -173,7 +172,7 @@
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background-color: white;
+                background-color: hsl(100, 100%, 99%);
                     z-index: 1000;
                     padding: 20px;
                     box-sizing: border-box;
@@ -185,22 +184,27 @@
                     padding: 10px;
                     border-bottom: 1px solid #ddd;
                 }
-              
+                .search-bar {
+                    flex: 1;
+                    margin-right: 0px;
+                }
                 .cart-icon-container {
                     position: relative;
                 }
+                
                 .cart-icon {
                     cursor: pointer;
                 }
                 .cart-count {
                     position: absolute;
-                    bottom: -13px;
-                  left: -1px;
-                
-                    color: rgb(167, 4, 4);
+                    bottom: -12px;
+                    left: 53%;
+                    transform: translateX(-50%);
+                 
+                    color: rgb(255, 0, 0);
                     border-radius: 50%;
                     padding: 5px 10px;
-                    font-size: 14px;
+                    font-size: 12px;
                 }
                 .close-cart {
                     cursor: pointer;
@@ -221,8 +225,7 @@
                 </div>
             </div>
         
-            
-            </div>
+         
         
             <div class="cart-page" id="cartPage">
                 <span class="close-cart" onclick="toggleCart()">&#10005; رجوع</span>
@@ -236,20 +239,11 @@
                 function addToCart(button) {
                     // الحصول على معلومات المنتج
                     var product = button.parentElement;
-                    var id = product.getAttribute('data-id');
-                    var name = product.getAttribute('data-name');
-                    var description = product.getAttribute('data-description');
-                    var image = product.getAttribute('data-image');
                     
-                    // إنشاء عنصر عربة جديد
-                    var cartItem = document.createElement('div');
-                    cartItem.className = 'product';
-                    cartItem.innerHTML = `
-                        <img src="${image}" alt="${name}">
-                        <h2>${name}</h2>
-                        <p>${description}</p>
-                        <button onclick="removeFromCart(this)">حذف</button>
-                    `;
+                    // نسخ محتويات المنتج
+                    var cartItem = product.cloneNode(true);
+                    cartItem.querySelector('button').innerText = 'حذف';
+                    cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(this)');
                     
                     // إضافة العنصر إلى العربة
                     document.getElementById('cartItems').appendChild(cartItem);
@@ -283,8 +277,7 @@
             </script>
         </body>
         </html>
-        
-        
+      
 
 
 
@@ -352,35 +345,13 @@
             </p>
             </body>
             </html>
+
+
+
+
             
                 <!-- WhatsApp Message Button -->
             
-                    <style>
-                        .buy-button {
-                            display: inline-block;
-                            padding: 9px 23px;
-                            font-size: 16px;
-                            color: #fff;
-                            background-color: #19d300;
-                            text-align: center;
-                            text-decoration: none;
-                            border-radius: 11px;
-                            transition: background-color 0.3s ease;
-                        }
-                
-                        .buy-button:hover {
-                            background-color: #0ec508;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <a href="https://wa.me/+201152366798?text=ساعه من فيترون                              الاسم الثلاثى:" target="_blank" class="buy-button">
-                        اشترِ الآن
-                    </a>
-                </body>
-                </html>
-            </body>
-            </html>
 
         </div>
         <div class="product-images">
@@ -388,12 +359,72 @@
         </div>
         <div style="clear:both;"></div>
 
-     
-
+        <!DOCTYPE html>
+        <html lang="ar">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Button Styling</title>
+            <style>
+                button {
+                    background-color: #008CBA; /* لون الخلفية */
+                    color: white; /* لون النص */
+                    border: none; /* إزالة الحدود */
+                    padding: 9px 23px; /* مساحة داخلية */
+                    text-align: center; /* محاذاة النص في الوسط */
+                    text-decoration: none; /* إزالة التزيين تحت النص */
+                    display: inline-block; /* عرض الزر كتلة داخلية */
+                    font-size: 16px; /* حجم الخط */
+                    margin: 4px 2px; /* هوامش */
+                    cursor: pointer; /* شكل المؤشر */
+                    border-radius: 12px; /* زوايا مستديرة */
+                    transition-duration: 0.4s; /* مدة الانتقال */
+                }
+        
+                button:hover {
+                    background-color: white; /* لون الخلفية عند التمرير */
+                    color: black; /* لون النص عند التمرير */
+                    border: 2px solid #008CBA; /* حدود عند التمرير */
+                }
+            </style>
+        </head>
+        <body>
+        
         <button onclick="addToCart(this)">إضافة إلى العربة</button>
+        
+        
+        
+        </body>
+        </html>
 
 
 
+        <style>
+            .buy-button {
+                display: inline-block;
+                padding: 9px 23px;
+                font-size: 16px;
+                color: #fff;
+                background-color: #19d300;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 11px;
+                transition: background-color 0.3s ease;
+            }
+    
+            .buy-button:hover {
+                background-color: #0ec508;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="https://wa.me/+201152366798?text=ساعه من فيترون                              الاسم الثلاثى:" target="_blank" class="buy-button">
+            اشترِ الآن
+        </a>
+    </body>
+    </html>
+</body>
+</html>
 
     </div>
 
@@ -551,7 +582,11 @@
         <div class="product-images">
             <img src="3.jpg" alt="product" onclick="openLightbox('3.jpg')">
         </div>
-        <div style="clear:both;"></div>
+        <div style="clear:both;">
+
+           
+
+        </div>
     </div>
 
     <div class="product">
