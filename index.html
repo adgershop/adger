@@ -166,17 +166,30 @@
                 
                 }
                 .cart-page {
-                    display: none;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                background-color: hsl(100, 100%, 99%);
-                    z-index: 1000;
-                    padding: 20px;
-                    box-sizing: border-box;
-                }
+    display: none; /* إخفاء الصفحة في البداية */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: hsl(100, 100%, 99%);
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto; /* إذا كانت المنتجات كثيرة، يمكن استخدام الـ scroll */
+}
+
+.product-item {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* تغيير شكل المؤشر عند التحريك */
+}
+
+
                 .header {
                     display: flex;
                     justify-content: space-between;
