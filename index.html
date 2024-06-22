@@ -168,7 +168,6 @@
                 .product {
                     border: 1px solid #ddd;
                     padding: 10px;
-                    margin-bottom: 10px;
                 }
         
                 .cart-page {
@@ -188,20 +187,16 @@
                 .cart-items {
                     overflow-y: auto; /* السماح بالتمرير العمودي فقط للمنتجات المحفوظة */
                     max-height: calc(100% - 60px); /* السماح بتحديد ارتفاع معقول للمنتجات */
-                    display: flex;
-                    flex-direction: column;
                 }
         
                 .product-item {
-                    width: 100%; /* جعل المنتج يعرض بعرض الصفحة بالكامل */
-                    height: auto;
-                    margin: 10px 0;
+                    width: 100px;
+                    height: 200px;
+                    margin: 10px;
                     background-color: #f0f0f0;
                     border: 1px solid #ccc;
                     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
                     cursor: pointer; /* تغيير شكل المؤشر عند التحريك */
-                    padding: 10px;
-                    box-sizing: border-box;
                 }
         
                 .header {
@@ -271,7 +266,6 @@
         
                     // نسخ محتويات المنتج
                     var cartItem = product.cloneNode(true);
-                    cartItem.classList.add('product-item');
                     cartItem.querySelector('button').innerText = 'حذف';
                     cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(this)');
         
