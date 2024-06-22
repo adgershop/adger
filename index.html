@@ -126,6 +126,7 @@
     font-family: Arial, sans-serif;
     direction: rtl; /* Right-to-left text direction for Arabic */
   }
+  
   .search-container {
     display: flex;
     align-items: center;
@@ -133,10 +134,16 @@
     padding: 2px;
     background-color: #4f4f57; /* Background color for search bar area */
   
-    border-radius: 8px;
+    border-radius: 10px;
 
 
   }
+
+
+
+
+
+
   .search-bar {
     padding: 10px;
     font-size: 16px;
@@ -203,29 +210,32 @@
         
                 .search-bar {
                     flex: 1;
-                    margin-right: 0px;
+                    margin-right: 3px;
                 }
         
                 .cart-icon-container {
                     position: relative;
+                  bottom: -17px;
                 }
         
                 .cart-icon {
                     cursor: pointer;
                     width: 80px; /* تكبير حجم الأيقونة */
                     height: 80px;
+                
+                  
                 }
         
                 .cart-count {
                     position: absolute;
-                    bottom: 5px;
-                    left: 50%;
+                    bottom: 53px;
+                    left: 52%;
                     transform: translateX(-50%);
-                    background-color: red;
-                    color: rgb(255, 255, 255);
-                    border-radius: 50%;
+                
+                    color: rgb(239, 231, 231);
+                    border-radius: 5%;
                     padding: 5px 10px;
-                    font-size: 16px; /* تكبير حجم النص */
+                    font-size: 7px; /* تكبير حجم النص */
                 }
         
                 .close-cart {
@@ -238,7 +248,7 @@
         <body>
             <div class="cart-icon-container">
                 <div class="cart-icon" onclick="toggleCart()">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
                     </svg>
                 </div>
