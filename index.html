@@ -505,82 +505,39 @@
                     text-decoration: none;
                     cursor: pointer;
                 }
-        
-                .button-container {
-                    margin-top: 20px;
-                }
-        
-                .button-container button {
-                    margin: 0 10px;
-                }
             </style>
         </head>
         <body>
         
-        <button onclick="openModal()">    
+        <button onclick="redirectToWhatsApp()">    
             <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
                 <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </button>
         
-        <br>
-        
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <p>الرجاء إدخال اسمك الثلاثي:</p>
-                <input type="text" id="fullName" placeholder="الاسم الثلاثي">
-                <div class="button-container">
-                    <button onclick="redirectToWhatsApp()">متابعة</button>
-                    <button onclick="closeModal()">إلغاء</button>
-                </div>
-            </div>
-        </div>
-        
-        <a href="#" onclick="openModal()" class="buy-button">
-            اشترِ الآن
-        </a>
-        
         <script>
-            var modal = document.getElementById('myModal');
-        
-            function openModal() {
-                modal.style.display = 'block';
-            }
-        
-            function closeModal() {
-                modal.style.display = 'none';
-            }
-        
             function redirectToWhatsApp() {
-                var fullName = document.getElementById('fullName').value;
-                if (fullName.trim() === '') {
-                    alert('الرجاء إدخال اسمك الثلاثي أولاً.');
-                    return;
+                var fullName = localStorage.getItem('fullName');
+                if (!fullName) {
+                    fullName = prompt('الرجاء إدخال اسمك الثلاثي:');
+                    if (!fullName) return;
+                    localStorage.setItem('fullName', fullName);
                 }
-        
-                // Save full name to localStorage
-                localStorage.setItem('fullName', fullName);
         
                 var whatsappLink = 'https://wa.me/+201152366798?text=ساعه من فيترون%0Aالاسم الثلاثى: ' + encodeURIComponent(fullName);
                 window.location.href = whatsappLink;
-                closeModal(); // Close modal after redirecting
             }
-        
-            // Check if fullName is already stored in localStorage
-            window.onload = function() {
-                var storedFullName = localStorage.getItem('fullName');
-                if (storedFullName) {
-                    document.getElementById('fullName').value = storedFullName;
-                }
-            };
         </script>
+        
+        <a href="#" class="buy-button">
+            اشترِ الآن
+        </a>
         
         </body>
         </html>
         
-
+        
     </div>
 
 
