@@ -479,45 +479,62 @@
     </button>
 
     <br>
-    <form id="whatsapp-form">
-        <input type="tel" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button">
-            اشترِ الآن
-        </button>
-    </form>
-    <script>
-        // فحص إذا كان هناك رقم هاتف محفوظ في localStorage وإظهاره إذا وجد
-        var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
-        if (savedPhoneNumber) {
-            document.getElementById('phone-number').value = savedPhoneNumber;
-        }
+    <head>
+        <!-- تضمين مكتبة SweetAlert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <form id="whatsapp-form">
+            <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+            <button type="button" class="buy-button" id="buy-now-button">
+                اشترِ الآن
+            </button>
+        </form>
     
-        // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button').addEventListener('click', function() {
-            var phoneNumber = document.getElementById('phone-number').value.trim();
-    
-            if (phoneNumber === '') {
-                phoneNumber = prompt("الرجاء إدخال رقم الهاتف:");
-                if (phoneNumber) {
-                    localStorage.setItem('savedPhoneNumber', phoneNumber); // حفظ رقم الهاتف في localStorage
-                    openWhatsApp(phoneNumber);
-                }
-            } else {
-                openWhatsApp(phoneNumber);
+        <script>
+            // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
+            var savedFullName = localStorage.getItem('savedFullName');
+            if (savedFullName) {
+                document.getElementById('full-name').value = savedFullName;
             }
-        });
     
-        // دالة لفتح نافذة واتساب مع رقم الهاتف المعطى
-        function openWhatsApp(phoneNumber) {
-            var message = encodeURIComponent("ساعه من فيترون\nالاسم الثلاثى:\n" + phoneNumber);
-            var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-            window.open(whatsappLink, '_blank');
-        }
-    </script>
+            // إضافة معالج حدث لزر "اشتر الآن"
+            document.getElementById('buy-now-button').addEventListener('click', function() {
+                var fullName = document.getElementById('full-name').value.trim();
     
-
-
-
+                if (fullName === '') {
+                    // استخدام SweetAlert بدلاً من prompt
+                    Swal.fire({
+                        title: 'الرجاء إدخال اسمك الثلاثى',
+                        input: 'text',
+                        inputPlaceholder: 'أدخل اسمك الثلاثى',
+                        showCancelButton: true,
+                        confirmButtonText: 'تأكيد',
+                        cancelButtonText: 'إلغاء'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fullName = result.value;
+                            if (fullName) {
+                                localStorage.setItem('savedFullName', fullName); // حفظ الاسم في localStorage
+                                openWhatsApp(fullName);
+                            }
+                        }
+                    });
+                } else {
+                    openWhatsApp(fullName);
+                }
+            });
+    
+            // دالة لفتح نافذة واتساب مع الاسم المعطى
+            function openWhatsApp(fullName) {
+                var message = encodeURIComponent("ساعه من فيترون\nالاسم الثلاثى:\n" + fullName);
+                var whatsappLink = "https://wa.me/+201152366798?text=" + message;
+                window.open(whatsappLink, '_blank');
+            }
+        </script>
+    </body>
+    
+    
 </div>
 
 
