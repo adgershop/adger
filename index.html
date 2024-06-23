@@ -426,105 +426,89 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Button Styling</title>
             <style>
-                /* أسلوب الأزرار */
                 button {
                     background-color: #feb538;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 16px;
-                    margin: 4px 2px;
-                    cursor: pointer;
-                    border-radius: 11px;
-                    transition-duration: 0.4s;
+                    color: white; /* لون النص */
+                    border: none; /* إزالة الحدود */
+                    padding: 10px 20px; /* مساحة داخلية */
+                    text-align: center; /* محاذاة النص في الوسط */
+                    text-decoration: none; /* إزالة التزيين تحت النص */
+                    display: inline-block; /* عرض الزر كتلة داخلية */
+                    font-size: 16px; /* حجم الخط */
+                    margin: 4px 2px; /* هوامش */
+                    cursor: pointer; /* شكل المؤشر */
+                    border-radius: 11px; /* زوايا مستديرة */
+                    transition-duration: 0.4s; /* مدة الانتقال */
+                }
+        
+                button svg {
+                    vertical-align: middle; /* محاذاة الأيقونة مع النص */
                 }
         
                 button:hover {
-                    background-color: white;
-                    color: black;
-                    border: 2px solid #008CBA;
+                    background-color: white; /* لون الخلفية عند التمرير */
+                    color: black; /* لون النص عند التمرير */
+                    border: 2px solid #008CBA; /* حدود عند التمرير */
                 }
         
-                /* نموذج إدخال الاسم */
-                .name-input {
-                    display: none; /* يكون غير مرئي بشكل افتراضي */
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: #fff;
-                    padding: 20px;
-                    border-radius: 10px;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    z-index: 1000;
-                }
-        
-                .name-input input {
-                    width: 100%;
-                    padding: 10px;
-                    margin-bottom: 10px;
+                .buy-button {
+                    display: inline-block;
+                    padding: 9px 23px; /* مساحة داخلية متطابقة */
                     font-size: 16px;
-                    border: 1px solid #ddd;
-                    border-radius: 5px;
-                    box-sizing: border-box;
-                }
-        
-                .name-input button {
+                    color: #fff;
                     background-color: #19d300;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    cursor: pointer;
-                    border-radius: 5px;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 11px;
                     transition: background-color 0.3s ease;
                 }
         
-                .name-input button:hover {
+                .buy-button:hover {
                     background-color: #0ec508;
                 }
             </style>
         </head>
         <body>
         
-        <button onclick="openNameInput()">    
-            <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-                <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
+            <button onclick="addToCart(this)">    
+                <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
+                    <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
         
-        <!-- نموذج إدخال الاسم -->
-        <div class="name-input" id="nameInput">
-            <h3>الرجاء إدخال اسمك الثلاثي:</h3>
-            <input type="text" id="userName">
-            <button onclick="sendWhatsAppMessage()">إرسال</button>
-        </div>
+            <br>
         
-        <script>
-            function openNameInput() {
-                var nameInput = document.getElementById('nameInput');
-                nameInput.style.display = 'block';
-            }
-        
-            function sendWhatsAppMessage() {
-                var userName = document.getElementById('userName').value.trim();
-        
-                if (userName !== '') {
-                    var message = encodeURIComponent("ساعة من فيترون الاسم الثلاثي: " + userName);
-                    var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-                    window.open(whatsappLink);
-                } else {
-                    alert('الرجاء إدخال اسمك الثلاثي أولاً.');
+
+            <script>
+                // دالة لإضافة إلى سلة التسوق وفتح القائمة للإدخال
+                function addToCart(button) {
+                    // إذا كانت القائمة غير موجودة
+                    if (!button.dataset.cartClicked) {
+                        // افتح قائمة للإدخال
+                        var name = prompt("الرجاء إدخال الاسم الثلاثي:");
+            
+                        // إذا تم إدخال اسم، قم بتحديث رابط الزر ليحتوي على الاسم
+                        if (name) {
+                            var waLink = "https://wa.me/+201152366798?text=ساعه من فيترون الاسم الثلاثى: " + encodeURIComponent(name);
+                            button.href = waLink;
+                            // قم بتعيين خاصية للزر لتعريف أن الزر قد تم النقر عليه
+                            button.dataset.cartClicked = true;
+                        }
+                    }
                 }
-            }
-        </script>
-        
+            </script>
+
+
+
+
+
+
+            <a href="#" onclick="addToCart(this)" class="buy-button">
+                اشترِ الآن
+            </a>
         </body>
         </html>
-         
         
 
 </div>
