@@ -481,40 +481,70 @@
     <br>
     <form id="whatsapp-form">
         <input type="tel" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
-        <button type="submit" class="buy-button" id="buy-now-button">
+        <button type="button" class="buy-button" id="buy-now-button">
             اشترِ الآن
         </button>
     </form>
-    <script>
-        document.getElementById('whatsapp-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // منع إرسال النموذج بشكل تلقائي
     
-            var phoneNumber = localStorage.getItem('savedPhoneNumber'); // استرجاع رقم الهاتف من التخزين المحلي
-            if (!phoneNumber) {
+    <script>
+        // فحص إذا كان هناك رقم هاتف محفوظ في localStorage وإظهاره إذا وجد
+        var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
+        if (savedPhoneNumber) {
+            document.getElementById('phone-number').value = savedPhoneNumber;
+        }
+    
+        // إضافة معالج حدث لزر "اشتر الآن"
+        document.getElementById('buy-now-button').addEventListener('click', function() {
+            var phoneNumber = document.getElementById('phone-number').value.trim();
+    
+            if (phoneNumber === '') {
                 phoneNumber = prompt("الرجاء إدخال رقم الهاتف:");
                 if (phoneNumber) {
-                    localStorage.setItem('savedPhoneNumber', phoneNumber); // حفظ رقم الهاتف في التخزين المحلي
+                    localStorage.setItem('savedPhoneNumber', phoneNumber); // حفظ رقم الهاتف في localStorage
+                    openWhatsApp(phoneNumber);
                 }
-            }
-    
-            if (phoneNumber) {
-                var message = encodeURIComponent("ساعه من فيترون\nالاسم الثلاثى:\n" + phoneNumber);
-                var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-                window.open(whatsappLink, '_blank');
             } else {
-                alert("الرجاء إدخال رقم الهاتف أولاً.");
+                openWhatsApp(phoneNumber);
             }
         });
     
-        // إظهار حقل إدخال رقم الهاتف عند النقر على زر "اشتر الآن"
-        document.getElementById('buy-now-button').addEventListener('click', function() {
-            document.getElementById('phone-number').style.display = 'inline-block';
-        });
+        // دالة لفتح نافذة واتساب مع رقم الهاتف المعطى
+        function openWhatsApp(phoneNumber) {
+            var message = encodeURIComponent("ساعه من فيترون\nالاسم الثلاثى:\n" + phoneNumber);
+            var whatsappLink = "https://wa.me/+201152366798?text=" + message;
+            window.open(whatsappLink, '_blank');
+        }
     </script>
     
+    <style>
+        /* استهداف حقل إدخال رقم الهاتف */
+        #phone-number {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            width: 200px;
+            display: inline-block;
+        }
     
-
-
+        /* استهداف زر "اشتر الآن" */
+        #buy-now-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #19d300;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        /* تحسين مظهر زر "اشتر الآن" عند التمرير */
+        #buy-now-button:hover {
+            background-color: #0ec508;
+        }
+    </style>
+    
 
 
 </div>
