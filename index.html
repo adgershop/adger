@@ -559,10 +559,22 @@
                     alert('الرجاء إدخال اسمك الثلاثي أولاً.');
                     return;
                 }
+        
+                // Save full name to localStorage
+                localStorage.setItem('fullName', fullName);
+        
                 var whatsappLink = 'https://wa.me/+201152366798?text=ساعه من فيترون%0Aالاسم الثلاثى: ' + encodeURIComponent(fullName);
                 window.location.href = whatsappLink;
                 closeModal(); // Close modal after redirecting
             }
+        
+            // Check if fullName is already stored in localStorage
+            window.onload = function() {
+                var storedFullName = localStorage.getItem('fullName');
+                if (storedFullName) {
+                    document.getElementById('fullName').value = storedFullName;
+                }
+            };
         </script>
         
         </body>
