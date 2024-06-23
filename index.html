@@ -181,12 +181,12 @@
     z-index: 1000;
     padding: 20px;
     box-sizing: border-box;
-   
+    overflow: hidden; /* منع التمرير على الصفحة البيضاء */
   }
 
   .cart-items {
     overflow-y: auto; /* السماح بالتمرير العمودي فقط للمنتجات المحفوظة */
-    max-height: calc(100% - 60px); /* السماح بتحديد ارتفاع معقول للمنتجات */
+    max-height: calc(100% - 100px); /* السماح بتحديد ارتفاع معقول للمنتجات */
   }
 
   .product-item {
