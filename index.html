@@ -479,28 +479,43 @@
     </button>
 
     <br>
-    <a href="https://wa.me/+201152366798?text=ساعه من فيترون%0Aالاسم الثلاثى:" target="_blank" class="buy-button" onclick="openWhatsApp()">
-        اشترِ الآن
-    </a>
+    <form id="whatsapp-form">
+        <input type="tel" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
+        <button type="submit" class="buy-button" id="buy-now-button">
+            اشترِ الآن
+        </button>
+    </form>
     <script>
-        var phoneNumber = ""; // تعريف المتغير الذي سيحتوي على رقم الهاتف
+        document.getElementById('whatsapp-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // منع إرسال النموذج بشكل تلقائي
     
-        function openWhatsApp() {
+            var phoneNumber = localStorage.getItem('savedPhoneNumber'); // استرجاع رقم الهاتف من التخزين المحلي
             if (!phoneNumber) {
                 phoneNumber = prompt("الرجاء إدخال رقم الهاتف:");
+                if (phoneNumber) {
+                    localStorage.setItem('savedPhoneNumber', phoneNumber); // حفظ رقم الهاتف في التخزين المحلي
+                }
             }
     
             if (phoneNumber) {
-                var whatsappLink = "https://wa.me/+201152366798?text=ساعه من فيترون%0Aالاسم الثلاثى:%0A" + encodeURIComponent(phoneNumber);
+                var message = encodeURIComponent("ساعه من فيترون\nالاسم الثلاثى:\n" + phoneNumber);
+                var whatsappLink = "https://wa.me/+201152366798?text=" + message;
                 window.open(whatsappLink, '_blank');
+            } else {
+                alert("الرجاء إدخال رقم الهاتف أولاً.");
             }
-        }
+        });
     
-        // ربط الدالة openWhatsApp بالضغط على زر "اشترِ الآن"
-        var buyNowButton = document.getElementById('buy-now-button');
-        buyNowButton.addEventListener('click', openWhatsApp);
+        // إظهار حقل إدخال رقم الهاتف عند النقر على زر "اشتر الآن"
+        document.getElementById('buy-now-button').addEventListener('click', function() {
+            document.getElementById('phone-number').style.display = 'inline-block';
+        });
     </script>
     
+    
+
+
+
 
 </div>
 
