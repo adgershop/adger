@@ -419,7 +419,6 @@
             <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')">
         </div>
         <div style="clear:both;"></div>
-      
         <!DOCTYPE html>
         <html lang="ar">
         <head>
@@ -449,61 +448,83 @@
                     border: 2px solid #008CBA;
                 }
         
-                .buy-button {
-                    display: inline-block;
-                    padding: 9px 23px;
+                /* نموذج إدخال الاسم */
+                .name-input {
+                    display: none; /* يكون غير مرئي بشكل افتراضي */
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: #fff;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+                }
+        
+                .name-input input {
+                    width: 100%;
+                    padding: 10px;
+                    margin-bottom: 10px;
                     font-size: 16px;
-                    color: #fff;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    box-sizing: border-box;
+                }
+        
+                .name-input button {
                     background-color: #19d300;
-                    text-align: center;
-                    text-decoration: none;
-                    border-radius: 11px;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    border-radius: 5px;
                     transition: background-color 0.3s ease;
                 }
         
-                .buy-button:hover {
+                .name-input button:hover {
                     background-color: #0ec508;
                 }
             </style>
         </head>
         <body>
         
-        <button onclick="addToCart()">    
+        <button onclick="openNameInput()">    
             <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
                 <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </button>
         
-        <br>
-        
-        <a href="#" onclick="sendWhatsAppMessage()" class="buy-button">
-            اشترِ الآن
-        </a>
+        <!-- نموذج إدخال الاسم -->
+        <div class="name-input" id="nameInput">
+            <h3>الرجاء إدخال اسمك الثلاثي:</h3>
+            <input type="text" id="userName">
+            <button onclick="sendWhatsAppMessage()">إرسال</button>
+        </div>
         
         <script>
-            function addToCart() {
-                // تنفيذ إضافة للسلة
-                alert('تمت إضافة المنتج إلى السلة!');
+            function openNameInput() {
+                var nameInput = document.getElementById('nameInput');
+                nameInput.style.display = 'block';
             }
         
             function sendWhatsAppMessage() {
-                // جمع الاسم من المستخدم
-                var userName = prompt("الرجاء إدخال اسمك الثلاثي:", "");
+                var userName = document.getElementById('userName').value.trim();
         
-                if (userName) {
-                    // بناء رابط WhatsApp مع الرسالة المحتوية على الاسم
+                if (userName !== '') {
                     var message = encodeURIComponent("ساعة من فيترون الاسم الثلاثي: " + userName);
                     var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-        
-                    // فتح نافذة جديدة للواتساب
                     window.open(whatsappLink);
+                } else {
+                    alert('الرجاء إدخال اسمك الثلاثي أولاً.');
                 }
             }
         </script>
         
         </body>
         </html>
+         
         
 
 </div>
