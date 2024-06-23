@@ -113,6 +113,7 @@
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -124,6 +125,8 @@
     font-family: Arial, sans-serif;
     direction: rtl; /* Right-to-left text direction for Arabic */
     background-color: #ffffff; /* General page background color */
+    margin: 0; /* Remove default margin */
+    padding-top: 60px; /* Add padding to avoid content being hidden under fixed header */
   }
   
   .search-container {
@@ -134,6 +137,10 @@
     background-color: #3d5b66; /* Background color for search bar area */
     border-radius: 1px;
     height: 60px; /* Adjust the height as needed */
+    position: fixed; /* Fix the search container at the top */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
   }
 
   .search-bar {
@@ -149,7 +156,7 @@
   .cart-icon-container {
     position: relative;
     bottom: -7px;
-    right: 2px;
+    right: -5px;
   }
 
   .cart-icon {
@@ -321,14 +328,11 @@
 </body>
 </html>
 
-        
-        
-
 
 </html>
    </div>
 
-
+<br><br><br>
 
 <script src="script.js"></script>
   </div>
