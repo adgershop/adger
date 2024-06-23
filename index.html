@@ -113,7 +113,6 @@
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -125,8 +124,6 @@
     font-family: Arial, sans-serif;
     direction: rtl; /* Right-to-left text direction for Arabic */
     background-color: #ffffff; /* General page background color */
-    margin: 0; /* Remove default margin */
-    padding-top: 60px; /* Add padding to avoid content being hidden under fixed header */
   }
   
   .search-container {
@@ -134,13 +131,17 @@
     align-items: center;
     justify-content: center; /* Center items horizontally */
     padding: 2px;
-    background-color: #ffffff; /* Background color for search bar area */
+    background-color: #3d5b66; /* Background color for search bar area */
     border-radius: 1px;
     height: 60px; /* Adjust the height as needed */
-    position: fixed; /* Fix the search container at the top */
+    position: fixed; /* Fix the position at the top */
     top: 0;
     width: 100%;
     z-index: 1000;
+  }
+
+  .scroll-background {
+    background-color: white !important; /* New background color when scrolling */
   }
 
   .search-bar {
@@ -156,7 +157,8 @@
   .cart-icon-container {
     position: relative;
     bottom: -7px;
-    right: -5px;
+    right: -7px;
+    margin: 9px;
   }
 
   .cart-icon {
@@ -171,7 +173,7 @@
     top: 29%;
     left: 54%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: rgb(176, 245, 251);
     border-radius: 50%;
     padding: 4px 10px;
     font-size: 13px; /* تكبير حجم النص */
@@ -194,7 +196,7 @@
   .cart-items {
     overflow-y: auto; /* السماح بالتمرير العمودي فقط للمنتجات المحفوظة */
     max-height: calc(100% - 60px); /* السماح بتحديد ارتفاع معقول للمنتجات */
-  width: 105.6%;
+    width: 105.6%;
  
   }
 
@@ -224,9 +226,9 @@
 </style>
 </head>
 <body>
-    <div class="search-container">
+    <div class="search-container" id="searchContainer">
         <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
-        <div class="cart-icon-container">
+        <div class="cart-icon-container" id="cartIconContainer">
             <div class="cart-icon" onclick="toggleCart()">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
@@ -324,10 +326,19 @@
                 updateCartCount();
             }
         }
+
+        // Change background color on scroll
+        window.onscroll = function() {
+            var searchContainer = document.getElementById('searchContainer');
+            if (window.scrollY > 0) {
+                searchContainer.classList.add('scroll-background');
+            } else {
+                searchContainer.classList.remove('scroll-background');
+            }
+        };
     </script>
 </body>
 </html>
-
 
 </html>
    </div>
