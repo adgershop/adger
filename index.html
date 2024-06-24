@@ -415,10 +415,45 @@
             
 
         </div>
-        <div class="product-images">
-            <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')">
-        </div>
-        <div style="clear:both;"></div>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>معرض الصور المحمي</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                }
+                .product-images {
+                    float: left;
+                    margin-right: 10px;
+                    margin-bottom: 10px;
+                }
+                .product-images .image-container {
+                    width: 200px;
+                    height: 200px;
+                    background-size: cover;
+                    background-position: center;
+                    cursor: pointer;
+                }
+            </style>
+            <script>
+                function openLightbox(imageUrl) {
+                    // Replace with your lightbox or image viewer logic
+                    console.log("Opening lightbox for image: " + imageUrl);
+                }
+            </script>
+        </head>
+        <body>
+            <h1>معرض الصور المحمي</h1>
+            <div class="product-images">
+                <div class="image-container" style="background-image: url('1.jpg');" onclick="openLightbox('1.jpg')"></div>
+            </div>
+            <div style="clear:both;"></div>
+        </body>
+        </html>
+        
        
 <!DOCTYPE html>
 <html lang="ar">
@@ -4469,57 +4504,6 @@
 
 
 
-
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>حماية المحتوى</title>
-        <style>
-            body {
-                /* Allow text selection */
-            }
-            button, img {
-                -webkit-user-select: none; /* Safari */
-                -moz-user-select: none; /* Firefox */
-                -ms-user-select: none; /* IE10+/Edge */
-                user-select: none; /* Standard syntax */
-                outline: none; /* Remove focus outline */
-            }
-            button:focus, img:focus {
-                outline: none; /* Remove focus outline */
-            }
-        </style>
-        <script type="text/javascript">
-            document.addEventListener('contextmenu', function(e) {
-                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                }
-            });
-    
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                }
-            });
-    
-            document.addEventListener('keydown', function(e) {
-                if ((e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'a')) && 
-                    (e.target.tagName === 'BUTTON' || e.target.tagName === 'IMG')) {
-                    e.preventDefault();
-                }
-            });
-        </script>
-    </head>
-    <body>
-        <h1>محتوى محمي</h1>
-        <p>هذا النص محمي ولا يمكن نسخه.</p>
-        <img src="your-image.jpg" alt="صورة محمية" draggable="false" />
-        <button>زر محمي</button>
-    </body>
-    </html>
-    
 
 
 
