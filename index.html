@@ -448,10 +448,11 @@
 
         button:hover {
             background-color: white; /* لون الخلفية عند التمرير */
-            color: black; /* لون النص عند التمرير */
-            border: 2px solid #008CBA; /* حدود عند التمرير */
+           
+            border: 1px solid #008CBA; /* حدود عند التمرير */
         }
-
+  
+        
         .buy-button {
             display: inline-block;
             padding: 9px 23px; /* مساحة داخلية متطابقة */
@@ -461,13 +462,14 @@
             text-align: center;
             text-decoration: none;
             border-radius: 11px;
-            transition: background-color 0.3s ease;
+             transition-duration: 0.4s; /* مدة الانتقال */
         }
-
         .buy-button:hover {
             background-color: #0ec508;
         }
+      
     </style>
+
 </head>
 <body>
 
@@ -507,13 +509,13 @@
     
             .modal-content h4 {
                 font-family: 'Arial', sans-serif;
-                color: #007bff;
+                color: #5c5c5c;
                 margin-bottom: 20px;
                 font-size: 24px;
             }
     
             .modal-content input {
-                width: 100%;
+                width: 90%;
                 padding: 10px;
                 margin: 10px 0;
                 border: 1px solid #ccc;
@@ -529,12 +531,12 @@
             }
     
             .modal-content .btn-primary {
-                background-color: #007bff;
+                background-color: #ff8c00;
                 color: #fff;
             }
     
             .modal-content .btn-primary:hover {
-                background-color: #0056b3;
+                background-color: #fb4700;
             }
     
             .modal-content .btn-secondary {
@@ -558,7 +560,7 @@
         <!-- نافذة منبثقة مخصصة -->
         <div class="modal-overlay" id="custom-modal">
             <div class="modal-content">
-                <h4>ادجير</h4>
+                <h4>Adger</h4>
                 <p>الرجاء إدخال اسمك الثلاثى</p>
                 <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
                 <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
@@ -601,7 +603,7 @@
     
             // دالة لفتح نافذة واتساب مع الاسم المعطى
             function openWhatsApp(fullName) {
-                var message = encodeURIComponent("ساعه من فيترون\nالاسم الثلاثى:\n" + fullName);
+                var message = encodeURIComponent("ساعه من فيترون                                 \nالاسم الثلاثى:\n" + fullName);
                 var whatsappLink = "https://wa.me/+201152366798?text=" + message;
                 window.open(whatsappLink, '_blank');
             }
