@@ -71,7 +71,6 @@
             object-fit: cover;
             cursor: pointer;
         }
-
         .lightbox {
             position: fixed;
             top: 0;
@@ -83,13 +82,28 @@
             justify-content: center;
             align-items: center;
             z-index: 999;
-        }
-
+        } 
+      
         .lightbox img {
             max-width: 80%;
             max-height: 80%;
             cursor: pointer;
+            outline: none;
         }
+       
+
+        .lightbox-button {
+    background-color: #ccc;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    outline: none; /* تمنع التحديد باللون الأزرق */
+}
+
+
+
+
+
         .close {
     position: absolute;
     bottom: 565px; /* تعديل هذا الرقم حسب الحاجة */
@@ -415,49 +429,10 @@
             
 
         </div>
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>معرض الصور المحمي</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                }
-                .product-images {
-                    float: left;
-                    margin-right: 10px;
-                    margin-bottom: 10px;
-                }
-                .product-images .image-container {
-                    width: 200px;
-                    height: 200px;
-                    background-size: cover;
-                    background-position: center;
-                    cursor: pointer;
-                    outline: none; /* Remove focus outline */
-                }
-                .product-images .image-container:focus {
-                    outline: none; /* Remove focus outline */
-                }
-            </style>
-            <script>
-                function openLightbox(imageUrl) {
-                    // Replace with your lightbox or image viewer logic
-                    console.log("Opening lightbox for image: " + imageUrl);
-                }
-            </script>
-        </head>
-        <body>
-            <h1>معرض الصور المحمي</h1>
-            <div class="product-images">
-                <div class="image-container" style="background-image: url('1.jpg');" onclick="openLightbox('1.jpg')" tabindex="0"></div>
-            </div>
-            <div style="clear:both;"></div>
-        </body>
-        </html>
-        
+        <div class="product-images">
+            <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')">
+        </div>
+        <div style="clear:both;"></div> 
         
        
 <!DOCTYPE html>
