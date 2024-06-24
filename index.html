@@ -4468,7 +4468,42 @@
 
 
 
-
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>حماية المحتوى</title>
+        <style>
+            body {
+                -webkit-user-select: none; /* Safari */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* IE10+/Edge */
+                user-select: none; /* Standard syntax */
+            }
+        </style>
+        <script type="text/javascript">
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+    
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+            });
+    
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'a')) {
+                    e.preventDefault();
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <h1>محتوى محمي</h1>
+        <p>هذا النص محمي ولا يمكن نسخه.</p>
+        <img src="your-image.jpg" alt="صورة محمية" draggable="false" />
+    </body>
+    </html>
 
 
 
