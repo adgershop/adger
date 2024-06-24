@@ -399,73 +399,83 @@
             
                 <!-- WhatsApp Message Button -->
             
-<br><br><br><br>
+
         </div>
         
-            
-        
-        
-    
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Image Gallery</title>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
+            .lightbox {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.336);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 999;
             }
-            .product-images {
-                text-align: center;
-                margin-bottom: 20px;
-                position: relative; /* Enable relative positioning for the product-images container */
-            }
-            .product-images img {
-                max-width: 100%;
-                height: auto;
-                cursor: grab; /* Change cursor to grab for better UX */
+        
+            .lightbox img {
+                max-width: 80%;
+                max-height: 80%;
+                cursor: pointer;
             }
         </style>
         </head>
         <body>
         
         <div class="product-images">
-            <img id="currentImg" src="1.jpg" alt="product">
+            <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')">
+            <img src="2.jpg" alt="product" onclick="openLightbox('2.jpg')">
+            <img src="3.jpg" alt="product" onclick="openLightbox('3.jpg')">
+        </div>
+        <div style="clear:both;"></div>
+        
+        <div class="lightbox" onclick="closeLightbox()">
+            <img id="lightbox-img">
         </div>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
         <script>
-            // Array of image file names
-            var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg'];
-            var currentImageIndex = 0;
-        
-            var productImages = document.querySelector('.product-images');
-            var hammertime = new Hammer(productImages);
-        
-            hammertime.on('swipeleft', function() {
-                nextImage();
-            });
-        
-            hammertime.on('swiperight', function() {
-                prevImage();
-            });
-        
-            function showImage(index) {
-                // Function to display image at given index
-                var imgElement = document.getElementById('currentImg');
-                imgElement.src = images[index];
-                imgElement.alt = 'product ' + (index + 1);
-                currentImageIndex = index;
+            // Function to open the lightbox and display the selected image
+            function openLightbox(imageUrl) {
+                var lightbox = document.querySelector('.lightbox');
+                var lightboxImg = document.getElementById('lightbox-img');
+                
+                lightboxImg.src = imageUrl;
+                lightbox.style.display = 'flex';
             }
         
-            function prevImage() {
-                // Function to show previous image
-                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-                showImage(currentImageIndex);
+            // Function to close the lightbox
+            function closeLightbox() {
+                var lightbox = document.querySelector('.lightbox');
+                lightbox.style.display = 'none';
             }
         
+            // Array of image URLs
+            var images = ['1.jpg', '2.jpg', '3.jpg'];
+            var currentIndex = 0;
+        
+            // Function to show next image
             function nextImage() {
-                // Function to show next image
-                currentImageIndex = (currentImageIndex + 1) % images.length;
-                showImage(currentImageIndex);
+                currentIndex = (currentIndex + 1) % images.length;
+                openLightbox(images[currentIndex]);
             }
+        
+            // Function to show previous image
+            function prevImage() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                openLightbox(images[currentIndex]);
+            }
+        
+            // Attach click event listener to the lightbox image for navigation
+            document.getElementById('lightbox-img').addEventListener('click', nextImage);
         </script>
         
         </body>
