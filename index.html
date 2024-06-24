@@ -436,6 +436,10 @@
                     background-size: cover;
                     background-position: center;
                     cursor: pointer;
+                    outline: none; /* Remove focus outline */
+                }
+                .product-images .image-container:focus {
+                    outline: none; /* Remove focus outline */
                 }
             </style>
             <script>
@@ -448,11 +452,12 @@
         <body>
             <h1>معرض الصور المحمي</h1>
             <div class="product-images">
-                <div class="image-container" style="background-image: url('1.jpg');" onclick="openLightbox('1.jpg')"></div>
+                <div class="image-container" style="background-image: url('1.jpg');" onclick="openLightbox('1.jpg')" tabindex="0"></div>
             </div>
             <div style="clear:both;"></div>
         </body>
         </html>
+        
         
        
 <!DOCTYPE html>
