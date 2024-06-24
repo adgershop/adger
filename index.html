@@ -402,36 +402,74 @@
 
         </div>
      
-
-
         <!DOCTYPE html>
         <html lang="en">
         <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lightbox Example</title>
-        <link rel="stylesheet" href="styles.css">
-        <script src="script.js" defer></script>
+        <style>
+            /* CSS للشاشة السوداء */
+            .lightbox {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                z-index: 9999;
+                overflow: auto;
+                text-align: center;
+            }
+            .lightbox img {
+                max-width: 90%;
+                max-height: 80%;
+                margin-top: 10vh;
+            }
+            .close-btn {
+                color: #fff;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 24px;
+                cursor: pointer;
+            }
+        </style>
         </head>
         <body>
         
         <div class="product-images">
-            <a href="1.jpg" class="lightbox-trigger">
-                <img src="1.jpg" alt="product">
-            </a>
+            <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')">
         </div>
-        <div style="clear:both;"></div>
         
+        <!-- شاشة العرض الكبيرة -->
         <div class="lightbox" id="lightbox">
-            <div class="lightbox-content">
-                <span class="close-button" onclick="closeLightbox()">×</span>
-                <img src="1.jpg" class="lightbox-image" alt="product">
-            </div>
+            <span class="close-btn" onclick="closeLightbox()">&times;</span>
+            <img src="" id="lightbox-img" alt="lightbox image">
         </div>
+        
+        <script>
+            // JavaScript لفتح الشاشة السوداء وعرض الصورة الكبيرة
+            function openLightbox(imageSrc) {
+                var lightbox = document.getElementById('lightbox');
+                var lightboxImg = document.getElementById('lightbox-img');
+                
+                lightbox.style.display = 'block';
+                lightboxImg.src = imageSrc;
+            }
+        
+            // JavaScript لإغلاق الشاشة السوداء
+            function closeLightbox() {
+                var lightbox = document.getElementById('lightbox');
+                lightbox.style.display = 'none';
+            }
+        </script>
         
         </body>
         </html>
         
+
 
 
 
