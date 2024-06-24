@@ -4466,8 +4466,6 @@
 
 
 
-
-
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -4476,6 +4474,9 @@
         <title>حماية المحتوى</title>
         <style>
             body {
+                /* Allow text selection */
+            }
+            button, img {
                 -webkit-user-select: none; /* Safari */
                 -moz-user-select: none; /* Firefox */
                 -ms-user-select: none; /* IE10+/Edge */
@@ -4484,15 +4485,20 @@
         </style>
         <script type="text/javascript">
             document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
+                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'IMG') {
+                    e.preventDefault();
+                }
             });
     
             document.addEventListener('dragstart', function(e) {
-                e.preventDefault();
+                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'IMG') {
+                    e.preventDefault();
+                }
             });
     
             document.addEventListener('keydown', function(e) {
-                if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'a')) {
+                if ((e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'a')) && 
+                    (e.target.tagName === 'BUTTON' || e.target.tagName === 'IMG')) {
                     e.preventDefault();
                 }
             });
@@ -4502,15 +4508,10 @@
         <h1>محتوى محمي</h1>
         <p>هذا النص محمي ولا يمكن نسخه.</p>
         <img src="your-image.jpg" alt="صورة محمية" draggable="false" />
+        <button>زر محمي</button>
     </body>
     </html>
-
-
-
-
-
-
-
+    
 
 
 
