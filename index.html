@@ -401,13 +401,45 @@
             
 
         </div>
+     
+
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lightbox Example</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js" defer></script>
+        </head>
+        <body>
         
         <div class="product-images">
-            <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')" class="lightbox-trigger">
+            <a href="1.jpg" class="lightbox-trigger">
+                <img src="1.jpg" alt="product">
+            </a>
         </div>
         <div style="clear:both;"></div>
         
-       
+        <div class="lightbox" id="lightbox">
+            <div class="lightbox-content">
+                <span class="close-button" onclick="closeLightbox()">×</span>
+                <img src="1.jpg" class="lightbox-image" alt="product">
+            </div>
+        </div>
+        
+        </body>
+        </html>
+        
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
