@@ -84,15 +84,15 @@
             align-items: center;
             z-index: 999;
         
-        } 
-        @media (max-width: 768px) { /* تعديل القيمة حسب حجم الشاشة الذي تريده */
-        .lightbox img {
-            max-width: 80%;
-            max-height: 80%;
-            cursor: pointer;
-            outline: none; /* إزالة تحديد الصورة عند النقر على الأجهزة المحمولة */
-        }
-    }
+            .lightbox img {
+    max-width: 80%;
+    max-height: 80%;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* لإزالة تأثير اللون عند النقر على الصورة على متصفحات الويبكيت */
+    tap-highlight-color: rgba(0, 0, 0, 0); /* لإزالة تأثير اللون عند النقر على الصورة على متصفحات غير الويبكيت */
+    outline: none; /* لإزالة الحدود (outline) عند النقر على الصورة */
+}
+
        
 .close {
     position: absolute;
