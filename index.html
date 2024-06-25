@@ -92,9 +92,16 @@
     -webkit-touch-callout: none; /* للتأكد من عدم عرض خيارات النصائح عند الضغط طويلًا على الصورة على iOS */
     touch-action: none; /* تعطيل التفاعل مع اللمس */
     outline: none; /* إزالة الحدود التي تظهر عند التحديد */
-    outline-color: red; /* تغيير لون الحدود إلى اللون الأحمر، يمكنك استبداله بأي لون آخر تفضله */
 }
 
+/* تغيير لون التحديد */
+.lightbox img:focus {
+    outline: 2px solid red; /* لون وسمك الحدود الجديد */
+}
+
+body {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* إزالة لون التحديد عند الضغط على أنظمة iOS */
+}
 
        
 .close {
