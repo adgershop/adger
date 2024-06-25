@@ -555,7 +555,7 @@ body {
     <body>
         <form id="whatsapp-form">
             <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-            <button type="button" class="buy-button" id="buy-now-button">
+            <button type="button" class="buy-button" id="buy-now-button1">
                 اشترِ الآن
             </button>
         </form>
@@ -579,7 +579,7 @@ body {
             }
     
             // إضافة معالج حدث لزر "اشتر الآن"
-            document.getElementById('buy-now-button').addEventListener('click', function() {
+            document.getElementById('buy-now-button1').addEventListener('click', function() {
                 var fullName = document.getElementById('full-name').value.trim();
     
                 if (fullName === '') {
@@ -811,7 +811,7 @@ body {
 <body>
     <form id="whatsapp-form">
         <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button">
+        <button type="button" class="buy-button" id="buy-now-button2">
             اشترِ الآن
         </button>
     </form>
@@ -835,7 +835,7 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button').addEventListener('click', function() {
+        document.getElementById('buy-now-button2').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
 
             if (fullName === '') {
