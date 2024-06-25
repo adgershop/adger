@@ -376,7 +376,17 @@
            
             <h2 style="font-size: 17px;">ساعة من فيترون</h2>
             <p>سوار بلون فضي في ذهبي </p>
-         
+                <style>
+                    .hidden-text {
+                        display: none;
+                    }
+                </style>
+            </head>
+            <body>
+                <h1 class="hidden-text">رقم المنتج | 1</h1>
+            </body>
+            </html>
+            
                 <link rel="stylesheet" href="styles.css">
             </head>
             <body>
@@ -601,7 +611,7 @@
     
             // دالة لفتح نافذة واتساب مع الاسم المعطى
             function openWhatsApp(fullName) {
-                var message = encodeURIComponent("ساعه من فيترون                                /n/n/n \nالاسم الثلاثى:\n" + fullName);
+                var message = encodeURIComponent("ساعه من فيترون                              رقم المنتج|1                                 الاسم الثلاثى:" + fullName);
                 var whatsappLink = "https://wa.me/+201152366798?text=" + message;
                 window.open(whatsappLink, '_blank');
             }
