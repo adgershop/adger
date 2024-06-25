@@ -243,7 +243,7 @@ body {
     <div class="search-container" id="searchContainer">
         <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
         <div class="cart-icon-container" id="cartIconContainer">
-            <div class="cart-icon" onclick="toggleCart()">
+            <div class="cart-icon" onclick="openCartPage()">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
                   </svg>
@@ -267,46 +267,24 @@ body {
         };
 
         function addToCart(button) {
-    // الحصول على عنصر السلعة
-    var product = button.parentNode;
+            // الحصول على معلومات المنتج
+            var product = button.parentElement;
 
-    // نسخ محتويات السلعة
-    var cartItem = product.cloneNode(true);
-    cartItem.querySelector('button').innerText = 'حذف';
-    cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(event)'); // تم تعديل هنا
+            // نسخ محتويات المنتج
+            var cartItem = product.cloneNode(true);
+            cartItem.querySelector('button').innerText = 'حذف';
+            cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(this)');
 
-    // إضافة العنصر إلى العربة
-    document.getElementById('cartItems').appendChild(cartItem);
+            // إضافة العنصر إلى العربة
+            document.getElementById('cartItems').appendChild(cartItem);
 
-    // تحديث العداد
-    cartCount++;
-    updateCartCount();
+            // تحديث العداد
+            cartCount++;
+            updateCartCount();
 
-    // حفظ العربة في Local Storage
-    saveCartToLocalStorage();
-
-    // منع السلوك الافتراضي للزر
-    event.preventDefault();
-}
-
-function removeFromCart(event) {
-    var button = event.target;
-    var cartItem = button.parentNode.parentNode; // تم تعديل هنا
-
-    cartItem.remove();
-
-    // تحديث العداد
-    cartCount--;
-    updateCartCount();
-
-    // حفظ العربة في Local Storage
-    saveCartToLocalStorage();
-
-    // منع السلوك الافتراضي للزر
-    event.preventDefault();
-}
-
-
+            // حفظ العربة في Local Storage
+            saveCartToLocalStorage();
+        }
 
         function toggleCart() {
             var cartPage = document.getElementById('cartPage');
@@ -361,9 +339,136 @@ function removeFromCart(event) {
                 updateCartCount();
             }
         }
+
+        function openCartPage() {
+            window.location.href = 'cart.html';
+        }
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    background-color: #ffffff;
+  }
+
+  .cart-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .cart-items {
+    overflow-y: auto;
+    max-height: calc(100% - 60px);
+    width: 105.6%;
+  }
+
+  .product-item {
+    width: 40px;
+    height: 200px;
+    margin: 10px;
+    background-color: #fffbfb;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px;
+    border-bottom: 1px solid #ffffff;
+  }
+
+  .close-cart {
+    cursor: pointer;
+    color: red;
+    font-size: 20px;
+  }
+</style>
+</head>
+<body>
+    <div class="cart-page" id="cartPage">
+        <span class="close-cart" onclick="goBack()">&#10005; رجوع</span>
+        <h2>عربة التسوق</h2>
+        <div class="cart-items" id="cartItems"></div>
+    </div>
+
+    <script>
+        var cartCount = 0;
+
+        // تحميل العناصر من Local Storage عند تحميل الصفحة
+        window.onload = function() {
+            loadCartFromLocalStorage();
+        };
+
+        function removeFromCart(button) {
+            var cartItem = button.parentElement;
+            cartItem.remove();
+
+            // تحديث العداد
+            cartCount--;
+            updateCartCount();
+
+            // حفظ العربة في Local Storage
+            saveCartToLocalStorage();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').innerText = cartCount;
+        }
+
+        function saveCartToLocalStorage() {
+            var cartItems = document.getElementById('cartItems').children;
+            var cartArray = [];
+
+            for (var i = 0; i < cartItems.length; i++) {
+                cartArray.push(cartItems[i].outerHTML);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cartArray));
+            localStorage.setItem('cartCount', cartCount);
+        }
+
+        function loadCartFromLocalStorage() {
+            var savedCart = JSON.parse(localStorage.getItem('cart'));
+            var savedCartCount = localStorage.getItem('cartCount');
+
+            if (savedCart && savedCartCount) {
+                var cartItemsContainer = document.getElementById('cartItems');
+                cartItemsContainer.innerHTML = '';
+
+                for (var i = 0; i < savedCart.length; i++) {
+                    cartItemsContainer.innerHTML += savedCart[i];
+                }
+
+                cartCount = parseInt(savedCartCount);
+                updateCartCount();
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
+
 
 <br><br><br>
 
