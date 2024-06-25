@@ -157,10 +157,7 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000;
-  }
-
-  .scroll-background {
-    background-color: rgb(255, 179, 0) !important; /* New background color when scrolling */
+    transition: display 0.3s; /* Smooth transition for hiding and showing */
   }
 
   .search-bar {
@@ -216,7 +213,6 @@ body {
     overflow-y: auto; /* السماح بالتمرير العمودي فقط للمنتجات المحفوظة */
     max-height: calc(100% - 60px); /* السماح بتحديد ارتفاع معقول للمنتجات */
     width: 105.6%;
- 
   }
 
   .product-item {
@@ -252,7 +248,6 @@ body {
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
                   </svg>
-                  
                 <div class="cart-count" id="cartCount">0</div>
             </div>
         </div>
@@ -346,21 +341,27 @@ body {
             }
         }
 
-        // Change background color on scroll
+        // Hide search bar on scroll down, show on scroll up
+        var previousScrollPosition = window.scrollY;
+
         window.onscroll = function() {
+            var currentScrollPosition = window.scrollY;
             var searchContainer = document.getElementById('searchContainer');
-            if (window.scrollY > 0) {
-                searchContainer.classList.add('scroll-background');
+
+            if (previousScrollPosition < currentScrollPosition) {
+                // Scrolling down
+                searchContainer.style.display = 'none';
             } else {
-                searchContainer.classList.remove('scroll-background');
+                // Scrolling up
+                searchContainer.style.display = 'flex';
             }
+
+            previousScrollPosition = currentScrollPosition;
         };
     </script>
 </body>
 </html>
 
-</html>
-   </div>
 
 <br><br><br>
 
