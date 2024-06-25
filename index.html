@@ -267,24 +267,46 @@ body {
         };
 
         function addToCart(button) {
-            // الحصول على معلومات المنتج
-            var product = button.parentElement;
+    // الحصول على عنصر السلعة
+    var product = button.parentNode;
 
-            // نسخ محتويات المنتج
-            var cartItem = product.cloneNode(true);
-            cartItem.querySelector('button').innerText = 'حذف';
-            cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(this)');
+    // نسخ محتويات السلعة
+    var cartItem = product.cloneNode(true);
+    cartItem.querySelector('button').innerText = 'حذف';
+    cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(event)'); // تم تعديل هنا
 
-            // إضافة العنصر إلى العربة
-            document.getElementById('cartItems').appendChild(cartItem);
+    // إضافة العنصر إلى العربة
+    document.getElementById('cartItems').appendChild(cartItem);
 
-            // تحديث العداد
-            cartCount++;
-            updateCartCount();
+    // تحديث العداد
+    cartCount++;
+    updateCartCount();
 
-            // حفظ العربة في Local Storage
-            saveCartToLocalStorage();
-        }
+    // حفظ العربة في Local Storage
+    saveCartToLocalStorage();
+
+    // منع السلوك الافتراضي للزر
+    event.preventDefault();
+}
+
+function removeFromCart(event) {
+    var button = event.target;
+    var cartItem = button.parentNode.parentNode; // تم تعديل هنا
+
+    cartItem.remove();
+
+    // تحديث العداد
+    cartCount--;
+    updateCartCount();
+
+    // حفظ العربة في Local Storage
+    saveCartToLocalStorage();
+
+    // منع السلوك الافتراضي للزر
+    event.preventDefault();
+}
+
+
 
         function toggleCart() {
             var cartPage = document.getElementById('cartPage');
@@ -375,7 +397,7 @@ body {
                 </style>
             </head>
             <body>
-                <h1 class="hidden-text">رقم المنتج | 1</h1>
+                <h1 class="hidden-text">رقم المنتج|1</h1>
             </body>
             </html>
             
@@ -429,60 +451,61 @@ body {
 
 
 
-    <style>
-        button {
-            background-color: #feb538;
-            color: white; /* لون النص */
-            border: none; /* إزالة الحدود */
-            padding: 10px 20px; /* مساحة داخلية */
-            text-align: center; /* محاذاة النص في الوسط */
-            text-decoration: none; /* إزالة التزيين تحت النص */
-            display: inline-block; /* عرض الزر كتلة داخلية */
-            font-size: 16px; /* حجم الخط */
-            margin: 4px 2px; /* هوامش */
-            cursor: pointer; /* شكل المؤشر */
-            border-radius: 11px; /* زوايا مستديرة */
-            transition-duration: 0.4s; /* مدة الانتقال */
-        }
-
-        button svg {
-            vertical-align: middle; /* محاذاة الأيقونة مع النص */
-        }
-
-        button:hover {
-            background-color: white; /* لون الخلفية عند التمرير */
-           
-            border: 1px solid #008CBA; /* حدود عند التمرير */
-        }
-  
+        <style>
+            button {
+                background-color: #feb538;
+                color: white; /* لون النص */
+                border: none; /* إزالة الحدود */
+                padding: 10px 20px; /* مساحة داخلية */
+                text-align: center; /* محاذاة النص في الوسط */
+                text-decoration: none; /* إزالة التزيين تحت النص */
+                display: inline-block; /* عرض الزر كتلة داخلية */
+                font-size: 16px; /* حجم الخط */
+                margin: 4px 2px; /* هوامش */
+                cursor: pointer; /* شكل المؤشر */
+                border-radius: 11px; /* زوايا مستديرة */
+                transition-duration: 0.4s; /* مدة الانتقال */
+            }
         
-        .buy-button {
-            display: inline-block;
-            padding: 9px 23px; /* مساحة داخلية متطابقة */
-            font-size: 16px;
-            color: #fff;
-            background-color: #19d300;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 11px;
-             transition-duration: 0.4s; /* مدة الانتقال */
-        }
-        .buy-button:hover {
-            background-color: #0ec508;
-        }
-      
-    </style>
-
-</head>
-<body>
-
-    <button onclick="addToCart(this)">    
-        <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-            <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </button>
-
+            button svg {
+                vertical-align: middle; /* محاذاة الأيقونة مع النص */
+            }
+        
+            button:hover {
+                background-color: white; /* لون الخلفية عند التمرير */
+               
+                border: 1px solid #008CBA; /* حدود عند التمرير */
+            }
+        
+            
+            .buy-button {
+                display: inline-block;
+                padding: 9px 23px; /* مساحة داخلية متطابقة */
+                font-size: 16px;
+                color: #fff;
+                background-color: #19d300;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 11px;
+                 transition-duration: 0.4s; /* مدة الانتقال */
+            }
+            .buy-button:hover {
+                background-color: #0ec508;
+            }
+          
+        </style>
+        
+        </head>
+        <body>
+        
+        <button onclick="addToCart(this)">    
+            <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
+                <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        
+        
     <br>
     <head>
         <style>
@@ -606,7 +629,7 @@ body {
     
             // دالة لفتح نافذة واتساب مع الاسم المعطى
             function openWhatsApp(fullName) {
-                var message = encodeURIComponent("ساعه من فيترون                              رقم المنتج|1                                  الاسم الثلاثى:" + fullName);
+                var message = encodeURIComponent("ساعه من فيترون                              رقم المنتج|1                             الكميه|1                                الاسم الثلاثى:" + fullName);
                 var whatsappLink = "https://wa.me/+201152366798?text=" + message;
                 window.open(whatsappLink, '_blank');
             }
