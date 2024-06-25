@@ -87,12 +87,14 @@
         } 
       
         .lightbox img {
-            max-width: 80%;
-            max-height: 80%;
-            cursor: pointer;
-          
-        }
-
+    max-width: 80%;
+    max-height: 80%;
+    cursor: pointer;
+    user-select: none; /* يمنع تحديد العنصر */
+    -webkit-user-select: none; /* لمنع التحديد في متصفح كروم */
+    -moz-user-select: none; /* لمنع التحديد في متصفح فايرفوكس */
+    -ms-user-select: none; /* لمنع التحديد في متصفح إنترنت إكسبلورر/إيدج */
+}
 
 
 
@@ -611,7 +613,7 @@
     
             // دالة لفتح نافذة واتساب مع الاسم المعطى
             function openWhatsApp(fullName) {
-                var message = encodeURIComponent("ساعه من فيترون                              رقم المنتج|1                                 الاسم :" + fullName);
+                var message = encodeURIComponent("ساعه من فيترون                              رقم المنتج|1                                  الاسم الثلاثى:" + fullName);
                 var whatsappLink = "https://wa.me/+201152366798?text=" + message;
                 window.open(whatsappLink, '_blank');
             }
