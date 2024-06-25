@@ -72,7 +72,6 @@
             cursor: pointer;
         }
   
-
         .lightbox {
             position: fixed;
             top: 0;
@@ -86,15 +85,16 @@
             z-index: 999;
         
         } 
-
-
+        @media (max-width: 768px) { /* تعديل القيمة حسب حجم الشاشة الذي تريده */
         .lightbox img {
             max-width: 80%;
             max-height: 80%;
             cursor: pointer;
-          
+            outline: none; /* إزالة تحديد الصورة عند النقر على الأجهزة المحمولة */
         }
-        .close {
+    }
+       
+.close {
     position: absolute;
     bottom: 565px; /* تعديل هذا الرقم حسب الحاجة */
     right: 22px; /* تعديل هذا الرقم حسب الحاجة */
@@ -106,6 +106,7 @@
     border-radius: 5px; /* حدود مدورة */
     z-index: 1; /* يجعل الزر فوق الصورة */
 }
+    
         .whatsapp-button {
     display: inline-block;
     background-color: hsl(113, 100%, 35%); /* لون الخلفية */
