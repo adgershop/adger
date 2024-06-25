@@ -157,7 +157,6 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000;
-    transition: display 0.3s; /* Smooth transition for hiding and showing */
   }
 
   .search-bar {
@@ -340,28 +339,9 @@ body {
                 updateCartCount();
             }
         }
-
-        // Hide search bar on scroll down, show on scroll up
-        var previousScrollPosition = window.scrollY;
-
-        window.onscroll = function() {
-            var currentScrollPosition = window.scrollY;
-            var searchContainer = document.getElementById('searchContainer');
-
-            if (previousScrollPosition < currentScrollPosition) {
-                // Scrolling down
-                searchContainer.style.display = 'none';
-            } else {
-                // Scrolling up
-                searchContainer.style.display = 'flex';
-            }
-
-            previousScrollPosition = currentScrollPosition;
-        };
     </script>
 </body>
 </html>
-
 
 <br><br><br>
 
