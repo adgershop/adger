@@ -1,20 +1,20 @@
 {
     "name": "My Awesome Web App",
-    "short_name": "Awesome App",
-    "start_url": "/index.html",
+    "short_name": "App",
+    "start_url": "index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#007bff",
     "icons": [
       {
-        "src": "icon-192x192.png",
+        "src": "logo.jpg",
         "sizes": "192x192",
-        "type": "image/png"
+        "type": "image/jpg"
       },
       {
-        "src": "icon-512x512.png",
+        "src": "logo.jpg",
         "sizes": "512x512",
-        "type": "image/png"
+        "type": "image/jpg"
       }
     ]
   }
