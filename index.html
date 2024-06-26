@@ -609,6 +609,9 @@ body {
             border-radius: 5px;
             text-align: center;
         }
+     
+
+
         <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -637,21 +640,11 @@ body {
     </style>
 </head>
 <body>
-    <!-- المنتج الأول -->
-    <form id="email-form1">
-        <input type="text" id="full-name1" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <input type="text" id="phone-number1" placeholder="أدخل رقم هاتفك" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button1">
-            اشترِ الآن (منتج 1)
-        </button>
-    </form>
-
-    <!-- المنتج الثاني -->
-    <form id="email-form2">
-        <input type="text" id="full-name2" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <input type="text" id="phone-number2" placeholder="أدخل رقم هاتفك" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button2">
-            اشترِ الآن (منتج 2)
+    <form id="email-form">
+        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+        <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
+        <button type="button" class="buy-button" id="buy-now-button">
+            اشترِ الآن
         </button>
     </form>
 
@@ -668,39 +661,27 @@ body {
     </div>
 
     <script>
+        var emailTo = "example1@example.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
+
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
         var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
         if (savedFullName) {
-            document.getElementById('full-name1').value = savedFullName;
-            document.getElementById('full-name2').value = savedFullName;
+            document.getElementById('full-name').value = savedFullName;
         }
         if (savedPhoneNumber) {
-            document.getElementById('phone-number1').value = savedPhoneNumber;
-            document.getElementById('phone-number2').value = savedPhoneNumber;
+            document.getElementById('phone-number').value = savedPhoneNumber;
         }
 
-        // إضافة معالج حدث لزر "اشتر الآن" للمنتج 1
-        document.getElementById('buy-now-button1').addEventListener('click', function() {
-            var fullName = document.getElementById('full-name1').value.trim();
-            var phoneNumber = document.getElementById('phone-number1').value.trim();
+        // إضافة معالج حدث لزر "اشتر الآن"
+        document.getElementById('buy-now-button').addEventListener('click', function() {
+            var fullName = document.getElementById('full-name').value.trim();
+            var phoneNumber = document.getElementById('phone-number').value.trim();
 
             if (fullName === '' || phoneNumber === '') {
                 document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
             } else {
-                openEmail(fullName, phoneNumber, 'منتج 1');
-            }
-        });
-
-        // إضافة معالج حدث لزر "اشتر الآن" للمنتج 2
-        document.getElementById('buy-now-button2').addEventListener('click', function() {
-            var fullName = document.getElementById('full-name2').value.trim();
-            var phoneNumber = document.getElementById('phone-number2').value.trim();
-
-            if (fullName === '' || phoneNumber === '') {
-                document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-            } else {
-                openEmail(fullName, phoneNumber, 'منتج 2');
+                openEmail(fullName, phoneNumber, emailTo);
             }
         });
 
@@ -712,7 +693,7 @@ body {
                 localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
                 localStorage.setItem('savedPhoneNumber', modalPhoneNumber); // حفظ رقم الهاتف في localStorage
                 document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                openEmail(modalFullName, modalPhoneNumber, 'منتج 1'); // تمثيل المنتج 1 هنا. يمكنك تعديله حسب المنتج الحالي.
+                openEmail(modalFullName, modalPhoneNumber, emailTo);
             }
         });
 
@@ -722,22 +703,15 @@ body {
         });
 
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
-        function openEmail(fullName, phoneNumber, productName) {
-            var subject = encodeURIComponent("طلب شراء - " + productName);
-            var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber + "\nالمنتج: " + productName);
-            var mailtoLink = "mailto:example@example.com?subject=" + subject + "&body=" + body;
+        function openEmail(fullName, phoneNumber, emailTo) {
+            var subject = encodeURIComponent("طلب شراء");
+            var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
 
 
 
