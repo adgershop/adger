@@ -650,7 +650,7 @@ body {
     </div>
 
     <script>
-        var emailTo = "adger.shop@gmail.com"; // تم تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
+        var emailTo = "saif.adger.1@gmail.com"; // تم تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
 
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
@@ -1005,7 +1005,7 @@ body {
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
         function openEmail(fullName, phoneNumber, emailTo) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("المنتج: ساعة من فيترون\nرقم المنتج: 1\nالكمية: 1\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var body = encodeURIComponent("المنتج: ساعة من ماوس\nرقم المنتج: 1\nالكمية: 1\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber);
             var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
