@@ -604,6 +604,7 @@ body {
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy Now</title>
     <style>
         .modal-overlay {
@@ -628,10 +629,10 @@ body {
 </head>
 <body>
     <form id="email-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثي" style="display: none;">
+        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
         <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
         <button type="button" class="buy-button" id="buy-now-button1">
-            اشتر الآن (المنتج الأول)
+            اشترِ الآن
         </button>
     </form>
 
@@ -639,8 +640,8 @@ body {
     <div class="modal-overlay" id="custom-modal">
         <div class="modal-content">
             <h4>أدخل بياناتك</h4>
-            <p>الرجاء إدخال اسمك الثلاثي ورقم هاتفك</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثي">
+            <p>الرجاء إدخال اسمك الثلاثى ورقم هاتفك</p>
+            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
             <input type="text" id="modal-phone-number" placeholder="أدخل رقم هاتفك">
             <button type="button" class="btn btn-primary" id="save-details">تأكيد</button>
             <button type="button" class="btn btn-secondary" id="cancel-details">إلغاء</button>
@@ -648,8 +649,6 @@ body {
     </div>
 
     <script>
-        var emailTo = "example@gmail.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
-
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
         var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
@@ -668,7 +667,7 @@ body {
             if (fullName === '' || phoneNumber === '') {
                 document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
             } else {
-                openEmail(fullName, phoneNumber, emailTo);
+                openEmail(fullName, phoneNumber);
             }
         });
 
@@ -680,9 +679,7 @@ body {
                 localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
                 localStorage.setItem('savedPhoneNumber', modalPhoneNumber); // حفظ رقم الهاتف في localStorage
                 document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                document.getElementById('full-name').value = modalFullName;
-                document.getElementById('phone-number').value = modalPhoneNumber;
-                openEmail(modalFullName, modalPhoneNumber, emailTo);
+                openEmail(modalFullName, modalPhoneNumber);
             }
         });
 
@@ -692,10 +689,10 @@ body {
         });
 
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
-        function openEmail(fullName, phoneNumber, emailTo) {
+        function openEmail(fullName, phoneNumber) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("المنتج: المنتج الأول\nرقم المنتج: 1\nالكمية: 1\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber );
-            var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
+            var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var mailtoLink = "mailto:example@example.com?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
@@ -902,6 +899,7 @@ body {
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy Now</title>
     <style>
         .modal-overlay {
@@ -926,10 +924,10 @@ body {
 </head>
 <body>
     <form id="email-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثي" style="display: none;">
+        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
         <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button11">
-            اشتر الآن (المنتج الأول)
+        <button type="button" class="buy-button" id="buy-now-button2">
+            اشترِ الآن
         </button>
     </form>
 
@@ -937,8 +935,8 @@ body {
     <div class="modal-overlay" id="custom-modal">
         <div class="modal-content">
             <h4>أدخل بياناتك</h4>
-            <p>الرجاء إدخال اسمك الثلاثي ورقم هاتفك</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثي">
+            <p>الرجاء إدخال اسمك الثلاثى ورقم هاتفك</p>
+            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
             <input type="text" id="modal-phone-number" placeholder="أدخل رقم هاتفك">
             <button type="button" class="btn btn-primary" id="save-details">تأكيد</button>
             <button type="button" class="btn btn-secondary" id="cancel-details">إلغاء</button>
@@ -946,8 +944,6 @@ body {
     </div>
 
     <script>
-        var emailTo = "example@gmail.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
-
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
         var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
@@ -959,14 +955,14 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button11').addEventListener('click', function() {
+        document.getElementById('buy-now-button2').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
             var phoneNumber = document.getElementById('phone-number').value.trim();
 
             if (fullName === '' || phoneNumber === '') {
                 document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
             } else {
-                openEmail(fullName, phoneNumber, emailTo);
+                openEmail(fullName, phoneNumber);
             }
         });
 
@@ -978,9 +974,7 @@ body {
                 localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
                 localStorage.setItem('savedPhoneNumber', modalPhoneNumber); // حفظ رقم الهاتف في localStorage
                 document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                document.getElementById('full-name').value = modalFullName;
-                document.getElementById('phone-number').value = modalPhoneNumber;
-                openEmail(modalFullName, modalPhoneNumber, emailTo);
+                openEmail(modalFullName, modalPhoneNumber);
             }
         });
 
@@ -990,16 +984,15 @@ body {
         });
 
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
-        function openEmail(fullName, phoneNumber, emailTo) {
+        function openEmail(fullName, phoneNumber) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("المنتج:  \nرقم المنتج: 1\nالكمية: 1\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber );
-            var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
+            var body = encodeURIComponent("الاسم : " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var mailtoLink = "mailto:example@example.com?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
 </html>
-
     </div>
 
     <!-- Repeat the product structure for other products -->
