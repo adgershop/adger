@@ -599,7 +599,6 @@ body {
             border-radius: 5px;
             text-align: center;
         }
-     
         <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -649,6 +648,8 @@ body {
     </div>
 
     <script>
+        var emailTo = "example1@example.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
+
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
         var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
@@ -667,7 +668,7 @@ body {
             if (fullName === '' || phoneNumber === '') {
                 document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
             } else {
-                openEmail(fullName, phoneNumber);
+                openEmail(fullName, phoneNumber, emailTo);
             }
         });
 
@@ -679,7 +680,7 @@ body {
                 localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
                 localStorage.setItem('savedPhoneNumber', modalPhoneNumber); // حفظ رقم الهاتف في localStorage
                 document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                openEmail(modalFullName, modalPhoneNumber);
+                openEmail(modalFullName, modalPhoneNumber, emailTo);
             }
         });
 
@@ -689,15 +690,16 @@ body {
         });
 
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
-        function openEmail(fullName, phoneNumber) {
+        function openEmail(fullName, phoneNumber, emailTo) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
-            var mailtoLink = "mailto:example@example.com?subject=" + subject + "&body=" + body;
+            var body = encodeURIComponent("الاسم : " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
 </html>
+       
 </div>
 
 
@@ -926,7 +928,7 @@ body {
     <form id="email-form">
         <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
         <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button2">
+        <button type="button" class="buy-button" id="buy-now-button">
             اشترِ الآن
         </button>
     </form>
@@ -944,6 +946,8 @@ body {
     </div>
 
     <script>
+        var emailTo = "example1@example.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
+
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
         var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
@@ -955,14 +959,14 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button2').addEventListener('click', function() {
+        document.getElementById('buy-now-button').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
             var phoneNumber = document.getElementById('phone-number').value.trim();
 
             if (fullName === '' || phoneNumber === '') {
                 document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
             } else {
-                openEmail(fullName, phoneNumber);
+                openEmail(fullName, phoneNumber, emailTo);
             }
         });
 
@@ -974,7 +978,7 @@ body {
                 localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
                 localStorage.setItem('savedPhoneNumber', modalPhoneNumber); // حفظ رقم الهاتف في localStorage
                 document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                openEmail(modalFullName, modalPhoneNumber);
+                openEmail(modalFullName, modalPhoneNumber, emailTo);
             }
         });
 
@@ -984,10 +988,10 @@ body {
         });
 
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
-        function openEmail(fullName, phoneNumber) {
+        function openEmail(fullName, phoneNumber, emailTo) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("الاسم : " + fullName + "\nرقم الهاتف: " + phoneNumber);
-            var mailtoLink = "mailto:example@example.com?subject=" + subject + "&body=" + body;
+            var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
