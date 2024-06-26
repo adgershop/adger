@@ -591,7 +591,6 @@ body {
 
 
 
-    <style>
         .modal-overlay {
             display: none;
             position: fixed;
@@ -676,7 +675,7 @@ body {
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
         function openEmail(fullName, phoneNumber) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var body = encodeURIComponent("ساعه من فيترون" +المنتج + "\nرقم المنتج|1" +رقم  +   "\nالاسم : " + fullName + "\nرقم الهاتف: " + phoneNumber );
             var mailtoLink = "mailto:example@example.com?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
