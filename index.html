@@ -264,7 +264,111 @@ body {
         </div>
     </div>
 
-   
+    <div class="cart-page" id="cartPage">
+        <span class="close-cart" onclick="toggleCart()">&#10005; رجوع</span>
+        <h2>عربة التسوق</h2>
+        <div class="cart-items" id="cartItems"></div>
+    </div>
+
+    <script>
+        var cartCount = 0;
+
+        // تحميل العناصر من Local Storage عند تحميل الصفحة
+        window.onload = function() {
+            loadCartFromLocalStorage();
+        };
+
+        function addToCart(button) {
+            // الحصول على معلومات المنتج
+            var product = button.parentElement;
+
+            // نسخ محتويات المنتج
+            var cartItem = product.cloneNode(true);
+            var deleteButton = document.createElement('button');
+            deleteButton.innerText = 'حذف';
+            deleteButton.onclick = function() {
+                removeFromCart(this);
+            };
+            cartItem.appendChild(deleteButton);
+
+            // إضافة زر "اشتر"
+            var buyButton = document.createElement('button');
+            buyButton.innerText = 'اشتر';
+            buyButton.onclick = function() {
+                alert('تم شراء المنتج');
+                // يمكنك هنا إضافة المنطق لعملية الشراء
+            };
+            cartItem.appendChild(buyButton);
+
+            // إضافة العنصر إلى العربة
+            document.getElementById('cartItems').appendChild(cartItem);
+
+            // تحديث العداد
+            cartCount++;
+            updateCartCount();
+
+            // حفظ العربة في Local Storage
+            saveCartToLocalStorage();
+        }
+
+        function toggleCart() {
+            var cartPage = document.getElementById('cartPage');
+            if (cartPage.style.display === 'none' || cartPage.style.display === '') {
+                cartPage.style.display = 'block';
+            } else {
+                cartPage.style.display = 'none';
+            }
+        }
+
+        function removeFromCart(button) {
+            var cartItem = button.parentElement;
+            cartItem.remove();
+
+            // تحديث العداد
+            cartCount--;
+            updateCartCount();
+
+            // حفظ العربة في Local Storage
+            saveCartToLocalStorage();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').innerText = cartCount;
+        }
+
+        function saveCartToLocalStorage() {
+            var cartItems = document.getElementById('cartItems').children;
+            var cartArray = [];
+
+            for (var i = 0; i < cartItems.length; i++) {
+                cartArray.push(cartItems[i].outerHTML);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cartArray));
+            localStorage.setItem('cartCount', cartCount);
+        }
+
+        function loadCartFromLocalStorage() {
+            var savedCart = JSON.parse(localStorage.getItem('cart'));
+            var savedCartCount = localStorage.getItem('cartCount');
+
+            if (savedCart && savedCartCount) {
+                var cartItemsContainer = document.getElementById('cartItems');
+                cartItemsContainer.innerHTML = '';
+
+                for (var i = 0; i < savedCart.length; i++) {
+                    cartItemsContainer.innerHTML += savedCart[i];
+                }
+
+                cartCount = parseInt(savedCartCount);
+                updateCartCount();
+            }
+        }
+    </script>
+</body>
+</html>
+
+
 </div>
 
 
@@ -505,14 +609,49 @@ body {
             border-radius: 5px;
             text-align: center;
         }
+        <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Now</title>
+    <style>
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <form id="email-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
+    <!-- المنتج الأول -->
+    <form id="email-form1">
+        <input type="text" id="full-name1" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+        <input type="text" id="phone-number1" placeholder="أدخل رقم هاتفك" style="display: none;">
         <button type="button" class="buy-button" id="buy-now-button1">
-            اشترِ الآن
+            اشترِ الآن (منتج 1)
+        </button>
+    </form>
+
+    <!-- المنتج الثاني -->
+    <form id="email-form2">
+        <input type="text" id="full-name2" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+        <input type="text" id="phone-number2" placeholder="أدخل رقم هاتفك" style="display: none;">
+        <button type="button" class="buy-button" id="buy-now-button2">
+            اشترِ الآن (منتج 2)
         </button>
     </form>
 
@@ -533,21 +672,35 @@ body {
         var savedFullName = localStorage.getItem('savedFullName');
         var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
         if (savedFullName) {
-            document.getElementById('full-name').value = savedFullName;
+            document.getElementById('full-name1').value = savedFullName;
+            document.getElementById('full-name2').value = savedFullName;
         }
         if (savedPhoneNumber) {
-            document.getElementById('phone-number').value = savedPhoneNumber;
+            document.getElementById('phone-number1').value = savedPhoneNumber;
+            document.getElementById('phone-number2').value = savedPhoneNumber;
         }
 
-        // إضافة معالج حدث لزر "اشتر الآن"
+        // إضافة معالج حدث لزر "اشتر الآن" للمنتج 1
         document.getElementById('buy-now-button1').addEventListener('click', function() {
-            var fullName = document.getElementById('full-name').value.trim();
-            var phoneNumber = document.getElementById('phone-number').value.trim();
+            var fullName = document.getElementById('full-name1').value.trim();
+            var phoneNumber = document.getElementById('phone-number1').value.trim();
 
             if (fullName === '' || phoneNumber === '') {
                 document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
             } else {
-                openEmail(fullName, phoneNumber);
+                openEmail(fullName, phoneNumber, 'منتج 1');
+            }
+        });
+
+        // إضافة معالج حدث لزر "اشتر الآن" للمنتج 2
+        document.getElementById('buy-now-button2').addEventListener('click', function() {
+            var fullName = document.getElementById('full-name2').value.trim();
+            var phoneNumber = document.getElementById('phone-number2').value.trim();
+
+            if (fullName === '' || phoneNumber === '') {
+                document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
+            } else {
+                openEmail(fullName, phoneNumber, 'منتج 2');
             }
         });
 
@@ -559,7 +712,7 @@ body {
                 localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
                 localStorage.setItem('savedPhoneNumber', modalPhoneNumber); // حفظ رقم الهاتف في localStorage
                 document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                openEmail(modalFullName, modalPhoneNumber);
+                openEmail(modalFullName, modalPhoneNumber, 'منتج 1'); // تمثيل المنتج 1 هنا. يمكنك تعديله حسب المنتج الحالي.
             }
         });
 
@@ -569,17 +722,15 @@ body {
         });
 
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
-        function openEmail(fullName, phoneNumber) {
-            var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("ساعه من فيترون" +المنتج + "\nرقم المنتج|1" +رقم  +   "\nالاسم : " + fullName + "\nرقم الهاتف: " + phoneNumber );
+        function openEmail(fullName, phoneNumber, productName) {
+            var subject = encodeURIComponent("طلب شراء - " + productName);
+            var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber + "\nالمنتج: " + productName);
             var mailtoLink = "mailto:example@example.com?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
 </html>
-    
-
 
 
 
