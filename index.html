@@ -604,7 +604,7 @@ body {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Now - منتج جديد</title>
+    <title>Buy Now - اسم المنتج الجديد</title>
     <style>
         .modal-overlay {
             display: none;
@@ -648,11 +648,11 @@ body {
     </div>
 
     <script>
-        var emailTo = ""; // تعديل عنوان البريد الإلكتروني لكل منتج هنا
+        var emailTo = "saif.adger.1@.com"; // تغيير عنوان البريد الإلكتروني لكل منتج
 
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
-        var savedFullName = localStorage.getItem('savedFullName_product1'); // تغيير المفتاح لكل منتج
-        var savedPhoneNumber = localStorage.getItem('savedPhoneNumber_product1'); // تغيير المفتح لكل منتج
+        var savedFullName = localStorage.getItem('savedFullName_newProduct'); // تغيير المفتاح لكل منتج
+        var savedPhoneNumber = localStorage.getItem('savedPhoneNumber_newProduct'); // تغيير المفتح لكل منتج
         if (savedFullName) {
             document.getElementById('full-name').value = savedFullName;
         }
@@ -677,8 +677,8 @@ body {
             var modalFullName = document.getElementById('modal-full-name').value.trim();
             var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
             if (modalFullName && modalPhoneNumber) {
-                localStorage.setItem('savedFullName_product1', modalFullName); // تغيير المفتاح لكل منتج
-                localStorage.setItem('savedPhoneNumber_product1', modalPhoneNumber); // تغيير المفتاح لكل منتج
+                localStorage.setItem('savedFullName_newProduct', modalFullName); // تغيير المفتاح لكل منتج
+                localStorage.setItem('savedPhoneNumber_newProduct', modalPhoneNumber); // تغيير المفتح لكل منتج
                 document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
                 openEmail(modalFullName, modalPhoneNumber, emailTo);
             }
@@ -691,8 +691,8 @@ body {
 
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
         function openEmail(fullName, phoneNumber, emailTo) {
-            var productName = "اسم "; // تعديل اسم المنتج لكل منتج
-            var productNumber = "رقم "; // تعديل رقم المنتج لكل منتج
+            var productName = "اسم المنتج "; // تعديل اسم المنتج لكل منتج
+            var productNumber = "رقم المنتج 1"; // تعديل رقم المنتج لكل منتج
             var quantity = "الكمية"; // تعديل الكمية لكل منتج
 
             var subject = encodeURIComponent("طلب شراء - " + productName);
@@ -710,6 +710,7 @@ body {
     </script>
 </body>
 </html>
+
 
 
   
@@ -915,7 +916,7 @@ body {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Now - منتج جديد</title>
+    <title>Buy Now - اسم المنتج الجديد</title>
     <style>
         .modal-overlay {
             display: none;
@@ -959,11 +960,11 @@ body {
     </div>
 
     <script>
-        var emailTo = ""; // تعديل عنوان البريد الإلكتروني لكل منتج هنا
+        var emailTo = "saif.adger.1@.com"; // تغيير عنوان البريد الإلكتروني لكل منتج
 
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
-        var savedFullName = localStorage.getItem('savedFullName_product2'); // تغيير المفتاح لكل منتج
-        var savedPhoneNumber = localStorage.getItem('savedPhoneNumber_product2'); // تغيير المفتح لكل منتج
+        var savedFullName = localStorage.getItem('savedFullName_newProduct'); // تغيير المفتاح لكل منتج
+        var savedPhoneNumber = localStorage.getItem('savedPhoneNumber_newProduct'); // تغيير المفتح لكل منتج
         if (savedFullName) {
             document.getElementById('full-name').value = savedFullName;
         }
@@ -988,8 +989,8 @@ body {
             var modalFullName = document.getElementById('modal-full-name').value.trim();
             var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
             if (modalFullName && modalPhoneNumber) {
-                localStorage.setItem('savedFullName_product2', modalFullName); // تغيير المفتاح لكل منتج
-                localStorage.setItem('savedPhoneNumber_product2', modalPhoneNumber); // تغيير المفتاح لكل منتج
+                localStorage.setItem('savedFullName_newProduct', modalFullName); // تغيير المفتاح لكل منتج
+                localStorage.setItem('savedPhoneNumber_newProduct', modalPhoneNumber); // تغيير المفتح لكل منتج
                 document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
                 openEmail(modalFullName, modalPhoneNumber, emailTo);
             }
@@ -1002,8 +1003,8 @@ body {
 
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
         function openEmail(fullName, phoneNumber, emailTo) {
-            var productName = "اسم المنتج"; // تعديل اسم المنتج لكل منتج
-            var productNumber = "رقم المنتج"; // تعديل رقم المنتج لكل منتج
+            var productName = "اسم المنتج الجديد"; // تعديل اسم المنتج لكل منتج
+            var productNumber = "رقم المنتج الجديد"; // تعديل رقم المنتج لكل منتج
             var quantity = "الكمية"; // تعديل الكمية لكل منتج
 
             var subject = encodeURIComponent("طلب شراء - " + productName);
@@ -1021,6 +1022,7 @@ body {
     </script>
 </body>
 </html>
+>
 
 
     </div>
