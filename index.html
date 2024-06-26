@@ -580,111 +580,112 @@ body {
             .modal-content .btn-secondary:hover {
                 background-color: #5a6268;
             }
-        </style>
-    </head>
-    <body>
-        <form id="whatsapp-form">
-            <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-            <button type="button" class="buy-button" id="buy-now-button1">
-                اشترِ الآن
-            </button>
-        </form>
-    
-        <!-- نافذة منبثقة مخصصة -->
-        <div class="modal-overlay" id="custom-modal">
-            <div class="modal-content">
-                <h4>Adger</h4>
-                <p>الرجاء إدخال اسمك الثلاثى</p>
-                <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-                <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-                <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-            </div>
+        
+
+
+
+
+
+
+
+
+
+
+    <style>
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form id="email-form">
+        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+        <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
+        <button type="button" class="buy-button" id="buy-now-button1">
+            اشترِ الآن
+        </button>
+    </form>
+
+    <!-- نافذة منبثقة مخصصة -->
+    <div class="modal-overlay" id="custom-modal">
+        <div class="modal-content">
+            <h4>أدخل بياناتك</h4>
+            <p>الرجاء إدخال اسمك الثلاثى ورقم هاتفك</p>
+            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
+            <input type="text" id="modal-phone-number" placeholder="أدخل رقم هاتفك">
+            <button type="button" class="btn btn-primary" id="save-details">تأكيد</button>
+            <button type="button" class="btn btn-secondary" id="cancel-details">إلغاء</button>
         </div>
-    
-        <script>
-            // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-            var savedFullName = localStorage.getItem('savedFullName');
-            if (savedFullName) {
-                document.getElementById('full-name').value = savedFullName;
-            }
-    
-            // إضافة معالج حدث لزر "اشتر الآن"
-            document.getElementById('buy-now-button1').addEventListener('click', function() {
-                var fullName = document.getElementById('full-name').value.trim();
-    
-                if (fullName === '') {
-                    document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-                } else {
-                    openWhatsApp(fullName);
-                }
-            });
-    
-            // معالجة حدث تأكيد الاسم في النافذة المنبثقة
-            document.getElementById('save-name').addEventListener('click', function() {
-                var modalFullName = document.getElementById('modal-full-name').value.trim();
-                if (modalFullName) {
-                    localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-                    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                    openWhatsApp(modalFullName);
-                }
-            });
-    
-            // معالجة حدث إلغاء في النافذة المنبثقة
-            document.getElementById('cancel-name').addEventListener('click', function() {
-                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-            });
-    
-            // دالة لفتح نافذة واتساب مع الاسم المعطى
-            function openWhatsApp(fullName) {
-                var message = encodeURIComponent("ساعه من فيترون                              رقم المنتج|1                             الكميه|1                                الاسم الثلاثى:" + fullName);
-                var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-                window.open(whatsappLink, '_blank');
-            }
-        </script>
-    </body>
-    
-    
+    </div>
 
-
-
-
-
-
-
-    <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>زر اشتر الآن</title>
-    </head>
-    <body>
-    
-    <button onclick="redirectToEmail()">اشتر الآن</button>
-    
     <script>
-    function redirectToEmail() {
-      // بيانات المستخدم (يمكنك تغييرها حسب الحاجة)
-      var name = 'اسم المستخدم';
-      var phone = 'رقم الهاتف';
-      
-      // عنوان البريد الإلكتروني
-      var email = 'adger.shop@gmail.com';
-      
-      // موضوع البريد الإلكتروني
-      var subject = 'اشتر الآن - الاسم: ' + name + ', رقم الهاتف: ' + phone;
-      
-      // إعداد الرابط للانتقال إلى بريد إلكتروني مع برمجة موضوع البريد
-      var mailtoLink = 'mailto:' + email + '?subject=' + encodeURIComponent(subject);
-      
-      // توجيه المستخدم إلى البريد الإلكتروني
-      window.location.href = mailtoLink;
-    }
+        // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
+        var savedFullName = localStorage.getItem('savedFullName');
+        var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
+        if (savedFullName) {
+            document.getElementById('full-name').value = savedFullName;
+        }
+        if (savedPhoneNumber) {
+            document.getElementById('phone-number').value = savedPhoneNumber;
+        }
+
+        // إضافة معالج حدث لزر "اشتر الآن"
+        document.getElementById('buy-now-button1').addEventListener('click', function() {
+            var fullName = document.getElementById('full-name').value.trim();
+            var phoneNumber = document.getElementById('phone-number').value.trim();
+
+            if (fullName === '' || phoneNumber === '') {
+                document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
+            } else {
+                openEmail(fullName, phoneNumber);
+            }
+        });
+
+        // معالجة حدث تأكيد البيانات في النافذة المنبثقة
+        document.getElementById('save-details').addEventListener('click', function() {
+            var modalFullName = document.getElementById('modal-full-name').value.trim();
+            var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
+            if (modalFullName && modalPhoneNumber) {
+                localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
+                localStorage.setItem('savedPhoneNumber', modalPhoneNumber); // حفظ رقم الهاتف في localStorage
+                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+                openEmail(modalFullName, modalPhoneNumber);
+            }
+        });
+
+        // معالجة حدث إلغاء في النافذة المنبثقة
+        document.getElementById('cancel-details').addEventListener('click', function() {
+            document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+        });
+
+        // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
+        function openEmail(fullName, phoneNumber) {
+            var subject = encodeURIComponent("طلب شراء");
+            var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var mailtoLink = "mailto:example@example.com?subject=" + subject + "&body=" + body;
+            window.open(mailtoLink, '_blank');
+        }
     </script>
+</body>
+</html>
     
-    </body>
-    </html>
-    
+
+
 
 
 
