@@ -648,11 +648,11 @@ body {
     </div>
 
     <script>
-        var emailTo = "saif.adger.1@.com"; // تغيير عنوان البريد الإلكتروني لكل منتج
+        var emailTo = "saif.adger.1@.com"; // عنوان البريد الإلكتروني للمنتج الجديد
 
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
-        var savedFullName = localStorage.getItem('savedFullName_newProduct'); // تغيير المفتاح لكل منتج
-        var savedPhoneNumber = localStorage.getItem('savedPhoneNumber_newProduct'); // تغيير المفتح لكل منتج
+        var savedFullName = localStorage.getItem('savedFullName_newProduct'); // مفتاح محدد للمنتج الجديد
+        var savedPhoneNumber = localStorage.getItem('savedPhoneNumber_newProduct'); // مفتاح محدد للمنتج الجديد
         if (savedFullName) {
             document.getElementById('full-name').value = savedFullName;
         }
@@ -677,8 +677,8 @@ body {
             var modalFullName = document.getElementById('modal-full-name').value.trim();
             var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
             if (modalFullName && modalPhoneNumber) {
-                localStorage.setItem('savedFullName_newProduct', modalFullName); // تغيير المفتاح لكل منتج
-                localStorage.setItem('savedPhoneNumber_newProduct', modalPhoneNumber); // تغيير المفتح لكل منتج
+                localStorage.setItem('savedFullName_newProduct', modalFullName); // مفتاح محدد للمنتج الجديد
+                localStorage.setItem('savedPhoneNumber_newProduct', modalPhoneNumber); // مفتاح محدد للمنتج الجديد
                 document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
                 openEmail(modalFullName, modalPhoneNumber, emailTo);
             }
@@ -691,9 +691,9 @@ body {
 
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
         function openEmail(fullName, phoneNumber, emailTo) {
-            var productName = "اسم المنتج "; // تعديل اسم المنتج لكل منتج
-            var productNumber = "رقم المنتج 1"; // تعديل رقم المنتج لكل منتج
-            var quantity = "الكمية"; // تعديل الكمية لكل منتج
+            var productName = "اسم المنتج الجديد"; // اسم المنتج للمنتج الجديد
+            var productNumber = "رقم المنتج 2"; // رقم المنتج للمنتج الجديد
+            var quantity = "الكمية"; // الكمية للمنتج الجديد
 
             var subject = encodeURIComponent("طلب شراء - " + productName);
             var body = encodeURIComponent(
@@ -710,7 +710,6 @@ body {
     </script>
 </body>
 </html>
-
 
 
   
