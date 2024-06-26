@@ -600,7 +600,6 @@ body {
             text-align: center;
         }
      
-
         <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -629,10 +628,10 @@ body {
 </head>
 <body>
     <form id="email-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثي" style="display: none;">
         <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
         <button type="button" class="buy-button" id="buy-now-button1">
-            اشترِ الآن
+            اشتر الآن (المنتج الأول)
         </button>
     </form>
 
@@ -640,8 +639,8 @@ body {
     <div class="modal-overlay" id="custom-modal">
         <div class="modal-content">
             <h4>أدخل بياناتك</h4>
-            <p>الرجاء إدخال اسمك الثلاثى ورقم هاتفك</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
+            <p>الرجاء إدخال اسمك الثلاثي ورقم هاتفك</p>
+            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثي">
             <input type="text" id="modal-phone-number" placeholder="أدخل رقم هاتفك">
             <button type="button" class="btn btn-primary" id="save-details">تأكيد</button>
             <button type="button" class="btn btn-secondary" id="cancel-details">إلغاء</button>
@@ -649,7 +648,7 @@ body {
     </div>
 
     <script>
-        var emailTo = "saif.adger.1@gmail.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
+        var emailTo = "example@gmail.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
 
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
@@ -695,20 +694,13 @@ body {
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
         function openEmail(fullName, phoneNumber, emailTo) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("المنتج: ساعة من فيترون\nرقم المنتج| 1\nالكمية: 1\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber );
+            var body = encodeURIComponent("المنتج: المنتج الأول\nرقم المنتج: 1\nالكمية: 1\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber );
             var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
 
 </div>
 
@@ -935,10 +927,10 @@ body {
 </head>
 <body>
     <form id="email-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثي" style="display: none;">
         <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-buttonى">
-            اشترِ الآن
+        <button type="button" class="buy-button" id="buy-now-button2">
+            اشتر الآن (المنتج الأول)
         </button>
     </form>
 
@@ -946,8 +938,8 @@ body {
     <div class="modal-overlay" id="custom-modal">
         <div class="modal-content">
             <h4>أدخل بياناتك</h4>
-            <p>الرجاء إدخال اسمك الثلاثى ورقم هاتفك</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
+            <p>الرجاء إدخال اسمك الثلاثي ورقم هاتفك</p>
+            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثي">
             <input type="text" id="modal-phone-number" placeholder="أدخل رقم هاتفك">
             <button type="button" class="btn btn-primary" id="save-details">تأكيد</button>
             <button type="button" class="btn btn-secondary" id="cancel-details">إلغاء</button>
@@ -955,7 +947,7 @@ body {
     </div>
 
     <script>
-        var emailTo = "saif.adger.1@gmail.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
+        var emailTo = "example@gmail.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
 
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
@@ -968,7 +960,7 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-buttonى').addEventListener('click', function() {
+        document.getElementById('buy-now-button2').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
             var phoneNumber = document.getElementById('phone-number').value.trim();
 
@@ -1001,13 +993,13 @@ body {
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
         function openEmail(fullName, phoneNumber, emailTo) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("المنتج: ساعة من ماوس\nرقم المنتج: 1\nالكمية: 1\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var body = encodeURIComponent("المنتج: المنssssتج الأول\nرقم المنتج: 1\nالكمية: 1\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber );
             var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
-</html>
+</html>>
 
     </div>
 
