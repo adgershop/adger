@@ -933,7 +933,7 @@ body {
     <form id="email-form">
         <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
         <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button2">
+        <button type="button" class="buy-button" id="buy-now-button1">
             اشترِ الآن
         </button>
     </form>
@@ -951,12 +951,11 @@ body {
     </div>
 
     <script>
-        var emailTo = "example1@example.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
+        var emailTo = "saif.adger.1@.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
 
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
         var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
-
         if (savedFullName) {
             document.getElementById('full-name').value = savedFullName;
         }
@@ -965,14 +964,14 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button2').addEventListener('click', function() {
+        document.getElementById('buy-now-button1').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
             var phoneNumber = document.getElementById('phone-number').value.trim();
 
             if (fullName === '' || phoneNumber === '') {
                 document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
             } else {
-                openEmail(fullName, phoneNumber, المنتج, emailto);
+                openEmail(fullName, phoneNumber, emailTo);
             }
         });
 
@@ -993,10 +992,15 @@ body {
             document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
         });
 
-        // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
-        function openEmail(fullName, phoneNumber, المنتج, emailto) {
+        // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة وتفاصيل المنتج
+        function openEmail(fullName, phoneNumber, emailTo) {
+            var productName = " فيترون";
+            var productNumber = "2";
+            var quantity = "1";
+            
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber + "\nالمنتج" + المنتج);
+            var body = encodeURIComponent("المنتج: " + productName + "\nرقم المنتج: " + productNumber + "\nالكمية: " + quantity + "\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            
             var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
