@@ -633,7 +633,7 @@ body {
     <form id="email-form">
         <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
         <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button">
+        <button type="button" class="buy-button" id="buy-now-button1">
             اشترِ الآن
         </button>
     </form>
@@ -651,7 +651,7 @@ body {
     </div>
 
     <script>
-        var emailTo = "adger.shop@gmail.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
+        var emailTo = "saif.adger.1@gmail.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
 
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
@@ -664,7 +664,7 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button').addEventListener('click', function() {
+        document.getElementById('buy-now-button1').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
             var phoneNumber = document.getElementById('phone-number').value.trim();
 
