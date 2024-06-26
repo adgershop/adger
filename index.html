@@ -606,10 +606,13 @@ body {
 
 
 
-
-
-
-
+        <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Now</title>
+    <style>
         .modal-overlay {
             display: none;
             position: fixed;
@@ -652,7 +655,7 @@ body {
     </div>
 
     <script>
-        var emailTo = "adger.shop@gmail.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
+        var emailTo = "example1@example.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
 
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
@@ -696,16 +699,13 @@ body {
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
         function openEmail(fullName, phoneNumber, emailTo) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent(  "المنتج|ساعه من فيترون" + product + "\n رقم المنتج|1" +رقم + "\nالكمية|1" +الكمية +     "\nلاسم : " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
             var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
 </html>
-
-
-
 
 
 
