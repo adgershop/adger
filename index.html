@@ -966,7 +966,7 @@ body {
             if (fullName === '' || phoneNumber === '') {
                 document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
             } else {
-                openEmail(fullName, phoneNumber, emailTo);
+                openEmail(fullName, phoneNumber, المنتج, emailto);
             }
         });
 
@@ -988,7 +988,7 @@ body {
         });
 
         // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
-        function openEmail(fullName, phoneNumber, المنتج, mailto) {
+        function openEmail(fullName, phoneNumber, المنتج, emailto) {
             var subject = encodeURIComponent("طلب شراء");
             var body = encodeURIComponent("الاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber + "\nالمنتج" + المنتج);
             var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
