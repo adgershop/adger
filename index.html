@@ -689,17 +689,22 @@ body {
             document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
         });
 
-        // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
+        // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة وتفاصيل المنتج
         function openEmail(fullName, phoneNumber, emailTo) {
+            var productName = "ساعة من فيترون";
+            var productNumber = "1";
+            var quantity = "1";
+            
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("الاسم : " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var body = encodeURIComponent("المنتج: " + productName + "\nرقم المنتج: " + productNumber + "\nالكمية: " + quantity + "\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            
             var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
 </html>
-       
+  
 </div>
 
 
@@ -951,6 +956,7 @@ body {
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
         var savedPhoneNumber = localStorage.getItem('savedPhoneNumber');
+
         if (savedFullName) {
             document.getElementById('full-name').value = savedFullName;
         }
