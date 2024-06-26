@@ -604,7 +604,7 @@ body {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Now</title>
+    <title>Buy Now - ساعة ذهبية</title>
     <style>
         .modal-overlay {
             display: none;
@@ -630,7 +630,7 @@ body {
     <form id="email-form">
         <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
         <input type="text" id="phone-number" placeholder="أدخل رقم هاتفك" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button1">
+        <button type="button" class="buy-button" id="buy-now-button2">
             اشترِ الآن
         </button>
     </form>
@@ -648,7 +648,7 @@ body {
     </div>
 
     <script>
-        var emailTo = "saif.adger.1@.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الأول
+        var emailTo = "saif.adger.1@.com"; // يمكن تغيير عنوان البريد الإلكتروني هنا للمنتج الثاني
 
         // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
         var savedFullName = localStorage.getItem('savedFullName');
@@ -661,7 +661,7 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button1').addEventListener('click', function() {
+        document.getElementById('buy-now-button2').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
             var phoneNumber = document.getElementById('phone-number').value.trim();
 
@@ -689,14 +689,20 @@ body {
             document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
         });
 
-        // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة وتفاصيل المنتج
+        // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
         function openEmail(fullName, phoneNumber, emailTo) {
-            var productName = "ساعة من فيترون";
-            var productNumber = "1";
+            var productName = "ساعة ";
+            var productNumber = "3";
             var quantity = "1";
-            
-            var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("المنتج: " + productName + "\nرقم المنتج: " + productNumber + "\nالكمية: " + quantity + "\nالاسم: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+
+            var subject = encodeURIComponent("طلب شراء - " + productName);
+            var body = encodeURIComponent(
+                "الاسم: " + fullName + "\n" +
+                "رقم الهاتف: " + phoneNumber + "\n\n" +
+                "المنتج: " + productName + "\n" +
+                "رقم المنتج: " + productNumber + "\n" +
+                "الكمية: " + quantity
+            );
             
             var mailtoLink = "mailto:" + emailTo + "?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
@@ -704,6 +710,7 @@ body {
     </script>
 </body>
 </html>
+
   
 </div>
 
