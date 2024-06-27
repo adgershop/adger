@@ -599,159 +599,12 @@ body {
             border-radius: 5px;
             text-align: center;
         }
-        <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نموذج الشراء</title>
-    <style>
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .buy-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn {
-            margin: 5px;
-        }
-        <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نموذج الشراء</title>
-    <style>
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .buy-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn {
-            margin: 5px;
-        }
-        <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gmail Form</title>
-    <style>
-        /* Your CSS styles here */
-    </style>
-</head>
-<body>
-    <!-- Gmail Form -->
-    <form id="gmail-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثي">
-        <button type="button" class="buy-button" id="buy-now-button1">
-            اشترِ الآن
-        </button>
-    </form>
-
-    <!-- Custom Modal -->
-    <div class="modal-overlay" id="custom-modal">
-        <div class="modal-content">
-            <h4>Adger</h4>
-            <p>الرجاء إدخال اسمك الثلاثي</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثي">
-            <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-            <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-        </div>
-    </div>
-
-    <script>
-        // Check if there's a saved name in localStorage and display it if found
-        var savedFullName = localStorage.getItem('savedFullName');
-        if (savedFullName) {
-            document.getElementById('full-name').value = savedFullName;
-        }
-
-        // Event handler for "اشتر الآن" button
-        document.getElementById('buy-now-button1').addEventListener('click', function() {
-            var fullName = document.getElementById('full-name').value.trim();
-
-            if (fullName === '') {
-                document.getElementById('custom-modal').style.display = 'flex'; // Display modal
-            } else {
-                openGmail(fullName);
-            }
-        });
-
-        // Event handler for save name button in modal
-        document.getElementById('save-name').addEventListener('click', function() {
-            var modalFullName = document.getElementById('modal-full-name').value.trim();
-            if (modalFullName) {
-                localStorage.setItem('savedFullName', modalFullName); // Save name to localStorage
-                document.getElementById('custom-modal').style.display = 'none'; // Hide modal
-                openGmail(modalFullName);
-            }
-        });
-
-        // Event handler for cancel button in modal
-        document.getElementById('cancel-name').addEventListener('click', function() {
-            document.getElementById('custom-modal').style.display = 'none'; // Hide modal
-        });
-
-        // Function to open Gmail with the given name and product details
-        function openGmail(fullName) {
-            // Customize your subject and message here dynamically based on the product details
-            var productName1 = " لاسلكى من ";
-            var productNumber1 = "3";
-            var emailSubject = "طلب 111شراء " +productNumber1 + " (رقم المنتج: " +  + ")";
-            var emailBody = " عليكم،\n\nأرغب في شراء " + productName1 + " برقم " + productNumber + "، الرجاء التواصل معي للتأكيد.\n\nالاسم الثلاثي: " + fullName;
-            var gmailLink = "mailto:example@gmail.com?subject=" + encodeURIComponent(emailSubject) + "&body=" + encodeURIComponent(emailBody);
-            window.location.href = gmailLink;
-        }
-    </script>
-</body>
-</html>
-
-  
+     
 </div>
+
+
+
+
 
 
 
@@ -951,117 +804,77 @@ body {
         <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نموذج الشراء</title>
-    <style>
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .buy-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn {
-            margin: 5px;
-        }
-        <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gmail Form</title>
-    <style>
-        /* Your CSS styles here */
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Gmail</title>
+<style>
+/* Add your CSS styles here if needed */
+</style>
 </head>
 <body>
-    <!-- Gmail Form -->
-    <form id="gmail-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثي">
-        <button type="button" class="buy-button" id="buy-now-button">
-            اشترِ الآن
-        </button>
-    </form>
+<form id="gmail-form">
+    <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+    <button type="button" class="buy-button" id="buy-now-button3">
+        اشترِ الآن
+    </button>
+</form>
 
-    <!-- Custom Modal -->
-    <div class="modal-overlay" id="custom-modal">
-        <div class="modal-content">
-            <h4>Adger</h4>
-            <p>الرجاء إدخال اسمك الثلاثي</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثي">
-            <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-            <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-        </div>
+<!-- نافذة منبثقة مخصصة -->
+<div class="modal-overlay" id="custom-modal">
+    <div class="modal-content">
+        <h4>Adger</h4>
+        <p>الرجاء إدخال اسمك الثلاثى</p>
+        <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
+        <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
+        <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
     </div>
+</div>
 
-    <script>
-        // Check if there's a saved name in localStorage and display it if found
-        var savedFullName = localStorage.getItem('savedFullName');
-        if (savedFullName) {
-            document.getElementById('full-name').value = savedFullName;
-        }
+<script>
+// فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
+var savedFullName = localStorage.getItem('savedFullName');
+if (savedFullName) {
+    document.getElementById('full-name').value = savedFullName;
+}
 
-        // Event handler for "اشتر الآن" button
-        document.getElementById('buy-now-button').addEventListener('click', function() {
-            var fullName = document.getElementById('full-name').value.trim();
+// إضافة معالج حدث لزر "اشتر الآن"
+document.getElementById('buy-now-button3').addEventListener('click', function() {
+    var fullName = document.getElementById('full-name').value.trim();
 
-            if (fullName === '') {
-                document.getElementById('custom-modal').style.display = 'flex'; // Display modal
-            } else {
-                openGmail(fullName);
-            }
-        });
+    if (fullName === '') {
+        document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
+    } else {
+        openGmail(fullName);
+    }
+});
 
-        // Event handler for save name button in modal
-        document.getElementById('save-name').addEventListener('click', function() {
-            var modalFullName = document.getElementById('modal-full-name').value.trim();
-            if (modalFullName) {
-                localStorage.setItem('savedFullName', modalFullName); // Save name to localStorage
-                document.getElementById('custom-modal').style.display = 'none'; // Hide modal
-                openGmail(modalFullName);
-            }
-        });
+// معالجة حدث تأكيد الاسم في النافذة المنبثقة
+document.getElementById('save-name').addEventListener('click', function() {
+    var modalFullName = document.getElementById('modal-full-name').value.trim();
+    if (modalFullName) {
+        localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
+        document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+        openGmail(modalFullName);
+    }
+});
 
-        // Event handler for cancel button in modal
-        document.getElementById('cancel-name').addEventListener('click', function() {
-            document.getElementById('custom-modal').style.display = 'none'; // Hide modal
-        });
+// معالجة حدث إلغاء في النافذة المنبثقة
+document.getElementById('cancel-name').addEventListener('click', function() {
+    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+});
 
-        // Function to open Gmail with the given name and product details
-        function openGmail(fullName) {
-            // Customize your subject and message here dynamically based on the product details
-            var productName = "ماوس لاسلكى من xo";
-            var productNumber = "3";
-            var emailSubject = "طلب شراء " + productName + " (رقم المنتج: " + productNumber + ")";
-            var emailBody = "السلام عليكم،\n\nأرغب في شراء " + productName + " برقم " + productNumber + "، الرجاء التواصل معي للتأكيد.\n\nالاسم الثلاثي: " + fullName;
-            var gmailLink = "mailto:example@gmail.com?subject=" + encodeURIComponent(emailSubject) + "&body=" + encodeURIComponent(emailBody);
-            window.location.href = gmailLink;
-        }
-    </script>
+// دالة لفتح Gmail مع الاسم المعطى
+function openGmail(fullName) {
+    var apiKey = '24523ffdd5e5d1c45283ed1545e53e06-0ae5585a-11df-4c3d-9604-2949df0d46db'; // Replace with your Gmail API key
+    var toEmail = 'your.email@gmail.com'; // Replace with your Gmail address
+    var subject = encodeURIComponent('Subject of your email');
+    var body = encodeURIComponent('ماوس لاسلكى من xo\nرقم المنتج|3\nالاسم الثلاثى:' + fullName);
+    var gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + toEmail + '&su=' + subject + '&body=' + body + '&apiKey=' + apiKey;
+    window.open(gmailLink, '_blank');
+}
+</script>
 </body>
 </html>
-
 
     </div>
 
