@@ -867,8 +867,8 @@ document.getElementById('cancel-name').addEventListener('click', function() {
 function openGmail(fullName) {
     var apiKey = '24523ffdd5e5d1c45283ed1545e53e06-0ae5585a-11df-4c3d-9604-2949df0d46db'; // Replace with your Gmail API key
     var toEmail = 'your.email@gmail.com'; // Replace with your Gmail address
-    var subject = encodeURIComponent('Subject of your email');
-    var body = encodeURIComponent('ماوس لاسلكى من xo\nرقم المنتج|3\nالاسم الثلاثى:' + fullName);
+    var subject = encodeURIComponent('Subject of your email'); // Customize your email subject
+    var body = encodeURIComponent('ماوس لاسلكى من xo\nرقم المنتج|3\nالاسم الثلاثى:' + fullName); // Customize your email body
     var gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + toEmail + '&su=' + subject + '&body=' + body + '&apiKey=' + apiKey;
     window.open(gmailLink, '_blank');
 }
