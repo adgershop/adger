@@ -673,12 +673,49 @@ body {
         .btn {
             margin: 5px;
         }
+        <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج الشراء</title>
+    <style>
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .buy-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn {
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
-    <form id="purchase-form">
+    <form id="whatsapp-form">
         <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button">
+        <button type="button" class="buy-button" id="buy-now-button3">
             اشترِ الآن
         </button>
     </form>
@@ -686,19 +723,15 @@ body {
     <!-- نافذة منبثقة مخصصة -->
     <div class="modal-overlay" id="custom-modal">
         <div class="modal-content">
-            <h4>تأكيد الاسم</h4>
+            <h4>Adger</h4>
             <p>الرجاء إدخال اسمك الثلاثى</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
+            <input type="text" id="modal-full-name1" placeholder="أدخل اسمك الثلاثى">
             <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
             <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
         </div>
     </div>
 
     <script>
-        // متغيرات المنتج
-        var productName = "ماوس لاسلكى من XO"; // اسم المنتج
-        var productNumber = "3"; // رقم المنتج
-
         // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
         var savedFullName = localStorage.getItem('savedFullName');
         if (savedFullName) {
@@ -706,7 +739,7 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button').addEventListener('click', function() {
+        document.getElementById('buy-now-button3').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
 
             if (fullName === '') {
@@ -733,8 +766,8 @@ body {
 
         // دالة لفتح نافذة البريد الإلكتروني مع الاسم المعطى
         function openEmail(fullName) {
-            var subject = encodeURIComponent("طلب شراء " + productName);
-            var body = encodeURIComponent(productName + "\nرقم المنتج:11 " + productNumber + "\nالاسم الثلاثى: " + fullName);
+            var subject = encodeURIComponent("طلب شراء ماوس لاسلكى من ");
+            var body = encodeURIComponent("ماوس لاسلكى من XO\nرقم المنتج: 3\nالاسم الثلاثى: " + fullName);
             var mailtoLink = "mailto:example@example.com?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
@@ -1014,12 +1047,49 @@ body {
         .btn {
             margin: 5px;
         }
+        <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج الشراء</title>
+    <style>
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .buy-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn {
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
-    <form id="purchase-form">
+    <form id="whatsapp-form">
         <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button">
+        <button type="button" class="buy-button" id="buy-now-button31">
             اشترِ الآن
         </button>
     </form>
@@ -1027,19 +1097,15 @@ body {
     <!-- نافذة منبثقة مخصصة -->
     <div class="modal-overlay" id="custom-modal">
         <div class="modal-content">
-            <h4>تأكيد الاسم</h4>
+            <h4>Adger</h4>
             <p>الرجاء إدخال اسمك الثلاثى</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
+            <input type="text" id="modal-full-name2" placeholder="أدخل اسمك الثلاثى">
             <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
             <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
         </div>
     </div>
 
     <script>
-        // متغيرات المنتج
-        var productName = "ماوس لاسلكى من XO"; // اسم المنتج
-        var productNumber = "3"; // رقم المنتج
-
         // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
         var savedFullName = localStorage.getItem('savedFullName');
         if (savedFullName) {
@@ -1047,7 +1113,7 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button').addEventListener('click', function() {
+        document.getElementById('buy-now-button31').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
 
             if (fullName === '') {
@@ -1074,8 +1140,8 @@ body {
 
         // دالة لفتح نافذة البريد الإلكتروني مع الاسم المعطى
         function openEmail(fullName) {
-            var subject = encodeURIComponent("طلب شراء " + productName);
-            var body = encodeURIComponent(productName + "\nرقم المنتج:1 " + productNumber + "\nالاسم الثلاثى: " + fullName);
+            var subject = encodeURIComponent("طلب شراء ماوس لاسلكى من XO");
+            var body = encodeURIComponent("ماوس لاسلكى من XO\nرقم المنتج: 3\nالاسم الثلاثى: " + fullName);
             var mailtoLink = "mailto:example@example.com?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
