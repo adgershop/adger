@@ -1,6 +1,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -71,7 +73,7 @@
             object-fit: cover;
             cursor: pointer;
         }
-  
+
         .lightbox {
             position: fixed;
             top: 0;
@@ -83,41 +85,22 @@
             justify-content: center;
             align-items: center;
             z-index: 999;
-        }        
+        }
+
         .lightbox img {
-    max-width: 80%;
-    max-height: 80%;
-    cursor: pointer;
-    user-select: none; /* تمنع تحديد الصورة */
-    -webkit-touch-callout: none; /* للتأكد من عدم عرض خيارات النصائح عند الضغط طويلًا على الصورة على iOS */
-    touch-action: none; /* تعطيل التفاعل مع اللمس */
-    outline: none; /* إزالة الحدود التي تظهر عند التحديد */
-}
+            max-width: 80%;
+            max-height: 80%;
+            cursor: pointer;
+        }
 
-/* تغيير لون التحديد */
-.lightbox img:focus {
-    outline: 2px solid red; /* لون وسمك الحدود الجديد */
-}
-
-body {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* إزالة لون التحديد عند الضغط على أنظمة iOS */
-}
-
-
-.close {
-    position: absolute;
-    bottom: 565px; /* تعديل هذا الرقم حسب الحاجة */
-    right: 22px; /* تعديل هذا الرقم حسب الحاجة */
-    color: #fc0000;
-    font-size: 18px; /* تعديل حجم الخط حسب الحاجة */
-    cursor: pointer;
-    padding: 5px 10px; /* إضافة تباعد داخلي حسب الحاجة */
-    background-color: rgba(255, 255, 255, 0.8); /* خلفية شفافة */
-    border-radius: 5px; /* حدود مدورة */
-    z-index: 1; /* يجعل الزر فوق الصورة */
-
-}
-
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
 
 
         .whatsapp-button {
@@ -153,10 +136,6 @@ body {
     background-color: #3d5b66; /* Background color for search bar area */
     border-radius: 1px;
     height: 60px; /* Adjust the height as needed */
-    position: fixed; /* Fix the position at the top */
-    top: 0;
-    width: 100%;
-    z-index: 1000;
   }
 
   .search-bar {
@@ -172,8 +151,7 @@ body {
   .cart-icon-container {
     position: relative;
     bottom: -7px;
-    right: -7px;
-    margin: 9px;
+    right: 2px;
   }
 
   .cart-icon {
@@ -185,10 +163,10 @@ body {
 
   .cart-count {
     position: absolute;
-    top: 30%;
+    top: 29%;
     left: 54%;
     transform: translate(-50%, -50%);
-    color: rgb(176, 245, 251);
+    color: white;
     border-radius: 50%;
     padding: 4px 10px;
     font-size: 13px; /* تكبير حجم النص */
@@ -211,7 +189,8 @@ body {
   .cart-items {
     overflow-y: auto; /* السماح بالتمرير العمودي فقط للمنتجات المحفوظة */
     max-height: calc(100% - 60px); /* السماح بتحديد ارتفاع معقول للمنتجات */
-    width: 105.6%;
+  width: 105.4%;
+ 
   }
 
   .product-item {
@@ -240,13 +219,14 @@ body {
 </style>
 </head>
 <body>
-    <div class="search-container" id="searchContainer">
+    <div class="search-container">
         <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
-        <div class="cart-icon-container" id="cartIconContainer">
-            <div class="cart-icon" onclick="openCartPage()">
+        <div class="cart-icon-container">
+            <div class="cart-icon" onclick="toggleCart()">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
                   </svg>
+                  
                 <div class="cart-count" id="cartCount">0</div>
             </div>
         </div>
@@ -339,138 +319,18 @@ body {
                 updateCartCount();
             }
         }
-
-        function openCartPage() {
-            window.location.href = 'cart.html';
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    direction: rtl;
-    background-color: #ffffff;
-  }
-
-  .cart-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff;
-    z-index: 1000;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-
-  .cart-items {
-    overflow-y: auto;
-    max-height: calc(100% - 60px);
-    width: 105.6%;
-  }
-
-  .product-item {
-    width: 40px;
-    height: 200px;
-    margin: 10px;
-    background-color: #fffbfb;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-  }
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 11px;
-    border-bottom: 1px solid #ffffff;
-  }
-
-  .close-cart {
-    cursor: pointer;
-    color: red;
-    font-size: 20px;
-  }
-</style>
-</head>
-<body>
-    <div class="cart-page" id="cartPage">
-        <span class="close-cart" onclick="goBack()">&#10005; رجوع</span>
-        <h2>عربة التسوق</h2>
-        <div class="cart-items" id="cartItems"></div>
-    </div>
-
-    <script>
-        var cartCount = 0;
-
-        // تحميل العناصر من Local Storage عند تحميل الصفحة
-        window.onload = function() {
-            loadCartFromLocalStorage();
-        };
-
-        function removeFromCart(button) {
-            var cartItem = button.parentElement;
-            cartItem.remove();
-
-            // تحديث العداد
-            cartCount--;
-            updateCartCount();
-
-            // حفظ العربة في Local Storage
-            saveCartToLocalStorage();
-        }
-
-        function updateCartCount() {
-            document.getElementById('cartCount').innerText = cartCount;
-        }
-
-        function saveCartToLocalStorage() {
-            var cartItems = document.getElementById('cartItems').children;
-            var cartArray = [];
-
-            for (var i = 0; i < cartItems.length; i++) {
-                cartArray.push(cartItems[i].outerHTML);
-            }
-
-            localStorage.setItem('cart', JSON.stringify(cartArray));
-            localStorage.setItem('cartCount', cartCount);
-        }
-
-        function loadCartFromLocalStorage() {
-            var savedCart = JSON.parse(localStorage.getItem('cart'));
-            var savedCartCount = localStorage.getItem('cartCount');
-
-            if (savedCart && savedCartCount) {
-                var cartItemsContainer = document.getElementById('cartItems');
-                cartItemsContainer.innerHTML = '';
-
-                for (var i = 0; i < savedCart.length; i++) {
-                    cartItemsContainer.innerHTML += savedCart[i];
-                }
-
-                cartCount = parseInt(savedCartCount);
-                updateCartCount();
-            }
-        }
-
-        function goBack() {
-            window.history.back();
-        }
     </script>
 </body>
 </html>
 
+        
+        
 
-<br><br><br>
+
+</html>
+   </div>
+
+
 
 <script src="script.js"></script>
   </div>
@@ -495,17 +355,7 @@ body {
            
             <h2 style="font-size: 17px;">ساعة من فيترون</h2>
             <p>سوار بلون فضي في ذهبي </p>
-                <style>
-                    .hidden-text {
-                        display: none;
-                    }
-                </style>
-            </head>
-            <body>
-                <h1 class="hidden-text">رقم المنتج|1</h1>
-            </body>
-            </html>
-            
+         
                 <link rel="stylesheet" href="styles.css">
             </head>
             <body>
@@ -544,238 +394,194 @@ body {
             </html>
 
 
+
+
             
                 <!-- WhatsApp Message Button -->
+            
 
         </div>
         <div class="product-images">
-            <img src="1.jpg" alt="product" onclick ="openLightbox('1.jpg') ">
+            <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')">
         </div>
-        <div style="clear:both;"></div> 
+        <div style="clear:both;"></div>
+        <!DOCTYPE html>
+        <html lang="ar">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Button Styling</title>
+            <style>
+                button {
+                    background-color: #feb538;
+                    color: white; /* لون النص */
+                    border: none; /* إزالة الحدود */
+                    padding: 10px 20px; /* مساحة داخلية */
+                    text-align: center; /* محاذاة النص في الوسط */
+                    text-decoration: none; /* إزالة التزيين تحت النص */
+                    display: inline-block; /* عرض الزر كتلة داخلية */
+                    font-size: 16px; /* حجم الخط */
+                    margin: 4px 2px; /* هوامش */
+                    cursor: pointer; /* شكل المؤشر */
+                    border-radius: 11px; /* زوايا مستديرة */
+                    transition-duration: 0.4s; /* مدة الانتقال */
+                }
         
-
-
-
-        <style>
-            button {
-                background-color: #feb538;
-                color: white; /* لون النص */
-                border: none; /* إزالة الحدود */
-                padding: 10px 20px; /* مساحة داخلية */
-                text-align: center; /* محاذاة النص في الوسط */
-                text-decoration: none; /* إزالة التزيين تحت النص */
-                display: inline-block; /* عرض الزر كتلة داخلية */
-                font-size: 16px; /* حجم الخط */
-                margin: 4px 2px; /* هوامش */
-                cursor: pointer; /* شكل المؤشر */
-                border-radius: 11px; /* زوايا مستديرة */
-                transition-duration: 0.4s; /* مدة الانتقال */
-            }
+                button svg {
+                    vertical-align: middle; /* محاذاة الأيقونة مع النص */
+                }
         
-            button svg {
-                vertical-align: middle; /* محاذاة الأيقونة مع النص */
-            }
+                button:hover {
+                    background-color: white; /* لون الخلفية عند التمرير */
+                    color: black; /* لون النص عند التمرير */
+                    border: 2px solid #008CBA; /* حدود عند التمرير */
+                }
         
-            button:hover {
-                background-color: white; /* لون الخلفية عند التمرير */
-               
-                border: 1px solid #008CBA; /* حدود عند التمرير */
-            }
+                .buy-button {
+                    display: inline-block;
+                    padding: 9px 23px; /* مساحة داخلية متطابقة */
+                    font-size: 16px;
+                    color: #fff;
+                    background-color: #19d300;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 11px;
+                    transition: background-color 0.3s ease;
+                }
         
-            
-            .buy-button {
-                display: inline-block;
-                padding: 9px 23px; /* مساحة داخلية متطابقة */
-                font-size: 16px;
-                color: #fff;
-                background-color: #19d300;
-                text-align: center;
-                text-decoration: none;
-                border-radius: 11px;
-                 transition-duration: 0.4s; /* مدة الانتقال */
-            }
-            .buy-button:hover {
-                background-color: #0ec508;
-            }
-          
-        </style>
-        
+                .buy-button:hover {
+                    background-color: #0ec508;
+                }
+            </style>
         </head>
         <body>
         
-        <button onclick="addToCart(this)">    
-            <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-                <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
+            <button onclick="addToCart(this)">    
+                <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
+                    <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
         
-        
-    <br>
-    <head>
-        <style>
-            /* نمط النافذة المنبثقة */
-            .modal-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 1000;
-                display: none; /* مخفي افتراضياً */
-            }
-    
-            .modal-content {
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                text-align: center;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                width: 300px;
-            }
-    
-            .modal-content h4 {
-                font-family: 'Arial', sans-serif;
-                color: #5c5c5c;
-                margin-bottom: 20px;
-                font-size: 24px;
-            }
-    
-            .modal-content input {
-                width: 90%;
-                padding: 10px;
-                margin: 10px 0;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
-    
-            .modal-content .btn {
-                padding: 10px 20px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                margin: 5px;
-            }
-    
-            .modal-content .btn-primary {
-                background-color: #ff6200;
-                color: #fff;
-            }
-    
-            .modal-content .btn-primary:hover {
-                background-color: #fd5400;
-            }
-    
-            .modal-content .btn-secondary {
-                background-color: #6c757d;
-                color: #fff;
-            }
-    
-            .modal-content .btn-secondary:hover {
-                background-color: #5a6268;
-            }
+            <br>
             <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
-    <style>
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <!-- المنتج 1 -->
-    <div class="product">
-        <h2>اسم المنتج 1</h2>
-        <button type="button" class="buy-button" data-product-name="اسم المنتج 1" data-product-number="001">
-            اشترِ الآن
-        </button>
-    </div>
-
-    <!-- المنتج 2 -->
-    <div class="product">
-        <h2>اسم المنتج 2</h2>
-        <button type="button" class="buy-button" data-product-name="اسم المنتج لفيل" data-product-number="002">
-            اشترِ الآن
-        </button>
-    </div>
-
-    <!-- نافذة منبثقة مخصصة -->
-    <div class="modal-overlay" id="custom-modal">
-        <div class="modal-content">
-            <h4>Adger</h4>
-            <p>الرجاء إدخال اسمك الثلاثى ورقم الهاتف</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-            <input type="text" id="modal-phone-number" placeholder="أدخل رقم الهاتف">
-            <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-            <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-        </div>
-    </div>
-
-    <script>
-        // إضافة معالج حدث لكل زر "اشترِ الآن"
-        document.querySelectorAll('.buy-button').forEach(button => {
-            button.addEventListener('click', function() {
-                var productName = this.getAttribute('data-product-name');
-                var productNumber = this.getAttribute('data-product-number');
-
-                var fullName = localStorage.getItem('savedFullName') || '';
-
-                if (fullName === '') {
-                    document.getElementById('custom-modal').style.display = 'flex';
-                    document.getElementById('save-name').onclick = function() {
-                        var modalFullName = document.getElementById('modal-full-name').value.trim();
-                        var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
-
-                        if (modalFullName && modalPhoneNumber) {
-                            localStorage.setItem('savedFullName', modalFullName);
-                            document.getElementById('custom-modal').style.display = 'none';
-                            openEmail(productName, productNumber, modalFullName, modalPhoneNumber);
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>صفحة المنتج</title>
+                <style>
+                    /* استايل للنافذة المنبثقة */
+                    .popup {
+                        display: none;
+                        position: fixed;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        background-color: #fff;
+                        border: 1px solid #ccc;
+                        padding: 20px;
+                        z-index: 1000;
+                        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                        max-width: 400px;
+                        width: 100%;
+                        max-height: 80%;
+                        overflow-y: auto;
+                        text-align: center;
+                    }
+                    .popup h2 {
+                        font-size: 1.5em;
+                        margin-bottom: 20px;
+                    }
+                    .popup input {
+                        width: calc(100% - 20px);
+                        margin-bottom: 10px;
+                        padding: 10px;
+                        font-size: 1em;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                    }
+                    .popup button {
+                        background-color: #4CAF50;
+                        color: white;
+                        padding: 10px 20px;
+                        border: none;
+                        cursor: pointer;
+                        border-radius: 4px;
+                        font-size: 1em;
+                    }
+                    .close-btn {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        cursor: pointer;
+                        font-size: 1.2em;
+                    }
+                </style>
+            </head>
+            <body>
+                <!-- زر "اشترِ الآن" -->
+                <button id="buyNowBtn" class="buy-button">اشترِ الآن</button>
+            
+                <!-- النافذة المنبثقة -->
+                <div id="popup" class="popup">
+                    <span class="close-btn" onclick="closePopup()">×</span>
+                    <h2>أدخل الاسم ورقم الهاتف</h2>
+                    <form id="buyForm">
+                        <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
+                        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
+                        <button type="submit">موافق</button>
+                    </form>
+                </div>
+            
+                <script>
+                    var popup = document.getElementById('popup');
+                    var buyNowBtn = document.getElementById('buyNowBtn');
+            
+                    // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
+                    buyNowBtn.addEventListener('click', function() {
+                        popup.style.display = 'block';
+                    });
+            
+                    // إغلاق النافذة المنبثقة
+                    function closePopup() {
+                        popup.style.display = 'none';
+                    }
+            
+                    // عملية إرسال النموذج، يمكنك إضافة هنا البريد الإلكتروني أو الإجراء المطلوب
+                    document.getElementById('buyForm').addEventListener('submit', function(event) {
+                        event.preventDefault();
+            
+                        var name = document.getElementById('name').value;
+                        var phone = document.getElementById('phone').value;
+            
+                        // حفظ الاسم ورقم الهاتف في Local Storage
+                        localStorage.setItem('userName', name);
+                        localStorage.setItem('userPhone', phone);
+            
+                        // بعد الانتهاء من العملية، يمكن إغلاق النافذة المنبثقة
+                        closePopup();
+                    });
+            
+                    // عندما يتم النقر على زر "اشترِ الآن" بعد كتابة الاسم ورقم الهاتف، يتم تعبئة موضوع البريد الإلكتروني
+                    buyNowBtn.addEventListener('click', function() {
+                        var name = localStorage.getItem('userName');
+                        var phone = localStorage.getItem('userPhone');
+            
+                        if (name && phone) {
+                            var subject = 'شراء ساعة من فيترون';
+                            var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+                            var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                            window.open(mailtoLink);
                         } else {
-                            alert("يرجى إدخال كل من الاسم الثلاثى ورقم الهاتف.");
+                            // إذا لم يتم إدخال الاسم ورقم الهاتف بعد، قم بعرض النافذة المنبثقة لإدخالهما
+                            popup.style.display = 'block';
                         }
-                    };
-                } else {
-                    openEmail(productName, productNumber, fullName, '');
-                }
-            });
-        });
-
-        document.getElementById('cancel-name').addEventListener('click', function() {
-            document.getElementById('custom-modal').style.display = 'none';
-        });
-
-        function openEmail(productName, productNumber, fullName, phoneNumber) {
-            var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("اسم المنتج:صصص " + productName + "\nرقم المنتج: " + productNumber + "\nالاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
-            var mailtoLink = "mailto:officialemail@example.com?subject=" + subject + "&body=" + body;
-            window.open(mailtoLink, '_blank');
-        }
-    </script>
-</body>
-</html>
-</div>
+                    });
+                </script>
+            </body>
+            </html>
+    </div>
 
 
 
@@ -785,17 +591,6 @@ body {
             <p>قاعدة ماوس كبيرة الحجم لتناسب جميع أحجام الماوسات</p>
            
          
-            <style>
-                .hidden-text {
-                    display: none;
-                }
-            </style>
-        </head>
-        <body>
-            <h1 class="hidden-text">رقم المنتج|2</h1>
-        </body>
-        </html>
-        
             <link rel="stylesheet" href="styles.css">
         </head>
         <body>
@@ -813,7 +608,6 @@ body {
             }
             .custom-paragraph .star {
                 color: gold; /* لون النجوم المملوءة */
-                font-size: 21px;
             }
             .custom-paragraph .star.empty {
                 color: transparent; /* جعل النجوم الفارغة شفافة */
@@ -832,238 +626,40 @@ body {
         </p>
         </body>
         </html>
-
-
         
             <!-- WhatsApp Message Button -->
-
-    </div>
-    <div class="product-images">
-        <img src="2.jpg" alt="product" onclick ="openLightbox('2.jpg') ">
-    </div>
-    <div style="clear:both;"></div> 
-    
-
-
-
-<style>
-    button {
-        background-color: #feb538;
-        color: white; /* لون النص */
-        border: none; /* إزالة الحدود */
-        padding: 10px 20px; /* مساحة داخلية */
-        text-align: center; /* محاذاة النص في الوسط */
-        text-decoration: none; /* إزالة التزيين تحت النص */
-        display: inline-block; /* عرض الزر كتلة داخلية */
-        font-size: 16px; /* حجم الخط */
-        margin: 4px 2px; /* هوامش */
-        cursor: pointer; /* شكل المؤشر */
-        border-radius: 11px; /* زوايا مستديرة */
-        transition-duration: 0.4s; /* مدة الانتقال */
-    }
-
-    button svg {
-        vertical-align: middle; /* محاذاة الأيقونة مع النص */
-    }
-
-    button:hover {
-        background-color: white; /* لون الخلفية عند التمرير */
-       
-        border: 1px solid #008CBA; /* حدود عند التمرير */
-    }
-
-    
-    .buy-button {
-        display: inline-block;
-        padding: 9px 23px; /* مساحة داخلية متطابقة */
-        font-size: 16px;
-        color: #fff;
-        background-color: #19d300;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 11px;
-         transition-duration: 0.4s; /* مدة الانتقال */
-    }
-    .buy-button:hover {
-        background-color: #0ec508;
-    }
-  
-</style>
-
-</head>
-<body>
-
-<button onclick="addToCart(this)">    
-    <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-        <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-</button>
-
-<br>
-<head>
-    <style>
-        /* نمط النافذة المنبثقة */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            display: none; /* مخفي افتراضياً */
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        .modal-content h4 {
-            font-family: 'Arial', sans-serif;
-            color: #5c5c5c;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .modal-content input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .modal-content .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        .modal-content .btn-primary {
-            background-color: #ff6200;
-            color: #fff;
-        }
-
-        .modal-content .btn-primary:hover {
-            background-color: #fd5400;
-        }
-
-        .modal-content .btn-secondary {
-            background-color: #6c757d;
-            color: #fff;
-        }
-
-        .modal-content .btn-secondary:hover {
-            background-color: #5a6268;
-        }
-        <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
-    <style>
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <!-- المنتج 1 -->
-    <div class="product">
-        <h2>اسم المنتج 1</h2>
-        <button type="button" class="buy-button" data-product-name="اسم المنتج 1" data-product-number="001">
-            اشترِ الآن
-        </button>
-    </div>
-
-    <!-- المنتج 2 -->
-    <div class="product">
-        <h2>اسم المنتج 2</h2>
-        <button type="button" class="buy-button" data-product-name="اسم المنتج 2" data-product-number="002">
-            اشترِ الآن
-        </button>
-    </div>
-
-    <!-- نافذة منبثقة مخصصة -->
-    <div class="modal-overlay" id="custom-modal">
-        <div class="modal-content">
-            <h4>Adger</h4>
-            <p>الرجاء إدخال اسمك الثلاثى ورقم الهاتف</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-            <input type="text" id="modal-phone-number" placeholder="أدخل رقم الهاتف">
-            <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-            <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
+        
+                <style>
+                    .buy-button {
+                        display: inline-block;
+                        padding: 9px 23px;
+                        font-size: 16px;
+                        color: #fff;
+                        background-color: #19d300;
+                        text-align: center;
+                        text-decoration: none;
+                        border-radius: 11px;
+                        transition: background-color 0.3s ease;
+                    }
+            
+                    .buy-button:hover {
+                        background-color: #0ec508;
+                    }
+                </style>
+            </head>
+            <body>
+                <a href="https://wa.me/+201152366798?text=قاعدة ماوس                                الاسم الثلاثى:" target="_blank" class="buy-button">
+                    اشترِ الآن
+                </a>
+            </body>
+            </html>
+            </body>
+            </html>
         </div>
-    </div>
-
-    <script>
-        // إضافة معالج حدث لكل زر "اشترِ الآن"
-        document.querySelectorAll('.buy-button').forEach(button => {
-            button.addEventListener('click', function() {
-                var productName = this.getAttribute('data-product-name');
-                var productNumber = this.getAttribute('data-product-number');
-
-                var fullName = localStorage.getItem('savedFullName') || '';
-
-                if (fullName === '') {
-                    document.getElementById('custom-modal').style.display = 'flex';
-                    document.getElementById('save-name').onclick = function() {
-                        var modalFullName = document.getElementById('modal-full-name').value.trim();
-                        var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
-
-                        if (modalFullName && modalPhoneNumber) {
-                            localStorage.setItem('savedFullName', modalFullName);
-                            document.getElementById('custom-modal').style.display = 'none';
-                            openEmail(productName, productNumber, modalFullName, modalPhoneNumber);
-                        } else {
-                            alert("يرجى إدخال كل من الاسم الثلاثى ورقم الهاتف.");
-                        }
-                    };
-                } else {
-                    openEmail(productName, productNumber, fullName, '');
-                }
-            });
-        });
-
-        document.getElementById('cancel-name').addEventListener('click', function() {
-            document.getElementById('custom-modal').style.display = 'none';
-        });
-
-        function openEmail(productName, productNumber, fullName, phoneNumber) {
-            var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("اسم المنتج: " + productName + "\nرقم المنتج: " + productNumber + "\nالاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
-            var mailtoLink = "mailto:officialemail@example.com?subject=" + subject + "&body=" + body;
-            window.open(mailtoLink, '_blank');
-        }
-    </script>
-</body>
-</html>
+        <div class="product-images">
+            <img src="2.jpg" alt="product" onclick="openLightbox('2.jpg')">
+        </div>
+        <div style="clear:both;"></div>
     </div>
 
     <!-- Repeat the product structure for other products -->
@@ -1072,17 +668,7 @@ body {
         <div class="product-info">
             <h2 style="font-size: 17px;">ماوس لاسلكى من xo</h2>
             <p>G620,24HGZ</p>
-            <style>
-                .hidden-text {
-                    display: none;
-                }
-            </style>
-        </head>
-        <body>
-            <h1 class="hidden-text">رقم المنتج|3</h1>
-        </body>
-        </html>
-        
+          
             <link rel="stylesheet" href="styles.css">
         </head>
         <body>
@@ -1100,12 +686,11 @@ body {
             }
             .custom-paragraph .star {
                 color: gold; /* لون النجوم المملوءة */
-                font-size: 21px;
             }
             .custom-paragraph .star.empty {
                 color: transparent; /* جعل النجوم الفارغة شفافة */
                 -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
-               
+              
             }
         </style>
         </head>
@@ -1119,205 +704,156 @@ body {
         </p>
         </body>
         </html>
-
-
         
             <!-- WhatsApp Message Button -->
-
-    </div>
-    <div class="product-images">
-        <img src="3.jpg" alt="product" onclick ="openLightbox('3.jpg') ">
-    </div>
-    <div style="clear:both;"></div> 
-    
-
-
-
-<style>
-    button {
-        background-color: #feb538;
-        color: white; /* لون النص */
-        border: none; /* إزالة الحدود */
-        padding: 10px 20px; /* مساحة داخلية */
-        text-align: center; /* محاذاة النص في الوسط */
-        text-decoration: none; /* إزالة التزيين تحت النص */
-        display: inline-block; /* عرض الزر كتلة داخلية */
-        font-size: 16px; /* حجم الخط */
-        margin: 4px 2px; /* هوامش */
-        cursor: pointer; /* شكل المؤشر */
-        border-radius: 11px; /* زوايا مستديرة */
-        transition-duration: 0.4s; /* مدة الانتقال */
-    }
-
-    button svg {
-        vertical-align: middle; /* محاذاة الأيقونة مع النص */
-    }
-
-    button:hover {
-        background-color: white; /* لون الخلفية عند التمرير */
-       
-        border: 1px solid #008CBA; /* حدود عند التمرير */
-    }
-
-    
-    .buy-button {
-        display: inline-block;
-        padding: 9px 23px; /* مساحة داخلية متطابقة */
-        font-size: 16px;
-        color: #fff;
-        background-color: #19d300;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 11px;
-         transition-duration: 0.4s; /* مدة الانتقال */
-    }
-    .buy-button:hover {
-        background-color: #0ec508;
-    }
-  
-</style>
-
-</head>
-<body>
-
-<button onclick="addToCart(this)">    
-    <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-        <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-</button>
-
-<br>
-<head>
-    <style>
-        /* نمط النافذة المنبثقة */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            display: none; /* مخفي افتراضياً */
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        .modal-content h4 {
-            font-family: 'Arial', sans-serif;
-            color: #5c5c5c;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .modal-content input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .modal-content .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        .modal-content .btn-primary {
-            background-color: #ff6200;
-            color: #fff;
-        }
-
-        .modal-content .btn-primary:hover {
-            background-color: #fd5400;
-        }
-
-        .modal-content .btn-secondary {
-            background-color: #6c757d;
-            color: #fff;
-        }
-
-        .modal-content .btn-secondary:hover {
-            background-color: #5a6268;
-        }
-    </style>
-</head>
-<body>
-    <form id="whatsapp-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button3">
-            اشترِ الآن
-        </button>
-    </form>
-
-    <!-- نافذة منبثقة مخصصة -->
-    <div class="modal-overlay" id="custom-modal">
-        <div class="modal-content">
-            <h4>Adger</h4>
-            <p>الرجاء إدخال اسمك الثلاثى</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-            <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-            <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
+        
+                <style>
+                    .buy-button {
+                        display: inline-block;
+                        padding: 9px 23px;
+                        font-size: 16px;
+                        color: #fff;
+                        background-color: #19d300;
+                        text-align: center;
+                        text-decoration: none;
+                        border-radius: 11px;
+                        transition: background-color 0.3s ease;
+                    }
+            
+                    .buy-button:hover {
+                        background-color: #0ec508;
+                    }
+                </style>
+            </head>
+            <!DOCTYPE html>
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>صفحة المنتج</title>
+                <style>
+                    /* استايل للنافذة المنبثقة */
+                    .popup {
+                        display: none;
+                        position: fixed;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        background-color: #fff;
+                        border: 1px solid #ccc;
+                        padding: 20px;
+                        z-index: 1000;
+                        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                        max-width: 400px;
+                        width: 100%;
+                        max-height: 80%;
+                        overflow-y: auto;
+                        text-align: center;
+                    }
+                    .popup h2 {
+                        font-size: 1.5em;
+                        margin-bottom: 20px;
+                    }
+                    .popup input {
+                        width: calc(100% - 20px);
+                        margin-bottom: 10px;
+                        padding: 10px;
+                        font-size: 1em;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                    }
+                    .popup button {
+                        background-color: #4CAF50;
+                        color: white;
+                        padding: 10px 20px;
+                        border: none;
+                        cursor: pointer;
+                        border-radius: 4px;
+                        font-size: 1em;
+                    }
+                    .close-btn {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        cursor: pointer;
+                        font-size: 1.2em;
+                    }
+                </style>
+            </head>
+            <body>
+                <!-- زر "اشترِ الآن" -->
+                <button id="buyNowBtn" class="buy-button">اشترِ الآن</button>
+            
+                <!-- النافذة المنبثقة -->
+                <div id="popup" class="popup">
+                    <span class="close-btn" onclick="closePopup()">×</span>
+                    <h2>أدخل الاسم ورقم الهاتف</h2>
+                    <form id="buyForm">
+                        <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
+                        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
+                        <button type="submit">موافق</button>
+                    </form>
+                </div>
+            
+                <script>
+                    var popup = document.getElementById('popup');
+                    var buyNowBtn = document.getElementById('buyNowBtn');
+            
+                    // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
+                    buyNowBtn.addEventListener('click', function() {
+                        popup.style.display = 'block';
+                    });
+            
+                    // إغلاق النافذة المنبثقة
+                    function closePopup() {
+                        popup.style.display = 'none';
+                    }
+            
+                    // عملية إرسال النموذج، يمكنك إضافة هنا البريد الإلكتروني أو الإجراء المطلوب
+                    document.getElementById('buyForm').addEventListener('submit', function(event) {
+                        event.preventDefault();
+            
+                        var name = document.getElementById('name').value;
+                        var phone = document.getElementById('phone').value;
+            
+                        // حفظ الاسم ورقم الهاتف في Local Storage
+                        localStorage.setItem('userName', name);
+                        localStorage.setItem('userPhone', phone);
+            
+                        // بعد الانتهاء من العملية، يمكن إغلاق النافذة المنبثقة
+                        closePopup();
+                    });
+            
+                    // عندما يتم النقر على زر "اشترِ الآن" بعد كتابة الاسم ورقم الهاتف، يتم تعبئة موضوع البريد الإلكتروني
+                    buyNowBtn.addEventListener('click', function() {
+                        var name = localStorage.getItem('userName');
+                        var phone = localStorage.getItem('userPhone');
+            
+                        if (name && phone) {
+                            var subject = 'شراء  من فيترون';
+                            var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+                            var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                            window.open(mailtoLink);
+                        } else {
+                            // إذا لم يتم إدخال الاسم ورقم الهاتف بعد، قم بعرض النافذة المنبثقة لإدخالهما
+                            popup.style.display = 'block';
+                        }
+                    });
+                </script>
+            </body>
+            </html>
+            </html>
+            </body>
+            </html>
         </div>
-    </div>
-
-    <script>
-        // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-        var savedFullName = localStorage.getItem('savedFullName');
-        if (savedFullName) {
-            document.getElementById('full-name').value = savedFullName;
-        }
-
-        // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button3').addEventListener('click', function() {
-            var fullName = document.getElementById('full-name').value.trim();
-
-            if (fullName === '') {
-                document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-            } else {
-                openWhatsApp(fullName);
-            }
-        });
-
-        // معالجة حدث تأكيد الاسم في النافذة المنبثقة
-        document.getElementById('save-name').addEventListener('click', function() {
-            var modalFullName = document.getElementById('modal-full-name').value.trim();
-            if (modalFullName) {
-                localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                openWhatsApp(modalFullName);
-            }
-        });
-
-        // معالجة حدث إلغاء في النافذة المنبثقة
-        document.getElementById('cancel-name').addEventListener('click', function() {
-            document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-        });
-
-        // دالة لفتح نافذة واتساب مع الاسم المعطى
-        function openWhatsApp(fullName) {
-            var message = encodeURIComponent("ماوس لاسلكى من xo                                 رقم المنتج|3                                  الاسم الثلاثى:" + fullName);
-            var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-            window.open(whatsappLink, '_blank');
-        }
-    </script>
-</body>
+        <div class="product-images">
+            <img src="3.jpg" alt="product" onclick="openLightbox('3.jpg')">
+        </div>
+        <div style="clear:both;">
 
            
+
+        </div>
     </div>
 
     <div class="product">
@@ -1325,17 +861,6 @@ body {
             <h2 style="font-size: 17px;">كتاب ابق قوياً</h2>
             <p> ل ديمى لوفاتو <br>يتكلم الكتاب عن حكم شهيره ونصائح قويه</p>
            
-            <style>
-                .hidden-text {
-                    display: none;
-                }
-            </style>
-        </head>
-        <body>
-            <h1 class="hidden-text">رقم المنتج|4</h1>
-        </body>
-        </html>
-        
             <link rel="stylesheet" href="styles.css">
         </head>
         <body>
@@ -1346,259 +871,6 @@ body {
             </h3>
         </body>
         </html>
-        <style>
-            .custom-paragraph {
-                font-size: 22px;
-                direction: rtl; /* لضبط النص من اليمين إلى اليسار */
-            }
-            .custom-paragraph .star {
-                color: gold; /* لون النجوم المملوءة */
-                font-size: 21px;
-            }
-            .custom-paragraph .star.empty {
-                color: transparent; /* جعل النجوم الفارغة شفافة */
-                -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
-               
-            }
-        </style>
-        </head>
-        <body>
-        <p class="custom-paragraph">
-            <span class="star">★</span>
-            <span class="star">★</span>
-            <span class="star">★</span>
-            <span class="star">★</span>
-            <span class="star">★</span>
-        </p>
-        </body>
-        </html>
-
-
-        
-            <!-- WhatsApp Message Button -->
-
-    </div>
-    <div class="product-images">
-        <img src="4.jpg" alt="product" onclick ="openLightbox('4.jpg') ">
-    </div>
-    <div style="clear:both;"></div> 
-    
-
-
-
-<style>
-    button {
-        background-color: #feb538;
-        color: white; /* لون النص */
-        border: none; /* إزالة الحدود */
-        padding: 10px 20px; /* مساحة داخلية */
-        text-align: center; /* محاذاة النص في الوسط */
-        text-decoration: none; /* إزالة التزيين تحت النص */
-        display: inline-block; /* عرض الزر كتلة داخلية */
-        font-size: 16px; /* حجم الخط */
-        margin: 4px 2px; /* هوامش */
-        cursor: pointer; /* شكل المؤشر */
-        border-radius: 11px; /* زوايا مستديرة */
-        transition-duration: 0.4s; /* مدة الانتقال */
-    }
-
-    button svg {
-        vertical-align: middle; /* محاذاة الأيقونة مع النص */
-    }
-
-    button:hover {
-        background-color: white; /* لون الخلفية عند التمرير */
-       
-        border: 1px solid #008CBA; /* حدود عند التمرير */
-    }
-
-    
-    .buy-button {
-        display: inline-block;
-        padding: 9px 23px; /* مساحة داخلية متطابقة */
-        font-size: 16px;
-        color: #fff;
-        background-color: #19d300;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 11px;
-         transition-duration: 0.4s; /* مدة الانتقال */
-    }
-    .buy-button:hover {
-        background-color: #0ec508;
-    }
-  
-</style>
-
-</head>
-<body>
-
-<button onclick="addToCart(this)">    
-    <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-        <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-</button>
-
-<br>
-<head>
-    <style>
-        /* نمط النافذة المنبثقة */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            display: none; /* مخفي افتراضياً */
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        .modal-content h4 {
-            font-family: 'Arial', sans-serif;
-            color: #5c5c5c;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .modal-content input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .modal-content .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        .modal-content .btn-primary {
-            background-color: #ff6200;
-            color: #fff;
-        }
-
-        .modal-content .btn-primary:hover {
-            background-color: #fd5400;
-        }
-
-        .modal-content .btn-secondary {
-            background-color: #6c757d;
-            color: #fff;
-        }
-
-        .modal-content .btn-secondary:hover {
-            background-color: #5a6268;
-        }
-    </style>
-</head>
-<body>
-    <form id="whatsapp-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button4">
-            اشترِ الآن
-        </button>
-    </form>
-
-    <!-- نافذة منبثقة مخصصة -->
-    <div class="modal-overlay" id="custom-modal">
-        <div class="modal-content">
-            <h4>Adger</h4>
-            <p>الرجاء إدخال اسمك الثلاثى</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-            <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-            <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-        </div>
-    </div>
-
-    <script>
-        // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-        var savedFullName = localStorage.getItem('savedFullName');
-        if (savedFullName) {
-            document.getElementById('full-name').value = savedFullName;
-        }
-
-        // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button4').addEventListener('click', function() {
-            var fullName = document.getElementById('full-name').value.trim();
-
-            if (fullName === '') {
-                document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-            } else {
-                openWhatsApp(fullName);
-            }
-        });
-
-        // معالجة حدث تأكيد الاسم في النافذة المنبثقة
-        document.getElementById('save-name').addEventListener('click', function() {
-            var modalFullName = document.getElementById('modal-full-name').value.trim();
-            if (modalFullName) {
-                localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                openWhatsApp(modalFullName);
-            }
-        });
-
-        // معالجة حدث إلغاء في النافذة المنبثقة
-        document.getElementById('cancel-name').addEventListener('click', function() {
-            document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-        });
-
-        // دالة لفتح نافذة واتساب مع الاسم المعطى
-        function openWhatsApp(fullName) {
-            var message = encodeURIComponent("كتاب ابق قوياً                                 رقم المنتج|4                                  الاسم الثلاثى:" + fullName);
-            var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-            window.open(whatsappLink, '_blank');
-        }
-    </script>
-</body>
-    </div>
-
-
-
-    <div class="product">
-        <div class="product-info">
-            <h2 style="font-size: 17px;"> ستاند</h2>
-     <p>حامل للهاتف</p>
-            
-     <style>
-        .hidden-text {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <h1 class="hidden-text">رقم المنتج|5</h1>
-</body>
-</html>
-
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h3>
-        <span class="price-label">السعر:</span>
-        <span class="price-amount">45</span>
-        <span class="price-currency">جنيه</span>
-    </h3>
-</body>
-</html>
 <style>
     .custom-paragraph {
         font-size: 22px;
@@ -1606,7 +878,6 @@ body {
     }
     .custom-paragraph .star {
         color: gold; /* لون النجوم المملوءة */
-        font-size: 21px;
     }
     .custom-paragraph .star.empty {
         color: transparent; /* جعل النجوم الفارغة شفافة */
@@ -1621,207 +892,122 @@ body {
     <span class="star">★</span>
     <span class="star">★</span>
     <span class="star">★</span>
-    <span class="star empty">★</span>
+    <span class="star">★</span>
 </p>
 </body>
 </html>
 
-
-
     <!-- WhatsApp Message Button -->
 
-</div>
-<div class="product-images">
-<img src="5.jpg" alt="product" onclick ="openLightbox('5.jpg') ">
-</div>
-<div style="clear:both;"></div> 
+        <style>
+            .buy-button {
+                display: inline-block;
+                padding: 9px 23px;
+                font-size: 16px;
+                color: #fff;
+                background-color: #19d300;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 11px;
+                transition: background-color 0.3s ease;
+            }
+    
+            .buy-button:hover {
+                background-color: #0ec508;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="https://wa.me/+201152366798?text=كتاب ابق قوياً                              الاسم الثلاثى:" target="_blank" class="buy-button">
+            اشترِ الآن
+        </a>
+    </body>
+    </html>
+            </body>
+            </html>
+        </div>
+        <div class="product-images">
+            <img src="4.jpg" alt="product" onclick="openLightbox('4.jpg')">
+        </div>
+        <div style="clear:both;"></div>
+    </div>
 
 
 
-
-<style>
-button {
-background-color: #feb538;
-color: white; /* لون النص */
-border: none; /* إزالة الحدود */
-padding: 10px 20px; /* مساحة داخلية */
-text-align: center; /* محاذاة النص في الوسط */
-text-decoration: none; /* إزالة التزيين تحت النص */
-display: inline-block; /* عرض الزر كتلة داخلية */
-font-size: 16px; /* حجم الخط */
-margin: 4px 2px; /* هوامش */
-cursor: pointer; /* شكل المؤشر */
-border-radius: 11px; /* زوايا مستديرة */
-transition-duration: 0.4s; /* مدة الانتقال */
-}
-
-button svg {
-vertical-align: middle; /* محاذاة الأيقونة مع النص */
-}
-
-button:hover {
-background-color: white; /* لون الخلفية عند التمرير */
-
-border: 1px solid #008CBA; /* حدود عند التمرير */
-}
-
-
-.buy-button {
-display: inline-block;
-padding: 9px 23px; /* مساحة داخلية متطابقة */
-font-size: 16px;
-color: #fff;
-background-color: #19d300;
-text-align: center;
-text-decoration: none;
-border-radius: 11px;
- transition-duration: 0.4s; /* مدة الانتقال */
-}
-.buy-button:hover {
-background-color: #0ec508;
-}
-
-</style>
-
-</head>
-<body>
-
-<button onclick="addToCart(this)">    
-<svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-<path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</button>
-
-<br>
-<head>
-<style>
-/* نمط النافذة المنبثقة */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    display: none; /* مخفي افتراضياً */
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-
-.modal-content h4 {
-    font-family: 'Arial', sans-serif;
-    color: #5c5c5c;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
-.modal-content input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.modal-content .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-.modal-content .btn-primary {
-    background-color: #ff6200;
-    color: #fff;
-}
-
-.modal-content .btn-primary:hover {
-    background-color: #fd5400;
-}
-
-.modal-content .btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
-}
-
-.modal-content .btn-secondary:hover {
-    background-color: #5a6268;
-}
-</style>
-</head>
-<body>
-<form id="whatsapp-form">
-<input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-<button type="button" class="buy-button" id="buy-now-button5">
-    اشترِ الآن
-</button>
-</form>
-
-<!-- نافذة منبثقة مخصصة -->
-<div class="modal-overlay" id="custom-modal">
-<div class="modal-content">
-    <h4>Adger</h4>
-    <p>الرجاء إدخال اسمك الثلاثى</p>
-    <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-    <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-    <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-</div>
-</div>
-
-<script>
-// فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-var savedFullName = localStorage.getItem('savedFullName');
-if (savedFullName) {
-    document.getElementById('full-name').value = savedFullName;
-}
-
-// إضافة معالج حدث لزر "اشتر الآن"
-document.getElementById('buy-now-button5').addEventListener('click', function() {
-    var fullName = document.getElementById('full-name').value.trim();
-
-    if (fullName === '') {
-        document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-    } else {
-        openWhatsApp(fullName);
-    }
-});
-
-// معالجة حدث تأكيد الاسم في النافذة المنبثقة
-document.getElementById('save-name').addEventListener('click', function() {
-    var modalFullName = document.getElementById('modal-full-name').value.trim();
-    if (modalFullName) {
-        localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-        document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-        openWhatsApp(modalFullName);
-    }
-});
-
-// معالجة حدث إلغاء في النافذة المنبثقة
-document.getElementById('cancel-name').addEventListener('click', function() {
-    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-});
-
-// دالة لفتح نافذة واتساب مع الاسم المعطى
-function openWhatsApp(fullName) {
-    var message = encodeURIComponent("ستاند                                 رقم المنتج|5                                  الاسم الثلاثى:" + fullName);
-    var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-    window.open(whatsappLink, '_blank');
-}
-</script>
-</body>
+    <div class="product">
+        <div class="product-info">
+            <h2 style="font-size: 17px;"> ستاند</h2>
+     <p>حامل للهاتف</p>
+            
+     <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h3>
+            <span class="price-label">السعر:</span>
+            <span class="price-amount">45</span>
+            <span class="price-currency">جنيه</span>
+        </h3>
+    </body>
+    </html>
+    <style>
+        .custom-paragraph {
+            font-size: 22px;
+            direction: rtl; /* لضبط النص من اليمين إلى اليسار */
+        }
+        .custom-paragraph .star {
+            color: gold; /* لون النجوم المملوءة */
+        }
+        .custom-paragraph .star.empty {
+            color: transparent; /* جعل النجوم الفارغة شفافة */
+            -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
+          
+        }
+    </style>
+    </head>
+    <body>
+    <p class="custom-paragraph">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+    </p>
+    </body>
+    </html>
+    
+        <!-- WhatsApp Message Button -->
+    
+            <style>
+                .buy-button {
+                    display: inline-block;
+                    padding: 9px 23px;
+                    font-size: 16px;
+                    color: #fff;
+                    background-color: #19d300;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 11px;
+                    transition: background-color 0.3s ease;
+                }
+        
+                .buy-button:hover {
+                    background-color: #0ec508;
+                }
+            </style>
+        </head>
+        <body>
+            <a href="https://wa.me/+201152366798?text=ستاند                              الاسم الثلاثى:" target="_blank" class="buy-button">
+                اشترِ الآن
+            </a>
+        </body>
+        </html>
+            </body>
+            </html>
+        </div>
+        <div class="product-images">
+            <img src="5.jpg" alt="product" onclick="openLightbox('5.jpg')">
+        </div>
+        <div style="clear:both;"></div>
     </div>
 
 
@@ -1833,250 +1019,75 @@ function openWhatsApp(fullName) {
             <h2 style="font-size: 17px;">رينج لابت</h2>
                  <p>36 سم</p>
         
-                 <style>
-                    .hidden-text {
-                        display: none;
+                 <link rel="stylesheet" href="styles.css">
+                </head>
+                <body>
+                    <h3>
+                        <span class="price-label">السعر:</span>
+                        <span class="price-amount">50</span>
+                        <span class="price-currency">جنيه</span>
+                    </h3>
+                </body>
+                </html>
+                <style>
+                    .custom-paragraph {
+                        font-size: 22px;
+                        direction: rtl; /* لضبط النص من اليمين إلى اليسار */
+                    }
+                    .custom-paragraph .star {
+                        color: gold; /* لون النجوم المملوءة */
+                    }
+                    .custom-paragraph .star.empty {
+                        color: transparent; /* جعل النجوم الفارغة شفافة */
+                        -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
+                        
                     }
                 </style>
-            </head>
-            <body>
-                <h1 class="hidden-text">رقم المنتج|6</h1>
+                </head>
+                <body>
+                <p class="custom-paragraph">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </p>
+                </body>
+                </html>
+                
+                    <!-- WhatsApp Message Button -->
+                
+                        <style>
+                            .buy-button {
+                                display: inline-block;
+                                padding: 9px 23px;
+                                font-size: 16px;
+                                color: #fff;
+                                background-color: #19d300;
+                                text-align: center;
+                                text-decoration: none;
+                                border-radius: 11px;
+                                transition: background-color 0.3s ease;
+                            }
+                    
+                            .buy-button:hover {
+                                background-color: #0ec508;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <a href="https://wa.me/+201152366798?text=رينج لايت                              الاسم الثلاثى:" target="_blank" class="buy-button">
+                            اشترِ الآن
+                        </a>
+                    </body>
+                    </html>
             </body>
             </html>
-            
-                <link rel="stylesheet" href="styles.css">
-            </head>
-            <body>
-                <h3>
-                    <span class="price-label">السعر:</span>
-                    <span class="price-amount">50</span>
-                    <span class="price-currency">جنيه</span>
-                </h3>
-            </body>
-            </html>
-            <style>
-                .custom-paragraph {
-                    font-size: 22px;
-                    direction: rtl; /* لضبط النص من اليمين إلى اليسار */
-                }
-                .custom-paragraph .star {
-                    color: gold; /* لون النجوم المملوءة */
-                    font-size: 21px;
-                }
-                .custom-paragraph .star.empty {
-                    color: transparent; /* جعل النجوم الفارغة شفافة */
-                    -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
-                   
-                }
-            </style>
-            </head>
-            <body>
-            <p class="custom-paragraph">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-            </p>
-            </body>
-            </html>
-    
-    
-            
-                <!-- WhatsApp Message Button -->
-    
         </div>
         <div class="product-images">
-            <img src="6.jpg" alt="product" onclick ="openLightbox('6.jpg') ">
+            <img src="6.jpg" alt="product" onclick="openLightbox('6.jpg')">
         </div>
-        <div style="clear:both;"></div> 
-        
-    
-    
-    
-    <style>
-        button {
-            background-color: #feb538;
-            color: white; /* لون النص */
-            border: none; /* إزالة الحدود */
-            padding: 10px 20px; /* مساحة داخلية */
-            text-align: center; /* محاذاة النص في الوسط */
-            text-decoration: none; /* إزالة التزيين تحت النص */
-            display: inline-block; /* عرض الزر كتلة داخلية */
-            font-size: 16px; /* حجم الخط */
-            margin: 4px 2px; /* هوامش */
-            cursor: pointer; /* شكل المؤشر */
-            border-radius: 11px; /* زوايا مستديرة */
-            transition-duration: 0.4s; /* مدة الانتقال */
-        }
-    
-        button svg {
-            vertical-align: middle; /* محاذاة الأيقونة مع النص */
-        }
-    
-        button:hover {
-            background-color: white; /* لون الخلفية عند التمرير */
-           
-            border: 1px solid #008CBA; /* حدود عند التمرير */
-        }
-    
-        
-        .buy-button {
-            display: inline-block;
-            padding: 9px 23px; /* مساحة داخلية متطابقة */
-            font-size: 16px;
-            color: #fff;
-            background-color: #19d300;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 11px;
-             transition-duration: 0.4s; /* مدة الانتقال */
-        }
-        .buy-button:hover {
-            background-color: #0ec508;
-        }
-      
-    </style>
-    
-    </head>
-    <body>
-    
-    <button onclick="addToCart(this)">    
-        <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-            <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </button>
-    
-    <br>
-    <head>
-        <style>
-            /* نمط النافذة المنبثقة */
-            .modal-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 1000;
-                display: none; /* مخفي افتراضياً */
-            }
-    
-            .modal-content {
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                text-align: center;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                width: 300px;
-            }
-    
-            .modal-content h4 {
-                font-family: 'Arial', sans-serif;
-                color: #5c5c5c;
-                margin-bottom: 20px;
-                font-size: 24px;
-            }
-    
-            .modal-content input {
-                width: 90%;
-                padding: 10px;
-                margin: 10px 0;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
-    
-            .modal-content .btn {
-                padding: 10px 20px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                margin: 5px;
-            }
-    
-            .modal-content .btn-primary {
-                background-color: #ff6200;
-                color: #fff;
-            }
-    
-            .modal-content .btn-primary:hover {
-                background-color: #fd5400;
-            }
-    
-            .modal-content .btn-secondary {
-                background-color: #6c757d;
-                color: #fff;
-            }
-    
-            .modal-content .btn-secondary:hover {
-                background-color: #5a6268;
-            }
-        </style>
-    </head>
-    <body>
-        <form id="whatsapp-form">
-            <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-            <button type="button" class="buy-button" id="buy-now-button6">
-                اشترِ الآن
-            </button>
-        </form>
-    
-        <!-- نافذة منبثقة مخصصة -->
-        <div class="modal-overlay" id="custom-modal">
-            <div class="modal-content">
-                <h4>Adger</h4>
-                <p>الرجاء إدخال اسمك الثلاثى</p>
-                <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-                <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-                <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-            </div>
-        </div>
-    
-        <script>
-            // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-            var savedFullName = localStorage.getItem('savedFullName');
-            if (savedFullName) {
-                document.getElementById('full-name').value = savedFullName;
-            }
-    
-            // إضافة معالج حدث لزر "اشتر الآن"
-            document.getElementById('buy-now-button6').addEventListener('click', function() {
-                var fullName = document.getElementById('full-name').value.trim();
-    
-                if (fullName === '') {
-                    document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-                } else {
-                    openWhatsApp(fullName);
-                }
-            });
-    
-            // معالجة حدث تأكيد الاسم في النافذة المنبثقة
-            document.getElementById('save-name').addEventListener('click', function() {
-                var modalFullName = document.getElementById('modal-full-name').value.trim();
-                if (modalFullName) {
-                    localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-                    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                    openWhatsApp(modalFullName);
-                }
-            });
-    
-            // معالجة حدث إلغاء في النافذة المنبثقة
-            document.getElementById('cancel-name').addEventListener('click', function() {
-                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-            });
-    
-            // دالة لفتح نافذة واتساب مع الاسم المعطى
-            function openWhatsApp(fullName) {
-                var message = encodeURIComponent("رينج لايت                                 رقم المنتج|6                                  الاسم الثلاثى:" + fullName);
-                var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-                window.open(whatsappLink, '_blank');
-            }
-        </script>
-    </body>
+        <div style="clear:both;"></div>
     </div>
 
 
@@ -2089,18 +1100,247 @@ function openWhatsApp(fullName) {
             <h2 style="font-size: 17px;">طاولة لابتوب وتابلت</h2>
     <p>اللون خشبى</p>
             
+    <link rel="stylesheet" href="styles.css">
+        </head>
+        <body>
+            <h3>
+                <span class="price-label">السعر:</span>
+                <span class="price-amount">195</span>
+                <span class="price-currency">جنيه</span>
+            </h3>
+        </body>
+        </html>
+        <style>
+            .custom-paragraph {
+                font-size: 22px;
+                direction: rtl; /* لضبط النص من اليمين إلى اليسار */
+            }
+            .custom-paragraph .star {
+                color: gold; /* لون النجوم المملوءة */
+            }
+            .custom-paragraph .star.empty {
+                color: transparent; /* جعل النجوم الفارغة شفافة */
+                -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
+               
+            }
+        </style>
+        </head>
+        <body>
+        <p class="custom-paragraph">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+        </p>
+        </body>
+        </html>
+        
+            <!-- WhatsApp Message Button -->
+        
+                <style>
+                    .buy-button {
+                        display: inline-block;
+                        padding: 9px 23px;
+                        font-size: 16px;
+                        color: #fff;
+                        background-color: #19d300;
+                        text-align: center;
+                        text-decoration: none;
+                        border-radius: 11px;
+                        transition: background-color 0.3s ease;
+                    }
+            
+                    .buy-button:hover {
+                        background-color: #0ec508;
+                    }
+                </style>
+            </head>
+            <body>
+                <a href="https://wa.me/+201152366798?text=طاولة لابتوب وتابلت                              الاسم الثلاثى:" target="_blank" class="buy-button">
+                    اشترِ الآن
+                </a>
+            </body>
+            </html>
+            </body>
+            </html>
+        </div>
+        <div class="product-images">
+            <img src="7.jpg" alt="product" onclick="openLightbox('7.jpg')">
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+
+
+
+    <div class="product">
+        <div class="product-info">
+            <h2 style="font-size: 17px;">تابلت  بشاشة LED محمول</h2>
+     <p>8.5 بوصه للرسم وغيره مزوده بذاكره لحفظ الملاحظات</p>
+     <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h3>
+            <span class="price-label">السعر:</span>
+            <span class="price-amount">70</span>
+            <span class="price-currency">جنيه</span>
+        </h3>
+    </body>
+    </html>
     <style>
-        .hidden-text {
-            display: none;
+        .custom-paragraph {
+            font-size: 22px;
+            direction: rtl; /* لضبط النص من اليمين إلى اليسار */
+        }
+        .custom-paragraph .star {
+            color: gold; /* لون النجوم المملوءة */
+        }
+        .custom-paragraph .star.empty {
+            color: transparent; /* جعل النجوم الفارغة شفافة */
+            -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
+            
         }
     </style>
-</head>
-<body>
-    <h1 class="hidden-text">رقم المنتج|7</h1>
-</body>
-</html>
+    </head>
+    <body>
+    <p class="custom-paragraph">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+    </p>
+    </body>
+    </html>
+    
+        <!-- WhatsApp Message Button -->
+    
+            <style>
+                .buy-button {
+                    display: inline-block;
+                    padding: 9px 23px;
+                    font-size: 16px;
+                    color: #fff;
+                    background-color: #19d300;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 11px;
+                    transition: background-color 0.3s ease;
+                }
+        
+                .buy-button:hover {
+                    background-color: #0ec508;
+                }
+            </style>
+        </head>
+        <body>
+            <a href="https://wa.me/+201152366798?text=تابلت بشاشة LED محمول                                الاسم الثلاثى:" target="_blank" class="buy-button">
+                اشترِ الآن
+            </a>
+        </body>
+        </html>
+            </body>
+            </html>
+        </div>
+        <div class="product-images">
+            <img src="8.jpg" alt="product" onclick="openLightbox('8.jpg')">
+        </div>
+        <div style="clear:both;"></div>
+    </div>
 
-    <link rel="stylesheet" href="styles.css">
+
+
+
+
+    <div class="product">
+        <div class="product-info">
+            <h2 style="font-size: 17px;">حامل لابتوب الومنيوم</h2>
+     <p>قابل للتعديل والطى </p>
+           
+     <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h3>
+            <span class="price-label">السعر:</span>
+            <span class="price-amount">145</span>
+            <span class="price-currency">جنيه</span>
+        </h3>
+    </body>
+    </html>
+    <style>
+        .custom-paragraph {
+            font-size: 22px;
+            direction: rtl; /* لضبط النص من اليمين إلى اليسار */
+        }
+        .custom-paragraph .star {
+            color: gold; /* لون النجوم المملوءة */
+        }
+        .custom-paragraph .star.empty {
+            color: transparent; /* جعل النجوم الفارغة شفافة */
+            -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
+          
+        }
+    </style>
+    </head>
+    <body>
+    <p class="custom-paragraph">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+    </p>
+    </body>
+    </html>
+    
+        <!-- WhatsApp Message Button -->
+    
+            <style>
+                .buy-button {
+                    display: inline-block;
+                    padding: 9px 23px;
+                    font-size: 16px;
+                    color: #fff;
+                    background-color: #19d300;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 11px;
+                    transition: background-color 0.3s ease;
+                }
+        
+                .buy-button:hover {
+                    background-color: #0ec508;
+                }
+            </style>
+        </head>
+        <body>
+            <a href="https://wa.me/+201152366798?text=حامل لابتوب الومنيوم                                 الاسم الثلاثى:" target="_blank" class="buy-button">
+                اشترِ الآن
+            </a>
+        </body>
+        </html>
+            </body>
+            </html>
+        </div>
+        <div class="product-images">
+            <img src="9.jpg" alt="product" onclick="openLightbox('9.jpg')">
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="product">
+        <div class="product-info">
+            <h2 style="font-size: 17px;">كتاب ريش داد بور داد</h2>
+<p> الأب الغنى والأب الفقير ل روبيرت كيوزاكى</p>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h3>
@@ -2117,7 +1357,6 @@ function openWhatsApp(fullName) {
     }
     .custom-paragraph .star {
         color: gold; /* لون النجوم المملوءة */
-        font-size: 21px;
     }
     .custom-paragraph .star.empty {
         color: transparent; /* جعل النجوم الفارغة شفافة */
@@ -2137,967 +1376,39 @@ function openWhatsApp(fullName) {
 </body>
 </html>
 
-
-
     <!-- WhatsApp Message Button -->
 
-</div>
-<div class="product-images">
-<img src="7.jpg" alt="product" onclick ="openLightbox('7.jpg') ">
-</div>
-<div style="clear:both;"></div> 
-
-
-
-
-<style>
-button {
-background-color: #feb538;
-color: white; /* لون النص */
-border: none; /* إزالة الحدود */
-padding: 10px 20px; /* مساحة داخلية */
-text-align: center; /* محاذاة النص في الوسط */
-text-decoration: none; /* إزالة التزيين تحت النص */
-display: inline-block; /* عرض الزر كتلة داخلية */
-font-size: 16px; /* حجم الخط */
-margin: 4px 2px; /* هوامش */
-cursor: pointer; /* شكل المؤشر */
-border-radius: 11px; /* زوايا مستديرة */
-transition-duration: 0.4s; /* مدة الانتقال */
-}
-
-button svg {
-vertical-align: middle; /* محاذاة الأيقونة مع النص */
-}
-
-button:hover {
-background-color: white; /* لون الخلفية عند التمرير */
-
-border: 1px solid #008CBA; /* حدود عند التمرير */
-}
-
-
-.buy-button {
-display: inline-block;
-padding: 9px 23px; /* مساحة داخلية متطابقة */
-font-size: 16px;
-color: #fff;
-background-color: #19d300;
-text-align: center;
-text-decoration: none;
-border-radius: 11px;
- transition-duration: 0.4s; /* مدة الانتقال */
-}
-.buy-button:hover {
-background-color: #0ec508;
-}
-
-</style>
-
-</head>
-<body>
-
-<button onclick="addToCart(this)">    
-<svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-<path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</button>
-
-<br>
-<head>
-<style>
-/* نمط النافذة المنبثقة */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    display: none; /* مخفي افتراضياً */
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-
-.modal-content h4 {
-    font-family: 'Arial', sans-serif;
-    color: #5c5c5c;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
-.modal-content input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.modal-content .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-.modal-content .btn-primary {
-    background-color: #ff6200;
-    color: #fff;
-}
-
-.modal-content .btn-primary:hover {
-    background-color: #fd5400;
-}
-
-.modal-content .btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
-}
-
-.modal-content .btn-secondary:hover {
-    background-color: #5a6268;
-}
-</style>
-</head>
-<body>
-<form id="whatsapp-form">
-<input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-<button type="button" class="buy-button" id="buy-now-button7">
-    اشترِ الآن
-</button>
-</form>
-
-<!-- نافذة منبثقة مخصصة -->
-<div class="modal-overlay" id="custom-modal">
-<div class="modal-content">
-    <h4>Adger</h4>
-    <p>الرجاء إدخال اسمك الثلاثى</p>
-    <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-    <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-    <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-</div>
-</div>
-
-<script>
-// فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-var savedFullName = localStorage.getItem('savedFullName');
-if (savedFullName) {
-    document.getElementById('full-name').value = savedFullName;
-}
-
-// إضافة معالج حدث لزر "اشتر الآن"
-document.getElementById('buy-now-button7').addEventListener('click', function() {
-    var fullName = document.getElementById('full-name').value.trim();
-
-    if (fullName === '') {
-        document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-    } else {
-        openWhatsApp(fullName);
-    }
-});
-
-// معالجة حدث تأكيد الاسم في النافذة المنبثقة
-document.getElementById('save-name').addEventListener('click', function() {
-    var modalFullName = document.getElementById('modal-full-name').value.trim();
-    if (modalFullName) {
-        localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-        document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-        openWhatsApp(modalFullName);
-    }
-});
-
-// معالجة حدث إلغاء في النافذة المنبثقة
-document.getElementById('cancel-name').addEventListener('click', function() {
-    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-});
-
-// دالة لفتح نافذة واتساب مع الاسم المعطى
-function openWhatsApp(fullName) {
-    var message = encodeURIComponent("طاولة لابتوب وتابلت                                 رقم المنتج|7                                  الاسم الثلاثى:" + fullName);
-    var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-    window.open(whatsappLink, '_blank');
-}
-</script>
-</body>
-    </div>
-
-
-
-
-    <div class="product">
-        <div class="product-info">
-            <h2 style="font-size: 17px;">تابلت  بشاشة LED محمول</h2>
-     <p>8.5 بوصه للرسم وغيره مزوده بذاكره لحفظ الملاحظات</p>
-     <style>
-        .hidden-text {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <h1 class="hidden-text">رقم المنتج|8</h1>
-</body>
-</html>
-
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h3>
-        <span class="price-label">السعر:</span>
-        <span class="price-amount">70</span>
-        <span class="price-currency">جنيه</span>
-    </h3>
-</body>
-</html>
-<style>
-    .custom-paragraph {
-        font-size: 22px;
-        direction: rtl; /* لضبط النص من اليمين إلى اليسار */
-    }
-    .custom-paragraph .star {
-        color: gold; /* لون النجوم المملوءة */
-        font-size: 21px;
-    }
-    .custom-paragraph .star.empty {
-        color: transparent; /* جعل النجوم الفارغة شفافة */
-        -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
-       
-    }
-</style>
-</head>
-<body>
-<p class="custom-paragraph">
-    <span class="star">★</span>
-    <span class="star">★</span>
-    <span class="star">★</span>
-    <span class="star">★</span>
-    <span class="star">★</span>
-</p>
-</body>
-</html>
-
-
-
-    <!-- WhatsApp Message Button -->
-
-</div>
-<div class="product-images">
-<img src="8.jpg" alt="product" onclick ="openLightbox('8.jpg') ">
-</div>
-<div style="clear:both;"></div> 
-
-
-
-
-<style>
-button {
-background-color: #feb538;
-color: white; /* لون النص */
-border: none; /* إزالة الحدود */
-padding: 10px 20px; /* مساحة داخلية */
-text-align: center; /* محاذاة النص في الوسط */
-text-decoration: none; /* إزالة التزيين تحت النص */
-display: inline-block; /* عرض الزر كتلة داخلية */
-font-size: 16px; /* حجم الخط */
-margin: 4px 2px; /* هوامش */
-cursor: pointer; /* شكل المؤشر */
-border-radius: 11px; /* زوايا مستديرة */
-transition-duration: 0.4s; /* مدة الانتقال */
-}
-
-button svg {
-vertical-align: middle; /* محاذاة الأيقونة مع النص */
-}
-
-button:hover {
-background-color: white; /* لون الخلفية عند التمرير */
-
-border: 1px solid #008CBA; /* حدود عند التمرير */
-}
-
-
-.buy-button {
-display: inline-block;
-padding: 9px 23px; /* مساحة داخلية متطابقة */
-font-size: 16px;
-color: #fff;
-background-color: #19d300;
-text-align: center;
-text-decoration: none;
-border-radius: 11px;
- transition-duration: 0.4s; /* مدة الانتقال */
-}
-.buy-button:hover {
-background-color: #0ec508;
-}
-
-</style>
-
-</head>
-<body>
-
-<button onclick="addToCart(this)">    
-<svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-<path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</button>
-
-<br>
-<head>
-<style>
-/* نمط النافذة المنبثقة */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    display: none; /* مخفي افتراضياً */
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-
-.modal-content h4 {
-    font-family: 'Arial', sans-serif;
-    color: #5c5c5c;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
-.modal-content input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.modal-content .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-.modal-content .btn-primary {
-    background-color: #ff6200;
-    color: #fff;
-}
-
-.modal-content .btn-primary:hover {
-    background-color: #fd5400;
-}
-
-.modal-content .btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
-}
-
-.modal-content .btn-secondary:hover {
-    background-color: #5a6268;
-}
-</style>
-</head>
-<body>
-<form id="whatsapp-form">
-<input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-<button type="button" class="buy-button" id="buy-now-button8">
-    اشترِ الآن
-</button>
-</form>
-
-<!-- نافذة منبثقة مخصصة -->
-<div class="modal-overlay" id="custom-modal">
-<div class="modal-content">
-    <h4>Adger</h4>
-    <p>الرجاء إدخال اسمك الثلاثى</p>
-    <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-    <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-    <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-</div>
-</div>
-
-<script>
-// فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-var savedFullName = localStorage.getItem('savedFullName');
-if (savedFullName) {
-    document.getElementById('full-name').value = savedFullName;
-}
-
-// إضافة معالج حدث لزر "اشتر الآن"
-document.getElementById('buy-now-button8').addEventListener('click', function() {
-    var fullName = document.getElementById('full-name').value.trim();
-
-    if (fullName === '') {
-        document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-    } else {
-        openWhatsApp(fullName);
-    }
-});
-
-// معالجة حدث تأكيد الاسم في النافذة المنبثقة
-document.getElementById('save-name').addEventListener('click', function() {
-    var modalFullName = document.getElementById('modal-full-name').value.trim();
-    if (modalFullName) {
-        localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-        document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-        openWhatsApp(modalFullName);
-    }
-});
-
-// معالجة حدث إلغاء في النافذة المنبثقة
-document.getElementById('cancel-name').addEventListener('click', function() {
-    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-});
-
-// دالة لفتح نافذة واتساب مع الاسم المعطى
-function openWhatsApp(fullName) {
-    var message = encodeURIComponent("تابلت بشاشة LED محمول                                 رقم المنتج|8                                  الاسم الثلاثى:" + fullName);
-    var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-    window.open(whatsappLink, '_blank');
-}
-</script>
-</body>
-    </div>
-
-
-
-
-
-    <div class="product">
-        <div class="product-info">
-            <h2 style="font-size: 17px;">حامل لابتوب الومنيوم</h2>
-     <p>قابل للتعديل والطى </p>
-           
-     <style>
-        .hidden-text {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <h1 class="hidden-text">رقم المنتج|9</h1>
-</body>
-</html>
-
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h3>
-        <span class="price-label">السعر:</span>
-        <span class="price-amount">150</span>
-        <span class="price-currency">جنيه</span>
-    </h3>
-</body>
-</html>
-<style>
-    .custom-paragraph {
-        font-size: 22px;
-        direction: rtl; /* لضبط النص من اليمين إلى اليسار */
-    }
-    .custom-paragraph .star {
-        color: gold; /* لون النجوم المملوءة */
-        font-size: 21px;
-    }
-    .custom-paragraph .star.empty {
-        color: transparent; /* جعل النجوم الفارغة شفافة */
-        -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
-       
-    }
-</style>
-</head>
-<body>
-<p class="custom-paragraph">
-    <span class="star">★</span>
-    <span class="star">★</span>
-    <span class="star">★</span>
-    <span class="star">★</span>
-    <span class="star">★</span>
-</p>
-</body>
-</html>
-
-
-
-    <!-- WhatsApp Message Button -->
-
-</div>
-<div class="product-images">
-<img src="9.jpg" alt="product" onclick ="openLightbox('9.jpg') ">
-</div>
-<div style="clear:both;"></div> 
-
-
-
-
-<style>
-button {
-background-color: #feb538;
-color: white; /* لون النص */
-border: none; /* إزالة الحدود */
-padding: 10px 20px; /* مساحة داخلية */
-text-align: center; /* محاذاة النص في الوسط */
-text-decoration: none; /* إزالة التزيين تحت النص */
-display: inline-block; /* عرض الزر كتلة داخلية */
-font-size: 16px; /* حجم الخط */
-margin: 4px 2px; /* هوامش */
-cursor: pointer; /* شكل المؤشر */
-border-radius: 11px; /* زوايا مستديرة */
-transition-duration: 0.4s; /* مدة الانتقال */
-}
-
-button svg {
-vertical-align: middle; /* محاذاة الأيقونة مع النص */
-}
-
-button:hover {
-background-color: white; /* لون الخلفية عند التمرير */
-
-border: 1px solid #008CBA; /* حدود عند التمرير */
-}
-
-
-.buy-button {
-display: inline-block;
-padding: 9px 23px; /* مساحة داخلية متطابقة */
-font-size: 16px;
-color: #fff;
-background-color: #19d300;
-text-align: center;
-text-decoration: none;
-border-radius: 11px;
- transition-duration: 0.4s; /* مدة الانتقال */
-}
-.buy-button:hover {
-background-color: #0ec508;
-}
-
-</style>
-
-</head>
-<body>
-
-<button onclick="addToCart(this)">    
-<svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-<path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</button>
-
-<br>
-<head>
-<style>
-/* نمط النافذة المنبثقة */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    display: none; /* مخفي افتراضياً */
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-
-.modal-content h4 {
-    font-family: 'Arial', sans-serif;
-    color: #5c5c5c;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
-.modal-content input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.modal-content .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-.modal-content .btn-primary {
-    background-color: #ff6200;
-    color: #fff;
-}
-
-.modal-content .btn-primary:hover {
-    background-color: #fd5400;
-}
-
-.modal-content .btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
-}
-
-.modal-content .btn-secondary:hover {
-    background-color: #5a6268;
-}
-</style>
-</head>
-<body>
-<form id="whatsapp-form">
-<input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-<button type="button" class="buy-button" id="buy-now-button9">
-    اشترِ الآن
-</button>
-</form>
-
-<!-- نافذة منبثقة مخصصة -->
-<div class="modal-overlay" id="custom-modal">
-<div class="modal-content">
-    <h4>Adger</h4>
-    <p>الرجاء إدخال اسمك الثلاثى</p>
-    <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-    <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-    <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-</div>
-</div>
-
-<script>
-// فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-var savedFullName = localStorage.getItem('savedFullName');
-if (savedFullName) {
-    document.getElementById('full-name').value = savedFullName;
-}
-
-// إضافة معالج حدث لزر "اشتر الآن"
-document.getElementById('buy-now-button9').addEventListener('click', function() {
-    var fullName = document.getElementById('full-name').value.trim();
-
-    if (fullName === '') {
-        document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-    } else {
-        openWhatsApp(fullName);
-    }
-});
-
-// معالجة حدث تأكيد الاسم في النافذة المنبثقة
-document.getElementById('save-name').addEventListener('click', function() {
-    var modalFullName = document.getElementById('modal-full-name').value.trim();
-    if (modalFullName) {
-        localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-        document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-        openWhatsApp(modalFullName);
-    }
-});
-
-// معالجة حدث إلغاء في النافذة المنبثقة
-document.getElementById('cancel-name').addEventListener('click', function() {
-    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-});
-
-// دالة لفتح نافذة واتساب مع الاسم المعطى
-function openWhatsApp(fullName) {
-    var message = encodeURIComponent("حامل لابتوب الومنيوم                                 رقم المنتج|9                                  الاسم الثلاثى:" + fullName);
-    var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-    window.open(whatsappLink, '_blank');
-}
-</script>
-</body>
-    </div>
-
-
-
-
-
-
-
-
-    <div class="product">
-        <div class="product-info">
-            <h2 style="font-size: 17px;">كتاب ريش داد بور داد</h2>
-<p> الأب الغنى والأب الفقير ل روبيرت كيوزاكى</p>
-<style>
-    .hidden-text {
-        display: none;
-    }
-</style>
-</head>
-<body>
-<h1 class="hidden-text">رقم المنتج|10</h1>
-</body>
-</html>
-
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<h3>
-    <span class="price-label">السعر:</span>
-    <span class="price-amount">196</span>
-    <span class="price-currency">جنيه</span>
-</h3>
-</body>
-</html>
-<style>
-.custom-paragraph {
-    font-size: 22px;
-    direction: rtl; /* لضبط النص من اليمين إلى اليسار */
-}
-.custom-paragraph .star {
-    color: gold; /* لون النجوم المملوءة */
-    font-size: 21px;
-}
-.custom-paragraph .star.empty {
-    color: transparent; /* جعل النجوم الفارغة شفافة */
-    -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
-   
-}
-</style>
-</head>
-<body>
-<p class="custom-paragraph">
-<span class="star">★</span>
-<span class="star">★</span>
-<span class="star">★</span>
-<span class="star">★</span>
-<span class="star">★</span>
-</p>
-</body>
-</html>
-
-
-
-<!-- WhatsApp Message Button -->
-
-</div>
-<div class="product-images">
-<img src="10.jpg" alt="product" onclick ="openLightbox('10.jpg') ">
-</div>
-<div style="clear:both;"></div> 
-
-
-
-<style>
-button {
-background-color: #feb538;
-color: white; /* لون النص */
-border: none; /* إزالة الحدود */
-padding: 10px 20px; /* مساحة داخلية */
-text-align: center; /* محاذاة النص في الوسط */
-text-decoration: none; /* إزالة التزيين تحت النص */
-display: inline-block; /* عرض الزر كتلة داخلية */
-font-size: 16px; /* حجم الخط */
-margin: 4px 2px; /* هوامش */
-cursor: pointer; /* شكل المؤشر */
-border-radius: 11px; /* زوايا مستديرة */
-transition-duration: 0.4s; /* مدة الانتقال */
-}
-
-button svg {
-vertical-align: middle; /* محاذاة الأيقونة مع النص */
-}
-
-button:hover {
-background-color: white; /* لون الخلفية عند التمرير */
-
-border: 1px solid #008CBA; /* حدود عند التمرير */
-}
-
-
-.buy-button {
-display: inline-block;
-padding: 9px 23px; /* مساحة داخلية متطابقة */
-font-size: 16px;
-color: #fff;
-background-color: #19d300;
-text-align: center;
-text-decoration: none;
-border-radius: 11px;
-transition-duration: 0.4s; /* مدة الانتقال */
-}
-.buy-button:hover {
-background-color: #0ec508;
-}
-
-</style>
-
-</head>
-<body>
-
-<button onclick="addToCart(this)">    
-<svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-<path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</button>
-
-<br>
-<head>
-<style>
-/* نمط النافذة المنبثقة */
-.modal-overlay {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.5);
-display: flex;
-justify-content: center;
-align-items: center;
-z-index: 1000;
-display: none; /* مخفي افتراضياً */
-}
-
-.modal-content {
-background-color: #fff;
-padding: 20px;
-border-radius: 8px;
-text-align: center;
-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-width: 300px;
-}
-
-.modal-content h4 {
-font-family: 'Arial', sans-serif;
-color: #5c5c5c;
-margin-bottom: 20px;
-font-size: 24px;
-}
-
-.modal-content input {
-width: 90%;
-padding: 10px;
-margin: 10px 0;
-border: 1px solid #ccc;
-border-radius: 4px;
-}
-
-.modal-content .btn {
-padding: 10px 20px;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-margin: 5px;
-}
-
-.modal-content .btn-primary {
-background-color: #ff6200;
-color: #fff;
-}
-
-.modal-content .btn-primary:hover {
-background-color: #fd5400;
-}
-
-.modal-content .btn-secondary {
-background-color: #6c757d;
-color: #fff;
-}
-
-.modal-content .btn-secondary:hover {
-background-color: #5a6268;
-}
-</style>
-</head>
-<body>
-<form id="whatsapp-form">
-<input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-<button type="button" class="buy-button" id="buy-now-button10">
-اشترِ الآن
-</button>
-</form>
-
-<!-- نافذة منبثقة مخصصة -->
-<div class="modal-overlay" id="custom-modal">
-<div class="modal-content">
-<h4>Adger</h4>
-<p>الرجاء إدخال اسمك الثلاثى</p>
-<input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-<button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-<button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
-</div>
-</div>
-
-<script>
-// فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-var savedFullName = localStorage.getItem('savedFullName');
-if (savedFullName) {
-document.getElementById('full-name').value = savedFullName;
-}
-
-// إضافة معالج حدث لزر "اشتر الآن"
-document.getElementById('buy-now-button10').addEventListener('click', function() {
-var fullName = document.getElementById('full-name').value.trim();
-
-if (fullName === '') {
-    document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-} else {
-    openWhatsApp(fullName);
-}
-});
-
-// معالجة حدث تأكيد الاسم في النافذة المنبثقة
-document.getElementById('save-name').addEventListener('click', function() {
-var modalFullName = document.getElementById('modal-full-name').value.trim();
-if (modalFullName) {
-    localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-    openWhatsApp(modalFullName);
-}
-});
-
-// معالجة حدث إلغاء في النافذة المنبثقة
-document.getElementById('cancel-name').addEventListener('click', function() {
-document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-});
-
-// دالة لفتح نافذة واتساب مع الاسم المعطى
-function openWhatsApp(fullName) {
-var message = encodeURIComponent("كتاب ريش داد بور داد                                 رقم المنتج|10                                  الاسم الثلاثى:" + fullName);
-var whatsappLink = "https://wa.me/+201152366798?text=" + message;
-window.open(whatsappLink, '_blank');
-}
-</script>
-</body>
-
+        <style>
+            .buy-button {
+                display: inline-block;
+                padding: 9px 23px;
+                font-size: 16px;
+                color: #fff;
+                background-color: #19d300;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 11px;
+                transition: background-color 0.3s ease;
+            }
+    
+            .buy-button:hover {
+                background-color: #0ec508;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="https://wa.me/+201152366798?text=حامل لابتوب الومنيوم                               الاسم الثلاثى:" target="_blank" class="buy-button">
+            اشترِ الآن
+        </a>
+    </body>
+    </html>
+            </body>
+            </html>
+        </div>
+        <div class="product-images">
+            <img src="10.jpg" alt="product" onclick="openLightbox('10.jpg')">
+        </div>
+        <div style="clear:both;"></div>
     </div>
 
 
@@ -6807,6 +5118,25 @@ window.open(whatsappLink, '_blank');
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -6841,8 +5171,8 @@ window.open(whatsappLink, '_blank');
        
         </div>
         
-   
-<!DOCTYPE html>
+
+        <!DOCTYPE html>
 <html>
 <head>
     <style>
@@ -6876,7 +5206,10 @@ window.open(whatsappLink, '_blank');
     </div>
 </body>
 </html>
-        
+
+
+
+
 
 
 <!DOCTYPE html>
@@ -6936,6 +5269,12 @@ window.open(whatsappLink, '_blank');
     </div>
 </body>
 </html>
+
+
+
+
+
+
 
 
 
