@@ -739,10 +739,10 @@ body {
         // Function to open Gmail with the given name and product details
         function openGmail(fullName) {
             // Customize your subject and message here dynamically based on the product details
-            var productName = " لاسلكى من xo";
-            var productNumber = "3";
-            var emailSubject = "طلب شراء " + productName + " (رقم المنتج: " + productNumber + ")";
-            var emailBody = " عليكم،\n\nأرغب في شراء " + productName + " برقم " + productNumber + "، الرجاء التواصل معي للتأكيد.\n\nالاسم الثلاثي: " + fullName;
+            var productName1 = " لاسلكى من ";
+            var productNumber1 = "3";
+            var emailSubject = "طلب 111شراء " +productNumber1 + " (رقم المنتج: " +  + ")";
+            var emailBody = " عليكم،\n\nأرغب في شراء " + productName1 + " برقم " + productNumber + "، الرجاء التواصل معي للتأكيد.\n\nالاسم الثلاثي: " + fullName;
             var gmailLink = "mailto:example@gmail.com?subject=" + encodeURIComponent(emailSubject) + "&body=" + encodeURIComponent(emailBody);
             window.location.href = gmailLink;
         }
