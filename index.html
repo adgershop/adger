@@ -687,7 +687,7 @@ body {
     <!-- Gmail Form -->
     <form id="gmail-form">
         <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثي">
-        <button type="button" class="buy-button" id="buy-now-button">
+        <button type="button" class="buy-button" id="buy-now-button1">
             اشترِ الآن
         </button>
     </form>
@@ -711,7 +711,7 @@ body {
         }
 
         // Event handler for "اشتر الآن" button
-        document.getElementById('buy-now-button').addEventListener('click', function() {
+        document.getElementById('buy-now-button1').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
 
             if (fullName === '') {
@@ -739,7 +739,7 @@ body {
         // Function to open Gmail with the given name and product details
         function openGmail(fullName) {
             // Customize your subject and message here dynamically based on the product details
-            var productName = "ماوس لاسلكى من xo";
+            var productName = " لاسلكى من xo";
             var productNumber = "3";
             var emailSubject = "طلب شراء " + productName + " (رقم المنتج: " + productNumber + ")";
             var emailBody = " عليكم،\n\nأرغب في شراء " + productName + " برقم " + productNumber + "، الرجاء التواصل معي للتأكيد.\n\nالاسم الثلاثي: " + fullName;
