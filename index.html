@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -131,28 +132,28 @@ body {
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+  /* General styles */
   body {
     font-family: Arial, sans-serif;
-    direction: rtl;
-    background-color: #ffffff;
+    direction: rtl; /* Right-to-left text direction for Arabic */
+    background-color: #ffffff; /* General page background color */
   }
-
+  
   .search-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* Center items horizontally */
     padding: 2px;
-    background-color: #3d5b66;
+    background-color: #3d5b66; /* Background color for search bar area */
     border-radius: 1px;
-    height: 60px;
-    position: fixed;
+    height: 60px; /* Adjust the height as needed */
+    position: fixed; /* Fix the position at the top */
     top: 0;
     width: 100%;
     z-index: 1000;
@@ -163,9 +164,9 @@ body {
     font-size: 16px;
     border: 1px solid #e26600;
     border-radius: 5px;
-    width: 70%;
-    max-width: 6000px;
-    margin-right: 10px;
+    width: 70%; /* Adjusted width to fit the cart icon */
+    max-width: 6000px; /* Maximum width for the search bar */
+    margin-right: 10px; /* Add space between search box and button */
   }
 
   .cart-icon-container {
@@ -177,9 +178,9 @@ body {
 
   .cart-icon {
     cursor: pointer;
-    width: 50px;
-    height: 50px;
-    position: relative;
+    width: 50px; /* Adjust the width */
+    height: 50px; /* Adjust the height */
+    position: relative; /* تأكد من ضبط العنصر النسبي */
   }
 
   .cart-count {
@@ -190,39 +191,37 @@ body {
     color: rgb(176, 245, 251);
     border-radius: 50%;
     padding: 4px 10px;
-    font-size: 13px;
+    font-size: 13px; /* تكبير حجم النص */
   }
 
   .cart-page {
+    display: none; /* إخفاء الصفحة في البداية */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    background-color: #ffffff; /* خلفية بيضاء ثابتة */
     z-index: 1000;
     padding: 20px;
     box-sizing: border-box;
-    overflow: hidden;
-    display: none;
+    overflow: hidden; /* منع التمرير على الصفحة البيضاء */
   }
 
   .cart-items {
-    overflow-y: auto;
-    max-height: calc(100% - 60px);
-    width: 100%; /* تم تعديل هذا ليمتد للعرض الكامل */
+    overflow-y: auto; /* السماح بالتمرير العمودي فقط للمنتجات المحفوظة */
+    max-height: calc(100% - 60px); /* السماح بتحديد ارتفاع معقول للمنتجات */
+    width: 105.6%;
   }
 
   .product-item {
-    width: 200px; /* تم تكبير عرض المنتج ليكون أكبر */
-    height: 300px; /* تم تكبير ارتفاع المنتج ليكون أكبر */
+    width: 40px;
+    height: 200px;
     margin: 10px;
     background-color: #fffbfb;
     border: 1px solid #ccc;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    padding: 10px;
-    box-sizing: border-box;
+    cursor: pointer; /* تغيير شكل المؤشر عند التحريك */
   }
 
   .header {
@@ -238,27 +237,16 @@ body {
     color: red;
     font-size: 20px;
   }
-
-  .product-item button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
 </style>
 </head>
 <body>
     <div class="search-container" id="searchContainer">
         <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
         <div class="cart-icon-container" id="cartIconContainer">
-            <div class="cart-icon" onclick="toggleCart()">
+            <div class="cart-icon" onclick="openCartPage()">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-                </svg>
+                  </svg>
                 <div class="cart-count" id="cartCount">0</div>
             </div>
         </div>
@@ -284,21 +272,8 @@ body {
 
             // نسخ محتويات المنتج
             var cartItem = product.cloneNode(true);
-            var deleteButton = document.createElement('button');
-            deleteButton.innerText = 'حذف';
-            deleteButton.onclick = function() {
-                removeFromCart(this);
-            };
-            cartItem.appendChild(deleteButton);
-
-            // إضافة زر "اشتر"
-            var buyButton = document.createElement('button');
-            buyButton.innerText = 'اشتر';
-            buyButton.onclick = function() {
-                alert('تم شراء المنتج');
-                // يمكنك هنا إضافة المنطق لعملية الشراء
-            };
-            cartItem.appendChild(buyButton);
+            cartItem.querySelector('button').innerText = 'حذف';
+            cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(this)');
 
             // إضافة العنصر إلى العربة
             document.getElementById('cartItems').appendChild(cartItem);
@@ -364,12 +339,135 @@ body {
                 updateCartCount();
             }
         }
+
+        function openCartPage() {
+            window.location.href = 'cart.html';
+        }
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    background-color: #ffffff;
+  }
 
+  .cart-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
 
-</div>
+  .cart-items {
+    overflow-y: auto;
+    max-height: calc(100% - 60px);
+    width: 105.6%;
+  }
+
+  .product-item {
+    width: 40px;
+    height: 200px;
+    margin: 10px;
+    background-color: #fffbfb;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px;
+    border-bottom: 1px solid #ffffff;
+  }
+
+  .close-cart {
+    cursor: pointer;
+    color: red;
+    font-size: 20px;
+  }
+</style>
+</head>
+<body>
+    <div class="cart-page" id="cartPage">
+        <span class="close-cart" onclick="goBack()">&#10005; رجوع</span>
+        <h2>عربة التسوق</h2>
+        <div class="cart-items" id="cartItems"></div>
+    </div>
+
+    <script>
+        var cartCount = 0;
+
+        // تحميل العناصر من Local Storage عند تحميل الصفحة
+        window.onload = function() {
+            loadCartFromLocalStorage();
+        };
+
+        function removeFromCart(button) {
+            var cartItem = button.parentElement;
+            cartItem.remove();
+
+            // تحديث العداد
+            cartCount--;
+            updateCartCount();
+
+            // حفظ العربة في Local Storage
+            saveCartToLocalStorage();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').innerText = cartCount;
+        }
+
+        function saveCartToLocalStorage() {
+            var cartItems = document.getElementById('cartItems').children;
+            var cartArray = [];
+
+            for (var i = 0; i < cartItems.length; i++) {
+                cartArray.push(cartItems[i].outerHTML);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cartArray));
+            localStorage.setItem('cartCount', cartCount);
+        }
+
+        function loadCartFromLocalStorage() {
+            var savedCart = JSON.parse(localStorage.getItem('cart'));
+            var savedCartCount = localStorage.getItem('cartCount');
+
+            if (savedCart && savedCartCount) {
+                var cartItemsContainer = document.getElementById('cartItems');
+                cartItemsContainer.innerHTML = '';
+
+                for (var i = 0; i < savedCart.length; i++) {
+                    cartItemsContainer.innerHTML += savedCart[i];
+                }
+
+                cartCount = parseInt(savedCartCount);
+                updateCartCount();
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
 
 
 <br><br><br>
@@ -580,31 +678,71 @@ body {
             .modal-content .btn-secondary:hover {
                 background-color: #5a6268;
             }
-        
-            .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
-     
+        </style>
+    </head>
+    <body>
+        <form id="whatsapp-form">
+            <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+            <button type="button" class="buy-button" id="buy-now-button1">
+                اشترِ الآن
+            </button>
+        </form>
+    
+        <!-- نافذة منبثقة مخصصة -->
+        <div class="modal-overlay" id="custom-modal">
+            <div class="modal-content">
+                <h4>Adger</h4>
+                <p>الرجاء إدخال اسمك الثلاثى</p>
+                <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
+                <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
+                <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
+            </div>
+        </div>
+    
+        <script>
+            // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
+            var savedFullName = localStorage.getItem('savedFullName');
+            if (savedFullName) {
+                document.getElementById('full-name').value = savedFullName;
+            }
+    
+            // إضافة معالج حدث لزر "اشتر الآن"
+            document.getElementById('buy-now-button1').addEventListener('click', function() {
+                var fullName = document.getElementById('full-name').value.trim();
+    
+                if (fullName === '') {
+                    document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
+                } else {
+                    openWhatsApp(fullName);
+                }
+            });
+    
+            // معالجة حدث تأكيد الاسم في النافذة المنبثقة
+            document.getElementById('save-name').addEventListener('click', function() {
+                var modalFullName = document.getElementById('modal-full-name').value.trim();
+                if (modalFullName) {
+                    localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
+                    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+                    openWhatsApp(modalFullName);
+                }
+            });
+    
+            // معالجة حدث إلغاء في النافذة المنبثقة
+            document.getElementById('cancel-name').addEventListener('click', function() {
+                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+            });
+    
+            // دالة لفتح نافذة واتساب مع الاسم المعطى
+            function openWhatsApp(fullName) {
+                var message = encodeURIComponent("ساعه من فيترون                              رقم المنتج|1                             الكميه|1                                الاسم الثلاثى:" + fullName);
+                var whatsappLink = "https://wa.me/+201152366798?text=" + message;
+                window.open(whatsappLink, '_blank');
+            }
+        </script>
+    </body>
+    
+    
 </div>
-
-
-
-
 
 
 
@@ -674,9 +812,6 @@ body {
     
 
 
-   
-
-
 
 <style>
     button {
@@ -725,14 +860,12 @@ body {
 </head>
 <body>
 
-    <button onclick="addToCart(this)">    
-        <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-            <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </button>
-
-
+<button onclick="addToCart(this)">    
+    <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
+        <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+</button>
 
 <br>
 <head>
@@ -801,21 +934,12 @@ body {
         .modal-content .btn-secondary:hover {
             background-color: #5a6268;
         }
-        <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نموذج واتساب</title>
-    <style>
-        /* أسلوب CSS الخاص بك هنا */
     </style>
 </head>
 <body>
     <form id="whatsapp-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثي">
-        <input type="tel" id="phone-number" placeholder="أدخل رقم هاتفك">
-        <button type="button" class="buy-button" id="buy-now-button4">
+        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+        <button type="button" class="buy-button" id="buy-now-button2">
             اشترِ الآن
         </button>
     </form>
@@ -824,11 +948,10 @@ body {
     <div class="modal-overlay" id="custom-modal">
         <div class="modal-content">
             <h4>Adger</h4>
-            <p>الرجاء إدخال اسمك الثلاثي ورقم هاتفك</p>
-            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثي">
-            <input type="tel" id="modal-phone-number" placeholder="أدخل رقم هاتفك">
-            <button type="button" class="btn btn-primary" id="save-data">تأكيد</button>
-            <button type="button" class="btn btn-secondary" id="cancel-data">إلغاء</button>
+            <p>الرجاء إدخال اسمك الثلاثى</p>
+            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
+            <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
+            <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
         </div>
     </div>
 
@@ -840,44 +963,40 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button4').addEventListener('click', function() {
+        document.getElementById('buy-now-button2').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
-            var phoneNumber = document.getElementById('phone-number').value.trim();
 
-            if (fullName === '' || phoneNumber === '') {
+            if (fullName === '') {
                 document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
             } else {
-                saveDataLocally(fullName, phoneNumber);
-                alert('تم إرسال بياناتك بنجاح!'); // رسالة تأكيد
+                openWhatsApp(fullName);
             }
         });
 
-        // معالجة حدث تأكيد البيانات في النافذة المنبثقة
-        document.getElementById('save-data').addEventListener('click', function() {
+        // معالجة حدث تأكيد الاسم في النافذة المنبثقة
+        document.getElementById('save-name').addEventListener('click', function() {
             var modalFullName = document.getElementById('modal-full-name').value.trim();
-            var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
-            
-            if (modalFullName !== '' && modalPhoneNumber !== '') {
-                saveDataLocally(modalFullName, modalPhoneNumber);
+            if (modalFullName) {
+                localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
                 document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                alert('تم إرسال بياناتك بنجاح!'); // رسالة تأكيد
+                openWhatsApp(modalFullName);
             }
         });
 
         // معالجة حدث إلغاء في النافذة المنبثقة
-        document.getElementById('cancel-data').addEventListener('click', function() {
+        document.getElementById('cancel-name').addEventListener('click', function() {
             document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
         });
 
-        // دالة لحفظ البيانات محلياً
-        function saveDataLocally(fullName, phoneNumber) {
-            localStorage.setItem('savedFullName', fullName); // حفظ الاسم في localStorage
-            // يمكنك هنا إرسال البيانات إلى واتساب عبر API إذا كان لديك وصول إلى ذلك
-            // لمثال توضيحي، يمكنك استخدام alert لإظهار أن البيانات قد تم إرسالها
+        // دالة لفتح نافذة واتساب مع الاسم المعطى
+        function openWhatsApp(fullName) {
+            var message = encodeURIComponent("قاعدة ماوس                                رقم المنتج|2                                  الاسم الثلاثى:" + fullName);
+            var whatsappLink = "https://wa.me/+201152366798?text=" + message;
+            window.open(whatsappLink, '_blank');
         }
     </script>
 </body>
-</html>
+
     </div>
 
     <!-- Repeat the product structure for other products -->
