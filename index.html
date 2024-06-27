@@ -604,113 +604,102 @@ body {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Now - المنتج الأول</title>
+    <title>نموذج الشراء</title>
     <style>
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
         }
-
         .modal-content {
-            background: white;
+            background-color: white;
             padding: 20px;
             border-radius: 5px;
             text-align: center;
         }
+        .buy-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn {
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
-    <form id="email-form1">
-        <input type="text" id="full-name1" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <input type="text" id="phone-number1" placeholder="أدخل رقم هاتفك" style="display: none;">
+    <form id="whatsapp-form">
+        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
         <button type="button" class="buy-button" id="buy-now-button1">
             اشترِ الآن
         </button>
     </form>
 
     <!-- نافذة منبثقة مخصصة -->
-    <div class="modal-overlay" id="custom-modal1">
+    <div class="modal-overlay" id="custom-modal">
         <div class="modal-content">
-            <h4>أدخل بياناتك</h4>
-            <p>الرجاء إدخال اسمك الثلاثى ورقم هاتفك</p>
-            <input type="text" id="modal-full-name1" placeholder="أدخل اسمك الثلاثى">
-            <input type="text" id="modal-phone-number1" placeholder="أدخل رقم هاتفك">
-            <button type="button" class="btn btn-primary" id="save-details1">تأكيد</button>
-            <button type="button" class="btn btn-secondary" id="cancel-details1">إلغاء</button>
+            <h4>Adger</h4>
+            <p>الرجاء إدخال اسمك الثلاثى</p>
+            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
+            <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
+            <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
         </div>
     </div>
 
     <script>
-        var emailTo1 = "saif.adger.1@.com"; // تغيير عنوان البريد الإلكتروني إذا لزم الأمر
-
-        // فحص إذا كان هناك بيانات محفوظة في localStorage وإظهارها إذا وجدت
-        var savedFullName1 = localStorage.getItem('savedFullName1'); // مفتاح محدد للمنتج الأول
-        var savedPhoneNumber1 = localStorage.getItem('savedPhoneNumber1'); // مفتاح محدد للمنتج الأول
-        if (savedFullName1) {
-            document.getElementById('full-name1').value = savedFullName1;
-        }
-        if (savedPhoneNumber1) {
-            document.getElementById('phone-number1').value = savedPhoneNumber1;
+        // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
+        var savedFullName = localStorage.getItem('savedFullName');
+        if (savedFullName) {
+            document.getElementById('full-name').value = savedFullName;
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
         document.getElementById('buy-now-button1').addEventListener('click', function() {
-            var fullName1 = document.getElementById('full-name1').value.trim();
-            var phoneNumber1 = document.getElementById('phone-number1').value.trim();
+            var fullName = document.getElementById('full-name').value.trim();
 
-            if (fullName1 === '' || phoneNumber1 === '') {
-                document.getElementById('custom-modal1').style.display = 'flex'; // عرض النافذة المنبثقة
+            if (fullName === '') {
+                document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
             } else {
-                openEmail1(fullName1, phoneNumber1, emailTo1);
+                openEmail(fullName);
             }
         });
 
-        // معالجة حدث تأكيد البيانات في النافذة المنبثقة
-        document.getElementById('save-details1').addEventListener('click', function() {
-            var modalFullName1 = document.getElementById('modal-full-name1').value.trim();
-            var modalPhoneNumber1 = document.getElementById('modal-phone-number1').value.trim();
-            if (modalFullName1 && modalPhoneNumber1) {
-                localStorage.setItem('savedFullName1', modalFullName1); // مفتاح محدد للمنتج الأول
-                localStorage.setItem('savedPhoneNumber1', modalPhoneNumber1); // مفتاح محدد للمنتج الأول
-                document.getElementById('custom-modal1').style.display = 'none'; // إخفاء النافذة المنبثقة
-                openEmail1(modalFullName1, modalPhoneNumber1, emailTo1);
+        // معالجة حدث تأكيد الاسم في النافذة المنبثقة
+        document.getElementById('save-name').addEventListener('click', function() {
+            var modalFullName = document.getElementById('modal-full-name').value.trim();
+            if (modalFullName) {
+                localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
+                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+                openEmail(modalFullName);
             }
         });
 
         // معالجة حدث إلغاء في النافذة المنبثقة
-        document.getElementById('cancel-details1').addEventListener('click', function() {
-            document.getElementById('custom-modal1').style.display = 'none'; // إخفاء النافذة المنبثقة
+        document.getElementById('cancel-name').addEventListener('click', function() {
+            document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
         });
 
-        // دالة لفتح نافذة البريد الإلكتروني مع البيانات المعطاة
-        function openEmail1(fullName, phoneNumber, emailTo) {
-            var productName1 = "المنتج الأول"; // اسم المنتج الأول
-            var productNumber1 = "رقم المنتج 1"; // رقم المنتج الأول
-            var quantity1 = "1"; // الكمية
-
-            var subject1 = encodeURIComponent("طلب شراء - " + productName1);
-            var body1 = encodeURIComponent(
-                "الاسم: " + fullName + "\n" +
-                "رقم الهاتف: " + phoneNumber + "\n\n" +
-                "المنتج: " + productName1 + "\n" +
-                "رقم المنتج: " + productNumber1 + "\n" +
-                "الكمية: " + quantity1
-            );
-            
-            var mailtoLink1 = "mailto:" + emailTo + "?subject=" + subject1 + "&body=" + body1;
-            window.open(mailtoLink1, '_blank');
+        // دالة لفتح نافذة البريد الإلكتروني مع الاسم المعطى
+        function openEmail(fullName) {
+            var subject = encodeURIComponent("طلب شراء ماوس لاسلكى من XO");
+            var body = encodeURIComponent("ماوس قاعه من XO\nرقم المنتج: 3\nالاسم الثلاثى: " + fullName);
+            var mailtoLink = "mailto:saif.adger.1@gmail.com?subject=" + subject + "&body=" + body;
+            window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
 </html>
-
 
   
 </div>
@@ -952,7 +941,7 @@ body {
 <body>
     <form id="whatsapp-form">
         <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button3">
+        <button type="button" class="buy-button" id="buy-now-button2">
             اشترِ الآن
         </button>
     </form>
@@ -976,7 +965,7 @@ body {
         }
 
         // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button3').addEventListener('click', function() {
+        document.getElementById('buy-now-button2').addEventListener('click', function() {
             var fullName = document.getElementById('full-name').value.trim();
 
             if (fullName === '') {
