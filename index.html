@@ -705,12 +705,21 @@ body {
     </style>
 </head>
 <body>
-    <form id="email-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button1">
+    <!-- المنتج 1 -->
+    <div class="product">
+        <h2>اسم المنتج 1</h2>
+        <button type="button" class="buy-button" data-product-name="اسم المنتج 1" data-product-number="001">
             اشترِ الآن
         </button>
-    </form>
+    </div>
+
+    <!-- المنتج 2 -->
+    <div class="product">
+        <h2>اسم المنتج 2</h2>
+        <button type="button" class="buy-button" data-product-name="اسم المنتج 2" data-product-number="002">
+            اشترِ الآن
+        </button>
+    </div>
 
     <!-- نافذة منبثقة مخصصة -->
     <div class="modal-overlay" id="custom-modal">
@@ -725,53 +734,47 @@ body {
     </div>
 
     <script>
-        // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-        var savedFullName = localStorage.getItem('savedFullName');
-        if (savedFullName) {
-            document.getElementById('full-name').value = savedFullName;
-        }
+        // إضافة معالج حدث لكل زر "اشترِ الآن"
+        document.querySelectorAll('.buy-button').forEach(button => {
+            button.addEventListener('click', function() {
+                var productName = this.getAttribute('data-product-name');
+                var productNumber = this.getAttribute('data-product-number');
 
-        // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button1').addEventListener('click', function() {
-            var fullName = document.getElementById('full-name').value.trim();
+                var fullName = localStorage.getItem('savedFullName') || '';
 
-            if (fullName === '') {
-                document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-            } else {
-                openEmail(fullName, ""); // فتح البريد الإلكتروني باستخدام الاسم المحفوظ
-            }
+                if (fullName === '') {
+                    document.getElementById('custom-modal').style.display = 'flex';
+                    document.getElementById('save-name').onclick = function() {
+                        var modalFullName = document.getElementById('modal-full-name').value.trim();
+                        var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
+
+                        if (modalFullName && modalPhoneNumber) {
+                            localStorage.setItem('savedFullName', modalFullName);
+                            document.getElementById('custom-modal').style.display = 'none';
+                            openEmail(productName, productNumber, modalFullName, modalPhoneNumber);
+                        } else {
+                            alert("يرجى إدخال كل من الاسم الثلاثى ورقم الهاتف.");
+                        }
+                    };
+                } else {
+                    openEmail(productName, productNumber, fullName, '');
+                }
+            });
         });
 
-        // معالجة حدث تأكيد الاسم في النافذة المنبثقة
-        document.getElementById('save-name').addEventListener('click', function() {
-            var modalFullName = document.getElementById('modal-full-name').value.trim();
-            var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
-
-            if (modalFullName && modalPhoneNumber) {
-                localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                openEmail(modalFullName, modalPhoneNumber); // فتح البريد الإلكتروني باستخدام الاسم ورقم الهاتف
-            } else {
-                alert("يرجى إدخال كل من الاسم الثلاثى ورقم الهاتف."); // عرض رسالة تنبيهية إذا كانت الحقول فارغة
-            }
-        });
-
-        // معالجة حدث إلغاء في النافذة المنبثقة
         document.getElementById('cancel-name').addEventListener('click', function() {
-            document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+            document.getElementById('custom-modal').style.display = 'none';
         });
 
-        // دالة لفتح نافذة البريد الإلكتروني مع الاسم ورقم الهاتف المعطى
-        function openEmail(fullName, phoneNumber) {
+        function openEmail(productName, productNumber, fullName, phoneNumber) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent("ساعه من فيترون\nرقم المنتج: 1\nالكميه: 1\nالاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var body = encodeURIComponent("اسم المنتج:صصص " + productName + "\nرقم المنتج: " + productNumber + "\nالاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
             var mailtoLink = "mailto:officialemail@example.com?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
 </html>
-    
 </div>
 
 
@@ -991,12 +994,21 @@ body {
     </style>
 </head>
 <body>
-    <form id="email-form">
-        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-        <button type="button" class="buy-button" id="buy-now-button2">
+    <!-- المنتج 1 -->
+    <div class="product">
+        <h2>اسم المنتج 1</h2>
+        <button type="button" class="buy-button" data-product-name="اسم المنتج 1" data-product-number="001">
             اشترِ الآن
         </button>
-    </form>
+    </div>
+
+    <!-- المنتج 2 -->
+    <div class="product">
+        <h2>اسم المنتج 2</h2>
+        <button type="button" class="buy-button" data-product-name="اسم المنتج 2" data-product-number="002">
+            اشترِ الآن
+        </button>
+    </div>
 
     <!-- نافذة منبثقة مخصصة -->
     <div class="modal-overlay" id="custom-modal">
@@ -1011,53 +1023,47 @@ body {
     </div>
 
     <script>
-        // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-        var savedFullName = localStorage.getItem('savedFullName');
-        if (savedFullName) {
-            document.getElementById('full-name').value = savedFullName;
-        }
+        // إضافة معالج حدث لكل زر "اشترِ الآن"
+        document.querySelectorAll('.buy-button').forEach(button => {
+            button.addEventListener('click', function() {
+                var productName = this.getAttribute('data-product-name');
+                var productNumber = this.getAttribute('data-product-number');
 
-        // إضافة معالج حدث لزر "اشتر الآن"
-        document.getElementById('buy-now-button2').addEventListener('click', function() {
-            var fullName = document.getElementById('full-name').value.trim();
+                var fullName = localStorage.getItem('savedFullName') || '';
 
-            if (fullName === '') {
-                document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-            } else {
-                openEmail(fullName, ""); // فتح البريد الإلكتروني باستخدام الاسم المحفوظ
-            }
+                if (fullName === '') {
+                    document.getElementById('custom-modal').style.display = 'flex';
+                    document.getElementById('save-name').onclick = function() {
+                        var modalFullName = document.getElementById('modal-full-name').value.trim();
+                        var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
+
+                        if (modalFullName && modalPhoneNumber) {
+                            localStorage.setItem('savedFullName', modalFullName);
+                            document.getElementById('custom-modal').style.display = 'none';
+                            openEmail(productName, productNumber, modalFullName, modalPhoneNumber);
+                        } else {
+                            alert("يرجى إدخال كل من الاسم الثلاثى ورقم الهاتف.");
+                        }
+                    };
+                } else {
+                    openEmail(productName, productNumber, fullName, '');
+                }
+            });
         });
 
-        // معالجة حدث تأكيد الاسم في النافذة المنبثقة
-        document.getElementById('save-name').addEventListener('click', function() {
-            var modalFullName = document.getElementById('modal-full-name').value.trim();
-            var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
-
-            if (modalFullName && modalPhoneNumber) {
-                localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-                openEmail(modalFullName, modalPhoneNumber); // فتح البريد الإلكتروني باستخدام الاسم ورقم الهاتف
-            } else {
-                alert("يرجى إدخال كل من الاسم الثلاثى ورقم الهاتف."); // عرض رسالة تنبيهية إذا كانت الحقول فارغة
-            }
-        });
-
-        // معالجة حدث إلغاء في النافذة المنبثقة
         document.getElementById('cancel-name').addEventListener('click', function() {
-            document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+            document.getElementById('custom-modal').style.display = 'none';
         });
 
-        // دالة لفتح نافذة البريد الإلكتروني مع الاسم ورقم الهاتف المعطى
-        function openEmail(fullName, phoneNumber) {
+        function openEmail(productName, productNumber, fullName, phoneNumber) {
             var subject = encodeURIComponent("طلب شراء");
-            var body = encodeURIComponent(" من فيترون\nرقم المنتج: 1\nالكميه: 1\nالاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
+            var body = encodeURIComponent("اسم المنتج: " + productName + "\nرقم المنتج: " + productNumber + "\nالاسم الثلاثى: " + fullName + "\nرقم الهاتف: " + phoneNumber);
             var mailtoLink = "mailto:officialemail@example.com?subject=" + subject + "&body=" + body;
             window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
 </html>
-
     </div>
 
     <!-- Repeat the product structure for other products -->
