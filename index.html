@@ -804,78 +804,80 @@ body {
         <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Open Gmail</title>
-<style>
-/* Add your CSS styles here if needed */
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج واتساب</title>
+    <style>
+        /* أسلوب CSS الخاص بك هنا */
+    </style>
 </head>
 <body>
-<form id="gmail-form">
-    <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
-    <button type="button" class="buy-button" id="buy-now-button3">
-        اشترِ الآن
-    </button>
-</form>
+    <form id="whatsapp-form">
+        <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثي">
+        <input type="tel" id="phone-number" placeholder="أدخل رقم هاتفك">
+        <button type="button" class="buy-button" id="buy-now-button4">
+            اشترِ الآن
+        </button>
+    </form>
 
-<!-- نافذة منبثقة مخصصة -->
-<div class="modal-overlay" id="custom-modal">
-    <div class="modal-content">
-        <h4>Adger</h4>
-        <p>الرجاء إدخال اسمك الثلاثى</p>
-        <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
-        <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
-        <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
+    <!-- نافذة منبثقة مخصصة -->
+    <div class="modal-overlay" id="custom-modal">
+        <div class="modal-content">
+            <h4>Adger</h4>
+            <p>الرجاء إدخال اسمك الثلاثي ورقم هاتفك</p>
+            <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثي">
+            <input type="tel" id="modal-phone-number" placeholder="أدخل رقم هاتفك">
+            <button type="button" class="btn btn-primary" id="save-data">تأكيد</button>
+            <button type="button" class="btn btn-secondary" id="cancel-data">إلغاء</button>
+        </div>
     </div>
-</div>
 
-<script>
-// فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
-var savedFullName = localStorage.getItem('savedFullName');
-if (savedFullName) {
-    document.getElementById('full-name').value = savedFullName;
-}
+    <script>
+        // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
+        var savedFullName = localStorage.getItem('savedFullName');
+        if (savedFullName) {
+            document.getElementById('full-name').value = savedFullName;
+        }
 
-// إضافة معالج حدث لزر "اشتر الآن"
-document.getElementById('buy-now-button3').addEventListener('click', function() {
-    var fullName = document.getElementById('full-name').value.trim();
+        // إضافة معالج حدث لزر "اشتر الآن"
+        document.getElementById('buy-now-button4').addEventListener('click', function() {
+            var fullName = document.getElementById('full-name').value.trim();
+            var phoneNumber = document.getElementById('phone-number').value.trim();
 
-    if (fullName === '') {
-        document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
-    } else {
-        openGmail(fullName);
-    }
-});
+            if (fullName === '' || phoneNumber === '') {
+                document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
+            } else {
+                saveDataLocally(fullName, phoneNumber);
+                alert('تم إرسال بياناتك بنجاح!'); // رسالة تأكيد
+            }
+        });
 
-// معالجة حدث تأكيد الاسم في النافذة المنبثقة
-document.getElementById('save-name').addEventListener('click', function() {
-    var modalFullName = document.getElementById('modal-full-name').value.trim();
-    if (modalFullName) {
-        localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
-        document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-        openGmail(modalFullName);
-    }
-});
+        // معالجة حدث تأكيد البيانات في النافذة المنبثقة
+        document.getElementById('save-data').addEventListener('click', function() {
+            var modalFullName = document.getElementById('modal-full-name').value.trim();
+            var modalPhoneNumber = document.getElementById('modal-phone-number').value.trim();
+            
+            if (modalFullName !== '' && modalPhoneNumber !== '') {
+                saveDataLocally(modalFullName, modalPhoneNumber);
+                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+                alert('تم إرسال بياناتك بنجاح!'); // رسالة تأكيد
+            }
+        });
 
-// معالجة حدث إلغاء في النافذة المنبثقة
-document.getElementById('cancel-name').addEventListener('click', function() {
-    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
-});
+        // معالجة حدث إلغاء في النافذة المنبثقة
+        document.getElementById('cancel-data').addEventListener('click', function() {
+            document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+        });
 
-// دالة لفتح Gmail مع الاسم المعطى
-function openGmail(fullName) {
-    var apiKey = '24523ffdd5e5d1c45283ed1545e53e06-0ae5585a-11df-4c3d-9604-2949df0d46db'; // Replace with your Gmail API key
-    var toEmail = 'your.email@gmail.com'; // Replace with your Gmail address
-    var subject = encodeURIComponent('Subject of your email'); // Customize your email subject
-    var body = encodeURIComponent('ماوس لاسلكى من xo\nرقم المنتج|3\nالاسم الثلاثى:' + fullName); // Customize your email body
-    var gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + toEmail + '&su=' + subject + '&body=' + body + '&apiKey=' + apiKey;
-    window.open(gmailLink, '_blank');
-}
-</script>
+        // دالة لحفظ البيانات محلياً
+        function saveDataLocally(fullName, phoneNumber) {
+            localStorage.setItem('savedFullName', fullName); // حفظ الاسم في localStorage
+            // يمكنك هنا إرسال البيانات إلى واتساب عبر API إذا كان لديك وصول إلى ذلك
+            // لمثال توضيحي، يمكنك استخدام alert لإظهار أن البيانات قد تم إرسالها
+        }
+    </script>
 </body>
 </html>
-
     </div>
 
     <!-- Repeat the product structure for other products -->
