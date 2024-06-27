@@ -678,6 +678,136 @@ body {
             .modal-content .btn-secondary:hover {
                 background-color: #5a6268;
             }
+            <div class="product-images">
+            <img src="1.jpg" alt="product" onclick ="openLightbox('1.jpg') ">
+        </div>
+        <div style="clear:both;"></div> 
+        
+
+
+
+        <style>
+            button {
+                background-color: #feb538;
+                color: white; /* لون النص */
+                border: none; /* إزالة الحدود */
+                padding: 10px 20px; /* مساحة داخلية */
+                text-align: center; /* محاذاة النص في الوسط */
+                text-decoration: none; /* إزالة التزيين تحت النص */
+                display: inline-block; /* عرض الزر كتلة داخلية */
+                font-size: 16px; /* حجم الخط */
+                margin: 4px 2px; /* هوامش */
+                cursor: pointer; /* شكل المؤشر */
+                border-radius: 11px; /* زوايا مستديرة */
+                transition-duration: 0.4s; /* مدة الانتقال */
+            }
+        
+            button svg {
+                vertical-align: middle; /* محاذاة الأيقونة مع النص */
+            }
+        
+            button:hover {
+                background-color: white; /* لون الخلفية عند التمرير */
+               
+                border: 1px solid #008CBA; /* حدود عند التمرير */
+            }
+        
+            
+            .buy-button {
+                display: inline-block;
+                padding: 9px 23px; /* مساحة داخلية متطابقة */
+                font-size: 16px;
+                color: #fff;
+                background-color: #19d300;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 11px;
+                 transition-duration: 0.4s; /* مدة الانتقال */
+            }
+            .buy-button:hover {
+                background-color: #0ec508;
+            }
+          
+        </style>
+        
+        </head>
+        <body>
+        
+        <button onclick="addToCart(this)">    
+            <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
+                <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        
+        
+    <br>
+    <head>
+        <style>
+            /* نمط النافذة المنبثقة */
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                display: none; /* مخفي افتراضياً */
+            }
+    
+            .modal-content {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                text-align: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                width: 300px;
+            }
+    
+            .modal-content h4 {
+                font-family: 'Arial', sans-serif;
+                color: #5c5c5c;
+                margin-bottom: 20px;
+                font-size: 24px;
+            }
+    
+            .modal-content input {
+                width: 90%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+    
+            .modal-content .btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin: 5px;
+            }
+    
+            .modal-content .btn-primary {
+                background-color: #ff6200;
+                color: #fff;
+            }
+    
+            .modal-content .btn-primary:hover {
+                background-color: #fd5400;
+            }
+    
+            .modal-content .btn-secondary {
+                background-color: #6c757d;
+                color: #fff;
+            }
+    
+            .modal-content .btn-secondary:hover {
+                background-color: #5a6268;
+            }
         </style>
     </head>
     <body>
@@ -741,7 +871,198 @@ body {
         </script>
     </body>
     
+      <div class="product-images">
+            <img src="1.jpg" alt="product" onclick ="openLightbox('1.jpg') ">
+        </div>
+        <div style="clear:both;"></div> 
+        
+
+
+
+        <style>
+            button {
+                background-color: #feb538;
+                color: white; /* لون النص */
+                border: none; /* إزالة الحدود */
+                padding: 10px 20px; /* مساحة داخلية */
+                text-align: center; /* محاذاة النص في الوسط */
+                text-decoration: none; /* إزالة التزيين تحت النص */
+                display: inline-block; /* عرض الزر كتلة داخلية */
+                font-size: 16px; /* حجم الخط */
+                margin: 4px 2px; /* هوامش */
+                cursor: pointer; /* شكل المؤشر */
+                border-radius: 11px; /* زوايا مستديرة */
+                transition-duration: 0.4s; /* مدة الانتقال */
+            }
+        
+            button svg {
+                vertical-align: middle; /* محاذاة الأيقونة مع النص */
+            }
+        
+            button:hover {
+                background-color: white; /* لون الخلفية عند التمرير */
+               
+                border: 1px solid #008CBA; /* حدود عند التمرير */
+            }
+        
+            
+            .buy-button {
+                display: inline-block;
+                padding: 9px 23px; /* مساحة داخلية متطابقة */
+                font-size: 16px;
+                color: #fff;
+                background-color: #19d300;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 11px;
+                 transition-duration: 0.4s; /* مدة الانتقال */
+            }
+            .buy-button:hover {
+                background-color: #0ec508;
+            }
+          
+        </style>
+        
+        </head>
+        <body>
+        
+        <button onclick="addToCart(this)">    
+            <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
+                <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        
+        
+    <br>
+    <head>
+        <style>
+            /* نمط النافذة المنبثقة */
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                display: none; /* مخفي افتراضياً */
+            }
     
+            .modal-content {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                text-align: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                width: 300px;
+            }
+    
+            .modal-content h4 {
+                font-family: 'Arial', sans-serif;
+                color: #5c5c5c;
+                margin-bottom: 20px;
+                font-size: 24px;
+            }
+    
+            .modal-content input {
+                width: 90%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+    
+            .modal-content .btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin: 5px;
+            }
+    
+            .modal-content .btn-primary {
+                background-color: #ff6200;
+                color: #fff;
+            }
+    
+            .modal-content .btn-primary:hover {
+                background-color: #fd5400;
+            }
+    
+            .modal-content .btn-secondary {
+                background-color: #6c757d;
+                color: #fff;
+            }
+    
+            .modal-content .btn-secondary:hover {
+                background-color: #5a6268;
+            }
+        </style>
+    </head>
+    <body>
+        <form id="whatsapp-form">
+            <input type="text" id="full-name" placeholder="أدخل اسمك الثلاثى" style="display: none;">
+            <button type="button" class="buy-button" id="buy-now-button1">
+                اشترِ الآن
+            </button>
+        </form>
+    
+        <!-- نافذة منبثقة مخصصة -->
+        <div class="modal-overlay" id="custom-modal">
+            <div class="modal-content">
+                <h4>Adger</h4>
+                <p>الرجاء إدخال اسمك الثلاثى</p>
+                <input type="text" id="modal-full-name" placeholder="أدخل اسمك الثلاثى">
+                <button type="button" class="btn btn-primary" id="save-name">تأكيد</button>
+                <button type="button" class="btn btn-secondary" id="cancel-name">إلغاء</button>
+            </div>
+        </div>
+    
+        <script>
+            // فحص إذا كان هناك اسم محفوظ في localStorage وإظهاره إذا وجد
+            var savedFullName = localStorage.getItem('savedFullName');
+            if (savedFullName) {
+                document.getElementById('full-name').value = savedFullName;
+            }
+    
+            // إضافة معالج حدث لزر "اشتر الآن"
+            document.getElementById('buy-now-button1').addEventListener('click', function() {
+                var fullName = document.getElementById('full-name').value.trim();
+    
+                if (fullName === '') {
+                    document.getElementById('custom-modal').style.display = 'flex'; // عرض النافذة المنبثقة
+                } else {
+                    openWhatsApp(fullName);
+                }
+            });
+    
+            // معالجة حدث تأكيد الاسم في النافذة المنبثقة
+            document.getElementById('save-name').addEventListener('click', function() {
+                var modalFullName = document.getElementById('modal-full-name').value.trim();
+                if (modalFullName) {
+                    localStorage.setItem('savedFullName', modalFullName); // حفظ الاسم في localStorage
+                    document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+                    openWhatsApp(modalFullName);
+                }
+            });
+    
+            // معالجة حدث إلغاء في النافذة المنبثقة
+            document.getElementById('cancel-name').addEventListener('click', function() {
+                document.getElementById('custom-modal').style.display = 'none'; // إخفاء النافذة المنبثقة
+            });
+    
+            // دالة لفتح نافذة واتساب مع الاسم المعطى
+            function openWhatsApp(fullName1) {
+                var message = encodeURIComponent("ساعه من فيترون                              رقم المنتج|1                             الكميه|1                                الاسم الثلاثى:" + fullName1);
+                var whatsappLink = "https://wa.me/+201152366798?text=" + message;
+                window.open(whatsappLink, '_blank');
+            }
+        </script>
+    </body>
 </div>
 
 
