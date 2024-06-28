@@ -522,14 +522,14 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background: linear-gradient(to bottom, #feb538, #19d300); /* تدرج لوني من #feb538 إلى #19d300 */
     border: 1px solid #ccc;
     padding: 20px; /* زيادة البادينغ لزيادة المسافة الداخلية */
     z-index: 1000;
     box-shadow: 0 0 20px rgba(0,0,0,0.2); /* زيادة الظل لمظهر ثلاثي الأبعاد */
-    max-width: 300px; /* زيادة عرض النافذة */
-    width: 100%; /* استخدام نسبة مئوية لتكون نافذة متجاوبة */
-    max-height: 50%; /* زيادة ارتفاع النافذة */
+    max-width: 90%; /* عرض النافذة متجاوب مع أحجام الشاشات */
+    width: 300px; /* تحديد عرض النافذة عند شاشات أكبر */
+    max-height: 70%; /* زيادة ارتفاع النافذة */
     overflow-y: auto;
     text-align: center;
     font-size: 1em; /* زيادة حجم الخط */
