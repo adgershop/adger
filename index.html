@@ -525,18 +525,15 @@
                         height: 100%;
                         background: rgba(0, 0, 0, 0.5); /* خلفية شفافة للنافذة */
                         z-index: 1000;
+                        justify-content: center;
+                        align-items: center;
                     }
             
                     .popup-inner {
-                        position: fixed;
-                        left: 0;
-                        top: 5%; /* رفع المحتوى لأعلى */
-                        width: 100%;
-                        height: 100%; /* تعديل ارتفاع النافذة المنبثقة */
-                        display: flex;
-                        justify-content: center;
-                        align-items: flex-start; /* محاذاة العناصر لأعلى */
-                        background: linear-gradient(to bottom, #0062ec, #00eacb); /* تدرج لوني من #8e00ec إلى #00eacb */
+                        position: relative;
+                        width: 90%;
+                        max-width: 500px;
+                        background: linear-gradient(to bottom, #8e00ec, #00eacb); /* تدرج لوني من #8e00ec إلى #00eacb */
                         border: 1px solid #ccc;
                         padding: 20px;
                         box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -544,8 +541,7 @@
                         text-align: center;
                         font-size: 1em;
                         color: white;
-                        max-width: 100%;
-                        max-height: 100%; /* رفع المحتوى لأعلى */
+                        border-radius: 10px;
                     }
             
                     .popup-content {
@@ -561,7 +557,7 @@
                     }
             
                     .popup input {
-                        width: calc(90% - 17px); /* تصغير العرض بمقدار 7 بكسل */
+                        width: calc(90% - 7px); /* تصغير العرض بمقدار 7 بكسل */
                         margin-bottom: 10px; /* زيادة الهامش السفلي للحقل */
                         padding: 19px 15px; /* زيادة الارتفاع بمقدار 4 بكسل */
                         font-size: 1.5em; /* زيادة حجم الخط */
