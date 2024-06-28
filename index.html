@@ -519,21 +519,30 @@
                     .popup {
     display: none;
     position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* خلفية شفافة للنافذة */
+    z-index: 1000;
+}
+
+.popup-inner {
+    position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: linear-gradient(to bottom, #feb538, #19d300); /* تدرج لوني من #feb538 إلى #19d300 */
+    background: linear-gradient(to bottom, #8e00ec, #00eacb); /* تدرج لوني من #feb538 إلى #19d300 */
     border: 1px solid #ccc;
     padding: 20px; /* زيادة البادينغ لزيادة المسافة الداخلية */
-    z-index: 1000;
     box-shadow: 0 0 20px rgba(0,0,0,0.2); /* زيادة الظل لمظهر ثلاثي الأبعاد */
-    width: 90%; /* عرض النافذة متجاوب مع أحجام الشاشات */
-    max-width: 300px; /* حد أقصى لعرض النافذة */
-    max-height: 70%; /* زيادة ارتفاع النافذة */
+    max-width: 90%; /* عرض النافذة متجاوب مع أحجام الشاشات */
+    max-height: 90%; /* زيادة ارتفاع النافذة */
     overflow-y: auto;
     text-align: center;
-    font-size: 1.4em; /* زيادة حجم الخط */
+    font-size: 1em; /* زيادة حجم الخط */
 }
+
 
             
                     .popup input {
