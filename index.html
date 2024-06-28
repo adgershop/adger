@@ -530,7 +530,7 @@
                     .popup-inner {
                         position: fixed;
                         left: 0;
-                        top: 10%; /* تقليل القيمة لرفع المحتوى لأعلى */
+                        top: 5%; /* رفع المحتوى لأعلى */
                         width: 100%;
                         height: auto; /* تعديل ارتفاع النافذة المنبثقة */
                         display: flex;
@@ -545,25 +545,25 @@
                         font-size: 1em;
                         color: white;
                         max-width: 100%;
-                        max-height: 90%; /* تقليل القيمة لرفع المحتوى لأعلى */
+                        max-height: 95%; /* رفع المحتوى لأعلى */
                     }
             
                     .popup-content {
                         width: 100%;
                         text-align: center;
-                        margin-top: 20px; /* إضافة بعض المسافة العلوية */
+                        margin-top: 10px; /* تقليل المسافة العلوية */
                     }
             
                     .popup h2 {
                         margin-top: 0;
-                        margin-bottom: 20px;
+                        margin-bottom: 10px; /* تقليل المسافة السفلية */
                         font-size: 2em; /* زيادة حجم الخط */
                     }
             
                     .popup input {
-                        width: 90%;
+                        width: calc(90% - 7px); /* تصغير العرض بمقدار 7 بكسل */
                         margin-bottom: 10px; /* زيادة الهامش السفلي للحقل */
-                        padding: 15px; /* زيادة البادينغ للحقل */
+                        padding: 19px 15px; /* زيادة الارتفاع بمقدار 4 بكسل */
                         font-size: 1.5em; /* زيادة حجم الخط */
                         border: 1px solid #ccc;
                         border-radius: 4px;
