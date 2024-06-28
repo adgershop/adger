@@ -222,7 +222,7 @@
 </head>
 <body>
     <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابح0ث في ADGER...">
+        <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
         <div class="cart-icon-container">
             <div class="cart-icon" onclick="toggleCart()">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -623,7 +623,9 @@
                 var buyNowBtn = document.getElementById('buyNowBtn');
             
                 // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
-                buyNowBtn.addEventListener('click', function() {
+                buyNowBtn.addEventListener('click', function(event) {
+                    event.preventDefault(); // منع السلوك الافتراضي للزر
+            
                     var name = localStorage.getItem('userName');
                     var phone = localStorage.getItem('userPhone');
             
