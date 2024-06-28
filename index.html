@@ -522,19 +522,14 @@
                         transform: translate(-50%, -50%);
                         background-color: #fff;
                         border: 1px solid #ccc;
-                        padding: 11px;
+                        padding: 20px;
                         z-index: 1000;
                         box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                        max-width: 60px;
-                        width: 60%;
-                        max-height: 80%;
+                        max-width: 300px; /* تقليل عرض النافذة */
+                        width: 90%; /* استخدام نسبة مئوية لتكون نافذة متجاوبة */
+                        max-height: 60%; /* تقليل ارتفاع النافذة */
                         overflow-y: auto;
                         text-align: center;
-                    }
-            
-                    .popup h2 {
-                        font-size: 1.5em;
-                        margin-bottom: 20px;
                     }
             
                     .popup input {
@@ -562,6 +557,14 @@
                         right: 10px;
                         cursor: pointer;
                         font-size: 1.2em;
+                    }
+            
+                    /* عند فتح لوحة المفاتيح، يتم رفع النافذة */
+                    @media (max-width: 600px) {
+                        .popup {
+                            top: 40%; /* تغيير الموضع العلوي عند استخدام شاشة أصغر */
+                            transform: translate(-50%, -40%);
+                        }
                     }
                 </style>
             </head>
@@ -605,7 +608,16 @@
                         popup.style.display = 'none';
                     }
             
-                    // عملية إرسال النموذج، يمكنك إضافة هنا البريد الإلكتروني أو الإجراء المطلوب
+                    // رفع النافذة عند فتح لوحة المفاتيح على الهاتف
+                    document.querySelectorAll('.popup input').forEach(function(input) {
+                        input.addEventListener('focus', function() {
+                            setTimeout(function() {
+                                popup.scrollIntoView({behavior: "smooth", block: "start"});
+                            }, 300);
+                        });
+                    });
+            
+                    // عملية إرسال النموذج
                     document.getElementById('buyForm').addEventListener('submit', function(event) {
                         event.preventDefault();
             
@@ -620,7 +632,7 @@
                         closePopup();
             
                         // إعادة محاولة فتح رابط البريد الإلكتروني بعد حفظ البيانات
-                        var subject = 'رقم المنتج|1                           شراء ساعة من فيترون';
+                        var subject = 'شراء ساعة من فيترون';
                         var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
                         var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
                         window.open(mailtoLink);
