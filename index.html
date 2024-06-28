@@ -499,18 +499,20 @@
             
                     .buy-button {
                         display: inline-block;
-                        padding: 9px 23px;
-                        font-size: 16px;
+                        padding: 10px 25px;
+                        font-size: 18px;
                         color: #fff;
                         background-color: #19d300;
                         text-align: center;
                         text-decoration: none;
-                        border-radius: 11px;
+                        border-radius: 20px;
                         transition: background-color 0.3s ease;
+                        border: 2px solid transparent;
                     }
             
                     .buy-button:hover {
                         background-color: #0ec508;
+                        border-color: #19d300;
                     }
             
                     /* استايل للنافذة المنبثقة */
@@ -520,38 +522,34 @@
                         left: 50%;
                         top: 50%;
                         transform: translate(-50%, -50%);
-                        background-color: #fff;
-                        border: 1px solid #ccc;
-                        padding: 10px;
+                        background-color: #f1f1f1;
+                        border-radius: 20px;
+                        padding: 20px;
                         z-index: 1000;
-                        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                        max-width: 250px; /* تقليل عرض النافذة */
-                        width: 80%; /* استخدام نسبة مئوية لتكون نافذة متجاوبة */
-                        max-height: 300px; /* تقليل ارتفاع النافذة */
-                        overflow-y: auto;
+                        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+                        max-width: 350px;
+                        width: 80%;
                         text-align: center;
-                        border-radius: 8px; /* إضافة حواف مستديرة */
                     }
             
                     .popup input {
-                        width: 80%; /* تقليل عرض الحقول النصية */
-                        margin-bottom: 10px; /* تقليل الهامش السفلي للحقل */
-                        padding: 8px; /* زيادة حجم البادينغ للحقل */
-                        font-size: 0.9em; /* تكبير حجم الخط */
+                        width: 100%;
+                        margin-bottom: 15px;
+                        padding: 12px;
+                        font-size: 16px;
                         border: 1px solid #ccc;
-                        border-radius: 6px;
-                        box-sizing: border-box; /* ضبط حجم الصندوق ليشمل الحدود */
+                        border-radius: 8px;
+                        box-sizing: border-box;
                     }
             
                     .popup button {
                         background-color: #4CAF50;
                         color: white;
-                        padding: 8px 15px; /* تقليل حجم الزر */
+                        padding: 12px 20px;
                         border: none;
                         cursor: pointer;
-                        border-radius: 6px;
-                        font-size: 0.9em; /* تكبير حجم الخط */
-                        margin-top: 10px; /* إضافة هامش للزر */
+                        border-radius: 8px;
+                        font-size: 16px;
                         transition: background-color 0.3s ease;
                     }
             
@@ -561,17 +559,23 @@
             
                     .close-btn {
                         position: absolute;
-                        top: 5px; /* تقليل المسافة من الأعلى */
-                        right: 5px; /* تقليل المسافة من اليمين */
+                        top: 10px;
+                        right: 10px;
+                        font-size: 24px;
                         cursor: pointer;
-                        font-size: 1.1em; /* زيادة حجم الخط */
+                        color: #888;
+                        transition: color 0.3s ease;
+                    }
+            
+                    .close-btn:hover {
+                        color: #333;
                     }
             
                     /* عند فتح لوحة المفاتيح، يتم رفع النافذة */
                     @media (max-width: 600px) {
                         .popup {
-                            top: 40%; /* تغيير الموضع العلوي عند استخدام شاشة أصغر */
-                            transform: translate(-50%, -40%);
+                            top: 30%;
+                            transform: translate(-50%, -30%);
                         }
                     }
                 </style>
@@ -584,7 +588,7 @@
                 <!-- النافذة المنبثقة -->
                 <div id="popup" class="popup">
                     <span class="close-btn" onclick="closePopup()">×</span>
-                    <h2 style="font-size: 1.2em;">أدخل الاسم الثلاثي ورقم الهاتف</h2>
+                    <h2 style="font-size: 1.4em; margin-bottom: 20px;">أدخل الاسم الثلاثي ورقم الهاتف</h2>
                     <form id="buyForm">
                         <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br>
                         <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br>
