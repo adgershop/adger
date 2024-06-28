@@ -469,8 +469,51 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>نافذة منبثقة بسيطة</title>
+                <title>Button Styling</title>
                 <style>
+                    /* زر النمط */
+                    button {
+                        background-color: #feb538;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;
+                        border-radius: 11px;
+                        transition-duration: 0.4s;
+                    }
+            
+                    button svg {
+                        vertical-align: middle;
+                    }
+            
+                    button:hover {
+                        background-color: white;
+                        color: black;
+                        border: 2px solid #008CBA;
+                    }
+            
+                    .buy-button {
+                        display: inline-block;
+                        padding: 9px 23px;
+                        font-size: 16px;
+                        color: #fff;
+                        background-color: #19d300;
+                        text-align: center;
+                        text-decoration: none;
+                        border-radius: 11px;
+                        transition: background-color 0.3s ease;
+                    }
+            
+                    .buy-button:hover {
+                        background-color: #0ec508;
+                    }
+            
+                    /* استايل للنافذة المنبثقة */
                     .popup {
                         display: none;
                         position: fixed;
@@ -481,63 +524,80 @@
                         border: 1px solid #ccc;
                         padding: 10px;
                         z-index: 1000;
-                        max-width: 200px;
-                        width: 80%;
-                        max-height: 300px;
+                        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                        max-width: 250px; /* تقليل عرض النافذة */
+                        width: 80%; /* استخدام نسبة مئوية لتكون نافذة متجاوبة */
+                        max-height: 300px; /* تقليل ارتفاع النافذة */
                         overflow-y: auto;
                         text-align: center;
+                        border-radius: 8px; /* إضافة حواف مستديرة */
                     }
             
                     .popup input {
-                        width: 80%;
-                        margin-bottom: 10px;
-                        padding: 5px;
-                        font-size: 14px;
+                        width: 80%; /* تقليل عرض الحقول النصية */
+                        margin-bottom: 10px; /* تقليل الهامش السفلي للحقل */
+                        padding: 8px; /* زيادة حجم البادينغ للحقل */
+                        font-size: 0.9em; /* تكبير حجم الخط */
                         border: 1px solid #ccc;
-                        border-radius: 4px;
+                        border-radius: 6px;
+                        box-sizing: border-box; /* ضبط حجم الصندوق ليشمل الحدود */
                     }
             
                     .popup button {
                         background-color: #4CAF50;
                         color: white;
-                        padding: 10px 20px;
+                        padding: 8px 15px; /* تقليل حجم الزر */
                         border: none;
                         cursor: pointer;
-                        border-radius: 4px;
-                        font-size: 16px;
+                        border-radius: 6px;
+                        font-size: 0.9em; /* تكبير حجم الخط */
+                        margin-top: 10px; /* إضافة هامش للزر */
+                        transition: background-color 0.3s ease;
+                    }
+            
+                    .popup button:hover {
+                        background-color: #45a049;
                     }
             
                     .close-btn {
                         position: absolute;
-                        top: 5px;
-                        right: 5px;
+                        top: 5px; /* تقليل المسافة من الأعلى */
+                        right: 5px; /* تقليل المسافة من اليمين */
                         cursor: pointer;
-                        font-size: 16px;
+                        font-size: 1.1em; /* زيادة حجم الخط */
+                    }
+            
+                    /* عند فتح لوحة المفاتيح، يتم رفع النافذة */
+                    @media (max-width: 600px) {
+                        .popup {
+                            top: 40%; /* تغيير الموضع العلوي عند استخدام شاشة أصغر */
+                            transform: translate(-50%, -40%);
+                        }
                     }
                 </style>
             </head>
             <body>
             
-                <!-- زر "فتح النافذة المنبثقة" -->
-                <button id="openPopupBtn" style="margin-top: 20px;">افتح النافذة المنبثقة</button>
+                <!-- زر "اشترِ الآن" -->
+                <button id="buyNowBtn" class="buy-button">اشترِ الآن</button>
             
                 <!-- النافذة المنبثقة -->
                 <div id="popup" class="popup">
                     <span class="close-btn" onclick="closePopup()">×</span>
-                    <h2 style="font-size: 1em;">أدخل الاسم ورقم الهاتف</h2>
+                    <h2 style="font-size: 1.2em;">أدخل الاسم الثلاثي ورقم الهاتف</h2>
                     <form id="buyForm">
-                        <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
-                        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
+                        <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br>
+                        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br>
                         <button type="submit">موافق</button>
                     </form>
                 </div>
             
                 <script>
                     var popup = document.getElementById('popup');
-                    var openPopupBtn = document.getElementById('openPopupBtn');
+                    var buyNowBtn = document.getElementById('buyNowBtn');
             
-                    // عرض النافذة المنبثقة عند النقر على الزر
-                    openPopupBtn.addEventListener('click', function() {
+                    // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
+                    buyNowBtn.addEventListener('click', function() {
                         popup.style.display = 'block';
                     });
             
@@ -546,16 +606,28 @@
                         popup.style.display = 'none';
                     }
             
-                    // عملية إرسال النموذج (هنا لا يتم التفاعل مع بريد إلكتروني أو تخزين مؤقت)
+                    // رفع النافذة عند فتح لوحة المفاتيح على الهاتف
+                    document.querySelectorAll('.popup input').forEach(function(input) {
+                        input.addEventListener('focus', function() {
+                            setTimeout(function() {
+                                popup.scrollIntoView({behavior: "smooth", block: "start"});
+                            }, 300);
+                        });
+                    });
+            
+                    // عملية إرسال النموذج
                     document.getElementById('buyForm').addEventListener('submit', function(event) {
                         event.preventDefault();
+            
                         var name = document.getElementById('name').value;
                         var phone = document.getElementById('phone').value;
-                        alert('تم إرسال النموذج: الاسم=' + name + '، الهاتف=' + phone);
+            
+                        // يمكنك هنا إضافة ما تشاء بعد عملية إرسال النموذج
+            
+                        // إغلاق النافذة المنبثقة بعد الانتهاء من العملية
                         closePopup();
                     });
                 </script>
-            
             </body>
             </html>
     </div>
