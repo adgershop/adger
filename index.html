@@ -461,7 +461,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Button Styling</title>
     <style>
-        /* زر النمط */
+        /* استايل الأزرار */
         button {
             background-color: #feb538;
             color: white;
@@ -503,7 +503,7 @@
             background-color: #0ec508;
         }
 
-        /* استايل للنافذة المنبثقة */
+        /* استايل النافذة المنبثقة */
         .popup {
             display: none;
             position: fixed;
@@ -600,21 +600,20 @@
 
     // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
     buyNowBtn.addEventListener('click', function() {
-        var name = localStorage.getItem('userName');
-        var phone = localStorage.getItem('userPhone');
+        popup.style.display = 'block';
+        setTimeout(function() {
+            nameInput.focus();
+            popup.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100); // تأخير قصير لضمان تنفيذ الرفع إلى أعلى الشاشة والتركيز على الحقل
+    });
 
-        if (name && phone) {
-            var subject = 'شراء ساعة من فيترون';
-            var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
-            var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-            window.open(mailtoLink);
-        } else {
-            popup.style.display = 'block';
-            // رفع النافذة لأعلى
+    // رفع النافذة عند النقر على حقل الإسم أو الهاتف
+    [nameInput, phoneInput].forEach(input => {
+        input.addEventListener('focus', function() {
             setTimeout(function() {
                 popup.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 50);
-        }
+            }, 50); // تأخير قصير لضمان تنفيذ الرفع إلى أعلى الشاشة
+        });
     });
 
     // إغلاق النافذة المنبثقة
@@ -642,11 +641,9 @@
         // إغلاق النافذة المنبثقة بعد الإرسال
         closePopup();
     });
-
 </script>
 
 </body>
-</html>
 </html>
     </div>
 
