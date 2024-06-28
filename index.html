@@ -519,26 +519,23 @@
                     .popup {
                         display: none;
                         position: fixed;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: rgba(0, 0, 0, 0.5); /* خلفية شفافة لتغطية الشاشة */
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
                         z-index: 1000;
+                        padding: 20px;
+                        box-sizing: border-box;
+                        background-color: white;
+                        border-radius: 10px;
+                        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+                        max-width: 90%;
+                        max-height: 90%;
+                        overflow-y: auto;
                     }
             
                     .popup-inner {
-                        background-color: white;
-                        padding: 40px; /* زيادة الحشو */
-                        border-radius: 10px;
-                        max-width: 90%; /* توسيع النافذة */
-                        max-height: 90%; /* توسيع النافذة */
-                        overflow-y: auto; /* إمكانية التمرير عند الحاجة */
-                        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+                        padding: 20px;
                         position: relative;
-                        transform: translate(-50%, -50%);
-                        left: 50%;
-                        top: 50%;
                     }
             
                     .popup input {
@@ -548,7 +545,7 @@
                         font-size: 18px;
                         border: none;
                         outline: none;
-                        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+                        box-shadow: 0 0 5px rgba(0,0,0,0.3);
                         border-radius: 10px;
                         box-sizing: border-box;
                         background-color: #fff;
@@ -635,6 +632,14 @@
                         } else {
                             popup.style.display = 'block'; // إظهار النافذة المنبثقة لإدخال الاسم ورقم الهاتف
                         }
+            
+                        // تكبير حجم النافذة بحسب الحاجة
+                        var nameFieldRect = document.getElementById('name').getBoundingClientRect();
+                        var phoneFieldRect = document.getElementById('phone').getBoundingClientRect();
+                        var popupInner = document.querySelector('.popup-inner');
+                        var popupRect = popupInner.getBoundingClientRect();
+                        var maxHeight = Math.max(nameFieldRect.bottom, phoneFieldRect.bottom) + 20; // إضافة تحسين للمسافة
+                        popupInner.style.maxHeight = maxHeight + 'px';
                     });
             
                     // إغلاق النافذة المنبثقة
@@ -676,16 +681,15 @@
             
                         // إنشاء رابط البريد الإلكتروني
                         var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-            
                         // فتح نافذة البريد الإلكتروني
-                        window.open(mailtoLink);
-            
-                        // إغلاق النافذة المنبثقة بعد الانتهاء من العملية
-                        closePopup();
-                    });
-                </script>
-            </body>
-            </html>
+            window.open(mailtoLink);
+
+// إغلاق النافذة المنبثقة بعد الانتهاء من العملية
+closePopup();
+});
+</script>
+</body>
+</html>
     </div>
 
 
