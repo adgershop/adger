@@ -517,17 +517,18 @@
             
                     /* استايل للنافذة المنبثقة */
                     .popup {
-    background-color: transparent; /* تغيير الخلفية إلى شفاف */
-    display: none;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 30px;
-    z-index: 1000;
-    box-shadow: none; /* إزالة أي ظل للنافذة */
-    border: none; /* إزالة أي حدود للنافذة */
-}         
+                        background-color: transparent; /* تغيير الخلفية إلى شفاف */
+                        display: none;
+                        position: fixed;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        padding: 30px;
+                        z-index: 1000;
+                        box-shadow: none; /* إزالة أي ظل للنافذة */
+                        border: none; /* إزالة أي حدود للنافذة */
+                    }
+            
                     .popup-inner {
                         background-image: radial-gradient(circle, #ff1744, #2dc0be);
                         padding: 20px;
@@ -536,13 +537,13 @@
                     }
             
                     .popup input {
-    /* استبدال الخاصية border بـ outline وتعيين لون شفاف */
-    outline: none;
-    /* إزالة الحدود البيضاء */
-    border: none;
-    /* تعيين ظل تأثير للحقل */
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-}
+                        /* استبدال الخاصية border بـ outline وتعيين لون شفاف */
+                        outline: none;
+                        /* إزالة الحدود البيضاء */
+                        border: none;
+                        /* تعيين ظل تأثير للحقل */
+                        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+                    }
             
                     .popup button {
                         background-color: #ff5722;
@@ -584,99 +585,99 @@
             </head>
             <body>
             
-                <!-- زر "اشترِ الآن" -->
-                <button id="buyNowBtn" class="buy-button">اشترِ الآن</button>
+            <!-- زر "اشترِ الآن" -->
+            <button id="buyNowBtn" class="buy-button">اشترِ الآن</button>
             
-                <!-- النافذة المنبثقة -->
-                <div id="popup" class="popup">
-                    <span class="close-btn" onclick="closePopup()">×</span>
-                    <div class="popup-inner">
-                        <h2 style="font-size: 1.4em; margin-bottom: 20px; color: #ffffff;">أدخل الاسم الثلاثي ورقم الهاتف</h2>
-                        <form id="buyForm">
-                            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br>
-                            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br>
-                            <button type="submit">موافق</button>
-                        </form>
-                    </div>
+            <!-- النافذة المنبثقة -->
+            <div id="popup" class="popup">
+                <span class="close-btn" onclick="closePopup()">×</span>
+                <div class="popup-inner">
+                    <h2 style="font-size: 1.4em; margin-bottom: 20px; color: #ffffff;">أدخل الاسم الثلاثي ورقم الهاتف</h2>
+                    <form id="buyForm">
+                        <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br>
+                        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br>
+                        <button type="submit">موافق</button>
+                    </form>
                 </div>
+            </div>
             
-                <script>
-                    var popup = document.getElementById('popup');
-                    var buyNowBtn = document.getElementById('buyNowBtn');
+            <script>
+                var popup = document.getElementById('popup');
+                var buyNowBtn = document.getElementById('buyNowBtn');
             
-                    // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
-                    buyNowBtn.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        var storedName = localStorage.getItem('userName');
-                        var storedPhone = localStorage.getItem('userPhone');
+                // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
+                buyNowBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var storedName = localStorage.getItem('userName');
+                    var storedPhone = localStorage.getItem('userPhone');
             
-                        // إذا كانت هناك بيانات محفوظة، حدد القيم في حقول النموذج
-                        if (storedName && storedPhone) {
-                            var nameField = document.getElementById('name');
-                            var phoneField = document.getElementById('phone');
-                            nameField.value = storedName;
-                            phoneField.value = storedPhone;
-            
-                            // إدخال عنوان الإيميل يدويًا
-                            var emailSubject = 'طلب شراء منتج';
-            
-                            // إعداد معلومات البريد الإلكتروني
-                            var subject = emailSubject;
-                            var body = 'الاسم الثلاثي: ' + storedName + '\nرقم الهاتف: ' + storedPhone;
-            
-                            // إنشاء رابط البريد الإلكتروني
-                            var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-            
-                            // فتح نافذة البريد الإلكتروني
-                            window.open(mailtoLink);
-                        } else {
-                            // إظهار النافذة المنبثقة لإدخال الاسم ورقم الهاتف
-                            popup.style.display = 'block';
-                        }
-                    });
-            
-                    // إغلاق النافذة المنبثقة
-                    function closePopup() {
-                        popup.style.display = 'none';
-                    }
-            
-                    // رفع النافذة عند فتح لوحة المفاتيح على الهاتف
-                    document.querySelectorAll('.popup input').forEach(function(input) {
-                        input.addEventListener('focus', function() {
-                            setTimeout(function() {
-                                popup.scrollIntoView({behavior: "smooth", block: "start"});
-                            }, 300);
-                        });
-                    });
-            
-                    // عملية إرسال النموذج
-                    document.getElementById('buyForm').addEventListener('submit', function(event) {
-                        event.preventDefault();
-            
-                        var name = document.getElementById('name').value;
-                        var phone = document.getElementById('phone').value;
-            
-                        // حفظ الاسم ورقم الهاتف في Local Storage
-                        localStorage.setItem('userName', name);
-                        localStorage.setItem('userPhone', phone);
+                    // إذا كانت هناك بيانات محفوظة، حدد القيم في حقول النموذج
+                    if (storedName && storedPhone) {
+                        var nameField = document.getElementById('name');
+                        var phoneField = document.getElementById('phone');
+                        nameField.value = storedName;
+                        phoneField.value = storedPhone;
             
                         // إدخال عنوان الإيميل يدويًا
-                        var emailSubject = 'طلب شراء / اسم المنتج|ساعه من فيترون / رقم المنتج|1';
+                        var emailSubject = 'طلب شراء منتج';
             
                         // إعداد معلومات البريد الإلكتروني
                         var subject = emailSubject;
-                        var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+                        var body = 'الاسم الثلاثي: ' + storedName + '\nرقم الهاتف: ' + storedPhone;
             
                         // إنشاء رابط البريد الإلكتروني
                         var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
             
                         // فتح نافذة البريد الإلكتروني
                         window.open(mailtoLink);
+                    } else {
+                        // إظهار النافذة المنبثقة لإدخال الاسم ورقم الهاتف
+                        popup.style.display = 'block';
+                    }
+                });
             
-                        // إغلاق النافذة المنبثقة بعد الانتهاء من العملية
-                        closePopup();
+                // إغلاق النافذة المنبثقة
+                function closePopup() {
+                    popup.style.display = 'none';
+                }
+            
+                // رفع النافذة عند فتح لوحة المفاتيح على الهاتف
+                document.querySelectorAll('.popup input').forEach(function(input) {
+                    input.addEventListener('focus', function() {
+                        setTimeout(function() {
+                            popup.scrollIntoView({behavior: "smooth", block: "start"});
+                        }, 300);
                     });
-                </script>
+                });
+            
+                // عملية إرسال النموذج
+                document.getElementById('buyForm').addEventListener('submit', function(event) {
+                    event.preventDefault();
+            
+                    var name = document.getElementById('name').value;
+                    var phone = document.getElementById('phone').value;
+            
+                    // حفظ الاسم ورقم الهاتف في Local Storage
+                    localStorage.setItem('userName', name);
+                    localStorage.setItem('userPhone', phone);
+            
+                    // إدخال عنوان الإيميل يدويًا
+                    var emailSubject = 'طلب شراء / اسم المنتج|ساعه من فيترون / رقم المنتج|1';
+            
+                    // إعداد معلومات البريد الإلكتروني
+                    var subject = emailSubject;
+                    var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+            
+                    // إنشاء رابط البريد الإلكتروني
+                    var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+            
+                    // فتح نافذة البريد الإلكتروني
+                    window.open(mailtoLink);
+            
+                    // إغلاق النافذة المنبثقة بعد الانتهاء من العملية
+                    closePopup();
+                });
+            </script>
             </body>
             </html>
     </div>
