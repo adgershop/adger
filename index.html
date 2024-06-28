@@ -522,18 +522,18 @@
                         transform: translate(-50%, -50%);
                         background-color: #fff;
                         border: 1px solid #ccc;
-                        padding: 10px; /* تقليل البادينغ للنافذة */
+                        padding: 10px;
                         z-index: 1000;
                         box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                        max-width: 200px; /* تقليل عرض النافذة */
-                        width: 90%; /* استخدام نسبة مئوية لتكون نافذة متجاوبة */
+                        max-width: 150px; /* تقليل عرض النافذة */
+                        width: 80%; /* استخدام نسبة مئوية لتكون نافذة متجاوبة */
                         max-height: 50%; /* تقليل ارتفاع النافذة */
                         overflow-y: auto;
                         text-align: center;
                     }
             
                     .popup input {
-                        width: 90%; /* تقليل عرض الحقول النصية */
+                        width: 70%; /* تقليل عرض الحقول النصية */
                         margin-bottom: 5px; /* تقليل الهامش السفلي للحقل */
                         padding: 3px; /* تقليل البادينغ للحقل */
                         font-size: 0.8em; /* تصغير حجم الخط */
@@ -576,10 +576,10 @@
                 <!-- النافذة المنبثقة -->
                 <div id="popup" class="popup">
                     <span class="close-btn" onclick="closePopup()">×</span>
-                    <h2>أدخل الاسم ورقم الهاتف</h2>
+                    <h2 style="font-size: 1em;">أدخل الاسم ورقم الهاتف</h2>
                     <form id="buyForm">
-                        <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
-                        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
+                        <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br>
+                        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br>
                         <button type="submit">موافق</button>
                     </form>
                 </div>
@@ -639,7 +639,6 @@
                     });
                 </script>
             </body>
-            </html>
             </html>
     </div>
 
