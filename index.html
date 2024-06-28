@@ -541,6 +541,10 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box; /* تأكيد الحجم بما فيه الكفاية */
+            text-align: center; /* محاذاة النص بالوسط */
+            background-color: transparent; /* خلفية شفافة */
+            color: white; /* لون الخط */
+            outline: none; /* إزالة التأطير عند التركيز */
         }
 
         .popup button {
@@ -602,9 +606,9 @@
     buyNowBtn.addEventListener('click', function() {
         popup.style.display = 'block';
         setTimeout(function() {
-            nameInput.focus();
+            phoneInput.focus(); // التركيز على حقل الهاتف
             scrollToTop();
-        }, 200); // تأخير قصير لضمان تنفيذ التركيز على الحقل والتمرير لأعلى الصفحة
+        }, 200); // تأخير قصير لضمان تنفيذ التركيز والتمرير لأعلى الصفحة
     });
 
     // رفع النافذة عند النقر على حقل الإسم أو الهاتف
