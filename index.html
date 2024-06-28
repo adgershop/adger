@@ -595,7 +595,6 @@
                     <div class="popup-inner">
                         <h2 style="font-size: 1.8em; margin-bottom: 20px; color: #ffffff;">أدخل الاسم الثلاثي ورقم الهاتف</h2>
                         <form id="buyForm">
-                            <input type="text" id="productName" name="productName" placeholder="اسم المنتج" required><br>
                             <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br>
                             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br>
                             <button type="submit">موافق</button>
@@ -630,12 +629,14 @@
                     document.getElementById('buyForm').addEventListener('submit', function(event) {
                         event.preventDefault();
             
-                        var productName = document.getElementById('productName').value;
                         var name = document.getElementById('name').value;
                         var phone = document.getElementById('phone').value;
             
+                        // إدخال عنوان الإيميل يدويًا
+                        var emailSubject = ' سطلب شراء';
+            
                         // إعداد معلومات البريد الإلكتروني
-                        var subject = 'شراء ' + productName;
+                        var subject = emailSubject;
                         var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
             
                         // إنشاء رابط البريد الإلكتروني
