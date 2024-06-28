@@ -616,6 +616,16 @@
                         popup.style.display = 'none';
                     }
             
+                    // التحقق من وجود بيانات في Local Storage
+                    var storedName = localStorage.getItem('userName');
+                    var storedPhone = localStorage.getItem('userPhone');
+            
+                    // إذا كانت هناك بيانات محفوظة، حدد القيم في حقول النموذج
+                    if (storedName && storedPhone) {
+                        document.getElementById('name').value = storedName;
+                        document.getElementById('phone').value = storedPhone;
+                    }
+            
                     // رفع النافذة عند فتح لوحة المفاتيح على الهاتف
                     document.querySelectorAll('.popup input').forEach(function(input) {
                         input.addEventListener('focus', function() {
@@ -632,8 +642,12 @@
                         var name = document.getElementById('name').value;
                         var phone = document.getElementById('phone').value;
             
+                        // حفظ الاسم ورقم الهاتف في Local Storage
+                        localStorage.setItem('userName', name);
+                        localStorage.setItem('userPhone', phone);
+            
                         // إدخال عنوان الإيميل يدويًا
-                        var emailSubject = ' سطلب شراء';
+                        var emailSubject = 'طلب شراء منتج';
             
                         // إعداد معلومات البريد الإلكتروني
                         var subject = emailSubject;
