@@ -611,7 +611,10 @@
     [nameInput, phoneInput].forEach(input => {
         input.addEventListener('focus', function() {
             popup.style.display = 'block';
-            setTimeout(scrollToTop, 200); // تأخير قصير لضمان التمرير لأعلى الصفحة
+            setTimeout(function() {
+                input.focus();
+                scrollToTop();
+            }, 200); // تأخير قصير لضمان التمرير لأعلى الصفحة والتركيز على الحقل
         });
     });
 
