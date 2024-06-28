@@ -818,7 +818,7 @@
                     }
             
                     /* استايل للنافذة المنبثقة */
-                    .popup1 {
+                    .popup {
     display: none;
     position: fixed;
     left: 0;
@@ -829,7 +829,7 @@
     z-index: 1000;
 }
 
-.popup-inner1 {
+.popup-inner {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -890,10 +890,10 @@
                 <button id="buyNowBtn2" class="buy-button">اشترِ الآن</button>
             
                 <!-- النافذة المنبثقة -->
-                <div id="popup" class="popup">
+                <div id="popup1" class="popup">
                     <span class="close-btn" onclick="closePopup()">×</span>
                     <h2>أدخل الاسم ورقم الهاتف</h2>
-                    <form id="buyForm2">
+                    <form id="buyForm">
                         <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
                         <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
                         <button type="submit">موافق</button>
@@ -901,7 +901,7 @@
                 </div>
             
                 <script>
-                    var popup = document.getElementById('popup');
+                    var popup = document.getElementById('popup1');
                     var buyNowBtn = document.getElementById('buyNowBtn2');
             
                     // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
