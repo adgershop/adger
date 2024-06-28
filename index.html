@@ -535,16 +535,13 @@
                     }
             
                     .popup input {
-                        width: calc(100% - 40px);
-                        margin-bottom: 20px;
-                        padding: 15px;
-                        font-size: 18px;
-                        border: 2px solid #fff;
-                        border-radius: 10px;
-                        box-sizing: border-box;
-                        background-color: #fff;
-                        color: #333;
-                    }
+    /* استبدال الخاصية border بـ outline وتعيين لون شفاف */
+    outline: none;
+    /* إزالة الحدود البيضاء */
+    border: none;
+    /* تعيين ظل تأثير للحقل */
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
             
                     .popup button {
                         background-color: #ff5722;
@@ -593,7 +590,7 @@
                 <div id="popup" class="popup">
                     <span class="close-btn" onclick="closePopup()">×</span>
                     <div class="popup-inner">
-                        <h2 style="font-size: 1.8em; margin-bottom: 20px; ">أدخل الاسم الثلاثي ورقم الهاتف</h2>
+                        <h2 style="font-size: 1.4em; margin-bottom: 20px; color: #ffffff;">أدخل الاسم الثلاثي ورقم الهاتف</h2>
                         <form id="buyForm">
                             <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br>
                             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br>
