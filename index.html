@@ -545,6 +545,11 @@
             background-color: transparent; /* خلفية شفافة */
             color: white; /* لون الخط */
             outline: none; /* إزالة التأطير عند التركيز */
+            transition: box-shadow 0.3s ease; /* تأثير عند التركيز */
+        }
+
+        .popup input:focus {
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2); /* تعديل شكل التركيز */
         }
 
         .popup button {
@@ -606,7 +611,7 @@
     buyNowBtn.addEventListener('click', function() {
         popup.style.display = 'block';
         setTimeout(function() {
-            phoneInput.focus(); // التركيز على حقل الهاتف
+            nameInput.focus(); // التركيز على حقل الاسم
             scrollToTop();
         }, 200); // تأخير قصير لضمان تنفيذ التركيز والتمرير لأعلى الصفحة
     });
