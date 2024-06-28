@@ -517,22 +517,24 @@
             
                     /* استايل للنافذة المنبثقة */
                     .popup {
-                        display: none;
-                        position: fixed;
-                        left: 50%;
-                        top: 50%;
-                        transform: translate(-50%, -50%);
-                        background-color: #fff;
-                        border: 1px solid #ccc;
-                        padding: 10px; /* تقليل البادينغ للنافذة */
-                        z-index: 1000;
-                        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                        max-width: 200px; /* تقليل عرض النافذة */
-                        width: 90%; /* استخدام نسبة مئوية لتكون نافذة متجاوبة */
-                        max-height: 50%; /* تقليل ارتفاع النافذة */
-                        overflow-y: auto;
-                        text-align: center;
-                    }
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px; /* زيادة البادينغ لزيادة المسافة الداخلية */
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2); /* زيادة الظل لمظهر ثلاثي الأبعاد */
+    max-width: 300px; /* زيادة عرض النافذة */
+    width: 90%; /* استخدام نسبة مئوية لتكون نافذة متجاوبة */
+    max-height: 70%; /* زيادة ارتفاع النافذة */
+    overflow-y: auto;
+    text-align: center;
+    font-size: 1em; /* زيادة حجم الخط */
+}
+
             
                     .popup input {
                         width: 90%; /* تقليل عرض الحقول النصية */
