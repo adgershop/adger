@@ -604,7 +604,7 @@
         popup.style.display = 'block';
         setTimeout(function() {
             nameInput.focus();
-            popup.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 200); // تأخير قصير لضمان تنفيذ التركيز على الحقل والتمرير لأعلى الصفحة
     });
 
@@ -612,7 +612,7 @@
     [nameInput, phoneInput].forEach(input => {
         input.addEventListener('focus', function() {
             setTimeout(function() {
-                popup.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 50); // تأخير قصير لضمان تنفيذ التمرير لأعلى الصفحة
         });
     });
