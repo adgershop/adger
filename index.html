@@ -519,21 +519,26 @@
                     .popup {
                         display: none;
                         position: fixed;
-                        left: 50%;
-                        top: 50%;
-                        transform: translate(-50%, -50%);
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0.5); /* خلفية شفافة لتغطية الشاشة */
                         z-index: 1000;
-                        padding: 20px;
-                        box-sizing: border-box;
                     }
             
                     .popup-inner {
                         background-color: white;
-                        padding: 20px;
+                        padding: 40px; /* زيادة الحشو */
                         border-radius: 10px;
-                        max-width: 500px;
-                        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+                        max-width: 90%; /* توسيع النافذة */
+                        max-height: 90%; /* توسيع النافذة */
+                        overflow-y: auto; /* إمكانية التمرير عند الحاجة */
+                        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
                         position: relative;
+                        transform: translate(-50%, -50%);
+                        left: 50%;
+                        top: 50%;
                     }
             
                     .popup input {
@@ -543,7 +548,7 @@
                         font-size: 18px;
                         border: none;
                         outline: none;
-                        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+                        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
                         border-radius: 10px;
                         box-sizing: border-box;
                         background-color: #fff;
@@ -619,28 +624,16 @@
                         var storedName = localStorage.getItem('userName');
                         var storedPhone = localStorage.getItem('userPhone');
             
-                        // إذا كانت هناك بيانات محفوظة، حدد القيم في حقول النموذج
                         if (storedName && storedPhone) {
+                            // إذا كانت هناك بيانات محفوظة، حدد القيم في حقول النموذج وفتح النافذة
                             var nameField = document.getElementById('name');
                             var phoneField = document.getElementById('phone');
                             nameField.value = storedName;
                             phoneField.value = storedPhone;
             
-                            // إدخال عنوان الإيميل يدويًا
-                            var emailSubject = 'طلب شراء منتج';
-            
-                            // إعداد معلومات البريد الإلكتروني
-                            var subject = emailSubject;
-                            var body = 'الاسم الثلاثي: ' + storedName + '\nرقم الهاتف: ' + storedPhone;
-            
-                            // إنشاء رابط البريد الإلكتروني
-                            var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-            
-                            // فتح نافذة البريد الإلكتروني
-                            window.open(mailtoLink);
-                        } else {
-                            // إظهار النافذة المنبثقة لإدخال الاسم ورقم الهاتف
                             popup.style.display = 'block';
+                        } else {
+                            popup.style.display = 'block'; // إظهار النافذة المنبثقة لإدخال الاسم ورقم الهاتف
                         }
                     });
             
