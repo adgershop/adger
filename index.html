@@ -703,24 +703,71 @@
         
             <!-- WhatsApp Message Button -->
         
-                <style>
-                    .buy-button {
-                        display: inline-block;
-                        padding: 9px 23px;
-                        font-size: 16px;
-                        color: #fff;
-                        background-color: #19d300;
-                        text-align: center;
-                        text-decoration: none;
-                        border-radius: 11px;
-                        transition: background-color 0.3s ease;
-                    }
-            
-                    .buy-button:hover {
-                        background-color: #0ec508;
-                    }
-                </style>
-            </head>
+           
+        </div>
+        <div class="product-images">
+            <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')">
+        </div>
+        <div style="clear:both;"></div>
+        <!DOCTYPE html>
+        <html lang="ar">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Button Styling</title>
+            <style>
+                button {
+                    background-color: #feb538;
+                    color: white; /* لون النص */
+                    border: none; /* إزالة الحدود */
+                    padding: 10px 20px; /* مساحة داخلية */
+                    text-align: center; /* محاذاة النص في الوسط */
+                    text-decoration: none; /* إزالة التزيين تحت النص */
+                    display: inline-block; /* عرض الزر كتلة داخلية */
+                    font-size: 16px; /* حجم الخط */
+                    margin: 4px 2px; /* هوامش */
+                    cursor: pointer; /* شكل المؤشر */
+                    border-radius: 11px; /* زوايا مستديرة */
+                    transition-duration: 0.4s; /* مدة الانتقال */
+                }
+        
+                button svg {
+                    vertical-align: middle; /* محاذاة الأيقونة مع النص */
+                }
+        
+                button:hover {
+                    background-color: white; /* لون الخلفية عند التمرير */
+                    color: black; /* لون النص عند التمرير */
+                    border: 2px solid #008CBA; /* حدود عند التمرير */
+                }
+        
+                .buy-button {
+                    display: inline-block;
+                    padding: 9px 23px; /* مساحة داخلية متطابقة */
+                    font-size: 16px;
+                    color: #fff;
+                    background-color: #19d300;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 11px;
+                    transition: background-color 0.3s ease;
+                }
+        
+                .buy-button:hover {
+                    background-color: #0ec508;
+                }
+            </style>
+        </head>
+        <body>
+        
+            <button onclick="addToCart(this)">    
+                <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
+                    <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        
+            <br>
             <!DOCTYPE html>
             <html lang="ar">
             <head>
@@ -728,7 +775,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Button Styling</title>
                 <style>
-                    /* استايل للأزرار */
+                    /* زر النمط */
                     button {
                         background-color: #feb538;
                         color: white;
@@ -756,92 +803,83 @@
             
                     .buy-button {
                         display: inline-block;
-                        padding: 10px 25px;
-                        font-size: 18px;
+                        padding: 9px 23px;
+                        font-size: 16px;
                         color: #fff;
                         background-color: #19d300;
                         text-align: center;
                         text-decoration: none;
-                        border-radius: 20px;
+                        border-radius: 11px;
                         transition: background-color 0.3s ease;
-                        border: 2px solid transparent;
                     }
             
                     .buy-button:hover {
                         background-color: #0ec508;
-                        border-color: #19d300;
                     }
             
                     /* استايل للنافذة المنبثقة */
                     .popup {
-                        display: none;
-                        position: fixed;
-                        left: 50%;
-                        top: 50%;
-                        transform: translate(-50%, -50%);
-                        z-index: 1000;
-                        padding: 20px;
-                        box-sizing: border-box;
-                    }
-            
-                    .popup-inner {
-                        background-color: white;
-                        padding: 20px;
-                        border-radius: 10px;
-                        max-width: 500px;
-                        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-                        position: relative;
-                    }
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(239, 239, 239); /* خلفية شفافة للنافذة */
+    z-index: 1000;
+}
+
+.popup-inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(to bottom, #8e00ec, #00eacb); /* تدرج لوني من #feb538 إلى #19d300 */
+    border: 1px solid #ccc;
+    padding: 20px; /* زيادة البادينغ لزيادة المسافة الداخلية */
+    box-shadow: 0 0 20px rgba(0,0,0,0.2); /* زيادة الظل لمظهر ثلاثي الأبعاد */
+    max-width: 90%; /* عرض النافذة متجاوب مع أحجام الشاشات */
+    max-height: 90%; /* زيادة ارتفاع النافذة */
+    overflow-y: auto;
+    text-align: center;
+    font-size: 1em; /* زيادة حجم الخط */
+}
+
+
             
                     .popup input {
-                        width: calc(100% - 40px);
-                        margin-bottom: 20px;
-                        padding: 15px;
-                        font-size: 18px;
-                        border: none;
-                        outline: none;
-                        box-shadow: 0 0 5px rgba(0,0,0,0.3);
-                        border-radius: 10px;
-                        box-sizing: border-box;
-                        background-color: #fff;
-                        color: #333;
+                        width: 90%; /* تقليل عرض الحقول النصية */
+                        margin-bottom: 5px; /* تقليل الهامش السفلي للحقل */
+                        padding: 3px; /* تقليل البادينغ للحقل */
+                        font-size: 0.8em; /* تصغير حجم الخط */
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
                     }
             
                     .popup button {
-                        background-color: #ff5722;
+                        background-color: #4CAF50;
                         color: white;
-                        padding: 15px 30px;
+                        padding: 5px 10px; /* تقليل حجم الزر */
                         border: none;
                         cursor: pointer;
-                        border-radius: 10px;
-                        font-size: 18px;
-                        transition: background-color 0.3s ease;
-                        display: inline-block;
-                        margin-right: 10px; /* إضافة مساحة بين الأزرار */
-                    }
-            
-                    .popup button:hover {
-                        background-color: #f4511e;
+                        border-radius: 4px;
+                        font-size: 0.8em; /* تصغير حجم الخط */
                     }
             
                     .close-btn {
-                        position: absolute;
-                        top: 10px;
-                        right: 10px;
-                        font-size: 24px;
-                        cursor: pointer;
-                        color: #888;
-                        transition: color 0.3s ease;
-                    }
-            
-                    .close-btn:hover {
-                        color: #333;
-                    }
+            position: absolute;
+            top: 5px; /* تقليل المسافة من الأعلى */
+            right: 5px; /* تقليل المسافة من اليمين */
+            cursor: pointer;
+            font-size: 0.9em; /* تصغير حجم الخط */
+            color: white; /* لون النص */
+        }
             
                     /* عند فتح لوحة المفاتيح، يتم رفع النافذة */
                     @media (max-width: 600px) {
-                        .popup-inner {
-                            max-width: 100%;
+                        .popup {
+                            top: 40%; /* تغيير الموضع العلوي عند استخدام شاشة أصغر */
+                            transform: translate(-50%, -40%);
                         }
                     }
                 </style>
@@ -853,50 +891,30 @@
             
                 <!-- النافذة المنبثقة -->
                 <div id="popup" class="popup">
-                    <div class="popup-inner">
-                        <span class="close-btn" onclick="closePopup()">×</span>
-                        <h2 style="font-size: 1.4em; margin-bottom: 20px; color: #333;">أدخل الاسم الثلاثي ورقم الهاتف</h2>
-                        <form id="buyForm">
-                            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br>
-                            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br>
-                            <button type="submit">موافق</button>
-                            <button id="backButton" type="button" style="background-color: #007BFF;">رجوع</button>
-                        </form>
-                    </div>
+                    <span class="close-btn" onclick="closePopup()">×</span>
+                    <h2>أدخل الاسم ورقم الهاتف</h2>
+                    <form id="buyForm">
+                        <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
+                        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
+                        <button type="submit">موافق</button>
+                    </form>
                 </div>
             
                 <script>
                     var popup = document.getElementById('popup');
                     var buyNowBtn = document.getElementById('buyNowBtn2');
-                    var backButton = document.getElementById('backButton');
             
                     // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
-                    buyNowBtn.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        var storedName = localStorage.getItem('userName');
-                        var storedPhone = localStorage.getItem('userPhone');
+                    buyNowBtn.addEventListener('click', function() {
+                        var name = localStorage.getItem('userName');
+                        var phone = localStorage.getItem('userPhone');
             
-                        // إذا كانت هناك بيانات محفوظة، حدد القيم في حقول النموذج
-                        if (storedName && storedPhone) {
-                            var nameField = document.getElementById('name');
-                            var phoneField = document.getElementById('phone');
-                            nameField.value = storedName;
-                            phoneField.value = storedPhone;
-            
-                            // إدخال عنوان الإيميل يدويًا
-                            var emailSubject = 'طلب  منتج';
-            
-                            // إعداد معلومات البريد الإلكتروني
-                            var subject = emailSubject;
-                            var body = 'الاسم الثلاثي: ' + storedName + '\nرقم الهاتف: ' + storedPhone;
-            
-                            // إنشاء رابط البريد الإلكتروني
+                        if (name && phone) {
+                            var subject = '  من فيترون';
+                            var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
                             var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-            
-                            // فتح نافذة البريد الإلكتروني
                             window.open(mailtoLink);
                         } else {
-                            // إظهار النافذة المنبثقة لإدخال الاسم ورقم الهاتف
                             popup.style.display = 'block';
                         }
                     });
@@ -905,11 +923,6 @@
                     function closePopup() {
                         popup.style.display = 'none';
                     }
-            
-                    // زر "رجوع" لإخفاء النافذة المنبثقة دون إعادة تحميل الصفحة
-                    backButton.addEventListener('click', function() {
-                        closePopup();
-                    });
             
                     // رفع النافذة عند فتح لوحة المفاتيح على الهاتف
                     document.querySelectorAll('.popup input').forEach(function(input) {
@@ -931,34 +944,21 @@
                         localStorage.setItem('userName', name);
                         localStorage.setItem('userPhone', phone);
             
-                        // إدخال عنوان الإيميل يدويًا
-                        var emailSubject = 'طلب شراء / اسم المنتج| من فيترون / رقم المنتج|1';
-            
-                        // إعداد معلومات البريد الإلكتروني
-                        var subject = emailSubject;
-                        var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
-            
-                        // إنشاء رابط البريد الإلكتروني
-                        var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-            
-                        // فتح نافذة البريد الإلكتروني
-                        window.open(mailtoLink);
-            
-                        // إغلاق النافذة المنبثقة بعد الانتهاء من العملية
+                        // بعد الانتهاء من العملية، يمكن إغلاق النافذة المنبثقة
                         closePopup();
+            
+                        // إعادة محاولة فتح رابط البريد الإلكتروني بعد حفظ البيانات
+                        var subject = 'شراء ساعة من فيترون';
+                        var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+                        var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                        window.open(mailtoLink);
                     });
                 </script>
             </body>
             </html>
-            </html>
-            </body>
-            </html>
-        </div>
-        <div class="product-images">
-            <img src="2.jpg" alt="product" onclick="openLightbox('2.jpg')">
-        </div>
-        <div style="clear:both;"></div>
+
     </div>
+
 
     <!-- Repeat the product structure for other products -->
 
