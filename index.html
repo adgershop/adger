@@ -454,7 +454,6 @@
                 .buy-button:hover {
                     background-color: #0ec508;
                 }
-
                 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -604,18 +603,22 @@
         popup.style.display = 'block';
         setTimeout(function() {
             nameInput.focus();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            scrollToTop();
         }, 200); // تأخير قصير لضمان تنفيذ التركيز على الحقل والتمرير لأعلى الصفحة
     });
 
     // رفع النافذة عند النقر على حقل الإسم أو الهاتف
     [nameInput, phoneInput].forEach(input => {
         input.addEventListener('focus', function() {
-            setTimeout(function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 50); // تأخير قصير لضمان تنفيذ التمرير لأعلى الصفحة
+            popup.style.display = 'block';
+            setTimeout(scrollToTop, 200); // تأخير قصير لضمان التمرير لأعلى الصفحة
         });
     });
+
+    // تمرير لأعلى الصفحة بتأثير ناعم
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     // إغلاق النافذة المنبثقة
     function closePopup() {
