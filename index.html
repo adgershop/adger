@@ -469,8 +469,50 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>صفحة المنتج</title>
+                <title>Button Styling</title>
                 <style>
+                    /* زر النمط */
+                    button {
+                        background-color: #feb538;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;
+                        border-radius: 11px;
+                        transition-duration: 0.4s;
+                    }
+            
+                    button svg {
+                        vertical-align: middle;
+                    }
+            
+                    button:hover {
+                        background-color: white;
+                        color: black;
+                        border: 2px solid #008CBA;
+                    }
+            
+                    .buy-button {
+                        display: inline-block;
+                        padding: 9px 23px;
+                        font-size: 16px;
+                        color: #fff;
+                        background-color: #19d300;
+                        text-align: center;
+                        text-decoration: none;
+                        border-radius: 11px;
+                        transition: background-color 0.3s ease;
+                    }
+            
+                    .buy-button:hover {
+                        background-color: #0ec508;
+                    }
+            
                     /* استايل للنافذة المنبثقة */
                     .popup {
                         display: none;
@@ -489,10 +531,12 @@
                         overflow-y: auto;
                         text-align: center;
                     }
+            
                     .popup h2 {
                         font-size: 1.5em;
                         margin-bottom: 20px;
                     }
+            
                     .popup input {
                         width: calc(100% - 20px);
                         margin-bottom: 10px;
@@ -501,6 +545,7 @@
                         border: 1px solid #ccc;
                         border-radius: 4px;
                     }
+            
                     .popup button {
                         background-color: #4CAF50;
                         color: white;
@@ -510,6 +555,7 @@
                         border-radius: 4px;
                         font-size: 1em;
                     }
+            
                     .close-btn {
                         position: absolute;
                         top: 10px;
@@ -520,6 +566,7 @@
                 </style>
             </head>
             <body>
+            
                 <!-- زر "اشترِ الآن" -->
                 <button id="buyNowBtn" class="buy-button">اشترِ الآن</button>
             
@@ -540,7 +587,17 @@
             
                     // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
                     buyNowBtn.addEventListener('click', function() {
-                        popup.style.display = 'block';
+                        var name = localStorage.getItem('userName');
+                        var phone = localStorage.getItem('userPhone');
+            
+                        if (name && phone) {
+                            var subject = 'شراء ساعة من فيترون';
+                            var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+                            var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                            window.open(mailtoLink);
+                        } else {
+                            popup.style.display = 'block';
+                        }
                     });
             
                     // إغلاق النافذة المنبثقة
@@ -561,22 +618,12 @@
             
                         // بعد الانتهاء من العملية، يمكن إغلاق النافذة المنبثقة
                         closePopup();
-                    });
             
-                    // عندما يتم النقر على زر "اشترِ الآن" بعد كتابة الاسم ورقم الهاتف، يتم تعبئة موضوع البريد الإلكتروني
-                    buyNowBtn.addEventListener('click', function() {
-                        var name = localStorage.getItem('userName');
-                        var phone = localStorage.getItem('userPhone');
-            
-                        if (name && phone) {
-                            var subject = 'شراء ساعة من فيترون';
-                            var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
-                            var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-                            window.open(mailtoLink);
-                        } else {
-                            // إذا لم يتم إدخال الاسم ورقم الهاتف بعد، قم بعرض النافذة المنبثقة لإدخالهما
-                            popup.style.display = 'block';
-                        }
+                        // إعادة محاولة فتح رابط البريد الإلكتروني بعد حفظ البيانات
+                        var subject = 'شراء ساعة من فيترون';
+                        var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+                        var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                        window.open(mailtoLink);
                     });
                 </script>
             </body>
