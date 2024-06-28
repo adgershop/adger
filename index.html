@@ -455,7 +455,7 @@
                     background-color: #0ec508;
                 }
 
-               <!DOCTYPE html>
+                <!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
@@ -514,6 +514,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5); /* خلفية شفافة للنافذة */
             z-index: 1000;
+            overflow: auto; /* تمكين التمرير عند الحاجة */
         }
 
         .popup-inner {
@@ -527,7 +528,6 @@
             border: 1px solid #ccc;
             padding: 20px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            overflow-y: auto;
             text-align: center;
             font-size: 1em;
             color: white;
