@@ -517,16 +517,17 @@
             
                     /* استايل للنافذة المنبثقة */
                     .popup {
-                        display: none;
-                        position: fixed;
-                        left: 50%;
-                        top: 50%;
-                        transform: translate(-50%, -50%);
-                        background-color: transparent; /* تغيير الخلفية إلى شفاف */
-                        padding: 30px;
-                        z-index: 1000;
-                    }
-            
+    background-color: transparent; /* تغيير الخلفية إلى شفاف */
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    z-index: 1000;
+    box-shadow: none; /* إزالة أي ظل للنافذة */
+    border: none; /* إزالة أي حدود للنافذة */
+}         
                     .popup-inner {
                         background-image: radial-gradient(circle, #ff1744, #2dc0be);
                         padding: 20px;
