@@ -465,181 +465,181 @@
         
             <br>
             <!DOCTYPE html>
-            <html lang="ar">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Button Styling</title>
-                <style>
-                    /* زر النمط */
-                    button {
-                        background-color: #feb538;
-                        color: white;
-                        border: none;
-                        padding: 10px 20px;
-                        text-align: center;
-                        text-decoration: none;
-                        display: inline-block;
-                        font-size: 16px;
-                        margin: 4px 2px;
-                        cursor: pointer;
-                        border-radius: 11px;
-                        transition-duration: 0.4s;
-                    }
-            
-                    button svg {
-                        vertical-align: middle;
-                    }
-            
-                    button:hover {
-                        background-color: white;
-                        color: black;
-                        border: 2px solid #008CBA;
-                    }
-            
-                    .buy-button {
-                        display: inline-block;
-                        padding: 9px 23px;
-                        font-size: 16px;
-                        color: #fff;
-                        background-color: #19d300;
-                        text-align: center;
-                        text-decoration: none;
-                        border-radius: 11px;
-                        transition: background-color 0.3s ease;
-                    }
-            
-                    .buy-button:hover {
-                        background-color: #0ec508;
-                    }
-            
-                    /* استايل للنافذة المنبثقة */
-                    .popup {
-                        display: none;
-                        position: fixed;
-                        left: 50%;
-                        top: 50%;
-                        transform: translate(-50%, -50%);
-                        background-color: #fff;
-                        border: 1px solid #ccc;
-                        padding: 20px;
-                        z-index: 1000;
-                        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                        max-width: 250px; /* تقليل عرض النافذة */
-                        width: 50%; /* استخدام نسبة مئوية لتكون نافذة متجاوبة */
-                        max-height: 50%; /* تقليل ارتفاع النافذة */
-                        overflow-y: auto;
-                        text-align: center;
-                    }
-            
-                    .popup input {
-                        width: 80%; /* تقليل عرض الحقول النصية */
-                        margin-bottom: 10px;
-                        padding: 5px; /* تقليل البادينغ للحقل */
-                        font-size: 0.9em; /* تصغير حجم الخط */
-                        border: 1px solid #ccc;
-                        border-radius: 4px;
-                    }
-            
-                    .popup button {
-                        background-color: #4CAF50;
-                        color: white;
-                        padding: 10px 20px;
-                        border: none;
-                        cursor: pointer;
-                        border-radius: 4px;
-                        font-size: 1em;
-                    }
-            
-                    .close-btn {
-                        position: absolute;
-                        top: 10px;
-                        right: 10px;
-                        cursor: pointer;
-                        font-size: 1.2em;
-                    }
-            
-                    /* عند فتح لوحة المفاتيح، يتم رفع النافذة */
-                    @media (max-width: 600px) {
-                        .popup {
-                            top: 40%; /* تغيير الموضع العلوي عند استخدام شاشة أصغر */
-                            transform: translate(-50%, -40%);
-                        }
-                    }
-                </style>
-            </head>
-            <body>
-            
-                <!-- زر "اشترِ الآن" -->
-                <button id="buyNowBtn" class="buy-button">اشترِ الآن</button>
-            
-                <!-- النافذة المنبثقة -->
-                <div id="popup" class="popup">
-                    <span class="close-btn" onclick="closePopup()">×</span>
-                    <h2>أدخل الاسم ورقم الهاتف</h2>
-                    <form id="buyForm">
-                        <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
-                        <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
-                        <button type="submit">موافق</button>
-                    </form>
-                </div>
-            
-                <script>
-                    var popup = document.getElementById('popup');
-                    var buyNowBtn = document.getElementById('buyNowBtn');
-            
-                    // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
-                    buyNowBtn.addEventListener('click', function() {
-                        var name = localStorage.getItem('userName');
-                        var phone = localStorage.getItem('userPhone');
-            
-                        if (name && phone) {
-                            var subject = 'شراء ساعة من فيترون';
-                            var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
-                            var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-                            window.open(mailtoLink);
-                        } else {
-                            popup.style.display = 'block';
-                        }
-                    });
-            
-                    // إغلاق النافذة المنبثقة
-                    function closePopup() {
-                        popup.style.display = 'none';
-                    }
-            
-                    // رفع النافذة عند فتح لوحة المفاتيح على الهاتف
-                    document.querySelectorAll('.popup input').forEach(function(input) {
-                        input.addEventListener('focus', function() {
-                            setTimeout(function() {
-                                popup.scrollIntoView({behavior: "smooth", block: "start"});
-                            }, 300);
-                        });
-                    });
-            
-                    // عملية إرسال النموذج
-                    document.getElementById('buyForm').addEventListener('submit', function(event) {
-                        event.preventDefault();
-            
-                        var name = document.getElementById('name').value;
-                        var phone = document.getElementById('phone').value;
-            
-                        // حفظ الاسم ورقم الهاتف في Local Storage
-                        localStorage.setItem('userName', name);
-                        localStorage.setItem('userPhone', phone);
-            
-                        // بعد الانتهاء من العملية، يمكن إغلاق النافذة المنبثقة
-                        closePopup();
-            
-                        // إعادة محاولة فتح رابط البريد الإلكتروني بعد حفظ البيانات
-                        var subject = 'شراء ساعة من فيترون';
-                        var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
-                        var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-                        window.open(mailtoLink);
-                    });
-                </script>
-            </body>
-            </html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Styling</title>
+    <style>
+        /* زر النمط */
+        button {
+            background-color: #feb538;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 11px;
+            transition-duration: 0.4s;
+        }
+
+        button svg {
+            vertical-align: middle;
+        }
+
+        button:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid #008CBA;
+        }
+
+        .buy-button {
+            display: inline-block;
+            padding: 9px 23px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #19d300;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 11px;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #0ec508;
+        }
+
+        /* استايل للنافذة المنبثقة */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px; /* تقليل البادينغ للنافذة */
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 200px; /* تقليل عرض النافذة */
+            width: 80%; /* استخدام نسبة مئوية لتكون نافذة متجاوبة */
+            max-height: 50%; /* تقليل ارتفاع النافذة */
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .popup input {
+            width: 90%; /* تقليل عرض الحقول النصية */
+            margin-bottom: 5px; /* تقليل الهامش السفلي للحقل */
+            padding: 5px; /* تقليل البادينغ للحقل */
+            font-size: 0.9em; /* تصغير حجم الخط */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .popup button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px; /* تقليل حجم الزر */
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9em; /* تصغير حجم الخط */
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px; /* تقليل المسافة من الأعلى */
+            right: 5px; /* تقليل المسافة من اليمين */
+            cursor: pointer;
+            font-size: 1em; /* تصغير حجم الخط */
+        }
+
+        /* عند فتح لوحة المفاتيح، يتم رفع النافذة */
+        @media (max-width: 600px) {
+            .popup {
+                top: 40%; /* تغيير الموضع العلوي عند استخدام شاشة أصغر */
+                transform: translate(-50%, -40%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- زر "اشترِ الآن" -->
+    <button id="buyNowBtn" class="buy-button">اشترِ الآن</button>
+
+    <!-- النافذة المنبثقة -->
+    <div id="popup" class="popup">
+        <span class="close-btn" onclick="closePopup()">×</span>
+        <h2>أدخل الاسم ورقم الهاتف</h2>
+        <form id="buyForm">
+            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
+            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
+            <button type="submit">موافق</button>
+        </form>
+    </div>
+
+    <script>
+        var popup = document.getElementById('popup');
+        var buyNowBtn = document.getElementById('buyNowBtn');
+
+        // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
+        buyNowBtn.addEventListener('click', function() {
+            var name = localStorage.getItem('userName');
+            var phone = localStorage.getItem('userPhone');
+
+            if (name && phone) {
+                var subject = 'شراء ساعة من فيترون';
+                var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+                var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                window.open(mailtoLink);
+            } else {
+                popup.style.display = 'block';
+            }
+        });
+
+        // إغلاق النافذة المنبثقة
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+
+        // رفع النافذة عند فتح لوحة المفاتيح على الهاتف
+        document.querySelectorAll('.popup input').forEach(function(input) {
+            input.addEventListener('focus', function() {
+                setTimeout(function() {
+                    popup.scrollIntoView({behavior: "smooth", block: "start"});
+                }, 300);
+            });
+        });
+
+        // عملية إرسال النموذج
+        document.getElementById('buyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var name = document.getElementById('name').value;
+            var phone = document.getElementById('phone').value;
+
+            // حفظ الاسم ورقم الهاتف في Local Storage
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userPhone', phone);
+
+            // بعد الانتهاء من العملية، يمكن إغلاق النافذة المنبثقة
+            closePopup();
+
+            // إعادة محاولة فتح رابط البريد الإلكتروني بعد حفظ البيانات
+            var subject = 'شراء ساعة من فيترون';
+            var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+            var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+            window.open(mailtoLink);
+        });
+    </script>
+</body>
+</html>
     </div>
 
 
