@@ -604,7 +604,8 @@
                     <form id="buyForm">
                         <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
                         <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
-                        <button type="submit">موافق</button>
+                        <button type="button" class="close-btn" onclick="closePopup()">X</button>
+                        <button type="submit" class="buy-button">موافق</button>
                         <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
                     </form>
                 </div>
@@ -618,15 +619,7 @@
             
                 // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
                 buyNowBtn.addEventListener('click', function() {
-                    var storedName = localStorage.getItem('userName');
-                    var storedPhone = localStorage.getItem('userPhone');
-            
-                    if (storedName && storedPhone) {
-                        var subject = 'شراء ساعة من فيترون';
-                        var body = 'الاسم الثلاثي: ' + storedName + '\nرقم الهاتف: ' + storedPhone;
-                        var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-                        window.open(mailtoLink);
-                    }
+                    popup.style.display = 'block';
                 });
             
                 // رفع النافذة عند النقر على حقل الإسم
@@ -652,20 +645,19 @@
                     localStorage.setItem('userName', name);
                     localStorage.setItem('userPhone', phone);
             
-                    // إغلاق النافذة المنبثقة بعد الإرسال
-                    closePopup();
-            
-                    // إعادة محاولة فتح رابط البريد الإلكتروني بعد حفظ البيانات
+                    // فتح رابط البريد الإلكتروني بعد حفظ البيانات
                     var subject = 'شراء ساعة من فيترون';
                     var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
                     var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
                     window.open(mailtoLink);
+                    
+                    // إغلاق النافذة المنبثقة بعد الإرسال
+                    closePopup();
                 });
             </script>
             
             </body>
             </html>
-            
     </div>
 
 
