@@ -527,10 +527,10 @@
                         z-index: 1000;
                         justify-content: center;
                         align-items: center;
+                        display: flex;
                     }
             
                     .popup-inner {
-                        position: relative;
                         width: 90%;
                         max-width: 500px;
                         background: linear-gradient(to bottom, #8e00ec, #00eacb); /* تدرج لوني من #8e00ec إلى #00eacb */
@@ -545,21 +545,21 @@
                     }
             
                     .popup-content {
-                        width: 100%;
                         text-align: center;
+                        margin-top: 20px; /* تباعد العناصر عن الحافة العلوية */
                     }
             
                     .popup h2 {
                         margin-top: 0;
                         margin-bottom: 10px; /* تقليل المسافة السفلية */
-                        font-size: 2em; /* زيادة حجم الخط */
+                        font-size: 1.5em; /* زيادة حجم الخط */
                     }
             
                     .popup input {
                         width: calc(100% - 30px); /* تصغير العرض */
                         margin-bottom: 10px; /* زيادة الهامش السفلي للحقل */
                         padding: 15px; /* زيادة الارتفاع بمقدار 4 بكسل */
-                        font-size: 1.5em; /* زيادة حجم الخط */
+                        font-size: 1em; /* زيادة حجم الخط */
                         border: 1px solid #ccc;
                         border-radius: 4px;
                     }
@@ -567,11 +567,11 @@
                     .popup button {
                         background-color: #4CAF50;
                         color: white;
-                        padding: 15px 30px; /* زيادة حجم الزر */
+                        padding: 12px 24px; /* زيادة حجم الزر */
                         border: none;
                         cursor: pointer;
                         border-radius: 4px;
-                        font-size: 1.5em; /* زيادة حجم الخط */
+                        font-size: 1em; /* زيادة حجم الخط */
                         margin-top: 10px;
                     }
             
@@ -580,7 +580,7 @@
                         top: 5px;
                         right: 5px;
                         cursor: pointer;
-                        font-size: 1.9em;
+                        font-size: 1.5em;
                         color: rgb(255, 0, 0);
                     }
             
