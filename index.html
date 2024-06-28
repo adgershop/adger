@@ -547,7 +547,6 @@
                     .popup-content {
                         width: 100%;
                         text-align: center;
-                        margin-top: 10px; /* تقليل المسافة العلوية */
                     }
             
                     .popup h2 {
@@ -557,9 +556,9 @@
                     }
             
                     .popup input {
-                        width: calc(90% - 7px); /* تصغير العرض بمقدار 7 بكسل */
+                        width: calc(100% - 30px); /* تصغير العرض */
                         margin-bottom: 10px; /* زيادة الهامش السفلي للحقل */
-                        padding: 19px 15px; /* زيادة الارتفاع بمقدار 4 بكسل */
+                        padding: 15px; /* زيادة الارتفاع بمقدار 4 بكسل */
                         font-size: 1.5em; /* زيادة حجم الخط */
                         border: 1px solid #ccc;
                         border-radius: 4px;
@@ -608,8 +607,8 @@
                     <div class="popup-content">
                         <h2>أدخل الاسم ورقم الهاتف</h2>
                         <form id="buyForm">
-                            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
-                            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
+                            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br>
+                            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br>
                             <div class="buttons">
                                 <button type="submit">موافق</button>
                                 <button type="button" class="close-popup-btn" onclick="closePopup()">رجوع</button>
