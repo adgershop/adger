@@ -222,10 +222,7 @@
 </head>
 <body>
     <div class="search-container">
-        <input type="text" class="search-bar" placeholder="ابحث هنا..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-        <!-- إضافة أيقونة البحث هنا -->
-        <button type="button">ابحث</button>
-    </div>
+        <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
         <div class="cart-icon-container">
             <div class="cart-icon" onclick="toggleCart()">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
