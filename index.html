@@ -535,29 +535,35 @@
                         height: 100%;
                         display: flex;
                         justify-content: center;
-                        align-items: center;
+                        align-items: flex-start; /* محاذاة العناصر لأعلى */
                         background: linear-gradient(to bottom, #8e00ec, #00eacb); /* تدرج لوني من #8e00ec إلى #00eacb */
                         border: 1px solid #ccc;
-                        padding: 20px; /* زيادة البادينغ لزيادة المسافة الداخلية */
-                        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* زيادة الظل لمظهر ثلاثي الأبعاد */
+                        padding: 20px;
+                        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
                         overflow-y: auto;
                         text-align: center;
-                        font-size: 1em; /* زيادة حجم الخط */
-                        color: white; /* لون النص */
-                        max-width: 100%; /* تحديد العرض الأقصى */
-                        max-height: 100%; /* تحديد الارتفاع الأقصى */
+                        font-size: 1em;
+                        color: white;
+                        max-width: 100%;
+                        max-height: 100%;
                     }
             
                     .popup-content {
                         max-width: 80%;
                         text-align: center;
+                        margin-top: 20px; /* إضافة بعض المسافة العلوية */
+                    }
+            
+                    .popup h2 {
+                        margin-top: 0;
+                        margin-bottom: 20px;
                     }
             
                     .popup input {
-                        width: 90%; /* تقليل عرض الحقول النصية */
-                        margin-bottom: 5px; /* تقليل الهامش السفلي للحقل */
-                        padding: 3px; /* تقليل البادينغ للحقل */
-                        font-size: 0.8em; /* تصغير حجم الخط */
+                        width: 90%;
+                        margin-bottom: 10px; /* زيادة الهامش السفلي للحقل */
+                        padding: 10px; /* زيادة البادينغ للحقل */
+                        font-size: 1.2em; /* زيادة حجم الخط */
                         border: 1px solid #ccc;
                         border-radius: 4px;
                     }
@@ -565,21 +571,31 @@
                     .popup button {
                         background-color: #4CAF50;
                         color: white;
-                        padding: 5px 10px; /* تقليل حجم الزر */
+                        padding: 10px 20px; /* زيادة حجم الزر */
                         border: none;
                         cursor: pointer;
                         border-radius: 4px;
-                        font-size: 0.8em; /* تصغير حجم الخط */
+                        font-size: 1em; /* زيادة حجم الخط */
                         margin-top: 10px;
                     }
             
                     .close-btn {
                         position: absolute;
-                        top: 5px; /* تقليل المسافة من الأعلى */
-                        right: 5px; /* تقليل المسافة من اليمين */
+                        top: 5px;
+                        right: 5px;
                         cursor: pointer;
-                        font-size: 1.9em; /* تصغير حجم الخط */
-                        color: rgb(255, 0, 0); /* لون النص */
+                        font-size: 1.9em;
+                        color: rgb(255, 0, 0);
+                    }
+            
+                    .buttons {
+                        display: flex;
+                        justify-content: center;
+                        gap: 10px; /* المسافة بين الزرين */
+                    }
+            
+                    .close-popup-btn {
+                        background-color: #f44336; /* لون مختلف لزر الرجوع */
                     }
                 </style>
             </head>
@@ -597,9 +613,11 @@
                         <form id="buyForm">
                             <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
                             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
-                            <button type="submit">موافق</button>
+                            <div class="buttons">
+                                <button type="submit">موافق</button>
+                                <button type="button" class="close-popup-btn" onclick="closePopup()">رجوع</button>
+                            </div>
                         </form>
-                        <button class="close-btn" onclick="closePopup()">رجوع</button>
                     </div>
                 </div>
             </div>
@@ -619,7 +637,7 @@
                         var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
                         window.open(mailtoLink);
                     } else {
-                        popup.style.display = 'flex'; // استخدام flex لتحقيق التوسيط الأفقي والرأسي
+                        popup.style.display = 'flex';
                     }
                 });
             
@@ -661,6 +679,7 @@
             
             </body>
             </html>
+            
             
     </div>
 
