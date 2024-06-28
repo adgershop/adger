@@ -604,16 +604,16 @@
         popup.style.display = 'block';
         setTimeout(function() {
             nameInput.focus();
-            popup.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 200); // تأخير قصير لضمان تنفيذ الرفع إلى أعلى الشاشة والتركيز على الحقل
+            popup.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 200); // تأخير قصير لضمان تنفيذ التركيز على الحقل والتمرير لأعلى الصفحة
     });
 
     // رفع النافذة عند النقر على حقل الإسم أو الهاتف
     [nameInput, phoneInput].forEach(input => {
         input.addEventListener('focus', function() {
             setTimeout(function() {
-                popup.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 50); // تأخير قصير لضمان تنفيذ الرفع إلى أعلى الشاشة
+                popup.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 50); // تأخير قصير لضمان تنفيذ التمرير لأعلى الصفحة
         });
     });
 
