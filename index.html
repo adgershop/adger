@@ -687,6 +687,19 @@ function saveLocation(position) {
     var getLocationBtn = document.querySelector('.geo-button');
     getLocationBtn.textContent = 'نجح الموقع الجغرافي';
     getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
+
+    // عرض رسالة للمستخدم تطلب منه فتح الموقع الجغرافي على هاتفه
+    alert('الرجاء فتح الموقع الجغرافي على هاتفك والموافقة على إظهار الموقع.');
+
+    // فتح الموقع الجغرافي تلقائيًا بعد الموافقة
+    setTimeout(function() {
+        var latitude = localStorage.getItem('userLatitude');
+        var longitude = localStorage.getItem('userLongitude');
+        if (latitude && longitude) {
+            var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
+            window.open(googleMapsLink, '_blank');
+        }
+    }, 5000); // تأخير لمدة 5 ثواني ليتمكن المستخدم من فتح الموقع الجغرافي في هاتفه
 }
 
 function showError(error) {
