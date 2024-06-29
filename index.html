@@ -534,6 +534,7 @@
                 border-radius: 4px;
                 padding: 10px;
                 margin-bottom: 10px;
+                height: 46px; /* جعل ارتفاع الحقل متناسبًا */
             }
             
             .quantity-label {
@@ -644,7 +645,7 @@
                         var latitude = position.coords.latitude;
                         var longitude = position.coords.longitude;
                         var locationField = document.getElementById('location');
-                        locationField.value = 'تم الحصول على الموقع الجغرافي';
+                        locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات
                         saveLocation(latitude, longitude);
                     }, function(error) {
                         var locationField = document.getElementById('location');
