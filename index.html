@@ -551,15 +551,7 @@
     }
 
     .geo-button {
-        width: calc(100% - 30px);
-        margin: 10px 15px;
-        padding: 12px;
-        font-size: 1em;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background-color: #f0f0f0;
-        color: #333;
-        box-sizing: border-box;
+        display: none; /* إخفاء زر الموقع الجغرافي */
     }
 </style>
 </head>
@@ -571,7 +563,6 @@
         <form id="buyForm">
             <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-            <button type="button" class="geo-button" onclick="getLocation()">إرسال الموقع الحالي</button>
             <button type="submit" class="buy-button">موافق</button><button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
         </form>
     </div>
@@ -589,46 +580,6 @@
         }, 50);
     }
 
-    // تعديل زر الموقع الجغرافي بناءً على النجاح
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(saveLocation, showError);
-        } else {
-            alert('ميزة تحديد الموقع الجغرافي غير مدعومة في هذا المتصفح.');
-        }
-    }
-
-    function saveLocation(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-
-        // حفظ الموقع في localStorage
-        localStorage.setItem('userLatitude', latitude);
-        localStorage.setItem('userLongitude', longitude);
-
-        // تحديث حقل "إرسال الموقع الجغرافي" بنجاح الموقع الجغرافي
-        var getLocationBtn = document.querySelector('.geo-button');
-        getLocationBtn.textContent = 'نجح الموقع الجغرافي';
-        getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
-    }
-
-    function showError(error) {
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                alert("الرجاء فتح الموقع الجغرافى فى شريط الأشعارات للمتابعه");
-                break;
-            case error.POSITION_UNAVAILABLE:
-                alert("معلومات الموقع غير متاحة.");
-                break;
-            case error.TIMEOUT:
-                alert("انتهى الوقت المخصص للحصول على الموقع الجغرافي.");
-                break;
-            case error.UNKNOWN_ERROR:
-                alert("حدث خطأ غير معروف.");
-                break;
-        }
-    }
-
     // إرسال البريد الإلكتروني تلقائيًا عند النقر على زر "اشترِ الآن"
     document.getElementById('buyNowBtn').addEventListener('click', function() {
         var name = localStorage.getItem('userName');
@@ -637,6 +588,9 @@
         if (name && phone) {
             var emailLink = 'mailto:?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
             window.open(emailLink, '_self');
+        } else {
+            // إذا لم تكن المعلومات محفوظة، فقم بفتح النافذة المنبثقة
+            openPopup();
         }
     });
 
