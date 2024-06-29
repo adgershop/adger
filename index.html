@@ -1,10 +1,5 @@
 
 
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -104,7 +99,6 @@
             cursor: pointer;
         }
 
-
         .whatsapp-button {
     display: inline-block;
     background-color: hsl(113, 100%, 35%); /* لون الخلفية */
@@ -131,14 +125,20 @@
   }
   
   .search-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center; /* Center items horizontally */
+    justify-content: center;
     padding: 2px;
-    background-color: #3d5b66; /* Background color for search bar area */
+    background-color: #3d5b66;
     border-radius: 1px;
-    height: 60px; /* Adjust the height as needed */
-  }
+    height: 60px;
+    z-index: 999; /* تأكد من عدم تغطية أي عناصر أخرى مهمة */
+}
+
 
   .search-bar {
     padding: 10px;
@@ -324,20 +324,11 @@
     </script>
 </body>
 </html>
-
-        
-        
-
-
-</html>
+<br><br><br>
    </div>
-
-
 
 <script src="script.js"></script>
   </div>
-
- 
 
 
 <style>
@@ -345,8 +336,6 @@
         color: rgb(104, 72, 134);
     }
 </style>
-
-
 
 
 </p>
@@ -357,7 +346,26 @@
            
             <h2 style="font-size: 17px;">ساعة من فيترون</h2>
             <p>سوار بلون فضي في ذهبي </p>
-         
+        
+            <style>
+                .hidden-text {
+                    position: absolute;
+                    left: -9999px;
+                }
+            </style>
+            </head>
+            <body>
+            
+            <!-- Visible content -->
+       
+            
+            <!-- Hidden text -->
+            <p class="hidden-text"></p>
+            
+            </body>
+            </html>
+            
+
                 <link rel="stylesheet" href="styles.css">
             </head>
             <body>
@@ -397,9 +405,6 @@
 
 
 
-
-            
-                <!-- WhatsApp Message Button -->
             
 
         </div>
@@ -457,153 +462,13 @@
                 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Styling</title>
-    <style>
-        /* استايل الأزرار */
-        button {
-            background-color: #feb538;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 11px;
-            transition-duration: 0.4s;
-        }
-
-        button svg {
-            vertical-align: middle;
-        }
-
-        button:hover {
-            background-color: white;
-            color: black;
-            border: 2px solid #008CBA;
-        }
-
-        .buy-button {
-            display: inline-block;
-            padding: 9px 23px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #19d300;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 11px;
-            transition: background-color 0.3s ease;
-        }
-
-        .buy-button:hover {
-            background-color: #0ec508;
-        }
-
-        /* استايل النافذة المنبثقة */
-        .popup {
-            display: none;
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* خلفية شفافة للنافذة */
-            z-index: 1000;
-            overflow: hidden; /* منع التمرير */
-        }
-
-        .popup-inner {
-            position: absolute;
-            left: 50%;
-            top: 0; /* أعلى الشاشة */
-            transform: translate(-50%, 0);
-            width: 80%;
-            max-width: 400px; /* تحديد عرض أقصى */
-            background: linear-gradient(to bottom, #8e00ec, #00eacb); /* تدرج لوني من #8e00ec إلى #00eacb */
-            border: 1px solid #ccc;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            font-size: 1em;
-            color: white;
-            border-radius: 10px;
-            margin-top: 10px; /* تقليل المسافة من الأعلى */
-        }
-
-        .popup input {
-            width: calc(100% - 30px); /* عرض كامل مع تقليل الحجم الجانبي */
-            margin: 10px 15px; /* هامش للحقول */
-            padding: 15px; /* زيادة الارتفاع والحواف */
-            font-size: 1.2em; /* زيادة حجم الخط */
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* تأكيد الحجم بما فيه الكفاية */
-        }
-
-        .popup button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 30px; /* حجم الزر */
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 1.2em; /* حجم الخط */
-            margin-top: 10px;
-        }
-
-        .close-btn {
-            display: none; /* إخفاء زر الإغلاق */
-        }
-
-        .back-btn {
-            background-color: #ccc;
-            color: black;
-            padding: 15px 30px;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 1.2em;
-            margin-top: 10px;
-            margin-right: 10px;
-        }
-
-        .back-btn:hover {
-            background-color: #aaa;
-        }
-
-        /* استايل النص الزخرفي */
-        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
-        .decorative-text {
-            font-family: 'Pacifico', cursive;
-            font-size: 2em;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-
-<!-- زر "اشترِ الآن" -->
-<button id="buyNowBtn" class="buy-button">اشترِ الآن</button>
-
-<!-- النافذة المنبثقة -->
-<!DOCTYPE html>
-<html lang="ar">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>نافذة المشتريات</title>
 <style>
     body {
         font-family: Arial, sans-serif;
-        direction: rtl; /* توجيه النصوص إلى اليمين للكتابة باللغة العربية */
+        direction: rtl;
     }
 
     .popup {
@@ -613,7 +478,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* خلفية داكنة للنافذة المنبثقة */
+        background-color: rgba(0, 0, 0, 0.5);
         z-index: 9999;
         justify-content: center;
         align-items: center;
@@ -621,6 +486,12 @@
     }
 
     .popup-inner {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        max-width: 400px;
         background-color: #fff;
         padding: 20px;
         border-radius: 8px;
@@ -629,129 +500,113 @@
     }
 
     .popup .error-message {
-        color: #ff6347; /* لون أحمر جذاب */
+        color: #ff6347;
         font-size: 16px;
         margin-top: 10px;
     }
 
     .popup .success-message {
-        color: #32cd32; /* لون أخضر جذاب */
+        color: #32cd32;
         font-size: 16px;
         margin-top: 10px;
+    }
+
+    .popup input {
+        width: calc(100% - 30px);
+        margin: 10px 15px;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .popup button.buy-button {
+        background-color: #ffa600;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 1em;
+        margin-top: 10px;
+        width: calc(50% - 5px);
+    }
+
+    .popup button.back-btn {
+        background-color: #ccc;
+        color: black;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 1em;
+        margin-top: 10px;
+        margin-left: 5px;
+        width: calc(50% - 5px);
+    }
+
+    .popup button.back-btn:hover {
+        background-color: #aaa;
+    }
+
+    .geo-button {
+        width: calc(100% - 30px);
+        margin: 10px 15px;
+        padding: 12px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+        color: #333;
+        box-sizing: border-box;
     }
 </style>
 </head>
 <body>
-    <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نافذة المشتريات</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            direction: rtl; /* توجيه النصوص إلى اليمين للكتابة باللغة العربية */
-        }
-    
-        .popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* خلفية داكنة للنافذة المنبثقة */
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-    
-        .popup-inner {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-    
-        .popup .error-message {
-            color: #ff6347; /* لون أحمر جذاب */
-            font-size: 16px;
-            margin-top: 10px;
-        }
-    
-        .popup .success-message {
-            color: #32cd32; /* لون أخضر جذاب */
-            font-size: 16px;
-            margin-top: 10px;
-        }
-    </style>
-    </head>
-    <body>
-        <!DOCTYPE html>
-        <html lang="ar">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>نافذة المشتريات</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                direction: rtl; /* توجيه النصوص إلى اليمين للكتابة باللغة العربية */
-            }
-        
-            .popup {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5); /* خلفية داكنة للنافذة المنبثقة */
-                z-index: 9999;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-            }
-        
-            .popup-inner {
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                text-align: center;
-            }
-        
-            .popup .error-message {
-                color: #ff6347; /* لون أحمر جذاب */
-                font-size: 16px;
-                margin-top: 10px;
-            }
-        
-            .popup .success-message {
-                color: #32cd32; /* لون أخضر جذاب */
-                font-size: 16px;
-                margin-top: 10px;
-            }
-        </style>
-        </head>
-        <body>
-        
-        <div id="popup" class="popup">
-            <div class="popup-inner">
-                <div class="decorative-text">أدغر</div>
-                <form id="buyForm">
-                    <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-                    <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-                    <button type="button" class="buy-button" onclick="getLocation()">إرسال الموقع الحالي</button>
-                    <button type="submit" class="buy-button">موافق</button>
-                    <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
-                </form>
-            </div>
-        </div>
-        
+
+<div id="popup" class="popup">
+    <div class="popup-inner">
+        <div class="decorative-text">Adger</div>
+        <form id="buyForm">
+            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
+            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
+            <button type="button" class="geo-button" onclick="getLocation()">إرسال الموقع الحالي</button><br><br>
+            <button type="submit" class="buy-button">موافق</button>
+            <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
+        </form>
+    </div>
+</div>
+
+<!-- زر "اشترِ الآن" -->
+<button id="buyNowBtn" class="buy-button" onclick="openPopup()">اشترِ الآن</button>
+
+<script>
+    function openPopup() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'flex'; /* تعديل العرض إلى flex لمحاذاة الأزرار بجانب بعضها البعض */
+        setTimeout(function() {
+            popup.style.display = 'block'; /* تغيير إلى block بعد تطبيق أزرار صغيرة */
+        }, 50);
+    }
+
+    function getLocation() {
+        var popup = document.getElementById('popup');
+        var successMessage = document.createElement('div');
+        successMessage.classList.add('success-message');
+        successMessage.textContent = 'تم إدخال الموقع الجغرافي بنجاح.';
+        var innerPopup = document.querySelector('.popup-inner');
+        innerPopup.appendChild(successMessage);
+    }
+
+    function closePopup() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
         <script>
             var popup = document.getElementById('popup');
             var buyNowBtn = document.getElementById('buyNowBtn');
