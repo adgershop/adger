@@ -568,9 +568,12 @@
     <div class="popup-inner">
         <div class="decorative-text">أدغر</div>
         <form id="buyForm">
-            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-            <button type="submit" class="buy-button">موافق</button><button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
+            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" value="">
+            <br><br>
+            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" value="">
+            <br><br>
+            <button type="submit" class="buy-button">موافق</button>
+            <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
         </form>
     </div>
 </div>
@@ -581,15 +584,16 @@
 <script>
     var recipientEmail = "example@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
 
-    // تحقق من وجود بيانات مخزنة في localStorage
-    var storedName = localStorage.getItem('buyerName');
-    var storedPhone = localStorage.getItem('buyerPhone');
+    // تحقق من وجود بيانات محفوظة وفتح البريد الإلكتروني تلقائيا
+    document.addEventListener('DOMContentLoaded', function() {
+        var savedName = localStorage.getItem('name');
+        var savedPhone = localStorage.getItem('phone');
 
-    if (storedName && storedPhone) {
-        // إذا كانت البيانات مخزنة، قم بفتح البريد الإلكتروني مباشرة
-        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + storedName + '%0Aرقم الهاتف: ' + storedPhone;
-        window.open(emailLink, '_self');
-    }
+        if (savedName && savedPhone) {
+            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + savedName + '%0Aرقم الهاتف: ' + savedPhone;
+            window.open(emailLink, '_self');
+        }
+    });
 
     function openPopup() {
         var popup = document.getElementById('popup');
@@ -604,9 +608,8 @@
         var phone = document.getElementById('phone').value;
 
         if (name && phone) {
-            // حفظ البيانات في localStorage
-            localStorage.setItem('buyerName', name);
-            localStorage.setItem('buyerPhone', phone);
+            localStorage.setItem('name', name);
+            localStorage.setItem('phone', phone);
 
             var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
             window.open(emailLink, '_self');
@@ -622,10 +625,6 @@
         var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
 
-        // حفظ البيانات في localStorage
-        localStorage.setItem('buyerName', name);
-        localStorage.setItem('buyerPhone', phone);
-
         // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
         var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
         window.open(emailLink, '_self');
@@ -640,7 +639,6 @@
 
 </body>
 </html>
-
 </script>
 
 </body>
