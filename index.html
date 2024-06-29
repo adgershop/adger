@@ -594,114 +594,286 @@
 <button id="buyNowBtn" class="buy-button">اشترِ الآن</button>
 
 <!-- النافذة المنبثقة -->
-<div id="popup" class="popup">
-    <div class="popup-inner">
-        <div class="decorative-text">Adger</div>
-        <form id="buyForm">
-            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-            <button type="submit" class="buy-button">موافق</button>
-            <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
-            <button type="button" class="buy-button" onclick="getLocation()">إرسال الموقع الحالي</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    var popup = document.getElementById('popup');
-    var buyNowBtn = document.getElementById('buyNowBtn');
-    var nameInput = document.getElementById('name');
-    var phoneInput = document.getElementById('phone');
-
-    // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
-    buyNowBtn.addEventListener('click', function() {
-        popup.style.display = 'block';
-        setTimeout(function() {
-            nameInput.focus();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 200); // تأخير قصير لضمان تنفيذ التركيز على الحقل والتمرير لأعلى الصفحة
-    });
-
-    // رفع النافذة عند النقر على حقل الإسم أو الهاتف
-    [nameInput, phoneInput].forEach(input => {
-        input.addEventListener('focus', function() {
-            setTimeout(function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 50); // تأخير قصير لضمان تنفيذ التمرير لأعلى الصفحة
-        });
-    });
-
-    // إغلاق النافذة المنبثقة
-    function closePopup() {
-        popup.style.display = 'none';
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نافذة المشتريات</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        direction: rtl; /* توجيه النصوص إلى اليمين للكتابة باللغة العربية */
     }
 
-    // عملية إرسال النموذج
-    document.getElementById('buyForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        var name = nameInput.value;
-        var phone = phoneInput.value;
-        
-        // حفظ الاسم ورقم الهاتف في localStorage
-        localStorage.setItem('userName', name);
-        localStorage.setItem('userPhone', phone);
+    .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* خلفية داكنة للنافذة المنبثقة */
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
 
-        // فتح رابط البريد الإلكتروني بعد حفظ البيانات
-        var subject = 'شراء ساعة من فيترون';
-        var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
-        
-        // الحصول على الموقع المحفوظ
-        var latitude = localStorage.getItem('userLatitude');
-        var longitude = localStorage.getItem('userLongitude');
-        if (latitude && longitude) {
-            var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
-            body += '\nالموقع الحالي: ' + googleMapsLink;
+    .popup-inner {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .popup .error-message {
+        color: #ff6347; /* لون أحمر جذاب */
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .popup .success-message {
+        color: #32cd32; /* لون أخضر جذاب */
+        font-size: 16px;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نافذة المشتريات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl; /* توجيه النصوص إلى اليمين للكتابة باللغة العربية */
         }
-
-        var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-        window.open(mailtoLink);
+    
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* خلفية داكنة للنافذة المنبثقة */
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    
+        .popup-inner {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    
+        .popup .error-message {
+            color: #ff6347; /* لون أحمر جذاب */
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    
+        .popup .success-message {
+            color: #32cd32; /* لون أخضر جذاب */
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+    </head>
+    <body>
+        <!DOCTYPE html>
+        <html lang="ar">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>نافذة المشتريات</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                direction: rtl; /* توجيه النصوص إلى اليمين للكتابة باللغة العربية */
+            }
         
-        // إغلاق النافذة المنبثقة بعد الإرسال
-        closePopup();
-    });
+            .popup {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5); /* خلفية داكنة للنافذة المنبثقة */
+                z-index: 9999;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+        
+            .popup-inner {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+        
+            .popup .error-message {
+                color: #ff6347; /* لون أحمر جذاب */
+                font-size: 16px;
+                margin-top: 10px;
+            }
+        
+            .popup .success-message {
+                color: #32cd32; /* لون أخضر جذاب */
+                font-size: 16px;
+                margin-top: 10px;
+            }
+        </style>
+        </head>
+        <body>
+        
+        <div id="popup" class="popup">
+            <div class="popup-inner">
+                <div class="decorative-text">أدغر</div>
+                <form id="buyForm">
+                    <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
+                    <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
+                    <button type="button" class="buy-button" onclick="getLocation()">إرسال الموقع الحالي</button>
+                    <button type="submit" class="buy-button">موافق</button>
+                    <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
+                </form>
+            </div>
+        </div>
+        
+        <script>
+            var popup = document.getElementById('popup');
+            var buyNowBtn = document.getElementById('buyNowBtn');
+            var nameInput = document.getElementById('name');
+            var phoneInput = document.getElementById('phone');
+        
+            // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
+            buyNowBtn.addEventListener('click', function() {
+                popup.style.display = 'block';
+                setTimeout(function() {
+                    nameInput.focus();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 200); // تأخير قصير لضمان تنفيذ التركيز على الحقل والتمرير لأعلى الصفحة
+            });
+        
+            // رفع النافذة عند النقر على حقل الإسم أو الهاتف
+            [nameInput, phoneInput].forEach(input => {
+                input.addEventListener('focus', function() {
+                    setTimeout(function() {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 50); // تأخير قصير لضمان تنفيذ التمرير لأعلى الصفحة
+                });
+            });
+        
+            // إغلاق النافذة المنبثقة
+            function closePopup() {
+                popup.style.display = 'none';
+            }
+        
+            // عملية إرسال النموذج
+            document.getElementById('buyForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                var name = nameInput.value;
+                var phone = phoneInput.value;
+                
+                // حفظ الاسم ورقم الهاتف في localStorage
+                localStorage.setItem('userName', name);
+                localStorage.setItem('userPhone', phone);
+        
+                // فتح رابط البريد الإلكتروني بعد حفظ البيانات
+                var subject = 'شراء ساعة من فيترون';
+                var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+                
+                // الحصول على الموقع المحفوظ
+                var latitude = localStorage.getItem('userLatitude');
+                var longitude = localStorage.getItem('userLongitude');
+                if (latitude && longitude) {
+                    var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
+                    body += '\nالموقع الحالي: ' + googleMapsLink;
+                }
+        
+                var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                window.open(mailtoLink);
+                
+                // إغلاق النافذة المنبثقة بعد الإرسال
+                closePopup();
+            });
+        
+            // الحصول على الموقع الجغرافي
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(saveLocation, showError);
+                } else {
+                    showError({ code: 0 }); // رسالة خطأ في حالة عدم دعم المتصفح للموقع الجغرافي
+                }
+            }
+        
+            function showError(error) {
+                var errorMessage = '';
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMessage = 'تم رفض الطلب للحصول على الموقع.';
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMessage = 'المعلومات الخاصة بالموقع غير متوفرة.';
+                        break;
+                    case error.TIMEOUT:
+                        errorMessage = 'انتهى الوقت المخصص للحصول على الموقع.';
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        errorMessage = 'حدث خطأ غير معروف.';
+                        break;
+                    default:
+                        errorMessage = 'حدث خطأ غير معروف.';
+                        break;
+                }
+                
+                var errorElement = document.createElement('div');
+                errorElement.classList.add('error-message');
+                errorElement.textContent = errorMessage;
+                
+                var popupInner = document.querySelector('.popup-inner');
+                popupInner.appendChild(errorElement);
+            }
+        
+            function saveLocation(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+        
+                // حفظ الموقع في localStorage
+                localStorage.setItem('userLatitude', latitude);
+                localStorage.setItem('userLongitude', longitude);
+        
+                // رسالة نجاح حفظ الموقع
+                var successMessage = 'تم حفظ الموقع بنجاح.';
+                var successElement = document.createElement('div');
+                successElement.classList.add('success-message');
+                successElement.textContent = successMessage;
+        
+                var popupInner = document.querySelector('.popup-inner');
+                popupInner.appendChild(successElement);
+            }
+        </script>
+        
+        </body>
+        </html>
 
-    // الحصول على الموقع الجغرافي
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(saveLocation, showError);
-        } else {
-            alert('ميزة تحديد الموقع الجغرافي غير مدعومة في هذا المتصفح.');
-        }
-    }
 
-    function saveLocation(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
+</body>
+</html>
 
-        // حفظ الموقع في localStorage
-        localStorage.setItem('userLatitude', latitude);
-        localStorage.setItem('userLongitude', longitude);
-
-        alert('تم حفظ الموقع بنجاح.');
-    }
-
-    function showError(error) {
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                alert('تم رفض الطلب للحصول على الموقع.');
-                break;
-            case error.POSITION_UNAVAILABLE:
-                alert('المعلومات الخاصة بالموقع غير متوفرة.');
-                break;
-            case error.TIMEOUT:
-                alert('انتهى الوقت المخصص للحصول على الموقع.');
-                break;
-            case error.UNKNOWN_ERROR:
-                alert('حدث خطأ غير معروف.');
-                break;
-        }
-    }
 </script>
 
 </body>
