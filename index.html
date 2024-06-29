@@ -589,79 +589,82 @@
         }, 50);
     }
 
-   // تعديل زر الموقع الجغرافي بناءً على النجاح
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(saveLocation, showError);
-    } else {
-        alert('ميزة تحديد الموقع الجغرافي غير مدعومة في هذا المتصفح.');
-    }
-}
-
-function saveLocation(position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-
-    // حفظ الموقع في localStorage
-    localStorage.setItem('userLatitude', latitude);
-    localStorage.setItem('userLongitude', longitude);
-
-    // تحديث حقل "إرسال الموقع الجغرافي" بنجاح الموقع الجغرافي
-    var getLocationBtn = document.querySelector('.geo-button');
-    getLocationBtn.textContent = 'نجح الموقع الجغرافي';
-    getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
-
-    
-    // فتح الموقع الجغرافي تلقائيًا بعد الموافقة
-    setTimeout(function() {
-        var latitude = localStorage.getItem('userLatitude');
-        var longitude = localStorage.getItem('userLongitude');
-        if (latitude && longitude) {
-            var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
-            window.open(googleMapsLink, '_blank');
+    // تعديل زر الموقع الجغرافي بناءً على النجاح
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(saveLocation, showError);
+        } else {
+            alert('ميزة تحديد الموقع الجغرافي غير مدعومة في هذا المتصفح.');
         }
-    }, 5000); // تأخير لمدة 5 ثواني ليتمكن المستخدم من فتح الموقع الجغرافي في هاتفه
-}
-
-function showError(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            alert("الرجاء فتح الموقع الجغرافى الخاص بك فى شريط الأشعارات  للمتابعه");
-            break;
-        case error.POSITION_UNAVAILABLE:
-            alert("معلومات الموقع غير متاحة.");
-            break;
-        case error.TIMEOUT:
-            alert("انتهى الوقت المخصص للحصول على الموقع الجغرافي.");
-            break;
-        case error.UNKNOWN_ERROR:
-            alert("حدث خطأ غير معروف.");
-            break;
     }
-}
 
-// تفعيل عملية إرسال النموذج
-document.getElementById('buyForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    var name = document.getElementById('name').value;
-    var phone = document.getElementById('phone').value;
-    
-    // حفظ الاسم ورقم الهاتف في localStorage
-    localStorage.setItem('userName', name);
-    localStorage.setItem('userPhone', phone);
+    function saveLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
 
-    // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
-    // sendEmail(); // تعليق هذا السطر لأنه لديك بالفعل إرسال بريد إلكتروني آخر
-});
+        // حفظ الموقع في localStorage
+        localStorage.setItem('userLatitude', latitude);
+        localStorage.setItem('userLongitude', longitude);
 
-// إغلاق النافذة المنبثقة
-function closePopup() {
-    var popup = document.getElementById('popup');
-    popup.style.display = 'none';
-}
+        // تحديث حقل "إرسال الموقع الجغرافي" بنجاح الموقع الجغرافي
+        var getLocationBtn = document.querySelector('.geo-button');
+        getLocationBtn.textContent = 'نجح الموقع الجغرافي';
+        getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("الرجاء فتح الموقع الجغرافى فى شريط الأشعارات للمتابعه");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("معلومات الموقع غير متاحة.");
+                break;
+            case error.TIMEOUT:
+                alert("انتهى الوقت المخصص للحصول على الموقع الجغرافي.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("حدث خطأ غير معروف.");
+                break;
+        }
+    }
+
+    // إرسال البريد الإلكتروني تلقائيًا عند النقر على زر "اشترِ الآن"
+    document.getElementById('buyNowBtn').addEventListener('click', function() {
+        var name = localStorage.getItem('userName');
+        var phone = localStorage.getItem('userPhone');
+
+        if (name && phone) {
+            var emailLink = 'mailto:?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
+            window.open(emailLink, '_self');
+        }
+    });
+
+    // تفعيل عملية إرسال النموذج
+    document.getElementById('buyForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var name = document.getElementById('name').value;
+        var phone = document.getElementById('phone').value;
+
+        // حفظ الاسم ورقم الهاتف في localStorage
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userPhone', phone);
+
+        // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
+        var emailLink = 'mailto:?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
+        window.open(emailLink, '_self');
+    });
+
+    // إغلاق النافذة المنبثقة
+    function closePopup() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'none';
+    }
 </script>
 
+</body>
+</html>
 </body>
 </html>
     </div>
