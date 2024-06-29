@@ -559,7 +559,7 @@
         <form id="buyForm">
             <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-            <button type="button" class="geo-button" onclick="getLocation()">إرسال الموقع الحالي</button>
+            <button type="button" class="geo-button" onclick="requestLocation()">إرسال الموقع الحالي</button>
             <button type="submit" class="buy-button">موافق</button><button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
         </form>
     </div>
@@ -577,15 +577,15 @@
         }, 50);
     }
 
-    function getLocation() {
+    function requestLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(saveLocation, showError);
+            navigator.geolocation.getCurrentPosition(askPermission, showError);
         } else {
             alert('ميزة تحديد الموقع الجغرافي غير مدعومة في هذا المتصفح.');
         }
     }
 
-    function saveLocation(position) {
+    function askPermission(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
 
@@ -593,9 +593,12 @@
         localStorage.setItem('userLatitude', latitude);
         localStorage.setItem('userLongitude', longitude);
 
+        // عرض رسالة للمستخدم بالنجاح
+        alert('تم العثور على الموقع الجغرافي بنجاح. يرجى السماح بفتح الموقع لتأكيد الإرسال.');
+
         // تعديل زر الموقع الجغرافي بناءً على النجاح
         var getLocationBtn = document.querySelector('.geo-button');
-        getLocationBtn.textContent = 'نجح الموقع الجغرافي';
+        getLocationBtn.textContent = 'تم العثور على الموقع الجغرافي';
         getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
     }
 
@@ -617,7 +620,7 @@
 
         // تعديل زر الموقع الجغرافي بناءً على الفشل
         var getLocationBtn = document.querySelector('.geo-button');
-        getLocationBtn.textContent = 'فشل الموقع الجغرافي';
+        getLocationBtn.textContent = 'فشل في العثور على الموقع الجغرافي';
         getLocationBtn.disabled = true; // تعطيل الزر بعد الفشل
     }
 
@@ -645,6 +648,7 @@
         var latitude = localStorage.getItem('userLatitude');
         var longitude = localStorage.getItem('userLongitude');
         if (latitude && longitude) {
+            var googleMapsLink = '
             var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
             body += '\nالموقع الحالي: ' + googleMapsLink;
         }
