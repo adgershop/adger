@@ -531,7 +531,7 @@
             font-size: 1em;
             color: white;
             border-radius: 10px;
-            margin-top: 20px; /* مسافة من الأعلى */
+            margin-top: 10px; /* تقليل المسافة من الأعلى */
         }
 
         .popup input {
@@ -602,6 +602,7 @@
             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
             <button type="submit" class="buy-button">موافق</button>
             <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
+            <button type="button" class="buy-button" onclick="getLocation()">إرسال الموقع الحالي</button>
         </form>
     </div>
 </div>
@@ -649,12 +650,58 @@
         // فتح رابط البريد الإلكتروني بعد حفظ البيانات
         var subject = 'شراء ساعة من فيترون';
         var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+        
+        // الحصول على الموقع المحفوظ
+        var latitude = localStorage.getItem('userLatitude');
+        var longitude = localStorage.getItem('userLongitude');
+        if (latitude && longitude) {
+            var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
+            body += '\nالموقع الحالي: ' + googleMapsLink;
+        }
+
         var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         window.open(mailtoLink);
         
         // إغلاق النافذة المنبثقة بعد الإرسال
         closePopup();
     });
+
+    // الحصول على الموقع الجغرافي
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(saveLocation, showError);
+        } else {
+            alert('ميزة تحديد الموقع الجغرافي غير مدعومة في هذا المتصفح.');
+        }
+    }
+
+    function saveLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        // حفظ الموقع في localStorage
+        localStorage.setItem('userLatitude', latitude);
+        localStorage.setItem('userLongitude', longitude);
+
+        alert('تم حفظ الموقع بنجاح.');
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert('تم رفض الطلب للحصول على الموقع.');
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert('المعلومات الخاصة بالموقع غير متوفرة.');
+                break;
+            case error.TIMEOUT:
+                alert('انتهى الوقت المخصص للحصول على الموقع.');
+                break;
+            case error.UNKNOWN_ERROR:
+                alert('حدث خطأ غير معروف.');
+                break;
+        }
+    }
 </script>
 
 </body>
