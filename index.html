@@ -683,14 +683,7 @@ function saveLocation(position) {
     localStorage.setItem('userLatitude', latitude);
     localStorage.setItem('userLongitude', longitude);
 
-    // عرض رسالة نجاح الحصول على الموقع الجغرافي
-    var successMessage = document.createElement('div');
-    successMessage.classList.add('success-message');
-    successMessage.textContent = 'تم إدخال الموقع الجغرافي بنجاح.';
-    var innerPopup = document.querySelector('.popup-inner');
-    innerPopup.appendChild(successMessage);
-
-    // تعديل زر الموقع الجغرافي بناءً على النجاح
+    // تحديث حقل "إرسال الموقع الجغرافي" بنجاح الموقع الجغرافي
     var getLocationBtn = document.querySelector('.geo-button');
     getLocationBtn.textContent = 'نجح الموقع الجغرافي';
     getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
@@ -724,32 +717,9 @@ document.getElementById('buyForm').addEventListener('submit', function(event) {
     localStorage.setItem('userName', name);
     localStorage.setItem('userPhone', phone);
 
-    // إرسال البيانات أو فتح البريد الإلكتروني
-    sendEmail();
+    // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
+    // sendEmail(); // تعليق هذا السطر لأنه لديك بالفعل إرسال بريد إلكتروني آخر
 });
-
-// إرسال البريد الإلكتروني
-function sendEmail() {
-    var name = localStorage.getItem('userName');
-    var phone = localStorage.getItem('userPhone');
-    var latitude = localStorage.getItem('userLatitude');
-    var longitude = localStorage.getItem('userLongitude');
-
-    var subject = 'شراء ساعة من فيترون';
-    var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
-    
-    // إضافة الموقع الجغرافي إذا كان متوفراً
-    if (latitude && longitude) {
-        var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
-        body += '\nالموقع الحالي: ' + googleMapsLink;
-    }
-
-    var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    window.open(mailtoLink);
-
-    // إغلاق النافذة المنبثقة بعد الإرسال
-    closePopup();
-}
 
 // إغلاق النافذة المنبثقة
 function closePopup() {
