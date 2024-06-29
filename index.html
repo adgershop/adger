@@ -359,8 +359,6 @@
            
             <h2 style="font-size: 17px;">ساعة من فيترون</h2>
             <p>سوار بلون فضي في ذهبي </p>
-         
-
             <style>
                 .hidden-text {
                     position: absolute;
@@ -416,9 +414,6 @@
             </body>
             </html>
 
-
-
-
             
                 <!-- WhatsApp Message Button -->
             
@@ -434,10 +429,169 @@
           
             <style>
             
+  
+  /* أسلوب CSS للنافذة المنبثقة */
+  .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* خلفية شفافة مع لون */
+      z-index: 1000;
+      text-align: center;
+  }
+  
+  .popup-content {
+      position: absolute;
+      top: 10%; /* تعديل المسافة من الأعلى */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      background: linear-gradient(135deg, #0080ff, #00f7ff);
+      border: 1px solid #0026ff; /* حدود زرقاء */
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* ظل */
+      width: 80%; /* عرض النافذة */
+      max-width: 400px; /* حد أقصى للعرض */
+      max-height: 80%; /* حد أقصى للارتفاع */
+      overflow-y: auto; /* التمرير العمودي إذا لزم الأمر */
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .popup.active {
+      display: block;
+  }
+  
+  .popup-header {
+      margin-bottom: 10px;
+  }
+  
+  .popup-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+  }
+  
+  .popup-input:last-child {
+      margin-bottom: 0; /* للتحكم بالمسافة بين الحقول */
+  }
+  
+  .quantity-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white; /* تعيين خلفية بيضاء */
+    height: 46px; /* جعل ارتفاع الحقل متساويًا */
+}
+  
+  .quantity-label {
+      font-size: 18px;
+      color: #555;
+      margin-right: 10px;
+  }
+  
+  .quantity-number {
+      font-size: 24px;
+      margin-right: 10px;
+  }
+  
+  .quantity-buttons {
+      display: flex;
+      align-items: center;
+  }
+  
+  .quantity-button {
+      background-color: #00edca;
+      color: #071b87;
+      border: none;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      border-radius: 4px;
+      margin-left: 5px; /* تباعد بين الأزرار */
+  }
+  
+  .quantity-button:hover {
+      background-color: #ff0000;
+  }
+  
+  .popup-button {
+      padding: 10px 20px;
+      background-color: #00bd10;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-right: 10px; /* تباعد بين الأزرار */
+      margin: 19px;
+  }
+  
+  .popup-button:hover {
+      background-color: #17c200;
+  }
+  
+  .popup-title {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 36px;
+     color: darkmagenta;
+      margin-top: 0;
+      margin-bottom: 20px;
+  }
             </style>
         </head>
         <body>
         
+<style>
+  button {
+    background-color: #feb538;
+    color: white; /* لون النص */
+    border: none; /* إزالة الحدود */
+    padding: 10px 20px; /* مساحة داخلية */
+    text-align: center; /* محاذاة النص في الوسط */
+    text-decoration: none; /* إزالة التزيين تحت النص */
+    display: inline-block; /* عرض الزر كتلة داخلية */
+    font-size: 16px; /* حجم الخط */
+    margin: 4px 2px; /* هوامش */
+    cursor: pointer; /* شكل المؤشر */
+    border-radius: 11px; /* زوايا مستديرة */
+    transition-duration: 0.4s; /* مدة الانتقال */
+}
+
+button svg {
+    vertical-align: middle; /* محاذاة الأيقونة مع النص */
+}
+
+button:hover {
+    background-color: white; /* لون الخلفية عند التمرير */
+    color: black; /* لون النص عند التمرير */
+    border: 2px solid #008CBA; /* حدود عند التمرير */
+}
+
+.buy-button {
+    display: inline-block;
+    padding: 9px 23px; /* مساحة داخلية متطابقة */
+    font-size: 16px;
+    color: #fff;
+    background-color: #19d300;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 11px;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: #0ec508;
+}
+</style>
             <button onclick="addToCart(this)">    
                 <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
@@ -446,6 +600,9 @@
             </button>
         
             <br>
+
+
+
         
             <!DOCTYPE html>
             <html lang="ar">
@@ -551,12 +708,8 @@
                 }
             }
             </script>
-            
             </body>
             </html>
-        </body>
-        </html>
-
     </div>
 
 
