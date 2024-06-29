@@ -487,7 +487,7 @@
 
     .popup-inner {
         position: absolute;
-        top: 50px;
+        top: 20%; /* رفع النافذة المنبثقة أعلى */
         left: 50%;
         transform: translateX(-50%);
         width: 80%;
@@ -581,6 +581,31 @@
 <script>
     var recipientEmail = "example@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
 
+    // تخزين الاسم ورقم الهاتف في localStorage
+    function storeUserData(name, phone) {
+        localStorage.setItem('name', name);
+        localStorage.setItem('phone', phone);
+    }
+
+    // جلب البيانات من localStorage إذا كانت متاحة
+    function retrieveUserData() {
+        var name = localStorage.getItem('name');
+        var phone = localStorage.getItem('phone');
+        return { name: name, phone: phone };
+    }
+
+    // فتح الجيميل مع بيانات المستخدم المخزنة
+    function openGmailWithStoredData() {
+        var userData = retrieveUserData();
+        var name = userData.name;
+        var phone = userData.phone;
+
+        if (name && phone) {
+            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
+            window.open(emailLink, '_self');
+        }
+    }
+
     function openPopup() {
         var popup = document.getElementById('popup');
         popup.style.display = 'flex'; /* تعديل العرض إلى flex لمحاذاة الأزرار بجانب بعضها البعض */
@@ -594,8 +619,8 @@
         var phone = document.getElementById('phone').value;
 
         if (name && phone) {
-            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
-            window.open(emailLink, '_self');
+            storeUserData(name, phone); // تخزين البيانات في localStorage
+            openGmailWithStoredData(); // فتح الجيميل مع البيانات المخزنة
         } else {
             openPopup(); // إذا لم تكن المعلومات كاملة، فتح النافذة المنبثقة لإدخال المعلومات
         }
@@ -608,9 +633,8 @@
         var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
 
-        // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
-        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
-        window.open(emailLink, '_self');
+        storeUserData(name, phone); // تخزين البيانات في localStorage
+        openGmailWithStoredData(); // فتح الجيميل مع البيانات المدخلة
     });
 
     // إغلاق النافذة المنبثقة
@@ -618,6 +642,17 @@
         var popup = document.getElementById('popup');
         popup.style.display = 'none';
     }
+
+    // التحقق مما إذا كانت هناك بيانات مخزنة وفتح الجيميل تلقائيًا إذا كان ذلك صحيحًا
+    document.addEventListener('DOMContentLoaded', function() {
+        var userData = retrieveUserData();
+        var name = userData.name;
+        var phone = userData.phone;
+
+        if (name && phone) {
+            openGmailWithStoredData();
+        }
+    });
 </script>
 
 </body>
