@@ -551,22 +551,7 @@
     }
 
     .geo-button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 1em;
-        margin-top: 10px;
-        cursor: pointer;
-        border-radius: 4px;
-        width: calc(100% - 30px);
-    }
-
-    .geo-button:hover {
-        background-color: #45a049;
+        display: none; /* إخفاء زر الموقع الجغرافي */
     }
 
     .decorative-text {
@@ -593,20 +578,8 @@
 <!-- زر "اشترِ الآن" -->
 <button id="buyNowBtn" class="buy-button" onclick="handleBuyNow()">اشترِ الآن</button>
 
-<!-- زر "اطلب الموقع الجغرافي" -->
-<button id="geoBtn" class="geo-button" onclick="requestLocation()">اطلب الموقع الجغرافي</button>
-
 <script>
     var recipientEmail = "example@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
-
-    // فحص وجود البيانات في localStorage
-    var storedName = localStorage.getItem('buyerName');
-    var storedPhone = localStorage.getItem('buyerPhone');
-
-    if (storedName && storedPhone) {
-        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(storedName) + '%0Aرقم الهاتف: ' + storedPhone;
-        window.open(emailLink, '_self');
-    }
 
     function openPopup() {
         var popup = document.getElementById('popup');
@@ -621,30 +594,10 @@
         var phone = document.getElementById('phone').value;
 
         if (name && phone) {
-            // حفظ البيانات في localStorage
-            localStorage.setItem('buyerName', name);
-            localStorage.setItem('buyerPhone', phone);
-
-            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(name) + '%0Aرقم الهاتف: ' + phone;
+            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
             window.open(emailLink, '_self');
         } else {
             openPopup(); // إذا لم تكن المعلومات كاملة، فتح النافذة المنبثقة لإدخال المعلومات
-        }
-    }
-
-    // طلب الموقع الجغرافي
-    function requestLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-                localStorage.setItem('buyerLocation', latitude + ',' + longitude);
-                alert('تم تخزين الموقع الجغرافي بنجاح.');
-            }, function(error) {
-                alert('فشل في الحصول على الموقع الجغرافي: ' + error.message);
-            });
-        } else {
-            alert('الموقع الجغرافي غير مدعوم في هذا المتصفح.');
         }
     }
 
@@ -654,18 +607,9 @@
 
         var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
-        var location = localStorage.getItem('buyerLocation');
 
         // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
-        localStorage.setItem('buyerName', name);
-        localStorage.setItem('buyerPhone', phone);
-
-        var emailBody = 'الاسم: ' + encodeURIComponent(name) + '%0Aرقم الهاتف: ' + phone;
-        if (location) {
-            emailBody += '%0Aالموقع الجغرافي: ' + location;
-        }
-
-        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=' + emailBody;
+        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
         window.open(emailLink, '_self');
     });
 
@@ -678,7 +622,6 @@
 
 </body>
 </html>
-
 
 </body>
 </html>
