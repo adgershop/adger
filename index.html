@@ -499,6 +499,18 @@
         text-align: center;
     }
 
+    .popup .error-message {
+        color: #ff6347;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .popup .success-message {
+        color: #32cd32;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
     .popup input {
         width: calc(100% - 30px);
         margin: 10px 15px;
@@ -559,7 +571,7 @@
         <form id="buyForm">
             <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-            <button type="button" class="geo-button" onclick="requestLocation()">إرسال الموقع الحالي</button>
+            <button type="button" class="geo-button" onclick="getLocation()">إرسال الموقع الحالي</button>
             <button type="submit" class="buy-button">موافق</button><button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
         </form>
     </div>
@@ -577,92 +589,113 @@
         }, 50);
     }
 
-    function requestLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(askPermission, showError);
-        } else {
-            alert('ميزة تحديد الموقع الجغرافي غير مدعومة في هذا المتصفح.');
-        }
-    }
-
-    function askPermission(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-
-        // حفظ الموقع في localStorage
-        localStorage.setItem('userLatitude', latitude);
-        localStorage.setItem('userLongitude', longitude);
-
-        // عرض رسالة للمستخدم بالنجاح
-        alert('تم العثور على الموقع الجغرافي بنجاح. يرجى السماح بفتح الموقع لتأكيد الإرسال.');
-
-        // تعديل زر الموقع الجغرافي بناءً على النجاح
-        var getLocationBtn = document.querySelector('.geo-button');
-        getLocationBtn.textContent = 'تم العثور على الموقع الجغرافي';
-        getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
-    }
-
-    function showError(error) {
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                alert('تم رفض الطلب للحصول على الموقع.');
-                break;
-            case error.POSITION_UNAVAILABLE:
-                alert('المعلومات الخاصة بالموقع غير متوفرة.');
-                break;
-            case error.TIMEOUT:
-                alert('انتهى الوقت المخصص للحصول على الموقع.');
-                break;
-            case error.UNKNOWN_ERROR:
-                alert('حدث خطأ غير معروف.');
-                break;
-        }
-
-        // تعديل زر الموقع الجغرافي بناءً على الفشل
-        var getLocationBtn = document.querySelector('.geo-button');
-        getLocationBtn.textContent = 'فشل في العثور على الموقع الجغرافي';
-        getLocationBtn.disabled = true; // تعطيل الزر بعد الفشل
+    function getLocation() {
+        var popup = document.getElementById('popup');
+        var successMessage = document.createElement('div');
+        successMessage.classList.add('success-message');
+        successMessage.textContent = 'تم إدخال الموقع الجغرافي بنجاح.';
+        var innerPopup = document.querySelector('.popup-inner');
+        innerPopup.appendChild(successMessage);
     }
 
     function closePopup() {
         var popup = document.getElementById('popup');
         popup.style.display = 'none';
     }
-
-    // عملية إرسال النموذج
-    document.getElementById('buyForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        var name = document.getElementById('name').value;
-        var phone = document.getElementById('phone').value;
-        
-        // حفظ الاسم ورقم الهاتف في localStorage
-        localStorage.setItem('userName', name);
-        localStorage.setItem('userPhone', phone);
-
-        // فتح رابط البريد الإلكتروني بعد حفظ البيانات
-        var subject = 'شراء ساعة من فيترون';
-        var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
-        
-        // الحصول على الموقع المحفوظ
-        var latitude = localStorage.getItem('userLatitude');
-        var longitude = localStorage.getItem('userLongitude');
-        if (latitude && longitude) {
-            var googleMapsLink = '
-            var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
-            body += '\nالموقع الحالي: ' + googleMapsLink;
-        }
-        
-        var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-        window.open(mailtoLink);
-        
-        // إغلاق النافذة المنبثقة بعد الإرسال
-        closePopup();
-    });
 </script>
 
 </body>
 </html>
+        <script>
+            var popup = document.getElementById('popup');
+            var buyNowBtn = document.getElementById('buyNowBtn');
+            var nameInput = document.getElementById('name');
+            var phoneInput = document.getElementById('phone');
+        
+            // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
+            buyNowBtn.addEventListener('click', function() {
+                popup.style.display = 'block';
+                setTimeout(function() {
+                    nameInput.focus();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 200); // تأخير قصير لضمان تنفيذ التركيز على الحقل والتمرير لأعلى الصفحة
+            });
+        
+            // رفع النافذة عند النقر على حقل الإسم أو الهاتف
+            [nameInput, phoneInput].forEach(input => {
+                input.addEventListener('focus', function() {
+                    setTimeout(function() {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 50); // تأخير قصير لضمان تنفيذ التمرير لأعلى الصفحة
+                });
+            });
+        
+            // إغلاق النافذة المنبثقة
+            function closePopup() {
+                popup.style.display = 'none';
+            }
+        
+            // عملية إرسال النموذج
+            document.getElementById('buyForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                var name = nameInput.value;
+                var phone = phoneInput.value;
+                
+                // حفظ الاسم ورقم الهاتف في localStorage
+                localStorage.setItem('userName', name);
+                localStorage.setItem('userPhone', phone);
+        
+                // فتح رابط البريد الإلكتروني بعد حفظ البيانات
+                var subject = 'شراء ساعة من فيترون';
+                var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
+                
+                // الحصول على الموقع المحفوظ
+                var latitude = localStorage.getItem('userLatitude');
+                var longitude = localStorage.getItem('userLongitude');
+                if (latitude && longitude) {
+                    var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
+                    body += '\nالموقع الحالي: ' + googleMapsLink;
+                }
+        
+                var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                window.open(mailtoLink);
+                
+                // إغلاق النافذة المنبثقة بعد الإرسال
+                closePopup();
+            });
+        
+            // الحصول على الموقع الجغرافي
+          // الحصول على الموقع الجغرافي
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(saveLocation, showError);
+    } else {
+        alert('ميزة تحديد الموقع الجغرافي غير مدعومة في هذا المتصفح.');
+    }
+}
+
+function saveLocation(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    // حفظ الموقع في localStorage
+    localStorage.setItem('userLatitude', latitude);
+    localStorage.setItem('userLongitude', longitude);
+
+    // عرض رسالة نجاح الحصول على الموقع الجغرافي
+    var successMessage = document.createElement('div');
+    successMessage.classList.add('success-message');
+    successMessage.textContent = 'تم إدخال الموقع الجغرافي بنجاح.';
+    var innerPopup = document.querySelector('.popup-inner');
+    innerPopup.appendChild(successMessage);
+
+    // تعديل زر الموقع الجغرافي بناءً على النجاح
+    var getLocationBtn = document.querySelector('.buy-button');
+    getLocationBtn.textContent = 'نجح الموقع الجغرافي';
+    getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
+}
+
 </script>
 
 </body>
