@@ -415,181 +415,228 @@
         <!DOCTYPE html>
         <html lang="ar">
         <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>نافذة المشتريات</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                direction: rtl;
-            }
-        
-            .popup {
-                display: none; /* إخفاء النافذة المنبثقة افتراضيًا */
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 9999;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-            }
-        
-            .popup-inner {
-                position: absolute;
-                top: 50px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 80%;
-                max-width: 400px;
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                text-align: center;
-            }
-        
-            .popup .error-message {
-                color: #ff6347;
-                font-size: 16px;
-                margin-top: 10px;
-            }
-        
-            .popup .success-message {
-                color: #32cd32;
-                font-size: 16px;
-                margin-top: 10px;
-            }
-        
-            .popup input {
-                width: calc(100% - 30px);
-                margin: 10px 15px;
-                padding: 10px;
-                font-size: 1em;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                box-sizing: border-box;
-            }
-        
-            .popup button.buy-button {
-                background-color: #ffa600;
-                color: white;
-                padding: 12px 24px;
-                border: none;
-                cursor: pointer;
-                border-radius: 4px;
-                font-size: 1em;
-                margin-top: 10px;
-                width: calc(50% - 5px);
-            }
-        
-            .popup button.back-btn {
-                background-color: #ccc;
-                color: black;
-                padding: 10px 20px;
-                border: none;
-                cursor: pointer;
-                border-radius: 4px;
-                font-size: 1em;
-                margin-top: 10px;
-                margin-left: 5px;
-                width: calc(50% - 5px);
-            }
-        
-            .popup button.back-btn:hover {
-                background-color: #aaa;
-            }
-        
-            .geo-button {
-                display: none; /* إخفاء زر الموقع الجغرافي */
-            }
-        
-            .decorative-text {
-                font-family: 'Segoe Script', cursive; /* اسم خط الزخرفة المستخدم */
-                font-size: 24px; /* حجم الخط */
-                color: #ffa600; /* لون الخط */
-                margin-bottom: 10px; /* تباعد أسفل النص */
-            }
-        </style>
-        </head>
-        <body>
-        
-        <div id="popup" class="popup">
-            <div class="popup-inner">
-                <div class="decorative-text">أدغر</div>
-                <form id="buyForm">
-                    <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-                    <br><br>
-                    <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-                    <br><br>
-                    <button type="submit" class="buy-button">موافق</button>
-                    <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
-                </form>
-            </div>
-        </div>
-        
-        <!-- زر "اشترِ الآن" -->
-        <button id="buyNowBtn" class="buy-button" onclick="openPopup()">اشترِ الآن</button>
-        
-        <script>
-            var recipientEmail = "example@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
-        
-            // تحقق من وجود بيانات محفوظة وفتح البريد الإلكتروني تلقائيًا
-            document.addEventListener('DOMContentLoaded', function() {
-                var savedName = localStorage.getItem('name');
-                var savedPhone = localStorage.getItem('phone');
-        
-                if (savedName && savedPhone) {
-                    var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + savedName + '%0Aرقم الهاتف: ' + savedPhone;
-                    window.open(emailLink, '_self');
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Button Styling</title>
+            <style>
+                button {
+                    background-color: #feb538;
+                    color: white; /* لون النص */
+                    border: none; /* إزالة الحدود */
+                    padding: 10px 20px; /* مساحة داخلية */
+                    text-align: center; /* محاذاة النص في الوسط */
+                    text-decoration: none; /* إزالة التزيين تحت النص */
+                    display: inline-block; /* عرض الزر كتلة داخلية */
+                    font-size: 16px; /* حجم الخط */
+                    margin: 4px 2px; /* هوامش */
+                    cursor: pointer; /* شكل المؤشر */
+                    border-radius: 11px; /* زوايا مستديرة */
+                    transition-duration: 0.4s; /* مدة الانتقال */
                 }
-            });
         
-            function openPopup() {
-                var popup = document.getElementById('popup');
-                popup.style.display = 'block'; /* عرض النافذة المنبثقة */
-                setTimeout(function() {
-                    document.getElementById('name').focus(); // التركيز على حقل الاسم
-                }, 50);
-            }
-        
-            function handleBuyNow() {
-                var name = document.getElementById('name').value;
-                var phone = document.getElementById('phone').value;
-        
-                if (name && phone) {
-                    localStorage.setItem('name', name);
-                    localStorage.setItem('phone', phone);
-        
-                    var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
-                    window.open(emailLink, '_self');
+                button svg {
+                    vertical-align: middle; /* محاذاة الأيقونة مع النص */
                 }
-            }
         
-            // تفعيل عملية إرسال النموذج
-            document.getElementById('buyForm').addEventListener('submit', function(event) {
-                event.preventDefault();
+                button:hover {
+                    background-color: white; /* لون الخلفية عند التمرير */
+                    color: black; /* لون النص عند التمرير */
+                    border: 2px solid #008CBA; /* حدود عند التمرير */
+                }
         
-                var name = document.getElementById('name').value;
-                var phone = document.getElementById('phone').value;
+                .buy-button {
+                    display: inline-block;
+                    padding: 9px 23px; /* مساحة داخلية متطابقة */
+                    font-size: 16px;
+                    color: #fff;
+                    background-color: #19d300;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 11px;
+                    transition: background-color 0.3s ease;
+                }
         
-                // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
-                var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
-                window.open(emailLink, '_self');
-            });
-        
-            // إغلاق النافذة المنبثقة
-            function closePopup() {
-                var popup = document.getElementById('popup');
-                popup.style.display = 'none';
-            }
-        </script>
-        
-        </body>
-        </html>
+                .buy-button:hover {
+                    background-color: #0ec508;
+                }
+                <!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نافذة المشتريات</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        direction: rtl;
+    }
+
+    .popup {
+        display: none; /* إخفاء النافذة المنبثقة افتراضيًا */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .popup-inner {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        max-width: 400px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .popup .error-message {
+        color: #ff6347;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .popup .success-message {
+        color: #32cd32;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .popup input {
+        width: calc(100% - 30px);
+        margin: 10px 15px;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .popup button.buy-button {
+        background-color: #ffa600;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 1em;
+        margin-top: 10px;
+        width: calc(50% - 5px);
+    }
+
+    .popup button.back-btn {
+        background-color: #ccc;
+        color: black;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 1em;
+        margin-top: 10px;
+        margin-left: 5px;
+        width: calc(50% - 5px);
+    }
+
+    .popup button.back-btn:hover {
+        background-color: #aaa;
+    }
+
+    .geo-button {
+        display: none; /* إخفاء زر الموقع الجغرافي */
+    }
+
+    .decorative-text {
+        font-family: 'Segoe Script', cursive; /* اسم خط الزخرفة المستخدم */
+        font-size: 24px; /* حجم الخط */
+        color: #ffa600; /* لون الخط */
+        margin-bottom: 10px; /* تباعد أسفل النص */
+    }
+</style>
+</head>
+<body>
+
+<div id="popup" class="popup">
+    <div class="popup-inner">
+        <div class="decorative-text">أدغر</div>
+        <form id="buyForm">
+            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+            <br><br>
+            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+            <br><br>
+            <button type="submit" class="buy-button">موافق</button>
+            <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
+        </form>
+    </div>
+</div>
+
+<!-- زر "اشترِ الآن" -->
+<button id="buyNowBtn" class="buy-button" onclick="openPopup()">اشترِ الآن</button>
+
+<script>
+    var recipientEmail = "example@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
+
+    // تحقق من وجود بيانات محفوظة وفتح البريد الإلكتروني تلقائيًا
+    document.addEventListener('DOMContentLoaded', function() {
+        var savedName = localStorage.getItem('name');
+        var savedPhone = localStorage.getItem('phone');
+
+        if (savedName && savedPhone) {
+            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(savedName) + '%0Aرقم الهاتف: ' + encodeURIComponent(savedPhone);
+            window.open(emailLink, '_self');
+        }
+    });
+
+    function openPopup() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'block'; /* عرض النافذة المنبثقة */
+        setTimeout(function() {
+            document.getElementById('name').focus(); // التركيز على حقل الاسم
+        }, 50);
+    }
+
+    function handleBuyNow() {
+        var name = document.getElementById('name').value;
+        var phone = document.getElementById('phone').value;
+
+        if (name && phone) {
+            localStorage.setItem('name', name);
+            localStorage.setItem('phone', phone);
+
+            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(name) + '%0Aرقم الهاتف: ' + encodeURIComponent(phone);
+            window.open(emailLink, '_self');
+        }
+    }
+
+    // تفعيل عملية إرسال النموذج
+    document.getElementById('buyForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var name = document.getElementById('name').value;
+        var phone = document.getElementById('phone').value;
+
+        // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
+        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(name) + '%0Aرقم الهاتف: ' + encodeURIComponent(phone);
+        window.open(emailLink, '_self');
+    });
+
+    // إغلاق النافذة المنبثقة
+    function closePopup() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
