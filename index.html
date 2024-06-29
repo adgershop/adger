@@ -584,7 +584,7 @@
 <script>
     var recipientEmail = "example@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
 
-    // تحقق من وجود بيانات محفوظة وفتح البريد الإلكتروني تلقائيا
+    // تحقق من وجود بيانات محفوظة وفتح البريد الإلكتروني تلقائيًا
     document.addEventListener('DOMContentLoaded', function() {
         var savedName = localStorage.getItem('name');
         var savedPhone = localStorage.getItem('phone');
@@ -600,6 +600,7 @@
         popup.style.display = 'flex'; /* تعديل العرض إلى flex لمحاذاة الأزرار بجانب بعضها البعض */
         setTimeout(function() {
             popup.style.display = 'block'; /* تغيير إلى block بعد تطبيق أزرار صغيرة */
+            document.getElementById('name').focus(); // تركيز تلقائي على حقل الاسم
         }, 50);
     }
 
