@@ -1,5 +1,7 @@
 
 
+
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -99,6 +101,7 @@
             cursor: pointer;
         }
 
+
         .whatsapp-button {
     display: inline-block;
     background-color: hsl(113, 100%, 35%); /* لون الخلفية */
@@ -125,18 +128,18 @@
   }
   
   .search-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* توسيط العناصر أفقياً */
     padding: 2px;
-    background-color: #3d5b66;
+    background-color: #3d5b66; /* لون خلفية منطقة شريط البحث */
     border-radius: 1px;
-    height: 60px;
-    z-index: 999; /* تأكد من عدم تغطية أي عناصر أخرى مهمة */
+    height: 60px; /* تعديل ارتفاع الصندوق حسب الحاجة */
+    position: fixed; /* تثبيت الصندوق بمكانه على الشاشة */
+    top: 0; /* تثبيت الصندوق في الجزء العلوي من الشاشة */
+    left: 0; /* تثبيت الصندوق في الجزء الأيسر من الشاشة */
+    width: 100%; /* جعل الصندوق يمتد ليملأ العرض بالكامل */
+    z-index: 1000; /* تحديد ترتيب الطبقات للصندوق */
 }
 
 
@@ -325,10 +328,18 @@
 </body>
 </html>
 <br><br><br>
+        
+
+
+</html>
    </div>
+
+
 
 <script src="script.js"></script>
   </div>
+
+ 
 
 
 <style>
@@ -336,6 +347,8 @@
         color: rgb(104, 72, 134);
     }
 </style>
+
+
 
 
 </p>
@@ -346,26 +359,7 @@
            
             <h2 style="font-size: 17px;">ساعة من فيترون</h2>
             <p>سوار بلون فضي في ذهبي </p>
-        
-            <style>
-                .hidden-text {
-                    position: absolute;
-                    left: -9999px;
-                }
-            </style>
-            </head>
-            <body>
-            
-            <!-- Visible content -->
-       
-            
-            <!-- Hidden text -->
-            <p class="hidden-text"></p>
-            
-            </body>
-            </html>
-            
-
+         
                 <link rel="stylesheet" href="styles.css">
             </head>
             <body>
@@ -405,293 +399,14 @@
 
 
 
+
+            
+                <!-- WhatsApp Message Button -->
             
 
         </div>
         <div class="product-images">
             <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')">
-        </div>
-        <div style="clear:both;"></div>
-        <!DOCTYPE html>
-        <html lang="ar">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Button Styling</title>
-            <style>
-                button {
-                    background-color: #feb538;
-                    color: white; /* لون النص */
-                    border: none; /* إزالة الحدود */
-                    padding: 10px 20px; /* مساحة داخلية */
-                    text-align: center; /* محاذاة النص في الوسط */
-                    text-decoration: none; /* إزالة التزيين تحت النص */
-                    display: inline-block; /* عرض الزر كتلة داخلية */
-                    font-size: 16px; /* حجم الخط */
-                    margin: 4px 2px; /* هوامش */
-                    cursor: pointer; /* شكل المؤشر */
-                    border-radius: 11px; /* زوايا مستديرة */
-                    transition-duration: 0.4s; /* مدة الانتقال */
-                }
-        
-                button svg {
-                    vertical-align: middle; /* محاذاة الأيقونة مع النص */
-                }
-        
-                button:hover {
-                    background-color: white; /* لون الخلفية عند التمرير */
-                    color: black; /* لون النص عند التمرير */
-                    border: 2px solid #008CBA; /* حدود عند التمرير */
-                }
-        
-                .buy-button {
-                    display: inline-block;
-                    padding: 9px 23px; /* مساحة داخلية متطابقة */
-                    font-size: 16px;
-                    color: #fff;
-                    background-color: #19d300;
-                    text-align: center;
-                    text-decoration: none;
-                    border-radius: 11px;
-                    transition: background-color 0.3s ease;
-                }
-        
-                .buy-button:hover {
-                    background-color: #0ec508;
-                }
-                <!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>نافذة المشتريات</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        direction: rtl;
-    }
-
-    .popup {
-        display: none; /* إخفاء النافذة المنبثقة افتراضيًا */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .popup-inner {
-        position: absolute;
-        top: 50px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80%;
-        max-width: 400px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
-
-    .popup .error-message {
-        color: #ff6347;
-        font-size: 16px;
-        margin-top: 10px;
-    }
-
-    .popup .success-message {
-        color: #32cd32;
-        font-size: 16px;
-        margin-top: 10px;
-    }
-
-    .popup input {
-        width: calc(100% - 30px);
-        margin: 10px 15px;
-        padding: 10px;
-        font-size: 1em;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-
-    .popup button.buy-button {
-        background-color: #ffa600;
-        color: white;
-        padding: 12px 24px;
-        border: none;
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 1em;
-        margin-top: 10px;
-        width: calc(50% - 5px);
-    }
-
-    .popup button.back-btn {
-        background-color: #ccc;
-        color: black;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 1em;
-        margin-top: 10px;
-        margin-left: 5px;
-        width: calc(50% - 5px);
-    }
-
-    .popup button.back-btn:hover {
-        background-color: #aaa;
-    }
-
-    .geo-button {
-        display: none; /* إخفاء زر الموقع الجغرافي */
-    }
-
-    .decorative-text {
-        font-family: 'Segoe Script', cursive; /* اسم خط الزخرفة المستخدم */
-        font-size: 24px; /* حجم الخط */
-        color: #ffa600; /* لون الخط */
-        margin-bottom: 10px; /* تباعد أسفل النص */
-    }
-</style>
-</head>
-<body>
-
-<div id="popup" class="popup">
-    <div class="popup-inner">
-        <div class="decorative-text">أدغر</div>
-        <form id="buyForm">
-            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-            <br><br>
-            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-            <br><br>
-            <button type="submit" class="buy-button">موافق</button>
-            <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
-        </form>
-    </div>
-</div>
-
-<!-- زر "اشترِ الآن" -->
-<button id="buyNowBtn" class="buy-button" onclick="openPopup()">اشترِ الآن</button>
-
-<script>
-    var recipientEmail = "example@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
-
-    // تحقق من وجود بيانات محفوظة وفتح البريد الإلكتروني تلقائيًا
-    document.addEventListener('DOMContentLoaded', function() {
-        var savedName = localStorage.getItem('name');
-        var savedPhone = localStorage.getItem('phone');
-
-        if (savedName && savedPhone) {
-            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(savedName) + '%0Aرقم الهاتف: ' + encodeURIComponent(savedPhone);
-            window.open(emailLink, '_self');
-        }
-    });
-
-    function openPopup() {
-        var popup = document.getElementById('popup');
-        popup.style.display = 'block'; /* عرض النافذة المنبثقة */
-        setTimeout(function() {
-            document.getElementById('name').focus(); // التركيز على حقل الاسم
-        }, 50);
-    }
-
-    function handleBuyNow() {
-        var name = document.getElementById('name').value;
-        var phone = document.getElementById('phone').value;
-
-        if (name && phone) {
-            localStorage.setItem('name', name);
-            localStorage.setItem('phone', phone);
-
-            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(name) + '%0Aرقم الهاتف: ' + encodeURIComponent(phone);
-            window.open(emailLink, '_self');
-        }
-    }
-
-    // تفعيل عملية إرسال النموذج
-    document.getElementById('buyForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        var name = document.getElementById('name').value;
-        var phone = document.getElementById('phone').value;
-
-        // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
-        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(name) + '%0Aرقم الهاتف: ' + encodeURIComponent(phone);
-        window.open(emailLink, '_self');
-    });
-
-    // إغلاق النافذة المنبثقة
-    function closePopup() {
-        var popup = document.getElementById('popup');
-        popup.style.display = 'none';
-    }
-</script>
-
-</body>
-</html>
-
-</body>
-</html>
-    </div>
-
-
-
-    <div class="product">
-        <div class="product-info">
-            <h2 style="font-size: 17px;">قاعدة ماوس</h2>
-            <p>قاعدة ماوس كبيرة الحجم لتناسب جميع أحجام الماوسات</p>
-           
-         
-            <link rel="stylesheet" href="styles.css">
-        </head>
-        <body>
-            <h3>
-                <span class="price-label">السعر:</span>
-                <span class="price-amount">50</span>
-                <span class="price-currency">جنيه</span>
-            </h3>
-        </body>
-        </html>
-        <style>
-            .custom-paragraph {
-                font-size: 22px;
-                direction: rtl; /* لضبط النص من اليمين إلى اليسار */
-            }
-            .custom-paragraph .star {
-                color: gold; /* لون النجوم المملوءة */
-            }
-            .custom-paragraph .star.empty {
-                color: transparent; /* جعل النجوم الفارغة شفافة */
-                -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
-               
-            }
-        </style>
-        </head>
-        <body>
-        <p class="custom-paragraph">
-            <span class="star">★</span>
-            <span class="star">★</span>
-            <span class="star">★</span>
-            <span class="star">★</span>
-            <span class="star">★</span>
-        </p>
-        </body>
-        </html>
-        
-            <!-- WhatsApp Message Button -->
-        
-           
-        </div>
-        <div class="product-images">
-            <img src="2.jpg" alt="product" onclick="openLightbox('2.jpg')">
         </div>
         <div style="clear:both;"></div>
         <!DOCTYPE html>
@@ -754,9 +469,200 @@
         
             <br>
         
+            <!DOCTYPE html>
+            <html lang="ar">
+            <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>نافذة الشراء</title>
+            <style>
+            /* أسلوب CSS للنافذة المنبثقة */
+            .popup {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.6); /* خلفية شفافة مع لون */
+                z-index: 1000;
+                text-align: center;
+            }
+            
+            .popup-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 20px;
+                background-color: #ffffff; /* خلفية بيضاء */
+                border: 2px solid #0047ab; /* حدود زرقاء */
+                box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* ظل */
+                max-width: 90%;
+                max-height: 90%;
+                overflow: auto;
+                text-align: center;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            
+            .popup.active {
+                display: block;
+            }
+            
+            .popup-header {
+                margin-bottom: 10px;
+            }
+            
+            .popup-input {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            
+            .popup-button {
+                padding: 10px 20px;
+                background-color: #0047ab;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+            
+            .popup-button:hover {
+                background-color: #003c8e;
+            }
+            
+            .popup-title {
+                font-family: 'Arial Black', Arial, sans-serif;
+                font-size: 24px;
+                color: #0047ab;
+                transform: skew(-15deg); /* تميل الخط زخرفي */
+            }
+            </style>
+            </head>
+            <body>
+            <a href="javascript:void(0);" class="buy-button" onclick="openPopup()">اشترِ الآن</a>
+            
+            <div id="popup" class="popup">
+                <div class="popup-content">
+                    <div class="popup-header">
+                        <h3 class="popup-title">Adger</h3>
+                    </div>
+                    <div class="popup-inputs">
+                        <input type="text" id="name" class="popup-input" placeholder="الاسم الثلاثي">
+                        <input type="number" id="quantity" class="popup-input" placeholder="الكمية">
+                    </div>
+                    <button class="popup-button" onclick="openWhatsApp()">إرسال إلى WhatsApp</button>
+                </div>
+            </div>
+            
+            <script>
+            function openPopup() {
+                var popup = document.getElementById('popup');
+                popup.classList.add('active');
+            }
+            
+            function openWhatsApp() {
+                var name = document.getElementById('name').value;
+                var quantity = document.getElementById('quantity').value;
+                var message = encodeURIComponent('ساعة من فيترون\nالاسم الثلاثي: ' + name + '\nالكمية: ' + quantity);
+            
+                var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
+                window.open(whatsappLink, '_blank');
+            
+                // لحفظ الاسم تلقائيًا يمكنك استخدام localStorage
+                localStorage.setItem('savedName', name);
+            }
+            </script>
+            
+            </body>
+            </html>
+        </body>
+        </html>
 
     </div>
 
+
+
+    <div class="product">
+        <div class="product-info">
+            <h2 style="font-size: 17px;">قاعدة ماوس</h2>
+            <p>قاعدة ماوس كبيرة الحجم لتناسب جميع أحجام الماوسات</p>
+           
+         
+            <link rel="stylesheet" href="styles.css">
+        </head>
+        <body>
+            <h3>
+                <span class="price-label">السعر:</span>
+                <span class="price-amount">50</span>
+                <span class="price-currency">جنيه</span>
+            </h3>
+        </body>
+        </html>
+        <style>
+            .custom-paragraph {
+                font-size: 22px;
+                direction: rtl; /* لضبط النص من اليمين إلى اليسار */
+            }
+            .custom-paragraph .star {
+                color: gold; /* لون النجوم المملوءة */
+            }
+            .custom-paragraph .star.empty {
+                color: transparent; /* جعل النجوم الفارغة شفافة */
+                -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
+               
+            }
+        </style>
+        </head>
+        <body>
+        <p class="custom-paragraph">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+        </p>
+        </body>
+        </html>
+        
+            <!-- WhatsApp Message Button -->
+        
+                <style>
+                    .buy-button {
+                        display: inline-block;
+                        padding: 9px 23px;
+                        font-size: 16px;
+                        color: #fff;
+                        background-color: #19d300;
+                        text-align: center;
+                        text-decoration: none;
+                        border-radius: 11px;
+                        transition: background-color 0.3s ease;
+                    }
+            
+                    .buy-button:hover {
+                        background-color: #0ec508;
+                    }
+                </style>
+            </head>
+            <body>
+                <a href="https://wa.me/+201152366798?text=قاعدة ماوس                                الاسم الثلاثى:" target="_blank" class="buy-button">
+                    اشترِ الآن
+                </a>
+            </body>
+            </html>
+            </body>
+            </html>
+        </div>
+        <div class="product-images">
+            <img src="2.jpg" alt="product" onclick="openLightbox('2.jpg')">
+        </div>
+        <div style="clear:both;"></div>
+    </div>
 
     <!-- Repeat the product structure for other products -->
 
