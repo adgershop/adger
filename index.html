@@ -481,13 +481,14 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 9999;
         justify-content: center;
-        align-items: flex-start; /* تم تعديلها لتكون النافذة في الجزء العلوي */
+        align-items: center;
         text-align: center;
     }
 
     .popup-inner {
-        position: relative; /* تم تعديلها لتكون النافذة في الجزء العلوي */
-        top: 10%;
+        position: absolute;
+        top: 50px;
+        left: 50%;
         transform: translateX(-50%);
         width: 80%;
         max-width: 400px;
@@ -580,29 +581,22 @@
 <script>
     var recipientEmail = "example@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
 
-    // تخزين الاسم ورقم الهاتف في localStorage
-    function storeUserData(name, phone) {
-        localStorage.setItem('name', name);
-        localStorage.setItem('phone', phone);
+    // تحقق من وجود بيانات مخزنة في localStorage
+    var storedName = localStorage.getItem('buyerName');
+    var storedPhone = localStorage.getItem('buyerPhone');
+
+    if (storedName && storedPhone) {
+        // إذا كانت البيانات مخزنة، قم بفتح البريد الإلكتروني مباشرة
+        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + storedName + '%0Aرقم الهاتف: ' + storedPhone;
+        window.open(emailLink, '_self');
     }
 
-    // جلب البيانات من localStorage إذا كانت متاحة
-    function retrieveUserData() {
-        var name = localStorage.getItem('name');
-        var phone = localStorage.getItem('phone');
-        return { name: name, phone: phone };
-    }
-
-    // فتح الجيميل مع بيانات المستخدم المخزنة
-    function openGmailWithStoredData() {
-        var userData = retrieveUserData();
-        var name = userData.name;
-        var phone = userData.phone;
-
-        if (name && phone) {
-            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
-            window.open(emailLink, '_self');
-        }
+    function openPopup() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'flex'; /* تعديل العرض إلى flex لمحاذاة الأزرار بجانب بعضها البعض */
+        setTimeout(function() {
+            popup.style.display = 'block'; /* تغيير إلى block بعد تطبيق أزرار صغيرة */
+        }, 50);
     }
 
     function handleBuyNow() {
@@ -610,13 +604,12 @@
         var phone = document.getElementById('phone').value;
 
         if (name && phone) {
-            storeUserData(name, phone); // تخزين البيانات في localStorage
-            openGmailWithStoredData(); // فتح الجيميل مع البيانات المدخلة
+            // حفظ البيانات في localStorage
+            localStorage.setItem('buyerName', name);
+            localStorage.setItem('buyerPhone', phone);
 
-            // إخفاء النافذة المنبثقة بعد ثوانٍ قليلة
-            setTimeout(function() {
-                closePopup();
-            }, 500); // 500 مللي ثانية = نصف ثانية
+            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
+            window.open(emailLink, '_self');
         } else {
             openPopup(); // إذا لم تكن المعلومات كاملة، فتح النافذة المنبثقة لإدخال المعلومات
         }
@@ -629,13 +622,13 @@
         var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
 
-        storeUserData(name, phone); // تخزين البيانات في localStorage
-        openGmailWithStoredData(); // فتح الجيميل مع البيانات المدخلة
+        // حفظ البيانات في localStorage
+        localStorage.setItem('buyerName', name);
+        localStorage.setItem('buyerPhone', phone);
 
-        // إخفاء النافذة المنبثقة بعد ثوانٍ قليلة
-        setTimeout(function() {
-            closePopup();
-        }, 500); // 500 مللي ثانية = نصف ثانية
+        // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
+        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
+        window.open(emailLink, '_self');
     });
 
     // إغلاق النافذة المنبثقة
@@ -643,21 +636,12 @@
         var popup = document.getElementById('popup');
         popup.style.display = 'none';
     }
-
-    // التحقق مما إذا كانت هناك بيانات مخزنة وفتح الجيميل تلقائيًا إذا كان ذلك صحيحًا
-    document.addEventListener('DOMContentLoaded', function() {
-        var userData = retrieveUserData();
-        var name = userData.name;
-        var phone = userData.phone;
-
-        if (name && phone) {
-            openGmailWithStoredData();
-        }
-    });
 </script>
 
 </body>
 </html>
+
+</script>
 
 </body>
 </html>
