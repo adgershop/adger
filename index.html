@@ -571,9 +571,8 @@
         <form id="buyForm">
             <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-            <button type="button" class="geo-button" onclick="getLocation()">إرسال الموقع الحالي</button><br><br>
-            <button type="submit" class="buy-button">موافق</button>
-            <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
+            <button type="button" class="geo-button" onclick="getLocation()">إرسال الموقع الحالي</button>
+            <button type="submit" class="buy-button">موافق</button><button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
         </form>
     </div>
 </div>
@@ -667,8 +666,7 @@
             });
         
             // الحصول على الموقع الجغرافي
-          // الحصول على الموقع الجغرافي
-function getLocation() {
+            function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(saveLocation, showError);
     } else {
@@ -685,8 +683,8 @@ function saveLocation(position) {
     localStorage.setItem('userLongitude', longitude);
 
     // تعديل زر الموقع الجغرافي بناءً على النجاح
-    var getLocationBtn = document.querySelector('.buy-button[onclick="getLocation()"]');
-    getLocationBtn.textContent = 'نجح الموقع الجغرافي';
+    var getLocationBtn = document.querySelector('.geo-button');
+    getLocationBtn.textContent = 'تم إدخال الموقع الجغرافي';
     getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
 }
 
@@ -707,7 +705,7 @@ function showError(error) {
     }
 
     // تعديل زر الموقع الجغرافي بناءً على الفشل
-    var getLocationBtn = document.querySelector('.buy-button[onclick="getLocation()"]');
+    var getLocationBtn = document.querySelector('.geo-button');
     getLocationBtn.textContent = 'فشل الموقع الجغرافي';
     getLocationBtn.disabled = true; // تعطيل الزر بعد الفشل
 }
