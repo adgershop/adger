@@ -593,25 +593,25 @@
             }
         
             function saveLocation(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-        
-                localStorage.setItem('userLatitude', latitude);
-                localStorage.setItem('userLongitude', longitude);
-        
-                var getLocationBtn = document.querySelector('.geo-button');
-                getLocationBtn.textContent = 'نجح الموقع الجغرافي';
-                getLocationBtn.disabled = true;
-        
-                setTimeout(function() {
-                    var latitude = localStorage.getItem('userLatitude');
-                    var longitude = localStorage.getItem('userLongitude');
-                    if (latitude && longitude) {
-                        var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
-                        window.open(googleMapsLink, '_blank');
-                    }
-                }, 5000);
-            }
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    localStorage.setItem('userLatitude', latitude);
+    localStorage.setItem('userLongitude', longitude);
+
+    var getLocationBtn = document.querySelector('.geo-button');
+    getLocationBtn.textContent = 'نجح إرسال الموقع الجغرافي';
+    getLocationBtn.disabled = true;
+
+    setTimeout(function() {
+        var latitude = localStorage.getItem('userLatitude');
+        var longitude = localStorage.getItem('userLongitude');
+        if (latitude && longitude) {
+            var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
+            window.open(googleMapsLink, '_blank');
+        }
+    }, 5000);
+}
         
             function showError(error) {
                 switch(error.code) {
