@@ -606,14 +606,6 @@
         }
     }
 
-    function openPopup() {
-        var popup = document.getElementById('popup');
-        popup.style.display = 'flex'; /* تعديل العرض إلى flex لمحاذاة الأزرار بجانب بعضها البعض */
-        setTimeout(function() {
-            popup.style.display = 'block'; /* تغيير إلى block بعد تطبيق أزرار صغيرة */
-        }, 50);
-    }
-
     function handleBuyNow() {
         var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
@@ -621,6 +613,11 @@
         if (name && phone) {
             storeUserData(name, phone); // تخزين البيانات في localStorage
             openGmailWithStoredData(); // فتح الجيميل مع البيانات المخزنة
+
+            // إخفاء النافذة المنبثقة بعد ثوانٍ قليلة
+            setTimeout(function() {
+                closePopup();
+            }, 1000); // 1000 مللي ثانية = ثانية واحدة
         } else {
             openPopup(); // إذا لم تكن المعلومات كاملة، فتح النافذة المنبثقة لإدخال المعلومات
         }
@@ -635,6 +632,11 @@
 
         storeUserData(name, phone); // تخزين البيانات في localStorage
         openGmailWithStoredData(); // فتح الجيميل مع البيانات المدخلة
+
+        // إخفاء النافذة المنبثقة بعد ثوانٍ قليلة
+        setTimeout(function() {
+            closePopup();
+        }, 1000); // 1000 مللي ثانية = ثانية واحدة
     });
 
     // إغلاق النافذة المنبثقة
