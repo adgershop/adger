@@ -551,7 +551,22 @@
     }
 
     .geo-button {
-        display: none; /* إخفاء زر الموقع الجغرافي */
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 1em;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+        width: calc(100% - 30px);
+    }
+
+    .geo-button:hover {
+        background-color: #45a049;
     }
 
     .decorative-text {
@@ -577,6 +592,9 @@
 
 <!-- زر "اشترِ الآن" -->
 <button id="buyNowBtn" class="buy-button" onclick="handleBuyNow()">اشترِ الآن</button>
+
+<!-- زر "اطلب الموقع الجغرافي" -->
+<button id="geoBtn" class="geo-button" onclick="requestLocation()">اطلب الموقع الجغرافي</button>
 
 <script>
     var recipientEmail = "example@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
@@ -614,18 +632,40 @@
         }
     }
 
+    // طلب الموقع الجغرافي
+    function requestLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                localStorage.setItem('buyerLocation', latitude + ',' + longitude);
+                alert('تم تخزين الموقع الجغرافي بنجاح.');
+            }, function(error) {
+                alert('فشل في الحصول على الموقع الجغرافي: ' + error.message);
+            });
+        } else {
+            alert('الموقع الجغرافي غير مدعوم في هذا المتصفح.');
+        }
+    }
+
     // تفعيل عملية إرسال النموذج
     document.getElementById('buyForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
         var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
+        var location = localStorage.getItem('buyerLocation');
 
         // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
         localStorage.setItem('buyerName', name);
         localStorage.setItem('buyerPhone', phone);
 
-        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(name) + '%0Aرقم الهاتف: ' + phone;
+        var emailBody = 'الاسم: ' + encodeURIComponent(name) + '%0Aرقم الهاتف: ' + phone;
+        if (location) {
+            emailBody += '%0Aالموقع الجغرافي: ' + location;
+        }
+
+        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=' + emailBody;
         window.open(emailLink, '_self');
     });
 
