@@ -461,7 +461,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Button Styling</title>
     <style>
-        /* استايل الأزرار */
+        /* زر النمط */
         button {
             background-color: #feb538;
             color: white;
@@ -503,7 +503,7 @@
             background-color: #0ec508;
         }
 
-        /* استايل النافذة المنبثقة */
+        /* استايل للنافذة المنبثقة */
         .popup {
             display: none;
             position: fixed;
@@ -513,7 +513,6 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5); /* خلفية شفافة للنافذة */
             z-index: 1000;
-            overflow: auto; /* تمكين التمرير عند الحاجة */
         }
 
         .popup-inner {
@@ -527,6 +526,7 @@
             border: 1px solid #ccc;
             padding: 20px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
             text-align: center;
             font-size: 1em;
             color: white;
@@ -541,46 +541,26 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box; /* تأكيد الحجم بما فيه الكفاية */
-            text-align: center; /* محاذاة النص بالوسط */
-            background-color: transparent; /* خلفية شفافة */
-            color: white; /* لون الخط */
-            outline: none; /* إزالة التأطير عند التركيز */
-            transition: box-shadow 0.3s ease; /* تأثير عند التركيز */
-        }
-
-        .popup input:focus {
-            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2); /* تعديل شكل التركيز */
         }
 
         .popup button {
             background-color: #4CAF50;
             color: white;
-            padding: 15px 30px; /* حجم الزر */
+            padding: 15px 30px; /* زيادة حجم الزر */
             border: none;
             cursor: pointer;
             border-radius: 4px;
-            font-size: 1.2em; /* حجم الخط */
+            font-size: 1.5em; /* زيادة حجم الخط */
             margin-top: 10px;
         }
 
         .close-btn {
-            display: none; /* إخفاء زر الإغلاق */
-        }
-
-        .back-btn {
-            background-color: #ccc;
-            color: black;
-            padding: 15px 30px;
-            border: none;
+            position: absolute;
+            top: 5px;
+            right: 5px;
             cursor: pointer;
-            border-radius: 4px;
-            font-size: 1.2em;
-            margin-top: 10px;
-            margin-right: 10px;
-        }
-
-        .back-btn:hover {
-            background-color: #aaa;
+            font-size: 1.9em;
+            color: rgb(255, 0, 0);
         }
     </style>
 </head>
@@ -592,11 +572,11 @@
 <!-- النافذة المنبثقة -->
 <div id="popup" class="popup">
     <div class="popup-inner">
+        <span class="close-btn" onclick="closePopup()">×</span>
         <form id="buyForm">
-            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
-            <button type="submit" class="buy-button">موافق</button>
-            <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
+            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required><br><br>
+            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required><br><br>
+            <button type="submit">موافق</button>
         </form>
     </div>
 </div>
@@ -604,33 +584,20 @@
 <script>
     var popup = document.getElementById('popup');
     var buyNowBtn = document.getElementById('buyNowBtn');
-    var nameInput = document.getElementById('name');
-    var phoneInput = document.getElementById('phone');
 
     // عرض النافذة المنبثقة عند النقر على زر "اشترِ الآن"
     buyNowBtn.addEventListener('click', function() {
-        popup.style.display = 'block';
+        popup.style.display = 'flex';
+
+        // الانتظار لفترة قصيرة للسماح بعرض النافذة المنبثقة
         setTimeout(function() {
-            nameInput.focus(); // التركيز على حقل الاسم
-            scrollToTop();
-        }, 200); // تأخير قصير لضمان تنفيذ التركيز والتمرير لأعلى الصفحة
-    });
+            // التركيز على حقل الاسم
+            document.getElementById('name').focus();
 
-    // رفع النافذة عند النقر على حقل الإسم أو الهاتف
-    [nameInput, phoneInput].forEach(input => {
-        input.addEventListener('focus', function() {
-            popup.style.display = 'block';
-            setTimeout(function() {
-                input.focus();
-                scrollToTop();
-            }, 200); // تأخير قصير لضمان التمرير لأعلى الصفحة والتركيز على الحقل
-        });
+            // التمرير لإظهار النافذة بالكامل
+            document.querySelector('.popup-inner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100); // تأخير قصير لضمان تنفيذ التركيز والتمرير بشكل صحيح
     });
-
-    // تمرير لأعلى الصفحة بتأثير ناعم
-    function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
 
     // إغلاق النافذة المنبثقة
     function closePopup() {
@@ -641,21 +608,17 @@
     document.getElementById('buyForm').addEventListener('submit', function(event) {
         event.preventDefault();
         
-        var name = nameInput.value;
-        var phone = phoneInput.value;
+        var name = document.getElementById('name').value;
+        var phone = document.getElementById('phone').value;
         
-        // حفظ الاسم ورقم الهاتف في localStorage
-        localStorage.setItem('userName', name);
-        localStorage.setItem('userPhone', phone);
+        // إغلاق النافذة المنبثقة بعد الإرسال
+        closePopup();
 
-        // فتح رابط البريد الإلكتروني بعد حفظ البيانات
+        // إعادة محاولة فتح رابط البريد الإلكتروني بعد حفظ البيانات
         var subject = 'شراء ساعة من فيترون';
         var body = 'الاسم الثلاثي: ' + name + '\nرقم الهاتف: ' + phone;
         var mailtoLink = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         window.open(mailtoLink);
-        
-        // إغلاق النافذة المنبثقة بعد الإرسال
-        closePopup();
     });
 </script>
 
