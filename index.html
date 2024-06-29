@@ -611,9 +611,7 @@ function saveLocation(position) {
     getLocationBtn.textContent = 'نجح الموقع الجغرافي';
     getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
 
-    // عرض رسالة للمستخدم تطلب منه فتح الموقع الجغرافي على هاتفه
-    alert('الرجاء فتح الموقع الجغرافي على هاتفك والموافقة على إظهار الموقع.');
-
+    
     // فتح الموقع الجغرافي تلقائيًا بعد الموافقة
     setTimeout(function() {
         var latitude = localStorage.getItem('userLatitude');
@@ -628,7 +626,7 @@ function saveLocation(position) {
 function showError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
-            alert("المستخدم رفض طلب الحصول على الموقع الجغرافي.");
+            alert("الرجاء فتح الموقع الجغرافى فى شريط الأشعارات الخاص بك للمتابعه");
             break;
         case error.POSITION_UNAVAILABLE:
             alert("معلومات الموقع غير متاحة.");
