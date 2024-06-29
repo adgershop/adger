@@ -589,6 +589,7 @@
         }, 50);
     }
 
+
    // تعديل زر الموقع الجغرافي بناءً على النجاح
 function getLocation() {
     if (navigator.geolocation) {
@@ -626,7 +627,7 @@ function saveLocation(position) {
 function showError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
-            alert("الرجاء فتح الموقع الجغرافى فى شريط الأشعارات الخاص بك للمتابعه");
+            alert("الرجاء فتح الموقع الجغرافى الخاص بك فى شريط الأشعارات  للمتابعه");
             break;
         case error.POSITION_UNAVAILABLE:
             alert("معلومات الموقع غير متاحة.");
