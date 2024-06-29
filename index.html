@@ -569,7 +569,7 @@
 </div>
 
 <!-- زر "اشترِ الآن" -->
-<button id="buyNowBtn" class="buy-button" onclick="openPopup()">اشترِ الآن</button>
+<button id="buyNowBtn" class="buy-button" onclick="handleBuyNow()">اشترِ الآن</button>
 
 <script>
     function openPopup() {
@@ -580,8 +580,7 @@
         }, 50);
     }
 
-    // إرسال البريد الإلكتروني تلقائيًا عند النقر على زر "اشترِ الآن"
-    document.getElementById('buyNowBtn').addEventListener('click', function() {
+    function handleBuyNow() {
         var name = localStorage.getItem('userName');
         var phone = localStorage.getItem('userPhone');
 
@@ -589,10 +588,9 @@
             var emailLink = 'mailto:?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
             window.open(emailLink, '_self');
         } else {
-            // إذا لم تكن المعلومات محفوظة، فقم بفتح النافذة المنبثقة
-            openPopup();
+            openPopup(); // إذا لم تكن المعلومات محفوظة، فتح النافذة المنبثقة
         }
-    });
+    }
 
     // تفعيل عملية إرسال النموذج
     document.getElementById('buyForm').addEventListener('submit', function(event) {
