@@ -612,6 +612,11 @@
         }
     }, 5000);
 }
+
+function showError(error) {
+    var getLocationBtn = document.querySelector('.geo-button');
+    getLocationBtn.textContent = 'الرجاء فتح الموقع الجغرافي في شريط الأشعارات للمتابعة';
+}
         
             function showError(error) {
                 switch(error.code) {
