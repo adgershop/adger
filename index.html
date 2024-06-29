@@ -566,7 +566,7 @@
 
 <div id="popup" class="popup">
     <div class="popup-inner">
-        <div class="decorative-text">Adger</div>
+        <div class="decorative-text">أدغر</div>
         <form id="buyForm">
             <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
@@ -579,7 +579,16 @@
 <button id="buyNowBtn" class="buy-button" onclick="handleBuyNow()">اشترِ الآن</button>
 
 <script>
-    var recipientEmail = "adger.shop@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
+    var recipientEmail = "example@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
+
+    // فحص وجود البيانات في localStorage
+    var storedName = localStorage.getItem('buyerName');
+    var storedPhone = localStorage.getItem('buyerPhone');
+
+    if (storedName && storedPhone) {
+        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(storedName) + '%0Aرقم الهاتف: ' + storedPhone;
+        window.open(emailLink, '_self');
+    }
 
     function openPopup() {
         var popup = document.getElementById('popup');
@@ -594,7 +603,11 @@
         var phone = document.getElementById('phone').value;
 
         if (name && phone) {
-            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
+            // حفظ البيانات في localStorage
+            localStorage.setItem('buyerName', name);
+            localStorage.setItem('buyerPhone', phone);
+
+            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(name) + '%0Aرقم الهاتف: ' + phone;
             window.open(emailLink, '_self');
         } else {
             openPopup(); // إذا لم تكن المعلومات كاملة، فتح النافذة المنبثقة لإدخال المعلومات
@@ -609,7 +622,10 @@
         var phone = document.getElementById('phone').value;
 
         // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
-        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
+        localStorage.setItem('buyerName', name);
+        localStorage.setItem('buyerPhone', phone);
+
+        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + encodeURIComponent(name) + '%0Aرقم الهاتف: ' + phone;
         window.open(emailLink, '_self');
     });
 
@@ -622,6 +638,8 @@
 
 </body>
 </html>
+
+
 </body>
 </html>
     </div>
