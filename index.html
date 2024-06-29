@@ -519,7 +519,7 @@
         .popup-inner {
             position: absolute;
             left: 50%;
-            top: 10%; /* تقليل البعد عن الأعلى لتكون النافذة عالية */
+            top: 5%; /* تقليل البعد عن الأعلى لتكون النافذة أعلى */
             transform: translate(-50%, 0);
             width: 80%;
             max-width: 400px; /* تحديد عرض أقصى */
@@ -573,6 +573,18 @@
         .back-btn:hover {
             background-color: #aaa;
         }
+
+        /* استايل النص الزخرفي */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        .decorative-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 2em;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -583,6 +595,7 @@
 <!-- النافذة المنبثقة -->
 <div id="popup" class="popup">
     <div class="popup-inner">
+        <div class="decorative-text">Adger</div>
         <form id="buyForm">
             <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"><br><br>
