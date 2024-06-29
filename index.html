@@ -599,42 +599,39 @@
     localStorage.setItem('userLatitude', latitude);
     localStorage.setItem('userLongitude', longitude);
 
-    var getLocationBtn = document.querySelector('.geo-button');
-    getLocationBtn.textContent = 'نجح إرسال الموقع الجغرافي';
-    getLocationBtn.disabled = true;
+    var latitudeStored = localStorage.getItem('userLatitude');
+    var longitudeStored = localStorage.getItem('userLongitude');
 
-    setTimeout(function() {
-        var latitude = localStorage.getItem('userLatitude');
-        var longitude = localStorage.getItem('userLongitude');
-        if (latitude && longitude) {
-            var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
-            window.open(googleMapsLink, '_blank');
-        }
-    }, 5000);
+    if (latitudeStored && longitudeStored) {
+        var getLocationBtn = document.querySelector('.geo-button');
+        getLocationBtn.textContent = 'نجح إرسال الموقع الجغرافي';
+        getLocationBtn.disabled = true;
+
+        setTimeout(function() {
+            var latitude = localStorage.getItem('userLatitude');
+            var longitude = localStorage.getItem('userLongitude');
+            if (latitude && longitude) {
+                var googleMapsLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude;
+                window.open(googleMapsLink, '_blank');
+            }
+        }, 5000);
+    } else {
+        showError({ code: "POSITION_UNAVAILABLE" }); // إظهار رسالة الخطأ المناسبة
+    }
 }
 
 function showError(error) {
     var getLocationBtn = document.querySelector('.geo-button');
-    getLocationBtn.textContent = 'الرجاء فتح الموقع الجغرافي في شريط الأشعارات للمتابعة';
+    if (error.code === error.PERMISSION_DENIED) {
+        getLocationBtn.textContent = 'الرجاء فتح الموقع الجغرافي في شريط الأشعارات للمتابعة';
+    } else if (error.code === error.POSITION_UNAVAILABLE) {
+        getLocationBtn.textContent = 'معلومات الموقع غير متاحة';
+    } else if (error.code === error.TIMEOUT) {
+        getLocationBtn.textContent = 'انتهى الوقت المخصص للحصول على الموقع الجغرافي';
+    } else {
+        getLocationBtn.textContent = 'حدث خطأ غير معروف';
+    }
 }
-        
-            function showError(error) {
-                switch(error.code) {
-                    case error.PERMISSION_DENIED:
-                        alert("الرجاء فتح الموقع الجغرافى الخاص بك فى شريط الأشعارات  للمتابعه");
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        alert("معلومات الموقع غير متاحة.");
-                        break;
-                    case error.TIMEOUT:
-                        alert("انتهى الوقت المخصص للحصول على الموقع الجغرافي.");
-                        break;
-                    case error.UNKNOWN_ERROR:
-                        alert("حدث خطأ غير معروف.");
-                        break;
-                }
-            }
-        
             document.getElementById('buyForm').addEventListener('submit', function(event) {
                 event.preventDefault();
                 
