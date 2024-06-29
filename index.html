@@ -666,7 +666,7 @@
             });
         
             // الحصول على الموقع الجغرافي
-          // الحصول على الموقع الجغرافي
+   // تعديل زر الموقع الجغرافي بناءً على النجاح
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(saveLocation, showError);
@@ -691,15 +691,11 @@ function saveLocation(position) {
     innerPopup.appendChild(successMessage);
 
     // تعديل زر الموقع الجغرافي بناءً على النجاح
-    var getLocationBtn = document.querySelector('.buy-button');
+    var getLocationBtn = document.querySelector('.geo-button');
     getLocationBtn.textContent = 'نجح الموقع الجغرافي';
     getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
 }
-
 </script>
-
-</body>
-</html>
     </div>
 
 
