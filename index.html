@@ -499,18 +499,6 @@
         text-align: center;
     }
 
-    .popup .error-message {
-        color: #ff6347;
-        font-size: 16px;
-        margin-top: 10px;
-    }
-
-    .popup .success-message {
-        color: #32cd32;
-        font-size: 16px;
-        margin-top: 10px;
-    }
-
     .popup input {
         width: calc(100% - 30px);
         margin: 10px 15px;
@@ -604,13 +592,6 @@
         // حفظ الموقع في localStorage
         localStorage.setItem('userLatitude', latitude);
         localStorage.setItem('userLongitude', longitude);
-
-        // عرض رسالة نجاح الحصول على الموقع الجغرافي
-        var successMessage = document.createElement('div');
-        successMessage.classList.add('success-message');
-        successMessage.textContent = 'تم إدخال الموقع الجغرافي بنجاح.';
-        var innerPopup = document.querySelector('.popup-inner');
-        innerPopup.appendChild(successMessage);
 
         // تعديل زر الموقع الجغرافي بناءً على النجاح
         var getLocationBtn = document.querySelector('.geo-button');
