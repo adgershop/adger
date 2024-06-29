@@ -812,67 +812,50 @@
             });
         
             // الحصول على الموقع الجغرافي
-            function getLocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(saveLocation, showError);
-                } else {
-                    showError({ code: 0 }); // رسالة خطأ في حالة عدم دعم المتصفح للموقع الجغرافي
-                }
-            }
-        
-            function showError(error) {
-                var errorMessage = '';
-                switch(error.code) {
-                    case error.PERMISSION_DENIED:
-                        errorMessage = 'تم رفض الطلب للحصول على الموقع.';
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        errorMessage = 'المعلومات الخاصة بالموقع غير متوفرة.';
-                        break;
-                    case error.TIMEOUT:
-                        errorMessage = 'انتهى الوقت المخصص للحصول على الموقع.';
-                        break;
-                    case error.UNKNOWN_ERROR:
-                        errorMessage = 'حدث خطأ غير معروف.';
-                        break;
-                    default:
-                        errorMessage = 'حدث خطأ غير معروف.';
-                        break;
-                }
-                
-                var errorElement = document.createElement('div');
-                errorElement.classList.add('error-message');
-                errorElement.textContent = errorMessage;
-                
-                var popupInner = document.querySelector('.popup-inner');
-                popupInner.appendChild(errorElement);
-            }
-        
-            function saveLocation(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-        
-                // حفظ الموقع في localStorage
-                localStorage.setItem('userLatitude', latitude);
-                localStorage.setItem('userLongitude', longitude);
-        
-                // رسالة نجاح حفظ الموقع
-                var successMessage = 'تم حفظ الموقع بنجاح.';
-                var successElement = document.createElement('div');
-                successElement.classList.add('success-message');
-                successElement.textContent = successMessage;
-        
-                var popupInner = document.querySelector('.popup-inner');
-                popupInner.appendChild(successElement);
-            }
-        </script>
-        
-        </body>
-        </html>
+          // الحصول على الموقع الجغرافي
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(saveLocation, showError);
+    } else {
+        alert('ميزة تحديد الموقع الجغرافي غير مدعومة في هذا المتصفح.');
+    }
+}
 
+function saveLocation(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
 
-</body>
-</html>
+    // حفظ الموقع في localStorage
+    localStorage.setItem('userLatitude', latitude);
+    localStorage.setItem('userLongitude', longitude);
+
+    // تعديل زر الموقع الجغرافي بناءً على النجاح
+    var getLocationBtn = document.querySelector('.buy-button[onclick="getLocation()"]');
+    getLocationBtn.textContent = 'نجح الموقع الجغرافي';
+    getLocationBtn.disabled = true; // تعطيل الزر بعد النجاح
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            alert('تم رفض الطلب للحصول على الموقع.');
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert('المعلومات الخاصة بالموقع غير متوفرة.');
+            break;
+        case error.TIMEOUT:
+            alert('انتهى الوقت المخصص للحصول على الموقع.');
+            break;
+        case error.UNKNOWN_ERROR:
+            alert('حدث خطأ غير معروف.');
+            break;
+    }
+
+    // تعديل زر الموقع الجغرافي بناءً على الفشل
+    var getLocationBtn = document.querySelector('.buy-button[onclick="getLocation()"]');
+    getLocationBtn.textContent = 'فشل الموقع الجغرافي';
+    getLocationBtn.disabled = true; // تعطيل الزر بعد الفشل
+}
 
 </script>
 
