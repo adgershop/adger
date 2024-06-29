@@ -568,9 +568,9 @@
     <div class="popup-inner">
         <div class="decorative-text">أدغر</div>
         <form id="buyForm">
-            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" value="">
+            <input type="text" id="name" name="name" placeholder="الاسم الثلاثي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
             <br><br>
-            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" value="">
+            <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
             <br><br>
             <button type="submit" class="buy-button">موافق</button>
             <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
@@ -614,8 +614,6 @@
 
             var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
             window.open(emailLink, '_self');
-        } else {
-            openPopup(); // إذا لم تكن المعلومات كاملة، فتح النافذة المنبثقة لإدخال المعلومات
         }
     }
 
