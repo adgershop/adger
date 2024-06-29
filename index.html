@@ -553,6 +553,13 @@
     .geo-button {
         display: none; /* إخفاء زر الموقع الجغرافي */
     }
+
+    .decorative-text {
+        font-family: 'Segoe Script', cursive; /* اسم خط الزخرفة المستخدم */
+        font-size: 24px; /* حجم الخط */
+        color: #ffa600; /* لون الخط */
+        margin-bottom: 10px; /* تباعد أسفل النص */
+    }
 </style>
 </head>
 <body>
@@ -572,6 +579,8 @@
 <button id="buyNowBtn" class="buy-button" onclick="handleBuyNow()">اشترِ الآن</button>
 
 <script>
+    var recipientEmail = "adger.shop@example.com"; // بريد الإلكتروني الذي سيرسل إليه المعلومات
+
     function openPopup() {
         var popup = document.getElementById('popup');
         popup.style.display = 'flex'; /* تعديل العرض إلى flex لمحاذاة الأزرار بجانب بعضها البعض */
@@ -581,14 +590,14 @@
     }
 
     function handleBuyNow() {
-        var name = localStorage.getItem('userName');
-        var phone = localStorage.getItem('userPhone');
+        var name = document.getElementById('name').value;
+        var phone = document.getElementById('phone').value;
 
         if (name && phone) {
-            var emailLink = 'mailto:?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
+            var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
             window.open(emailLink, '_self');
         } else {
-            openPopup(); // إذا لم تكن المعلومات محفوظة، فتح النافذة المنبثقة
+            openPopup(); // إذا لم تكن المعلومات كاملة، فتح النافذة المنبثقة لإدخال المعلومات
         }
     }
 
@@ -599,12 +608,8 @@
         var name = document.getElementById('name').value;
         var phone = document.getElementById('phone').value;
 
-        // حفظ الاسم ورقم الهاتف في localStorage
-        localStorage.setItem('userName', name);
-        localStorage.setItem('userPhone', phone);
-
         // إرسال البريد الإلكتروني أو أداء الإجراء الإضافي المطلوب
-        var emailLink = 'mailto:?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
+        var emailLink = 'mailto:' + recipientEmail + '?subject=طلب الشراء&body=الاسم: ' + name + '%0Aرقم الهاتف: ' + phone;
         window.open(emailLink, '_self');
     });
 
