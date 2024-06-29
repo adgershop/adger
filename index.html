@@ -481,14 +481,13 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 9999;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start; /* تم تعديلها لتكون النافذة في الجزء العلوي */
         text-align: center;
     }
 
     .popup-inner {
-        position: absolute;
-        top: 20%; /* رفع النافذة المنبثقة أعلى */
-        left: 50%;
+        position: relative; /* تم تعديلها لتكون النافذة في الجزء العلوي */
+        top: 10%;
         transform: translateX(-50%);
         width: 80%;
         max-width: 400px;
@@ -612,12 +611,12 @@
 
         if (name && phone) {
             storeUserData(name, phone); // تخزين البيانات في localStorage
-            openGmailWithStoredData(); // فتح الجيميل مع البيانات المخزنة
+            openGmailWithStoredData(); // فتح الجيميل مع البيانات المدخلة
 
             // إخفاء النافذة المنبثقة بعد ثوانٍ قليلة
             setTimeout(function() {
                 closePopup();
-            }, 1000); // 1000 مللي ثانية = ثانية واحدة
+            }, 500); // 500 مللي ثانية = نصف ثانية
         } else {
             openPopup(); // إذا لم تكن المعلومات كاملة، فتح النافذة المنبثقة لإدخال المعلومات
         }
@@ -636,7 +635,7 @@
         // إخفاء النافذة المنبثقة بعد ثوانٍ قليلة
         setTimeout(function() {
             closePopup();
-        }, 1000); // 1000 مللي ثانية = ثانية واحدة
+        }, 500); // 500 مللي ثانية = نصف ثانية
     });
 
     // إغلاق النافذة المنبثقة
