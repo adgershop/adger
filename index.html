@@ -681,24 +681,23 @@ button:hover {
                 var quantity = document.getElementById('quantity-number').innerText;
                 var productName = 'ساعة من فيترون';
 var productNumber = '1';
-var quantity = '1'; // replace this with the actual quantity variable
-var name = 'الاسم الثلاثي'; // replace this with the actual name variable
-var location = 'الموقع الجغرافي'; // replace this with the actual location variable
-var price = 'السعر'; // replace this with the actual price variable
-var deliveryCharge = 'سعر التوصيل'; // replace this with the actual delivery charge variable
-var totalPrice = 'السعر الاجمالي'; // replace this with the actual total price variable
+var quantity = '1'; // المتغير الخاص بالكمية
+var name = 'الاسم الثلاثي'; // المتغير الخاص بالاسم الثلاثي
+var location = 'الموقع الجغرافي'; // المتغير الخاص بالموقع الجغرافي
+var price = 'السعر'; // المتغير الخاص بالسعر
+var deliveryCharge = 'سعر التوصيل'; // المتغير الخاص بسعر التوصيل
+var totalPrice = 'السعر الاجمالي'; // المتغير الخاص بالسعر الاجمالي
 
 var message = encodeURIComponent(
     productName + '\n' +
     'رقم المنتج: ' + productNumber + ' الكمية: ' + quantity + '\n' +
     'الاسم الثلاثي: ' + name + '\n' +
     'الموقع الجغرافي: ' + location + '\n' +
-    'السعر: ' + price + '\n' +
-    'سعر التوصيل: ' + deliveryCharge + '\n' +
+    'السعر: ' + price + ' سعر التوصيل: ' + deliveryCharge + '\n' +
     'السعر الاجمالي: ' + totalPrice
 );
 
-// Now you can use the 'message' variable to create the WhatsApp URL
+// يمكنك الآن استخدام المتغير 'message' لإنشاء رابط واتساب
             
                 var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
                 window.open(whatsappLink, '_blank');
