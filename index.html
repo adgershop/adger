@@ -1158,7 +1158,7 @@ button:hover {
                                     <title>صفحة المنتج</title>
                                 </head>
                                 <body>
-                                    <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="  " data-product-number="" data-price="" data-delivery-charge="">اشترِ الآن</a>
+                                    <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name=" من فيترون" data-product-number="13" data-price="100" data-delivery-charge="50">اشترِ الآن</a>
                                 
                                     <div id="popup" class="popup">
                                         <div class="popup-content">
@@ -1241,8 +1241,8 @@ button:hover {
                                         var popup = document.getElementById('popup');
                                         var productName = popup.dataset.productName || "اسم المنتج غير محدد";
                                         var productNumber = popup.dataset.productNumber || "رقم المنتج غير محدد";
-                                        var price = parseFloat(popup.dataset.price) || 0;
-                                        var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
+                                        var price = parseFloat(popup.dataset.price) || 11;
+                                        var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 1;
                                         var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
                                 
                                         var message = encodeURIComponent(
