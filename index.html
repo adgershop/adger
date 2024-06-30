@@ -562,6 +562,32 @@
         color: #ffa600; /* لون الخط */
         margin-bottom: 10px; /* تباعد أسفل النص */
     }
+
+    .quantity-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .quantity-container input {
+        text-align: center;
+        width: 50px;
+        margin: 0 10px;
+    }
+
+    .quantity-container button {
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .quantity-container button:hover {
+        background-color: #f0f0f0;
+    }
 </style>
 </head>
 <body>
@@ -574,10 +600,78 @@
             <br><br>
             <input type="text" id="phone" name="phone" placeholder="رقم الهاتف" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" value="">
             <br><br>
+            <input type="text" id="location" name="location" placeholder="الموقع الجغرافي" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" onclick="requestLocation()">
+            <br><br>
+            <div class="quantity-container">
+                <button type="button" onclick="changeQuantity(-1)">-</button>
+                <input type="number" id="quantity" name="quantity" value="1" min="1">
+                <button type="button" onclick="changeQuantity(1)">+</button>
+            </div>
             <button type="submit" class="buy-button">موافق</button>
             <button type="button" class="back-btn" onclick="closePopup()">رجوع</button>
         </form>
     </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedName = localStorage.getItem('name');
+        const savedPhone = localStorage.getItem('phone');
+        const savedLocation = localStorage.getItem('location');
+
+        if (savedName && savedPhone && savedLocation) {
+            document.getElementById('name').value = savedName;
+            document.getElementById('phone').value = savedPhone;
+            document.getElementById('location').value = savedLocation;
+        }
+
+        document.getElementById('buyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const location = document.getElementById('location').value;
+            const quantity = document.getElementById('quantity').value;
+
+            localStorage.setItem('name', name);
+            localStorage.setItem('phone', phone);
+            localStorage.setItem('location', location);
+
+            const mailtoLink = mailto:?subject=طلب شراء&body=الاسم: ${name}%0Aرقم الهاتف: ${phone}%0Aالموقع الجغرافي: ${location}%0Aالكمية: ${quantity};
+            window.location.href = mailtoLink;
+        });
+    });
+
+    function changeQuantity(amount) {
+        const quantityInput = document.getElementById('quantity');
+        let currentQuantity = parseInt(quantityInput.value);
+        currentQuantity += amount;
+        if (currentQuantity < 1) {
+            currentQuantity = 1;
+        }
+        quantityInput.value = currentQuantity;
+    }
+
+    function requestLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const locationInput = document.getElementById('location');
+                locationInput.value = Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude};
+            }, function(error) {
+                alert('تعذر الحصول على الموقع الجغرافي: ' + error.message);
+            });
+        } else {
+            alert('الموقع الجغرافي غير مدعوم في هذا المتصفح.');
+        }
+    }
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+</script>
+
+<button onclick="document.getElementById('popup').style.display='flex'">اشتر الآن</button>
+
+</body>
 </div>
 
 <!-- زر "اشترِ الآن" -->
