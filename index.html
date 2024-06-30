@@ -1216,11 +1216,11 @@ button:hover {
                                         var location = document.getElementById('location').value;
                                         var quantity = document.getElementById('quantity-number').innerText;
                                         var popup = document.getElementById('popup');
-                                        var productName = popup.dataset.productName;
-                                        var productNumber = popup.dataset.productNumber;
-                                        var price = popup.dataset.price;
-                                        var deliveryCharge = popup.dataset.deliveryCharge;
-                                        var totalPrice = (parseInt(price) * parseInt(quantity)) + parseInt(deliveryCharge);
+                                        var productName = popup.dataset.productName || "اسم المنتج غير محدد";
+                                        var productNumber = popup.dataset.productNumber || "رقم المنتج غير محدد";
+                                        var price = parseFloat(popup.dataset.price) || 0;
+                                        var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
+                                        var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
                                 
                                         var message = encodeURIComponent(
                                         '#طلب شراء' + '\n' +
