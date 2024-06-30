@@ -775,14 +775,14 @@ button:hover {
                     var deliveryCharge = '55';
                     var totalPrice = '655';
                 
-                    var message = encodeURIComponent(
-    'طلب شراء: ' + productName + ', ' +
+                var message = encodeURIComponent(
+    '\n' + 'طلب شراء: ' + productName + ', ' +
     'رقم المنتج: ' + productNumber + ' , الكمية: ' + quantity + '\n' +
     'الاسم الثلاثي: ' + name + '\n' +
     'الموقع الجغرافي: ' + location + '\n' +
     'السعر: ' + price + ' سعر التوصيل: ' + deliveryCharge + '\n' +
     'السعر الاجمالي: ' + totalPrice
-);
+);ء
                     var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
                     window.open(whatsappLink, '_blank');
                 
