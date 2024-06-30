@@ -774,15 +774,15 @@ button:hover {
                     var price = '600ج.م';
                     var deliveryCharge = ' التوصيل';
                     var totalPrice = ' الاجمالي';
-                
                     var message = encodeURIComponent(
-                        productName + '\n' +
-                        'رقم المنتج: ' + productNumber + ' الكمية: ' + quantity + '\n' +
-                        'الاسم الثلاثي: ' + name + '\n' +
-                        'الموقع الجغرافي: ' + location + '\n' +
-                        'السعر: ' + price + ' سعر التوصيل: ' + deliveryCharge + '\n' +
-                        'السعر الاجمالي: ' + totalPrice
-                    );
+    '<span style="color: blue; font-weight: bold;">طلب شراء</span><br>' +
+    productName + '\n' +
+    'رقم المنتج: ' + productNumber + ' الكمية: ' + quantity + '\n' +
+    'الاسم الثلاثي: ' + name + '\n' +
+    'الموقع الجغرافي: ' + location + '\n' +
+    'السعر: ' + price + ' سعر التوصيل: ' + deliveryCharge + '\n' +
+    'السعر الاجمالي: ' + totalPrice
+);
                 
                     var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
                     window.open(whatsappLink, '_blank');
