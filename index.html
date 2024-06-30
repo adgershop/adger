@@ -772,18 +772,17 @@ button:hover {
                     var productName = 'ساعة من فيترون';
                     var productNumber = '1';
                     var price = '600ج.م';
-                    var deliveryCharge = ' التوصيل';
-                    var totalPrice = ' الاجمالي';
+                    var deliveryCharge = '55';
+                    var totalPrice = '655';
+                
                     var message = encodeURIComponent(
-    'طلب شراء'+
-    productName + '\n' +
-    'رقم المنتج: ' + productNumber + ' الكمية: ' + quantity + '\n' +
+    'طلب شراء: ' + productName + ', ' +
+    'رقم المنتج: ' + productNumber + ' , الكمية: ' + quantity + '\n' +
     'الاسم الثلاثي: ' + name + '\n' +
     'الموقع الجغرافي: ' + location + '\n' +
     'السعر: ' + price + ' سعر التوصيل: ' + deliveryCharge + '\n' +
     'السعر الاجمالي: ' + totalPrice
 );
-                
                     var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
                     window.open(whatsappLink, '_blank');
                 
