@@ -629,124 +629,77 @@ button:hover {
                 </div>
             </div>
             
+            <script>
+            function openPopup() {
+                var popup = document.getElementById('popup');
+                popup.classList.add('active');
             
-    <style>
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .popup.active {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    
-
-    <div id="popup" class="popup">
-        <label for="name">Name:</label>
-        <input type="text" id="name"><br>
-        <label for="location">Location:</label>
-        <input type="text" id="location"><br>
-        <button onclick="getLocation()">Get Location</button><br>
-        <label for="quantity-number">Quantity:</label>
-        <span id="quantity-number">1</span>
-        <button onclick="changeQuantity(1)">+</button>
-        <button onclick="changeQuantity(-1)">-</button><br>
-        <button onclick="openWhatsApp()">Send via WhatsApp</button>
-        <button onclick="closePopup()">Close</button>
-    </div>
-
-    <script>
-        function openPopup() {
-            var popup = document.getElementById('popup');
-            popup.classList.add('active');
-
-            // Retrieve saved data from localStorage if available
-            var savedName = localStorage.getItem('savedName');
-            if (savedName) {
-                document.getElementById('name').value = savedName;
+                // استرجاع البيانات من localStorage إذا كانت محفوظة
+                var savedName = localStorage.getItem('savedName');
+                if (savedName) {
+                    document.getElementById('name').value = savedName;
+                }
+            
+                var savedLocation = localStorage.getItem('savedLocation');
+                if (savedLocation) {
+                    document.getElementById('location').value = savedLocation;
+                }
             }
-
-            var savedLocation = localStorage.getItem('savedLocation');
-            if (savedLocation) {
-                document.getElementById('location').value = savedLocation;
+            
+            function closePopup() {
+                var popup = document.getElementById('popup');
+                popup.classList.remove('active');
             }
-        }
-
-        function closePopup() {
-            var popup = document.getElementById('popup');
-            popup.classList.remove('active');
-        }
-
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
-                    var locationField = document.getElementById('location');
-                    locationField.value = latitude + ', ' + longitude; // Display coordinates
-                    saveLocation(latitude, longitude);
-                }, function(error) {
-                    var locationField = document.getElementById('location');
-                    locationField.value = 'قم بفتح الموقع الجغرافي فى شريط اشعارات هاتفك';
-                    console.error('خطأ في الحصول على الموقع:', error);
-                });
-            } else {
-                alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
+            
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var latitude = position.coords.latitude;
+                        var longitude = position.coords.longitude;
+                        var locationField = document.getElementById('location');
+                        locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات
+                        saveLocation(latitude, longitude);
+                    }, function(error) {
+                        var locationField = document.getElementById('location');
+                        locationField.value = 'قم بفتح الموقع الجغرافي فى شريط اشعارات هاتفك';
+                        console.error('خطأ في الحصول على الموقع:', error);
+                    });
+                } else {
+                    alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
+                }
             }
-        }
-
-        function saveLocation(latitude, longitude) {
-            // Save geolocation in localStorage
-            var savedLocation = latitude + ',' + longitude;
-            localStorage.setItem('savedLocation', savedLocation);
-        }
-
-        function openWhatsApp() {
-            var name = document.getElementById('name').value;
-            var location = document.getElementById('location').value;
-            var quantity = document.getElementById('quantity-number').innerText;
-            var price = '100'; // Set the product price
-            var deliveryCharge = '20'; // Set the delivery charge
-            var totalPrice = parseInt(price) + parseInt(deliveryCharge);
-
-            var message = encodeURIComponent(
-                'ساعة من فيترون\n' +
-                'رقم المنتج: 1\n' +
-                'الكمية: ' + quantity + '\n' +
-                'الاسم الثلاثي: ' + name + '\n' +
-                'الموقع الجغرافي: ' + location + '\n' +
-                'السعر: ' + price + ' سعر التوصيل: ' + deliveryCharge + '\n' +
-                'السعر الإجمالي: ' + totalPrice
-            );
-
-            var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
-            window.open(whatsappLink, '_blank');
-
-            // Save name and location to localStorage
-            localStorage.setItem('savedName', name);
-            localStorage.setItem('savedLocation', location);
-        }
-
-        function changeQuantity(change) {
-            var quantityField = document.getElementById('quantity-number');
-            var currentQuantity = parseInt(quantityField.innerText);
-            var newQuantity = currentQuantity + change;
-            if (newQuantity > 0) {
-                quantityField.innerText = newQuantity;
+            
+            function saveLocation(latitude, longitude) {
+                // حفظ الموقع الجغرافي في localStorage
+                var savedLocation = latitude + ',' + longitude;
+                localStorage.setItem('savedLocation', savedLocation);
             }
-        }
-    </script>
-</body>
-</html>
+            
+            function openWhatsApp() {
+                var name = document.getElementById('name').value;
+                var location = document.getElementById('location').value;
+                var quantity = document.getElementById('quantity-number').innerText;
+                var message = encodeURIComponent('ساعة من فيترون\nالاسم الثلاثي: ' + name + '\nالموقع الجغرافي: ' + location + '\nالكمية: ' + quantity);
+            
+                var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
+                window.open(whatsappLink, '_blank');
+            
+                // لحفظ الاسم والموقع الجغرافي تلقائيًا في localStorage
+                localStorage.setItem('savedName', name);
+                localStorage.setItem('savedLocation', location);
+            }
+            
+            function changeQuantity(change) {
+                var quantityField = document.getElementById('quantity-number');
+                var currentQuantity = parseInt(quantityField.innerText);
+                var newQuantity = currentQuantity + change;
+                if (newQuantity > 0) {
+                    quantityField.innerText = newQuantity;
+                }
+            }
+            </script>
+            </body>
+            </html>
     </div>
 
 
