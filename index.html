@@ -449,8 +449,8 @@
       left: 50%;
       transform: translateX(-50%);
       padding: 20px;
-      background: linear-gradient(135deg, #bf00ff, #ff006a);
-      border: 1px solid #0026ff; /* حدود زرقاء */
+      background: linear-gradient(135deg, #00bfff, #7a004e);
+      border: 1px solid rgb(255, 255, 255); /* حدود زرقاء */
       box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* ظل */
       width: 80%; /* عرض النافذة */
       max-width: 400px; /* حد أقصى للعرض */
@@ -542,7 +542,7 @@
   .popup-title {
       font-family: 'Brush Script MT', cursive;
       font-size: 36px;
-     color: rgb(0, 255, 132);
+     color: rgb(255, 0, 195);
       margin-top: 0;
       margin-bottom: 20px;
   }
@@ -605,12 +605,7 @@ button:hover {
             </style>
             </head>
             <body>
-                <!DOCTYPE html>
-                <html lang="ar">
-                <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>شراء المنتج</title>
+               
                 <style>
                 .popup {
                     display: none;
@@ -700,7 +695,7 @@ button:hover {
                 </head>
                 <body>
                 
-                <a href="javascript:void(0);" class="buy-button" onclick="openPopup()">اشترِ الآن</a>
+                    <a href="#" class="buy-button" onclick="openPopup()">اشترِ الآن</a>
                 
                 <div id="popup" class="popup">
                     <div class="popup-content">
@@ -776,9 +771,9 @@ button:hover {
                     var quantity = document.getElementById('quantity-number').innerText;
                     var productName = 'ساعة من فيترون';
                     var productNumber = '1';
-                    var price = 'السعر';
-                    var deliveryCharge = 'سعر التوصيل';
-                    var totalPrice = 'السعر الاجمالي';
+                    var price = '600ج.م';
+                    var deliveryCharge = ' التوصيل';
+                    var totalPrice = ' الاجمالي';
                 
                     var message = encodeURIComponent(
                         productName + '\n' +
