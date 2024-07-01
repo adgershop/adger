@@ -127,30 +127,30 @@
   }
   
   .search-container {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center items horizontally */
-  padding: 2px;
-  background-color: #3d5b66; /* Background color for search bar area */
-  border-radius: 1px;
-  height: 60px; /* Adjust the height as needed */
-  position: fixed; /* Fixes the position of the search bar */
-  top: 0; /* Position it at the top of the viewport */
-  width: 100%; /* Make it span the full width of the viewport */
-  z-index: 1000; /* Ensures it stays above other content */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    background-color: #3d5b66;
+    border-radius: 1px;
+    height: 60px;
+    z-index: 999; /* تأكد من عدم تغطية أي عناصر أخرى مهمة */
 }
 
-.search-bar {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #e26600;
-  border-radius: 5px;
-  width: 70%; /* Adjusted width to fit the cart icon */
-  max-width: 6000px; /* Maximum width for the search bar */
-  margin-right: 10px; /* Add space between search box and button */
-margin-left: 8px;
-}
 
+  .search-bar {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #e26600;
+    border-radius: 5px;
+    width: 70%; /* Adjusted width to fit the cart icon */
+    max-width: 6000px; /* Maximum width for the search bar */
+    margin-right: 10px; /* Add space between search box and button */
+  }
 
   .cart-icon-container {
     position: relative;
