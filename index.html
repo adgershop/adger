@@ -90,8 +90,9 @@
     cursor: pointer;
 }
 
-.lightbox:hover {
-    background-color: transparent; /* إزالة الخلفية الزرقاء عند النقر */
+.lightbox * {
+    filter: none !important; /* إزالة أي تأثير filter */
+    background-color: transparent !important; /* جعل الخلفية شفافة */
 }
 
         .close {
