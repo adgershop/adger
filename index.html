@@ -85,15 +85,18 @@
     z-index: 999;
 }
 
-.lightbox img {
-    max-width: 80%;
-    max-height: 80%;
-    cursor: pointer;
+/* تعطيل اختيار النصوص داخل .lightbox */
+.lightbox * {
+    -webkit-user-select: none; /* Chrome و Safari و Opera */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, supported by Chrome, Opera, and Edge */
 }
 
-/* تعطيل تحديد النص */
-.lightbox *::selection {
-    background-color: transparent;
+/* تعطيل اختيار الصورة */
+.lightbox img {
+    pointer-events: none; /* منع تفعيل الأحداث على الصورة */
+    -webkit-touch-callout: none; /* iOS Safari */
 }
 
         .close {
