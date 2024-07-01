@@ -379,6 +379,7 @@ margin-left: 8px;
                 <body>
                     <h3>
                         <span class="price-label">السعر:</span>
+                        <span class="price-amount" style="position: relative; top: 3px; font-size: 80%; color: rgb(255, 106, 0);">00</span>
                         <span class="price-amount">600</span>
                         <span class="price-currency">جنيه</span>
                     </h3>
@@ -888,6 +889,7 @@ margin-left: 8px;
             <body>
                 <h3>
                     <span class="price-label">السعر:</span>
+                    <span class="price-amount" style="position: relative; top: 3px; font-size: 80%; color: rgb(255, 106, 0);">00</span>
                     <span class="price-amount">50</span>
                     <span class="price-currency">جنيه</span>
                 </h3>
@@ -953,14 +955,13 @@ margin-left: 8px;
                     </svg>
                 </button>
     <br>
-                <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="قاعدة ماوس" data-product-number="2" data-price="50" data-delivery-charge="تختلف">اشترِ الآن</a>
+                <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="قاعدة ماوس" data-product-number="2" data-price="50" data-delivery-charge="50">اشترِ الآن</a>
     
     
     
                 </body>
                 </html>
-                </body>
-                </html>
+             
             </div>
             
         </div>
@@ -969,13 +970,26 @@ margin-left: 8px;
         <div class="product-info">
             <h2 style="font-size: 17px;">ماوس لاسلكى من xo</h2>
             <p>G620,24HGZ</p>
-           
+            <style>
+                .hidden-text {
+                    display: none;
+                }
+                </style>
+                <title>Hidden Text Example</title>
+                </head>
+                <body>
+                
+                <p class="hidden-text">رقم المنتج|3</p>
+                
+                </body>
+                </html>
            
             <link rel="stylesheet" href="styles.css">
         </head>
         <body>
             <h3>
                 <span class="price-label">السعر:</span>
+                <span class="price-amount" style="position: relative; top: 3px; font-size: 80%; color: rgb(255, 106, 0);">00</span>
                 <span class="price-amount">130</span>
                 <span class="price-currency">جنيه</span>
             </h3>
@@ -1049,12 +1063,25 @@ margin-left: 8px;
         <div class="product-info">
             <h2 style="font-size: 17px;">كتاب ابق قوياً</h2>
             <p> ل ديمى لوفاتو <br>يتكلم الكتاب عن حكم شهيره ونصائح قويه</p>
-           
+            <style>
+                .hidden-text {
+                    display: none;
+                }
+                </style>
+                <title>Hidden Text Example</title>
+                </head>
+                <body>
+                
+                <p class="hidden-text">رقم المنتج|4</p>
+                
+                </body>
+                </html>
             <link rel="stylesheet" href="styles.css">
         </head>
         <body>
             <h3>
                 <span class="price-label">السعر:</span>
+                <span class="price-amount" style="position: relative; top: 3px; font-size: 80%; color: rgb(255, 106, 0);">00</span>
                 <span class="price-amount">70</span>
                 <span class="price-currency">جنيه</span>
             </h3>
@@ -1105,20 +1132,23 @@ margin-left: 8px;
                 background-color: #0ec508;
             }
         </style>
-    </head>
-    <body>
-        <a href="https://wa.me/+201152366798?text=كتاب ابق قوياً                              الاسم الثلاثى:" target="_blank" class="buy-button">
-            اشترِ الآن
-        </a>
-    </body>
-    </html>
-            </body>
-            </html>
+  
         </div>
         <div class="product-images">
             <img src="4.jpg" alt="product" onclick="openLightbox('4.jpg')">
         </div>
         <div style="clear:both;"></div>
+
+        <button onclick="addToCart(this)">    
+            <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
+                <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+<br>
+<a href="#" class="buy-button" onclick="openPopup(this)" data-product-name=" ماوس لاسلكى من xo " data-product-number="3" data-price="130" data-delivery-charge="50">اشترِ الآن</a>
+
+
     </div>
 
 
@@ -1159,7 +1189,7 @@ margin-left: 8px;
         <span class="star">★</span>
         <span class="star">★</span>
         <span class="star">★</span>
-        <span class="star">★</span>
+        <span class="star empty">★</span>
     </p>
     </body>
     </html>
