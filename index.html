@@ -71,14 +71,7 @@
             object-fit: cover;
             cursor: pointer;
         }
-        <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lightbox Example</title>
-    <style>
-        /* نمط lightbox */
+
         .lightbox {
             position: fixed;
             top: 0;
@@ -96,47 +89,7 @@
             max-width: 80%;
             max-height: 80%;
             cursor: pointer;
-            -webkit-tap-highlight-color: transparent; /* لإزالة التأثير على الهواتف */
-            -webkit-focus-ring-color: transparent; /* لإزالة الحلقة الزرقاء في WebKit */
         }
-
-        /* لإزالة العلامة الزرقاء عند التركيز أو النقر على الصورة */
-        .lightbox img:focus,
-        .lightbox img:active {
-            outline: none;
-            box-shadow: none; /* يمكن استخدام هذا لإزالة أي تأثيرات أخرى */
-        }
-
-        /* لإزالة العلامة الزرقاء عند النقر على أي عنصر زر */
-        .lightbox button:focus,
-        .lightbox button:active {
-            outline: none;
-            box-shadow: none; /* يمكن استخدام هذا لإزالة أي تأثيرات أخرى */
-        }
-
-        /* إزالة outline عند التركيز أو الضغط على أي عنصر */
-        *:focus,
-        *:active {
-            outline: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="lightbox">
-        <!-- استبدل الصورة التالية بالصورة التي تريد استخدامها -->
-        <img src="path/to/your/image.jpg" alt="Example Image">
-    </div>
-
-    <script>
-        document.querySelectorAll('.lightbox img').forEach(img => {
-            img.addEventListener('click', () => {
-                img.blur(); // لإزالة التركيز عند النقر
-            });
-        });
-    </script>
-
-</body>
-</html>
 
         .close {
             position: absolute;
