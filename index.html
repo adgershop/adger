@@ -94,8 +94,10 @@
     -moz-user-select: none; /* يمنع تحديد النص أو الصورة في Firefox */
     -ms-user-select: none; /* يمنع تحديد النص أو الصورة في Internet Explorer/Edge */
     outline: none; /* إزالة الحدود المرئية عند النقر على الصورة */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* إزالة اللون الأزرق عند النقر في المتصفحات المعتمدة على Webkit */
+    -webkit-tap-highlight-color: transparent; /* إزالة اللون الأزرق عند النقر في المتصفحات المعتمدة على Webkit */
     -webkit-touch-callout: none; /* إزالة التأثير عند النقر في أجهزة iOS */
+    -webkit-focus-ring-color: rgba(0, 0, 0, 0); /* إزالة تأثير التركيز */
+    touch-action: manipulation; /* إزالة التأثير على الأجهزة اللمسية */
 }
 
 /* منع تحديد الصورة باللون الأزرق */
@@ -106,7 +108,7 @@
 /* نفس التأثير للأزرار */
 button {
     outline: none;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* إزالة اللون الأزرق عند النقر في المتصفحات المعتمدة على Webkit */
+    -webkit-tap-highlight-color: transparent; /* إزالة اللون الأزرق عند النقر في المتصفحات المعتمدة على Webkit */
     -webkit-touch-callout: none; /* إزالة التأثير عند النقر في أجهزة iOS */
     -webkit-user-select: none; /* يمنع تحديد النص أو الصورة في المتصفحات المعتمدة على Webkit */
     -moz-user-select: none; /* يمنع تحديد النص أو الصورة في Firefox */
@@ -117,6 +119,7 @@ button {
     padding: 0; /* إزالة أي حشوة إضافية */
     margin: 0; /* إزالة أي هوامش إضافية */
     cursor: pointer; /* تغيير مؤشر الماوس إلى اليد */
+    touch-action: manipulation; /* إزالة التأثير على الأجهزة اللمسية */
 }
 
 /* إزالة التأثيرات عند التركيز */
