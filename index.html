@@ -131,8 +131,18 @@ button:focus,
 
 /* إزالة التأثيرات عند التحديد */
 button::selection,
-.lightbox img::selection {
+lightbox img::selection {
     background: transparent;
+}
+
+/* إزالة تأثير التركيز الأزرق */
+button::-moz-focus-inner {
+    border: 0;
+}
+
+button:focus-visible {
+    outline: none;
+    box-shadow: none;
 }
         .close {
             position: absolute;
