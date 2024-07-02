@@ -6448,7 +6448,6 @@ margin-left: 8px;
 </body>
 </html>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6456,7 +6455,6 @@ margin-left: 8px;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beautiful Footer</title>
     <style>
-       
         .footer {
             background-color: #232f5f;
             color: white;
@@ -6472,6 +6470,7 @@ margin-left: 8px;
             color: white;
             text-decoration: none;
             font-size: 24px;
+            user-select: none; /* Prevent text selection */
         }
         .footer .social-icons a:hover {
             color: rgb(255, 1, 107);
@@ -6524,17 +6523,16 @@ margin-left: 8px;
 </head>
 <body>
     <footer class="footer">
-        <img src="logo1.jpg" alt="" class="footer-logo">
+        <img src="logo1.jpg" alt="Logo" class="footer-logo">
         <div class="social-icons">
-            <a href="https://www.facebook.com/profile.php?id=61559937252803&mibextid=ZbWKwL" target="_blank">Facebook</a>
+            <a href="https://www.facebook.com/profile.php?id=61559937252803" target="_blank">Facebook</a>
             <a href="https://www.instagram.com/adgershop?igsh=YWJkYmR5OXc1bm00" target="_blank">Instagram</a>
             <a href="http://tiktok.com/@adgershop" target="_blank">TikTok</a>
-            <a href="https://x.com/saif__eddine?t=EUrak3O7SNZD7BIFgjiltQ&s=09" target="_blank">X</a>
+            <a href="https://example.com" target="_blank">X</a>
         </div>
         <ul class="footer-links">
             <li><a href="#" onclick="showPopup(event, 'aboutPopup')">About Us</a></li>
             <li><a href="https://wa.me/yourphonenumber" target="_blank">Contact</a></li>
-    
             <li><a href="#">Home</a></li>
         </ul>
     </footer>
@@ -6543,12 +6541,6 @@ margin-left: 8px;
         <button class="close-btn" onclick="hidePopup('aboutPopup')">X</button>
         <h2>About Us</h2>
         <p>Here you can write about your company.</p>
-    </div>
-
-    <div class="popup" id="privacyPopup">
-        <button class="close-btn" onclick="hidePopup('privacyPopup')">X</button>
-        <h2>Privacy Policy</h2>
-        <p>Here you can write your privacy policy.</p>
     </div>
 
     <script>
@@ -6563,5 +6555,3 @@ margin-left: 8px;
     </script>
 </body>
 </html>
-
-
