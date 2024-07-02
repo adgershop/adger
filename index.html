@@ -6470,15 +6470,15 @@ margin-left: 8px;
             color: white;
             text-decoration: none;
             font-size: 24px;
-            user-select: none; /* Prevent text selection */
         }
         .footer .social-icons a:hover {
             color: rgb(255, 1, 107);
         }
         .footer-logo {
-            display: block;
-            margin: 0 auto 20px;
-            width: 150px;
+            font-family: 'Pacifico', cursive; /* استخدام خط Pacifico من Google Fonts */
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #0095ec;
         }
         .footer-links {
             margin: 20px 0;
@@ -6492,6 +6492,7 @@ margin-left: 8px;
         .footer-links a {
             color: white;
             text-decoration: none;
+            outline: none; /* إزالة التأثير الأزرق عند التحديد */
         }
         .footer-links a:hover {
             text-decoration: underline;
@@ -6520,15 +6521,16 @@ margin-left: 8px;
             margin-right: 12px;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
     <footer class="footer">
-        <img src="logo1.jpg" alt="Logo" class="footer-logo">
+        <span class="footer-logo">Adger</span>
         <div class="social-icons">
-            <a href="https://www.facebook.com/profile.php?id=61559937252803" target="_blank">Facebook</a>
+            <a href="https://www.facebook.com/profile.php?id=61559937252803&mibextid=ZbWKwL" target="_blank">Facebook</a>
             <a href="https://www.instagram.com/adgershop?igsh=YWJkYmR5OXc1bm00" target="_blank">Instagram</a>
             <a href="http://tiktok.com/@adgershop" target="_blank">TikTok</a>
-            <a href="https://example.com" target="_blank">X</a>
+            <a href="https://x.com/saif__eddine?t=EUrak3O7SNZD7BIFgjiltQ&s=09" target="_blank">X</a>
         </div>
         <ul class="footer-links">
             <li><a href="#" onclick="showPopup(event, 'aboutPopup')">About Us</a></li>
