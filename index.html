@@ -72,8 +72,7 @@
             cursor: pointer;
         }
 
-      /* إعدادات الضوء */
-.lightbox {
+        .lightbox {
     position: fixed;
     top: 0;
     left: 0;
@@ -91,23 +90,24 @@
     max-height: 80%;
     cursor: pointer;
     user-select: none; /* يمنع تحديد النص أو الصورة */
-    -webkit-user-select: none; /* يمنع تحديد النص أو الصورة في Chrome و Safari */
-    -moz-user-select: none; /* يمنع تحديد النص أو الصورة في Firefox */
-    -ms-user-select: none; /* يمنع تحديد النص أو الصورة في Internet Explorer/Edge */
+    -webkit-user-drag: none; /* منع سحب الصورة */
+    -webkit-touch-callout: none; /* منع فتح قائمة الإجراءات على اللمس طويل الضغط */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* إزالة أي لون تحديد عند النقر */
     outline: none; /* إزالة الحدود المرئية عند النقر على الصورة */
-    -webkit-tap-highlight-color: transparent; /* إزالة اللون الأزرق عند النقر في Chrome و Safari */
 }
 
 .lightbox img::selection {
     background-color: transparent; /* منع تحديد الصورة باللون الأزرق */
 }
 
-.lightbox button {
-    outline: none; /* إزالة الحدود المرئية عند النقر على الزر */
-    -webkit-tap-highlight-color: transparent; /* إزالة اللون الأزرق عند النقر في Chrome و Safari */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
 }
-
-/* تأكيد الأسلوب للأزرار داخل lightbox أو أي عناصر أخرى بنفس النمط */
         .close {
             position: absolute;
             top: 10px;
