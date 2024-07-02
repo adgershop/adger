@@ -115,6 +115,19 @@ button {
     margin: 0; /* إزالة أي هوامش إضافية */
     cursor: pointer; /* تغيير مؤشر الماوس إلى اليد */
 }
+
+/* إزالة التأثيرات عند التركيز */
+button:focus,
+.lightbox img:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* إزالة التأثيرات عند التحديد */
+button::selection,
+.lightbox img::selection {
+    background: transparent;
+}
         .close {
             position: absolute;
             top: 10px;
