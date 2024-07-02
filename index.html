@@ -89,59 +89,11 @@
     max-width: 80%;
     max-height: 80%;
     cursor: pointer;
-    -webkit-user-drag: none; /* تعطيل السحب على الصورة على Chrome و Safari و Opera */
-    user-drag: none;
-    -moz-user-select: none; /* تعطيل اختيار الصورة على Firefox */
-    -webkit-user-select: none; /* تعطيل اختيار الصورة على Chrome و Safari و Opera */
-    -ms-user-select: none; /* تعطيل اختيار الصورة على Internet Explorer/Edge */
-    user-select: none; /* تعطيل اختيار الصورة */
-    pointer-events: none; /* منع تفعيل الأحداث على الصورة */
 }
 
-/* إزالة أي حدود أو تأثيرات عند التركيز */
-.lightbox img:focus {
-    outline: none;
-}
-
-/* منع تأثير اللون الأزرق عند التحديد */
+/* منع تحديد الصورة باللون الأزرق */
 .lightbox img::selection {
     background-color: transparent;
-}
-
-/* منع زر الفأرة الأيمن */
-.lightbox img {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-drag: none; /* تعطيل السحب على الصورة على Chrome و Safari و Opera */
-    user-drag: none;
-}
-
-/* تعطيل اختيار النصوص داخل .lightbox */
-.lightbox * {
-    -webkit-user-select: none; /* Chrome، Safari، Opera */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* غير الموجه، يدعمه Chrome و Opera و Edge */
-}
-
-/* تعطيل اختيار الصورة */
-.lightbox img {
-    -webkit-user-drag: none; /* تعطيل السحب على الصورة على Chrome و Safari و Opera */
-    user-drag: none;
-    -moz-user-select: none; /* تعطيل اختيار الصورة على Firefox */
-    -webkit-user-select: none; /* تعطيل اختيار الصورة على Chrome و Safari و Opera */
-    -ms-user-select: none; /* تعطيل اختيار الصورة على Internet Explorer/Edge */
-    user-select: none; /* تعطيل اختيار الصورة */
-    pointer-events: none; /* منع تفعيل الأحداث على الصورة */
-}
-
-/* إضافة حدث لإزالة تحديد الصورة عند النقر */
-.lightbox img:focus {
-    outline: none;
-}
-
-/* منع تأثير اللون الأزرق عند التحديد */
-.lightbox img::-moz-focus-inner {
-    border: 0;
 }
         .close {
             position: absolute;
