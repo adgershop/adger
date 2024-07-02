@@ -72,7 +72,7 @@
             cursor: pointer;
         }
 
-      /* إعدادات الضوء */
+   /* إعدادات الضوء */
 .lightbox {
     position: fixed;
     top: 0;
@@ -96,6 +96,7 @@
     -ms-user-select: none; /* يمنع تحديد النص أو الصورة في Internet Explorer/Edge */
     outline: none; /* إزالة الحدود المرئية عند النقر على الصورة */
     -webkit-tap-highlight-color: transparent; /* إزالة اللون الأزرق عند النقر في المتصفحات المعتمدة على Webkit */
+    -webkit-touch-callout: none; /* إزالة التأثير عند النقر في أجهزة iOS */
 }
 
 /* منع تحديد الصورة باللون الأزرق */
@@ -107,6 +108,12 @@
 button {
     outline: none;
     -webkit-tap-highlight-color: transparent; /* إزالة اللون الأزرق عند النقر في المتصفحات المعتمدة على Webkit */
+    -webkit-touch-callout: none; /* إزالة التأثير عند النقر في أجهزة iOS */
+    border: none; /* إزالة الحدود المرئية */
+    background: none; /* إزالة خلفية الزر */
+    padding: 0; /* إزالة أي حشوة إضافية */
+    margin: 0; /* إزالة أي هوامش إضافية */
+    cursor: pointer; /* تغيير مؤشر الماوس إلى اليد */
 }
         .close {
             position: absolute;
