@@ -71,12 +71,23 @@
             object-fit: cover;
             cursor: pointer;
         }
-/* منع تحديد الصورة باللون الأزرق */
-.lightbox img::selection {
-    background-color: transparent;
+/* منع تحديد الصورة باللون الأزرق على جميع الأجهزة */
+.lightbox img {
+    max-width: 80%;
+    max-height: 80%;
+    cursor: pointer;
+    user-select: none; /* منع تحديد النص أو الصورة */
+    -webkit-user-select: none; /* يمنع تحديد النص أو الصورة في المتصفحات المعتمدة على Webkit */
+    -moz-user-select: none; /* يمنع تحديد النص أو الصورة في Firefox */
+    -ms-user-select: none; /* يمنع تحديد النص أو الصورة في Internet Explorer/Edge */
+    outline: none; /* إزالة الحدود المرئية عند النقر على الصورة */
+    -webkit-tap-highlight-color: transparent; /* إزالة اللون الأزرق عند النقر في المتصفحات المعتمدة على Webkit */
+    -webkit-touch-callout: none; /* إزالة التأثير عند النقر في أجهزة iOS */
+    -webkit-focus-ring-color: rgba(0, 0, 0, 0); /* إزالة تأثير التركيز */
+    touch-action: manipulation; /* إزالة التأثير على الأجهزة اللمسية */
 }
 
-/* نفس التأثير للأزرار */
+/* نفس التأثير للأزرار على جميع الأجهزة */
 button {
     outline: none;
     -webkit-tap-highlight-color: transparent; /* إزالة اللون الأزرق عند النقر في المتصفحات المعتمدة على Webkit */
@@ -93,25 +104,9 @@ button {
     touch-action: manipulation; /* إزالة التأثير على الأجهزة اللمسية */
 }
 
-/* إزالة التأثيرات عند التركيز */
+/* إزالة التأثيرات عند التركيز والتحديد على جميع الأجهزة */
 button:focus,
 .lightbox img:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-/* إزالة التأثيرات عند التحديد */
-button::selection,
-.lightbox img::selection {
-    background: transparent;
-}
-
-/* إزالة تأثير التركيز الأزرق */
-button::-moz-focus-inner {
-    border: 0;
-}
-
-button:focus-visible {
     outline: none;
     box-shadow: none;
 }
