@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -102,21 +100,14 @@
 
 .close {
     position: absolute;
-    top: 10px;
+    bottom: 500px;
     right: 10px;
-    color: #fff;
-    font-size: 24px;
+    color: #01afff;
+    font-size: 35px;
     cursor: pointer;
+ 
 }
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #fff;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
+        
 
         .whatsapp-button {
     display: inline-block;
@@ -6056,49 +6047,13 @@ margin-left: 8px;
         <body>
         
         <div class="paragraph-container">
-          <p id="custom-paragraph">Adger</p>
+          <p id="custom-paragraph"></p>
           <p id="custom-paragraph">اصبح التسوق سهلاً أليس كذالك</p>
        
         </div>
         
 
-        <!DOCTYPE html>
-<html>
-<head>
-    <style>
-        .container {
-            text-align: center;
-        }
-        
-        .paragraph-link {
-            display: inline-block;
-            margin-right: 20px; /* تعديل حجم المسافة بين الروابط */
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <a href="https://www.instagram.com/adgershop?igsh=YWJkYmR5OXc1bm00" class="paragraph-link">
-          <h4>instagram</h4>
-        </a>
-        <a href="https://www.facebook.com/profile.php?id=61559937252803&mibextid=ZbWKwL" class="paragraph-link">
-           <h4>Facebook</h4>
-        </a>
-    </div>
-
-    <div class="container">
-        <a href="https://x.com/saif__eddine?t=EUrak3O7SNZD7BIFgjiltQ&s=09" class="paragraph-link">
-           <h4>X</h4>
-        </a>
-        <a href="http://tiktok.com/@adgershop" class="paragraph-link">
-           <h4>TikTok</h4>
-        </a>
-    </div>
-</body>
-</html>
-
-
-
+       
 
 
 
@@ -6492,3 +6447,121 @@ margin-left: 8px;
 </script>
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Footer</title>
+    <style>
+       
+        .footer {
+            background-color: #232f5f;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+        }
+        .footer .social-icons {
+            margin: 20px 0;
+        }
+        .footer .social-icons a {
+            margin: 0 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        .footer .social-icons a:hover {
+            color: rgb(255, 1, 107);
+        }
+        .footer-logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 150px;
+        }
+        .footer-links {
+            margin: 20px 0;
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links li {
+            display: inline;
+            margin: 0 15px;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            color: black;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            text-align: left;
+        }
+        .popup .close-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            float: right;
+            margin-top: 6px;
+            margin-right: 12px;
+        }
+    </style>
+</head>
+<body>
+    <footer class="footer">
+        <img src="logo1.jpg" alt="Logo" class="footer-logo">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=61559937252803&mibextid=ZbWKwL" target="_blank">Facebook</a>
+            <a href="https://www.instagram.com/adgershop?igsh=YWJkYmR5OXc1bm00" target="_blank">Instagram</a>
+            <a href="http://tiktok.com/@adgershop" target="_blank">TikTok</a>
+            <a href="https://x.com/saif__eddine?t=EUrak3O7SNZD7BIFgjiltQ&s=09" target="_blank">X</a>
+        </div>
+        <ul class="footer-links">
+            <li><a href="#" onclick="showPopup(event, 'aboutPopup')">About Us</a></li>
+            <li><a href="https://wa.me/yourphonenumber" target="_blank">Contact</a></li>
+            <li><a href="#" onclick="showPopup(event, 'privacyPopup')">Privacy Policy</a></li>
+            <li><a href="#">Home</a></li>
+        </ul>
+    </footer>
+
+    <div class="popup" id="aboutPopup">
+        <button class="close-btn" onclick="hidePopup('aboutPopup')">X</button>
+        <h2>About Us</h2>
+        <p>Here you can write about your company.</p>
+    </div>
+
+    <div class="popup" id="privacyPopup">
+        <button class="close-btn" onclick="hidePopup('privacyPopup')">X</button>
+        <h2>Privacy Policy</h2>
+        <p>Here you can write your privacy policy.</p>
+    </div>
+
+    <script>
+        function showPopup(event, popupId) {
+            event.preventDefault();
+            document.getElementById(popupId).style.display = 'block';
+        }
+
+        function hidePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
+
