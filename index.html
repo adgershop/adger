@@ -316,88 +316,81 @@ margin-left: 8px;
 <script src="script.js"></script>
   </div>
   <!DOCTYPE html>
-  <html lang="ar">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <style>
-          .lightbox {
-              display: none;
-              position: fixed;
-              z-index: 1;
-              left: 0;
-              top: 0;
-              width: 100%;
-              height: 100%;
-              overflow: auto;
-              background-color: rgba(0, 0, 0, 0.8);
-          }
-  
-          .lightbox-content {
-              position: relative;
-              margin: auto;
-              padding: 20px;
-              width: 80%;
-              max-width: 700px;
-          }
-  
-          #lightbox-img {
-              width: 100%;
-              max-height: 80vh;
-          }
-  
-          .back-button {
-              position: absolute;
-              top: -20px;
-              left: -29px;
-              background-color: rgb(238, 5, 149);
-              color: white;
-              border: none;
-              padding: 6px;
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-          }
-  
-          .back-button img {
-              margin-right: 8px;
-          }
-      </style>
-  </head>
-  <body>
-  
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-      <div class="lightbox-content">
-          <button class="back-button" onclick="closeLightbox()">
-              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
-              </svg>
-          </button>
-          <img id="lightbox-img" src="" alt="Enlarged product">
-      </div>
-  </div>
-  
-  <script>
-      function closeLightbox() {
-          document.getElementById("lightbox").style.display = "none";
-      }
-  
-      function openLightbox(imageSrc) {
-          document.getElementById("lightbox-img").src = imageSrc;
-          document.getElementById("lightbox").style.display = "block";
-      }
-  
-      // Event listener to close lightbox when clicking outside the image
-      var lightbox = document.getElementById("lightbox");
-      lightbox.addEventListener("click", function(event) {
-          if (event.target === lightbox) {
-              closeLightbox();
-          }
-      });
-  </script>
-  
-  </body>
-  </html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .lightbox-content {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        #lightbox-img {
+            width: 100%;
+            max-height: 80vh;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-button img {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+        <button class="back-button" onclick="closeLightbox()">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+            </svg>
+            الرجوع للخلف
+        </button>
+        <img id="lightbox-img" src="" alt="Enlarged product">
+    </div>
+</div>
+
+<script>
+    function closeLightbox() {
+        document.getElementById("lightbox").style.display = "none";
+    }
+
+    function openLightbox(imageSrc) {
+        document.getElementById("lightbox-img").src = imageSrc;
+        document.getElementById("lightbox").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
 <style>
     p {
         color: rgb(104, 72, 134);
@@ -495,8 +488,16 @@ margin-left: 8px;
             <body>
                 <div class="product-images">
                     <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')" onmousedown="return false;">
+                    <img src="2.jpg" alt="product" onclick="openLightbox('2.jpg')" onmousedown="return false;">
+                    <img src="3.jpg" alt="product" onclick="openLightbox('3.jpg')" onmousedown="return false;">
                 </div>
-            
+                <script>
+                    // تكوين Lightbox2
+                    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                        event.preventDefault();
+                        $(this).ekkoLightbox();
+                    });
+                </script>
                 <!-- أي محتوى إضافي هنا -->
             
                 <script>
