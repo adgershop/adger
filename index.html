@@ -347,9 +347,9 @@ margin-left: 8px;
           }
   
           .back-button {
-              position: fixed;
-              bottom: 599px; /* يمكن تعديل القيمة حسب التصميم المطلوب */
-              left: 44px; /* يمكن تعديل القيمة حسب التصميم المطلوب */
+              position: absolute;
+              top: -20px;
+              left: -29px;
               background-color: rgb(238, 5, 149);
               color: white;
               border: none;
@@ -357,7 +357,6 @@ margin-left: 8px;
               cursor: pointer;
               display: flex;
               align-items: center;
-              z-index: 2; /* تم إضافة طبقة Z ليكون دائما فوق الصورة */
           }
   
           .back-button img {
@@ -374,7 +373,7 @@ margin-left: 8px;
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
               </svg>
           </button>
-          <img id="lightbox-img" src="" alt="Enlarged product" onclick="event.stopPropagation()">
+          <img id="lightbox-img" src="" alt="Enlarged product">
       </div>
   </div>
   
