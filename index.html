@@ -347,16 +347,17 @@ margin-left: 8px;
           }
   
           .back-button {
-              position: absolute;
-              top: 20px;
-              left: 20px;
-              background-color: rgb(255, 81, 0);
+              position: fixed;
+              bottom: 493px; /* يمكن تعديل القيمة حسب التصميم المطلوب */
+              left: 18px; /* يمكن تعديل القيمة حسب التصميم المطلوب */
+              background-color: rgb(238, 5, 149);
               color: white;
               border: none;
-              padding: 10px;
+              padding: 6px;
               cursor: pointer;
               display: flex;
               align-items: center;
+              z-index: 2; /* تم إضافة طبقة Z ليكون دائما فوق الصورة */
           }
   
           .back-button img {
@@ -366,14 +367,14 @@ margin-left: 8px;
   </head>
   <body>
   
-  <div class="lightbox" id="lightbox">
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
       <div class="lightbox-content">
           <button class="back-button" onclick="closeLightbox()">
               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
               </svg>
           </button>
-          <img id="lightbox-img" src="" alt="Enlarged product">
+          <img id="lightbox-img" src="" alt="Enlarged product" onclick="event.stopPropagation()">
       </div>
   </div>
   
@@ -386,11 +387,18 @@ margin-left: 8px;
           document.getElementById("lightbox-img").src = imageSrc;
           document.getElementById("lightbox").style.display = "block";
       }
+  
+      // Event listener to close lightbox when clicking outside the image
+      var lightbox = document.getElementById("lightbox");
+      lightbox.addEventListener("click", function(event) {
+          if (event.target === lightbox) {
+              closeLightbox();
+          }
+      });
   </script>
   
   </body>
   </html>
-
 <style>
     p {
         color: rgb(104, 72, 134);
