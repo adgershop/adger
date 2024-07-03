@@ -559,125 +559,7 @@ margin-left: 8px;
             <style>
                
       /* أسلوب CSS للنافذة المنبثقة */
-      .popup {
-          display: none;
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.6); /* خلفية شفافة مع لون */
-          z-index: 1000;
-          text-align: center;
-      }
-      
-      .popup-content {
-          position: absolute;
-          top: 10%; /* تعديل المسافة من الأعلى */
-          left: 50%;
-          transform: translateX(-50%);
-          padding: 20px;
-          background: linear-gradient(135deg, #00fbff, #ffffff);
-          border: 1px solid rgb(255, 255, 255); /* حدود زرقاء */
-          box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* ظل */
-          width: 80%; /* عرض النافذة */
-          max-width: 400px; /* حد أقصى للعرض */
-          max-height: 80%; /* حد أقصى للارتفاع */
-          overflow-y: auto; /* التمرير العمودي إذا لزم الأمر */
-          text-align: center;
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
-      
-      .popup.active {
-          display: block;
-      }
-      
-      .popup-header {
-          margin-bottom: 10px;
-      }
-      
-      .popup-input {
-          width: 100%;
-          padding: 10px;
-          margin-bottom: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          box-sizing: border-box;
-      }
-      
-      .popup-input:last-child {
-          margin-bottom: 0; /* للتحكم بالمسافة بين الحقول */
-      }
-      
-      .quantity-input {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        background-color: white; /* تعيين خلفية بيضاء */
-        height: 46px; /* جعل ارتفاع الحقل متساويًا */
-    }
-      
-      .quantity-label {
-          font-size: 18px;
-          color: #555;
-          margin-right: 10px;
-      }
-      
-      .quantity-number {
-          font-size: 24px;
-          margin-right: 10px;
-      }
-      
-      .quantity-buttons {
-          display: flex;
-          align-items: center;
-      }
-      
-      .quantity-button {
-          background-color: #00edca;
-          color: #071b87;
-          border: none;
-          cursor: pointer;
-          width: 30px;
-          height: 30px;
-          font-size: 16px;
-          border-radius: 4px;
-          margin-left: 5px; /* تباعد بين الأزرار */
-      }
-      
-      .quantity-button:hover {
-          background-color: #ff0000;
-      }
-      
-      .popup-button {
-          padding: 10px 20px;
-          background-color: #00bd10;
-          color: #fff;
-          border: none;
-          cursor: pointer;
-          border-radius: 4px;
-          margin-right: 10px; /* تباعد بين الأزرار */
-          margin: 19px;
-      }
-      
-      .popup-button:hover {
-          background-color: #17c200;
-      }
-      
-      .popup-title {
-          font-family: 'Brush Script MT', cursive;
-          font-size: 36px;
-         color: rgb(255, 170, 0);
-          margin-top: 0;
-          margin-bottom: 20px;
-      }
-                </style>
-            </head>
-            <body>
-            
+     
     <style>
       button {
         background-color: #feb538;
@@ -817,6 +699,7 @@ margin-left: 8px;
                     
                     .popup-title {
                         margin: 0;
+                        
                     }
                     
                     <!DOCTYPE html>
@@ -1037,7 +920,7 @@ margin-left: 8px;
                     </svg>
                 </button>
     <br>
-    <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
+    <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قاعدة ماوس" data-product-number="2" data-price="50" data-delivery-charge="50">اشترِ الآن</a>
     
                 </body>
                 </html>
@@ -1694,7 +1577,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="حامل لابتوب الومنيوم" data-product-number="9" data-price="145" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="حامل لابتوب الومنيوم" data-product-number="9" data-price="145" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -1789,7 +1672,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="كتاب ريش داد بور داد" data-product-number="10" data-price="195" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب ريش داد بور داد" data-product-number="10" data-price="195" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -1880,7 +1763,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="DDR4 ذاكرة رام" data-product-number="11" data-price="920" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="DDR4 ذاكرة رام" data-product-number="11" data-price="920" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -1973,7 +1856,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="بطاريات زنك وكربون" data-product-number="12" data-price="35" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="بطاريات زنك وكربون" data-product-number="12" data-price="35" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2067,7 +1950,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="فلاشه usp من سانديسك 32 جيجا" data-product-number="13" data-price="210" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="فلاشه usp من سانديسك 32 جيجا" data-product-number="13" data-price="210" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2160,7 +2043,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="كينجستون 128 جيجا" data-product-number="14" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كينجستون 128 جيجا" data-product-number="14" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2252,7 +2135,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2347,7 +2230,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="بطاريه زنك وكاربون" data-product-number="16" data-price="63" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="بطاريه زنك وكاربون" data-product-number="16" data-price="63" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2442,7 +2325,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="شريط لاصق فضى" data-product-number="17" data-price="60" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="شريط لاصق فضى" data-product-number="17" data-price="60" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2535,7 +2418,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="حقيبة يد رجالى" data-product-number="18" data-price="135" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="حقيبة يد رجالى" data-product-number="18" data-price="135" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2627,7 +2510,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="سلك اضائه 3 متر" data-product-number="19" data-price="55" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="سلك اضائه 3 متر" data-product-number="19" data-price="55" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2718,7 +2601,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="foot steps حذاء" data-product-number="20" data-price="260" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="foot steps حذاء" data-product-number="20" data-price="260" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2810,7 +2693,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="كتاب تعلم الجمل الأنجليزيه" data-product-number="21" data-price="110" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب تعلم الجمل الأنجليزيه" data-product-number="21" data-price="110" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2902,7 +2785,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="لعبة سوسته حلزونيه" data-product-number="22" data-price="25" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="لعبة سوسته حلزونيه" data-product-number="22" data-price="25" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -2993,7 +2876,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="مجلة ناشيونال جيوغرافك" data-product-number="23" data-price="25" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="مجلة ناشيونال جيوغرافك" data-product-number="23" data-price="25" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -3084,7 +2967,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ورق للطباعه ايه 4" data-product-number="24" data-price="275" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="ورق للطباعه ايه 4" data-product-number="24" data-price="275" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -3179,7 +3062,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ملصقات كيبورد" data-product-number="25" data-price="30" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="ملصقات كيبورد" data-product-number="25" data-price="30" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -3270,7 +3153,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="كتاب محاط بالحمقى" data-product-number="26" data-price="145" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب محاط بالحمقى" data-product-number="26" data-price="145" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
     <div class="product">
@@ -3359,7 +3242,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="لعبة التمساح" data-product-number="27" data-price="180" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="لعبة التمساح" data-product-number="27" data-price="180" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -3450,7 +3333,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="جراب لجهاز ايفون 15 برو ماكس" data-product-number="28" data-price="100" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="جراب لجهاز ايفون 15 برو ماكس" data-product-number="28" data-price="100" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -3540,7 +3423,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="قلم ستايلس" data-product-number="29" data-price="45" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ستايلس" data-product-number="29" data-price="45" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -3630,7 +3513,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="عبوات الاصق الصاروخ" data-product-number="30" data-price="20" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="عبوات الاصق الصاروخ" data-product-number="30" data-price="20" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -3720,7 +3603,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="مجلة ناشيونال جيوغرافيك" data-product-number="31" data-price="35" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="مجلة ناشيونال جيوغرافيك" data-product-number="31" data-price="35" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -3810,7 +3693,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="لعبة كره تفاعليه" data-product-number="32" data-price="55" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="لعبة كره تفاعليه" data-product-number="32" data-price="55" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -3989,7 +3872,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ميزان شنط السفر" data-product-number="34" data-price="310" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="ميزان شنط السفر" data-product-number="34" data-price="310" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -4082,7 +3965,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="حافظة لابتوب" data-product-number="35" data-price="180" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="حافظة لابتوب" data-product-number="35" data-price="180" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -4173,7 +4056,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="كتاب الدحيح ما وراء الكواليس" data-product-number="36" data-price="95" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب الدحيح ما وراء الكواليس" data-product-number="36" data-price="95" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -4263,7 +4146,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name=" حقيبة ظهر مدرسيه" data-product-number="37" data-price="205" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name=" حقيبة ظهر مدرسيه" data-product-number="37" data-price="205" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -4355,7 +4238,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="مجموعة اقلام الرسم" data-product-number="38" data-price="197" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="مجموعة اقلام الرسم" data-product-number="38" data-price="197" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -4447,7 +4330,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="حامل اقلام" data-product-number="39" data-price="60" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="حامل اقلام" data-product-number="39" data-price="60" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -4539,7 +4422,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="رف كتب من الخشب" data-product-number="40" data-price="625" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="رف كتب من الخشب" data-product-number="40" data-price="625" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -4631,7 +4514,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ساعه منبه" data-product-number="41" data-price="190" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="ساعه منبه" data-product-number="41" data-price="190" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -4723,7 +4606,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="مكعب روبيك" data-product-number="42" data-price="60" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="مكعب روبيك" data-product-number="42" data-price="60" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -4816,7 +4699,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ميكرفون صغير للموبايل" data-product-number="43" data-price="38" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="ميكرفون صغير للموبايل" data-product-number="43" data-price="38" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -4908,7 +4791,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="6 عبوات زجاجة بخاخ فارغه" data-product-number="44" data-price="115" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="6 عبوات زجاجة بخاخ فارغه" data-product-number="44" data-price="115" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -5000,7 +4883,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="مفرقعات زينه" data-product-number="45" data-price="55" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="مفرقعات زينه" data-product-number="45" data-price="55" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -5094,7 +4977,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="سبراى ثلج" data-product-number="46" data-price="49" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="سبراى ثلج" data-product-number="46" data-price="49" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -5188,7 +5071,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -5281,7 +5164,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="كابل شجن سريع" data-product-number="48" data-price="50" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كابل شجن سريع" data-product-number="48" data-price="50" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -5374,7 +5257,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="دبابيس حائط ملونه" data-product-number="49" data-price="100" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="دبابيس حائط ملونه" data-product-number="49" data-price="100" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
@@ -5471,7 +5354,7 @@ margin-left: 8px;
             </svg>
         </button>
 <br>
-        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="مجلة ميكى" data-product-number="50" data-price="24" data-delivery-charge="50">اشترِ الآن</a>
+ <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="مجلة ميكى" data-product-number="50" data-price="24" data-delivery-charge="50">اشترِ الآن</a>
     </div>
   
 
