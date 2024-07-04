@@ -637,18 +637,22 @@ margin-left: 8px;
                     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); /* خط زخرفي من Google Fonts */
 
                     .popup-content {
-    background: linear-gradient(135deg, #5f8e8f, #208eef);
+    background: linear-gradient(135deg, #919a9a, #f0f0f0);
     padding: 20px;
     border-radius: 5px;
-    width: 100vw; /* العرض كنسبة مئوية من عرض الشاشة */
-    height: 100vh; /* ارتفاع النافذة كامل الشاشة */
+    width: 80%; /* تقليل عرض النافذة ليكون أقل واسعاً */
+    max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
     box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* محاذاة المحتوى بشكل عمودي للوسط */
+    justify-content: flex-start; /* تحويل محاذاة المحتوى ليكون في الأعلى */
     align-items: center; /* محاذاة المحتوى بشكل أفقي في المنتصف */
     margin: auto;
     text-align: center; /* توسيط النص عمودياً */
+    position: fixed;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* توسيط النافذة في منتصف الشاشة */
 }
 
 .popup-content h1 {
@@ -656,49 +660,50 @@ margin-left: 8px;
     font-size: 36px;
     margin-bottom: 20px;
 }
-                    
-                    .popup-input {
-                        width: calc(100% - 20px);
-                        margin: 10px;
-                        padding: 5px;
-                        border: 1px solid #ccc;
-                        border-radius: 3px;
-                    }
-                    
-                    .quantity-input {
-                        margin: 14px;
-                        display: flex;
-                        align-items: center;
-                    }
-                    
-                    .quantity-label {
-                        flex: 1;
-                    }
-                    
-                    .quantity-number {
-                        margin: 0 10px;
-                    }
-                    
-                    .quantity-buttons {
-                        display: flex;
-                    }
-                    
-                    .quantity-button {
-                        padding: 5px 10px;
-                        margin: 0 5px;
-                        border: 1px solid #ffd500;
-                        background-color: #ffae00;
-                        cursor: pointer;
-                    }
-                    
-                    .popup-button {
-    display: block; /* عرض الزر على سطر مستقل */
-    width: 30%; /* العرض كامل ليمتد الزر على كامل عرض النافذة */
-    margin-bottom: 10px; /* هامش من الأسفل للتباعد بين الأزرار */
-    padding: 10px 20px;
+
+.popup-input {
+    width: calc(100% - 40px); /* تعديل عرض حقول الإدخال ليتناسب مع التباعدات */
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.quantity-input {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.quantity-label {
+    flex: 1;
+    text-align: left; /* محاذاة النص إلى اليسار */
+}
+
+.quantity-number {
+    margin: 0 10px;
+}
+
+.quantity-buttons {
+    display: flex;
+}
+
+.quantity-button {
+    padding: 8px 15px;
+    margin: 0 5px;
+    border: 1px solid #ffd500;
+    background-color: #ffae00;
+    cursor: pointer;
+}
+
+.popup-button {
+    width: 50%; /* تعديل عرض الأزرار ليكون أقل قليلاً */
+    margin-top: 10px; /* تباعد من الأعلى للأزرار */
+    padding: 12px 25px;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
+    display: inline-block; /* عرض الأزرار على سطر واحد مع التباعد المناسب */
 }
 
 .popup-button:hover {
@@ -709,15 +714,15 @@ margin-left: 8px;
     background-color: #e74c3c;
 }
 
-                    
-                    .popup-header {
-                        text-align: center;
-                        margin-bottom: 10px;
-                    }
-                    
-                    .popup-title {
-                        margin: 0;
-                        
+.popup-header {
+    text-align: center;
+    margin-bottom: 20px; /* تباعد أكبر من الأعلى للرأس */
+}
+
+.popup-title {
+    margin: 0;
+}
+
                     }
                     <!DOCTYPE html>
 <html lang="ar">
