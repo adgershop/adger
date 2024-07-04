@@ -617,6 +617,7 @@ margin-left: 8px;
                 <body>
                    
                     <style>
+                        
                     .popup {
                         display: none;
                         position: fixed;
@@ -635,17 +636,19 @@ margin-left: 8px;
                     
                     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); /* خط زخرفي من Google Fonts */
 
-.popup-content {
-    background: linear-gradient(135deg, #859191, #7cb5ec);padding: 20px;
+                    .popup-content {
+    background: linear-gradient(135deg, #5f8e8f, #0d84eb);
+    padding: 20px;
     border-radius: 5px;
     width: 100vw; /* العرض كنسبة مئوية من عرض الشاشة */
     height: 100vh; /* ارتفاع النافذة كامل الشاشة */
     box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* محاذاة المحتوى بشكل عمودي للأعلى */
+    justify-content: center; /* محاذاة المحتوى بشكل عمودي للوسط */
     align-items: center; /* محاذاة المحتوى بشكل أفقي في المنتصف */
     margin: auto;
+    text-align: center; /* توسيط النص عمودياً */
 }
 
 .popup-content h1 {
@@ -689,22 +692,23 @@ margin-left: 8px;
                     }
                     
                     .popup-button {
-                        padding: 10px 20px;
-                        margin: 10px;
-                        border: none;
-                        border-radius: 3px;
-                        background-color: #4CAF50;
-                        color: white;
-                        cursor: pointer;
-                    }
-                    
-                    .popup-button:hover {
-                        background-color: #45a049;
-                    }
-                    
-                    .popup-button.cancel {
-                        background-color: #e74c3c;
-                    }
+    display: block; /* عرض الزر على سطر مستقل */
+    width: 55%; /* العرض كامل ليمتد الزر على كامل عرض النافذة */
+    margin-bottom: 10px; /* هامش من الأسفل للتباعد بين الأزرار */
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.popup-button:hover {
+    background-color: #ffff01;
+}
+
+.popup-button.cancel {
+    background-color: #e74c3c;
+}
+
                     
                     .popup-header {
                         text-align: center;
