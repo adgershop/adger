@@ -633,12 +633,26 @@ margin-left: 8px;
                         display: flex;
                     }
                     
-                    .popup-content {
-                        background-color: white;
-                        padding: 20px;
-                        border-radius: 5px;
-                        width: 300px;
-                    }
+                    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); /* خط زخرفي من Google Fonts */
+
+.popup-content {
+    background: linear-gradient(135deg, #859191, #7cb5ec);padding: 20px;
+    border-radius: 5px;
+    width: 100vw; /* العرض كنسبة مئوية من عرض الشاشة */
+    height: 100vh; /* ارتفاع النافذة كامل الشاشة */
+    box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* محاذاة المحتوى بشكل عمودي للأعلى */
+    align-items: center; /* محاذاة المحتوى بشكل أفقي في المنتصف */
+    margin: auto;
+}
+
+.popup-content h1 {
+    font-family: 'Dancing Script', cursive; /* خط زخرفي */
+    font-size: 36px;
+    margin-bottom: 20px;
+}
                     
                     .popup-input {
                         width: calc(100% - 20px);
@@ -669,8 +683,8 @@ margin-left: 8px;
                     .quantity-button {
                         padding: 5px 10px;
                         margin: 0 5px;
-                        border: 1px solid #ccc;
-                        background-color: #f1f1f1;
+                        border: 1px solid #ffd500;
+                        background-color: #ffae00;
                         cursor: pointer;
                     }
                     
