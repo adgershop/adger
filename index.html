@@ -197,16 +197,27 @@ margin-left: 8px;
 
   .close-cart {
     cursor: pointer;
-    color: red;
+    color: rgb(0, 191, 255);
     font-size: 20px;
-  }
+   background-color: #ffffff;
+    border-radius: 19%; /* يجعل الخلفية دائرية */
+    padding: 10px; /* مسافة بين المحتوى وحدود العنصر */
+    display: inline-flex; /* لتوسيط الأيقونة داخل الخلفية */
+    align-items: center; /* لتوسيط الأيقونة عموديًا */
+    justify-content: center; /* لتوسيط الأيقونة أفقيًا */
+
+    transition: transform 0.3s, background-color 0.3s; /* تأثيرات انتقال سلسة للتحولات */
+}
+
+
+
 </style>
 </head>
 <body>
     <div class="search-container">
         <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
         <div class="cart-icon-container">
-            <div class="cart-icon" onclick="toggleCart()">
+            <div class="cart-icon" onclick="toggleCart()"onmousedown="return false;">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
                   </svg>
@@ -217,9 +228,36 @@ margin-left: 8px;
     </div>
 
     <div class="cart-page" id="cartPage">
-        <span class="close-cart" onclick="toggleCart()">&#10005; رجوع</span>
-        <h2>عربة التسوق</h2>
-        <div class="cart-items" id="cartItems"></div>
+        <span class="close-cart" onclick="toggleCart()">
+            <a href="#">
+                <svg xmlns="<svg class="w-6 h-6 text-blue-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="27" height="26" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                  </svg>
+                
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </a>
+        </span>
+        
+        <!DOCTYPE html>
+        <html lang="ar">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                .cart-heading {
+                    color: #e70083; /* يمكنك تغيير هذا اللون لأي لون ترغب فيه */
+                }
+            </style>
+        </head>
+        <body>
+        
+            <h2 class="cart-heading">🛒 محتوى عربة التسوق</h2>
+
+        </body>
+        </html>
+                <div class="cart-items" id="cartItems"></div>
     </div>
 
     <script>
@@ -312,6 +350,16 @@ margin-left: 8px;
         <br><br><br>
 </html>
    </div>
+
+
+
+
+
+
+
+
+
+   
    <!DOCTYPE html>
    <html lang="ar">
    <head>
@@ -404,8 +452,6 @@ margin-left: 8px;
         color: rgb(104, 72, 134);
     }
 </style>
-
-
 
 </p>
 
@@ -665,7 +711,7 @@ margin-left: 8px;
     width: calc(100% - 40px); /* تعديل عرض حقول الإدخال ليتناسب مع التباعدات */
     margin: 10px 0;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #0392ff;
     border-radius: 3px;
 }
 
@@ -1021,7 +1067,7 @@ margin-left: 8px;
                 
                 </body>
                 </html>
-           
+         
             <link rel="stylesheet" href="styles.css">
         </head>
         <body>
@@ -1044,7 +1090,7 @@ margin-left: 8px;
             .custom-paragraph .star.empty {
                 color: transparent; /* جعل النجوم الفارغة شفافة */
                 -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
-              
+               
             }
         </style>
         </head>
@@ -1060,7 +1106,11 @@ margin-left: 8px;
         </html>
         
             <!-- WhatsApp Message Button -->
-        
+        </div>
+        <div class="product-images">
+            <img src="3.jpg" alt="product" onclick="openLightbox('3.jpg')">
+        </div>
+        <div style="clear:both;"></div>
                 <style>
                     .buy-button {
                         display: inline-block;
@@ -1078,14 +1128,10 @@ margin-left: 8px;
                         background-color: #0ec508;
                     }
                 </style>
+                
             </head>
-            </body>
-            </html>
-        </div>
-        <div class="product-images">
-            <img src="3.jpg" alt="product" onclick="openLightbox('3.jpg')">
-        </div>
-        <div style="clear:both;">
+            <body>
+              
             <button onclick="addToCart(this)">    
                 <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
@@ -1094,8 +1140,12 @@ margin-left: 8px;
             </button>
 <br>
 <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="ماوس لاسلكى من xo" data-product-number="3" data-price="130" data-delivery-charge="50">اشترِ الآن</a>
+
+            </body>
+            </html>
+         
         </div>
-    </div>
+        
 
     <div class="product">
         <div class="product-info">
