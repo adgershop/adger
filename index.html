@@ -719,99 +719,40 @@ margin-left: 8px;
                         margin: 0;
                         
                     }
+                    
                     <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة المنتج</title>
-    <style>
-        .popup { display: none; }
-        .popup.active { display: block; }
-        .popup-input {
-            background-color: transparent;
-            box-shadow: none;
-            border: 1px solid #ccc; /* إضافة حدود للحقل للتميز */
-            padding: 8px; /* إضافة حشو للحقل لتحسين المظهر */
-            font-size: 16px; /* حجم الخط */
-            direction: rtl; /* اتجاه النص للغة عربية */
-        }
-    </style>
-</head>
-<body>
-    <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
-
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <div class="popup-inputs">
-                <input type="text" id="name" class="popup-input" placeholder="الاسم الثلاثي">
-                <input type="text" id="location" class="popup-input" placeholder="الموقع الجغرافي" onclick="getLocation()" readonly>
-                <div class="quantity-input">
-                    <span class="quantity-label">الكمية:</span>
-                    <span id="quantity-number" class="quantity-number">1</span>
-                    <div class="quantity-buttons">
-                        <button class="quantity-button" onclick="changeQuantity(1)">+</button>
-                        <button class="quantity-button" onclick="changeQuantity(-1)">-</button>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>صفحة المنتج</title>
+        <style>
+            .popup { display: none; }
+            .popup.active { display: block; }
+        </style>
+    </head>
+    <body>
+        <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
+    
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <div class="popup-inputs">
+                    <input type="text" id="name" class="popup-input" placeholder="الاسم الثلاثي">
+                    <input type="text" id="location" class="popup-input" placeholder="الموقع الجغرافي" onclick="getLocation()">
+                    <div class="quantity-input">
+                        <span class="quantity-label">الكمية:</span>
+                        <span id="quantity-number" class="quantity-number">1</span>
+                        <div class="quantity-buttons">
+                            <button class="quantity-button" onclick="changeQuantity(1)">+</button>
+                            <button class="quantity-button" onclick="changeQuantity(-1)">-</button>
+                        </div>
                     </div>
                 </div>
+                <button class="popup-button" onclick="openWhatsApp()">موافق</button>
+                <button class="popup-button cancel" onclick="closePopup()">إلغاء</button>
             </div>
-            <button class="popup-button" onclick="openWhatsApp()">موافق</button>
-            <button class="popup-button cancel" onclick="closePopup()">إلغاء</button>
         </div>
-    </div>
-
-    <script>
-        function getLocation() {
-            // قم بتعطيل لوحة المفاتيح عن طريق إغلاقها
-            document.activeElement.blur();
-            // استدعاء الوظيفة للحصول على الموقع الجغرافي هنا
-        }
-
-        function openPopup(button) {
-            // افتح النافذة المنبثقة
-            var popup = document.getElementById('popup');
-            popup.classList.add('active');
-        }
-
-        function closePopup() {
-            // أغلق النافذة المنبثقة
-            var popup = document.getElementById('popup');
-            popup.classList.remove('active');
-        }
-
-        function openWhatsApp() {
-            // قم بفتح WhatsApp هنا بناءً على البيانات التي تحتاجها
-            var name = document.getElementById('name').value;
-            var location = document.getElementById('location').value;
-            var quantity = document.getElementById('quantity-number').textContent;
-            var productName = document.querySelector('.buy-button').getAttribute('data-product-name');
-            var productNumber = document.querySelector('.buy-button').getAttribute('data-product-number');
-            var price = document.querySelector('.buy-button').getAttribute('data-price');
-            var deliveryCharge = document.querySelector('.buy-button').getAttribute('data-delivery-charge');
-            var totalPrice = parseInt(price) * parseInt(quantity) + parseInt(deliveryCharge);
-
-            // هنا يمكنك بناء الرابط أو أي عملية أخرى لفتح WhatsApp مع البيانات المحددة
-            // على سبيل المثال:
-            var whatsappURL = https://wa.me/?text=${productName}%0A${productNumber}%0A${quantity}%0A${name}%0A${location}%0A${price}%0A${deliveryCharge}%0A${totalPrice};
-
-            // فتح WhatsApp في نافذة جديدة
-            window.open(whatsappURL, '_blank');
-
-            // بمجرد فتح WhatsApp، قم بإغلاق النافذة المنبثقة
-            closePopup();
-        }
-
-        function changeQuantity(change) {
-            var quantityElement = document.getElementById('quantity-number');
-            var currentQuantity = parseInt(quantityElement.textContent);
-            var newQuantity = currentQuantity + change;
-            if (newQuantity >= 1) {
-                quantityElement.textContent = newQuantity;
-            }
-        }
-    </script>
-</body>
-</html>
+    
         <script>
             function openPopup(button) {
                 var popup = document.getElementById('popup');
