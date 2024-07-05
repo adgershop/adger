@@ -6762,6 +6762,10 @@ margin-left: 8px;
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('loader').style.display = 'flex';
+        });
+
         window.addEventListener('load', function () {
             // إخفاء مؤشر التحميل
             document.getElementById('loader').style.display = 'none';
