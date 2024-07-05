@@ -6721,7 +6721,7 @@ margin-left: 8px;
 <style>
     /* CSS لتنسيق الـ overlay */
     #overlay {
-        display: block;
+        display: none; /* يبدأ مخفيًا في البداية */
         position: fixed;
         top: 0;
         left: 0;
@@ -6752,6 +6752,8 @@ margin-left: 8px;
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var overlay = document.getElementById('overlay');
+            overlay.style.display = 'block'; // يعرض الـ overlay عند بدء تحميل الصفحة
+
             window.addEventListener('load', function() {
                 overlay.style.display = 'none'; // يخفي الـ overlay بعد تحميل الصفحة
             });
