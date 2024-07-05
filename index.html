@@ -5563,7 +5563,44 @@ margin-left: 8px;
 
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body, html {
+    
+        padding: 0;
+        height: 100%;
+       
+    }
 
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white; /* لون الخلفية الأولى */
+        animation: changeColor 5s forwards; /* تطبيق الأنيميشن لمدة 5 ثواني */
+    }
+
+    @keyframes changeColor {
+        0% {
+            background-color: white; /* اللون الأبيض */
+        }
+        100% {
+            background-color: rgba(255, 0, 0, 0); /* اللون الأحمر بعد 5 ثواني */
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="background"></div>
+    <!-- هنا يمكنك وضع محتوى صفحتك -->
+</body>
+</html>
 
 
 
@@ -6680,7 +6717,7 @@ margin-left: 8px;
                     text-align: right;
                     margin-right: 20px; /* تغيير القيمة كما يناسبك */
                     font-size: 18px; /* تحديد حجم النص */
-                    color: #333636; /* تحديد لون النص */
+                    color: #00e3f7; /* تحديد لون النص */
                 }
             </style>
         </head>
@@ -6713,41 +6750,3 @@ margin-left: 8px;
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden; /* لمنع التمرير */
-    }
-
-    .background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: white; /* لون الخلفية الأولى */
-        animation: changeColor 5s forwards; /* تطبيق الأنيميشن لتغيير اللون بعد 5 ثواني */
-    }
-
-    @keyframes changeColor {
-        0% {
-            background-color: white; /* اللون الأبيض */
-        }
-        100% {
-            background-color: red; /* اللون الأحمر بعد 5 ثواني */
-        }
-    }
-</style>
-</head>
-<body>
-    <div class="background"></div>
-    <!-- هنا يمكنك وضع محتوى صفحتك -->
-</body>
-</html>
