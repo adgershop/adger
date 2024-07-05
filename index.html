@@ -204,6 +204,11 @@ margin-left: 8px;
     transition: transform 0.3s, background-color 0.3s; /* تأثيرات انتقال سلسة للتحولات */
 }
 
+.white-line {
+    width: 100%;
+    height: 64px;
+    background-color: white;
+}
 
 
 </style>
@@ -244,14 +249,15 @@ margin-left: 8px;
             </style>
         </head>
         <body>
+            
             <div class="cart-icon-container">
                 <div class="cart-icon" onclick="toggleCart()" onmousedown="return false;" onselectstart="return false;">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
                     </svg>
                     <div class="cart-count" id="cartCount">0</div>
-                </div>
-            </div>
+                    </div>
+            
             <script>
                 function toggleCart() {
                     // منطق فتح/غلق سلة التسوق
@@ -283,6 +289,7 @@ margin-left: 8px;
                 .cart-heading {
                     color: #e70083; /* يمكنك تغيير هذا اللون لأي لون ترغب فيه */
                 }
+                
             </style>
         </head>
         <body>
@@ -489,6 +496,7 @@ margin-left: 8px;
 
 </p>
 
+<div class="white-line"></div>
 <div id="productContainer">
     <div id="productContainer">
         <div class="product">
