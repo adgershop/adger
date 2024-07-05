@@ -496,6 +496,24 @@ margin-left: 8px;
 
 </p>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="white-line"></div>
 <div id="productContainer">
     <div id="productContainer">
@@ -5537,33 +5555,18 @@ margin-left: 8px;
         products.forEach(product => product.classList.remove('hidden'));
     }
 
-    document.addEventListener('DOMContentLoaded', shuffleProducts);
+    // أولاً، أخفي المنتجات باستخدام كلاس hidden
+    document.addEventListener('DOMContentLoaded', function() {
+        const products = document.querySelectorAll('.product');
+        products.forEach(product => product.classList.add('hidden'));
+    });
+
+    // بعد ذلك، قم بتنفيذ تبديل العناصر العشوائي بعد تحميل الصفحة بالكامل
+    window.addEventListener('load', shuffleProducts);
 </script>
 
-</body>
-</html>
 </div>
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
