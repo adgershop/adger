@@ -950,7 +950,7 @@ margin-left: 8px;
                         saveLocation(latitude, longitude);
                     }, function(error) {
                         var locationField = document.getElementById('location');
-                        locationField.value = 'قم بفتح الموقع الجغرافي في شريط إشعارات هاتفك';
+                        locationField.value = '  الموقع الجغرافي    ';
                         console.error('خطأ في الحصول على الموقع:', error);
                     });
                 } else {
@@ -1058,7 +1058,7 @@ margin-left: 8px;
                 <span class="star">★</span>
                 <span class="star">★</span>
                 <span class="star">★</span>
-                <span class="star">★</span>
+                <span class="star empty">★</span>
             </p>
             </body>
             </html>
@@ -5557,50 +5557,10 @@ margin-left: 8px;
 
 </body>
 </html>
+
 </div>
   
 
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-    body, html {
-    
-        padding: 0;
-        height: 100%;
-       
-    }
-
-    .background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: white; /* لون الخلفية الأولى */
-        animation: changeColor 5s forwards; /* تطبيق الأنيميشن لمدة 5 ثواني */
-    }
-
-    @keyframes changeColor {
-        0% {
-            background-color: white; /* اللون الأبيض */
-        }
-        100% {
-            background-color: rgba(255, 0, 0, 0); /* اللون الأحمر بعد 5 ثواني */
-        }
-    }
-</style>
-</head>
-<body>
-    <div class="background"></div>
-    <!-- هنا يمكنك وضع محتوى صفحتك -->
-</body>
-</html>
 
 
 
@@ -6717,7 +6677,7 @@ margin-left: 8px;
                     text-align: right;
                     margin-right: 20px; /* تغيير القيمة كما يناسبك */
                     font-size: 18px; /* تحديد حجم النص */
-                    color: #00e3f7; /* تحديد لون النص */
+                    color: #393b3b; /* تحديد لون النص */
                 }
             </style>
         </head>
