@@ -824,7 +824,59 @@ margin-left: 8px;
     </style>
 </head>
 <body>
-    <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50" style="text-decoration: none;">اشترِ الآن</a>
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    /* أنماط CSS لجميع الأجهزة */
+    .buy-button {
+        text-decoration: none; /* إزالة التسطير الافتراضي للرابط */
+        padding: 10px 20px; /* تباعد النص داخل الزر */
+        background-color: #007bff; /* لون خلفية الزر */
+        color: #fff; /* لون النص */
+        border: none; /* إزالة حدود الزر */
+        border-radius: 5px; /* تقريب حواف الزر */
+        display: inline-block; /* عرض الزر كمربع مستطيل */
+        cursor: pointer; /* تغيير المؤشر إلى يد عند التحويم */
+        text-align: center; /* محاذاة النص في وسط الزر */
+        transition: background-color 0.3s, color 0.3s; /* تأثير التحويل عند التحويم */
+    }
+    
+    .buy-button:hover {
+        background-color: #0056b3; /* لون خلفية الزر عند التحويم */
+    }
+    
+    .buy-button:active {
+        color: #fff; /* لون النص عند الضغط */
+        background-color: #0056b3; /* لون خلفية الزر عند الضغط */
+    }
+    
+    /* أنماط CSS للأجهزة ذات عرض شاشة أقل من 768 بكسل (الهواتف الذكية) */
+    @media screen and (max-width: 768px) {
+        .buy-button {
+            text-decoration: none; /* إزالة التسطير الافتراضي للرابط */
+            padding: 8px 16px; /* تباعد النص داخل الزر على الهواتف */
+            font-size: 14px; /* حجم الخط على الهواتف */
+        }
+    }
+    </style>
+    </head>
+    <body>
+    
+    <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
+    
+    <!-- إذا كان هناك سكريبت لفتح النافذة المنبثقة -->
+    <script>
+    function openPopup(element) {
+        // تنفيذ الكود الخاص بفتح النافذة المنبثقة هنا
+        console.log('Opening popup for product: ' + element.dataset.productName);
+    }
+    </script>
+    
+    </body>
+    </html>
     <div id="popup" class="popup">
         <div class="popup-content">
             <div class="popup-inputs">
