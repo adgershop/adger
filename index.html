@@ -6723,6 +6723,7 @@ margin-left: 8px;
             margin: 0;
             padding: 0;
             overflow: hidden; /* لمنع التمرير أثناء تحميل الصفحة */
+            background-color: white; /* الخلفية البيضاء */
         }
         #loader {
             display: flex;
@@ -6733,7 +6734,7 @@ margin-left: 8px;
             position: fixed;
             top: 0;
             left: 0;
-            background-color: white;
+            background-color: white; /* للتأكد من استمرار الخلفية البيضاء */
             z-index: 9999;
         }
         .loader-icon {
@@ -6748,6 +6749,15 @@ margin-left: 8px;
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        #content {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s linear;
+        }
+        #content.loaded {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -6755,24 +6765,28 @@ margin-left: 8px;
         <div class="loader-icon"></div>
     </div>
 
-    <div id="content" style="visibility: hidden;">
+    <div id="content">
         <!-- محتوى الصفحة الرئيسية هنا -->
         <h1>مرحبًا بكم في متجرنا الإلكتروني!</h1>
         <!-- يمكنك إضافة المزيد من المحتوى هنا -->
     </div>
 
     <script>
+        // إخفاء المحتوى وعرض مؤشر التحميل عند فتح الصفحة
         document.addEventListener('DOMContentLoaded', function () {
+            // إظهار مؤشر التحميل
             document.getElementById('loader').style.display = 'flex';
-        });
 
-        window.addEventListener('load', function () {
-            // إخفاء مؤشر التحميل
-            document.getElementById('loader').style.display = 'none';
-            // إظهار المحتوى
-            document.getElementById('content').style.visibility = 'visible';
-            // إعادة التمرير
-            document.body.style.overflow = 'auto';
+            // تأخير لعرض المحتوى بعد اكتمال التحميل
+            setTimeout(function () {
+                // إخفاء مؤشر التحميل
+                document.getElementById('loader').style.display = 'none';
+
+                // إظهار المحتوى
+                document.getElementById('content').classList.add('loaded');
+                // إعادة التمرير
+                document.body.style.overflow = 'auto';
+            }, 1000); // تأخير لثانية واحدة كمثال على الوقت الذي تحتاجه الرموز
         });
     </script>
 </body>
