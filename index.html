@@ -824,56 +824,8 @@ margin-left: 8px;
     </style>
 </head>
 <body>
-    <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-    /* أنماط CSS للرابط الذي يمكن شراؤه */
-    .buy-button {
-        text-decoration: none; /* لا يحدد تزيين النص */
-        color: black; /* لون النص الأسود */
-        padding: 10px 20px; /* تباعد النص داخل الزر */
-        background-color: #007bff; /* لون خلفية الزر */
-        border: none; /* لا حدود للزر */
-        border-radius: 5px; /* تقريب حواف الزر */
-        display: inline-block; /* عرض الزر كمربع مستطيل */
-        cursor: pointer; /* تغيير المؤشر إلى يد عند التحويم */
-        text-align: center; /* محاذاة النص في وسط الزر */
-        transition: background-color 0.3s, color 0.3s; /* تأثير التحويل عند التحويم */
-    }
-    
-    /* أنماط CSS عند التحرك فوق الرابط */
-    .buy-button:hover {
-        background-color: #0056b3; /* لون خلفية الزر عند التحويم */
-        color: #fff; /* لون النص عند التحويم */
-    }
-    
-    /* أنماط CSS عند الضغط على الرابط */
-    .buy-button:active {
-        background-color: #007bff; /* يعيد لون خلفية الزر الأصلي عند الضغط */
-        color: #fff; /* لون النص عند الضغط */
-        text-decoration: none; /* لا يحدد تزيين النص عند الضغط */
-        transition: none; /* يزيل أي تأثيرات تحويل إضافية */
-    }
-    </style>
-    </head>
-    <body>
-    
-    <a href="#" class="buy-button" onclick="openPopup(event)">اشترِ الآن</a>
-    
-    <!-- إذا كان هناك سكريبت لفتح النافذة المنبثقة -->
-    <script>
-    function openPopup(event) {
-        event.preventDefault(); // لمنع النقر على الرابط وفتح النافذة المنبثقة بدلاً من ذلك
-        // يمكنك هنا إضافة الكود الخاص بفتح النافذة المنبثقة
-        console.log('Opening popup for product');
-    }
-    </script>
-    
-    </body>
-    </html>
+    <a href="#" class="buy-button" onclick="openPopup(this)" onmousedown="return false;" onselectstart="return false;" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
+
     <div id="popup" class="popup">
         <div class="popup-content">
             <div class="popup-inputs">
