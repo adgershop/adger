@@ -5521,7 +5521,24 @@ margin-left: 8px;
         </button>
 <br>
 <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="مجلة ميكى" data-product-number="50" data-price="24" data-delivery-charge="50">اشترِ الآن</a>
-    </div>
+<script>
+    function shuffleProducts() {
+        const products = document.querySelectorAll('.product');
+        const productArray = Array.from(products);
+        for (let i = productArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [productArray[i], productArray[j]] = [productArray[j], productArray[i]];
+        }
+        const parent = products[0].parentNode;
+        productArray.forEach(product => parent.appendChild(product));
+    }
+
+    document.addEventListener('DOMContentLoaded', shuffleProducts);
+</script>
+
+</body>
+</html>
+</div>
   
 
 
