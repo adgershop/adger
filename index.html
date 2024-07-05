@@ -6722,6 +6722,7 @@ margin-left: 8px;
         body {
             margin: 0;
             padding: 0;
+            overflow: hidden; /* لمنع التمرير أثناء تحميل الصفحة */
         }
         #loader {
             display: flex;
@@ -6754,7 +6755,7 @@ margin-left: 8px;
         <div class="loader-icon"></div>
     </div>
 
-    <div id="content">
+    <div id="content" style="visibility: hidden;">
         <!-- محتوى الصفحة الرئيسية هنا -->
         <h1>مرحبًا بكم في متجرنا الإلكتروني!</h1>
         <!-- يمكنك إضافة المزيد من المحتوى هنا -->
@@ -6762,7 +6763,12 @@ margin-left: 8px;
 
     <script>
         window.addEventListener('load', function () {
+            // إخفاء مؤشر التحميل
             document.getElementById('loader').style.display = 'none';
+            // إظهار المحتوى
+            document.getElementById('content').style.visibility = 'visible';
+            // إعادة التمرير
+            document.body.style.overflow = 'auto';
         });
     </script>
 </body>
