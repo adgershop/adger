@@ -5521,6 +5521,7 @@ margin-left: 8px;
         </button>
 <br>
 <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="مجلة ميكى" data-product-number="50" data-price="24" data-delivery-charge="50">اشترِ الآن</a>
+<!-- سكريبت تبديل المنتجات -->
 <script>
     function shuffleProducts() {
         const products = document.querySelectorAll('.product');
@@ -5531,6 +5532,9 @@ margin-left: 8px;
         }
         const parent = products[0].parentNode;
         productArray.forEach(product => parent.appendChild(product));
+        
+        // بعد الانتهاء من التبديل، إزالة كلاس hidden لإظهار المنتجات
+        products.forEach(product => product.classList.remove('hidden'));
     }
 
     document.addEventListener('DOMContentLoaded', shuffleProducts);
