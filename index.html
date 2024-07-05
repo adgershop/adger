@@ -861,13 +861,14 @@ margin-left: 8px;
     </head>
     <body>
     
-    <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
+    <a href="#" class="buy-button" onclick="openPopup(event)">اشترِ الآن</a>
     
     <!-- إذا كان هناك سكريبت لفتح النافذة المنبثقة -->
     <script>
-    function openPopup(element) {
-        // تنفيذ الكود الخاص بفتح النافذة المنبثقة هنا
-        console.log('Opening popup for product: ' + element.dataset.productName);
+    function openPopup(event) {
+        event.preventDefault(); // لمنع النقر على الرابط وفتح النافذة المنبثقة بدلاً من ذلك
+        // يمكنك هنا إضافة الكود الخاص بفتح النافذة المنبثقة
+        console.log('Opening popup for product');
     }
     </script>
     
