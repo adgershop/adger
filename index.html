@@ -6713,80 +6713,48 @@ margin-left: 8px;
 
 
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر إلكتروني</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* لمنع التمرير أثناء تحميل الصفحة */
-            background-color: white; /* الخلفية البيضاء */
-        }
-        #loader {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: white; /* للتأكد من استمرار الخلفية البيضاء */
-            z-index: 9999;
-        }
-        .loader-icon {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        #content {
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s, opacity 0.5s linear;
-        }
-        #content.loaded {
-            visibility: visible;
-            opacity: 1;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overlay Loading Example</title>
+<style>
+    /* CSS لتنسيق الـ overlay */
+    #overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* لون الـ overlay */
+        z-index: 9999; /* يضع الـ overlay فوق كل العناصر الأخرى */
+    }
+
+    #overlay-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white; /* لون النص داخل الـ overlay */
+    }
+</style>
 </head>
 <body>
-    <div id="loader">
-        <div class="loader-icon"></div>
+    <!-- HTML لعرض الـ overlay -->
+    <div id="overlay">
+        <div id="overlay-content">
+            <p>Loading...</p>
+        </div>
     </div>
 
-    <div id="content">
-        <!-- محتوى الصفحة الرئيسية هنا -->
-        <h1>مرحبًا بكم في متجرنا الإلكتروني!</h1>
-        <!-- يمكنك إضافة المزيد من المحتوى هنا -->
-    </div>
-
+    <!-- الـ JavaScript لإزالة الـ overlay بعد تحميل الصفحة -->
     <script>
-        // إخفاء المحتوى وعرض مؤشر التحميل عند فتح الصفحة
-        document.addEventListener('DOMContentLoaded', function () {
-            // إظهار مؤشر التحميل
-            document.getElementById('loader').style.display = 'flex';
-
-            // تأخير لعرض المحتوى بعد اكتمال التحميل
-            setTimeout(function () {
-                // إخفاء مؤشر التحميل
-                document.getElementById('loader').style.display = 'none';
-
-                // إظهار المحتوى
-                document.getElementById('content').classList.add('loaded');
-                // إعادة التمرير
-                document.body.style.overflow = 'auto';
-            }, 1000); // تأخير لثانية واحدة كمثال على الوقت الذي تحتاجه الرموز
+        document.addEventListener("DOMContentLoaded", function() {
+            var overlay = document.getElementById('overlay');
+            window.addEventListener('load', function() {
+                overlay.style.display = 'none'; // يخفي الـ overlay بعد تحميل الصفحة
+            });
         });
     </script>
 </body>
