@@ -824,14 +824,7 @@ margin-left: 8px;
     </style>
 </head>
 <body>
-    <style>
-        .buy-button {
-            outline: none;
-            /* يمنع ظهور التأثير الأزرق عند النقر */
-        }
-    </style>
-    
-    <a href="#" class="buy-button" onclick="openPopup(this)" onmousedown="return false;" onselectstart="return false;" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
+    <a href="#" class="buy-button" onclick="openPopup(this); return false;" onmousedown="event.preventDefault();" ontouchstart="event.preventDefault();" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
     <div id="popup" class="popup">
         <div class="popup-content">
             <div class="popup-inputs">
