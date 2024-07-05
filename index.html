@@ -6712,6 +6712,7 @@ margin-left: 8px;
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6721,22 +6722,20 @@ margin-left: 8px;
 <style>
     /* CSS لتنسيق الـ overlay */
     #overlay {
-        display: none; /* يبدأ مخفيًا في البداية */
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* لون الـ overlay */
+        background-color: rgba(255, 255, 255, 1); /* خلفية بيضاء كاملة */
         z-index: 9999; /* يضع الـ overlay فوق كل العناصر الأخرى */
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     #overlay-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white; /* لون النص داخل الـ overlay */
+        color: black; /* لون النص داخل الـ overlay */
     }
 </style>
 </head>
@@ -6752,11 +6751,9 @@ margin-left: 8px;
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var overlay = document.getElementById('overlay');
-            overlay.style.display = 'block'; // يعرض الـ overlay عند بدء تحميل الصفحة
-
-            window.addEventListener('load', function() {
-                overlay.style.display = 'none'; // يخفي الـ overlay بعد تحميل الصفحة
-            });
+            setTimeout(function() {
+                overlay.style.display = 'none'; // يخفي الـ overlay بعد فترة زمنية قصيرة
+            }, 2000); // تغيير الرقم 2000 إلى الرقم الذي ترغبه في تعديل مدة الظهور
         });
     </script>
 </body>
