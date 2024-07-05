@@ -206,8 +206,8 @@ margin-left: 8px;
 
 .white-line {
     width: 100%;
-    height: 63px;
-    background-color: white;
+    height: 64px;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 
@@ -509,12 +509,9 @@ margin-left: 8px;
 
 
 
-
-
-
-
-
 <div class="white-line"></div>
+
+    
 <div id="productContainer">
     <div id="productContainer">
         <div class="product">
@@ -5555,18 +5552,18 @@ margin-left: 8px;
         products.forEach(product => product.classList.remove('hidden'));
     }
 
-    // أولاً، أخفي المنتجات باستخدام كلاس hidden
-    document.addEventListener('DOMContentLoaded', function() {
-        const products = document.querySelectorAll('.product');
-        products.forEach(product => product.classList.add('hidden'));
-    });
-
-    // بعد ذلك، قم بتنفيذ تبديل العناصر العشوائي بعد تحميل الصفحة بالكامل
-    window.addEventListener('load', shuffleProducts);
+    document.addEventListener('DOMContentLoaded', shuffleProducts);
 </script>
 
+</body>
+</html>
 </div>
   
+
+
+
+
+
 
 
 
@@ -6683,7 +6680,7 @@ margin-left: 8px;
                     text-align: right;
                     margin-right: 20px; /* تغيير القيمة كما يناسبك */
                     font-size: 18px; /* تحديد حجم النص */
-                    color: #f79c00; /* تحديد لون النص */
+                    color: #333636; /* تحديد لون النص */
                 }
             </style>
         </head>
@@ -6716,3 +6713,41 @@ margin-left: 8px;
 
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden; /* لمنع التمرير */
+    }
+
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white; /* لون الخلفية الأولى */
+        animation: changeColor 5s forwards; /* تطبيق الأنيميشن لتغيير اللون بعد 5 ثواني */
+    }
+
+    @keyframes changeColor {
+        0% {
+            background-color: white; /* اللون الأبيض */
+        }
+        100% {
+            background-color: red; /* اللون الأحمر بعد 5 ثواني */
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="background"></div>
+    <!-- هنا يمكنك وضع محتوى صفحتك -->
+</body>
+</html>
