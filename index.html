@@ -6704,3 +6704,66 @@ margin-left: 8px;
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر إلكتروني</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: white;
+            z-index: 9999;
+        }
+        .loader-icon {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader">
+        <div class="loader-icon"></div>
+    </div>
+
+    <div id="content">
+        <!-- محتوى الصفحة الرئيسية هنا -->
+        <h1>مرحبًا بكم في متجرنا الإلكتروني!</h1>
+        <!-- يمكنك إضافة المزيد من المحتوى هنا -->
+    </div>
+
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('loader').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
