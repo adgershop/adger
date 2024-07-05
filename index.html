@@ -830,13 +830,13 @@ margin-left: 8px;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-    /* أنماط CSS لجميع الأجهزة */
+    /* أنماط CSS للرابط الذي يمكن شراؤه */
     .buy-button {
-        text-decoration: none; /* إزالة التسطير الافتراضي للرابط */
+        text-decoration: none; /* لا يحدد تزيين النص */
+        color: black; /* لون النص الأسود */
         padding: 10px 20px; /* تباعد النص داخل الزر */
         background-color: #007bff; /* لون خلفية الزر */
-        color: #fff; /* لون النص */
-        border: none; /* إزالة حدود الزر */
+        border: none; /* لا حدود للزر */
         border-radius: 5px; /* تقريب حواف الزر */
         display: inline-block; /* عرض الزر كمربع مستطيل */
         cursor: pointer; /* تغيير المؤشر إلى يد عند التحويم */
@@ -844,22 +844,16 @@ margin-left: 8px;
         transition: background-color 0.3s, color 0.3s; /* تأثير التحويل عند التحويم */
     }
     
+    /* أنماط CSS عند التحرك فوق الرابط */
     .buy-button:hover {
         background-color: #0056b3; /* لون خلفية الزر عند التحويم */
+        color: #fff; /* لون النص عند التحويم */
     }
     
+    /* أنماط CSS عند الضغط على الرابط */
     .buy-button:active {
-        color: #fff; /* لون النص عند الضغط */
         background-color: #0056b3; /* لون خلفية الزر عند الضغط */
-    }
-    
-    /* أنماط CSS للأجهزة ذات عرض شاشة أقل من 768 بكسل (الهواتف الذكية) */
-    @media screen and (max-width: 768px) {
-        .buy-button {
-            text-decoration: none; /* إزالة التسطير الافتراضي للرابط */
-            padding: 8px 16px; /* تباعد النص داخل الزر على الهواتف */
-            font-size: 14px; /* حجم الخط على الهواتف */
-        }
+        color: #fff; /* لون النص عند الضغط */
     }
     </style>
     </head>
