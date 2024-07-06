@@ -860,137 +860,101 @@ margin-left: 8px;
     </div>
 
     <!DOCTYPE html>
-    <html>
+    <html lang="ar">
     <head>
-        <title>WhatsApp Order</title>
-        <meta charset="utf-8" />
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            .popup {
-                display: none;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                border: 1px solid #ccc;
-                background-color: #fff;
-                padding: 20px;
-                z-index: 1000;
-            }
-            .popup.active {
-                display: block;
-            }
-        </style>
+        <title>متجر الكتروني</title>
     </head>
     <body>
+        <script>
+            function openPopup(button) {
+                var popup = document.getElementById('popup');
+                popup.classList.add('active');
     
-    <h2>WhatsApp Order Form</h2>
+                var savedName = localStorage.getItem('savedName');
+                if (savedName) {
+                    document.getElementById('name').value = savedName;
+                }
     
-    <button onclick="openPopup()">Open Order Form</button>
+                var savedLocation = localStorage.getItem('savedLocation');
+                if (savedLocation) {
+                    document.getElementById('location').value = savedLocation;
+                }
     
-    <div id="popup" class="popup">
-        <label for="name">Full Name:</label>
-        <input type="text" id="name"><br><br>
-        
-        <label for="location">Location:</label>
-        <input type="text" id="location"><br><br>
-        
-        <label for="quantity-number">Quantity:</label>
-        <span id="quantity-number">1</span><br><br>
-        
-        <button onclick="changeQuantity(1)">Increase Quantity</button>
-        <button onclick="changeQuantity(-1)">Decrease Quantity</button><br><br>
-        
-        <button onclick="openWhatsApp()">Order via WhatsApp</button>
-        <button onclick="closePopup()">Close</button>
-    </div>
-    
-    <script>
-        function openPopup() {
-            var popup = document.getElementById('popup');
-            popup.classList.add('active');
-            
-            // Retrieve saved data from localStorage
-            var savedName = localStorage.getItem('savedName');
-            if (savedName) {
-                document.getElementById('name').value = savedName;
+                popup.dataset.productName = button.getAttribute('data-product-name');
+                popup.dataset.productNumber = button.getAttribute('data-product-number');
+                popup.dataset.price = button.getAttribute('data-price');
+                popup.dataset.deliveryCharge = button.getAttribute('data-delivery-charge');
             }
-            
-            var savedLocation = localStorage.getItem('savedLocation');
-            if (savedLocation) {
-                document.getElementById('location').value = savedLocation;
+    
+            function closePopup() {
+                var popup = document.getElementById('popup');
+                popup.classList.remove('active');
             }
-        }
     
-        function closePopup() {
-            var popup = document.getElementById('popup');
-            popup.classList.remove('active');
-        }
-    
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
-                    var locationField = document.getElementById('location');
-                    locationField.value = latitude + ', ' + longitude; // Display coordinates
-                    saveLocation(latitude, longitude);
-                }, function(error) {
-                    var locationField = document.getElementById('location');
-                    locationField.value = 'Geolocation Error';
-                    console.error('Error getting location:', error);
-                });
-            } else {
-                alert('Geolocation is not supported by this browser.');
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var latitude = position.coords.latitude.toFixed(6); // تحديد عرض الأرقام العشرية
+                        var longitude = position.coords.longitude.toFixed(6); // تحديد عرض الأرقام العشرية
+                        var locationField = document.getElementById('location');
+                        locationField.value = latitude + ', ' + longitude;
+                        saveLocation(latitude, longitude);
+                    }, function(error) {
+                        var locationField = document.getElementById('location');
+                        locationField.value = 'تعذر الحصول على الموقع الجغرافي';
+                        console.error('Error getting geolocation:', error);
+                    });
+                } else {
+                    alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
+                }
             }
-        }
     
-        function saveLocation(latitude, longitude) {
-            // Save location in localStorage
-            var savedLocation = latitude + ',' + longitude;
-            localStorage.setItem('savedLocation', savedLocation);
-        }
-    
-        function openWhatsApp() {
-            var name = document.getElementById('name').value;
-            var location = document.getElementById('location').value;
-            var quantity = document.getElementById('quantity-number').textContent;
-            var productName = "Product Name"; // Replace with actual product name
-            var productNumber = "Product Number"; // Replace with actual product number
-            var price = "100"; // Replace with actual product price
-            var deliveryCharge = "10"; // Replace with actual delivery charge
-            var totalPrice = parseInt(price) * parseInt(quantity) + parseInt(deliveryCharge);
-    
-            var message = encodeURIComponent(
-                '#Order' + '\n' +
-                productName + '\n' +
-                'Product Number: ' + productNumber + ', Quantity: ' + quantity + '\n' +
-                'Full Name: ' + name + '\n' +
-                'Location: ' + location + '\n' +
-                'Price: ' + price + ', Delivery Charge: ' + deliveryCharge + '\n' +
-                'Total Price: ' + totalPrice
-            );
-    
-            var whatsappLink = 'https://wa.me/whatsappphonenumber?text=' + message; // Replace with WhatsApp phone number
-            window.open(whatsappLink, '_blank');
-    
-            // Automatically save name and location in localStorage
-            localStorage.setItem('savedName', name);
-            localStorage.setItem('savedLocation', location);
-    
-            // Close the popup after opening WhatsApp
-            closePopup();
-        }
-    
-        function changeQuantity(change) {
-            var quantityElement = document.getElementById('quantity-number');
-            var currentQuantity = parseInt(quantityElement.textContent);
-            var newQuantity = currentQuantity + change;
-            if (newQuantity >= 1) {
-                quantityElement.textContent = newQuantity;
+            function saveLocation(latitude, longitude) {
+                var savedLocation = latitude + ',' + longitude;
+                localStorage.setItem('savedLocation', savedLocation);
             }
-        }
-    </script>
+    
+            function openWhatsApp() {
+                var name = document.getElementById('name').value;
+                var location = document.getElementById('location').value;
+                var quantity = document.getElementById('quantity-number').innerText;
+                var popup = document.getElementById('popup');
+                var productName = popup.dataset.productName || "اسم المنتج غير محدد";
+                var productNumber = popup.dataset.productNumber || "رقم المنتج غير محدد";
+                var price = parseFloat(popup.dataset.price) || 0;
+                var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
+                var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
+    
+                var message = encodeURIComponent(
+                    '#طلب شراء' + '\n' +
+                    productName + '\n' +
+                    'رقم المنتج: ' + productNumber + ' , الكمية: ' + quantity + '\n' +
+                    'الاسم الثلاثي: ' + name + '\n' +
+                    'الموقع الجغرافي: ' + location + '\n' +
+                    'السعر: ' + price + ' سعر التوصيل: ' + deliveryCharge + '\n' +
+                    'السعر الإجمالي: ' + totalPrice
+                );
+    
+                var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
+                window.open(whatsappLink, '_blank');
+    
+                localStorage.setItem('savedName', name);
+                localStorage.setItem('savedLocation', location);
+            }
+    
+            function changeQuantity(change) {
+                var quantityField = document.getElementById('quantity-number');
+                var currentQuantity = parseInt(quantityField.innerText);
+                var newQuantity = currentQuantity + change;
+                if (newQuantity > 0) {
+                    quantityField.innerText = newQuantity;
+                }
+            }
+        </script>
+    
+        <!-- إضافة الأزرار والحقول اللازمة -->
     
     </body>
     </html>
