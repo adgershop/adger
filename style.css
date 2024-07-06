@@ -3,7 +3,6 @@
 }
 
 
-
 h3 {
     font-size: 14px; /* التحكم في حجم h3 */
 }
@@ -34,9 +33,6 @@ h3 {
 
 
 
-
-
-
 .search-container {
     display: flex;
     align-items: center;
@@ -58,12 +54,9 @@ h3 {
   
 
 
-
-
-
-
-
-
+  button:focus {
+    outline: none;
+}
 
 
 
