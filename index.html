@@ -495,6 +495,186 @@ margin-left: 8px;
 </style>
 
 </p>
+<br>
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عنوان الصفحة</title>
+<style>
+    .white-bar {
+        height: 10px; /* ارتفاع الشريط */
+        background-color: white; /* لون الشريط الأبيض */
+        text-align: center; /* توسيط النص في الشريط */
+        margin-bottom: 20px; /* هامش أسفل الشريط */
+    }
+    .content {
+    margin: 0 auto; /* توسيط العنصر الرئيسي */
+    padding: 20px; /* هامش داخلي للعنصر الرئيسي */
+    background: linear-gradient(135deg, #0059ff, #00e1ff);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* ظل للعنصر الرئيسي */
+    width: 94%; /* العرض الأساسي */
+    max-width: 100vw; /* الحد الأقصى للعرض بنسبة من عرض الشاشة */
+}
+
+    
+    .button {
+        display: inline-block; /* عرض الزر كبلوك متعدد الأسطر */
+        padding: 10px 20px; /* هامش داخلي للزر */
+        background-color: #007bff; /* لون خلفية الزر */
+        color: white; /* لون النص */
+        text-decoration: none; /* إزالة تزيين النص */
+        border-radius: 5px; /* زوايا مستديرة للزر */
+        margin-right: 10px; /* هامش يمين الزر */
+    }
+    
+    .button:hover {
+        background-color: #0056b3; /* لون خلفية الزر عند التحويم عليه */
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.8);
+    }
+    
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 800px;
+        position: relative;
+        border-radius: 10px;
+    }
+    
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .slideshow-container {
+        position: relative;
+        max-width: 100%;
+        height: auto;
+        margin-left: 4px;
+    }
+    
+    .slides {
+        display: none;
+    }
+    
+    .active {
+        display: block;
+    }
+</style>
+</head>
+<body>
+    <div class="white-bar">
+    
+    </div>
+    
+    <div class="content">
+        <!-- عرض الصور -->
+        <div class="slideshow-container">
+            <img class="slides active" src="i1.jpg" style="width:100%; height: 166px;">
+            <img class="slides" src="i2.jpg" style="width:100%; height: 166px;">
+            <img class="slides" src="i3.jpg" style="width:100%; height: 166px;">
+        </div>
+        <br>
+        <!-- زر لعرض الإرشادات -->
+        <a href="#" class="button" onclick="openModal()">عرض الإرشادات</a>
+
+        <!-- زر للإبلاغ عن مشكلة -->
+        <a href="#" class="button" onclick="openProblemModal()">هل واجهتك مشكلة؟</a>
+
+        <!-- نافذة المنبثقة للإرشادات -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>الإرشادات</h2>
+                <!-- هنا يمكنك إضافة فيديوهات وصور -->
+                <div class="videos">
+                    <h3>الفيديوهات</h3>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+                    <!-- يمكنك إضافة المزيد من الفيديوهات هنا -->
+                </div>
+                <div class="photos">
+                    <h3>الصور</h3>
+                    <img src="path/to/image1.jpg" style="width:100%; max-width: 600px;">
+                    <!-- يمكنك إضافة المزيد من الصور هنا -->
+                </div>
+            </div>
+        </div>
+
+        <!-- نافذة المنبثقة للإبلاغ عن مشكلة -->
+        <div id="problemModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeProblemModal()">&times;</span>
+                <h2>هل واجهتك مشكلة؟</h2>
+                <div class="form-field">
+                    <label for="problem">المشكلة:</label>
+                    <textarea id="problem" rows="4" cols="50"></textarea>
+                </div>
+                <!-- زر لفتح الواتساب -->
+                <a id="whatsappButton" class="button" href="#">موافق</a>
+                <a href="#" class="button" onclick="closeProblemModal()">رجوع</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // عرض الإرشادات
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        // إغلاق نافذة الإرشادات
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        // فتح نافذة المنبثقة للإبلاغ عن مشكلة
+        function openProblemModal() {
+            document.getElementById("problemModal").style.display = "block";
+        }
+
+        // إغلاق نافذة المنبثقة للإبلاغ عن مشكلة
+        function closeProblemModal() {
+            document.getElementById("problemModal").style.display = "none";
+        }
+
+        // تشغيل عرض الصور تلقائيا
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex - 1].style.display = "block";  
+            setTimeout(showSlides, 5000); // تغيير الصورة كل 5 ثواني
+        }
+    </script>
+</body>
+</html>
 
 
 
@@ -504,12 +684,7 @@ margin-left: 8px;
 
 
 
-
-
-
-
-
-<div class="white-line"></div>
+<br>
 
     
 <div id="productContainer">
