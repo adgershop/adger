@@ -858,40 +858,66 @@ margin-left: 8px;
             <button class="popup-button cancel" onclick="closePopup()">إلغاء</button>
         </div>
     </div>
-    <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>متجر الكتروني</title>
-        <style>
-            /* أضف أي أنماط CSS إضافية هنا حسب الحاجة */
-        </style>
-    </head>
-    <body>
-        <div id="popup" class="popup">
-            <button onclick="closePopup()">إغلاق</button>
-            <h2>تفاصيل الطلب</h2>
-            <label for="name">الاسم الثلاثي:</label>
-            <input type="text" id="name" placeholder="ادخل اسمك">
-            <br>
-            <label for="location">الموقع الجغرافي:</label>
-            <input type="text" id="location" placeholder="الموقع الجغرافي">
-            <button onclick="getLocation()">تحديد الموقع الجغرافي</button>
-            <br>
-            <button onclick="openEmail()">فتح الإيميل</button>
-            <div>
-                <button onclick="changeQuantity(1)">+</button>
-                <span id="quantity-number">1</span>
-                <button onclick="changeQuantity(-1)">-</button>
-            </div>
-        </div>
+
+    <script>
+        function getLocation() {
+            // قم بتعطيل لوحة المفاتيح عن طريق إغلاقها
+            document.activeElement.blur();
+            // استدعاء الوظيفة للحصول على الموقع الجغرافي هنا
+        }
+
+        function openPopup(button) {
+            // افتح النافذة المنبثقة
+            var popup = document.getElementById('popup');
+            popup.classList.add('active');
+        }
+
+        function closePopup() {
+            // أغلق النافذة المنبثقة
+            var popup = document.getElementById('popup');
+            popup.classList.remove('active');
+        }
+
+        function openWhatsApp() {
+            // قم بفتح WhatsApp هنا بناءً على البيانات التي تحتاجها
+            var name = document.getElementById('name').value;
+            var location = document.getElementById('location').value;
+            var quantity = document.getElementById('quantity-number').textContent;
+            var productName = document.querySelector('.buy-button').getAttribute('data-product-name');
+            var productNumber = document.querySelector('.buy-button').getAttribute('data-product-number');
+            var price = document.querySelector('.buy-button').getAttribute('data-price');
+            var deliveryCharge = document.querySelector('.buy-button').getAttribute('data-delivery-charge');
+            var totalPrice = parseInt(price) * parseInt(quantity) + parseInt(deliveryCharge);
+
+            // هنا يمكنك بناء الرابط أو أي عملية أخرى لفتح WhatsApp مع البيانات المحددة
+            // على سبيل المثال:
+            var whatsappURL = https://wa.me/?text=${productName}%0A${productNumber}%0A${quantity}%0A${name}%0A${location}%0A${price}%0A${deliveryCharge}%0A${totalPrice};
+
+            // فتح WhatsApp في نافذة جديدة
+            window.open(whatsappURL, '_blank');
+
+            // بمجرد فتح WhatsApp، قم بإغلاق النافذة المنبثقة
+            closePopup();
+        }
+
+        function changeQuantity(change) {
+            var quantityElement = document.getElementById('quantity-number');
+            var currentQuantity = parseInt(quantityElement.textContent);
+            var newQuantity = currentQuantity + change;
+            if (newQuantity >= 1) {
+                quantityElement.textContent = newQuantity;
+            }
+        }
+    </script>
+</body>
+</html>
     
         <script>
             function openPopup(button) {
                 var popup = document.getElementById('popup');
                 popup.classList.add('active');
     
+                // استرجاع البيانات من localStorage إذا كانت محفوظة
                 var savedName = localStorage.getItem('savedName');
                 if (savedName) {
                     document.getElementById('name').value = savedName;
@@ -902,6 +928,7 @@ margin-left: 8px;
                     document.getElementById('location').value = savedLocation;
                 }
     
+                // حفظ بيانات المنتج في العنصر popup
                 popup.dataset.productName = button.getAttribute('data-product-name');
                 popup.dataset.productNumber = button.getAttribute('data-product-number');
                 popup.dataset.price = button.getAttribute('data-price');
@@ -916,15 +943,15 @@ margin-left: 8px;
             function getLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function(position) {
-                        var latitude = position.coords.latitude.toFixed(6); // تحديد عرض الأرقام العشرية
-                        var longitude = position.coords.longitude.toFixed(6); // تحديد عرض الأرقام العشرية
+                        var latitude = position.coords.latitude;
+                        var longitude = position.coords.longitude;
                         var locationField = document.getElementById('location');
-                        locationField.value = latitude + ', ' + longitude;
+                        locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات
                         saveLocation(latitude, longitude);
                     }, function(error) {
                         var locationField = document.getElementById('location');
-                        locationField.value = 'تعذر الحصول على الموقع الجغرافي';
-                        console.error('Error getting geolocation:', error);
+                        locationField.value = '  الموقع الجغرافي    ';
+                        console.error('خطأ في الحصول على الموقع:', error);
                     });
                 } else {
                     alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
@@ -932,11 +959,12 @@ margin-left: 8px;
             }
     
             function saveLocation(latitude, longitude) {
+                // حفظ الموقع الجغرافي في localStorage
                 var savedLocation = latitude + ',' + longitude;
                 localStorage.setItem('savedLocation', savedLocation);
             }
     
-            function openEmail() {
+            function openWhatsApp() {
                 var name = document.getElementById('name').value;
                 var location = document.getElementById('location').value;
                 var quantity = document.getElementById('quantity-number').innerText;
@@ -947,8 +975,7 @@ margin-left: 8px;
                 var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
                 var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
     
-                var subject = encodeURIComponent('طلب شراء: ' + productName);
-                var body = encodeURIComponent(
+                var message = encodeURIComponent(
                     '#طلب شراء' + '\n' +
                     productName + '\n' +
                     'رقم المنتج: ' + productNumber + ' , الكمية: ' + quantity + '\n' +
@@ -958,8 +985,12 @@ margin-left: 8px;
                     'السعر الإجمالي: ' + totalPrice
                 );
     
-                var emailLink = 'mailto:sales@example.com?subject=' + subject + '&body=' + body;
-                window.open(emailLink);
+                var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
+                window.open(whatsappLink, '_blank');
+    
+                // حفظ الاسم والموقع الجغرافي تلقائيًا في localStorage
+                localStorage.setItem('savedName', name);
+                localStorage.setItem('savedLocation', location);
             }
     
             function changeQuantity(change) {
@@ -973,7 +1004,7 @@ margin-left: 8px;
         </script>
     </body>
     </html>
-
+    
     
         </div>
 
