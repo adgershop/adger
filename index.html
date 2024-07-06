@@ -951,7 +951,7 @@ margin-left: 8px;
                     }, function(error) {
                         var locationField = document.getElementById('location');
                         locationField.value = '  الموقع الجغرافي    ';
-                        console.error('قم بفتح الموقع الجغرافى فى شريط الأشعارات:', error);
+                        console.error('خطأ في الحصول على الموقع:', error);
                     });
                 } else {
                     alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
