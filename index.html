@@ -858,15 +858,35 @@ margin-left: 8px;
             <button class="popup-button cancel" onclick="closePopup()">إلغاء</button>
         </div>
     </div>
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>متجر الكتروني</title>
+        <style>
+            /* أضف أي أنماط CSS إضافية هنا حسب الحاجة */
+        </style>
     </head>
     <body>
+        <div id="popup" class="popup">
+            <button onclick="closePopup()">إغلاق</button>
+            <h2>تفاصيل الطلب</h2>
+            <label for="name">الاسم الثلاثي:</label>
+            <input type="text" id="name" placeholder="ادخل اسمك">
+            <br>
+            <label for="location">الموقع الجغرافي:</label>
+            <input type="text" id="location" placeholder="الموقع الجغرافي">
+            <button onclick="getLocation()">تحديد الموقع الجغرافي</button>
+            <br>
+            <button onclick="openEmail()">فتح الإيميل</button>
+            <div>
+                <button onclick="changeQuantity(1)">+</button>
+                <span id="quantity-number">1</span>
+                <button onclick="changeQuantity(-1)">-</button>
+            </div>
+        </div>
+    
         <script>
             function openPopup(button) {
                 var popup = document.getElementById('popup');
@@ -916,7 +936,7 @@ margin-left: 8px;
                 localStorage.setItem('savedLocation', savedLocation);
             }
     
-            function openWhatsApp() {
+            function openEmail() {
                 var name = document.getElementById('name').value;
                 var location = document.getElementById('location').value;
                 var quantity = document.getElementById('quantity-number').innerText;
@@ -927,7 +947,8 @@ margin-left: 8px;
                 var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
                 var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
     
-                var message = encodeURIComponent(
+                var subject = encodeURIComponent('طلب شراء: ' + productName);
+                var body = encodeURIComponent(
                     '#طلب شراء' + '\n' +
                     productName + '\n' +
                     'رقم المنتج: ' + productNumber + ' , الكمية: ' + quantity + '\n' +
@@ -937,11 +958,8 @@ margin-left: 8px;
                     'السعر الإجمالي: ' + totalPrice
                 );
     
-                var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
-                window.open(whatsappLink, '_blank');
-    
-                localStorage.setItem('savedName', name);
-                localStorage.setItem('savedLocation', location);
+                var emailLink = 'mailto:sales@example.com?subject=' + subject + '&body=' + body;
+                window.open(emailLink);
             }
     
             function changeQuantity(change) {
@@ -953,11 +971,9 @@ margin-left: 8px;
                 }
             }
         </script>
-    
-        <!-- إضافة الأزرار والحقول اللازمة -->
-    
     </body>
     </html>
+
     
         </div>
 
