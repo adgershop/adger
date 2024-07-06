@@ -495,7 +495,7 @@ margin-left: 8px;
 </style>
 
 </p>
-<br>
+
 
 <!DOCTYPE html>
 <html lang="ar">
@@ -513,10 +513,10 @@ margin-left: 8px;
     .content {
     margin: 0 auto; /* توسيط العنصر الرئيسي */
     padding: 20px; /* هامش داخلي للعنصر الرئيسي */
-    background: linear-gradient(135deg, #0059ff, #00e1ff);
+    background-color: rgb(230, 177, 4); /* لون خلفية العنصر الرئيسي */
     box-shadow: 0 0 10px rgba(0,0,0,0.1); /* ظل للعنصر الرئيسي */
-    width: 94%; /* العرض الأساسي */
-    max-width: 100vw; /* الحد الأقصى للعرض بنسبة من عرض الشاشة */
+    width: 100%; /* عرض العنصر يمتد بحجم الشاشة */
+    max-width: 600px; /* حد أقصى للعرض للحفاظ على القراءة السهلة */
 }
 
     
@@ -571,7 +571,7 @@ margin-left: 8px;
         position: relative;
         max-width: 100%;
         height: auto;
-        margin-left: 4px;
+        margin: auto;
     }
     
     .slides {
@@ -585,7 +585,7 @@ margin-left: 8px;
 </head>
 <body>
     <div class="white-bar">
-    
+        <h1>عنوان الشريط</h1>
     </div>
     
     <div class="content">
@@ -628,7 +628,7 @@ margin-left: 8px;
                 <h2>هل واجهتك مشكلة؟</h2>
                 <div class="form-field">
                     <label for="problem">المشكلة:</label>
-                    <textarea id="problem" rows="4" cols="5"></textarea>
+                    <textarea id="problem" rows="4" cols="50"></textarea>
                 </div>
                 <!-- زر لفتح الواتساب -->
                 <a id="whatsappButton" class="button" href="#">موافق</a>
