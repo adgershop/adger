@@ -495,7 +495,6 @@ margin-left: 8px;
 </style>
 
 </p>
-<br><br>
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -512,7 +511,7 @@ margin-left: 8px;
     .content {
         max-width: 8000px; /* عرض العنصر الرئيسي */
         margin: 0 auto; /* توسيط العنصر الرئيسي */
-        padding: 20px; /* هامش داخلي للعنصر الرئيسي */
+        padding: 20px; /* حشوة داخلية للعنصر الرئيسي */
         box-shadow: 0 0 10px rgba(0,0,0,0.1); /* ظل للعنصر الرئيسي */
         position: relative; /* لتحديد موضع زر الإغلاق بشكل نسبي */
         margin-left: -8px;
@@ -538,6 +537,10 @@ margin-left: 8px;
         cursor: pointer; /* تغيير شكل المؤشر عند التحويم على الزر */
         z-index: 1; /* تأكيد ظهور الزر فوق الصور */
     }
+
+    .spacing {
+        height: 2em; /* تعادل مسافة 2 <br> */
+    }
 </style>
 </head>
 <body>
@@ -551,7 +554,6 @@ margin-left: 8px;
             <img class="slides" src="i2.jpg">
             <img class="slides" src="i3.jpg">
         </div>
-        <br>
     </div>
 
     <script>
@@ -574,11 +576,15 @@ margin-left: 8px;
         function removeContent() {
             let content = document.getElementById("content");
             content.remove();
+
+            // إضافة مسافة تعادل 2 <br>
+            let spacing = document.createElement('div');
+            spacing.className = 'spacing';
+            document.body.insertBefore(spacing, document.querySelector('.white-bar').nextSibling);
         }
     </script>
 </body>
 </html>
-
 
 
     
