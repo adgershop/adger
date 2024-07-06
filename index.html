@@ -496,6 +496,7 @@ margin-left: 8px;
 
 </p>
 <br>
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -510,27 +511,15 @@ margin-left: 8px;
         margin-bottom: 20px; /* هامش أسفل الشريط */
     }
     .content {
-        margin: 0 auto; /* توسيط العنصر الرئيسي */
-        padding: 20px; /* هامش داخلي للعنصر الرئيسي */
-        background: linear-gradient(135deg, #0059ff, #00e1ff);
-        box-shadow: 0 0 10px rgba(0,0,0,0.1); /* ظل للعنصر الرئيسي */
-        width: 94%; /* العرض الأساسي */
-        max-width: 100vw; /* الحد الأقصى للعرض بنسبة من عرض الشاشة */
-    }
+    margin: 0 auto; /* توسيط العنصر الرئيسي */
+    padding: 20px; /* هامش داخلي للعنصر الرئيسي */
+    background: linear-gradient(135deg, #0059ff, #00e1ff);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* ظل للعنصر الرئيسي */
+    width: 94%; /* العرض الأساسي */
+    max-width: 100vw; /* الحد الأقصى للعرض بنسبة من عرض الشاشة */
+}
 
-    .text-slides {
-        display: none;
-        font-size: 24px; /* حجم الخط */
-        font-family: "Arial Black", Gadget, sans-serif; /* نوع الخط */
-        color: #fff; /* لون النص */
-        text-align: center; /* توسيط النص */
-        padding-top: 20px; /* هامش أعلى النص */
-    }
     
-    .active {
-        display: block;
-    }
-
     .button {
         display: inline-block; /* عرض الزر كبلوك متعدد الأسطر */
         padding: 10px 20px; /* هامش داخلي للزر */
@@ -555,7 +544,6 @@ margin-left: 8px;
         height: 100%;
         overflow: auto;
         background-color: rgba(0,0,0,0.8);
-        padding-top: 50px; /* مسافة لا تؤثر على الصفحة الخلفية */
     }
     
     .modal-content {
@@ -578,6 +566,21 @@ margin-left: 8px;
         font-weight: bold;
         cursor: pointer;
     }
+
+    .slideshow-container {
+        position: relative;
+        max-width: 100%;
+        height: auto;
+        margin-left: 4px;
+    }
+    
+    .slides {
+        display: none;
+    }
+    
+    .active {
+        display: block;
+    }
 </style>
 </head>
 <body>
@@ -586,14 +589,16 @@ margin-left: 8px;
     </div>
     
     <div class="content">
-        <!-- عرض النصوص بدلاً من الصور -->
-        <div class="text-slides active" style="background-color: #ff8c00;">نص مزخرف الأول</div>
-        <div class="text-slides" style="background-color: #ff0000;">نص مزخرف الثاني</div>
-        <div class="text-slides" style="background-color: #4caf50;">نص مزخرف الثالث</div>
+        <!-- عرض الصور -->
+        <div class="slideshow-container">
+            <img class="slides active" src="i1.jpg" style="width:100%; height: 166px;">
+            <img class="slides" src="i2.jpg" style="width:100%; height: 166px;">
+            <img class="slides" src="i3.jpg" style="width:100%; height: 166px;">
+        </div>
         <br>
         <!-- زر لعرض الإرشادات -->
         <a href="#" class="button" onclick="openModal()">عرض الإرشادات</a>
-        
+
         <!-- زر للإبلاغ عن مشكلة -->
         <a href="#" class="button" onclick="openProblemModal()">هل واجهتك مشكلة؟</a>
 
@@ -623,7 +628,7 @@ margin-left: 8px;
                 <h2>هل واجهتك مشكلة؟</h2>
                 <div class="form-field">
                     <label for="problem">المشكلة:</label>
-                    <textarea id="problem" rows="4" cols="46"></textarea>
+                    <textarea id="problem" rows="4" cols="5"></textarea>
                 </div>
                 <!-- زر لفتح الواتساب -->
                 <a id="whatsappButton" class="button" href="#">موافق</a>
@@ -633,22 +638,7 @@ margin-left: 8px;
     </div>
 
     <script>
-        // عرض النصوص تلقائياً
-        let textSlideIndex = 0;
-        showTextSlides();
-
-        function showTextSlides() {
-            let slides = document.getElementsByClassName("text-slides");
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";  
-            }
-            textSlideIndex++;
-            if (textSlideIndex > slides.length) {textSlideIndex = 1}    
-            slides[textSlideIndex - 1].style.display = "block";  
-            setTimeout(showTextSlides, 5000); // تغيير النص كل 5 ثواني
-        }
-
-        // عرض نافذة الإرشادات
+        // عرض الإرشادات
         function openModal() {
             document.getElementById("myModal").style.display = "block";
         }
@@ -667,9 +657,26 @@ margin-left: 8px;
         function closeProblemModal() {
             document.getElementById("problemModal").style.display = "none";
         }
+
+        // تشغيل عرض الصور تلقائيا
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex - 1].style.display = "block";  
+            setTimeout(showSlides, 5000); // تغيير الصورة كل 5 ثواني
+        }
     </script>
 </body>
 </html>
+
+
 
 
 
