@@ -192,7 +192,7 @@ margin-left: 8px;
 
   .close-cart {
     cursor: pointer;
-    color: rgb(0, 191, 255);
+    color: rgb(0, 60, 255);
     font-size: 20px;
    background-color: #ffffff;
     border-radius: 19%; /* يجعل الخلفية دائرية */
@@ -268,18 +268,22 @@ margin-left: 8px;
         </html>
 
     <div class="cart-page" id="cartPage">
-        <span class="close-cart" onclick="toggleCart()">
-            <a href="#">
-                <svg xmlns="<svg class="w-6 h-6 text-blue-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="27" height="26" fill="none" viewBox="0 0 24 24">
+        <span class="close-cart" onclick="toggleCart(event)">
+          
+                <svg class="w-6 h-6 text-blue-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="27" height="26" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
-                  </svg>
-                
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
-            </a>
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+          
         </span>
         
+        <script>
+        function toggleCart(event) {
+            event.preventDefault(); // إلغاء السلوك الافتراضي للرابط
+            // باقي الكود للتبديل أو إغلاق العربة
+        }
+        </script>        
         <!DOCTYPE html>
         <html lang="ar">
         <head>
@@ -294,7 +298,7 @@ margin-left: 8px;
         </head>
         <body>
         
-            <h2 class="cart-heading">🛒 محتوى عربة التسوق</h2>
+            <h2 class="cart-heading"></h2>
 
         </body>
         </html>
@@ -6762,7 +6766,7 @@ function saveLocation(latitude, longitude) {
             z-index: 1000;
             text-align: left;
         }
-        .popup .close-btn {
+        .popup .close-btn1 {
             background: red;
             color: white;
             border: none;
@@ -6802,7 +6806,7 @@ function saveLocation(latitude, longitude) {
     </footer>
 
     <div class="popup" id="aboutPopup">
-        <button class="close-btn" onclick="hidePopup('aboutPopup')">X</button>
+        <button class="close-btn1" onclick="hidePopup('aboutPopup')">X</button>
         <!DOCTYPE html>
         <html lang="en">
         <head>
