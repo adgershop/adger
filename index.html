@@ -1051,9 +1051,9 @@ margin-left: 8px;
                 popup.classList.remove('active');
             }
     
-          // تحقق مما إذا كان المتصفح يدعم تحديد الموقع الجغرافي
+           // تحقق مما إذا كان المتصفح يدعم تحديد الموقع الجغرافي
 if (navigator.geolocation) {
-    // طلب الحصول على الموقع الجغرافي الحالي للمستخدم
+    // تحديث حقل الإدخال بالإحداثيات عند فتح الموقع الجغرافي
     navigator.geolocation.getCurrentPosition(function(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
@@ -1066,11 +1066,23 @@ if (navigator.geolocation) {
         console.error('Error getting location:', error);
     });
 
-    // استمع للنقر على حقل الموقع الجغرافي لتحديث الموقع إذا لم يكن مفتوحاً بالفعل
-    var locationField = document.getElementById('location');
-    locationField.addEventListener('click', function() {
-        if (!navigator.geolocation.getCurrentPosition) {
-            alert('يرجى فتح الموقع الجغرافي في هاتفك للوصول إلى موقعك الجغرافي.');
+    // استمع للحدث الذي يشير إلى تغيير حالة الموقع الجغرافي
+    navigator.geolocation.addEventListener('change', function() {
+        if (navigator.geolocation.getCurrentPosition) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                var locationField = document.getElementById('location');
+                locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
+                saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
+            }, function(error) {
+                var locationField = document.getElementById('location');
+                locationField.value = 'Please open in Chrome and allow location access.'; // رسالة خطأ
+                console.error('Error getting location:', error);
+            });
+        } else {
+            var locationField = document.getElementById('location');
+            locationField.value = 'Please open in Chrome and allow location access.'; // رسالة خطأ
         }
     });
 } else {
