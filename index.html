@@ -1051,42 +1051,46 @@ margin-left: 8px;
                 popup.classList.remove('active');
             }
     
-           // تحقق مما إذا كان المتصفح يدعم تحديد الموقع الجغرافي
-if (navigator.geolocation) {
-    // تحديث حقل الإدخال بالإحداثيات عند فتح الموقع الجغرافي
-    navigator.geolocation.getCurrentPosition(function(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        var locationField = document.getElementById('location');
-        locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
-        saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
-    }, function(error) {
-        var locationField = document.getElementById('location');
-        locationField.value = 'Please open in Chrome and allow location access.'; // رسالة خطأ
-        console.error('Error getting location:', error);
+            if (navigator.geolocation) {
+    var locationField = document.getElementById('location');
+
+    // حدث النقر على حقل الإدخال
+    locationField.addEventListener('click', function() {
+        // طلب الحصول على الموقع الجغرافي الحالي للمستخدم
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
+            saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
+        }, function(error) {
+            if (error.code === error.PERMISSION_DENIED) {
+                locationField.value = 'يرجى تمكين خدمة الموقع من إعدادات الهاتف ثم إعادة المحاولة.';
+            } else {
+                locationField.value = 'Unable to retrieve location. Please open in Chrome and allow location access.'; // رسالة خطأ
+                console.error('Error getting location:', error);
+            }
+        });
     });
 
-    // استمع للحدث الذي يشير إلى تغيير حالة الموقع الجغرافي
-    navigator.geolocation.addEventListener('change', function() {
-        if (navigator.geolocation.getCurrentPosition) {
+    // تحديث حقل الإدخال بشكل دوري كل 10 ثواني بعد فتح الموقع الجغرافي
+    setInterval(function() {
+        if (locationField.value) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
-                var locationField = document.getElementById('location');
                 locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
                 saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
             }, function(error) {
-                var locationField = document.getElementById('location');
-                locationField.value = 'Please open in Chrome and allow location access.'; // رسالة خطأ
                 console.error('Error getting location:', error);
             });
-        } else {
-            var locationField = document.getElementById('location');
-            locationField.value = 'Please open in Chrome and allow location access.'; // رسالة خطأ
         }
-    });
+    }, 10000); // تحديث كل 10 ثواني
 } else {
-    alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
+    document.getElementById('location').value = 'المتصفح لا يدعم تحديد الموقع الجغرافي.';
+}
+
+function saveLocation(latitude, longitude) {
+    // الوظيفة الخاصة بحفظ الموقع الجغرافي
 }
     
             function saveLocation(latitude, longitude) {
