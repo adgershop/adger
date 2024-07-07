@@ -1053,31 +1053,38 @@ margin-left: 8px;
     
          // تحقق مما إذا كان المتصفح يدعم تحديد الموقع الجغرافي
 if (navigator.geolocation) {
-    // تحديث حقل الإدخال بالإحداثيات عند فتح الموقع الجغرافي
-    navigator.geolocation.getCurrentPosition(function(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        var locationField = document.getElementById('location');
-        locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
-        saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
-    }, function(error) {
-        var locationField = document.getElementById('location');
-        locationField.value = 'Please open in Chrome and allow location access.'; // رسالة خطأ
-        console.error('Error getting location:', error);
+    var locationField = document.getElementById('location');
+
+    // حدث النقر على حقل الإدخال
+    locationField.addEventListener('click', function() {
+        // تحقق مما إذا كان الموقع الجغرافي لم يتم فتحه بعد
+        if (!locationField.value) {
+            // طلب الحصول على الموقع الجغرافي الحالي للمستخدم
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
+                saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
+            }, function(error) {
+                locationField.value = 'Unable to retrieve location. Please open in Chrome and allow location access.'; // رسالة خطأ
+                console.error('Error getting location:', error);
+            });
+        }
     });
 
-    // تحديث حقل الإدخال بشكل دوري كل ثانية بعد فتح الموقع الجغرافي
+    // تحديث حقل الإدخال بشكل دوري كل 10 ثواني بعد فتح الموقع الجغرافي
     setInterval(function() {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            var locationField = document.getElementById('location');
-            locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
-            saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
-        }, function(error) {
-            console.error('Error getting location:', error);
-        });
-    }, 1000); // تحديث كل ثانية (يمكنك تعديل هذا الوقت حسب احتياجاتك)
+        if (locationField.value) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
+                saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
+            }, function(error) {
+                console.error('Error getting location:', error);
+            });
+        }
+    }, 10000); // تحديث كل 10 ثواني
 } else {
     alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
 }
