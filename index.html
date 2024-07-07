@@ -1052,22 +1052,33 @@ margin-left: 8px;
             }
     
             function getLocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        var latitude = position.coords.latitude;
-                        var longitude = position.coords.longitude;
-                        var locationField = document.getElementById('location');
-                        locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات
-                        saveLocation(latitude, longitude);
-                    }, function(error) {
-                        var locationField = document.getElementById('location');
-                        locationField.value = 'اضغط على الثلاث نقط اعلى الشاشه ثم فتح فى chrome و قم يفتح الموقع الجفرافى فى شريط الأشعارات';
-                        console.error('خطأ في الحصول على الموقع:', error);
-                    });
-                } else {
-                    alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
-                }
-            }
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var locationField = document.getElementById('location');
+            locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات
+            saveLocation(latitude, longitude);
+
+            // حفظ الإحداثيات في localStorage للاستخدام في المستقبل
+            localStorage.setItem('savedLocation', locationField.value);
+        }, function(error) {
+            var locationField = document.getElementById('location');
+            locationField.value = 'لا يمكن الوصول إلى الموقع الجغرافي';
+            console.error('خطأ في الحصول على الموقع:', error);
+        });
+    } else {
+        alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
+    }
+}
+
+// استدعاء getLocation() عند فتح الصفحة لتحديث الإحداثيات تلقائيا إذا كانت محفوظة مسبقا
+document.addEventListener('DOMContentLoaded', function() {
+    var savedLocation = localStorage.getItem('savedLocation');
+    if (savedLocation) {
+        document.getElementById('location').value = savedLocation;
+    }
+});
     
             function saveLocation(latitude, longitude) {
                 // حفظ الموقع الجغرافي في localStorage
