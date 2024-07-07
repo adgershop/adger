@@ -1066,17 +1066,24 @@ if (navigator.geolocation) {
         console.error('Error getting location:', error);
     });
 
-    // استمع للحدث الذي يشير إلى فتح الموقع الجغرافي
+    // استمع للحدث الذي يشير إلى تغيير حالة الموقع الجغرافي
     navigator.geolocation.addEventListener('change', function() {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
+        if (navigator.geolocation.getCurrentPosition) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                var locationField = document.getElementById('location');
+                locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
+                saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
+            }, function(error) {
+                var locationField = document.getElementById('location');
+                locationField.value = 'Please open in Chrome and allow location access.'; // رسالة خطأ
+                console.error('Error getting location:', error);
+            });
+        } else {
             var locationField = document.getElementById('location');
-            locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
-            saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
-        }, function(error) {
-            console.error('Error getting location:', error);
-        });
+            locationField.value = 'Please open in Chrome and allow location access.'; // رسالة خطأ
+        }
     });
 } else {
     alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
