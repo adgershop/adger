@@ -1061,7 +1061,22 @@ if (navigator.geolocation) {
         locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
         saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
     }, function(error) {
-        console.error('خطأ في الحصول على الموقع:', error);
+        var locationField = document.getElementById('location');
+        locationField.value = 'Unable to retrieve location. Please open in Chrome and allow location access.'; // رسالة خطأ
+        console.error('Error getting location:', error);
+    });
+
+    // استمع للحدث الذي يشير إلى فتح الموقع الجغرافي
+    navigator.geolocation.addEventListener('change', function() {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var locationField = document.getElementById('location');
+            locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
+            saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
+        }, function(error) {
+            console.error('Error getting location:', error);
+        });
     });
 } else {
     alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
