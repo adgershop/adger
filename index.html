@@ -528,14 +528,15 @@ margin-left: 8px;
 
     .close-btn {
         position: absolute; /* تحديد موضع زر الإغلاق بشكل مطلق */
-        top: -1px; /* أعلى العنصر */
-        right: 2px; /* يمين العنصر */
+        top: -2px; /* أعلى العنصر */
+        right: 1px; /* يمين العنصر */
         background-color: rgb(238, 1, 1); /* لون خلفية الزر */
         color: rgb(255, 255, 255); /* لون النص داخل الزر */
         border: none; /* إزالة الحدود */
         padding: 5px 10px; /* حشوة داخلية للزر */
         cursor: pointer; /* تغيير شكل المؤشر عند التحويم على الزر */
         z-index: 1; /* تأكيد ظهور الزر فوق الصور */
+        font-size: 12px;
     }
 
     .spacing {
@@ -575,13 +576,50 @@ margin-left: 8px;
         // وظيفة إزالة الخلفية الزرقاء بكل محتوياتها
         function removeContent() {
             let content = document.getElementById("content");
-            content.remove();
+            if (content) {
+                content.style.display = "none";
+            }
 
-            // إضافة مسافة تعادل 2 <br>
-            let spacing = document.createElement('div');
-            spacing.className = 'spacing';
-            document.body.insertBefore(spacing, document.querySelector('.white-bar').nextSibling);
+            // إضافة مسافة تعادل 2 <br> عند إخفاء المحتوى
+            let spacing = document.getElementById('spacing');
+            if (!spacing) {
+                spacing = document.createElement('div');
+                spacing.className = 'spacing';
+                spacing.id = 'spacing';
+                document.body.insertBefore(spacing, document.querySelector('.white-bar').nextSibling);
+            }
         }
+
+        // وظيفة لعرض المحتوى مرة أخرى وإزالة المسافة
+        function showContent() {
+            let content = document.getElementById("content");
+            if (content) {
+                content.style.display = "block";
+            }
+
+            // إزالة المسافة المضافة
+            let spacing = document.getElementById('spacing');
+            if (spacing) {
+                spacing.remove();
+            }
+        }
+
+        // وظيفة لإخفاء المحتوى عند الكتابة وإظهاره عند حذف الكتابة
+        function handleInput(event) {
+            if (event.target.value.trim() === "") {
+                showContent();
+            } else {
+                removeContent();
+            }
+        }
+
+        // إضافة مستمع الحدث لصندوق البحث
+        window.addEventListener('load', () => {
+            const searchBox = document.querySelector('input[type="text"]'); // تعديل هذا لاختيار صندوق البحث الخاص بك
+            if (searchBox) {
+                searchBox.addEventListener('input', handleInput);
+            }
+        });
     </script>
 </body>
 </html>
