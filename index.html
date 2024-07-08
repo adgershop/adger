@@ -4291,6 +4291,7 @@ function saveLocation(latitude, longitude) {
 
 
 
+
     <div class="product">
         <div class="product-info">
             <h2 style="font-size: 17px;">حقيبة ظهر مدرسيه</h2>
@@ -6246,6 +6247,8 @@ function saveLocation(latitude, longitude) {
         overflow: hidden;
     }
 
+    
+
     @keyframes moveText {
         0% {
             transform: translateX(100%);
@@ -6257,7 +6260,9 @@ function saveLocation(latitude, longitude) {
 </style>
 </head>
 <body>
- 
+    <div class="container">
+        <div class="green-line">
+            <div class="text">           </div>
         </div>
     </div>
 </body>
@@ -6601,7 +6606,20 @@ function saveLocation(latitude, longitude) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beautiful Footer</title>
-    
+  
+        
+   </div>
+
+    <script>
+        function showPopup(event, popupId) {
+            event.preventDefault();
+            document.getElementById(popupId).style.display = 'block';
+        }
+
+        function hidePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+    </script>
 </body>
 </html>
 
