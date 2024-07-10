@@ -397,16 +397,17 @@ margin-left: 8px;
     <title>Menu Example</title>
     <style>
         /* Style the white page */
-        #white-page {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            display: none;
-            z-index: 1000; /* Ensure white page is on top */
-        }
+       #white-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: none;
+    z-index: 1000; /* Ensure white page is on top */
+    overflow-y: scroll; /* إمكانية التمرير العمودي للصفحة */
+}
 
         #back-button {
             position: absolute;
@@ -485,7 +486,7 @@ margin-left: 8px;
     <!-- The white page that appears when the menu button is clicked -->
     <div id="white-page">
         <div id="menu-items">
-            <a href="#" id="menu-item-1">Menu 1</a>
+            <a href="#" id="menu-item-1">ADGER SHOW</a>
             <a href="#" id="menu-item-2">Menu 2</a>
             <a href="#" id="menu-item-3">Menu 3</a>
         </div>
@@ -495,6 +496,110 @@ margin-left: 8px;
         <div id="menu-content-1" class="menu-content">
             <h1>Menu 1 Content</h1>
             <p>This is the content for Menu 1.</p>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Video Scroll</title>
+                <style>
+                    body, html {
+                        margin: 0;
+                        padding: 0;
+                        overflow-x: hidden;
+                        font-family: Arial, sans-serif;
+                        scroll-behavior: smooth; /* التمرير السلس */
+                    }
+            
+                    .main-container {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        min-height: 100vh;
+                        background-color: #f0f0f0; /* لون الخلفية الخاص بك */
+                    }
+            
+                    .video-container {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        width: 100%;
+                        max-width: 600px;
+                        background-color: white;
+                        padding: 20px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                        margin: 20px 0; /* مسافة بين الفيديوهات */
+                    }
+            
+                    .video {
+                        width: 100%;
+                        height: auto;
+                        margin-bottom: 20px;
+                        cursor: pointer; /* تغيير المؤشر عند التمرير على الفيديو */
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="main-container">
+                    <div class="video-container">
+                        <video class="video" src="111.mp4" muted></video>
+                        <video class="video" src="111.mp4" muted></video>
+                        <video class="video" src="video3.mp4" muted></video>
+                    </div>
+                </div>
+                <script>
+                    const videos = document.querySelectorAll('.video');
+            
+                    // استخدام IntersectionObserver لمراقبة الفيديوهات
+                    const observerOptions = {
+                        root: null,
+                        rootMargin: '0px',
+                        threshold: 0.5 // شغل الفيديو عندما يظهر نصفه في الشاشة
+                    };
+            
+                    const videoObserver = new IntersectionObserver((entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                setTimeout(() => {
+                                    if (entry.isIntersecting) {
+                                        entry.target.play();
+                                    }
+                                }, 200); // تشغيل الفيديو بعد 200 مللي ثانية من الظهور في الشاشة
+                            } else {
+                                entry.target.pause();
+                            }
+                        });
+                    }, observerOptions);
+            
+                    videos.forEach(video => {
+                        videoObserver.observe(video);
+            
+                        video.addEventListener('click', () => {
+                            if (video.paused) {
+                                video.play();
+                            } else {
+                                video.pause();
+                            }
+                        });
+            
+                        video.addEventListener('ended', () => {
+                            const nextVideo = video.nextElementSibling;
+                            if (nextVideo && nextVideo.tagName === 'VIDEO') {
+                                nextVideo.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        });
+                    });
+            
+                    // تفعيل التشغيل التلقائي للفيديو الأول عند تحميل الصفحة
+                    window.addEventListener('load', () => {
+                        if (videos.length > 0) {
+                            videos[0].play();
+                        }
+                    });
+                </script>
+            </body>
+            </html>
         </div>
         <div id="menu-content-2" class="menu-content">
             <h1>Menu 2 Content</h1>
