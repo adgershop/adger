@@ -531,9 +531,9 @@ margin-left: 8px;
     <!-- The white page that appears when the menu button is clicked -->
     <div id="white-page">
         <div id="menu-items">
-            <a href="#" id="menu-item-1">ADGER SHOW</a>
-            <a href="#" id="menu-item-2">Menu 2</a>
-            <a href="#" id="menu-item-3">Menu 3</a>
+            <a href="#" id="menu-item-1"onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">ADGER SHOW</a>
+            <a href="#" id="menu-item-2"onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">Menu 2</a>
+            <a href="#" id="menu-item-3"onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">Menu 3</a>
         </div>
         <button id="back-button">Back</button>
 
@@ -541,15 +541,16 @@ margin-left: 8px;
         <div id="menu-content-1" class="menu-content">
             <div class="main-container">
                 <div class="video-container">
-                    <video class="video" src="v1.mp4" controls></video>
-                    <div class="video-description">وزير واحد</div>
-                    <button class="button">وزير واحد</button>
+                    <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                    <div class="video-description">245</div>
+                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="كتاب المستثمر الذكى data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+
                 </div>
 
                 <div class="video-container">
-                    <video class="video" src="v2.mp4" controls></video>
-                    <div class="video-description">وزير 2</div>
-                    <button class="button">وزير 2</button>
+                    <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                    <div class="video-description">400</div>
+                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
                 </div>
             </div>
         </div>
