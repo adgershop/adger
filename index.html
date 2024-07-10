@@ -392,22 +392,24 @@ margin-left: 8px;
 </body>
 </html>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Example</title>
     <style>
         /* Style the white page */
-       #white-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    display: none;
-    z-index: 1000; /* Ensure white page is on top */
-    overflow-y: scroll; /* إمكانية التمرير العمودي للصفحة */
-}
+        #white-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            display: none;
+            z-index: 1000;
+            overflow-y: scroll;
+        }
 
         #back-button {
             position: absolute;
@@ -419,7 +421,7 @@ margin-left: 8px;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            z-index: 1100; /* Ensure back button is on top */
+            z-index: 1100;
         }
 
         #back-button:hover {
@@ -431,7 +433,7 @@ margin-left: 8px;
             top: 20px;
             left: 20px;
             text-align: left;
-            z-index: 1100; /* Ensure menu items are on top */
+            z-index: 1100;
         }
 
         #menu-items a {
@@ -453,31 +455,74 @@ margin-left: 8px;
             right: 50px;
             bottom: 50px;
             background-color: #fff;
-            display: none; /* Initially hide all menu content */
-            z-index: 1050; /* Ensure menu content is above white page */
+            display: none;
+            z-index: 1050;
         }
 
         /* Custom styles for the menu button */
         #custom-menu-button {
-            width: 77px; /* Adjust width */
-            height: 90px; /* Adjust height */
-            background-color: transparent; /* Remove background color */
-            border: none; /* Remove border */
-            cursor: pointer; /* Pointer cursor on hover */
-            margin: -18px 0 0 7px; /* Adjust margins (top, right, bottom, left) */
-       margin-left: -13px;
+            width: 77px;
+            height: 90px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin: -18px 0 0 7px;
+            margin-left: -13px;
         }
 
         #custom-menu-button svg {
-            width: 100%; /* Ensure SVG fills the button */
-            height: 100%; /* Ensure SVG fills the button */
-            fill: #fff; /* SVG fill color */
+            width: 100%;
+            height: 100%;
+            fill: #fff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .video {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .video-description {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
         }
     </style>
 </head>
 <body>
     <!-- The menu button with an SVG icon -->
-    <button id="custom-menu-button"return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+    <button id="custom-menu-button">
         <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -490,114 +535,23 @@ margin-left: 8px;
             <a href="#" id="menu-item-2">Menu 2</a>
             <a href="#" id="menu-item-3">Menu 3</a>
         </div>
-        <button id="back-button"return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">Back</button>
+        <button id="back-button">Back</button>
 
         <!-- Menu content areas -->
         <div id="menu-content-1" class="menu-content">
-            <h1>ADGER SHOW</h1>
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Video Scroll</title>
-                <style>
-                    body, html {
-                        margin: 0;
-                        padding: 0;
-                        overflow-x: hidden;
-                        font-family: Arial, sans-serif;
-                        scroll-behavior: smooth; /* التمرير السلس */
-                    }
-            
-                    .main-container {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        min-height: 100vh;
-                        background-color: #f0f0f0; /* لون الخلفية الخاص بك */
-                    }
-            
-                    .video-container {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        width: 100%;
-                        max-width: 600px;
-                        background-color: white;
-                        padding: 20px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                        margin: 20px 0; /* مسافة بين الفيديوهات */
-                    }
-            
-                    .video {
-                        width: 100%;
-                        height: auto;
-                        margin-bottom: 20px;
-                        cursor: pointer; /* تغيير المؤشر عند التمرير على الفيديو */
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="main-container">
-                    <div class="video-container">
-                        <video class="video" src="v1.mp4" controls></video>
-                        <video class="video" src="v2.mp4" controls></video>
-                    </div>
+            <div class="main-container">
+                <div class="video-container">
+                    <video class="video" src="v1.mp4" controls></video>
+                    <div class="video-description">وزير واحد</div>
+                    <button class="button">وزير واحد</button>
                 </div>
-                <script>
-                    const videos = document.querySelectorAll('.video');
-            
-                    // استخدام IntersectionObserver لمراقبة الفيديوهات
-                    const observerOptions = {
-                        root: null,
-                        rootMargin: '0px',
-                        threshold: 0.5 // شغل الفيديو عندما يظهر نصفه في الشاشة
-                    };
-            
-                    const videoObserver = new IntersectionObserver((entries, observer) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                setTimeout(() => {
-                                    if (entry.isIntersecting) {
-                                        entry.target.play();
-                                    }
-                                }, 200); // تشغيل الفيديو بعد 200 مللي ثانية من الظهور في الشاشة
-                            } else {
-                                entry.target.pause();
-                            }
-                        });
-                    }, observerOptions);
-            
-                    videos.forEach(video => {
-                        videoObserver.observe(video);
-            
-                        video.addEventListener('click', () => {
-                            if (video.paused) {
-                                video.play();
-                            } else {
-                                video.pause();
-                            }
-                        });
-            
-                        video.addEventListener('ended', () => {
-                            const nextVideo = video.nextElementSibling;
-                            if (nextVideo && nextVideo.tagName === 'VIDEO') {
-                                nextVideo.scrollIntoView({ behavior: 'smooth' });
-                            }
-                        });
-                    });
-            
-                    // تفعيل التشغيل التلقائي للفيديو الأول عند تحميل الصفحة
-                    window.addEventListener('load', () => {
-                        if (videos.length > 0) {
-                            videos[0].play();
-                        }
-                    });
-                </script>
-            </body>
-            </html>
+
+                <div class="video-container">
+                    <video class="video" src="v2.mp4" controls></video>
+                    <div class="video-description">وزير 2</div>
+                    <button class="button">وزير 2</button>
+                </div>
+            </div>
         </div>
         <div id="menu-content-2" class="menu-content">
             <h1>Menu 2 Content</h1>
@@ -619,23 +573,23 @@ margin-left: 8px;
         // Add an event listener to the menu button
         menuButton.addEventListener('click', () => {
             whitePage.style.display = 'block';
-            menuItems.style.display = 'block'; // Ensure menu items are visible
+            menuItems.style.display = 'block';
         });
 
         // Add event listeners to the menu items
         document.getElementById('menu-item-1').addEventListener('click', () => {
             showMenuContent('menu-content-1');
-            menuItems.style.display = 'none'; // Hide menu items after clicking
+            menuItems.style.display = 'none';
         });
 
         document.getElementById('menu-item-2').addEventListener('click', () => {
             showMenuContent('menu-content-2');
-            menuItems.style.display = 'none'; // Hide menu items after clicking
+            menuItems.style.display = 'none';
         });
 
         document.getElementById('menu-item-3').addEventListener('click', () => {
             showMenuContent('menu-content-3');
-            menuItems.style.display = 'none'; // Hide menu items after clicking
+            menuItems.style.display = 'none';
         });
 
         // Function to display the selected menu content and hide others
@@ -660,10 +614,59 @@ margin-left: 8px;
             });
 
             if (contentVisible) {
-                menuItems.style.display = 'block'; // Show menu items again
+                menuItems.style.display = 'block';
             } else {
                 whitePage.style.display = 'none';
             }
+        });
+
+        const videos = document.querySelectorAll('.video');
+
+        // IntersectionObserver for videos
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const videoObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        if (entry.isIntersecting) {
+                            entry.target.play();
+                        }
+                    }, 200);
+                } else {
+                    entry.target.pause();
+                }
+            });
+        }, observerOptions);
+
+        videos.forEach(video => {
+            videoObserver.observe(video);
+
+            video.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
+
+            video.addEventListener('ended', () => {
+                const nextVideo = video.nextElementSibling;
+                if (nextVideo && nextVideo.tagName === 'VIDEO') {
+                    nextVideo.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Function to play video on button click
+        document.querySelectorAll('.button').forEach((button, index) => {
+            button.addEventListener('click', () => {
+                videos[index].play();
+            });
         });
     </script>
 </body>
