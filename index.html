@@ -412,20 +412,20 @@ margin-left: 8px;
         }
 
         #back-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #333;
-            color: #fff;
+            position: fixed;
+            top: -23px;
+            right: -19px;
+            background-color: #33333300;
+            color: #00aeff;
             border: none;
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 10px 17px;
+            font-size: 19px;
             cursor: pointer;
             z-index: 1100;
         }
 
         #back-button:hover {
-            background-color: #666;
+            background-color: #66666600;
         }
 
         #menu-items {
@@ -535,7 +535,40 @@ margin-left: 8px;
             <a href="#" id="menu-item-2">Menu 2</a>
             <a href="#" id="menu-item-3">Menu 3</a>
         </div>
-        <button id="back-button">Back</button>
+        <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زر التراجع</title>
+    <style>
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px; /* زيادة عرض الزر */
+            height: 60px; /* زيادة ارتفاع الزر */
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="back-button" class="button" onclick="goBack()">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+        </svg>
+    </button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
 
         <!-- Menu content areas -->
         <div id="menu-content-1" class="menu-content">
@@ -543,7 +576,7 @@ margin-left: 8px;
                 <div class="video-container">
                     <video class="video" src="v1.mp4" controls  onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
                     <div class="video-description">245</div>
-                    <a href="#" class="buy-button" onclick="openPopup(this); return false;"style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="كتاب المستثمر الذكى data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
 
                 </div>
 
