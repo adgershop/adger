@@ -480,23 +480,25 @@ margin-left: 8px;
         }
 
         .video-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 600px;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
-        }
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* توسيط عناصر العنصر الفرعي بشكل عمودي */
+    align-items: center; /* توسيط عناصر العنصر الرئيسي بشكل أفقي */
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
 
-        .video {
-            width: 109%;
-            height: auto;
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
+.video {
+    width: 100%; /* يمكنك استخدام 100% لتمتد للعرض الكامل */
+    height: auto;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
 
         .video-description {
             text-align: center;
@@ -593,13 +595,17 @@ margin-left: 8px;
                 
                 <div class="video-container">
                     <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
-                    <div class="video-description">245</div>
+                    <div class="video-description">كتاب المسثمر الذكى</div>
+                    <div class="video-description">السعر: 00 , 245 جنيه</div>
+                    <br>
                     <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
                 </div>
             
                 <div class="video-container">
                     <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
-                    <div class="video-description">400</div>
+                    <div class="video-description">قلم ليزر</div>
+                    <div class="video-description">السعر: 00 , 400 جنيه</div>
+                    <br>
                     <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
                 </div>
             </div>
@@ -671,7 +677,6 @@ margin-left: 8px;
                     }
                 });
             </script>
-            
             </body>
             </html>
         </div>
