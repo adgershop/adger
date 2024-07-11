@@ -393,7 +393,7 @@ margin-left: 8px;
 </html>
     <style>
         /* Style the white page */
-        #white-page1 {
+        #white-page {
             position: fixed;
             top: 0;
             left: 0;
@@ -516,7 +516,7 @@ margin-left: 8px;
     </button>
 
     <!-- The white page that appears when the menu button is clicked -->
-    <div id="white-page1">
+    <div id="white-page">
         <div id="menu-items">
             <a href="#" id="menu-item-1">ADGER SHOW</a>
             <a href="#" id="menu-item-2">Menu 2</a>
@@ -566,7 +566,33 @@ margin-left: 8px;
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>بحث الفيديوهات</title>
                 <style>
-                  
+                    .main-container {
+                        width: 80%;
+                        margin: 0 auto;
+                        padding-top: 20px;
+                        position: relative; /* لضمان عرض البحث في المكان الصحيح */
+                    }
+                    .video-container {
+                        margin-bottom: 20px;
+                    }
+                    .video {
+                        width: 100%;
+                        max-width: 100%;
+                    }
+                    .video-description {
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-top: 10px;
+                    }
+                    .buy-button {
+                        display: block;
+                        margin-top: 10px;
+                        padding: 10px;
+                        background-color: #007bff;
+                        color: #fff;
+                        text-align: center;
+                        text-decoration: none;
+                    }
                     #video-search {
                         width: 70%;
                         padding: 10px;
