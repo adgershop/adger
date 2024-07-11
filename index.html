@@ -391,7 +391,7 @@ margin-left: 8px;
     </script>
 </body>
 </html>
-    <style>
+<style>
         /* Style the white page */
         #white-page {
             position: fixed;
@@ -569,12 +569,12 @@ margin-left: 8px;
                         width: 70%;
                         padding: 10px;
                         font-size: 16px;
-                        border: 1px solid #f74600;
+                        border: 2px solid #00b1f7;
                         border-radius: 5px;
-                        position: fixed;
-                        top: 0; /* يبدأ أعلى الشاشة */
+                        position: absolute;
+                        top: -37px; /* يبدأ أعلى الشاشة */
                         right: center;
-                        background-color: white;
+                        background-color: rgb(255, 255, 255);
                         z-index: 1000; /* ليكون فوق العناصر الأخرى */
                         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* ظل للحد من النص */
                         transition: top 0.3s ease-in-out; /* تنقل أنيميشن للظهور */
@@ -583,100 +583,79 @@ margin-left: 8px;
                     #no-results {
                         font-size: 18px;
                         font-weight: bold;
-                        color: red;
-                        margin-top: 10px;
+                        color: rgb(61, 97, 91);
+                        margin-top: -333px;
                     }
                 </style>
             </head>
             <body>
             
-            <div class="main-container">
-                <input type="text" id="video-search" placeholder="ابحث عن الفيديو...">
+                <div class="main-container">
+                    <input type="text" id="video-search" placeholder="ابحث عن الفيديو...">
+                    
+                    <div class="video-container">
+                        <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
+                        <div class="video-description">كتاب المستثمر الذكى</div>
+                        <div class="video-description">السعر: 245,00 جنيه</div>
+                        <br>
+                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+                    </div>
                 
-                <div class="video-container">
-                    <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
-                    <div class="video-description">كتاب المسثمر الذكى</div>
-                    <div class="video-description">السعر: 00 , 245 جنيه</div>
-                    <br>
-                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+                    <div class="video-container">
+                        <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
+                        <div class="video-description">قلم ليزر</div>
+                        <div class="video-description">السعر: 400,00 جنيه</div>
+                        <br>
+                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
+                    </div>
                 </div>
             
-                <div class="video-container">
-                    <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
-                    <div class="video-description">قلم ليزر</div>
-                    <div class="video-description">السعر: 00 , 400 جنيه</div>
-                    <br>
-                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
-                </div>
-            </div>
-            
-            <script>
-                var prevScrollpos = window.pageYOffset;
-                var header = document.getElementById("video-search");
-                var visibleThreshold = 100; // التركيز المرئي لظهور صندوق البحث
-            
-                // عند التمرير، إظهار أو إخفاء صندوق البحث
-                window.onscroll = function() {
-                    var currentScrollPos = window.pageYOffset;
-                    if (prevScrollpos > currentScrollPos) {
-                        header.style.top = "0";
-                    } else {
-                        if (currentScrollPos > visibleThreshold) {
-                            header.style.top = "-60px";
+                <script>
+                    var prevScrollpos = window.pageYOffset;
+                    var header = document.getElementById("video-search");
+                    var visibleThreshold = 100; // التركيز المرئي لظهور صندوق البحث
+                
+                  
+                    // استماع لحدث الكتابة في صندوق البحث
+                    document.getElementById('video-search').addEventListener('keyup', function() {
+                        var searchText = this.value.trim().toLowerCase(); // النص المدخل بالحروف الصغيرة
+                        var videoContainers = document.querySelectorAll('.video-container');
+                        var noResultsMessage = 'لا توجد نتائج';
+                
+                        videoContainers.forEach(function(container) {
+                            var descriptionTexts = container.querySelectorAll('.video-description');
+                            var matchesSearch = false;
+                
+                            descriptionTexts.forEach(function(description) {
+                                var descriptionText = description.textContent.trim().toLowerCase();
+                                if (descriptionText.includes(searchText)) {
+                                    matchesSearch = true;
+                                }
+                            });
+                
+                            if (matchesSearch) {
+                                container.style.display = 'block';
+                            } else {
+                                container.style.display = 'none';
+                            }
+                        });
+                
+                        // إظهار رسالة عدم وجود نتائج إذا لم يتم العثور على أي فيديوهات
+                        var noResultsContainer = document.getElementById('no-results');
+                        if (document.querySelectorAll('.video-container:not([style*="display: none"])').length === 0) {
+                            if (!noResultsContainer) {
+                                noResultsContainer = document.createElement('div');
+                                noResultsContainer.id = 'no-results';
+                                noResultsContainer.textContent = noResultsMessage;
+                                document.querySelector('.main-container').appendChild(noResultsContainer);
+                            }
                         } else {
-                            header.style.top = "0";
-                        }
-                    }
-                    prevScrollpos = currentScrollPos;
-                };
-            
-                // إظهار صندوق البحث عند العودة للأعلى
-                var hideTimeout;
-                window.addEventListener('scroll', function() {
-                    clearTimeout(hideTimeout);
-                    header.style.top = "0";
-                    hideTimeout = setTimeout(function() {
-                        if (window.scrollY <= visibleThreshold) {
-                            header.style.top = "0";
-                        }
-                    }, 1500); // تأخير قبل إخفاء صندوق البحث مرة أخرى
-                });
-            
-                // استماع لحدث الكتابة في صندوق البحث
-                document.getElementById('video-search').addEventListener('keyup', function() {
-                    var searchText = this.value.trim().toLowerCase(); // النص المدخل بالحروف الصغيرة
-                    var videoDescriptions = document.querySelectorAll('.video-description');
-                    var noResultsMessage = 'لا توجد نتائج';
-            
-                    // تحديث العرض بناءً على نتائج البحث
-                    videoDescriptions.forEach(function(description) {
-                        var videoNumber = description.textContent.trim().toLowerCase(); // رقم الفيديو كنص مقيد
-                        var parentContainer = description.parentElement;
-            
-                        // إظهار أو إخفاء الفيديو بناءً على تطابق البحث
-                        if (videoNumber.includes(searchText)) {
-                            parentContainer.style.display = 'block';
-                        } else {
-                            parentContainer.style.display = 'none';
+                            if (noResultsContainer) {
+                                noResultsContainer.remove();
+                            }
                         }
                     });
-            
-                    // إظهار رسالة عدم وجود نتائج إذا لم يتم العثور على أي فيديوهات
-                    var noResultsContainer = document.getElementById('no-results');
-                    if (document.querySelectorAll('.video-container:not([style*="display: none"])').length === 0) {
-                        if (!noResultsContainer) {
-                            noResultsContainer = document.createElement('div');
-                            noResultsContainer.id = 'no-results';
-                            noResultsContainer.textContent = noResultsMessage;
-                            document.querySelector('.main-container').appendChild(noResultsContainer);
-                        }
-                    } else {
-                        if (noResultsContainer) {
-                            noResultsContainer.remove();
-                        }
-                    }
-                });
-            </script>
+                </script>
             </body>
             </html>
         </div>
