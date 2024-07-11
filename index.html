@@ -519,6 +519,7 @@ margin-left: 8px;
             color: #666;
         }
     </style>
+ 
 </head>
 <body>
     <!-- The menu button with an SVG icon -->
@@ -572,20 +573,155 @@ margin-left: 8px;
 
         <!-- Menu content areas -->
         <div id="menu-content-1" class="menu-content">
+            <!DOCTYPE html>
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>بحث الفيديوهات</title>
+                <style>
+                    body {
+                        direction: rtl; /* للكتابة من اليمين لليسار */
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .main-container {
+                        width: 80%;
+                        margin: 0 auto;
+                        padding-top: 20px;
+                        position: relative; /* لضمان عرض البحث في المكان الصحيح */
+                    }
+                    .video-container {
+                        margin-bottom: 20px;
+                    }
+                    .video {
+                        width: 100%;
+                        max-width: 100%;
+                    }
+                    .video-description {
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-top: 10px;
+                    }
+                    .buy-button {
+                        display: block;
+                        margin-top: 10px;
+                        padding: 10px;
+                        background-color: #007bff;
+                        color: #fff;
+                        text-align: center;
+                        text-decoration: none;
+                    }
+                    #video-search {
+                        width: 70%;
+                        padding: 10px;
+                        font-size: 16px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        position: fixed;
+                        top: 0; /* يبدأ أعلى الشاشة */
+                        right: center;
+                        background-color: white;
+                        z-index: 1000; /* ليكون فوق العناصر الأخرى */
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* ظل للحد من النص */
+                        transition: top 0.3s ease-in-out; /* تنقل أنيميشن للظهور */
+                    }
+                    #no-results {
+                        font-size: 18px;
+                        font-weight: bold;
+                        color: red;
+                        margin-top: 10px;
+                    }
+                </style>
+            </head>
+            <body>
+            
             <div class="main-container">
+                <input type="text" id="video-search" placeholder="ابحث عن الفيديو...">
+                
                 <div class="video-container">
-                    <video class="video" src="v1.mp4" controls  onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                    <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
                     <div class="video-description">245</div>
-                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
-
+                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
                 </div>
-
+            
                 <div class="video-container">
-                    <video class="video" src="v2.mp4" controls  onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                    <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
                     <div class="video-description">400</div>
-                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
+                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
                 </div>
             </div>
+            
+            <script>
+                var prevScrollpos = window.pageYOffset;
+                var header = document.getElementById("video-search");
+                var visibleThreshold = 100; // التركيز المرئي لظهور صندوق البحث
+            
+                // عند التمرير، إظهار أو إخفاء صندوق البحث
+                window.onscroll = function() {
+                    var currentScrollPos = window.pageYOffset;
+                    if (prevScrollpos > currentScrollPos) {
+                        header.style.top = "0";
+                    } else {
+                        if (currentScrollPos > visibleThreshold) {
+                            header.style.top = "-60px";
+                        } else {
+                            header.style.top = "0";
+                        }
+                    }
+                    prevScrollpos = currentScrollPos;
+                };
+            
+                // إظهار صندوق البحث عند العودة للأعلى
+                var hideTimeout;
+                window.addEventListener('scroll', function() {
+                    clearTimeout(hideTimeout);
+                    header.style.top = "0";
+                    hideTimeout = setTimeout(function() {
+                        if (window.scrollY <= visibleThreshold) {
+                            header.style.top = "0";
+                        }
+                    }, 1500); // تأخير قبل إخفاء صندوق البحث مرة أخرى
+                });
+            
+                // استماع لحدث الكتابة في صندوق البحث
+                document.getElementById('video-search').addEventListener('keyup', function() {
+                    var searchText = this.value.trim().toLowerCase(); // النص المدخل بالحروف الصغيرة
+                    var videoDescriptions = document.querySelectorAll('.video-description');
+                    var noResultsMessage = 'لا توجد نتائج';
+            
+                    // تحديث العرض بناءً على نتائج البحث
+                    videoDescriptions.forEach(function(description) {
+                        var videoNumber = description.textContent.trim().toLowerCase(); // رقم الفيديو كنص مقيد
+                        var parentContainer = description.parentElement;
+            
+                        // إظهار أو إخفاء الفيديو بناءً على تطابق البحث
+                        if (videoNumber.includes(searchText)) {
+                            parentContainer.style.display = 'block';
+                        } else {
+                            parentContainer.style.display = 'none';
+                        }
+                    });
+            
+                    // إظهار رسالة عدم وجود نتائج إذا لم يتم العثور على أي فيديوهات
+                    var noResultsContainer = document.getElementById('no-results');
+                    if (document.querySelectorAll('.video-container:not([style*="display: none"])').length === 0) {
+                        if (!noResultsContainer) {
+                            noResultsContainer = document.createElement('div');
+                            noResultsContainer.id = 'no-results';
+                            noResultsContainer.textContent = noResultsMessage;
+                            document.querySelector('.main-container').appendChild(noResultsContainer);
+                        }
+                    } else {
+                        if (noResultsContainer) {
+                            noResultsContainer.remove();
+                        }
+                    }
+                });
+            </script>
+            
+            </body>
+            </html>
         </div>
         <div id="menu-content-2" class="menu-content">
             <h1>Menu 2 Content</h1>
