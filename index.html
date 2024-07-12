@@ -408,9 +408,9 @@ margin-left: 8px;
         #back-button {
             position: fixed;
             top: -17px;
-            right: -19px;
+            right: -16px;
             background-color: #33333300;
-            color: #00b1f7;
+            color: #0088f7;
             border: none;
             padding: 10px 17px;
             font-size: 19px;
@@ -539,10 +539,10 @@ margin-left: 8px;
     </style>
 </head>
 <body>
-    <button id="back-button" class="button" onclick="goBack()">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="33" height="33" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-          </svg>
+    <button id="back-button"return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent; class="button" onclick="goBack()">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+          </svg>          
           
     </button>
 
@@ -589,26 +589,69 @@ margin-left: 8px;
             </head>
             <body>
             
-                <div class="main-container">
-                    <input type="text" id="video-search" placeholder="ابحث عن الفيديو...">
+                <!DOCTYPE html>
+                <html lang="ar">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>تغيير ترتيب الفيديوهات</title>
+                    <style>
+                        .main-container {
+                            display: flex;
+                            flex-direction: column;
+                        }
+                        .video-container {
+                            margin-bottom: 20px;
+                        }
+                        .video {
+                            width: 100%;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="main-container" id="main-container">
+                        <input type="text" id="video-search" placeholder="ابحث عن الفيديو...">
+                        
+                        <div class="video-container">
+                            <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
+                            <div class="video-description">كتاب المستثمر الذكى</div>
+                            <div class="video-description">السعر: 245,00 جنيه</div>
+                            <br>
+                            <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+                        </div>
                     
-                    <div class="video-container">
-                        <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
-                        <div class="video-description">كتاب المستثمر الذكى</div>
-                        <div class="video-description">السعر: 245,00 جنيه</div>
-                        <br>
-                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+                        <div class="video-container">
+                            <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
+                            <div class="video-description">قلم ليزر</div>
+                            <div class="video-description">السعر: 400,00 جنيه</div>
+                            <br>
+                            <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
+                        </div>
                     </div>
                 
-                    <div class="video-container">
-                        <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();"></video>
-                        <div class="video-description">قلم ليزر</div>
-                        <div class="video-description">السعر: 400,00 جنيه</div>
-                        <br>
-                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
-                    </div>
-                </div>
-            
+                    <script>
+                        function shuffleVideos() {
+                            const container = document.getElementById('main-container');
+                            const videos = Array.from(container.getElementsByClassName('video-container'));
+                            
+                            for (let i = videos.length - 1; i > 0; i--) {
+                                const j = Math.floor(Math.random() * (i + 1));
+                                [videos[i], videos[j]] = [videos[j], videos[i]];
+                            }
+                
+                            videos.forEach(video => container.appendChild(video));
+                        }
+                
+                        function openPopup(element) {
+                            // Add your popup logic here
+                            alert('Popup opened for ' + element.dataset.productName);
+                        }
+                
+                        // Shuffle videos on page load
+                        window.onload = shuffleVideos;
+                    </script>
+                </body>
+                </html>
                 <script>
                     var prevScrollpos = window.pageYOffset;
                     var header = document.getElementById("video-search");
@@ -7116,7 +7159,7 @@ function saveLocation(latitude, longitude) {
             </style>
         </head>
         <body>
-            <h1 class="rtl-text">مرحبًا! <br> انا سيف الدين <br>اسست ادجير فى 2024/7/5 <br>نحن ليس لدينا شحن خاص بنا ولكننا نتعامل مع شركة شحن خارجيه فى الوقت الحالى<br>اذا وصلك منتج ليس كما كان فى الصوره او كان به اى كسر فيمكنك التواصل معنا واسترجاعه مجاناً<br>إن ادجير توفر خدمات اكثر سلاسه للتسوق<br>الأن اصبح التسوق سهلاً ابدأ بالشراء
+            <h1 class="rtl-text">مرحبًا! <br> انا سيف الدين <br>اسست ادجير فى 2024/7/15 <br>نحن ليس لدينا شحن خاص بنا ولكننا نتعامل مع شركة شحن خارجيه فى الوقت الحالى<br>اذا وصلك منتج ليس كما كان فى الصوره او كان به اى كسر فيمكنك التواصل معنا واسترجاعه مجاناً<br>إن ادجير توفر خدمات اكثر سلاسه للتسوق<br>الأن اصبح التسوق سهلاً ابدأ بالشراء
             </h1>
 
         </html>
