@@ -1002,10 +1002,18 @@ margin-left: 8px;
     <p></p>
     <form id="emailForm">
         <label for="user-problem">اكتب مشكلتك:</label><br>
-        <textarea id="user-problem" name="user-problem" rows="6" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;"></textarea><br><br>
+        <textarea id="user-problem" name="user-problem" rows="6" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;"></textarea><br>
+        <span id="problem-error" style="display: none; color: #f00; font-size: 12px;">يرجى كتابة مشكلتك!</span><br><br>
         <input type="submit" value="موافق" style="background-color: #4CAF50; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
     </form>
 </div>
+
+<style>
+    /* CSS to style the textarea with red border on error */
+    #user-problem:invalid {
+        border-color: #f00; /* Red border if not filled */
+    }
+</style>
 
 <script>
     document.getElementById("emailForm").addEventListener("submit", function(event) {
@@ -1016,16 +1024,30 @@ margin-left: 8px;
 
         // Check if the user problem field is empty
         if (userProblem === "") {
-            alert("يرجى كتابة المشكلة ");
+            document.getElementById("problem-error").style.display = "inline"; // Show error message
+            document.getElementById("user-problem").style.borderColor = "#f00"; // Set border color to red
             return;
         }
 
+        // Reset error message and border color if not empty
+        document.getElementById("problem-error").style.display = "none";
+        document.getElementById("user-problem").style.borderColor = "#ddd";
+
         // Construct mailto link with user's problem as subject
         var subject = encodeURIComponent("مشكلة المستخدم: " + userProblem);
-        var mailtoLink = "mailto:your-email@example.com?subject=" + subject;
+        var mailtoLink = "adger.shop@example.com?subject=" + subject;
 
         // Open the mail client with the mailto link
         window.location.href = mailtoLink;
+    });
+
+    // Check if user has typed in the textarea
+    document.getElementById("user-problem").addEventListener("input", function() {
+        var userProblem = this.value.trim();
+        if (userProblem !== "") {
+            document.getElementById("problem-error").style.display = "none"; // Hide error message
+            document.getElementById("user-problem").style.borderColor = "#ddd"; // Reset border color
+        }
     });
 </script>
     </div>
