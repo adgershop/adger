@@ -519,9 +519,9 @@ margin-left: 8px;
     <!-- The white page that appears when the menu button is clicked -->
     <div id="white-page">
         <div id="menu-items">
-            <a href="#" id="menu-item-1">ADGER SHOW</a>
-            <a href="#" id="menu-item-2">Menu 2</a>
-            <a href="#" id="menu-item-3">Menu 3</a>
+            <a href="#" id="menu-item-2">MY ACCOUNT</a><br>
+            <a href="#" id="menu-item-1">ADGER VIDEOS</a><br>
+            <a href="#" id="menu-item-3">PROBLEM</a><br>
         </div>
        
     <style>
@@ -702,13 +702,332 @@ margin-left: 8px;
             </html>
         </div>
         <div id="menu-content-2" class="menu-content">
-            <h1>Menu 2 Content</h1>
-            <p>This is the content for Menu 2.</p>
+            <div class="login-container">
+                <h2>تسجيل الدخول</h2>
+                <form id="loginForm">
+                    <label for="name">الاسم:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="phone">رقم الهاتف:</label>
+                    <input type="text" id="phone" name="phone" required>
+                    
+                    <label for="password">كلمة المرور:</label>
+                    <input type="password" id="password" name="password" required>
+                    
+                    <div class="profile-picture-container">
+                        <label for="profilePicture">الصورة الشخصية:</label>
+                        <div class="profile-picture" id="profilePictureCircle" onclick="document.getElementById('profilePicture').click();"></div>
+                        <input type="file" id="profilePicture" name="profilePicture" accept="image/*" style="display: none;" required>
+                    </div>
+        
+                    <button type="submit">تسجيل الدخول</button>
+                </form>
+            </div>
+            
+            <div class="user-profile" id="userProfile" style="display: none;">
+                <img id="userImage" src="" alt="Profile Picture">
+                <p id="userName"></p>
+            </div>
         </div>
-        <div id="menu-content-3" class="menu-content">
-            <h1>Menu 3 Content</h1>
-            <p>This is the content for Menu 3.</p>
-        </div>
+        
+  <style>
+    /* تخصيص شكل الحقول والدائرة للصورة */
+    .login-container {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .login-container h2 {
+        margin-bottom: 20px;
+    }
+
+    .login-container label {
+        display: block;
+        margin-bottom: 8px;
+        text-align: right;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: right;
+    }
+
+    .profile-picture-container {
+        margin-bottom: 15px;
+    }
+
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #ddd;
+        background-size: cover;
+        background-position: center;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+
+    .profile-picture:hover {
+        opacity: 0.8;
+    }
+
+    .profile-picture input[type="file"] {
+        display: none;
+    }
+
+    .submit-button {
+        padding: 12px 24px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .submit-button:hover {
+        background-color: #0056b3;
+    }
+
+    .user-profile {
+        display: none;
+        text-align: center;
+    }
+
+    .user-profile img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div id="menu-content-2" class="menu-content">
+    <div class="login-container">
+        <h2>تسجيل الدخول</h2>
+        <form id="loginForm">
+            <label for="name">الاسم:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="phone">رقم الهاتف:</label>
+            <input type="text" id="phone" name="phone" required>
+            
+            <label for="password">كلمة المرور:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <div class="profile-picture-container">
+                <label for="profilePicture">الصورة الشخصية:</label>
+                <div class="profile-picture" id="profilePictureCircle" onclick="document.getElementById('profilePicture').click();">
+                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(this);" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">تسجيل الدخول</button>
+        </form>
+    </div>
+    
+    <div class="user-profile" id="userProfile">
+        <img id="userImage" src="" alt="Profile Picture">
+        <p id="userName"></p>
+    </div>
+</div>
+
+<style>
+    /* تخصيص شكل الحقول والدائرة للصورة */
+    .login-container {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .login-container h2 {
+        margin-bottom: 20px;
+    }
+
+    .login-container label {
+        display: block;
+        margin-bottom: 8px;
+        text-align: right;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: right;
+    }
+
+    .profile-picture-container {
+        margin-bottom: 15px;
+    }
+
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #ddd;
+        background-size: cover;
+        background-position: center;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+
+    .profile-picture:hover {
+        opacity: 0.8;
+    }
+
+    .profile-picture input[type="file"] {
+        display: none;
+    }
+
+    .submit-button {
+        padding: 12px 24px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .submit-button:hover {
+        background-color: #0056b3;
+    }
+
+    .user-profile {
+        display: none;
+        text-align: center;
+    }
+
+    .user-profile img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div id="menu-content-2" class="menu-content">
+    <div class="login-container">
+        <h2>تسجيل الدخول</h2>
+        <form id="loginForm">
+            <label for="name">الاسم:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="phone">رقم الهاتف:</label>
+            <input type="text" id="phone" name="phone" required>
+            
+            <label for="password">كلمة المرور:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <div class="profile-picture-container">
+                <label for="profilePicture">الصورة الشخصية:</label>
+                <div class="profile-picture" id="profilePictureCircle" onclick="document.getElementById('profilePicture').click();">
+                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(this);" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">تسجيل الدخول</button>
+        </form>
+    </div>
+    
+    <div class="user-profile" id="userProfile">
+        <img id="userImage" src="" alt="Profile Picture">
+        <p id="userName"></p>
+    </div>
+</div>
+<script>
+    // التحقق مما إذا كان هناك بيانات تسجيل دخول مخزنة في localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+        const storedUserData = localStorage.getItem('userData');
+        if (storedUserData) {
+            const userData = JSON.parse(storedUserData);
+            showUserProfile(userData);
+        }
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const password = document.getElementById('password').value;
+        const profilePicture = document.getElementById('profilePicture').files[0];
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const userData = {
+                name: name,
+                phone: phone,
+                profilePicture: e.target.result
+            };
+
+            // حفظ بيانات المستخدم في localStorage
+            localStorage.setItem('userData', JSON.stringify(userData));
+
+            // عرض بيانات المستخدم
+            showUserProfile(userData);
+        };
+        reader.readAsDataURL(profilePicture);
+    });
+
+    function showUserProfile(userData) {
+        document.getElementById('userImage').src = userData.profilePicture;
+        document.getElementById('userName').innerText = userData.name;
+
+        // إخفاء نموذج تسجيل الدخول وعرض بيانات المستخدم
+        document.querySelector('.login-container').style.display = 'none';
+        document.getElementById('userProfile').style.display = 'block';
+    }
+</script>
+<div id="menu-content-3" class="menu-content">
+    <h1></h1>
+    <p></p>
+    <form id="emailForm">
+        <label for="user-problem">اكتب مشكلتك:</label><br>
+        <textarea id="user-problem" name="user-problem" rows="6" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;"></textarea><br><br>
+        <input type="submit" value="موافق" style="background-color: #4CAF50; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+    </form>
+</div>
+
+<script>
+    document.getElementById("emailForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get user input
+        var userProblem = document.getElementById("user-problem").value.trim();
+
+        // Check if the user problem field is empty
+        if (userProblem === "") {
+            alert("يرجى كتابة المشكلة ");
+            return;
+        }
+
+        // Construct mailto link with user's problem as subject
+        var subject = encodeURIComponent("مشكلة المستخدم: " + userProblem);
+        var mailtoLink = "mailto:your-email@example.com?subject=" + subject;
+
+        // Open the mail client with the mailto link
+        window.location.href = mailtoLink;
+    });
+</script>
     </div>
       
    </div>
