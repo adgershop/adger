@@ -1014,7 +1014,6 @@ margin-left: 8px;
         border-color: #f00; /* Red border if not filled */
     }
 </style>
-
 <script>
     document.getElementById("emailForm").addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent default form submission
@@ -1035,7 +1034,7 @@ margin-left: 8px;
 
         // Construct mailto link with user's problem as subject
         var subject = encodeURIComponent("مشكلة المستخدم: " + userProblem);
-        var mailtoLink = "adger.shop@example.com?subject=" + subject;
+        var mailtoLink = "mailto:adger.shop@example.com?subject=" + subject;
 
         // Open the mail client with the mailto link
         window.location.href = mailtoLink;
