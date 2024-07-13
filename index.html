@@ -2227,6 +2227,7 @@ function saveLocation(latitude, longitude) {
                             font-size: 30px;
                             direction: rtl;
                             cursor: pointer;
+                            display: inline-block;
                         }
                         .rating .star {
                             color: gold;
@@ -2240,6 +2241,8 @@ function saveLocation(latitude, longitude) {
                             cursor: pointer;
                             color: #333;
                             margin-left: 10px;
+                            display: inline-block;
+                            vertical-align: top;
                         }
                         .hidden {
                             display: none;
@@ -2255,6 +2258,11 @@ function saveLocation(latitude, longitude) {
                             border: 1px solid #ccc;
                             width: 500px;
                             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                        }
+                        @media (max-width: 768px) {
+                          #review-modal {
+                            width: 90%;
+                          }
                         }
                         #review-list {
                             list-style-type: none;
@@ -2272,6 +2280,9 @@ function saveLocation(latitude, longitude) {
                             color: #333;
                             font-size: 20px;
                             cursor: pointer;
+                        }
+                        .rating .star:active {
+                          color: gold;
                         }
                     </style>
                 </head>
@@ -2346,7 +2357,7 @@ function saveLocation(latitude, longitude) {
                                 raterCountSpan.textContent = `(${totalReviews})`;
                             }
                 
-                            // Llama a esta función cuando la página se carga
+                            // Call this function when the page loads
                             updateAverageRatingOnLoad(ratingStars);
                 
                             const savedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
@@ -2364,6 +2375,7 @@ function saveLocation(latitude, longitude) {
                                     displayReviews(savedReviews);
                                     document.getElementById('comment').value = '';
                                     currentRating = 0;
+                                    updateAverageRatingOnLoad(ratingStars); // Update the rating display after submitting a new review
                                 } else {
                                     alert('يرجى كتابة تعليق وتحديد تقييم صحيح.');
                                 }
