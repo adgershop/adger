@@ -2226,11 +2226,10 @@ function saveLocation(latitude, longitude) {
                         .rating-container {
                             display: flex;
                             align-items: center;
-
                         }
                 
                         .rating {
-                            font-size: 17px;
+                            font-size: 17px; /* This is the base size for all stars */
                             direction: rtl;
                             cursor: pointer;
                         }
@@ -2250,30 +2249,45 @@ function saveLocation(latitude, longitude) {
                             color: #333;
                             margin-left: 10px;
                         }
+                
+                        /* Half-star specific styling */
+                        .half-star-container {
+                            position: relative;
+                            width: 1em;
+                        }
+                
+                        .half-star-container::before {
+                            content: '★';
+                            position: absolute;
+                            color: gold;
+                            overflow: hidden;
+                            width: 50%;
+                        }
+                
+                        .half-star-container::after {
+                            content: '★';
+                            color: transparent;
+                            -webkit-text-stroke: 1px gold;
+                        }
                     </style>
                 </head>
                 <body>
                     <p class="rating-container">
                         <span class="rating">
                             <span class="star" data-value="1">★</span>
-                            <span class="star " data-value="2">★</span>
+                            <span class="star" data-value="2">★</span>
                             <span class="star" data-value="3">★</span>
                             <span class="star" data-value="4">★</span>
-                            <span class="star " data-value="5">★</span>
+                            <span class="half-star-container" data-value="4.5"></span> <!-- Note the data-value for the half-star -->
                         </span>
                         <span id="rater-count" class="rater-count">(0)</span>
                     </p>
+                
                     <script>
                         document.addEventListener('DOMContentLoaded', () => {
-                            const ratingStars = document.querySelectorAll('.rating .star');
+                            const ratingStars = document.querySelectorAll('.rating .star, .rating .half-star-container');
                             const raterCountSpan = document.getElementById('rater-count');
                             let currentRating = 0;
-                
-                            raterCountSpan.addEventListener('click', () => {
-                                // Display custom content here
-                                alert('This is the custom content you want to show.');
-                                // You can replace the alert with any other method to display content
-                            });
                 
                             // Set the number of raters programmatically
                             function setNumberOfRaters(number) {
@@ -2281,9 +2295,20 @@ function saveLocation(latitude, longitude) {
                             }
                 
                             // Example usage: Set the number of raters to 10
-                            setNumberOfRaters(1);
+                            setNumberOfRaters(10);
                 
-                            // The rest of your code for handling star ratings...
+                            // Handle star and half-star clicks
+                            ratingStars.forEach(star => {
+                                star.addEventListener('click', function() {
+                                    // Handle the rating logic here
+                                    currentRating = parseFloat(this.dataset.value);
+                                    // Update the displayed rating
+                                    // ...
+                                });
+                            });
+                
+                            // Modal window functionality (if needed)
+                            // ...
                         });
                     </script>
                 </body>
