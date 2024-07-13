@@ -2235,12 +2235,12 @@ function saveLocation(latitude, longitude) {
                         }
                 
                         .rating .star {
-                            color: gold;
+                            color: rgb(255, 166, 0);
                         }
                 
                         .rating .star.empty {
                             color: transparent;
-                            -webkit-text-stroke: 1px gold;
+                            -webkit-text-stroke: 1px rgb(255, 166, 0);
                         }
                 
                         .rater-count {
@@ -2252,7 +2252,6 @@ function saveLocation(latitude, longitude) {
                 
                         /* Styles for the modal */
                         .modal {
-                            margin-top: 64px;
                             display: none;
                             position: fixed;
                             z-index: 1;
@@ -2261,14 +2260,13 @@ function saveLocation(latitude, longitude) {
                             width: 100%;
                             height: 100%;
                             overflow: auto;
-                            background-color: rgba(0, 0, 0, 0.4);
+                            background-color: rgb(255, 255, 255);
                         }
                 
                         .modal-content {
                             background-color: #fff;
                             margin: 15% auto;
                             padding: 20px;
-                            border: 1px solid #888;
                             width: 80%;
                             max-width: 300px;
                             text-align: center;
@@ -2279,7 +2277,7 @@ function saveLocation(latitude, longitude) {
                             color: #aaa;
                             position: absolute;
                             top: 10px;
-                            right: 10px;
+                            right: -63px;
                             font-size: 20px;
                             font-weight: bold;
                             cursor: pointer;
@@ -2307,7 +2305,7 @@ function saveLocation(latitude, longitude) {
                             margin-top: center;
                             vertical-align: middle;
                             margin-right: 7px;
-                            margin-left: -7px;
+                            margin-left: -12px;
                         }
                 
                         .rater-info {
@@ -2326,7 +2324,7 @@ function saveLocation(latitude, longitude) {
                             <span class="star" data-value="2">★</span>
                             <span class="star" data-value="3">★</span>
                             <span class="star" data-value="4">★</span>
-                            <span class="star empty" data-value="5">★</span>
+                            <span class="star" data-value="5">★</span>
                         </span>
                         <span id="rater-count" class="rater-count">(0)</span>
                     </p>
