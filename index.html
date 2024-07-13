@@ -2216,29 +2216,172 @@ function saveLocation(latitude, longitude) {
                     </h3>
                 </body>
                 </html>
-                <style>
-                    .custom-paragraph {
-                        font-size: 22px;
-                        direction: rtl; /* لضبط النص من اليمين إلى اليسار */
-                    }
-                    .custom-paragraph .star {
-                        color: gold; /* لون النجوم المملوءة */
-                    }
-                    .custom-paragraph .star.empty {
-                        color: transparent; /* جعل النجوم الفارغة شفافة */
-                        -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
-                        
-                    }
-                </style>
+                <!DOCTYPE html>
+                <html lang="ar">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>تقييم المنتج</title>
+                    <style>
+                        .rating {
+                            font-size: 30px;
+                            direction: rtl;
+                            cursor: pointer;
+                        }
+                        .rating .star {
+                            color: gold;
+                        }
+                        .rating .star.empty {
+                            color: transparent;
+                            -webkit-text-stroke: 1px gold;
+                        }
+                        .rater-count {
+                            font-size: 20px;
+                            cursor: pointer;
+                            color: #333;
+                            margin-left: 10px;
+                        }
+                        .hidden {
+                            display: none;
+                        }
+                        #review-modal {
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            z-index: 1000;
+                            background: white;
+                            padding: 20px;
+                            border: 1px solid #ccc;
+                            width: 500px;
+                            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                        }
+                        #review-list {
+                            list-style-type: none;
+                            padding: 0;
+                        }
+                        #review-list li {
+                            margin-bottom: 10px;
+                            padding: 10px;
+                            border: 1px solid #ccc;
+                            background-color: #f9f9f9;
+                        }
+                        button.close-modal {
+                            background: none;
+                            border: none;
+                            color: #333;
+                            font-size: 20px;
+                            cursor: pointer;
+                        }
+                    </style>
                 </head>
                 <body>
-                <p class="custom-paragraph">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star empty">★</span>
-                </p>
+                    <p class="rating">
+                        <span class="star empty" data-value="1">★</span>
+                        <span class="star empty" data-value="2">★</span>
+                        <span class="star empty" data-value="3">★</span>
+                        <span class="star empty" data-value="4">★</span>
+                        <span class="star empty" data-value="5">★</span>
+                        <span id="rater-count" class="rater-count">(0)</span>
+                    </p>
+                    <div id="review-modal" class="hidden">
+                        <button class="close-modal" id="close-modal">&times;</button>
+                        <ul id="review-list">
+                            <!-- Reviews will be displayed here -->
+                        </ul>
+                        <div id="review-form-container">
+                            <textarea id="comment" placeholder="اكتب تعليقك هنا..."></textarea>
+                            <div class="rating" id="review-stars">
+                                <span class="star" data-value="1">★</span>
+                                <span class="star" data-value="2">★</span>
+                                <span class="star" data-value="3">★</span>
+                                <span class="star" data-value="4">★</span>
+                                <span class="star" data-value="5">★</span>
+                            </div>
+                            <button id="submit-review">ارفع التعليق</button>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const ratingStars = document.querySelectorAll('.rating .star');
+                            const raterCountSpan = document.getElementById('rater-count');
+                            const reviewModal = document.getElementById('review-modal');
+                            const reviewList = document.getElementById('review-list');
+                            const reviewStars = document.getElementById('review-stars').querySelectorAll('.star');
+                            const submitButton = document.getElementById('submit-review');
+                            const closeModalButton = document.getElementById('close-modal');
+                            let currentRating = 0;
+                
+                            raterCountSpan.addEventListener('click', () => {
+                                reviewModal.classList.remove('hidden');
+                            });
+                
+                            closeModalButton.addEventListener('click', () => {
+                                reviewModal.classList.add('hidden');
+                            });
+                
+                            reviewStars.forEach(star => {
+                                star.addEventListener('click', () => {
+                                    currentRating = parseInt(star.getAttribute('data-value'));
+                                    updateStars(reviewStars, currentRating);
+                                });
+                            });
+                
+                            function updateStars(stars, rating) {
+                                stars.forEach(star => {
+                                    star.classList.remove('empty');
+                                    if (parseInt(star.getAttribute('data-value')) > rating) {
+                                        star.classList.add('empty');
+                                    }
+                                });
+                            }
+                
+                            function updateAverageRatingOnLoad(ratingStars) {
+                                const savedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                                let sumRatings = 0;
+                                let totalReviews = savedReviews.length;
+                                sumRatings = savedReviews.reduce((sum, review) => sum + review.rating, 0);
+                                const averageRating = totalReviews ? Math.round(sumRatings / totalReviews) : 0;
+                                updateStars(ratingStars, averageRating);
+                                raterCountSpan.textContent = `(${totalReviews})`;
+                            }
+                
+                            // Llama a esta función cuando la página se carga
+                            updateAverageRatingOnLoad(ratingStars);
+                
+                            const savedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                            displayReviews(savedReviews);
+                
+                            submitButton.addEventListener('click', () => {
+                                const comment = document.getElementById('comment').value.trim();
+                                if (comment && currentRating > 0 && currentRating <= 5) {
+                                    const newReview = {
+                                        rating: currentRating,
+                                        comment: comment
+                                    };
+                                    savedReviews.push(newReview);
+                                    localStorage.setItem('reviews', JSON.stringify(savedReviews));
+                                    displayReviews(savedReviews);
+                                    document.getElementById('comment').value = '';
+                                    currentRating = 0;
+                                } else {
+                                    alert('يرجى كتابة تعليق وتحديد تقييم صحيح.');
+                                }
+                            });
+                
+                            function displayReviews(reviews) {
+                                reviewList.innerHTML = '';
+                
+                                reviews.forEach((review, index) => {
+                                    const rating = review.rating;
+                                    const comment = review.comment;
+                                    const listItem = document.createElement('li');
+                                    listItem.innerHTML = `<span class="review-comment">${comment}</span>`;
+                                    reviewList.appendChild(listItem);
+                                });
+                            }
+                        });
+                    </script>
                 </body>
                 </html>
                 
