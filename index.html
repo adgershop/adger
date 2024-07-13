@@ -2220,7 +2220,7 @@ function saveLocation(latitude, longitude) {
                 <html lang="ar">
                 <head>
                     <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
                     <title>تقييم المنتج</title>
                     <style>
                         .rating-container {
@@ -2274,10 +2274,10 @@ function saveLocation(latitude, longitude) {
                         }
                 
                         .close {
-                            color: #d400ff;
+                            color: #aaa;
                             position: absolute;
-                            top: 19px;
-                            right: -50px;
+                            top: 10px;
+                            right: -63px;
                             font-size: 20px;
                             font-weight: bold;
                             cursor: pointer;
@@ -2285,7 +2285,7 @@ function saveLocation(latitude, longitude) {
                 
                         .close:hover,
                         .close:focus {
-                            color: #008afc;
+                            color: #000;
                             text-decoration: none;
                             cursor: pointer;
                         }
@@ -2336,7 +2336,7 @@ function saveLocation(latitude, longitude) {
                     <div id="myModal" class="modal">
                         <div class="modal-content">
                             <span class="close">
-                                <svg class="w-6 h-6 text-blue-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
                                 </svg>
                             </span>
@@ -2356,17 +2356,26 @@ function saveLocation(latitude, longitude) {
                             const modal = document.getElementById('myModal');
                             const closeModal = document.querySelector('.close');
                 
-                            raterCountSpan.addEventListener('click', () => {
-                                modal.style.display = "block";
-                            });
-                
-                            closeModal.addEventListener('click', () => {
-                                modal.style.display = "none";
-                            });
-                
-                            window.addEventListener('click', (event) => {
-                                if (event.target === modal) {
+                            function toggleModal() {
+                                if (modal.style.display === "block") {
                                     modal.style.display = "none";
+                                } else {
+                                    modal.style.display = "block";
+                                }
+                            }
+                
+                            // Add click and touch event listeners for the rating counter
+                            raterCountSpan.addEventListener('click', toggleModal);
+                            raterCountSpan.addEventListener('touchstart', toggleModal);
+                
+                            // Add click and touch event listeners for the close button
+                            closeModal.addEventListener('click', toggleModal);
+                            closeModal.addEventListener('touchstart', toggleModal);
+                
+                            // Add click and touch event listeners to close the modal when clicking outside
+                            modal.addEventListener('click', (event) => {
+                                if (event.target === modal) {
+                                    toggleModal();
                                 }
                             });
                 
