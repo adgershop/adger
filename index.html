@@ -2223,30 +2223,37 @@ function saveLocation(latitude, longitude) {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>تقييم المنتج</title>
                     <style>
+                        .rating-container {
+                            display: flex;
+                            align-items: center;
+                        }
+                
                         .rating {
                             font-size: 30px;
                             direction: rtl;
                             cursor: pointer;
-                            display: inline-block;
                         }
+                
                         .rating .star {
                             color: gold;
                         }
+                
                         .rating .star.empty {
                             color: transparent;
                             -webkit-text-stroke: 1px gold;
                         }
+                
                         .rater-count {
                             font-size: 20px;
                             cursor: pointer;
                             color: #333;
                             margin-left: 10px;
-                            display: inline-block;
-                            vertical-align: top;
                         }
+                
                         .hidden {
                             display: none;
                         }
+                
                         #review-modal {
                             position: fixed;
                             top: 50%;
@@ -2259,21 +2266,25 @@ function saveLocation(latitude, longitude) {
                             width: 500px;
                             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                         }
+                
                         @media (max-width: 768px) {
-                          #review-modal {
-                            width: 90%;
-                          }
+                            #review-modal {
+                                width: 90%;
+                            }
                         }
+                
                         #review-list {
                             list-style-type: none;
                             padding: 0;
                         }
+                
                         #review-list li {
                             margin-bottom: 10px;
                             padding: 10px;
                             border: 1px solid #ccc;
                             background-color: #f9f9f9;
                         }
+                
                         button.close-modal {
                             background: none;
                             border: none;
@@ -2281,18 +2292,21 @@ function saveLocation(latitude, longitude) {
                             font-size: 20px;
                             cursor: pointer;
                         }
+                
                         .rating .star:active {
-                          color: gold;
+                            color: gold;
                         }
                     </style>
                 </head>
                 <body>
-                    <p class="rating">
-                        <span class="star empty" data-value="1">★</span>
-                        <span class="star empty" data-value="2">★</span>
-                        <span class="star empty" data-value="3">★</span>
-                        <span class="star empty" data-value="4">★</span>
-                        <span class="star empty" data-value="5">★</span>
+                    <p class="rating-container">
+                        <span class="rating">
+                            <span class="star empty" data-value="1">★</span>
+                            <span class="star empty" data-value="2">★</span>
+                            <span class="star empty" data-value="3">★</span>
+                            <span class="star empty" data-value="4">★</span>
+                            <span class="star empty" data-value="5">★</span>
+                        </span>
                         <span id="rater-count" class="rater-count">(0)</span>
                     </p>
                     <div id="review-modal" class="hidden">
@@ -2388,7 +2402,7 @@ function saveLocation(latitude, longitude) {
                                     const rating = review.rating;
                                     const comment = review.comment;
                                     const listItem = document.createElement('li');
-                                    listItem.innerHTML = `<span class="review-comment">${comment}</span>`;
+                                    listItem.innerHTML = `<span class="review-comment">${comment}</span> <span class="review-stars">(${rating} نجمة)</span>`;
                                     reviewList.appendChild(listItem);
                                 });
                             }
