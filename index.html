@@ -2229,7 +2229,7 @@ function saveLocation(latitude, longitude) {
                         }
                 
                         .rating {
-                            font-size: 17px; /* This is the base size for all stars */
+                            font-size: 17px;
                             direction: rtl;
                             cursor: pointer;
                         }
@@ -2250,24 +2250,70 @@ function saveLocation(latitude, longitude) {
                             margin-left: 10px;
                         }
                 
-                        /* Half-star specific styling */
-                        .half-star-container {
+                        /* Styles for the modal */
+                        .modal {
+                            display: none;
+                            position: fixed;
+                            z-index: 1;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            overflow: auto;
+                            background-color: rgba(0, 0, 0, 0.4);
+                        }
+                
+                        .modal-content {
+                            background-color: #fff;
+                            margin: 15% auto;
+                            padding: 20px;
+                            border: 1px solid #888;
+                            width: 80%;
+                            max-width: 300px;
+                            text-align: center;
                             position: relative;
-                            width: 1em;
                         }
                 
-                        .half-star-container::before {
-                            content: '★';
+                        .close {
+                            color: #aaa;
                             position: absolute;
-                            color: gold;
-                            overflow: hidden;
-                            width: 50%;
+                            top: 10px;
+                            right: 10px;
+                            font-size: 20px;
+                            font-weight: bold;
+                            cursor: pointer;
                         }
                 
-                        .half-star-container::after {
-                            content: '★';
-                            color: transparent;
-                            -webkit-text-stroke: 1px gold;
+                        .close:hover,
+                        .close:focus {
+                            color: #000;
+                            text-decoration: none;
+                            cursor: pointer;
+                        }
+                
+                        /* Styles for the circular image and text */
+                        .circular-image {
+                            border-radius: 50%;
+                            width: 50px;
+                            height: 50px;
+                            margin-right: 10px;
+                            vertical-align: middle;
+                        }
+                
+                        .adger-text {
+                            font-size: 16px;
+                            font-weight: bold;
+                            margin-top: center;
+                            vertical-align: middle;
+                            margin-right: 7px;
+                        }
+                
+                        .rater-info {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-top: 10px;
+                            flex-direction: row-reverse; /* Added to reverse the order for RTL languages */
                         }
                     </style>
                 </head>
@@ -2278,37 +2324,69 @@ function saveLocation(latitude, longitude) {
                             <span class="star" data-value="2">★</span>
                             <span class="star" data-value="3">★</span>
                             <span class="star" data-value="4">★</span>
-                            <span class="half-star-container" data-value="4.5"></span> <!-- Note the data-value for the half-star -->
+                            <span class="star" data-value="5">★</span>
                         </span>
                         <span id="rater-count" class="rater-count">(0)</span>
                     </p>
                 
+                    <!-- Modal -->
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div class="rater-info">
+                                <img src="logo.jpg" alt="Adger" class="circular-image">
+                                <p class="adger-text">Adger</p>
+                                <p>مقيم بواسطة :</p>
+                            </div>
+                            <!DOCTYPE html>
+                            <html>
+                            <head>
+                            <style>
+                            .right-shift {
+                              margin-left: 20px; /* يمكنك تعديل القيمة حسب الحاجة */
+                            }
+                            </style>
+                            </head>
+                            <body>
+                            
+                            <div class="right-shift">
+                              <p>المنتج بحاله جيده</p>
+                            </div>
+                            
+                            </body>
+                            </html>
+                        </div>
+                    </div>
                     <script>
                         document.addEventListener('DOMContentLoaded', () => {
-                            const ratingStars = document.querySelectorAll('.rating .star, .rating .half-star-container');
                             const raterCountSpan = document.getElementById('rater-count');
-                            let currentRating = 0;
+                            const modal = document.getElementById('myModal');
+                            const closeModal = document.querySelector('.close');
                 
-                            // Set the number of raters programmatically
+                            // Show the modal when the rater count is clicked
+                            raterCountSpan.addEventListener('click', () => {
+                                modal.style.display = "block";
+                            });
+                
+                            // Close the modal when the close button is clicked
+                            closeModal.addEventListener('click', () => {
+                                modal.style.display = "none";
+                            });
+                
+                            // Close the modal when clicked outside of it
+                            window.addEventListener('click', (event) => {
+                                if (event.target === modal) {
+                                    modal.style.display = "none";
+                                }
+                            });
+                
+                            // Function to set the number of raters
                             function setNumberOfRaters(number) {
                                 raterCountSpan.textContent = `(${number})`;
                             }
                 
-                            // Example usage: Set the number of raters to 10
-                            setNumberOfRaters(10);
-                
-                            // Handle star and half-star clicks
-                            ratingStars.forEach(star => {
-                                star.addEventListener('click', function() {
-                                    // Handle the rating logic here
-                                    currentRating = parseFloat(this.dataset.value);
-                                    // Update the displayed rating
-                                    // ...
-                                });
-                            });
-                
-                            // Modal window functionality (if needed)
-                            // ...
+                            // Example usage: Set the number of raters to 1
+                            setNumberOfRaters(1);
                         });
                     </script>
                 </body>
