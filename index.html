@@ -2262,18 +2262,20 @@ function saveLocation(latitude, longitude) {
                             overflow: auto;
                             background-color: rgb(255, 255, 255);
                         }
-                
                         .modal-content {
-                            background-color: #fff;
-                            margin: 15% auto;
-                            padding: 20px;
-                            width: 80%;
-                            max-width: 300px;
-                            text-align: center;
-                            position: relative;
-                            border: 2px solid #7400b8; /* خط أزرق حول النافذة */
-                            border-radius: 10px;
-                        }
+    background-color: #fff;
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    position: fixed; /* تغيير إلى fixed */
+    top: 50%; /* ضبط أعلى النافذة */
+    left: 50%; /* ضبط يسار النافذة */
+    transform: translate(-50%, -50%); /* لتحريكها للمنتصف */
+    border: 2px solid #7400b8; /* خط أزرق حول النافذة */
+    border-radius: 10px;
+}
+
                 
                         .close {
                             color: #7400b8;
