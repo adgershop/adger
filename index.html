@@ -1330,10 +1330,11 @@ margin-left: 8px;
                             display: flex;
                             align-items: center;
                             margin-bottom: 20px;
+                            flex-wrap: nowrap; /* Prevent wrapping to the next line */
                         }
                 
                         .rating {
-                            font-size: 15.1px;
+                            font-size: 15px;
                             direction: rtl;
                             cursor: pointer;
                         }
@@ -1353,6 +1354,7 @@ margin-left: 8px;
                             cursor: pointer;
                             color: #333;
                             margin-left: 10px;
+                            white-space: nowrap; /* Prevent text from wrapping */
                         }
                 
                         /* Styles for the modal */
@@ -1466,7 +1468,7 @@ margin-left: 8px;
                             const modal = document.getElementById('myModal');
                             const closeModal = document.querySelector('.close');
                             const modalComment = document.getElementById('modal-comment');
-                            
+                
                             document.querySelectorAll('.rating-container').forEach(container => {
                                 const emptyStars = container.getAttribute('data-empty-stars');
                                 const comment = container.getAttribute('data-comment');
@@ -1497,7 +1499,6 @@ margin-left: 8px;
                     </script>
                 </body>
                 </html>
-    
     
     
     
