@@ -1330,13 +1330,16 @@ margin-left: 8px;
                             display: flex;
                             align-items: center;
                             margin-bottom: 20px;
-                            flex-wrap: nowrap; /* Prevent wrapping to the next line */
+                            white-space: nowrap; /* Prevent wrapping to the next line */
+                            overflow: hidden; /* Ensure no wrapping */
                         }
                 
                         .rating {
-                            font-size: 18px;
+                            font-size: 18px; /* Change star size to 18px */
                             direction: rtl;
                             cursor: pointer;
+                            display: flex; /* Ensure stars stay in one line */
+                            align-items: center;
                         }
                 
                         .rating .star {
@@ -1350,21 +1353,11 @@ margin-left: 8px;
                         }
                 
                         .rater-count {
-                            font-size: 8px;
+                            font-size: 14px; /* Adjusted font size for visibility */
                             cursor: pointer;
                             color: #333;
                             margin-left: 10px;
-                            white-space: nowrap; /* Prevent text from wrapping */
-                        }
-                
-                        /* Media query to reduce font size on smaller screens */
-                        @media (max-width: 480px) {
-                            .rating {
-                                font-size: 12px;
-                            }
-                            .rater-count {
-                                font-size: 6px;
-                            }
+                            flex-shrink: 0; /* Prevent text from shrinking */
                         }
                 
                         /* Styles for the modal */
@@ -1422,10 +1415,9 @@ margin-left: 8px;
                         .adger-text {
                             font-size: 16px;
                             font-weight: bold;
-                            margin-top: center;
                             vertical-align: middle;
                             margin-right: 7px;
-                            margin-left: -7px; 
+                            margin-left: -7px;
                             color:#430069;
                         }
                 
@@ -1509,7 +1501,6 @@ margin-left: 8px;
                     </script>
                 </body>
                 </html>
-    
     
     
                 
