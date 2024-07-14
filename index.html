@@ -630,74 +630,50 @@ margin-left: 8px;
                     </div>
                 
                     <script>
-                        function shuffleVideos() {
-                            const container = document.getElementById('main-container');
-                            const videos = Array.from(container.getElementsByClassName('video-container'));
-                            
-                            for (let i = videos.length - 1; i > 0; i--) {
-                                const j = Math.floor(Math.random() * (i + 1));
-                                [videos[i], videos[j]] = [videos[j], videos[i]];
-                            }
-                
-                            videos.forEach(video => container.appendChild(video));
-                        }
-                
-                        function openPopup(element) {
-                            // Add your popup logic here
-                            alert('Popup opened for ' + element.dataset.productName);
-                        }
-                
-                        // Shuffle videos on page load
-                        window.onload = shuffleVideos;
-                    </script>
-                </body>
-                </html>
-                <script>
-                    var prevScrollpos = window.pageYOffset;
-                    var header = document.getElementById("video-search");
-                    var visibleThreshold = 100; // التركيز المرئي لظهور صندوق البحث
-                
-                  
-                    // استماع لحدث الكتابة في صندوق البحث
-                    document.getElementById('video-search').addEventListener('keyup', function() {
-                        var searchText = this.value.trim().toLowerCase(); // النص المدخل بالحروف الصغيرة
-                        var videoContainers = document.querySelectorAll('.video-container');
-                        var noResultsMessage = 'لا توجد نتائج';
-                
-                        videoContainers.forEach(function(container) {
-                            var descriptionTexts = container.querySelectorAll('.video-description');
-                            var matchesSearch = false;
-                
-                            descriptionTexts.forEach(function(description) {
-                                var descriptionText = description.textContent.trim().toLowerCase();
-                                if (descriptionText.includes(searchText)) {
-                                    matchesSearch = true;
-                                }
-                            });
-                
-                            if (matchesSearch) {
-                                container.style.display = 'block';
-                            } else {
-                                container.style.display = 'none';
+                        // التحقق مما إذا كان هناك بيانات تسجيل دخول مخزنة في localStorage
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const storedUserData = localStorage.getItem('customApp_userData');
+                            if (storedUserData) {
+                                const userData = JSON.parse(storedUserData);
+                                showUserProfile(userData);
                             }
                         });
-                
-                        // إظهار رسالة عدم وجود نتائج إذا لم يتم العثور على أي فيديوهات
-                        var noResultsContainer = document.getElementById('no-results');
-                        if (document.querySelectorAll('.video-container:not([style*="display: none"])').length === 0) {
-                            if (!noResultsContainer) {
-                                noResultsContainer = document.createElement('div');
-                                noResultsContainer.id = 'no-results';
-                                noResultsContainer.textContent = noResultsMessage;
-                                document.querySelector('.main-container').appendChild(noResultsContainer);
-                            }
-                        } else {
-                            if (noResultsContainer) {
-                                noResultsContainer.remove();
-                            }
+                    
+                        document.getElementById('loginForm').addEventListener('submit', function(event) {
+                            event.preventDefault();
+                    
+                            const name = document.getElementById('name').value;
+                            const phone = document.getElementById('phone').value;
+                            const password = document.getElementById('password').value;
+                            const profilePicture = document.getElementById('profilePicture').files[0];
+                    
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const userData = {
+                                    name: name,
+                                    phone: phone,
+                                    profilePicture: e.target.result
+                                };
+                    
+                                // حفظ بيانات المستخدم في localStorage مع مفتاح خاص
+                                localStorage.setItem('customApp_userData', JSON.stringify(userData));
+                    
+                                // عرض بيانات المستخدم
+                                showUserProfile(userData);
+                            };
+                            reader.readAsDataURL(profilePicture);
+                        });
+                    
+                        function showUserProfile(userData) {
+                            document.getElementById('userImage').src = userData.profilePicture;
+                            document.getElementById('userName').innerText = userData.name;
+                    
+                            // إخفاء نموذج تسجيل الدخول وعرض بيانات المستخدم
+                            document.querySelector('.login-container').style.display = 'none';
+                            document.getElementById('userProfile').style.display = 'block';
                         }
-                    });
-                </script>
+                    </script>
+                 
             </body>
             </html>
         </div>
