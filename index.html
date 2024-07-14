@@ -1353,7 +1353,7 @@ margin-left: 8px;
                         }
                 
                         .rater-count {
-                            font-size: 14px; /* Adjusted font size for visibility */
+                            font-size: 10px; /* Adjusted font size for visibility */
                             cursor: pointer;
                             color: #333;
                             margin-left: 10px;
@@ -1383,7 +1383,7 @@ margin-left: 8px;
                             top: 50%;
                             left: 50%;
                             transform: translate(-50%, -50%);
-                            border: 2px solid #0084b8;
+                            border: 2px solid #b80056;
                             border-radius: 10px;
                         }
                 
@@ -1450,6 +1450,7 @@ margin-left: 8px;
                     <div id="myModal" class="modal">
                         <div class="modal-content">
                             <span class="close">
+                                <!-- SVG Close Icon -->
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
                                 </svg>
@@ -1474,17 +1475,22 @@ margin-left: 8px;
                             document.querySelectorAll('.rating-container').forEach(container => {
                                 const emptyStars = container.getAttribute('data-empty-stars');
                                 const comment = container.getAttribute('data-comment');
-                                const raterCountSpan = container.querySelector('.rater-count');
+                                const stars = container.querySelectorAll('.star');
                 
-                                raterCountSpan.addEventListener('click', () => {
-                                    modalComment.textContent = comment;
-                                    modal.style.display = "block";
-                                });
+                                stars.forEach((star, index) => {
+                                    star.addEventListener('click', () => {
+                                        modalComment.textContent = comment;
+                                        modal.style.display = "block";
+                                    });
                 
-                                container.querySelectorAll('.star').forEach((star, index) => {
                                     if (index >= 5 - emptyStars) {
                                         star.classList.add('empty');
                                     }
+                                });
+                
+                                container.querySelector('.rater-count').addEventListener('click', () => {
+                                    modalComment.textContent = comment;
+                                    modal.style.display = "block";
                                 });
                             });
                 
