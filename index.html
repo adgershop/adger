@@ -1357,6 +1357,16 @@ margin-left: 8px;
                             white-space: nowrap; /* Prevent text from wrapping */
                         }
                 
+                        /* Media query to reduce font size on smaller screens */
+                        @media (max-width: 480px) {
+                            .rating {
+                                font-size: 12px;
+                            }
+                            .rater-count {
+                                font-size: 6px;
+                            }
+                        }
+                
                         /* Styles for the modal */
                         .modal {
                             display: none;
