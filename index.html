@@ -1273,19 +1273,14 @@ margin-left: 8px;
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>قراءة المزيد</title>
+                    <title>المزيد</title>
                     <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                            margin: 0;
-                        }
-                        
                         .read-more {
                             color: blue;
                             text-decoration: underline;
                             cursor: pointer;
                         }
-                        
+                
                         .modal2 {
                             display: none;
                             position: fixed;
@@ -1297,19 +1292,18 @@ margin-left: 8px;
                             overflow: auto;
                             background-color: rgba(255, 255, 255, 1);
                         }
-                        
+                
                         .modal2-content {
                             background-color: white;
                             margin: 0 auto;
                             padding: 20px;
-                            border: 1px solid #888;
                             width: 80%;
                             max-width: 600px;
                             position: relative;
                             top: 50%;
                             transform: translateY(-50%);
                         }
-                        
+                
                         .close2 {
                             position: absolute;
                             top: 10px;
@@ -1319,42 +1313,39 @@ margin-left: 8px;
                             cursor: pointer;
                             z-index: 10000;
                         }
-                        
+                
                         .carousel2 {
                             position: relative;
                             text-align: center;
                             margin-bottom: 20px;
                         }
-                        
+                
                         .carousel2 img {
                             width: 100%;
                             max-width: 500px;
                             height: auto;
-                        }
-                        
-                        .prev2, .next2 {
-                            cursor: pointer;
-                            position: absolute;
-                            top: 50%;
-                            width: auto;
-                            padding: 16px;
-                            color: black;
-                            font-weight: bold;
-                            font-size: 18px;
                             user-select: none;
-                            transform: translateY(-50%);
-                            background-color: rgba(255, 255, 255, 0.5);
-                            z-index: 1;
                         }
-                        
-                        .prev2 {
-                            left: 10px;
+                
+                        .indicators {
+                            display: flex;
+                            justify-content: center;
+                            margin-top: 10px;
                         }
-                        
-                        .next2 {
-                            right: 10px;
+                
+                        .indicator {
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 50%;
+                            background-color: gray;
+                            margin: 0 5px;
+                            cursor: pointer;
                         }
-                        
+                
+                        .indicator.active {
+                            background-color: blue;
+                        }
+                
                         .custom-paragraph {
                             text-align: center;
                             margin-top: 20px;
@@ -1362,7 +1353,7 @@ margin-left: 8px;
                     </style>
                 </head>
                 <body>
-                    <p>هذه فقرة نصية. <span class="read-more" onclick="openModal2()">قراءة المزيد</span></p>
+                    <p><span class="read-more" onclick="openModal2()">المزيد</span></p>
                 
                     <div id="modal2" class="modal2">
                         <div class="modal2-content">
@@ -1372,12 +1363,13 @@ margin-left: 8px;
                                 </svg>
                             </div>
                             <div class="carousel2">
-                                <button class="prev2" onclick="prevSlide2()">❮</button>
                                 <img id="slide2" src="1.jpg" alt="Image">
-                                <button class="next2" onclick="nextSlide2()">❯</button>
+                            </div>
+                            <div class="indicators" id="indicators">
+                                <!-- Indicators will be added here dynamically -->
                             </div>
                             <div class="custom-paragraph">
-                                <p id="product-title">ساعة </p>
+                                <p id="product-title">ساعة</p>
                                 <p id="product-description"></p>
                             </div>
                         </div>
@@ -1385,38 +1377,75 @@ margin-left: 8px;
                 
                     <script>
                         let currentSlide2 = 0;
-                        let slides2 = ['1.1.jpg', '1.1.1.jpg', '1.1.1.1.jpg', ];
-                        
+                        let slides2 = ['1.1.jpg', '1.1.1.jpg', '1.1.1.1.jpg'];
+                        let startX;
+                
                         function openModal2() {
                             document.getElementById('modal2').style.display = 'block';
+                            createIndicators();
                             showSlide2(currentSlide2);
                         }
-                        
+                
                         function closeModal2() {
                             document.getElementById('modal2').style.display = 'none';
                         }
-                        
+                
                         function showSlide2(index) {
                             const slide2 = document.getElementById('slide2');
                             slide2.src = slides2[index];
+                            updateActiveIndicator(index);
                         }
-                        
+                
+                        function updateActiveIndicator(index) {
+                            const indicators = document.querySelectorAll('.indicator');
+                            indicators.forEach((indicator, i) => {
+                                indicator.classList.toggle('active', i === index);
+                            });
+                        }
+                
+                        function createIndicators() {
+                            const indicatorsContainer = document.getElementById('indicators');
+                            indicatorsContainer.innerHTML = '';
+                            slides2.forEach((_, index) => {
+                                const indicator = document.createElement('div');
+                                indicator.classList.add('indicator');
+                                indicator.onclick = () => showSlide2(index);
+                                indicatorsContainer.appendChild(indicator);
+                            });
+                            updateActiveIndicator(currentSlide2); // Set the initial active indicator
+                        }
+                
+                        document.getElementById('slide2').addEventListener('touchstart', (e) => {
+                            startX = e.touches[0].clientX;
+                        });
+                
+                        document.getElementById('slide2').addEventListener('touchend', (e) => {
+                            const endX = e.changedTouches[0].clientX;
+                            if (startX > endX + 50) {
+                                nextSlide2();
+                            } else if (startX < endX - 50) {
+                                prevSlide2();
+                            }
+                        });
+                
                         function prevSlide2() {
                             currentSlide2 = (currentSlide2 === 0) ? slides2.length - 1 : currentSlide2 - 1;
                             showSlide2(currentSlide2);
                         }
-                        
+                
                         function nextSlide2() {
                             currentSlide2 = (currentSlide2 === slides2.length - 1) ? 0 : currentSlide2 + 1;
                             showSlide2(currentSlide2);
                         }
-                        
+                
                         // Function to update product details
                         function updateProductDetails(title, description, images) {
                             document.getElementById('product-title').innerText = title;
                             document.getElementById('product-description').innerText = description;
                             slides2 = images; // Update the slides array
+                            currentSlide2 = 0;
                             showSlide2(0); // Show the first image
+                            createIndicators();
                         }
                     </script>
                 </body>
@@ -2098,7 +2127,7 @@ function saveLocation(latitude, longitude) {
             <div class="product-info">
                 <h2 style="font-size: 17px;">قاعدة ماوس</h2>
                 <p>قاعدة ماوس كبيرة الحجم لتناسب جميع أحجام الماوسات</p>
-                <p>هذه فقرة نصية. <span class="read-more" onclick="updateProductDetails(' قاعدة', ' ', ['2.2.jpg', '2.2.2.jpg', ]); openModal2();">قراءة المزيد</span></p>
+                <p> <span class="read-more" onclick="updateProductDetails(' قاعدة', ' ', ['2.2.jpg', '2.2.2.jpg', ]); openModal2();"> المزيد</span></p>
                 <style>
                     .hidden-text {
                         display: none;
@@ -2182,6 +2211,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">ماوس لاسلكى من xo</h2>
             <p>G620,24HGZ</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['3.3.jpg', '3.3.3.jpg', ]); openModal2();"> المزيد</span></p>
+
             <style>
                 .hidden-text {
                     display: none;
@@ -2264,6 +2295,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">كتاب ابق قوياً</h2>
             <p> ل ديمى لوفاتو <br>يتكلم الكتاب عن حكم شهيره ونصائح قويه</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['4.4.jpg', '4.4.4.jpg', ]); openModal2();"> المزيد</span></p>
+
             <style>
                 .hidden-text {
                     display: none;
@@ -2343,6 +2376,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;"> ستاند</h2>
      <p>حامل للهاتف</p>
+     <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['5.5.jpg', '5.5.5.jpg', ]); openModal2();"> المزيد</span></p>
+
      <style>
         .hidden-text {
             display: none;
@@ -2420,6 +2455,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">رينج لابت</h2>
                  <p>36 سم</p>
+                 <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['6.6.jpg', '6.6.6.jpg', ]); openModal2();"> المزيد</span></p>
+
                  <style>
                     .hidden-text {
                         display: none;
@@ -2500,6 +2537,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">طاولة لابتوب وتابلت</h2>
     <p>اللون خشبى</p>
+    <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['7.7.jpg', '7.7.7.jpg', ]); openModal2();"> المزيد</span></p>
+
     <style>
         .hidden-text {
             display: none;
@@ -2579,6 +2618,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">تابلت  بشاشة LED محمول</h2>
      <p>8.5 بوصه للرسم وغيره مزوده بذاكره لحفظ الملاحظات</p>
+     <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['8.8.jpg', '8.8.8.jpg', ]); openModal2();"> المزيد</span></p>
+
      <style>
         .hidden-text {
             display: none;
@@ -2658,6 +2699,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">حامل لابتوب الومنيوم</h2>
      <p>قابل للتعديل والطى </p>
+     <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['9.9.jpg', '9.9.9.jpg', ]); openModal2();"> المزيد</span></p>
+
      <style>
         .hidden-text {
             display: none;
@@ -2739,6 +2782,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">كتاب ريش داد بور داد</h2>
 <p> الأب الغنى والأب الفقير ل روبيرت كيوزاكى</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['10.10.jpg', '10.10.10.jpg', ]); openModal2();"> المزيد</span></p>
+
 <style>
     .hidden-text {
         display: none;
@@ -2814,6 +2859,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">DDR4 ذاكرة رام</h2>
      <p>سعة 8 جيجا بتردد 3200 ميجا هيرتز CL22 للكمبيوتر من كروشال </p>
+     <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['11.11.jpg', '11.11.11.jpg', ]); openModal2();"> المزيد</span></p>
+
      <style>
         .hidden-text {
             display: none;
@@ -2892,6 +2939,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">بطاريات زنك وكربون</h2>
      <p>شديدة التحمل من توشيبا مقاس 1.5،AA فولت ، 4 قطع </p>
+     <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['12.12.jpg', '12.12.12.jpg', ]); openModal2();"> المزيد</span></p>
+
      <style>
         .hidden-text {
             display: none;
@@ -2971,6 +3020,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">فلاشه usp من سانديسك 32 جيجا</h2>
      <p>النوع سى بمنفذين الترا لوكس </p>
+     <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['13.13.jpg', '13.13.13.jpg', ]); openModal2();"> المزيد</span></p>
+
      <style>
         .hidden-text {
             display: none;
@@ -3049,6 +3100,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">كينجستون 128 جيجا</h2>
      <p>مايكرو اس دى اكس سي بطاقة + ايه دى بى </p>
+     <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['14.14.jpg', '14.14.14.jpg', ]); openModal2();"> المزيد</span></p>
+
      <style>
         .hidden-text {
             display: none;
@@ -3126,6 +3179,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">كتاب المستثمر الذكى</h2>
      <p>كتاب شامل حول الاستثمار</p>
+     <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['15.15.jpg', '15.15.15.jpg', ]); openModal2();"> المزيد</span></p>
+
      <style>
         .hidden-text {
             display: none;
@@ -3206,6 +3261,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">بطاريه زنك وكاربون</h2>
   <p>سوبر لايف 9v من فرتا 9 فولت</p>
+  <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['16.16.jpg', '16.16.16.jpg', ]); openModal2();"> المزيد</span></p>
+
   <style>
     .hidden-text {
         display: none;
@@ -3286,6 +3343,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">شريط لاصق فضى</h2>
                <p>50 يارده فى 2 بوصه شريط لاصق قوى و مقاوم للماء</p>
+               <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['17.17.jpg', '17.17.17.jpg', ]); openModal2();"> المزيد</span></p>
+
                <style>
                 .hidden-text {
                     display: none;
@@ -3364,6 +3423,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">حقيبة يد رجالى</h2>
  <p>متعددة الأستخدمات</p>
+ <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['18.18.jpg', '18.18.18.jpg', ]); openModal2();"> المزيد</span></p>
+
  <style>
     .hidden-text {
         display: none;
@@ -3441,6 +3502,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">سلك اضائه 3 متر</h2>
     <p>اللون / ازرق</p>
+    <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['19.19.jpg', '19.19.19.jpg', ]); openModal2();"> المزيد</span></p>
+
     <style>
         .hidden-text {
             display: none;
@@ -3517,6 +3580,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">foot steps حذاء</h2>
    <p>مقاس / 44</p>
+   <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['20.20.jpg', '20.20.20.jpg', ]); openModal2();"> المزيد</span></p>
+
    <style>
     .hidden-text {
         display: none;
@@ -3593,6 +3658,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">كتاب تعلم الجمل الأنجليزيه</h2>
      <p>تعلم الجمل الأنجليزيه المفيده فى 30 دقيقه</p>
+     <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['21.21.jpg', '21.21.21.jpg', ]); openModal2();"> المزيد</span></p>
+
      <style>
         .hidden-text {
             display: none;
@@ -3612,7 +3679,7 @@ function saveLocation(latitude, longitude) {
         <h3>
             <span class="price-label">السعر:</span>
             <span class="price-amount" style="position: relative; top: 3px; font-size: 80%; color: rgb(255, 106, 0);">00</span>
-            <span class="price-amount">110</span>
+            <span class="price-amount">199</span>
             <span class="price-currency">جنيه</span>
         </h3>
     </body>
@@ -3670,6 +3737,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">لعبة سوسته حلزونيه</h2>
     <p>مصنوعه من البلاستيك</p>
+    <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['22.22.jpg', '22.22.22.jpg', ]); openModal2();"> المزيد</span></p>
+
     <style>
         .hidden-text {
             display: none;
@@ -3746,6 +3815,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">مجلة ناشيونال جيوغرافك</h2>
             <p>للشباب <br>العدد /197</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['23.jpg' ]); openModal2();"> المزيد</span></p>
+
             <style>
                 .hidden-text {
                     display: none;
@@ -3822,6 +3893,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">ورق للطباعه ايه 4</h2>
             <p>مقاس ايه 4 بوزن 80 جرام للورقه <br> عدد الورق /500 ورقه</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['24.jpg' ]); openModal2();"> المزيد</span></p>
+
             <style>
                 .hidden-text {
                     display: none;
@@ -3901,6 +3974,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">ملصقات كيبورد</h2>
             <p>حروف عربيه / انجليزيه</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['25.jpg' ]); openModal2();"> المزيد</span></p>
+
             <style>
                 .hidden-text {
                     display: none;
@@ -3977,6 +4052,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">كتاب محاط بالحمقى</h2>
             <p>ل توماس اريكسون</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['26.jpg' ]); openModal2();"> المزيد</span></p>
+
             <style>
                 .hidden-text {
                     display: none;
@@ -4050,6 +4127,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">لعبة التمساح</h2>
             <p>للأطفال</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['27.27.jpg', '27.27.27.jpg', ]); openModal2();"> المزيد</span></p>
+
             <style>
                 .hidden-text {
                     display: none;
@@ -4126,6 +4205,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">جراب لجهاز ايفون 15 برو ماكس</h2>
             <p>حمايه من السيليكونى  <br>اللون / اسود</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['28.28.jpg', '28.28.28.jpg', ]); openModal2();"> المزيد</span></p>
+
             <style>
                 .hidden-text {
                     display: none;
@@ -4202,6 +4283,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">قلم ستايلس</h2>
           <p>Z1002 بشاشة لمس 2 فى 1 من زوتيك</p>
+          <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['29.jpg', '29.29.jpg', ]); openModal2();"> المزيد</span></p>
+
           <style>
             .hidden-text {
                 display: none;
@@ -4277,6 +4360,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">عبوات الاصق الصاروخ</h2>
             <p>للصق اى شىء </p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['30.jpg' ]); openModal2();"> المزيد</span></p>
             <style>
                 .hidden-text {
                     display: none;
@@ -4352,6 +4436,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
 <h2>مجلة ناشيونال جيوغرافيك</h2>
             <p>للشباب <br>العدد 195</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['31.jpg' ]); openModal2();"> المزيد</span></p>
+
             <style>
                 .hidden-text {
                     display: none;
@@ -4427,6 +4513,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">لعبة كره تفاعليه</h2>
             <p>قابله للضغط بحجم 5 سم لتخفيف التوتر</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['32.jpg' ]); openModal2();"> المزيد</span></p>
+
             <style>
                 .hidden-text {
                     display: none;
@@ -4501,6 +4589,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">ميزان الكترونى رقمى</h2>
             <p>مصنوع من زجاج سميك وقوى يزن 180 كيلوجرام</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['33.jpg' ]); openModal2();"> المزيد</span></p>
             <style>
                 .hidden-text {
                     display: none;
@@ -4576,6 +4665,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">ميزان شنط السفر</h2>
             <p>لوزن شنط السفر مع قرائة درجة الحراره50 كيلوجرام</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['34.jpg' ]); openModal2();"> المزيد</span></p>
             <style>
                 .hidden-text {
                     display: none;
@@ -4653,6 +4743,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">حافظة لابتوب</h2>
             <p>15.6 بوصه</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', [' 35.jpg, 35.35.jpg', '35.35.35.jpg', ]); openModal2();"> المزيد</span></p>
             <style>
                 .hidden-text {
                     display: none;
@@ -4730,6 +4821,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">كتاب الدحيح ما وراء الكواليس</h2>
      <p>من طاهر المعتز بالله</p>
+     <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['36.jpg' ]); openModal2();"> المزيد</span></p>
      <style>
         .hidden-text {
             display: none;
@@ -4805,6 +4897,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">حقيبة ظهر مدرسيه</h2>
 <p>من مينترا هوم</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['37.jpg' ]); openModal2();"> المزيد</span></p>
 <style>
     .hidden-text {
         display: none;
@@ -4882,6 +4975,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">مجموعة اقلام الرسم</h2>
 <p>بألوان مائيه مكونه من 86 قطعة</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['38.jpg , 38.38.jpg', '38.38.38.jpg', ]); openModal2();"> المزيد</span></p>
+
 <style>
     .hidden-text {
         display: none;
@@ -4959,6 +5054,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">حامل اقلام</h2>
             <p>من البلاستيك <br>اللون/اسود</p>
+            <p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['39.jpg, 39.39.jpg' ]); openModal2();"> المزيد</span></p>
             <style>
                 .hidden-text {
                     display: none;
@@ -5037,6 +5133,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">رف كتب من الخشب</h2>
 <p>مكون من 4 طبقات بلون ابيض</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['40.jpg' ]); openModal2();"> المزيد</span></p>
 <style>
     .hidden-text {
         display: none;
@@ -5113,6 +5210,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">ساعه منبه</h2>
 <p>بطول 4 بوصه ، جرس مزدوج ، عقارب لا تصدر صوت ، مع اضاءه </p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['41.jpg' ]); openModal2();"> المزيد</span></p>
 <style>
     .hidden-text {
         display: none;
@@ -5189,6 +5287,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">مكعب روبيك</h2>
 <p>3 فى 3</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['42.jpg' ]); openModal2();"> المزيد</span></p>
+
 <style>
     .hidden-text {
         display: none;
@@ -5266,6 +5366,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">ميكرفون صغير للموبايل</h2>
 <p>بطول 1.5 متر ومقبس مقاس 3.5 ملم</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['43.jpg, 43.43.jpg', '43.43.43.jpg', ]); openModal2();"> المزيد</span></p>
 <style>
     .hidden-text {
         display: none;
@@ -5343,6 +5444,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">6 عبوات زجاجة بخاخ فارغه</h2>
 <p>50 مل/1.5 اونصة <br> من البلاستيك</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['44.jpg' ]); openModal2();"> المزيد</span></p>
+
 <style>
     .hidden-text {
         display: none;
@@ -5420,6 +5523,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">مفرقعات زينه</h2>
 <p>للحفلات</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['45.jpg' ]); openModal2();"> المزيد</span></p>
 <style>
     .hidden-text {
         display: none;
@@ -5497,6 +5601,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">سبراى ثلج</h2>
 <p>للحفلات , 250 مل</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['46.jpg' ]); openModal2();"> المزيد</span></p>
+
 <style>
     .hidden-text {
         display: none;
@@ -5576,6 +5682,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">قلم ليزر</h2>
 <p>بضوء اخضر بعيد المدى</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['47.jpg, 47.47.jpg',  ]); openModal2();"> المزيد</span></p>
 <style>
     .hidden-text {
         display: none;
@@ -5652,6 +5759,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">كابل شجن سريع</h2>
 <p> من النوع سى الى النوع سى</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['48.jpg' ]); openModal2();"> المزيد</span></p>
 <style>
     .hidden-text {
         display: none;
@@ -5732,6 +5840,7 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">دبابيس حائط ملونه</h2>
 <P>مجموعه من 35 قطعه</P>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['49.jpg' ]); openModal2();"> المزيد</span></p>
 <style>
     .hidden-text {
         display: none;
@@ -5808,6 +5917,8 @@ function saveLocation(latitude, longitude) {
         <div class="product-info">
             <h2 style="font-size: 17px;">مجلة ميكى العدد 1000</h2>
 <p>من Disney</p>
+<p> <span class="read-more" onclick="updateProductDetails(' ', ' ', ['50.jpg' ]); openModal2();"> المزيد</span></p>
+
 <style>
     .hidden-text {
         display: none;
