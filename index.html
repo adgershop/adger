@@ -1269,208 +1269,208 @@ margin-left: 8px;
                 <h2 style="font-size: 17px;">ساعه من فيترون</h2>
                 <p>سوار بلون فضي في ذهبي </p>
                 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المزيد</title>
-    <style>
-        .read-more {
-            color: rgb(0, 102, 255);
-            background-color: transparent;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: inline-block;
-            text-align: center;
-            margin: 0; /* تقليل المساحة الفاصلة */
-        }
-
-        .modal2 {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(255, 255, 255, 1);
-        }
-
-        .modal2-content {
-            background-color: white;
-            margin: 0 auto;
-            padding: 20px;
-            width: 80%;
-            max-width: 600px;
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .close2 {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            z-index: 10000;
-        }
-
-        .carousel2 {
-            position: relative;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .carousel2 img {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            user-select: none;
-        }
-
-        .indicators {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: gray;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-
-        .indicator.active {
-            background-color: blue;
-        }
-
-        .custom-paragraph {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .custom-h1-purple {
-            color: purple;
-            font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
-            font-size: 24px; /* يمكنك تغيير حجم الخط هنا */
-        }
-
-        .custom-h1-red {
-            color: rgb(91, 128, 138);
-            font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
-            font-size: 15px; /* يمكنك تغيير حجم الخط هنا */
-        }
-    </style>
-</head>
-<body>
-    <p><span class="read-more" onclick="openModal2()">المزيد</span></p>
-
-    <div id="modal2" class="modal2">
-        <div class="modal2-content">
-            <div class="close2" onclick="closeModal2()">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                </svg>
-            </div>
-            <div class="carousel2">
-                <img id="slide2" src="1.jpg" alt="Image">
-            </div>
-            <div class="indicators" id="indicators">
-                <!-- Indicators will be added here dynamically -->
-            </div>
-            <div class="custom-paragraph">
-                <h1 id="product-title" class="custom-h1-purple">ساعه من فينرون</h1>
-                <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
-            </div>
-            <div style="text-align: center;">
-                <button class="read-more" onclick="closeModal2()">إرجع لشراء المنتج</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let currentSlide2 = 0;
-        let slides2 = [  '1.jpg','1.1.jpg', '1.1.1.jpg',];
-        let startX;
-z
-        function openModal2() {
-            document.getElementById('modal2').style.display = 'block';
-            createIndicators();
-            showSlide2(currentSlide2);
-        }
-
-        function closeModal2() {
-            document.getElementById('modal2').style.display = 'none';
-        }
-
-        function showSlide2(index) {
-            const slide2 = document.getElementById('slide2');
-            slide2.src = slides2[index];
-            updateActiveIndicator(index);
-        }
-
-        function updateActiveIndicator(index) {
-            const indicators = document.querySelectorAll('.indicator');
-            indicators.forEach((indicator, i) => {
-                indicator.classList.toggle('active', i === index);
-            });
-        }
-
-        function createIndicators() {
-            const indicatorsContainer = document.getElementById('indicators');
-            indicatorsContainer.innerHTML = '';
-            slides2.forEach((_, index) => {
-                const indicator = document.createElement('div');
-                indicator.classList.add('indicator');
-                indicator.onclick = () => showSlide2(index);
-                indicatorsContainer.appendChild(indicator);
-            });
-            updateActiveIndicator(currentSlide2); // Set the initial active indicator
-        }
-
-        document.getElementById('slide2').addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-        });
-
-        document.getElementById('slide2').addEventListener('touchend', (e) => {
-            const endX = e.changedTouches[0].clientX;
-            if (startX > endX + 50) {
-                nextSlide2();
-            } else if (startX < endX - 50) {
-                prevSlide2();
-            }
-        });
-
-        function prevSlide2() {
-            currentSlide2 = (currentSlide2 === 0) ? slides2.length - 1 : currentSlide2 - 1;
-            showSlide2(currentSlide2);
-        }
-
-        function nextSlide2() {
-            currentSlide2 = (currentSlide2 === slides2.length - 1) ? 0 : currentSlide2 + 1;
-            showSlide2(currentSlide2);
-        }
-
-        // Function to update product details
-        function updateProductDetails(title, description, images) {
-            document.getElementById('product-title').innerText = title;
-            document.getElementById('product-description').innerText = description;
-            slides2 = images; // Update the slides array
-            currentSlide2 = 0;
-            showSlide2(0); // Show the first image
-            createIndicators();
-        }
-    </script>
-</body>
-</html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>المزيد</title>
+                    <style>
+                        .read-more {
+                            color: rgb(0, 102, 255);
+                            background-color: transparent;
+                            padding: 5px 10px;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            display: inline-block;
+                            text-align: center;
+                            margin: 0; /* تقليل المساحة الفاصلة */
+                        }
+                
+                        .modal2 {
+                            display: none;
+                            position: fixed;
+                            z-index: 9999;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            overflow: auto;
+                            background-color: rgba(255, 255, 255, 1);
+                        }
+                
+                        .modal2-content {
+                            background-color: white;
+                            margin: 0 auto;
+                            padding: 20px;
+                            width: 80%;
+                            max-width: 600px;
+                            position: relative;
+                            top: 50%;
+                            transform: translateY(-50%);
+                        }
+                
+                        .close2 {
+                            position: absolute;
+                            top: 10px;
+                            right: 20px;
+                            width: 24px;
+                            height: 24px;
+                            cursor: pointer;
+                            z-index: 10000;
+                        }
+                
+                        .carousel2 {
+                            position: relative;
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                
+                        .carousel2 img {
+                            width: 100%;
+                            max-width: 500px;
+                            height: auto;
+                            user-select: none;
+                        }
+                
+                        .indicators {
+                            display: flex;
+                            justify-content: center;
+                            margin-top: 10px;
+                        }
+                
+                        .indicator {
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 50%;
+                            background-color: gray;
+                            margin: 0 5px;
+                            cursor: pointer;
+                        }
+                
+                        .indicator.active {
+                            background-color: blue;
+                        }
+                
+                        .custom-paragraph {
+                            text-align: center;
+                            margin-top: 20px;
+                        }
+                
+                        .custom-h1-purple {
+                            color: purple;
+                            font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
+                            font-size: 24px; /* يمكنك تغيير حجم الخط هنا */
+                        }
+                
+                        .custom-h1-red {
+                            color: red;
+                            font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
+                            font-size: 24px; /* يمكنك تغيير حجم الخط هنا */
+                        }
+                    </style>
+                </head>
+                <body>
+                    <p><span class="read-more" onclick="openModal2()">المزيد</span></p>
+                
+                    <div id="modal2" class="modal2">
+                        <div class="modal2-content">
+                            <div class="close2" onclick="closeModal2()">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                                </svg>
+                            </div>
+                            <div class="carousel2">
+                                <img id="slide2" src="1.jpg" alt="Image">
+                            </div>
+                            <div class="indicators" id="indicators">
+                                <!-- Indicators will be added here dynamically -->
+                            </div>
+                            <div class="custom-paragraph">
+                                <h1 id="product-title" class="custom-h1-purple">ساعة</h1>
+                                <h1 id="product-description" class="custom-h1-red"></h1>
+                            </div>
+                            <div style="text-align: center;">
+                                <button class="read-more" onclick="closeModal2()">إرجع لشراء المنتج</button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <script>
+                        let currentSlide2 = 0;
+                        let slides2 = ['1.1.jpg', '1.1.1.jpg', '1.1.1.1.jpg'];
+                        let startX;
+                
+                        function openModal2() {
+                            document.getElementById('modal2').style.display = 'block';
+                            createIndicators();
+                            showSlide2(currentSlide2);
+                        }
+                
+                        function closeModal2() {
+                            document.getElementById('modal2').style.display = 'none';
+                        }
+                
+                        function showSlide2(index) {
+                            const slide2 = document.getElementById('slide2');
+                            slide2.src = slides2[index];
+                            updateActiveIndicator(index);
+                        }
+                
+                        function updateActiveIndicator(index) {
+                            const indicators = document.querySelectorAll('.indicator');
+                            indicators.forEach((indicator, i) => {
+                                indicator.classList.toggle('active', i === index);
+                            });
+                        }
+                
+                        function createIndicators() {
+                            const indicatorsContainer = document.getElementById('indicators');
+                            indicatorsContainer.innerHTML = '';
+                            slides2.forEach((_, index) => {
+                                const indicator = document.createElement('div');
+                                indicator.classList.add('indicator');
+                                indicator.onclick = () => showSlide2(index);
+                                indicatorsContainer.appendChild(indicator);
+                            });
+                            updateActiveIndicator(currentSlide2); // Set the initial active indicator
+                        }
+                
+                        document.getElementById('slide2').addEventListener('touchstart', (e) => {
+                            startX = e.touches[0].clientX;
+                        });
+                
+                        document.getElementById('slide2').addEventListener('touchend', (e) => {
+                            const endX = e.changedTouches[0].clientX;
+                            if (startX > endX + 50) {
+                                nextSlide2();
+                            } else if (startX < endX - 50) {
+                                prevSlide2();
+                            }
+                        });
+                
+                        function prevSlide2() {
+                            currentSlide2 = (currentSlide2 === 0) ? slides2.length - 1 : currentSlide2 - 1;
+                            showSlide2(currentSlide2);
+                        }
+                
+                        function nextSlide2() {
+                            currentSlide2 = (currentSlide2 === slides2.length - 1) ? 0 : currentSlide2 + 1;
+                            showSlide2(currentSlide2);
+                        }
+                
+                        // Function to update product details
+                        function updateProductDetails(title, description, images) {
+                            document.getElementById('product-title').innerText = title;
+                            document.getElementById('product-description').innerText = description;
+                            slides2 = images; // Update the slides array
+                            currentSlide2 = 0;
+                            showSlide2(0); // Show the first image
+                            createIndicators();
+                        }
+                    </script>
+                </body>
+                </html>
                 <style>
                 .hidden-text {
                     display: none;
