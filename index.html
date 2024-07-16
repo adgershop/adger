@@ -1303,14 +1303,14 @@ margin-left: 8px;
 .modal2-content {
     background-color: white;
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 20px 25px; /* إضافة 5 بيكسل في الأسفل */
     width: 80%;
     max-width: 600px;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
     overflow-y: auto; /* جعل محتوى المودال قابلًا للتمرير */
-    max-height: 80vh; /* تحديد ارتفاع أقصى لمحتوى المودال */
+    max-height: calc(80vh - 25px); /* تحديد ارتفاع أقصى لمحتوى المودال مع الأخذ في الاعتبار المسافة الإضافية */
     scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
 }
 
