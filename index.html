@@ -563,7 +563,6 @@ margin-left: 8px;
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>بحث الفيديوهات</title>
                 <style>
-                  
                     #video-search {
                         width: 72%;
                         padding: 10px;
@@ -584,130 +583,64 @@ margin-left: 8px;
                         font-weight: bold;
                         color: rgb(61, 97, 91);
                         margin-top: -333px;
+                        display: none;
+                    }
+                    .main-container {
+                        display: flex;
+                        flex-direction: column;
+                        margin-top: 60px;
+                    }
+                    .video-container {
+                        margin-bottom: 20px;
+                    }
+                    .video {
+                        width: 100%;
                     }
                 </style>
             </head>
             <body>
+                <div class="main-container" id="main-container">
+                    <input type="text" id="video-search" placeholder="ابحث عن الفيديو..." oninput="searchVideos()">
+                    <div id="no-results">لا توجد نتائج</div>
+                    
+                    <div class="video-container" data-title="كتاب المستثمر الذكى">
+                        <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                        <div class="video-description">كتاب المستثمر الذكى</div>
+                        <div class="video-description">السعر: 245,00 جنيه</div>
+                        <br>
+                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+                    </div>
+                
+                    <div class="video-container" data-title="قلم ليزر">
+                        <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                        <div class="video-description">قلم ليزر</div>
+                        <div class="video-description">السعر: 400,00 جنيه</div>
+                        <br>
+                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
+                    </div>
+                </div>
+                <script>
+                    function searchVideos() {
+                        const searchInput = document.getElementById('video-search').value.toLowerCase();
+                        const videoContainers = document.querySelectorAll('.video-container');
+                        let hasResults = false;
             
-                <!DOCTYPE html>
-                <html lang="ar">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>تغيير ترتيب الفيديوهات</title>
-                    <style>
-                        .main-container {
-                            display: flex;
-                            flex-direction: column;
-                        }
-                        .video-container {
-                            margin-bottom: 20px;
-                        }
-                        .video {
-                            width: 100%;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <!DOCTYPE html>
-                    <html lang="ar">
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>تغيير ترتيب الفيديوهات</title>
-                        <style>
-                            .main-container {
-                                display: flex;
-                                flex-direction: column;
+                        videoContainers.forEach(container => {
+                            const title = container.getAttribute('data-title').toLowerCase();
+                            if (title.includes(searchInput)) {
+                                container.style.display = '';
+                                hasResults = true;
+                            } else {
+                                container.style.display = 'none';
                             }
-                            .video-container {
-                                margin-bottom: 20px;
-                            }
-                            .video {
-                                width: 100%;
-                            }
-                            #video-search {
-                                width: 72%;
-                                padding: 10px;
-                                font-size: 16px;
-                                border: 2px solid #00b1f7;
-                                border-radius: 5px;
-                                position: fixed;
-                                top: -37px; /* يبدأ أعلى الشاشة */
-                                right: center;
-                                background-color: rgb(255, 255, 255);
-                                z-index: 1000; /* ليكون فوق العناصر الأخرى */
-                                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* ظل للحد من النص */
-                                transition: top 0.3s ease-in-out; /* وتنتقل أنيميشن للظهور */
-                                margin-top: 37.4px;
-                            }
-                            #no-results {
-                                font-size: 18px;
-                                font-weight: bold;
-                                color: rgb(61, 97, 91);
-                                margin-top: 20px;
-                                display: none; /* إخفاء النص افتراضيًا */
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        <div class="main-container" id="main-container">
-                            <input type="text" id="video-search" placeholder="ابحث عن الفيديو...">
-                            
-                            <div class="video-container" data-description="كتاب المستثمر الذكى">
-                                <video class="video" src="v1.mp4" controls></video>
-                                <div class="video-description">كتاب المستثمر الذكى</div>
-                                <div class="video-description">السعر: 245,00 جنيه</div>
-                                <br>
-                                <a href="#" class="buy-button" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
-                            </div>
-                        
-                            <div class="video-container" data-description="قلم ليزر">
-                                <video class="video" src="v2.mp4" controls></video>
-                                <div class="video-description">قلم ليزر</div>
-                                <div class="video-description">السعر: 400,00 جنيه</div>
-                                <br>
-                                <a href="#" class="buy-button" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
-                            </div>
-                            
-                            <div id="no-results">لا توجد نتائج للبحث</div> <!-- عنصر النص عند عدم وجود نتائج -->
-                        </div>
-                    
-                        <script>
-                            // تبديل عشوائي للمنتجات
-                            document.addEventListener('DOMContentLoaded', function() {
-                                var mainContainer = document.getElementById('main-container');
-                                var videoContainers = Array.from(document.querySelectorAll('.video-container'));
-                                for (var i = videoContainers.length - 1; i > 0; i--) {
-                                    var j = Math.floor(Math.random() * (i + 1));
-                                    mainContainer.appendChild(videoContainers[j]);
-                                    videoContainers.splice(j, 1);
-                                }
-                            });
-                    
-                            // بحث الفيديوهات
-                            document.getElementById('video-search').addEventListener('keyup', function() {
-                                var searchText = this.value.toLowerCase();
-                                var videoContainers = document.querySelectorAll('.video-container');
-                                var noResults = true;
-                    
-                                videoContainers.forEach(function(container) {
-                                    var description = container.dataset.description.toLowerCase();
-                                    if (description.includes(searchText)) {
-                                        container.style.display = 'block';
-                                        noResults = false;
-                                    } else {
-                                        container.style.display = 'none';
-                                    }
-                                });
-                    
-                                // إظهار أو إخفاء عنصر النص عند عدم وجود نتائج
-                                document.getElementById('no-results').style.display = noResults ? 'block' : 'none';
-                            });
-                        </script>
-                    </body>
-                    </html>
-                    
+                        });
+            
+                        document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+                    }
+                </script>
+            </body>
+            </html>
+            
                 
                     <script>
                         // التحقق مما إذا كان هناك بيانات تسجيل دخول مخزنة في localStorage
