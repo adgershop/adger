@@ -577,6 +577,7 @@ margin-left: 8px;
                         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* ظل للحد من النص */
                         transition: top 0.3s ease-in-out; /* تنقل أنيميشن للظهور */
                         margin-top: 37.4px;
+                        
                     }
                     #no-results {
                         font-size: 18px;
@@ -595,49 +596,75 @@ margin-left: 8px;
                     }
                     .video {
                         width: 100%;
+                        margin-top: -73px;
                     }
                 </style>
             </head>
             <body>
-                <div class="main-container" id="main-container">
-                    <input type="text" id="video-search" placeholder="ابحث عن الفيديو..." oninput="searchVideos()">
-                    <div id="no-results">لا توجد نتائج</div>
-                    
-                    <div class="video-container" data-title="كتاب المستثمر الذكى">
-                        <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
-                        <div class="video-description">كتاب المستثمر الذكى</div>
-                        <div class="video-description">السعر: 245,00 جنيه</div>
-                        <br>
-                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+                <!DOCTYPE html>
+                <html lang="ar">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>فيديوهات عشوائية</title>
+                    <style>
+                        /* أضف هنا أنماط CSS الخاصة بك إذا لزم الأمر */
+                    </style>
+                </head>
+                <body>
+                    <div class="main-container" id="main-container">
+                        <input type="text" id="video-search" placeholder="ابحث عن الفيديو..." oninput="searchVideos()">
+                        <div id="no-results" style="display:none;">لا توجد نتائج</div>
+                
+                        <div class="video-container" data-title="كتاب المستثمر الذكى">
+                            <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                            <div class="video-description">كتاب المستثمر الذكى</div>
+                            <div class="video-description">السعر: 245,00 جنيه</div>
+                            <br>
+                            <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+                        </div>
+                
+                        <div class="video-container" data-title="قلم ليزر">
+                            <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                            <div class="video-description">قلم ليزر</div>
+                            <div class="video-description">السعر: 400,00 جنيه</div>
+                            <br>
+                            <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
+                        </div>
                     </div>
                 
-                    <div class="video-container" data-title="قلم ليزر">
-                        <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
-                        <div class="video-description">قلم ليزر</div>
-                        <div class="video-description">السعر: 400,00 جنيه</div>
-                        <br>
-                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
-                    </div>
-                </div>
-                <script>
-                    function searchVideos() {
-                        const searchInput = document.getElementById('video-search').value.toLowerCase();
-                        const videoContainers = document.querySelectorAll('.video-container');
-                        let hasResults = false;
-            
-                        videoContainers.forEach(container => {
-                            const title = container.getAttribute('data-title').toLowerCase();
-                            if (title.includes(searchInput)) {
-                                container.style.display = '';
-                                hasResults = true;
-                            } else {
-                                container.style.display = 'none';
-                            }
-                        });
-            
-                        document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
-                    }
-                </script>
+                    <script>
+                        function searchVideos() {
+                            const searchInput = document.getElementById('video-search').value.toLowerCase();
+                            const videoContainers = document.querySelectorAll('.video-container');
+                            let hasResults = false;
+                
+                            videoContainers.forEach(container => {
+                                const title = container.getAttribute('data-title').toLowerCase();
+                                if (title.includes(searchInput)) {
+                                    container.style.display = '';
+                                    hasResults = true;
+                                } else {
+                                    container.style.display = 'none';
+                                }
+                            });
+                
+                            document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+                        }
+                
+                        function shuffleVideos() {
+                            const container = document.getElementById('main-container');
+                            const videos = Array.from(container.getElementsByClassName('video-container'));
+                            videos.sort(() => Math.random() - 0.5);
+                            videos.forEach(video => container.appendChild(video));
+                        }
+                
+                        // Shuffle videos on page load
+                        window.onload = shuffleVideos;
+                    </script>
+                </body>
+                </html>
+                
             </body>
             </html>
             
