@@ -1931,46 +1931,6 @@ margin-left: 8px;
             popup.classList.remove('active');
         }
 
-        if (navigator.geolocation) {
-            var locationField = document.getElementById('location');
-
-            locationField.addEventListener('click', function() {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
-                    locationField.value = latitude + ', ' + longitude;
-                    saveLocation(latitude, longitude);
-                }, function(error) {
-                    if (error.code === error.PERMISSION_DENIED) {
-                        locationField.value = 'يرجى تمكين خدمة الموقع من إعدادات الهاتف ثم إعادة المحاولة.';
-                    } else {
-                        locationField.value = 'الرجاء الضغط على الثلاث نقط اعلى المتصفح ثم فتح فى chrome.';
-                        console.error('Error getting location:', error);
-                    }
-                });
-            });
-
-            setInterval(function() {
-                if (locationField.value) {
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        var latitude = position.coords.latitude;
-                        var longitude = position.coords.longitude;
-                        locationField.value = latitude + ', ' + longitude;
-                        saveLocation(latitude, longitude);
-                    }, function(error) {
-                        console.error('Error getting location:', error);
-                    });
-                }
-            }, 10000);
-        } else {
-            document.getElementById('location').value = 'المتصفح لا يدعم تحديد الموقع الجغرافي.';
-        }
-
-        function saveLocation(latitude, longitude) {
-            var savedLocation = latitude + ',' + longitude;
-            localStorage.setItem('savedLocation', savedLocation);
-        }
-
         function openWhatsApp() {
             var name = document.getElementById('name').value;
             var location = document.getElementById('location').value;
@@ -1989,11 +1949,14 @@ margin-left: 8px;
                 'الاسم الثلاثي: ' + name + '\n' +
                 'الموقع الجغرافي: ' + location + '\n' +
                 'السعر: ' + price + '\n'+
-                 'سعر التوصيل,يختلف احياناً: ' + deliveryCharge + '\n' +
+                'سعر التوصيل, يختلف أحياناً: ' + deliveryCharge + '\n' +
                 'السعر الإجمالي: ' + totalPrice
             );
 
             var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
+
+            console.log("WhatsApp Link: ", whatsappLink); // تأكد من أن الرابط يتم تكوينه بشكل صحيح
+
             window.open(whatsappLink, '_blank');
 
             localStorage.setItem('savedName', name);
