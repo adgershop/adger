@@ -1970,7 +1970,7 @@ margin-left: 8px;
         }
 
         function openWhatsApp() {
-            var name = document.getElementById('name').value;
+            var name = document.getElementById('name').value; // Get the user's full name
             var location = document.getElementById('location').value;
             var quantity = document.getElementById('quantity-number').innerText;
             var popup = document.getElementById('popup');
@@ -1980,11 +1980,12 @@ margin-left: 8px;
             var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
             var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
 
+            // Ensure that the name variable is used in the message
             var message = encodeURIComponent(
                 '#طلب شراء' + '\n' +
                 productName + '\n' +
                 'رقم المنتج: ' + productNumber + ' , الكمية: ' + quantity + '\n' +
-                'الاسم الثلاثي: ' + name + '\n' +
+                'الاسم الثلاثي: ' + name + '\n' + // Include the user's full name here
                 'الموقع الجغرافي: ' + location + '\n' +
                 'السعر: ' + price + '\n' +
                 'سعر التوصيل,يختلف احياناً: ' + deliveryCharge + '\n' +
