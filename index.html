@@ -1970,7 +1970,11 @@ margin-left: 8px;
         }
 
         function openWhatsApp() {
-            var name = document.getElementById('name').value; // Get the user's full name
+            var name = document.getElementById('name').value.trim(); // Get the user's full name and trim any whitespace
+            if (!name) {
+                alert('Please enter your full name.'); // Alert the user if the name field is empty
+                return;
+            }
             var location = document.getElementById('location').value;
             var quantity = document.getElementById('quantity-number').innerText;
             var popup = document.getElementById('popup');
