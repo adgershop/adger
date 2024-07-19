@@ -1903,17 +1903,13 @@ margin-left: 8px;
 
     <script>
         function getLocation() {
-            // قم بتعطيل لوحة المفاتيح عن طريق إغلاقها
             document.activeElement.blur();
-            // استدعاء الوظيفة للحصول على الموقع الجغرافي هنا
         }
 
         function openPopup(button) {
-            // افتح النافذة المنبثقة
             var popup = document.getElementById('popup');
             popup.classList.add('active');
 
-            // استرجاع البيانات من localStorage إذا كانت محفوظة
             var savedName = localStorage.getItem('savedName');
             if (savedName) {
                 document.getElementById('name').value = savedName;
@@ -1924,7 +1920,6 @@ margin-left: 8px;
                 document.getElementById('location').value = savedLocation;
             }
 
-            // حفظ بيانات المنتج في العنصر popup
             popup.dataset.productName = button.getAttribute('data-product-name');
             popup.dataset.productNumber = button.getAttribute('data-product-number');
             popup.dataset.price = button.getAttribute('data-price');
@@ -1932,7 +1927,6 @@ margin-left: 8px;
         }
 
         function closePopup() {
-            // أغلق النافذة المنبثقة
             var popup = document.getElementById('popup');
             popup.classList.remove('active');
         }
@@ -2002,7 +1996,6 @@ margin-left: 8px;
             var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
             window.open(whatsappLink, '_blank');
 
-            // حفظ الاسم والموقع الجغرافي تلقائيًا في localStorage
             localStorage.setItem('savedName', name);
             localStorage.setItem('savedLocation', location);
         }
