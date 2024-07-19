@@ -1963,6 +1963,10 @@ margin-left: 8px;
             );
 
             var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
+
+            // طباعة الرابط في وحدة التحكم لتصحيح الأخطاء
+            console.log("WhatsApp Link: ", whatsappLink);
+
             window.open(whatsappLink, '_blank');
 
             localStorage.setItem('savedName', name);
