@@ -163,3 +163,23 @@ display: none; /* إخفاء شريط التمرير في Chrome و Safari */
 .product-info11{
     margin-top: -37px;
 }
+
+
+.video-description {
+    display: flex;
+    align-items: center;
+  }
+  
+  .video-description .price {
+    font-size: 1.2em; /* يمكنك تغيير الحجم حسب رغبتك */
+    color: #b80505;
+    margin-left: 2px;
+  }
+  
+  .video-description .zeros {
+    font-size: 0.8em; /* يمكنك تغيير الحجم حسب رغبتك */
+    color: rgb(255, 42, 0); /* تغيير اللون إلى برتقالي */
+    margin-left: 2px;
+    margin-right: 2px;
+    vertical-align: sub; /* لجعل الأصفار تحت النص الرئيسي */
+}
