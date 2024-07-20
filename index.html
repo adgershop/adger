@@ -1426,196 +1426,7 @@ margin-left: 8px;
                     <link rel="stylesheet" href="styles.css">
                 </head>
                 <body>
-
-                </body>
-                </html>
-                <!DOCTYPE html>
-                <html lang="ar">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>تقييم المنتج</title>
-                    <style>
-                        .rating-container {
-                            display: flex;
-                            align-items: center;
-                            margin-bottom: 20px;
-                            white-space: nowrap; /* Prevent wrapping to the next line */
-                            overflow: hidden; /* Ensure no wrapping */
-                        }
-                
-                        .rating {
-                            font-size: 18px; /* Change star size to 18px */
-                            direction: rtl;
-                            cursor: pointer;
-                            display: flex; /* Ensure stars stay in one line */
-                            align-items: center;
-                        }
-                
-                        .rating .star {
-                            color: rgb(255, 166, 0);
-                            padding: 0 2px;
-                        }
-                
-                        .rating .star.empty {
-                            color: transparent;
-                            -webkit-text-stroke: 1px rgb(255, 166, 0);
-                        }
-                
-                        .rater-count {
-                            font-size: 10px; /* Adjusted font size for visibility */
-                            cursor: pointer;
-                            color: #333;
-                            margin-left: 10px;
-                            flex-shrink: 0; /* Prevent text from shrinking */
-                        }
-                
-                        /* Styles for the modal */
-                        .modal {
-                            display: none;
-                            position: fixed;
-                            z-index: 1;
-                            left: 0;
-                            top: 0;
-                            width: 100%;
-                            height: 100%;
-                            overflow: auto;
-                            background-color: rgb(255, 255, 255);
-                        }
-                
-                        .modal-content {
-                            background-color: #fff;
-                            padding: 20px;
-                            width: 80%;
-                            max-width: 300px;
-                            text-align: center;
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            border: 2px solid #21abce;
-                            border-radius: 10px;
-                        }
-                
-                        .close {
-                            color: #6c338a;
-                            position: absolute;
-                            top: 10px;
-                            right: 19px;
-                            font-size: 20px;
-                            font-weight: bold;
-                            cursor: pointer;
-                        }
-                
-                        .close:hover,
-                        .close:focus {
-                            color: #000;
-                            text-decoration: none;
-                            cursor: pointer;
-                        }
-                
-                        .circular-image {
-                            border-radius: 50%;
-                            width: 50px;
-                            height: 50px;
-                            margin-right: 10px;
-                            vertical-align: middle;
-                        }
-                
-                        .adger-text {
-                            font-size: 16px;
-                            font-weight: bold;
-                            vertical-align: middle;
-                            margin-right: 7px;
-                            margin-left: -7px;
-                            color:#430069;
-                        }
-                
-                        .rater-info {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            margin-top: 10px;
-                            flex-direction: row-reverse;
-                        }
-                
-                        .right-shift {
-                            margin-left: 20px;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="rating-container" data-empty-stars="0" data-comment="المنتج ممتاز" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-                        
-                            </span>
-                            <span class="rater-count"></span>
-                     
-                    </div>
-                
-                    <!-- Modal -->
-                    <div id="myModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close">
-                                <!-- SVG Close Icon -->
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                                </svg>
-                            </span>
-                            <div class="rater-info">
-                                <img src="logo.jpg" alt="Adger" class="circular-image">
-                                <p class="adger-text">Adger</p>
-                                <p>مقيم بواسطة :</p>
-                            </div>
-                            <div class="right-shift">
-                                <p id="modal-comment">المنتج بحالة جيدة</p>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <script>
-                        document.addEventListener('DOMContentLoaded', () => {
-                            const modal = document.getElementById('myModal');
-                            const closeModal = document.querySelector('.close');
-                            const modalComment = document.getElementById('modal-comment');
-                
-                            document.querySelectorAll('.rating-container').forEach(container => {
-                                const emptyStars = container.getAttribute('data-empty-stars');
-                                const comment = container.getAttribute('data-comment');
-                                const stars = container.querySelectorAll('.star');
-                
-                                stars.forEach((star, index) => {
-                                    star.addEventListener('click', () => {
-                                        modalComment.textContent = comment;
-                                        modal.style.display = "block";
-                                    });
-                
-                                    if (index >= 5 - emptyStars) {
-                                        star.classList.add('empty');
-                                    }
-                                });
-                
-                                container.querySelector('.rater-count').addEventListener('click', () => {
-                                    modalComment.textContent = comment;
-                                    modal.style.display = "block";
-                                });
-                            });
-                
-                            closeModal.addEventListener('click', () => {
-                                modal.style.display = "none";
-                            });
-                
-                            window.addEventListener('click', (event) => {
-                                if (event.target === modal) {
-                                    modal.style.display = "none";
-                                }
-                            });
-                        });
-                    </script>
-                </body>
-                </html>
-    
-    
-                
+   
                     <!-- WhatsApp Message Button -->
                 
     
@@ -1762,216 +1573,314 @@ margin-left: 8px;
                 <body>
                    
                     <style>
-                        .popup {
-                            display: none;
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            justify-content: center;
-                            align-items: center;
-                        }
                         
-                        .popup.active {
-                            display: flex;
-                        }
-                        
-                        .popup-content {
-                            background-color: white;
-                            padding: 20px;
-                            border-radius: 5px;
-                            width: 300px;
-                        }
-                        
-                        .popup-input {
-                            width: calc(100% - 20px);
-                            margin: 10px;
-                            padding: 5px;
-                            border: 1px solid #ccc;
-                            border-radius: 3px;
-                        }
-                        
-                        .quantity-input {
-                            margin: 10px;
-                            display: flex;
-                            align-items: center;
-                        }
-                        
-                        .quantity-label {
-                            flex: 1;
-                        }
-                        
-                        .quantity-number {
-                            margin: 0 10px;
-                        }
-                        
-                        .quantity-buttons {
-                            display: flex;
-                        }
-                        
-                        .quantity-button {
-                            padding: 5px 10px;
-                            margin: 0 5px;
-                            border: 1px solid #ccc;
-                            background-color: #f1f1f1;
-                            cursor: pointer;
-                        }
-                        
-                        .popup-button {
-                            padding: 10px 20px;
-                            margin: 10px;
-                            border: none;
-                            border-radius: 3px;
-                            background-color: #4CAF50;
-                            color: white;
-                            cursor: pointer;
-                        }
-                        
-                        .popup-button:hover {
-                            background-color: #45a049;
-                        }
-                        
-                        .popup-button.cancel {
-                            background-color: #e74c3c;
-                        }
-                        
-                        .popup-header {
-                            text-align: center;
-                            margin-bottom: 10px;
-                        }
-                        
-                        .popup-title {
-                            margin: 0;
-                        }
-                        
-                        <!DOCTYPE html>
-        <html lang="ar">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>صفحة المنتج</title>
-            <style>
-                .popup { display: none; }
-                .popup.active { display: block; }
-            </style>
-        </head>
-        <body>
-            <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
-        
-            <div id="popup" class="popup">
-                <div class="popup-content">
-                    <div class="popup-inputs">
-                        <input type="text" id="name" class="popup-input" placeholder="الاسم الثلاثي">
-                        <input type="text" id="location" class="popup-input" placeholder="الموقع الجغرافي" onclick="getLocation()">
-                        <div class="quantity-input">
-                            <span class="quantity-label">الكمية:</span>
-                            <span id="quantity-number" class="quantity-number">1</span>
-                            <div class="quantity-buttons">
-                                <button class="quantity-button" onclick="changeQuantity(1)">+</button>
-                                <button class="quantity-button" onclick="changeQuantity(-1)">-</button>
-                            </div>
-                        </div>
+                    .popup {
+                        display: none;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgb(255, 255, 255);
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    
+                    .popup.active {
+                        display: flex;
+                    }
+                    
+                    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); /* خط زخرفي من Google Fonts */
+  .popup-content {
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%; /* تقليل عرض النافذة ليكون أقل واسعاً */
+    max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
+    box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* تحويل محاذاة المحتوى ليكون في الأعلى */
+    align-items: center; /* محاذاة المحتوى بشكل 
+                  أفقي في المنتصف */
+    margin: auto;
+    text-align: center; /* توسيط النص عمودياً */
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* توسيط النافذة في منتصف الشاشة */
+}
+
+.popup-content h1 {
+    font-family: 'Dancing Script', cursive; /* خط زخرفي */
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.popup-input {
+    width: calc(100% - 40px); /* تعديل عرض حقول الإدخال ليتناسب مع التباعدات */
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid #0392ff;
+    border-radius: 3px;
+}
+
+.quantity-input {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.quantity-label {
+    flex: 1;
+    text-align: left; /* محاذاة النص إلى اليسار */
+}
+
+.quantity-number {
+    margin: 0 10px;
+}
+
+.quantity-buttons {
+    display: flex;
+}
+
+.quantity-button {
+    padding: 8px 15px;
+    margin: 0 5px;
+    border: 1px solid #00b3ff;
+    background-color: #00a6ff;
+    cursor: pointer;
+}
+
+.popup-button {
+    width: 50%; /* تعديل عرض الأزرار ليكون أقل قليلاً */
+    margin-top: 10px; /* تباعد من الأعلى للأزرار */
+    padding: 12px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    display: inline-block; /* عرض الأزرار على سطر واحد مع التباعد المناسب */
+}
+
+.popup-button:hover {
+    background-color: #ffa601;
+}
+
+.popup-button.cancel {
+    background-color: #e74c3c;
+}
+
+.popup-header {
+    text-align: center;
+    margin-bottom: 20px; /* تباعد أكبر من الأعلى للرأس */
+}
+
+.popup-title {
+    margin: 0;
+}
+
+                    
+                    <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة المنتج</title>
+    <style>
+        .popup { display: none; }
+        .popup.active { display: block; }
+    </style>
+</head>
+<body>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-inputs">
+                <input type="text" id="name" class="popup-input" placeholder="الاسم الثلاثي">
+                <input type="text" id="location" class="popup-input" placeholder="الموقع الجغرافي" onclick="getLocation()" readonly>
+                <div class="quantity-input">
+                    <span class="quantity-label">الكمية:</span>
+                    <span id="quantity-number" class="quantity-number">1</span>
+                    <div class="quantity-buttons">
+                        <button class="quantity-button" onclick="changeQuantity(1)">+</button>
+                        <button class="quantity-button" onclick="changeQuantity(-1)">-</button>
                     </div>
-                    <button class="popup-button" onclick="openWhatsApp()">موافق</button>
-                    <button class="popup-button cancel" onclick="closePopup()">إلغاء</button>
                 </div>
             </div>
-        
-            <script>
-                function openPopup(button) {
-                    var popup = document.getElementById('popup');
-                    popup.classList.add('active');
-        
-                    // استرجاع البيانات من localStorage إذا كانت محفوظة
-                    var savedName = localStorage.getItem('savedName');
-                    if (savedName) {
-                        document.getElementById('name').value = savedName;
-                    }
-        
-                    var savedLocation = localStorage.getItem('savedLocation');
-                    if (savedLocation) {
-                        document.getElementById('location').value = savedLocation;
-                    }
-        
-                    // حفظ بيانات المنتج في العنصر popup
-                    popup.dataset.productName = button.getAttribute('data-product-name');
-                    popup.dataset.productNumber = button.getAttribute('data-product-number');
-                    popup.dataset.price = button.getAttribute('data-price');
-                    popup.dataset.deliveryCharge = button.getAttribute('data-delivery-charge');
+            <button class="popup-button" onclick="openWhatsApp()">موافق</button>
+            <button class="popup-button cancel" onclick="closePopup()">إلغاء</button>
+        </div>
+    </div>
+
+    <script>
+        function getLocation() {
+            // قم بتعطيل لوحة المفاتيح عن طريق إغلاقها
+            document.activeElement.blur();
+            // استدعاء الوظيفة للحصول على الموقع الجغرافي هنا
+        }
+
+        function openPopup(button) {
+            // افتح النافذة المنبثقة
+            var popup = document.getElementById('popup');
+            popup.classList.add('active');
+        }
+
+        function closePopup() {
+            // أغلق النافذة المنبثقة
+            var popup = document.getElementById('popup');
+            popup.classList.remove('active');
+        }
+
+        function openWhatsApp() {
+            // قم بفتح WhatsApp هنا بناءً على البيانات التي تحتاجها
+            var name = document.getElementById('name').value;
+            var location = document.getElementById('location').value;
+            var quantity = document.getElementById('quantity-number').textContent;
+            var productName = document.querySelector('.buy-button').getAttribute('data-product-name');
+            var productNumber = document.querySelector('.buy-button').getAttribute('data-product-number');
+            var price = document.querySelector('.buy-button').getAttribute('data-price');
+            var deliveryCharge = document.querySelector('.buy-button').getAttribute('data-delivery-charge');
+            var totalPrice = parseInt(price) * parseInt(quantity) + parseInt(deliveryCharge);
+
+            // هنا يمكنك بناء الرابط أو أي عملية أخرى لفتح WhatsApp مع البيانات المحددة
+            // على سبيل المثال:
+            var whatsappURL = https://wa.me/?text=${productName}%0A${productNumber}%0A${quantity}%0A${name}%0A${location}%0A${price}%0A${deliveryCharge}%0A${totalPrice};
+
+            // فتح WhatsApp في نافذة جديدة
+            window.open(whatsappURL, '_blank');
+
+            // بمجرد فتح WhatsApp، قم بإغلاق النافذة المنبثقة
+            closePopup();
+        }
+
+        function changeQuantity(change) {
+            var quantityElement = document.getElementById('quantity-number');
+            var currentQuantity = parseInt(quantityElement.textContent);
+            var newQuantity = currentQuantity + change;
+            if (newQuantity >= 1) {
+                quantityElement.textContent = newQuantity;
+            }
+        }
+    </script>
+</body>
+</html>
+    
+        <script>
+            function openPopup(button) {
+                var popup = document.getElementById('popup');
+                popup.classList.add('active');
+    
+                // استرجاع البيانات من localStorage إذا كانت محفوظة
+                var savedName = localStorage.getItem('savedName');
+                if (savedName) {
+                    document.getElementById('name').value = savedName;
                 }
-        
-                function closePopup() {
-                    var popup = document.getElementById('popup');
-                    popup.classList.remove('active');
+    
+                var savedLocation = localStorage.getItem('savedLocation');
+                if (savedLocation) {
+                    document.getElementById('location').value = savedLocation;
                 }
-        
-                function getLocation() {
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            var latitude = position.coords.latitude;
-                            var longitude = position.coords.longitude;
-                            var locationField = document.getElementById('location');
-                            locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات
-                            saveLocation(latitude, longitude);
-                        }, function(error) {
-                            var locationField = document.getElementById('location');
-                            locationField.value = 'قم بفتح الموقع الجغرافي في شريط إشعارات هاتفك';
-                            console.error('خطأ في الحصول على الموقع:', error);
-                        });
-                    } else {
-                        alert('المتصفح لا يدعم تحديد الموقع الجغرافي.');
-                    }
+    
+                // حفظ بيانات المنتج في العنصر popup
+                popup.dataset.productName = button.getAttribute('data-product-name');
+                popup.dataset.productNumber = button.getAttribute('data-product-number');
+                popup.dataset.price = button.getAttribute('data-price');
+                popup.dataset.deliveryCharge = button.getAttribute('data-delivery-charge');
+            }
+    
+            function closePopup() {
+                var popup = document.getElementById('popup');
+                popup.classList.remove('active');
+            }
+    
+            if (navigator.geolocation) {
+    var locationField = document.getElementById('location');
+
+    // حدث النقر على حقل الإدخال
+    locationField.addEventListener('click', function() {
+        // طلب الحصول على الموقع الجغرافي الحالي للمستخدم
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
+            saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
+        }, function(error) {
+            if (error.code === error.PERMISSION_DENIED) {
+                locationField.value = 'يرجى تمكين خدمة الموقع من إعدادات الهاتف ثم إعادة المحاولة.';
+            } else {
+                locationField.value = 'الرجاء الضغط على الثلاث نقط اعلى المتصفح ثم فتح فى chrome.'; // رسالة خطأ
+                console.error('Error getting location:', error);
+            }
+        });
+    });
+
+    // تحديث حقل الإدخال بشكل دوري كل 10 ثواني بعد فتح الموقع الجغرافي
+    setInterval(function() {
+        if (locationField.value) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                locationField.value = latitude + ', ' + longitude; // عرض الإحداثيات في حقل الإدخال
+                saveLocation(latitude, longitude); // حفظ الموقع الجغرافي إن أردت
+            }, function(error) {
+                console.error('Error getting location:', error);
+            });
+        }
+    }, 10000); // تحديث كل 10 ثواني
+} else {
+    document.getElementById('location').value = 'المتصفح لا يدعم تحديد الموقع الجغرافي.';
+}
+
+function saveLocation(latitude, longitude) {
+    // الوظيفة الخاصة بحفظ الموقع الجغرافي
+}
+    
+            function saveLocation(latitude, longitude) {
+                // حفظ الموقع الجغرافي في localStorage
+                var savedLocation = latitude + ',' + longitude;
+                localStorage.setItem('savedLocation', savedLocation);
+            }
+    
+            function openWhatsApp() {
+                var name = document.getElementById('name').value;
+                var location = document.getElementById('location').value;
+                var quantity = document.getElementById('quantity-number').innerText;
+                var popup = document.getElementById('popup');
+                var productName = popup.dataset.productName || "اسم المنتج غير محدد";
+                var productNumber = popup.dataset.productNumber || "رقم المنتج غير محدد";
+                var price = parseFloat(popup.dataset.price) || 0;
+                var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
+                var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
+    
+                var message = encodeURIComponent(
+                    '#طلب شراء' + '\n' +
+                    productName + '\n' +
+                    'رقم المنتج: ' + productNumber + ' , الكمية: ' + quantity + '\n' +
+                    'الاسم الثلاثي: ' + name + '\n' +
+                    'الموقع الجغرافي: ' + location + '\n' +
+                    'السعر: ' + price + '\n'+
+                     'سعر التوصيل,يختلف احياناً: ' + deliveryCharge + '\n' +
+                    'السعر الإجمالي: ' + totalPrice
+                );
+    
+                var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
+                window.open(whatsappLink, '_blank');
+    
+                // حفظ الاسم والموقع الجغرافي تلقائيًا في localStorage
+                localStorage.setItem('savedName', name);
+                localStorage.setItem('savedLocation', location);
+            }
+    
+            function changeQuantity(change) {
+                var quantityField = document.getElementById('quantity-number');
+                var currentQuantity = parseInt(quantityField.innerText);
+                var newQuantity = currentQuantity + change;
+                if (newQuantity > 0) {
+                    quantityField.innerText = newQuantity;
                 }
-        
-                function saveLocation(latitude, longitude) {
-                    // حفظ الموقع الجغرافي في localStorage
-                    var savedLocation = latitude + ',' + longitude;
-                    localStorage.setItem('savedLocation', savedLocation);
-                }
-        
-                function openWhatsApp() {
-                    var name = document.getElementById('name').value;
-                    var location = document.getElementById('location').value;
-                    var quantity = document.getElementById('quantity-number').innerText;
-                    var popup = document.getElementById('popup');
-                    var productName = popup.dataset.productName || "اسم المنتج غير محدد";
-                    var productNumber = popup.dataset.productNumber || "رقم المنتج غير محدد";
-                    var price = parseFloat(popup.dataset.price) || 0;
-                    var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
-                    var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
-        
-                    var message = encodeURIComponent(
-                        '#طلب شراء' + '\n' +
-                        productName + '\n' +
-                        'رقم المنتج: ' + productNumber + ' , الكمية: ' + quantity + '\n' +
-                        'الاسم الثلاثي: ' + name + '\n' +
-                        'الموقع الجغرافي: ' + location + '\n' +
-                        'السعر: ' + price + ' سعر التوصيل: ' + deliveryCharge + '\n' +
-                        'السعر الإجمالي: ' + totalPrice
-                    );
-        
-                    var whatsappLink = 'https://wa.me/+201152366798?text=' + message;
-                    window.open(whatsappLink, '_blank');
-        
-                    // حفظ الاسم والموقع الجغرافي تلقائيًا في localStorage
-                    localStorage.setItem('savedName', name);
-                    localStorage.setItem('savedLocation', location);
-                }
-        
-                function changeQuantity(change) {
-                    var quantityField = document.getElementById('quantity-number');
-                    var currentQuantity = parseInt(quantityField.innerText);
-                    var newQuantity = currentQuantity + change;
-                    if (newQuantity > 0) {
-                        quantityField.innerText = newQuantity;
-                    }
-                }
-            </script>
-        </body>
-        </html>
-        
+            }
+        </script>
+    </body>
+    </html>
         </div>
 
         <div class="product">
