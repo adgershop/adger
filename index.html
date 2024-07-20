@@ -972,49 +972,7 @@ margin-left: 8px;
         <p id="userName"></p>
     </div>
 </div>
-<script>
-    // التحقق مما إذا كان هناك بيانات تسجيل دخول مخزنة في localStorage
-    document.addEventListener('DOMContentLoaded', function() {
-        const storedUserData = localStorage.getItem('userData');
-        if (storedUserData) {
-            const userData = JSON.parse(storedUserData);
-            showUserProfile(userData);
-        }
-    });
 
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const username = document.getElementById('username').value;
-        const phone = document.getElementById('phone').value;
-        const password = document.getElementById('password').value;
-        const profilePicture = document.getElementById('profilePicture').files[0];
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const userData = {
-                username: username,
-                phone: phone,
-                profilePicture: e.target.result
-            };
-
-            // حفظ بيانات المستخدم في localStorage
-            localStorage.setItem('userData', JSON.stringify(userData));
-
-            // عرض بيانات المستخدم
-            showUserProfile(userData);
-        };
-        reader.readAsDataURL(profilePicture);
-    });
-
-    function showUserProfile(userData) {
-        document.getElementById('userImage').src = userData.profilePicture;
-        document.getElementById('userName').innerText = userData.username;
-
-        // إخفاء نموذج تسجيل الدخول وعرض بيانات المستخدم
-        document.querySelector('.login-container').style.display = 'none';
-        document.getElementById('userProfile').style.display = 'block';
-    }
 </script>
 <div id="menu-content-3" class="menu-content">
     <h1></h1>
