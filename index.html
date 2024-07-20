@@ -1,4 +1,8 @@
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -70,16 +74,34 @@
             cursor: pointer;
         }
 
-    
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.336);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
 
-.close {
+        .lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+            cursor: pointer;
+        }
+
+        .close {
             position: absolute;
-            bottom: 480px;
+            top: 10px;
             right: 10px;
             color: #fff;
             font-size: 24px;
             cursor: pointer;
         }
+
 
         .whatsapp-button {
     display: inline-block;
@@ -128,17 +150,20 @@
   width: 70%; /* Adjusted width to fit the cart icon */
   max-width: 6000px; /* Maximum width for the search bar */
   margin-right: 10px; /* Add space between search box and button */
-margin-left: 8px;
 }
 
 
+  .cart-icon-container {
+    position: relative;
+    bottom: -7px;
+    right: -3px;
+  }
 
   .cart-icon {
     cursor: pointer;
     width: 50px; /* Adjust the width */
     height: 50px; /* Adjust the height */
     position: relative; /* تأكد من ضبط العنصر النسبي */
-    margin-left: -20px;
   }
 
   .cart-count {
@@ -146,7 +171,7 @@ margin-left: 8px;
     top: 29%;
     left: 54%;
     transform: translate(-50%, -50%);
-    color: rgb(255, 255, 255);
+    color: white;
     border-radius: 50%;
     padding: 4px 10px;
     font-size: 13px; /* تكبير حجم النص */
@@ -159,7 +184,7 @@ margin-left: 8px;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #fefefe; /* خلفية بيضاء ثابتة */
+    background-color: #ffffff; /* خلفية بيضاء ثابتة */
     z-index: 1000;
     padding: 20px;
     box-sizing: border-box;
@@ -193,118 +218,31 @@ margin-left: 8px;
 
   .close-cart {
     cursor: pointer;
-    color: rgb(0, 60, 255);
+    color: red;
     font-size: 20px;
-   background-color: #ffffff;
-    border-radius: 19%; /* يجعل الخلفية دائرية */
-    padding: 10px; /* مسافة بين المحتوى وحدود العنصر */
-    display: inline-flex; /* لتوسيط الأيقونة داخل الخلفية */
-    align-items: center; /* لتوسيط الأيقونة عموديًا */
-    justify-content: center; /* لتوسيط الأيقونة أفقيًا */
-
-    transition: transform 0.3s, background-color 0.3s; /* تأثيرات انتقال سلسة للتحولات */
-}
-
-.white-line {
-    width: 100%;
-    height: 64px;
-    background-color: rgba(255, 255, 255, 0);
-}
-
-
+  }
 </style>
 </head>
 <body>
     <div class="search-container">
         <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
-        <!DOCTYPE html>
-        <html lang="ar">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Cart Icon</title>
-            <style>
-                /* إزالة تأثير التركيز عند الضغط على الأزرار وأيقونات SVG */
-                button:focus,
-                button:active,
-                svg:focus,
-                svg:active {
-                    outline: none;
-                    box-shadow: none;
-                }
-        
-                .cart-icon-container {
-                    display: flex;
-                    align-items: center;
-                    position: relative;
-                    bottom: -7px;
-                    right: -7px;
-                }
-        
-                .cart-icon {
-                    cursor: pointer;
-                    -webkit-tap-highlight-color: transparent; /* إزالة التأثير الأزرق على الأجهزة المحمولة */
-                }
-        
-              
-            </style>
-        </head>
-        <body>
-            
-            <div class="cart-icon-container">
-                <div class="cart-icon" onclick="toggleCart()" onmousedown="return false;" onselectstart="return false;">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
-                    </svg>
-                    <div class="cart-count" id="cartCount">0</div>
-                    </div>
-            
-            <script>
-                function toggleCart() {
-                    // منطق فتح/غلق سلة التسوق
-                    console.log("Cart toggled");
-                }
-            </script>
-        </body>
-        </html>
+        <div class="cart-icon-container">
+            <div class="cart-icon" onclick="toggleCart()">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
+                  </svg>
+                  
+                <div class="cart-count" id="cartCount">0</div>
+            </div>
+        </div>
+    </div>
 
     <div class="cart-page" id="cartPage">
-        <span class="close-cart" onclick="toggleCart(event)">
-          
-                <svg class="w-6 h-6 text-blue-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="27" height="26" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
-                </svg>
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-          
-        </span>
-        
-        <script>
-        function toggleCart(event) {
-            event.preventDefault(); // إلغاء السلوك الافتراضي للرابط
-            // باقي الكود للتبديل أو إغلاق العربة
-        }
-        </script>        
-        <!DOCTYPE html>
-        <html lang="ar">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                .cart-heading {
-                    color: #e70083; /* يمكنك تغيير هذا اللون لأي لون ترغب فيه */
-                }
-                
-            </style>
-        </head>
-        <body>
-        
-            <h2 class="cart-heading"></h2>
-
-        </body>
-        </html>
-                <div class="cart-items" id="cartItems"></div>
+        <span class="close-cart" onclick="toggleCart()">&#10005; رجوع</span>
+        <h2>عربة التسوق</h2>
+        <div class="cart-items" id="cartItems"></div>
     </div>
+
     <script>
         var cartCount = 0;
 
@@ -386,1490 +324,406 @@ margin-left: 8px;
                 updateCartCount();
             }
         }
-
-
-    </script>
-</body>
-</html>
-<style>
-        /* Style the white page */
-        #white-page {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            display: none;
-            z-index: 1000;
-            overflow-y: scroll;
-        }
-
-        #back-button {
-            position: fixed;
-            top: -17px;
-            right: -16px;
-            background-color: #33333300;
-            color: #0088f7;
-            border: none;
-            padding: 10px 17px;
-            font-size: 19px;
-            cursor: pointer;
-            z-index: 1100;
-        }
-        #back-button:hover {
-            background-color: #66666600;
-        }
-
-        #menu-items {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            text-align: left;
-            z-index: 1100;
-        }
-
-        #menu-items a {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 24px;
-            color: #333;
-            text-decoration: none;
-        }
-
-        #menu-items a:hover {
-            color: #666;
-        }
-
-        .menu-content {
-            position: absolute;
-            top: 50px;
-            left: 50px;
-            right: 50px;
-            bottom: 50px;
-            background-color: #fff;
-            display: none;
-            z-index: 1050;
-        }
-
-        /* Custom styles for the menu button */
-        #custom-menu-button {
-            width: 77px;
-            height: 90px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            margin: -18px 0 0 7px;
-            margin-left: -13px;
-        }
-
-        #custom-menu-button svg {
-            width: 100%;
-            height: 100%;
-            fill: #fff;
-        }
-
-        .main-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #ffffff;
-        }
-
-        .video-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* توسيط عناصر العنصر الفرعي بشكل عمودي */
-    align-items: center; /* توسيط عناصر العنصر الرئيسي بشكل أفقي */
-    width: 130%;
-    max-width: 800px;
-    background-color: rgba(255, 255, 255, 0);
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
-}
-
-.video {
-    width: 100%; /* يمكنك استخدام 100% لتمتد للعرض الكامل */
-    height: auto;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-
-
-        .video-description {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #666;
-        }
-    </style>
- 
-</head>
-<body>
-    <!-- The menu button with an SVG icon -->
-    <button id="custom-menu-button"return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-    </button>
-
-    <!-- The white page that appears when the menu button is clicked -->
-    <div id="white-page">
-        <div id="menu-items">
-            <a href="#" id="menu-item-2">MY ACCOUNT</a><br>
-            <a href="#" id="menu-item-1">ADGER VIDEOS</a><br>
-            <a href="#" id="menu-item-3">PROBLEM</a><br>
-        </div>
-       
-    <style>
-        .button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 64px; /* زيادة عرض الزر */
-            height: 60px; /* زيادة ارتفاع الزر */
-            background-color: #f0f0f0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <button id="back-button" class="button" onclick="goBack()"return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-          </svg>          
-          
-    </button>
-
-    <script>
-        function goBack() {
-            window.history.back();
-        }
     </script>
 </body>
 </html>
 
-        <!-- Menu content areas -->
-        <div id="menu-content-1" class="menu-content">
-            <!DOCTYPE html>
-            <html lang="ar">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>بحث الفيديوهات</title>
-                <style>
-                    #video-search {
-                        width: 72%;
-                        padding: 10px;
-                        font-size: 16px;
-                        border: 2px solid #00b1f7;
-                        border-radius: 5px;
-                        position: fixed;
-                        top: -37px; /* يبدأ أعلى الشاشة */
-                        right: center;
-                        background-color: rgb(255, 255, 255);
-                        z-index: 1000; /* ليكون فوق العناصر الأخرى */
-                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* ظل للحد من النص */
-                        transition: top 0.3s ease-in-out; /* تنقل أنيميشن للظهور */
-                        margin-top: 37.4px;
-                        
-                    }
-                    #no-results {
-                        font-size: 18px;
-                        font-weight: bold;
-                        color: rgb(61, 97, 91);
-                        margin-top: -333px;
-                        display: none;
-                    }
-                    .main-container {
-                        display: flex;
-                        flex-direction: column;
-                        margin-top: 1px;
-                    }
-                    .video-container {
-                        margin-bottom: 20px;
-                    }
-                    .video {
-                        width: 100%;
-                    }
-                </style>
-            </head>
-            <body>
-                <!DOCTYPE html>
-                <html lang="ar">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>فيديوهات عشوائية</title>
-                    <style>
-                        /* أضف هنا أنماط CSS الخاصة بك إذا لزم الأمر */
-                    </style>
-                </head>
-                <body>
-                    <div class="main-container" id="main-container">
-                        <input type="text" id="video-search" placeholder="ابحث عن الفيديو..." oninput="searchVideos()">
-                        <div id="no-results" style="display:none;">لا توجد نتائج</div>
-                
-                        <div class="video-container" data-title="كتاب المستثمر الذكى">
-                            <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
-                            <div class="video-description">كتاب المستثمر الذكى</div>
-                            <div class="video-description">
-                                السعر: <span class="price">245<span class="zeros">00</span></span> جنيه
-                              </div>                            <br>
-                            <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
-                        </div>
-                
-                        <div class="video-container" data-title="قلم ليزر">
-                            <video class="video" src="v2.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
-                            <div class="video-description">قلم ليزر</div>
-                            <div class="video-description">
-                                السعر: <span class="price">400<span class="zeros">00</span></span> جنيه
-                              </div>
-                              
-                            <br>
-                            <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
-                        </div>
-                    </div>
-                
-                    <script>
-                        function searchVideos() {
-                            const searchInput = document.getElementById('video-search').value.toLowerCase();
-                            const videoContainers = document.querySelectorAll('.video-container');
-                            let hasResults = false;
-                
-                            videoContainers.forEach(container => {
-                                const title = container.getAttribute('data-title').toLowerCase();
-                                if (title.includes(searchInput)) {
-                                    container.style.display = '';
-                                    hasResults = true;
-                                } else {
-                                    container.style.display = 'none';
-                                }
-                            });
-                
-                            document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
-                        }
-                
-                        function shuffleVideos() {
-                            const container = document.getElementById('main-container');
-                            const videos = Array.from(container.getElementsByClassName('video-container'));
-                            videos.sort(() => Math.random() - 0.5);
-                            videos.forEach(video => container.appendChild(video));
-                        }
-                
-                        // Shuffle videos on page load
-                        window.onload = shuffleVideos;
-                    </script>
-                </body>
-                </html>
-                
-            </body>
-            </html>
-            
-                
-                    <script>
-                        // التحقق مما إذا كان هناك بيانات تسجيل دخول مخزنة في localStorage
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const storedUserData = localStorage.getItem('customApp_userData');
-                            if (storedUserData) {
-                                const userData = JSON.parse(storedUserData);
-                                showUserProfile(userData);
-                            }
-                        });
-                    
-                        document.getElementById('loginForm').addEventListener('submit', function(event) {
-                            event.preventDefault();
-                    
-                            const name = document.getElementById('name').value;
-                            const phone = document.getElementById('phone').value;
-                            const password = document.getElementById('password').value;
-                            const profilePicture = document.getElementById('profilePicture').files[0];
-                    
-                            const reader = new FileReader();
-                            reader.onload = function(e) {
-                                const userData = {
-                                    name: name,
-                                    phone: phone,
-                                    profilePicture: e.target.result
-                                };
-                    
-                                // حفظ بيانات المستخدم في localStorage مع مفتاح خاص
-                                localStorage.setItem('customApp_userData', JSON.stringify(userData));
-                    
-                                // عرض بيانات المستخدم
-                                showUserProfile(userData);
-                            };
-                            reader.readAsDataURL(profilePicture);
-                        });
-                    
-                        function showUserProfile(userData) {
-                            document.getElementById('userImage').src = userData.profilePicture;
-                            document.getElementById('userName').innerText = userData.name;
-                    
-                            // إخفاء نموذج تسجيل الدخول وعرض بيانات المستخدم
-                            document.querySelector('.login-container').style.display = 'none';
-                            document.getElementById('userProfile').style.display = 'block';
-                        }
-                    </script>
-                 
-            </body>
-            </html>
-        </div>
-        <div id="menu-content-2" class="menu-content">
-            <div class="login-container">
-                <h2>تسجيل الدخول</h2>
-                <form id="loginForm">
-                    <label for="name">الاسم:</label>
-                    <input type="text" id="name" name="name" required>
-                    
-                    <label for="phone">رقم الهاتف:</label>
-                    <input type="text" id="phone" name="phone" required>
-                    
-                    <label for="password">كلمة المرور:</label>
-                    <input type="password" id="password" name="password" required>
-                    
-                    <div class="profile-picture-container">
-                        <label for="profilePicture">الصورة الشخصية:</label>
-                        <div class="profile-picture" id="profilePictureCircle" onclick="document.getElementById('profilePicture').click();"></div>
-                        <input type="file" id="profilePicture" name="profilePicture" accept="image/*" style="display: none;" required>
-                    </div>
         
-                    <button type="submit">تسجيل الدخول</button>
-                </form>
-            </div>
-            
-            <div class="user-profile" id="userProfile" style="display: none;">
-                <img id="userImage" src="" alt="Profile Picture">
-                <p id="userName"></p>
-            </div>
-        </div>
         
-  <style>
-    /* تخصيص شكل الحقول والدائرة للصورة */
-    .login-container {
-        max-width: 400px;
-        margin: 0 auto;
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
+<br><br><br>
 
-    .login-container h2 {
-        margin-bottom: 20px;
-    }
-
-    .login-container label {
-        display: block;
-        margin-bottom: 8px;
-        text-align: right;
-    }
-
-    .login-container input[type="text"],
-    .login-container input[type="password"] {
-        width: calc(100% - 20px);
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        text-align: right;
-    }
-
-    .profile-picture-container {
-        margin-bottom: 15px;
-    }
-
-    .profile-picture {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background-color: #ddd;
-        background-size: cover;
-        background-position: center;
-        cursor: pointer;
-        margin: 0 auto;
-    }
-
-    .profile-picture:hover {
-        opacity: 0.8;
-    }
-
-    .profile-picture input[type="file"] {
-        display: none;
-    }
-
-    .submit-button {
-        padding: 12px 24px;
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .submit-button:hover {
-        background-color: #0056b3;
-    }
-
-    .user-profile {
-        display: none;
-        text-align: center;
-    }
-
-    .user-profile img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        margin-bottom: 10px;
-    }
-</style>
-
-<div id="menu-content-2" class="menu-content">
-    <div class="login-container">
-        <h2>تسجيل الدخول</h2>
-        <form id="loginForm">
-            <label for="name">الاسم:</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="phone">رقم الهاتف:</label>
-            <input type="text" id="phone" name="phone" required>
-            
-            <label for="password">كلمة المرور:</label>
-            <input type="password" id="password" name="password" required>
-            
-            <div class="profile-picture-container">
-                <label for="profilePicture">الصورة الشخصية:</label>
-                <div class="profile-picture" id="profilePictureCircle" onclick="document.getElementById('profilePicture').click();">
-                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(this);" required>
-                </div>
-            </div>
-
-            <button type="submit" class="submit-button">تسجيل الدخول</button>
-        </form>
-    </div>
-    
-    <div class="user-profile" id="userProfile">
-        <img id="userImage" src="" alt="Profile Picture">
-        <p id="userName"></p>
-    </div>
-</div>
-
-<style>
-    /* تخصيص شكل الحقول والدائرة للصورة */
-    .login-container {
-        max-width: 400px;
-        margin: 0 auto;
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
-
-    .login-container h2 {
-        margin-bottom: 20px;
-    }
-
-    .login-container label {
-        display: block;
-        margin-bottom: 8px;
-        text-align: right;
-    }
-
-    .login-container input[type="text"],
-    .login-container input[type="password"] {
-        width: calc(100% - 20px);
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        text-align: right;
-    }
-
-    .profile-picture-container {
-        margin-bottom: 15px;
-    }
-
-    .profile-picture {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background-color: #ddd;
-        background-size: cover;
-        background-position: center;
-        cursor: pointer;
-        margin: 0 auto;
-    }
-
-    .profile-picture:hover {
-        opacity: 0.8;
-    }
-
-    .profile-picture input[type="file"] {
-        display: none;
-    }
-
-    .submit-button {
-        padding: 12px 24px;
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .submit-button:hover {
-        background-color: #0056b3;
-    }
-
-    .user-profile {
-        display: none;
-        text-align: center;
-    }
-
-    .user-profile img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        margin-bottom: 10px;
-    }
-</style>
-
-<div id="menu-content-2" class="menu-content">
-    <div class="login-container">
-        <h2>تسجيل الدخول</h2>
-        <form id="loginForm">
-            <label for="name">الاسم:</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="phone">رقم الهاتف:</label>
-            <input type="text" id="phone" name="phone" required>
-            
-            <label for="password">كلمة المرور:</label>
-            <input type="password" id="password" name="password" required>
-            
-            <div class="profile-picture-container">
-                <label for="profilePicture">الصورة الشخصية:</label>
-                <div class="profile-picture" id="profilePictureCircle" onclick="document.getElementById('profilePicture').click();">
-                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(this);" required>
-                </div>
-            </div>
-
-            <button type="submit" class="submit-button">تسجيل الدخول</button>
-        </form>
-    </div>
-    
-    <div class="user-profile" id="userProfile">
-        <img id="userImage" src="" alt="Profile Picture">
-        <p id="userName"></p>
-    </div>
-</div>
-<script>
-    // التحقق مما إذا كان هناك بيانات تسجيل دخول مخزنة في localStorage
-    document.addEventListener('DOMContentLoaded', function() {
-        const storedUserData = localStorage.getItem('userData');
-        if (storedUserData) {
-            const userData = JSON.parse(storedUserData);
-            showUserProfile(userData);
-        }
-    });
-
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const password = document.getElementById('password').value;
-        const profilePicture = document.getElementById('profilePicture').files[0];
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const userData = {
-                name: name,
-                phone: phone,
-                profilePicture: e.target.result
-            };
-
-            // حفظ بيانات المستخدم في localStorage
-            localStorage.setItem('userData', JSON.stringify(userData));
-
-            // عرض بيانات المستخدم
-            showUserProfile(userData);
-        };
-        reader.readAsDataURL(profilePicture);
-    });
-
-    function showUserProfile(userData) {
-        document.getElementById('userImage').src = userData.profilePicture;
-        document.getElementById('userName').innerText = userData.name;
-
-        // إخفاء نموذج تسجيل الدخول وعرض بيانات المستخدم
-        document.querySelector('.login-container').style.display = 'none';
-        document.getElementById('userProfile').style.display = 'block';
-    }
-</script>
-<div id="menu-content-3" class="menu-content">
-    <h1></h1>
-    <p></p>
-    <form id="emailForm">
-        <label for="user-problem">اكتب مشكلتك:</label><br>
-        <textarea id="user-problem" name="user-problem" rows="6" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;"></textarea><br>
-        <span id="problem-error" style="display: none; color: #f00; font-size: 12px;">يرجى كتابة مشكلتك!</span><br><br>
-        <input type="submit" value="موافق" style="background-color: #4CAF50; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
-    </form>
-</div>
-
-<style>
-    /* CSS to style the textarea with red border on error */
-    #user-problem:invalid {
-        border-color: #f00; /* Red border if not filled */
-    }
-</style>
-<script>
-    document.getElementById("emailForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent default form submission
-
-        // Get user input
-        var userProblem = document.getElementById("user-problem").value.trim();
-
-        // Check if the user problem field is empty
-        if (userProblem === "") {
-            document.getElementById("problem-error").style.display = "inline"; // Show error message
-            document.getElementById("user-problem").style.borderColor = "#f00"; // Set border color to red
-            return;
-        }
-
-        // Reset error message and border color if not empty
-        document.getElementById("problem-error").style.display = "none";
-        document.getElementById("user-problem").style.borderColor = "#ddd";
-
-        // Construct mailto link with user's problem as subject
-        var subject = encodeURIComponent("مشكلة المستخدم: " + userProblem);
-        var mailtoLink = "mailto:adger.shop@example.com?subject=" + subject;
-
-        // Open the mail client with the mailto link
-        window.location.href = mailtoLink;
-    });
-
-    // Check if user has typed in the textarea
-    document.getElementById("user-problem").addEventListener("input", function() {
-        var userProblem = this.value.trim();
-        if (userProblem !== "") {
-            document.getElementById("problem-error").style.display = "none"; // Hide error message
-            document.getElementById("user-problem").style.borderColor = "#ddd"; // Reset border color
-        }
-    });
-</script>
-    </div>
-      
+</html>
    </div>
 
 
 
-
-   
-
-
-   
-   <!DOCTYPE html>
-   <html lang="ar">
-   <head>
-       <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <style>
-           .lightbox {
-               display: none;
-               position: fixed;
-               z-index: 1;
-               left: 0;
-               top: 0;
-               width: 100%;
-               height: 100%;
-               overflow: auto;
-               background-color: rgba(0, 0, 0, 0.8);
-           }
-   
-           .lightbox-content {
-               position: relative;
-               margin: auto;
-               padding: 0; /* إزالة الحشوة لجعل الزر داخل الصورة */
-               width: 80%;
-               max-width: 700px;
-           }
-   
-           #lightbox-img {
-               width: 100%;
-               max-height: 80vh;
-           }
-   
-           .back-button {
-    position: absolute;
-    top: -3px;
-    left: -1px;
-    background-color: rgb(235, 235, 235);
-    color: rgb(0, 0, 0);
-    border: 2px solid rgb(0, 128, 255); /* هذا هو الخط الأزرق حول الزر */
-    padding: 3px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  
-}
-   
-           .back-button img {
-               margin-right: 8px;
-           }
-       </style>
-   </head>
-   <body>
-   
-   <div class="lightbox" id="lightbox">
-       <div class="lightbox-content">
-           <button class="back-button" onclick="closeLightbox()">
-               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
-               </svg>
-           </button>
-           <img id="lightbox-img" src="" alt="Enlarged product">
-       </div>
-   </div>
-   
-   <script>
-       function closeLightbox() {
-           document.getElementById("lightbox").style.display = "none";
-       }
-   
-       function openLightbox(imageSrc) {
-           document.getElementById("lightbox-img").src = imageSrc;
-           document.getElementById("lightbox").style.display = "block";
-       }
-   
-       // Event listener to close lightbox when clicking outside the image
-       var lightbox = document.getElementById("lightbox");
-       lightbox.addEventListener("click", function(event) {
-           if (event.target === lightbox) {
-               closeLightbox();
-           }
-       });
-   </script>
-   
-   </body>
-   </html>
 <script src="script.js"></script>
   </div>
+
  
+
+
 <style>
     p {
         color: rgb(104, 72, 134);
     }
 </style>
 
+
+
+
 </p>
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<title>Slideshow</title>
-<style>
-    .white-bar {
-        height: 10px; /* ارتفاع الشريط */
-        background-color: white; /* لون الشريط الأبيض */
-        text-align: center; /* توسيط النص في الشريط */
-        margin-bottom: 20px; /* هامش أسفل الشريط */
-    }
-    
-    .content {
-        max-width: 8000px; /* عرض العنصر الرئيسي */
-        margin: 0 auto; /* توسيط العنصر الرئيسي */
-        padding: 20px; /* حشوة داخلية للعنصر الرئيسي */
-        box-shadow: 0 0 10px rgba(0,0,0,0.1); /* ظل للعنصر الرئيسي */
-        position: relative; /* لتحديد موضع زر الإغلاق بشكل نسبي */
-        margin-left: -8px;
-    }
 
-    .slideshow-container {
-        position: relative; /* لتحديد موضع زر الإغلاق بشكل نسبي */
-    }
-
-    .slides {
-        width: 100%;
-        height: 166px;
-    }
-
-    .close-btn {
-        position: absolute; /* تحديد موضع زر الإغلاق بشكل مطلق */
-        top: -2px; /* أعلى العنصر */
-        right: 1px; /* يمين العنصر */
-        background-color: rgb(238, 1, 1); /* لون خلفية الزر */
-        color: rgb(255, 255, 255); /* لون النص داخل الزر */
-        border: none; /* إزالة الحدود */
-        padding: 5px 10px; /* حشوة داخلية للزر */
-        cursor: pointer; /* تغيير شكل المؤشر عند التحويم على الزر */
-        z-index: 1; /* تأكيد ظهور الزر فوق الصور */
-        font-size: 12px;
-    }
-
-    .spacing {
-        height: 2em; /* تعادل مسافة 2 <br> */
-    }
-</style>
-</head>
-<body>
-    <div class="white-bar"></div>
-    
-    <div class="content" id="content">
-        <!-- عرض الصور -->
-        <div class="slideshow-container" id="slideshow-container">
-            <button class="close-btn" onclick="removeContent()">X</button>
-            <img class="slides active" src="i1.jpg">
-            <img class="slides" src="i2.jpg">
-            <img class="slides" src="i3.jpg">
-        </div>
-    </div>
-
-    <script>
-        // تشغيل عرض الصور تلقائيا
-        let slideIndex = 0;
-        showSlides();
-
-        function showSlides() {
-            let slides = document.getElementsByClassName("slides");
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";  
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}    
-            slides[slideIndex - 1].style.display = "block";  
-            setTimeout(showSlides, 5000); // تغيير الصورة كل 5 ثواني
-        }
-
-        // وظيفة إزالة الخلفية الزرقاء بكل محتوياتها
-        function removeContent() {
-            let content = document.getElementById("content");
-            if (content) {
-                content.style.display = "none";
-            }
-
-            // إضافة مسافة تعادل 2 <br> عند إخفاء المحتوى
-            let spacing = document.getElementById('spacing');
-            if (!spacing) {
-                spacing = document.createElement('div');
-                spacing.className = 'spacing';
-                spacing.id = 'spacing';
-                document.body.insertBefore(spacing, document.querySelector('.white-bar').nextSibling);
-            }
-        }
-
-        // وظيفة لعرض المحتوى مرة أخرى وإزالة المسافة
-        function showContent() {
-            let content = document.getElementById("content");
-            if (content) {
-                content.style.display = "block";
-            }
-
-            // إزالة المسافة المضافة
-            let spacing = document.getElementById('spacing');
-            if (spacing) {
-                spacing.remove();
-            }
-        }
-
-        // وظيفة لإخفاء المحتوى عند الكتابة وإظهاره عند حذف الكتابة
-        function handleInput(event) {
-            if (event.target.value.trim() === "") {
-                showContent();
-            } else {
-                removeContent();
-            }
-        }
-
-        // إضافة مستمع الحدث لصندوق البحث
-        window.addEventListener('load', () => {
-            const searchBox = document.querySelector('input[type="text"]'); // تعديل هذا لاختيار صندوق البحث الخاص بك
-            if (searchBox) {
-                searchBox.addEventListener('input', handleInput);
-            }
-        });
-    </script>
-</body>
-</html>
-
-
-    
 <div id="productContainer">
-    <div id="productContainer">
-            <div class="product-info11">
-             
-                </head>
-                <body>
-                
-                    <div id="modal2" class="modal2">
-                        <div class="modal2-content">
-                            <div class="close2" onclick="closeModal2()">
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                                </svg>
-                            </div>
-                            <div class="carousel2">
-                                <img id="slide2" src="1.jpg" alt="Image">
-                            </div>
-                            <div class="indicators" id="indicators">
-                                <!-- Indicators will be added here dynamically -->
-                            </div>
-                            <div class="custom-paragraph">
-                                <h1 id="product-title" class="custom-h1-purple">ساعه من فيترون</h1>
-                                <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
-                            </div>
-                            <div style="text-align: center;">
-                                <button class="read-more" onclick="closeModal2()">إرجع لشراء المنتج</button>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <script>
-                        let currentSlide2 = 0;
-                        let startX;
-                
-                        function openModal2() {
-                            document.getElementById('modal2').style.display = 'block';
-                            createIndicators();
-                            showSlide2(currentSlide2);
-                        }
-                
-                        function closeModal2() {
-                            document.getElementById('modal2').style.display = 'none';
-                        }
-                
-                        function showSlide2(index) {
-                            const slide2 = document.getElementById('slide2');
-                            slide2.src = slides2[index];
-                            updateActiveIndicator(index);
-                        }
-                
-                        function updateActiveIndicator(index) {
-                            const indicators = document.querySelectorAll('.indicator');
-                            indicators.forEach((indicator, i) => {
-                                indicator.classList.toggle('active', i === index);
-                            });
-                        }
-                
-                        function createIndicators() {
-                            const indicatorsContainer = document.getElementById('indicators');
-                            indicatorsContainer.innerHTML = '';
-                            slides2.forEach((_, index) => {
-                                const indicator = document.createElement('div');
-                                indicator.classList.add('indicator');
-                                indicator.onclick = () => showSlide2(index);
-                                indicatorsContainer.appendChild(indicator);
-                            });
-                            updateActiveIndicator(currentSlide2); // Set the initial active indicator
-                        }
-                
-                        document.getElementById('slide2').addEventListener('touchstart', (e) => {
-                            startX = e.touches[0].clientX;
-                        });
-                
-                        document.getElementById('slide2').addEventListener('touchend', (e) => {
-                            const endX = e.changedTouches[0].clientX;
-                            if (startX > endX + 50) {
-                                nextSlide2();
-                            } else if (startX < endX - 50) {
-                                prevSlide2();
-                            }
-                        });
-                
-                        function prevSlide2() {
-                            currentSlide2 = (currentSlide2 === 0) ? slides2.length - 1 : currentSlide2 - 1;
-                            showSlide2(currentSlide2);
-                        }
-                
-                        function nextSlide2() {
-                            currentSlide2 = (currentSlide2 === slides2.length - 1) ? 0 : currentSlide2 + 1;
-                            showSlide2(currentSlide2);
-                        }
-                
-                        // Function to update product details
-                        function updateProductDetails(title, description, images) {
-                            document.getElementById('product-title').innerText = title;
-                            document.getElementById('product-description').innerText = description;
-                            slides2 = images; // Update the slides array
-                            currentSlide2 = 0;
-                            showSlide2(0); // Show the first image
-                            createIndicators();
-                        }
-                    </script>
-                </body>
-                </html>
-                <style>
-                .hidden-text {
-                    display: none;
-                }
-                </style>
-                <title>Hidden Text Example</title>
-                </head>
-                <body>
-                
-                <p class="hidden-text">رقم المنتج|1</p>
-                
-                </body>
-                </html>
-               
-
-                    <link rel="stylesheet" href="styles.css">
-                </head>
-                <body>
-
-                </body>
-                </html>
-                <!DOCTYPE html>
-                <html lang="ar">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>تقييم المنتج</title>
-                    <style>
-                        .rating-container {
-                            display: flex;
-                            align-items: center;
-                            margin-bottom: 20px;
-                            white-space: nowrap; /* Prevent wrapping to the next line */
-                            overflow: hidden; /* Ensure no wrapping */
-                        }
-                
-                        .rating {
-                            font-size: 18px; /* Change star size to 18px */
-                            direction: rtl;
-                            cursor: pointer;
-                            display: flex; /* Ensure stars stay in one line */
-                            align-items: center;
-                        }
-                
-                        .rating .star {
-                            color: rgb(255, 166, 0);
-                            padding: 0 2px;
-                        }
-                
-                        .rating .star.empty {
-                            color: transparent;
-                            -webkit-text-stroke: 1px rgb(255, 166, 0);
-                        }
-                
-                        .rater-count {
-                            font-size: 10px; /* Adjusted font size for visibility */
-                            cursor: pointer;
-                            color: #333;
-                            margin-left: 10px;
-                            flex-shrink: 0; /* Prevent text from shrinking */
-                        }
-                
-                        /* Styles for the modal */
-                        .modal {
-                            display: none;
-                            position: fixed;
-                            z-index: 1;
-                            left: 0;
-                            top: 0;
-                            width: 100%;
-                            height: 100%;
-                            overflow: auto;
-                            background-color: rgb(255, 255, 255);
-                        }
-                
-                        .modal-content {
-                            background-color: #fff;
-                            padding: 20px;
-                            width: 80%;
-                            max-width: 300px;
-                            text-align: center;
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            border: 2px solid #21abce;
-                            border-radius: 10px;
-                        }
-                
-                        .close {
-                            color: #6c338a;
-                            position: absolute;
-                            top: 10px;
-                            right: 19px;
-                            font-size: 20px;
-                            font-weight: bold;
-                            cursor: pointer;
-                        }
-                
-                        .close:hover,
-                        .close:focus {
-                            color: #000;
-                            text-decoration: none;
-                            cursor: pointer;
-                        }
-                
-                        .circular-image {
-                            border-radius: 50%;
-                            width: 50px;
-                            height: 50px;
-                            margin-right: 10px;
-                            vertical-align: middle;
-                        }
-                
-                        .adger-text {
-                            font-size: 16px;
-                            font-weight: bold;
-                            vertical-align: middle;
-                            margin-right: 7px;
-                            margin-left: -7px;
-                            color:#430069;
-                        }
-                
-                        .rater-info {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            margin-top: 10px;
-                            flex-direction: row-reverse;
-                        }
-                
-                        .right-shift {
-                            margin-left: 20px;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="rating-container" data-empty-stars="0" data-comment="المنتج ممتاز" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-                        
-                            </span>
-                            <span class="rater-count"></span>
-                     
-                    </div>
-                
-                    <!-- Modal -->
-                    <div id="myModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close">
-                                <!-- SVG Close Icon -->
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                                </svg>
-                            </span>
-                            <div class="rater-info">
-                                <img src="logo.jpg" alt="Adger" class="circular-image">
-                                <p class="adger-text">Adger</p>
-                                <p>مقيم بواسطة :</p>
-                            </div>
-                            <div class="right-shift">
-                                <p id="modal-comment">المنتج بحالة جيدة</p>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <script>
-                        document.addEventListener('DOMContentLoaded', () => {
-                            const modal = document.getElementById('myModal');
-                            const closeModal = document.querySelector('.close');
-                            const modalComment = document.getElementById('modal-comment');
-                
-                            document.querySelectorAll('.rating-container').forEach(container => {
-                                const emptyStars = container.getAttribute('data-empty-stars');
-                                const comment = container.getAttribute('data-comment');
-                                const stars = container.querySelectorAll('.star');
-                
-                                stars.forEach((star, index) => {
-                                    star.addEventListener('click', () => {
-                                        modalComment.textContent = comment;
-                                        modal.style.display = "block";
-                                    });
-                
-                                    if (index >= 5 - emptyStars) {
-                                        star.classList.add('empty');
-                                    }
-                                });
-                
-                                container.querySelector('.rater-count').addEventListener('click', () => {
-                                    modalComment.textContent = comment;
-                                    modal.style.display = "block";
-                                });
-                            });
-                
-                            closeModal.addEventListener('click', () => {
-                                modal.style.display = "none";
-                            });
-                
-                            window.addEventListener('click', (event) => {
-                                if (event.target === modal) {
-                                    modal.style.display = "none";
-                                }
-                            });
-                        });
-                    </script>
-                </body>
-                </html>
-    
-    
-                
-                    <!-- WhatsApp Message Button -->
-                
-    
-            </div>
-            <!DOCTYPE html>
-            <html lang="ar">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <style>
-                    /* CSS styles */
-                    
-                </style>
+    <div class="product">
+        <div class="product-info">
+           
+            <h2 style="font-size: 17px;">ساعة من فيترون</h2>
+            <p>سوار بلون فضي في ذهبي </p>
+            
+                <link rel="stylesheet" href="styles.css">
             </head>
             <body>
-              
-            
-                <!-- أي محتوى إضافي هنا -->
-            
-                <script>
-                    // أي سكريبتات أو وظائف إضافية هنا
-                </script>
+                <h3>
+                    <span class="price-label">السعر:</span>
+                    <span class="price-amount">600</span>
+                    <span class="price-currency">جنيه</span>
+                </h3>
             </body>
             </html>
-            <div style="clear:both;"></div>
-            <!DOCTYPE html>
-            <html lang="ar">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Button Styling</title>
-                <style>
-                    button {
-                        background-color: #feb538;
-                        color: white; /* لون النص */
-                        border: none; /* إزالة الحدود */
-                        padding: 10px 20px; /* مساحة داخلية */
-                        text-align: center; /* محاذاة النص في الوسط */
-                        text-decoration: none; /* إزالة التزيين تحت النص */
-                        display: inline-block; /* عرض الزر كتلة داخلية */
-                        font-size: 16px; /* حجم الخط */
-                        margin: 4px 2px; /* هوامش */
-                        cursor: pointer; /* شكل المؤشر */
-                        border-radius: 11px; /* زوايا مستديرة */
-                        transition-duration: 0.4s; /* مدة الانتقال */
-                    }
-            
-                    button svg {
-                        vertical-align: middle; /* محاذاة الأيقونة مع النص */
-                    }
-            
-                    button:hover {
-                        background-color: white; /* لون الخلفية عند التمرير */
-                        color: black; /* لون النص عند التمرير */
-                        border: 2px solid #008CBA; /* حدود عند التمرير */
-                    }
-            
-                    .buy-button {
-                        display: inline-block;
-                        padding: 9px 23px; /* مساحة داخلية متطابقة */
-                        font-size: 16px;
-                        color: #fff;
-                        background-color: #19d300;
-                        text-align: center;
-                        text-decoration: none;
-                        border-radius: 11px;
-                        transition: background-color 0.3s ease;
-                    }
-            
-                    .buy-button:hover {
-                        background-color: #0ec508;
-                    }
-                </style>
+            <style>
+                .custom-paragraph {
+                    font-size: 22px;
+                    direction: rtl; /* لضبط النص من اليمين إلى اليسار */
+                }
+                .custom-paragraph .star {
+                    color: gold; /* لون النجوم المملوءة */
+                    font-size: 21px;
+                }
+                .custom-paragraph .star.empty {
+                    color: transparent; /* جعل النجوم الفارغة شفافة */
+                    -webkit-text-stroke: 1px gold; /* إضافة خط حول النجوم الفارغة */
+                   
+                }
+            </style>
             </head>
             <body>
-            <style>
-               
-      /* أسلوب CSS للنافذة المنبثقة */
-     
-    <style>
-      button {
-        background-color: #feb538;
-        color: white; /* لون النص */
-        border: none; /* إزالة الحدود */
-        padding: 10px 20px; /* مساحة داخلية */
-        text-align: center; /* محاذاة النص في الوسط */
-        text-decoration: none; /* إزالة التزيين تحت النص */
-        display: inline-block; /* عرض الزر كتلة داخلية */
-        font-size: 16px; /* حجم الخط */
-        margin: 4px 2px; /* هوامش */
-        cursor: pointer; /* شكل المؤشر */
-        border-radius: 11px; /* زوايا مستديرة */
-        transition-duration: 0.4s; /* مدة الانتقال */
-    }
-    
-    button svg {
-        vertical-align: middle; /* محاذاة الأيقونة مع النص */
-    }
-    
-    button:hover {
-        background-color: white; /* لون الخلفية عند التمرير */
-        color: black; /* لون النص عند التمرير */
-        border: 2px solid #008CBA; /* حدود عند التمرير */
-    }
-    
-    .buy-button {
-        display: inline-block;
-        padding: 9px 23px; /* مساحة داخلية متطابقة */
-        font-size: 16px;
-        color: #fff;
-        background-color: #19d300;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 11px;
-        transition: background-color 0.3s ease;
-    }
-    
-    .buy-button:hover {
-        background-color: #0ec508;
-    }
-    </style>
-                  <!DOCTYPE html>
-                  <html lang="ar">
-                  <head>
-                      <meta charset="UTF-8">
-                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                      <style>
-                          /* CSS styles */
-                          .product-images img {
-                              user-select: none; /* يمنع تحديد الصورة */
-                              -webkit-user-drag: none; /* يمنع سحب الصورة في متصفحات Webkit مثل Chrome */
-                              -webkit-touch-callout: none; /* يمنع فتح قائمة السياق عند الضغط على الصورة لمدة طويلة في متصفحات Webkit */
-                              -webkit-tap-highlight-color: transparent; /* يزيل لون التحديد الأزرق عند النقر في متصفحات Webkit */
-                          }
-                      </style>
-                  </head>
-      
+            <p class="custom-paragraph">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+            </p>
+            </body>
+            </html>
+
+
+
+
             
-                <br>
-                <style>
-              
-                </style>
-                </head>
-                <body>
-                   
-                    <style>
-                        
-                    .popup {
-                        display: none;
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: rgb(255, 255, 255);
-                        justify-content: center;
-                        align-items: center;
-                    }
-                    
-                    .popup.active {
-                        display: flex;
-                    }
-                    
-                    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); /* خط زخرفي من Google Fonts */
+                <!-- WhatsApp Message Button -->
+            
+
+        </div>
+        <div class="product-images">
+            <img src="1.jpg" alt="product" onclick="openLightbox('1.jpg')">
+        </div>
+        <div style="clear:both;"></div>
+        <!DOCTYPE html>
+        <html lang="ar">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Button Styling</title>
+            <style>
+                button {
+                    background-color: #feb538;
+                    color: white; /* لون النص */
+                    border: none; /* إزالة الحدود */
+                    padding: 10px 20px; /* مساحة داخلية */
+                    text-align: center; /* محاذاة النص في الوسط */
+                    text-decoration: none; /* إزالة التزيين تحت النص */
+                    display: inline-block; /* عرض الزر كتلة داخلية */
+                    font-size: 16px; /* حجم الخط */
+                    margin: 4px 2px; /* هوامش */
+                    cursor: pointer; /* شكل المؤشر */
+                    border-radius: 11px; /* زوايا مستديرة */
+                    transition-duration: 0.4s; /* مدة الانتقال */
+                }
+        
+                button svg {
+                    vertical-align: middle; /* محاذاة الأيقونة مع النص */
+                }
+        
+                button:hover {
+                    background-color: white; /* لون الخلفية عند التمرير */
+                    color: black; /* لون النص عند التمرير */
+                    border: 2px solid #008CBA; /* حدود عند التمرير */
+                }
+        
+                .buy-button {
+                    display: inline-block;
+                    padding: 9px 23px; /* مساحة داخلية متطابقة */
+                    font-size: 16px;
+                    color: #fff;
+                    background-color: #19d300;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 11px;
+                    transition: background-color 0.3s ease;
+                }
+        
+                .buy-button:hover {
+                    background-color: #0ec508;
+                }
+            </style>
+        </head>
+        <body>
+        <style>
+           
+  /* أسلوب CSS للنافذة المنبثقة */
+  .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* خلفية شفافة مع لون */
+      z-index: 1000;
+      text-align: center;
+  }
+  
   .popup-content {
-    background: linear-gradient(135deg, #ffffff, #ffffff);
-    padding: 20px;
-    border-radius: 5px;
-    width: 100%; /* تقليل عرض النافذة ليكون أقل واسعاً */
-    max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
-    box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* تحويل محاذاة المحتوى ليكون في الأعلى */
-    align-items: center; /* محاذاة المحتوى بشكل 
-                  أفقي في المنتصف */
-    margin: auto;
-    text-align: center; /* توسيط النص عمودياً */
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* توسيط النافذة في منتصف الشاشة */
-}
-
-.popup-content h1 {
-    font-family: 'Dancing Script', cursive; /* خط زخرفي */
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-
-.popup-input {
-    width: calc(100% - 40px); /* تعديل عرض حقول الإدخال ليتناسب مع التباعدات */
-    margin: 10px 0;
-    padding: 10px;
-    border: 2px solid #0392ff;
-    border-radius: 3px;
-}
-
-.quantity-input {
+      position: absolute;
+      top: 10%; /* تعديل المسافة من الأعلى */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      background: linear-gradient(135deg, #00bfff, #7a004e);
+      border: 1px solid rgb(255, 255, 255); /* حدود زرقاء */
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* ظل */
+      width: 80%; /* عرض النافذة */
+      max-width: 400px; /* حد أقصى للعرض */
+      max-height: 80%; /* حد أقصى للارتفاع */
+      overflow-y: auto; /* التمرير العمودي إذا لزم الأمر */
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .popup.active {
+      display: block;
+  }
+  
+  .popup-header {
+      margin-bottom: 10px;
+  }
+  
+  .popup-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+  }
+  
+  .popup-input:last-child {
+      margin-bottom: 0; /* للتحكم بالمسافة بين الحقول */
+  }
+  
+  .quantity-input {
     display: flex;
     align-items: center;
-    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white; /* تعيين خلفية بيضاء */
+    height: 46px; /* جعل ارتفاع الحقل متساويًا */
+}
+  
+  .quantity-label {
+      font-size: 18px;
+      color: #555;
+      margin-right: 10px;
+  }
+  
+  .quantity-number {
+      font-size: 24px;
+      margin-right: 10px;
+  }
+  
+  .quantity-buttons {
+      display: flex;
+      align-items: center;
+  }
+  
+  .quantity-button {
+      background-color: #00edca;
+      color: #071b87;
+      border: none;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      border-radius: 4px;
+      margin-left: 5px; /* تباعد بين الأزرار */
+  }
+  
+  .quantity-button:hover {
+      background-color: #ff0000;
+  }
+  
+  .popup-button {
+      padding: 10px 20px;
+      background-color: #00bd10;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-right: 10px; /* تباعد بين الأزرار */
+      margin: 19px;
+  }
+  
+  .popup-button:hover {
+      background-color: #17c200;
+  }
+  
+  .popup-title {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 36px;
+     color: rgb(255, 0, 195);
+      margin-top: 0;
+      margin-bottom: 20px;
+  }
+            </style>
+        </head>
+        <body>
+        
+<style>
+  button {
+    background-color: #feb538;
+    color: white; /* لون النص */
+    border: none; /* إزالة الحدود */
+    padding: 10px 20px; /* مساحة داخلية */
+    text-align: center; /* محاذاة النص في الوسط */
+    text-decoration: none; /* إزالة التزيين تحت النص */
+    display: inline-block; /* عرض الزر كتلة داخلية */
+    font-size: 16px; /* حجم الخط */
+    margin: 4px 2px; /* هوامش */
+    cursor: pointer; /* شكل المؤشر */
+    border-radius: 11px; /* زوايا مستديرة */
+    transition-duration: 0.4s; /* مدة الانتقال */
 }
 
-.quantity-label {
-    flex: 1;
-    text-align: left; /* محاذاة النص إلى اليسار */
+button svg {
+    vertical-align: middle; /* محاذاة الأيقونة مع النص */
 }
 
-.quantity-number {
-    margin: 0 10px;
+button:hover {
+    background-color: white; /* لون الخلفية عند التمرير */
+    color: black; /* لون النص عند التمرير */
+    border: 2px solid #008CBA; /* حدود عند التمرير */
 }
 
-.quantity-buttons {
-    display: flex;
-}
-
-.quantity-button {
-    padding: 8px 15px;
-    margin: 0 5px;
-    border: 1px solid #00b3ff;
-    background-color: #00a6ff;
-    cursor: pointer;
-}
-
-.popup-button {
-    width: 50%; /* تعديل عرض الأزرار ليكون أقل قليلاً */
-    margin-top: 10px; /* تباعد من الأعلى للأزرار */
-    padding: 12px 25px;
+.buy-button {
+    display: inline-block;
+    padding: 9px 23px; /* مساحة داخلية متطابقة */
+    font-size: 16px;
+    color: #fff;
+    background-color: #19d300;
     text-align: center;
     text-decoration: none;
-    font-size: 18px;
-    display: inline-block; /* عرض الأزرار على سطر واحد مع التباعد المناسب */
+    border-radius: 11px;
+    transition: background-color 0.3s ease;
 }
 
-.popup-button:hover {
-    background-color: #ffa601;
+.buy-button:hover {
+    background-color: #0ec508;
 }
-
-.popup-button.cancel {
-    background-color: #e74c3c;
-}
-
-.popup-header {
-    text-align: center;
-    margin-bottom: 20px; /* تباعد أكبر من الأعلى للرأس */
-}
-
-.popup-title {
-    margin: 0;
-}
-
-                 
-<!DOCTYPE html>
+</style>
+            <button onclick="addToCart(this)">    
+                <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18C5.89543 18 5 18.8954 5 20C5 21.1046 5.89543 22 7 22C8.10457 22 9 21.1046 9 20C9 18.8954 8.10457 18 7 18ZM1 2H3.27014L5.20292 14.3137C5.29542 14.9282 5.83992 15.3846 6.46339 15.3846H19.8046C20.3584 15.3846 20.842 15.0295 21.0094 14.4984L23.8598 5.61371C24.0715 4.97576 23.6154 4.30769 22.9472 4.30769H5.90783L5.3821 1H1V2ZM6.45348 13.3846L4.6231 4H21.6712L19.2407 13.3846H6.45348ZM17 18C15.8954 18 15 18.8954 15 20C15 21.1046 15.8954 22 17 22C18.1046 22 19 21.1046 19 20C19 18.8954 18.1046 18 17 18Z" fill="black"/>
+                    <path d="M12 2V6M10 4H14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        
+            <br>
+            <style>
+          
+            </style>
+            </head>
+            <body>
+               
+                <style>
+                .popup {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                .popup.active {
+                    display: flex;
+                }
+                
+                .popup-content {
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 5px;
+                    width: 300px;
+                }
+                
+                .popup-input {
+                    width: calc(100% - 20px);
+                    margin: 10px;
+                    padding: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+                
+                .quantity-input {
+                    margin: 10px;
+                    display: flex;
+                    align-items: center;
+                }
+                
+                .quantity-label {
+                    flex: 1;
+                }
+                
+                .quantity-number {
+                    margin: 0 10px;
+                }
+                
+                .quantity-buttons {
+                    display: flex;
+                }
+                
+                .quantity-button {
+                    padding: 5px 10px;
+                    margin: 0 5px;
+                    border: 1px solid #ccc;
+                    background-color: #f1f1f1;
+                    cursor: pointer;
+                }
+                
+                .popup-button {
+                    padding: 10px 20px;
+                    margin: 10px;
+                    border: none;
+                    border-radius: 3px;
+                    background-color: #4CAF50;
+                    color: white;
+                    cursor: pointer;
+                }
+                
+                .popup-button:hover {
+                    background-color: #45a049;
+                }
+                
+                .popup-button.cancel {
+                    background-color: #e74c3c;
+                }
+                
+                .popup-header {
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+                
+                .popup-title {
+                    margin: 0;
+                }
+                
+                <!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
@@ -1994,6 +848,7 @@ margin-left: 8px;
     </script>
 </body>
 </html>
+
         </div>
 
         <div class="product">
