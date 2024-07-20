@@ -305,92 +305,7 @@ margin-left: 8px;
         </html>
                 <div class="cart-items" id="cartItems"></div>
     </div>
-    <script>
-        var cartCount = 0;
-
-        // تحميل العناصر من Local Storage عند تحميل الصفحة
-        window.onload = function() {
-            loadCartFromLocalStorage();
-        };
-
-        function addToCart(button) {
-            // الحصول على معلومات المنتج
-            var product = button.parentElement;
-
-            // نسخ محتويات المنتج
-            var cartItem = product.cloneNode(true);
-            cartItem.querySelector('button').innerText = 'حذف';
-            cartItem.querySelector('button').setAttribute('onclick', 'removeFromCart(this)');
-
-            // إضافة العنصر إلى العربة
-            document.getElementById('cartItems').appendChild(cartItem);
-
-            // تحديث العداد
-            cartCount++;
-            updateCartCount();
-
-            // حفظ العربة في Local Storage
-            saveCartToLocalStorage();
-        }
-
-        function toggleCart() {
-            var cartPage = document.getElementById('cartPage');
-            if (cartPage.style.display === 'none' || cartPage.style.display === '') {
-                cartPage.style.display = 'block';
-            } else {
-                cartPage.style.display = 'none';
-            }
-        }
-
-        function removeFromCart(button) {
-            var cartItem = button.parentElement;
-            cartItem.remove();
-
-            // تحديث العداد
-            cartCount--;
-            updateCartCount();
-
-            // حفظ العربة في Local Storage
-            saveCartToLocalStorage();
-        }
-
-        function updateCartCount() {
-            document.getElementById('cartCount').innerText = cartCount;
-        }
-
-        function saveCartToLocalStorage() {
-            var cartItems = document.getElementById('cartItems').children;
-            var cartArray = [];
-
-            for (var i = 0; i < cartItems.length; i++) {
-                cartArray.push(cartItems[i].outerHTML);
-            }
-
-            localStorage.setItem('cart', JSON.stringify(cartArray));
-            localStorage.setItem('cartCount', cartCount);
-        }
-
-        function loadCartFromLocalStorage() {
-            var savedCart = JSON.parse(localStorage.getItem('cart'));
-            var savedCartCount = localStorage.getItem('cartCount');
-
-            if (savedCart && savedCartCount) {
-                var cartItemsContainer = document.getElementById('cartItems');
-                cartItemsContainer.innerHTML = '';
-
-                for (var i = 0; i < savedCart.length; i++) {
-                    cartItemsContainer.innerHTML += savedCart[i];
-                }
-
-                cartCount = parseInt(savedCartCount);
-                updateCartCount();
-            }
-        }
-
-
-    </script>
-</body>
-</html>
+  
 <style>
         /* Style the white page */
         #white-page {
@@ -1079,6 +994,229 @@ margin-left: 8px;
 
 
    
+   <!DOCTYPE html>
+   <html lang="ar">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <style>
+           .lightbox {
+               display: none;
+               position: fixed;
+               z-index: 1;
+               left: 0;
+               top: 0;
+               width: 100%;
+               height: 100%;
+               overflow: auto;
+               background-color: rgba(0, 0, 0, 0.8);
+           }
+   
+           .lightbox-content {
+               position: relative;
+               margin: auto;
+               padding: 0; /* إزالة الحشوة لجعل الزر داخل الصورة */
+               width: 80%;
+               max-width: 700px;
+           }
+   
+           #lightbox-img {
+               width: 100%;
+               max-height: 80vh;
+           }
+   
+           .back-button {
+    position: absolute;
+    top: -3px;
+    left: -1px;
+    background-color: rgb(235, 235, 235);
+    color: rgb(0, 0, 0);
+    border: 2px solid rgb(0, 128, 255); /* هذا هو الخط الأزرق حول الزر */
+    padding: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  
+}
+   
+           .back-button img {
+               margin-right: 8px;
+           }
+       </style>
+   </head>
+   <body>
+   
+   <div class="lightbox" id="lightbox">
+       <div class="lightbox-content">
+           <button class="back-button" onclick="closeLightbox()">
+               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+               </svg>
+           </button>
+           <img id="lightbox-img" src="" alt="Enlarged product">
+       </div>
+   </div>
+   
+   <script>
+       function closeLightbox() {
+           document.getElementById("lightbox").style.display = "none";
+       }
+   
+       function openLightbox(imageSrc) {
+           document.getElementById("lightbox-img").src = imageSrc;
+           document.getElementById("lightbox").style.display = "block";
+       }
+   
+       // Event listener to close lightbox when clicking outside the image
+       var lightbox = document.getElementById("lightbox");
+       lightbox.addEventListener("click", function(event) {
+           if (event.target === lightbox) {
+               closeLightbox();
+           }
+       });
+   </script>
+   
+   </body>
+   </html>
+<script src="script.js"></script>
+  </div>
+ 
+<style>
+    p {
+        color: rgb(104, 72, 134);
+    }
+</style>
+
+</p>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Slideshow</title>
+<style>
+    .white-bar {
+        height: 10px; /* ارتفاع الشريط */
+        background-color: white; /* لون الشريط الأبيض */
+        text-align: center; /* توسيط النص في الشريط */
+        margin-bottom: 20px; /* هامش أسفل الشريط */
+    }
+    
+    .content {
+        max-width: 8000px; /* عرض العنصر الرئيسي */
+        margin: 0 auto; /* توسيط العنصر الرئيسي */
+        padding: 20px; /* حشوة داخلية للعنصر الرئيسي */
+        box-shadow: 0 0 10px rgba(0,0,0,0.1); /* ظل للعنصر الرئيسي */
+        position: relative; /* لتحديد موضع زر الإغلاق بشكل نسبي */
+        margin-left: -8px;
+    }
+
+    .slideshow-container {
+        position: relative; /* لتحديد موضع زر الإغلاق بشكل نسبي */
+    }
+
+    .slides {
+        width: 100%;
+        height: 166px;
+    }
+
+    .close-btn {
+        position: absolute; /* تحديد موضع زر الإغلاق بشكل مطلق */
+        top: -2px; /* أعلى العنصر */
+        right: 1px; /* يمين العنصر */
+        background-color: rgb(238, 1, 1); /* لون خلفية الزر */
+        color: rgb(255, 255, 255); /* لون النص داخل الزر */
+        border: none; /* إزالة الحدود */
+        padding: 5px 10px; /* حشوة داخلية للزر */
+        cursor: pointer; /* تغيير شكل المؤشر عند التحويم على الزر */
+        z-index: 1; /* تأكيد ظهور الزر فوق الصور */
+        font-size: 12px;
+    }
+
+    .spacing {
+        height: 2em; /* تعادل مسافة 2 <br> */
+    }
+</style>
+</head>
+<body>
+    <div class="white-bar"></div>
+    
+    <div class="content" id="content">
+        <!-- عرض الصور -->
+        <div class="slideshow-container" id="slideshow-container">
+            <button class="close-btn" onclick="removeContent()">X</button>
+            <img class="slides active" src="i1.jpg">
+            <img class="slides" src="i2.jpg">
+            <img class="slides" src="i3.jpg">
+        </div>
+    </div>
+
+    <script>
+        // تشغيل عرض الصور تلقائيا
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex - 1].style.display = "block";  
+            setTimeout(showSlides, 5000); // تغيير الصورة كل 5 ثواني
+        }
+
+        // وظيفة إزالة الخلفية الزرقاء بكل محتوياتها
+        function removeContent() {
+            let content = document.getElementById("content");
+            if (content) {
+                content.style.display = "none";
+            }
+
+            // إضافة مسافة تعادل 2 <br> عند إخفاء المحتوى
+            let spacing = document.getElementById('spacing');
+            if (!spacing) {
+                spacing = document.createElement('div');
+                spacing.className = 'spacing';
+                spacing.id = 'spacing';
+                document.body.insertBefore(spacing, document.querySelector('.white-bar').nextSibling);
+            }
+        }
+
+        // وظيفة لعرض المحتوى مرة أخرى وإزالة المسافة
+        function showContent() {
+            let content = document.getElementById("content");
+            if (content) {
+                content.style.display = "block";
+            }
+
+            // إزالة المسافة المضافة
+            let spacing = document.getElementById('spacing');
+            if (spacing) {
+                spacing.remove();
+            }
+        }
+
+        // وظيفة لإخفاء المحتوى عند الكتابة وإظهاره عند حذف الكتابة
+        function handleInput(event) {
+            if (event.target.value.trim() === "") {
+                showContent();
+            } else {
+                removeContent();
+            }
+        }
+
+        // إضافة مستمع الحدث لصندوق البحث
+        window.addEventListener('load', () => {
+            const searchBox = document.querySelector('input[type="text"]'); // تعديل هذا لاختيار صندوق البحث الخاص بك
+            if (searchBox) {
+                searchBox.addEventListener('input', handleInput);
+            }
+        });
+    </script>
+</body>
+</html>
+
 
     
 <div id="productContainer">
