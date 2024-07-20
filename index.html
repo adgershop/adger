@@ -1868,8 +1868,8 @@ margin-left: 8px;
     margin: 0;
 }
 
-                    
-                    <!DOCTYPE html>
+                 
+<!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
@@ -1881,11 +1881,13 @@ margin-left: 8px;
     </style>
 </head>
 <body>
+    <a href="#" class="buy-button" onclick="openPopup(this)" data-product-name="ساعة من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
+
     <div id="popup" class="popup">
         <div class="popup-content">
             <div class="popup-inputs">
                 <input type="text" id="name" class="popup-input" placeholder="الاسم الثلاثي">
-                <input type="text" id="location" class="popup-input" placeholder="الموقع الجغرافي" onclick="getLocation()" readonly>
+                <input type="text" id="location" class="popup-input" placeholder="الموقع الجغرافي" onclick="getLocation()">
                 <div class="quantity-input">
                     <span class="quantity-label">الكمية:</span>
                     <span id="quantity-number" class="quantity-number">1</span>
@@ -1992,9 +1994,6 @@ margin-left: 8px;
     </script>
 </body>
 </html>
-        </script>
-    </body>
-    </html>
         </div>
 
         <div class="product">
