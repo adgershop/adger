@@ -627,18 +627,15 @@ margin-left: 8px;
     padding-bottom: 20px;
     position: relative; /* لضمان أن العنصر الوهمي يتم وضعه بشكل صحيح */
 }
-
 .video-container::after {
     content: '';
     position: absolute;
     bottom: -20px;
-    left: -50vw; /* إزاحة الخط إلى اليسار */
-    width: 200vw; /* جعل العرض بملء الشاشة بما في ذلك الإزاحة */
-    height: 6px; /* تغيير ارتفاع الخط إلى 9 بيكسل */
-background-color: rgba(171, 169, 169, 0.613);
-
+    left: 0; /* يبدأ من الحافة اليسرى للحاوية */
+    right: 0; /* يمتد إلى الحافة اليمنى للحاوية */
+    height: 6px; /* ارتفاع الشريط */
+    background-color: rgba(171, 169, 169, 0.613);
 }
-
                             .video-description {
                                 margin-top: 10px;
                             }
@@ -663,7 +660,7 @@ background-color: rgba(171, 169, 169, 0.613);
                         <div class="main-container" id="main-container">
                             <input type="text" id="video-search" placeholder="ابحث عن الفيديو..." oninput="searchVideos()">
                             <div id="no-results" style="display:none;">لا توجد نتائج</div>
-                    
+                          
                             <div class="video-container" data-title="كتاب المستثمر الذكى">
                                 <video class="video" src="v1.mp4" controls onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
                                 <div class="video-description">كتاب المستثمر الذكى</div>
