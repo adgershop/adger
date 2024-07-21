@@ -660,7 +660,7 @@ margin-left: 8px;
                             <div id="no-results" style="display:none;">لا توجد نتائج</div>
                             
                             <div class="video-container" data-title="كتاب المستثمر الذكى">
-                                <video class="video" src="v1.mp4" controls tabindex="-1" onclick="disableScroll(event);" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                                <video class="video" src="v1.mp4" controls tabindex="-1" onclick="disableScroll(event);" ontouchstart="disableScroll(event);" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
                                 <div class="video-description">كتاب المستثمر الذكى</div>
                                 <div class="video-description">
                                     السعر: <span class="price">245<span class="zeros">00</span></span> جنيه
@@ -670,7 +670,7 @@ margin-left: 8px;
                             </div>
                             
                             <div class="video-container" data-title="قلم ليزر">
-                                <video class="video" src="v2.mp4" controls tabindex="-1" onclick="disableScroll(event);" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                                <video class="video" src="v2.mp4" controls tabindex="-1" onclick="disableScroll(event);" ontouchstart="disableScroll(event);" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
                                 <div class="video-description">قلم ليزر</div>
                                 <div class="video-description">
                                     السعر: <span class="price">400<span class="zeros">00</span></span> جنيه
@@ -680,7 +680,7 @@ margin-left: 8px;
                             </div>
                             
                             <div class="video-container" data-title="تابلت بشاشة LED محمول">
-                                <video class="video" src="v3.mp4" controls tabindex="-1" onclick="disableScroll(event);" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
+                                <video class="video" src="v3.mp4" controls tabindex="-1" onclick="disableScroll(event);" ontouchstart="disableScroll(event);" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
                                 <div class="video-description">تابلت بشاشة LED محمول</div>
                                 <div class="video-description">
                                     السعر: <span class="price">70<span class="zeros">00</span></span> جنيه
@@ -716,9 +716,10 @@ margin-left: 8px;
                             }
                     
                             function disableScroll(event) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                                event.target.blur();  // إزالة التركيز من الفيديو بعد النقر عليه
+                                event.target.style.pointerEvents = 'none';
+                                setTimeout(() => {
+                                    event.target.style.pointerEvents = 'auto';
+                                }, 100);
                             }
                     
                             window.onload = shuffleVideos;
