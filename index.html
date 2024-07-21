@@ -615,115 +615,131 @@ margin-left: 8px;
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>Video Search</title>
                         <style>
-                    
                             .main-container {
                                 width: 100%;
                                 padding: 0 10%;
                                 box-sizing: border-box;
                             }
                             .video-container {
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    position: relative; /* لضمان أن العنصر الوهمي يتم وضعه بشكل صحيح */
-}
-.video-container::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 0; /* يبدأ من الحافة اليسرى للحاوية */
-    right: 0; /* يمتد إلى الحافة اليمنى للحاوية */
-    height: 6px; /* ارتفاع الشريط */
-    background-color: rgba(171, 169, 169, 0.613);
-}
+                                margin-bottom: 20px;
+                                padding-bottom: 20px;
+                                position: relative; /* لضمان أن العنصر الوهمي يتم وضعه بشكل صحيح */
+                            }
+                            .video-container::after {
+                                content: '';
+                                position: absolute;
+                                bottom: -20px;
+                                left: 0; /* يبدأ من الحافة اليسرى للحاوية */
+                                right: 0; /* يمتد إلى الحافة اليمنى للحاوية */
+                                height: 6px; /* ارتفاع الشريط */
+                                background-color: rgba(171, 169, 169, 0.613);
+                            }
                             .video-description {
                                 margin-top: 10px;
                             }
                             .price {
                                 font-weight: bold;
                             }
-                      
+                           
+                            .video-container.paused .play-button {
+                                display: block;
+                            }
+                            .video-container video {
+                                width: 100%;
+                            }
                         </style>
                     </head>
                     <body>
-                            <style>
-                           
-                                .video::-webkit-media-controls {
-                                    display: none !important;
-                                }
-                                .video::-moz-media-controls {
-                                    display: none !important;
-                                }
-                                .video::-ms-media-controls {
-                                    display: none !important;
-                                }
-                            </style>
-                        </head>
-                        <body>
-                            <div class="main-container" id="main-container">
-                                <input type="text" id="video-search" placeholder="ابحث عن الفيديو..." oninput="searchVideos()">
-                                <div id="no-results" style="display:none;">لا توجد نتائج</div>
-                                
-                                <div class="video-container" data-title="كتاب المستثمر الذكى">
-                                    <video class="video" src="v1.mp4" controls onclick="return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
-                                    <div class="video-description">كتاب المستثمر الذكى</div>
-                                    <div class="video-description">
-                                        السعر: <span class="price">245<span class="zeros">00</span></span> جنيه
-                                    </div>
-                                    <br>
-                                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
+                        <div class="main-container" id="main-container">
+                            <input type="text" id="video-search" placeholder="ابحث عن الفيديو..." oninput="searchVideos()">
+                            <div id="no-results" style="display:none;">لا توجد نتائج</div>
+                            
+                            <div class="video-container" data-title="كتاب المستثمر الذكى">
+                                <div class="play-button" onclick="togglePlayPause(this.parentElement.querySelector('video'));"></div>
+                                <video class="video" src="v1.mp4" tabindex="-1" onclick="togglePlayPause(this);"></video>
+                                <div class="video-description">كتاب المستثمر الذكى</div>
+                                <div class="video-description">
+                                    السعر: <span class="price">245<span class="zeros">00</span></span> جنيه
                                 </div>
-                                
-                                <div class="video-container" data-title="قلم ليزر">
-                                    <video class="video" src="v2.mp4" controls onclick="return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
-                                    <div class="video-description">قلم ليزر</div>
-                                    <div class="video-description">
-                                        السعر: <span class="price">400<span class="zeros">00</span></span> جنيه
-                                    </div>
-                                    <br>
-                                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
-                                </div>
-                                
-                                <div class="video-container" data-title="تابلت بشاشة LED محمول">
-                                    <video class="video" src="v3.mp4" controls onclick="return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"></video>
-                                    <div class="video-description">تابلت بشاشة LED محمول</div>
-                                    <div class="video-description">
-                                        السعر: <span class="price">70<span class="zeros">00</span></span> جنيه
-                                    </div>
-                                    <br>
-                                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="تابلت بشاشة LED محمول" data-product-number="8" data-price="70" data-delivery-charge="50">اشترِ الآن</a>
-                                </div>
+                                <br>
+                                <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="كتاب المستثمر الذكى" data-product-number="15" data-price="245" data-delivery-charge="50">اشترِ الآن</a>
                             </div>
-                            <script>
-                                function searchVideos() {
-                                    const searchInput = document.getElementById('video-search').value.toLowerCase();
-                                    const videoContainers = document.querySelectorAll('.video-container');
-                                    let hasResults = false;
-                        
-                                    videoContainers.forEach(container => {
-                                        const title = container.getAttribute('data-title').toLowerCase();
-                                        if (title.includes(searchInput)) {
-                                            container.style.display = '';
-                                            hasResults = true;
-                                        } else {
-                                            container.style.display = 'none';
-                                        }
-                                    });
-                        
-                                    document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+                            
+                            <div class="video-container" data-title="قلم ليزر">
+                                <div class="play-button" onclick="togglePlayPause(this.parentElement.querySelector('video'));"></div>
+                                <video class="video" src="v2.mp4" tabindex="-1" onclick="togglePlayPause(this);"></video>
+                                <div class="video-description">قلم ليزر</div>
+                                <div class="video-description">
+                                    السعر: <span class="price">400<span class="zeros">00</span></span> جنيه
+                                </div>
+                                <br>
+                                <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="قلم ليزر" data-product-number="47" data-price="400" data-delivery-charge="50">اشترِ الآن</a>
+                            </div>
+                            
+                            <div class="video-container" data-title="تابلت بشاشة LED محمول">
+                                <div class="play-button" onclick="togglePlayPause(this.parentElement.querySelector('video'));"></div>
+                                <video class="video" src="v3.mp4" tabindex="-1" onclick="togglePlayPause(this);"></video>
+                                <div class="video-description">تابلت بشاشة LED محمول</div>
+                                <div class="video-description">
+                                    السعر: <span class="price">70<span class="zeros">00</span></span> جنيه
+                                </div>
+                                <br>
+                                <a href="#" class="buy-button" onclick="openPopup(this); return false;" data-product-name="تابلت بشاشة LED محمول" data-product-number="8" data-price="70" data-delivery-charge="50">اشترِ الآن</a>
+                            </div>
+
+
+
+                            
+                        </div>
+                        <script>
+                            function searchVideos() {
+                                const searchInput = document.getElementById('video-search').value.toLowerCase();
+                                const videoContainers = document.querySelectorAll('.video-container');
+                                let hasResults = false;
+                    
+                                videoContainers.forEach(container => {
+                                    const title = container.getAttribute('data-title').toLowerCase();
+                                    if (title.includes(searchInput)) {
+                                        container.style.display = '';
+                                        hasResults = true;
+                                    } else {
+                                        container.style.display = 'none';
+                                    }
+                                });
+                    
+                                document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+                            }
+                    
+                            function shuffleVideos() {
+                                const container = document.getElementById('main-container');
+                                const videos = Array.from(container.getElementsByClassName('video-container'));
+                                videos.sort(() => Math.random() - 0.5);
+                                videos.forEach(video => container.appendChild(video));
+                            }
+                    
+                            function togglePlayPause(videoElement) {
+                                const container = videoElement.parentElement;
+                                const isPaused = videoElement.paused;
+                                if (isPaused) {
+                                    videoElement.play();
+                                    container.classList.remove('paused');
+                                } else {
+                                    videoElement.pause();
+                                    container.classList.add('paused');
                                 }
-                        
-                                function shuffleVideos() {
-                                    const container = document.getElementById('main-container');
-                                    const videos = Array.from(container.getElementsByClassName('video-container'));
-                                    videos.sort(() => Math.random() - 0.5);
-                                    videos.forEach(video => container.appendChild(video));
-                                }
-                        
-                                window.onload = shuffleVideos;
-                            </script>
-                        </body>
-                        </html>
-            
+                            }
+                    
+                            // أضف مراقب الأحداث لتشغيل الفيديوات على الأجهزة التي لا تدعم النقر التلقائي
+                            document.querySelectorAll('video').forEach(video => {
+                                video.addEventListener('click', function() {
+                                    togglePlayPause(this);
+                                });
+                            });
+                    
+                            window.onload = shuffleVideos;
+                        </script>
+                    </body>
+                    </html>
                 
                     <script>
                         // التحقق مما إذا كان هناك بيانات تسجيل دخول مخزنة في localStorage
