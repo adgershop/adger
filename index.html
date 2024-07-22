@@ -1637,6 +1637,7 @@ margin-left: 8px;
                         </div>
                     </div>
                 
+    
                     <script>
                         document.addEventListener('DOMContentLoaded', () => {
                             const modal = document.getElementById('myModal');
@@ -1648,17 +1649,14 @@ margin-left: 8px;
                                 const comment = container.getAttribute('data-comment');
                                 const stars = container.querySelectorAll('.star');
                 
+                                // Remove event listeners for stars
                                 stars.forEach((star, index) => {
-                                    star.addEventListener('click', () => {
-                                        modalComment.textContent = comment;
-                                        modal.style.display = "block";
-                                    });
-                
                                     if (index >= 5 - emptyStars) {
                                         star.classList.add('empty');
                                     }
                                 });
                 
+                                // Keep event listener for rater-count
                                 container.querySelector('.rater-count').addEventListener('click', () => {
                                     modalComment.textContent = comment;
                                     modal.style.display = "block";
@@ -1678,6 +1676,7 @@ margin-left: 8px;
                     </script>
                 </body>
                 </html>
+                
     
     
                 
