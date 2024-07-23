@@ -6671,13 +6671,17 @@ function saveLocation(latitude, longitude) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Continuous Moving Green Line with Text</title>
         <style>
-         
+            body {
+                padding: 0;
+                overflow-x: hidden; /* لمنع التمرير الأفقي */
+            }
         
             .container {
                 position: relative;
                 width: 100%;
                 height: 8vh; /* ارتفاع الشاشة بالكامل */
                 overflow: hidden;
+                margin-bottom: 0px;
             }
         
             .green-line {
