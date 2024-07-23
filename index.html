@@ -2063,12 +2063,12 @@ margin-left: 8px;
             var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
             var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
 
-            var subject = encodeURIComponent('طلب شراء');
+            var subject = encodeURIComponent('#طلب شراء');
             var body = encodeURIComponent(
                 `#طلب شراء\n${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nالموقع الجغرافي: ${location}\nالسعر: ${price}\nسعر التوصيل,يختلف احياناً: ${deliveryCharge}\nالسعر الإجمالي: ${totalPrice}`
             );
 
-            var gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${subject}&body=${body}`;
+            var gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=adger.shop@gmail.com&su=${subject}&body=${body}`;
             window.open(gmailLink, '_blank');
 
             localStorage.setItem('savedName', name);
