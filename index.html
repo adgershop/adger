@@ -6936,7 +6936,6 @@ margin-left: 8px;
     <span class="close" onclick="closeLightbox()">&times;</span>
     <img id="lightbox-img" src="" alt="Enlarged product">
 </div>
-
 <script>
     function searchProducts() {
         var input, filter, products, product, i, txtValue;
@@ -6946,11 +6945,8 @@ margin-left: 8px;
 
         // Check if there is any input in the search box
         if (input.value.trim() !== "") {
-            // If there's input, scroll to the top of the page
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            // If there's input, scroll to the top of the page without smooth effect
+            window.scrollTo(0, 0);
         }
 
         for (i = 0; i < products.length; i++) {
@@ -6979,6 +6975,7 @@ margin-left: 8px;
         document.getElementById('lightbox').style.display = 'none';
     }
 </script>
+
 
 <!DOCTYPE html>
 <html lang="en">
