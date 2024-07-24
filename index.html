@@ -215,8 +215,54 @@ margin-left: 8px;
 </style>
 </head>
 <body>
-    <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER...">
+
+        <style>
+         
+            .clear-button {
+                position: absolute;
+                left: 111px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                display: none; /* Initially hidden */
+                font-size: 14px;
+                color: #ffffff; /* Adjust color as needed */
+                background-color: #1f4f82;
+                border-radius: 50%;
+                width: 25px;
+                height: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="search-container">
+            <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER..." oninput="toggleClearButton(this)">
+            <span id="clearButton" class="clear-button" onclick="clearSearchInput()">✖</span>
+      
+    
+        <script>
+            function toggleClearButton(input) {
+                const clearButton = document.getElementById('clearButton');
+                clearButton.style.display = input.value ? 'block' : 'none';
+            }
+    
+            function clearSearchInput() {
+                const searchInput = document.getElementById('searchInput');
+                searchInput.value = '';
+                searchInput.focus();
+                toggleClearButton(searchInput);
+                // Call your searchProducts function to update the search results
+                searchProducts();
+            }
+    
+            function searchProducts() {
+                // Implement your search logic here
+                console.log('Searching products...');
+            }
+        </script>
+    </body>
+    </html>
+    
         <!DOCTYPE html>
         <html lang="ar">
         <head>
