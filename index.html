@@ -6943,7 +6943,16 @@ margin-left: 8px;
         input = document.getElementById('searchInput');
         filter = input.value.toUpperCase();
         products = document.getElementById('productContainer').getElementsByClassName('product');
-        
+
+        // Check if there is any input in the search box
+        if (input.value.trim() !== "") {
+            // If there's input, scroll to the top of the page
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
         for (i = 0; i < products.length; i++) {
             product = products[i].getElementsByClassName('product-info')[0];
             txtValue = product.textContent || product.innerText;
@@ -6954,6 +6963,7 @@ margin-left: 8px;
             }
         }
     }
+
     function copyText(text) {
         navigator.clipboard.writeText(text).then(() => {
             alert("تم نسخ النص: " + text);
@@ -6969,8 +6979,7 @@ margin-left: 8px;
         document.getElementById('lightbox').style.display = 'none';
     }
 </script>
-</body>
-</html>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
