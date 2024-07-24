@@ -2068,8 +2068,8 @@ margin-left: 8px;
                 `#طلب شراء\n${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nالموقع الجغرافي: ${location}\nالسعر: ${price}\nسعر التوصيل,يختلف احياناً: ${deliveryCharge}\nالسعر الإجمالي: ${totalPrice}`
             );
 
-            var gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=adger.shop@gmail.com&su=${subject}&body=${body}`;
-            window.open(gmailLink, '_blank');
+            var mailtoLink = `mailto:adger.shop@gmail.com?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
 
             localStorage.setItem('savedName', name);
             localStorage.setItem('savedLocation', location);
