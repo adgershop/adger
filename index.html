@@ -1951,7 +1951,6 @@ margin-left: 8px;
     margin: 0;
 }
 
-                    
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -1978,7 +1977,7 @@ margin-left: 8px;
                     </div>
                 </div>
             </div>
-            <button class="popup-button" onclick="openGmail()">موافق</button>
+            <button class="popup-button" onclick="openEmail()">موافق</button>
             <button class="popup-button cancel" onclick="closePopup()">إلغاء</button>
         </div>
     </div>
@@ -1986,6 +1985,18 @@ margin-left: 8px;
     <script>
         function getLocation() {
             document.activeElement.blur();
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                document.getElementById('location').value = latitude + ', ' + longitude;
+                localStorage.setItem('savedLocation', latitude + ', ' + longitude);
+            }, function(error) {
+                if (error.code === error.PERMISSION_DENIED) {
+                    document.getElementById('location').value = 'يرجى تمكين خدمة الموقع من إعدادات الهاتف ثم إعادة المحاولة.';
+                } else {
+                    document.getElementById('location').value = 'الرجاء الضغط على الثلاث نقط اعلى المتصفح ثم فتح فى chrome.';
+                }
+            });
         }
 
         function openPopup(button) {
@@ -2013,46 +2024,7 @@ margin-left: 8px;
             popup.classList.remove('active');
         }
 
-        if (navigator.geolocation) {
-            var locationField = document.getElementById('location');
-            locationField.addEventListener('click', function() {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
-                    locationField.value = latitude + ', ' + longitude;
-                    saveLocation(latitude, longitude);
-                }, function(error) {
-                    if (error.code === error.PERMISSION_DENIED) {
-                        locationField.value = 'يرجى تمكين خدمة الموقع من إعدادات الهاتف ثم إعادة المحاولة.';
-                    } else {
-                        locationField.value = 'الرجاء الضغط على الثلاث نقط اعلى المتصفح ثم فتح فى chrome.';
-                        console.error('Error getting location:', error);
-                    }
-                });
-            });
-
-            setInterval(function() {
-                if (locationField.value) {
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        var latitude = position.coords.latitude;
-                        var longitude = position.coords.longitude;
-                        locationField.value = latitude + ', ' + longitude;
-                        saveLocation(latitude, longitude);
-                    }, function(error) {
-                        console.error('Error getting location:', error);
-                    });
-                }
-            }, 10000);
-        } else {
-            document.getElementById('location').value = 'المتصفح لا يدعم تحديد الموقع الجغرافي.';
-        }
-
-        function saveLocation(latitude, longitude) {
-            var savedLocation = latitude + ',' + longitude;
-            localStorage.setItem('savedLocation', savedLocation);
-        }
-
-        function openGmail() {
+        function openEmail() {
             var name = document.getElementById('name').value;
             var location = document.getElementById('location').value;
             var quantity = document.getElementById('quantity-number').innerText;
@@ -2069,7 +2041,7 @@ margin-left: 8px;
             );
 
             var mailtoLink = `mailto:adger.shop@gmail.com?subject=${subject}&body=${body}`;
-            window.location.href = mailtoLink;
+            window.open(mailtoLink, '_blank');
 
             localStorage.setItem('savedName', name);
             localStorage.setItem('savedLocation', location);
