@@ -215,9 +215,12 @@ margin-left: 8px;
 </style>
 </head>
 <body>
-
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-         
             .clear-button {
                 position: absolute;
                 left: 111px;
@@ -225,20 +228,22 @@ margin-left: 8px;
                 transform: translateY(-50%);
                 cursor: pointer;
                 display: none; /* Initially hidden */
-                font-size: 11px;
+                font-size: 12px;
                 color: #ffffff; /* Adjust color as needed */
                 background-color: #1f4f82;
                 border-radius: 50%;
                 width: 20px;
                 height: 18px;
+                text-align: center;
+                line-height: 18px;
             }
         </style>
     </head>
     <body>
         <div class="search-container">
             <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER..." oninput="toggleClearButton(this)">
-            <span id="clearButton" class="clear-button" onclick="clearSearchInput()">✖</span>
-      
+            <span id="clearButton" class="clear-button" onclick="clearSearchInput(event)">✖</span>
+        
     
         <script>
             function toggleClearButton(input) {
@@ -246,10 +251,10 @@ margin-left: 8px;
                 clearButton.style.display = input.value ? 'block' : 'none';
             }
     
-            function clearSearchInput() {
+            function clearSearchInput(event) {
+                event.preventDefault(); // Prevent the default action (focusing the input)
                 const searchInput = document.getElementById('searchInput');
                 searchInput.value = '';
-                searchInput.focus();
                 toggleClearButton(searchInput);
                 // Call your searchProducts function to update the search results
                 searchProducts();
@@ -260,6 +265,9 @@ margin-left: 8px;
                 console.log('Searching products...');
             }
         </script>
+    </body>
+    </html>
+    
     </body>
     </html>
     
