@@ -244,27 +244,36 @@ margin-left: 8px;
             <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER..." oninput="toggleClearButton(this)">
             <span id="clearButton" class="clear-button" onclick="clearSearchInput(event)">✖</span>
         
-    
         <script>
             function toggleClearButton(input) {
                 const clearButton = document.getElementById('clearButton');
                 clearButton.style.display = input.value ? 'block' : 'none';
             }
-    
+        
             function clearSearchInput(event) {
                 event.preventDefault(); // Prevent the default action (focusing the input)
                 const searchInput = document.getElementById('searchInput');
                 searchInput.value = '';
                 toggleClearButton(searchInput);
+                searchInput.dispatchEvent(new Event('input')); // Trigger input event manually
                 // Call your searchProducts function to update the search results
                 searchProducts();
             }
-    
+        
             function searchProducts() {
-                // Implement your search logic here
-                console.log('Searching products...');
+                const searchInput = document.getElementById('searchInput');
+                const query = searchInput.value;
+                // Implement your search logic here using the query
+                console.log('Searching products for:', query);
+        
+                if (query === '') {
+                    // Handle the case when the search input is cleared
+                    console.log('Search input cleared.');
+                    // Perform any additional actions needed when the search is cleared
+                }
             }
         </script>
+        
     </body>
     </html>
     
