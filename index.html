@@ -256,6 +256,10 @@ margin-left: 8px;
                 searchInput.value = '';
                 toggleClearButton(searchInput);
                 searchInput.dispatchEvent(new Event('input')); // Trigger input event manually
+        
+                // Scroll to the top of the page
+                window.scrollTo(0, 0);
+        
                 // Call your searchProducts function to update the search results
                 searchProducts();
             }
@@ -274,9 +278,6 @@ margin-left: 8px;
             }
         </script>
         
-    </body>
-    </html>
-    
     </body>
     </html>
     
@@ -1345,7 +1346,7 @@ margin-left: 8px;
         background-color: rgb(238, 1, 1);
         color: rgb(255, 255, 255);
         border: none;
-        padding: 3px 6px;
+        padding: 3px 7px;
         cursor: pointer;
         z-index: 1;
         font-size: 10px;
