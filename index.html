@@ -1291,8 +1291,7 @@ margin-left: 8px;
     }
 </style>
 
-</p>
-<!DOCTYPE html>
+</p><!DOCTYPE html>
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
@@ -1316,11 +1315,15 @@ margin-left: 8px;
 
     .slideshow-container {
         position: relative; /* لتحديد موضع زر الإغلاق بشكل نسبي */
+        overflow: hidden; /* إخفاء المحتوى الذي يتجاوز الحدود */
     }
 
     .slides {
         width: 100%;
         height: 166px;
+        display: block; /* عرض الصور بشكل افتراضي */
+        clip-path: inset(0 0 100% 0); /* إخفاء الجزء السفلي من الصورة */
+        transition: clip-path 1s ease-in-out; /* تأثير تدريجي لظهور الصورة */
     }
 
     .close-btn {
@@ -1330,14 +1333,24 @@ margin-left: 8px;
         background-color: rgb(238, 1, 1); /* لون خلفية الزر */
         color: rgb(255, 255, 255); /* لون النص داخل الزر */
         border: none; /* إزالة الحدود */
-        padding: 5px 10px; /* حشوة داخلية للزر */
+        padding: 3px 6px; /* حشوة داخلية للزر */
         cursor: pointer; /* تغيير شكل المؤشر عند التحويم على الزر */
         z-index: 1; /* تأكيد ظهور الزر فوق الصور */
-        font-size: 12px;
+        font-size: 10px;
+        opacity: 0; /* إخفاء الزر تدريجياً */
+        transition: opacity 1s ease-in-out; /* تأثير تدريجي للظهور */
     }
 
     .spacing {
         height: 2em; /* تعادل مسافة 2 <br> */
+    }
+
+    .hidden {
+        display: none; /* إخفاء العناصر */
+    }
+
+    .show {
+        display: block; /* عرض العناصر */
     }
 </style>
 </head>
@@ -1348,16 +1361,16 @@ margin-left: 8px;
         <!-- عرض الصور -->
         <div class="slideshow-container" id="slideshow-container">
             <button class="close-btn" onclick="removeContent()">X</button>
-            <img class="slides active" src="i1.jpg">
+            <img class="slides" src="i1.jpg">
             <img class="slides" src="i2.jpg">
             <img class="slides" src="i3.jpg">
         </div>
     </div>
 
     <script>
-        // تشغيل عرض الصور تلقائيا
         let slideIndex = 0;
-        showSlides();
+        let lastSlideIndex = 0; // لتخزين آخر شريحة مرئية
+        let slideshowInterval; // لتخزين مرجع لمؤقت الشرائح
 
         function showSlides() {
             let slides = document.getElementsByClassName("slides");
@@ -1367,14 +1380,17 @@ margin-left: 8px;
             slideIndex++;
             if (slideIndex > slides.length) {slideIndex = 1}    
             slides[slideIndex - 1].style.display = "block";  
-            setTimeout(showSlides, 5000); // تغيير الصورة كل 5 ثواني
+            slides[slideIndex - 1].style.opacity = 1; // إظهار الصورة تدريجياً
+            lastSlideIndex = slideIndex - 1; // تحديث آخر شريحة مرئية
+            slideshowInterval = setTimeout(showSlides, 5000); // تغيير الصورة كل 5 ثواني
         }
 
-        // وظيفة إزالة الخلفية الزرقاء بكل محتوياتها
         function removeContent() {
             let content = document.getElementById("content");
             if (content) {
-                content.style.display = "none";
+                content.classList.add('hidden'); // إخفاء المحتوى
+                clearTimeout(slideshowInterval); // إيقاف عرض الشرائح
+                localStorage.setItem('lastSlideIndex', lastSlideIndex); // تخزين آخر شريحة مرئية
             }
 
             // إضافة مسافة تعادل 2 <br> عند إخفاء المحتوى
@@ -1387,11 +1403,15 @@ margin-left: 8px;
             }
         }
 
-        // وظيفة لعرض المحتوى مرة أخرى وإزالة المسافة
         function showContent() {
             let content = document.getElementById("content");
             if (content) {
-                content.style.display = "block";
+                content.classList.remove('hidden'); // عرض المحتوى
+                let slides = document.getElementsByClassName("slides");
+                if (slides.length > 0) {
+                    slideIndex = parseInt(localStorage.getItem('lastSlideIndex')) || 0; // استرجاع آخر شريحة مرئية
+                    showSlides();
+                }
             }
 
             // إزالة المسافة المضافة
@@ -1401,7 +1421,6 @@ margin-left: 8px;
             }
         }
 
-        // وظيفة لإخفاء المحتوى عند الكتابة وإظهاره عند حذف الكتابة
         function handleInput(event) {
             if (event.target.value.trim() === "") {
                 showContent();
@@ -1410,16 +1429,36 @@ margin-left: 8px;
             }
         }
 
-        // إضافة مستمع الحدث لصندوق البحث
         window.addEventListener('load', () => {
             const searchBox = document.querySelector('input[type="text"]'); // تعديل هذا لاختيار صندوق البحث الخاص بك
             if (searchBox) {
                 searchBox.addEventListener('input', handleInput);
             }
+            // تأخير لعرض الصور تدريجياً عند تحميل الصفحة
+            setTimeout(() => {
+                let slides = document.querySelectorAll(".slides");
+                slides.forEach((slide, index) => {
+                    setTimeout(() => {
+                        slide.style.clipPath = "inset(0 0 0 0)"; // إظهار الصورة تدريجياً من الأعلى إلى الأسفل
+                        slide.style.opacity = 1; // إظهار الصورة تدريجياً
+                    }, 100 * index); // تأخير لكل صورة
+                });
+                document.querySelector(".close-btn").style.opacity = 1; // إظهار زر الإغلاق تدريجياً
+                showSlides(); // بدء عرض الشرائح
+            }, 100); // تأخير بسيط لتمكين التحميل التدريجي
+        });
+
+        // التأكد من إخفاء الصور عند تحميل الصفحة
+        document.addEventListener("DOMContentLoaded", () => {
+            let slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.clipPath = "inset(0 0 100% 0)"; // إخفاء الجزء السفلي من الصورة
+            }
         });
     </script>
 </body>
 </html>
+
 
 
     
