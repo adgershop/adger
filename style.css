@@ -108,7 +108,7 @@ h3 {
     height: 24px;
     cursor: pointer;
     z-index: 10000;
-    color: #3f9cf9;
+    color: #151616;
     display: none;
 }
 
@@ -157,7 +157,7 @@ h3 {
 }
 
 .custom-h1-red {
-    color:  rgb(91, 128, 138);
+    color:  rgb(246, 17, 17);
     font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
     font-size: 15px; /* يمكنك تغيير حجم الخط هنا */
 }
@@ -173,7 +173,7 @@ h3 {
   
   .video-description .price {
     font-size: 1.2em; /* يمكنك تغيير الحجم حسب رغبتك */
-    color: #b80505;
+    color: #eb4401;
     margin-left: 2px;
   }
   
@@ -184,3 +184,4 @@ h3 {
     margin-right: 2px;
     vertical-align: sub; /* لجعل الأصفار تحت النص الرئيسي */
 }
+
