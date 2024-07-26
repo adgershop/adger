@@ -85,9 +85,8 @@ h3 {
 .modal2-content {
     background: linear-gradient(135deg, #43b7ff, #c3e5f5);
     margin: 0 auto;
-    padding: 20px 20px 25px; /* إضافة 5 بيكسل في الأسفل */
     padding-top: 95px;
-    padding-bottom: 122px;
+    padding-bottom: 111px;
     width: center;
     margin-top: -6px;
     max-width: 1110px; /* تصحيح القيمة */
