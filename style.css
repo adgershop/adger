@@ -83,13 +83,13 @@ background-color: rgba(255, 255, 255, 1);
 }
 
 .modal2-content {
-background-color: white;
+background-color: rgb(255, 255, 255);
 margin: 0 auto;
 padding: 20px 20px 25px; /* إضافة 5 بيكسل في الأسفل */
-width: 80%;
-max-width: 600px;
+width: 91%;
+max-width: 111000px;
 position: relative;
-top: 50%;
+top: 42%;
 transform: translateY(-50%);
 overflow-y: auto; /* جعل محتوى المودال قابلًا للتمرير */
 max-height: calc(80vh - 25px); /* تحديد ارتفاع أقصى لمحتوى المودال مع الأخذ في الاعتبار المسافة الإضافية */
@@ -103,13 +103,14 @@ display: none; /* إخفاء شريط التمرير في Chrome و Safari */
 
 .close2 {
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: -3px;
+    right: 5px;
     width: 24px;
     height: 24px;
     cursor: pointer;
     z-index: 10000;
-    color: #0056b3;
+    color: #000000;
+    
 }
 
 .carousel2 {
