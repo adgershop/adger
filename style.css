@@ -70,7 +70,7 @@ h3 {
 }
 
 .modal2 {
-    margin-top: 64px;
+    margin-top: 62px;
     display: none;
     position: fixed;
     z-index: 991;
@@ -83,7 +83,7 @@ h3 {
 }
 
 .modal2-content {
-    background: linear-gradient(135deg, #76cfff, #d1f0ff);
+    background: linear-gradient(135deg, #52a0f9, #edf9ff);
     margin: 0 auto;
     padding: 20px 20px 25px; /* إضافة 5 بيكسل في الأسفل */
     padding-top: 95px;
@@ -106,12 +106,12 @@ h3 {
 .close2 {
     position: sticky; /* تغيير من fixed إلى sticky */
     top: center; /* يمكن تعديل هذه القيمة حسب الحاجة */
-    right: 14px; /* يمكن تعديل هذه القيمة حسب الحاجة */
+    right: 9px; /* يمكن تعديل هذه القيمة حسب الحاجة */
     width: 24px;
     height: 24px;
     cursor: pointer;
     z-index: 10000;
-    color: #151616;
+    color: #fffffff8;
     display: none;
 }
 
