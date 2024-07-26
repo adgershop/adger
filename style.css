@@ -88,7 +88,7 @@ h3 {
     padding: 20px 20px 25px; /* إضافة 5 بيكسل في الأسفل */
     padding-top: 95px;
     padding-bottom: 111px;
-    width: 92%;
+    width: center;
     margin-top: -6px;
     max-width: 1110px; /* تصحيح القيمة */
     position: relative; /* مهم لجعل position: sticky بالنسبة لهذا العنصر */
