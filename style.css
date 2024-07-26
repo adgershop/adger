@@ -95,9 +95,8 @@ h3 {
     top: 42%;
     transform: translateY(-50%);
     overflow-y: auto; /* جعل محتوى المودال قابلًا للتمرير */
-    max-height: calc(80vh - 25px); /* تحديد ارتفاع أقصى لمحتوى المودال مع الأخذ في الاعتبار المسافة الإضافية */
+    max-height: calc(80vh - 16px); /* تحديد ارتفاع أقصى لمحتوى المودال مع الأخذ في الاعتبار المسافة الإضافية */
     scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
-    height: 100%;
 }
 
 .modal2-content::-webkit-scrollbar {
