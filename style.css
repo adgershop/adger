@@ -80,10 +80,11 @@ h3 {
     height: 100%;
     overflow: hidden; /* منع التمرير الرمادي */
     background-color: rgba(255, 255, 255, 1);
+    margin-bottom: -44px;
 }
 
 .modal2-content {
-    background: linear-gradient(135deg, #52a0f9, #edf9ff);
+    background: linear-gradient(135deg, #43b7ff, #c3e5f5);
     margin: 0 auto;
     padding: 20px 20px 25px; /* إضافة 5 بيكسل في الأسفل */
     padding-top: 95px;
