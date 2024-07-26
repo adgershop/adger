@@ -90,7 +90,7 @@ h3 {
     padding-bottom: 111px;
     width: center;
     margin-top: -6px;
-    margin-bottom: 0px;
+    margin-bottom: -22px;
     max-width: 1110px; /* تصحيح القيمة */
     position: relative; /* مهم لجعل position: sticky بالنسبة لهذا العنصر */
     top: 42%;
