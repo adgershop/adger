@@ -102,13 +102,14 @@ h3 {
 
 .close2 {
     position: sticky; /* تغيير من fixed إلى sticky */
-    top: -19px; /* يمكن تعديل هذه القيمة حسب الحاجة */
-    right: -22px; /* يمكن تعديل هذه القيمة حسب الحاجة */
+    top: center; /* يمكن تعديل هذه القيمة حسب الحاجة */
+    right: 14px; /* يمكن تعديل هذه القيمة حسب الحاجة */
     width: 24px;
     height: 24px;
     cursor: pointer;
     z-index: 10000;
-    color: #000000;
+    color: #21b1ff;
+    display: none;
 }
 
 
