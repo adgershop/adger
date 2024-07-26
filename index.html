@@ -110,7 +110,7 @@
   display: flex;
   align-items: center;
   justify-content: center; /* Center items horizontally */
-  padding: 2px;
+  padding: 1px;
   background-color: #3d5b66; /* Background color for search bar area */
   border-radius: 1px;
   height: 60px; /* Adjust the height as needed */
@@ -118,6 +118,7 @@
   top: 0; /* Position it at the top of the viewport */
   width: 100%; /* Make it span the full width of the viewport */
   z-index: 1000; /* Ensures it stays above other content */
+  margin-right: -7px;
 }
 
 .search-bar {
@@ -766,10 +767,15 @@ margin-left: 8px;
                                 });
                     
                                 document.getElementById('no-results').style.display = hasResults ? 'none' : 'block';
+                    
+                                // إعادة ترتيب الفيديوهات بشكل عشوائي بعد البحث
+                                shuffleVideos();
                             }
                     
                             function shuffleVideos() {
                                 const container = document.getElementById('main-container');
+                                if (!container) return; // تأكد من أن العنصر موجود
+                    
                                 const videos = Array.from(container.getElementsByClassName('video-container'));
                                 videos.sort(() => Math.random() - 0.5);
                                 videos.forEach(video => container.appendChild(video));
@@ -794,7 +800,10 @@ margin-left: 8px;
                                 });
                             });
                     
-                         
+                            // ترتيب الفيديوهات بشكل عشوائي عند تحميل الصفحة
+                            document.addEventListener('DOMContentLoaded', function() {
+                                shuffleVideos();
+                            });
                         </script>
                     </body>
                     </html>
@@ -1730,7 +1739,7 @@ margin-left: 8px;
                             <div class="rater-info">
                                 <img src="logo.jpg" alt="Adger" class="circular-image">
                                 <p class="adger-text">Adger</p>
-                                <p>مقيم بواسطة :</p>
+                                <p>تعليقات</p>
                             </div>
                             <div class="right-shift">
                                 <p id="modal-comment">المنتج بحالة جيدة</p>
