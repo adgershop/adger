@@ -241,6 +241,11 @@ margin-left: 8px;
     </head>
     <body>
         <div class="search-container">
+            <div class="close2" onclick="closeModal2()">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                </svg>
+            </div>
             <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER..." oninput="toggleClearButton(this)">
             <span id="clearButton" class="clear-button" onclick="clearSearchInput(event)">✖</span>
         
@@ -1453,11 +1458,7 @@ margin-left: 8px;
                 
                     <div id="modal2" class="modal2">
                         <div class="modal2-content">
-                            <div class="close2" onclick="closeModal2()">
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                                </svg>
-                            </div>
+                          
                             <div class="carousel2">
                                 <img id="slide2" src="1.jpg" alt="Image">
                             </div>
@@ -1474,33 +1475,36 @@ margin-left: 8px;
                         </div>
                     </div>
                 
+                   
                     <script>
                         let currentSlide2 = 0;
                         let startX;
-                
+                    
                         function openModal2() {
                             document.getElementById('modal2').style.display = 'block';
+                            document.querySelector('.close2').style.display = 'block'; // Show the close button
                             createIndicators();
                             showSlide2(currentSlide2);
                         }
-                
+                    
                         function closeModal2() {
                             document.getElementById('modal2').style.display = 'none';
+                            document.querySelector('.close2').style.display = 'none'; // Hide the close button
                         }
-                
+                    
                         function showSlide2(index) {
                             const slide2 = document.getElementById('slide2');
                             slide2.src = slides2[index];
                             updateActiveIndicator(index);
                         }
-                
+                    
                         function updateActiveIndicator(index) {
                             const indicators = document.querySelectorAll('.indicator');
                             indicators.forEach((indicator, i) => {
                                 indicator.classList.toggle('active', i === index);
                             });
                         }
-                
+                    
                         function createIndicators() {
                             const indicatorsContainer = document.getElementById('indicators');
                             indicatorsContainer.innerHTML = '';
@@ -1512,11 +1516,11 @@ margin-left: 8px;
                             });
                             updateActiveIndicator(currentSlide2); // Set the initial active indicator
                         }
-                
+                    
                         document.getElementById('slide2').addEventListener('touchstart', (e) => {
                             startX = e.touches[0].clientX;
                         });
-                
+                    
                         document.getElementById('slide2').addEventListener('touchend', (e) => {
                             const endX = e.changedTouches[0].clientX;
                             if (startX > endX + 50) {
@@ -1525,17 +1529,17 @@ margin-left: 8px;
                                 prevSlide2();
                             }
                         });
-                
+                    
                         function prevSlide2() {
                             currentSlide2 = (currentSlide2 === 0) ? slides2.length - 1 : currentSlide2 - 1;
                             showSlide2(currentSlide2);
                         }
-                
+                    
                         function nextSlide2() {
                             currentSlide2 = (currentSlide2 === slides2.length - 1) ? 0 : currentSlide2 + 1;
                             showSlide2(currentSlide2);
                         }
-                
+                    
                         // Function to update product details
                         function updateProductDetails(title, description, images) {
                             document.getElementById('product-title').innerText = title;
@@ -1546,6 +1550,7 @@ margin-left: 8px;
                             createIndicators();
                         }
                     </script>
+                    
                 </body>
                 </html>
                 <style>
@@ -6752,7 +6757,6 @@ margin-left: 8px;
     </script>
 </body>
 </html>
-
 
 
 
