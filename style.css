@@ -111,7 +111,7 @@ h3 {
     height: 24px;
     cursor: pointer;
     z-index: 10000;
-    color: #fffffff8;
+    color: #151414f8;
     display: none;
 }
 
@@ -145,7 +145,7 @@ h3 {
 }
 
 .indicator.active {
-    background-color: blue;
+    background-color: rgb(52, 52, 52);
 }
 
 .custom-paragraph {
