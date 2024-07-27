@@ -1468,7 +1468,6 @@ margin-left: 8px;
                 
                     <div id="modal2" class="modal2">
                         <div class="modal2-content">
-                          
                             <div class="carousel2">
                                 <img id="slide2" src="1.jpg" alt="Image">
                             </div>
@@ -1477,44 +1476,51 @@ margin-left: 8px;
                             </div>
                             <div class="custom-paragraph">
                                 <h1 id="product-title" class="custom-h1-purple">ساعه من فيترون</h1>
+                                <p id="additional-text" class="custom-h1-green">نص إضافي هنا</p>
+                                <p id="additional-text-2" class="custom-h1-blue">نص إضافي 2 هنا</p> <!-- النص الجديد -->
                                 <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
+                                <div class="product-details">
+                                    <div class="product-detail">اسم العلامه التجاريه: <span id="product-color">أحمر</span></div>
+                                    <div class="product-detail">اللون:<span id="product-size">L</span></div>
+                                    <div class="product-detail">المقاس: <span id="product-height">20 سم</span></div>
+                                </div>
                             </div>
+                            <br>
                             <div style="text-align: center;">
                                 <button class="read-more" onclick="closeModal2()">إرجع لشراء المنتج</button>
                             </div>
                         </div>
                     </div>
-                
-                   
+                    
                     <script>
                         let currentSlide2 = 0;
                         let startX;
-                    
+                        
                         function openModal2() {
                             document.getElementById('modal2').style.display = 'block';
                             document.querySelector('.close2').style.display = 'block'; // Show the close button
                             createIndicators();
                             showSlide2(currentSlide2);
                         }
-                    
+                        
                         function closeModal2() {
                             document.getElementById('modal2').style.display = 'none';
                             document.querySelector('.close2').style.display = 'none'; // Hide the close button
                         }
-                    
+                        
                         function showSlide2(index) {
                             const slide2 = document.getElementById('slide2');
                             slide2.src = slides2[index];
                             updateActiveIndicator(index);
                         }
-                    
+                        
                         function updateActiveIndicator(index) {
                             const indicators = document.querySelectorAll('.indicator');
                             indicators.forEach((indicator, i) => {
                                 indicator.classList.toggle('active', i === index);
                             });
                         }
-                    
+                        
                         function createIndicators() {
                             const indicatorsContainer = document.getElementById('indicators');
                             indicatorsContainer.innerHTML = '';
@@ -1526,11 +1532,11 @@ margin-left: 8px;
                             });
                             updateActiveIndicator(currentSlide2); // Set the initial active indicator
                         }
-                    
+                        
                         document.getElementById('slide2').addEventListener('touchstart', (e) => {
                             startX = e.touches[0].clientX;
                         });
-                    
+                        
                         document.getElementById('slide2').addEventListener('touchend', (e) => {
                             const endX = e.changedTouches[0].clientX;
                             if (startX > endX + 50) {
@@ -1539,27 +1545,63 @@ margin-left: 8px;
                                 prevSlide2();
                             }
                         });
-                    
+                        
                         function prevSlide2() {
                             currentSlide2 = (currentSlide2 === 0) ? slides2.length - 1 : currentSlide2 - 1;
                             showSlide2(currentSlide2);
                         }
-                    
+                        
                         function nextSlide2() {
                             currentSlide2 = (currentSlide2 === slides2.length - 1) ? 0 : currentSlide2 + 1;
                             showSlide2(currentSlide2);
                         }
-                    
+                        
                         // Function to update product details
-                        function updateProductDetails(title, description, images) {
+                        function updateProductDetails(title, description, additionalText, additionalText2, images, color, size, height) {
                             document.getElementById('product-title').innerText = title;
                             document.getElementById('product-description').innerText = description;
+                            document.getElementById('additional-text').innerText = additionalText;
+                            document.getElementById('additional-text-2').innerText = additionalText2;
+                            document.getElementById('product-color').innerText = color;
+                            document.getElementById('product-size').innerText = size;
+                            document.getElementById('product-height').innerText = height;
                             slides2 = images; // Update the slides array
                             currentSlide2 = 0;
                             showSlide2(0); // Show the first image
                             createIndicators();
                         }
                     </script>
+                    
+                    <style>
+                        .product-details {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 10px;
+                        }
+                    
+                        .product-detail {
+                            flex: 1;
+                            text-align: center;
+                            border: 1px solid #ccc;
+                            padding: 5px;
+                        }
+                    </style>
+                    
+                    
+                    <style>
+                        .product-details {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 10px;
+                        }
+                    
+                        .product-detail {
+                            flex: 1;
+                            text-align: center;
+                            border: 1px solid #ccc;
+                            padding: 5px;
+                        }
+                    </style>
                     
                 </body>
                 </html>
@@ -2204,7 +2246,7 @@ margin-left: 8px;
                 <!-- WhatsApp Message Button -->
             </div>
             <div class="product-images">
-                <img src="1.jpg" alt="product"  onclick="updateProductDetails('ساعه من فيترون', 'السعر: 600 جنيه', [' 1.jpg',' 1.1.jpg','1.1.1.jpg', ]); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"> 
+                <img src="img/1.jpg" alt="product" onclick="updateProductDetails('ساعه من فيترون', 'السعر: 600 جنيه', 'ساعه جذابه من الكويت', '⭐⭐⭐⭐⭐(5.0)', ['img/1.jpg', 'img/1.2.jpg', 'img/1.3.jpg'], 'فيترون', 'فضى فى ذهبى', 'L,XL'); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
             </div>
             <div style="clear:both;"></div>
                     <style>
@@ -2275,7 +2317,7 @@ margin-left: 8px;
                 <!-- WhatsApp Message Button -->
             </div>
             <div class="product-images">
-                <img src="2.jpg" alt="product" onclick="updateProductDetails('قاعدة ماوس', 'السعر: 50 جنيه', [' 2.jpg',' 2.2.jpg','2.2.2.jpg', ]); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+                <img src="img/2.jpg" alt="product" onclick="updateProductDetails('قاعدة ماوس', 'السعر: 50 جنيه', 'قاعدة ماوس كبيرة الحجم لتناسب جميع أحجام الماوسات', 'لا يوجد تقييم', ['img/2.jpg', 'img/2.2.jpg', 'img/2.3.jpg'], 'WILD WOLF', 'ابيض فى بنى', '27*23'); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
             </div>
             <div style="clear:both;"></div>
                     <style>
@@ -2349,7 +2391,7 @@ margin-left: 8px;
             <!-- WhatsApp Message Button -->
         </div>
         <div class="product-images">
-            <img src="3.jpg" alt="product" onclick="updateProductDetails('ماوس لا سلكى من XO', 'السعر: 130 جنيه', ['3.jpg','3.3.jpg', '3.3.3.jpg', ]); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"> 
+            <img src="img/3.jpg" alt="product" onclick="updateProductDetails('ماوس لاسلكى من XO', 'السعر: 130 جنيه', 'G620,24HGZ', 'لا يوجد تقييم', ['img/3.jpg', 'img/3.2.jpg', 'img/3.3.jpg'], 'XO', 'اسود', '8سم'); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
         </div>
         <div style="clear:both;"></div>
                 <style>
