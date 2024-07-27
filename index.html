@@ -1466,6 +1466,25 @@ margin-left: 8px;
                 </head>
                 <body>
                 
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Product Modal</title>
+                    <style>
+                        .product-detail {
+                            display: block;
+                            margin-bottom: 10px;
+                        }
+                    
+                        .product-detail span {
+                            display: block;
+                        }
+                    </style>
+                    </head>
+                    <body>
+                    
                     <div id="modal2" class="modal2">
                         <div class="modal2-content">
                             <div class="carousel2">
@@ -1477,12 +1496,21 @@ margin-left: 8px;
                             <div class="custom-paragraph">
                                 <h1 id="product-title" class="custom-h1-purple">ساعه من فيترون</h1>
                                 <p id="additional-text" class="custom-h1-green">نص إضافي هنا</p>
-                                <p id="additional-text-2" class="custom-h1-blue">نص إضافي 2 هنا</p> <!-- النص الجديد -->
+                                <p id="additional-text-2" class="custom-h1-blue">نص إضافي 2 هنا</p> <!-- New text -->
                                 <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
                                 <div class="product-details">
-                                    <div class="product-detail">اسم العلامه التجاريه: <span id="product-color">أحمر</span></div>
-                                    <div class="product-detail">اللون:<span id="product-size">L</span></div>
-                                    <div class="product-detail">المقاس: <span id="product-height">20 سم</span></div>
+                                    <div class="product-detail">
+                                        <span>اسم العلامه التجاريه:</span>
+                                        <span id="product-color">أحمر</span>
+                                    </div>
+                                    <div class="product-detail">
+                                        <span>اللون:</span>
+                                        <span id="product-size">L</span>
+                                    </div>
+                                    <div class="product-detail">
+                                        <span>المقاس:</span>
+                                        <span id="product-height">20 سم</span>
+                                    </div>
                                 </div>
                             </div>
                             <br>
@@ -1495,32 +1523,33 @@ margin-left: 8px;
                     <script>
                         let currentSlide2 = 0;
                         let startX;
-                        
+                        let slides2 = ['1.jpg', '2.jpg', '3.jpg']; // Example images
+                    
                         function openModal2() {
                             document.getElementById('modal2').style.display = 'block';
                             document.querySelector('.close2').style.display = 'block'; // Show the close button
                             createIndicators();
                             showSlide2(currentSlide2);
                         }
-                        
+                    
                         function closeModal2() {
                             document.getElementById('modal2').style.display = 'none';
                             document.querySelector('.close2').style.display = 'none'; // Hide the close button
                         }
-                        
+                    
                         function showSlide2(index) {
                             const slide2 = document.getElementById('slide2');
                             slide2.src = slides2[index];
                             updateActiveIndicator(index);
                         }
-                        
+                    
                         function updateActiveIndicator(index) {
                             const indicators = document.querySelectorAll('.indicator');
                             indicators.forEach((indicator, i) => {
                                 indicator.classList.toggle('active', i === index);
                             });
                         }
-                        
+                    
                         function createIndicators() {
                             const indicatorsContainer = document.getElementById('indicators');
                             indicatorsContainer.innerHTML = '';
@@ -1532,11 +1561,11 @@ margin-left: 8px;
                             });
                             updateActiveIndicator(currentSlide2); // Set the initial active indicator
                         }
-                        
+                    
                         document.getElementById('slide2').addEventListener('touchstart', (e) => {
                             startX = e.touches[0].clientX;
                         });
-                        
+                    
                         document.getElementById('slide2').addEventListener('touchend', (e) => {
                             const endX = e.changedTouches[0].clientX;
                             if (startX > endX + 50) {
@@ -1545,17 +1574,17 @@ margin-left: 8px;
                                 prevSlide2();
                             }
                         });
-                        
+                    
                         function prevSlide2() {
                             currentSlide2 = (currentSlide2 === 0) ? slides2.length - 1 : currentSlide2 - 1;
                             showSlide2(currentSlide2);
                         }
-                        
+                    
                         function nextSlide2() {
                             currentSlide2 = (currentSlide2 === slides2.length - 1) ? 0 : currentSlide2 + 1;
                             showSlide2(currentSlide2);
                         }
-                        
+                    
                         // Function to update product details
                         function updateProductDetails(title, description, additionalText, additionalText2, images, color, size, height) {
                             document.getElementById('product-title').innerText = title;
@@ -1571,6 +1600,9 @@ margin-left: 8px;
                             createIndicators();
                         }
                     </script>
+                    
+                    </body>
+                    </html>
                     
                     <style>
                         .product-details {
@@ -2483,7 +2515,7 @@ margin-left: 8px;
   
         </div>
         <div class="product-images">
-            <img src="4.jpg" alt="product" onclick="updateProductDetails('كتاب ابق قوياً ', 'السعر: 70 جنيه', [ '4.jpg','4.4.jpg', '4.4.4.jpg', ]); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"> 
+            <img src="4.jpg" alt="product" onclick="updateProductDetails('كتاب ابق قوياً', 'السعر: 70 جنيه', 'ل ديمى لوفاتو يتكلم الكتاب عن حكم شهيره ونصائح فويه', 'لا يوجد تقييم', ['4.jpg', '4.2.jpg', '4.3.jpg'], 'مكتبة جرير', 'ابيض', '50'); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
         </div>
         <div style="clear:both;"></div>
 
@@ -2552,7 +2584,7 @@ margin-left: 8px;
             </style>
         </div>
         <div class="product-images">
-            <img src="5.jpg" alt="product" onclick="updateProductDetails('ستاند', 'السعر: 100 جنيه', ['5.jpg','5.5.jpg', ]); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+            <img src="5.jpg" alt="product" onclick="updateProductDetails('ستاند ', 'السعر: 100 جنيه', '       ', 'لا يوجد تقييم', ['5.jpg', '5.2.jpg'], '', ' اسود', '1.5'); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
         </div>
         <div style="clear:both;"></div>
         <button onclick="addToCart(this)" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent; outline: none;">    
@@ -2622,7 +2654,7 @@ margin-left: 8px;
                         </style>
         </div>
         <div class="product-images">
-            <img src="6.jpg" alt="product"  onclick="updateProductDetails('رينج لايت', 'السعر: 110 جنيه', ['6.jpg','6.6.jpg', '6.6.6.jpg', ]); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"> 
+            <img src="6.jpg" alt="product" onclick="updateProductDetails('رينج لايت ', 'السعر: 110 جنيه', '       ', 'لا يوجد تقييم', ['6.jpg', '6.2.jpg', '6.3.jpg'], '', 'ابيض', '26سم '); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
         </div>
         <div style="clear:both;"></div>
 
@@ -2693,7 +2725,7 @@ margin-left: 8px;
             </head>
         </div>
         <div class="product-images">
-            <img src="7.jpg" alt="product"  onclick="updateProductDetails('طاولة لابتوب وتابلت', 'السعر: 195 جنيه', [ '7.jpg','7.7.jpg', '7.7.7.jpg', ]); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+            <img src="7.jpg" alt="product" onclick="updateProductDetails('طاولة لابتوب وتابلت ', 'السعر: 195 جنيه', '       ', 'لا يوجد تقييم', ['7.jpg', '7.2.jpg', '7.3.jpg'], '', 'خشبى', ''); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
         </div>
         <div style="clear:both;"></div>
         <button onclick="addToCart(this)" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent; outline: none;">    
@@ -2763,7 +2795,7 @@ margin-left: 8px;
         </head>
         </div>
         <div class="product-images">
-            <img src="8.jpg" alt="product" onclick="updateProductDetails('تابلت بشاشه LED محمول', 'السعر: 70 جنيه', [ '8.jpg','8.8.jpg', '8.8.8.jpg', ]); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+            <img src="8.jpg" alt="product" onclick="updateProductDetails('تابلت بشاشة LED', 'السعر: 70 جنيه', 'محمول', 'لا يوجد تقييم', ['8.jpg', '8.2.jpg', '8.3.jpg'], '', 'ازرق*اسود', '50سم'); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
         </div>
         <div style="clear:both;"></div>
 
@@ -2832,7 +2864,7 @@ margin-left: 8px;
         </head>
         </div>
         <div class="product-images">
-            <img src="9.jpg" alt="product"onclick="updateProductDetails('حامل لابتوب الومنيوم', 'السعر: 145 جنيه', ['9.jpg' ,'9.9.jpg', '9.9.9.jpg', ]); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+            <img src="9.jpg" alt="product" onclick="updateProductDetails('حامل لابتوب الومنيوم ', 'السعر: 145 جنيه', 'قابل للتعديل والطى', 'لا يوجد تقييم', ['9.jpg', '9.2.jpg', '9.3.jpg'], '', 'فضى', ''); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
         </div>
         <div style="clear:both;"></div>
         <button onclick="addToCart(this)" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent; outline: none;">    
@@ -2902,7 +2934,7 @@ margin-left: 8px;
         </style>
         </div>
         <div class="product-images">
-            <img src="10.jpg" alt="product"  onclick="updateProductDetails('ماوس العاب احترافى', 'السعر: 195 جنيه', ['10.jpg','10.10.jpg', '10.10.10.jpg', '10.10.10.10.jpg',  ]); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+            <img src="10.jpg" alt="product" onclick="updateProductDetails('ماوس العاب احترفى  ', 'السعر: 195 جنيه', 'ملون فائق الدقه سلكى 3200 ديسيبل ', 'لا يوجد تقييم', ['10.jpg', '10.2.jpg', '10.3.jpg', '10.4.jpg'], '', 'متعدد', '30سم'); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
         </div>
         <div style="clear:both;"></div>
         <button onclick="addToCart(this)" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent; outline: none;">    
