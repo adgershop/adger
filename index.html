@@ -1515,7 +1515,7 @@ margin-left: 8px;
                             </div>
                             <br>
                             <div style="text-align: center;">
-                                <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
+                                <a href="#" class="buy-button" onclick="openPopup('ساعه من فيترون', '1', '600', '50'); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">اشترِ الآن</a>
                             </div>
                         </div>
                     </div>
@@ -1585,7 +1585,6 @@ margin-left: 8px;
                             showSlide2(currentSlide2);
                         }
                     
-                        // Function to update product details
                         function updateProductDetails(title, description, additionalText, additionalText2, images, color, size, height) {
                             document.getElementById('product-title').innerText = title;
                             document.getElementById('product-description').innerText = description;
@@ -1594,20 +1593,13 @@ margin-left: 8px;
                             document.getElementById('product-color').innerText = color;
                             document.getElementById('product-size').innerText = size;
                             document.getElementById('product-height').innerText = height;
-                            slides2 = images; // Update the slides array
+                            slides2 = images;
                             currentSlide2 = 0;
-                            showSlide2(0); // Show the first image
+                            showSlide2(0);
                             createIndicators();
                         }
                     
-                        function openPopup(button) {
-                            // Retrieve product details from data attributes
-                            const productName = button.getAttribute('data-product-name');
-                            const productNumber = button.getAttribute('data-product-number');
-                            const price = button.getAttribute('data-price');
-                            const deliveryCharge = button.getAttribute('data-delivery-charge');
-                    
-                            // Example: Display product details in an alert
+                        function openPopup(productName, productNumber, price, deliveryCharge) {
                             alert(`Product Name: ${productName}\nProduct Number: ${productNumber}\nPrice: ${price}\nDelivery Charge: ${deliveryCharge}`);
                         }
                     </script>
@@ -2293,7 +2285,7 @@ margin-left: 8px;
             </div>
             <div class="product-images">
                 <img src="1.jpg" alt="product" onclick="updateProductDetails('ساعه عصريه', 'السعر: 700 جنيه', 'ساعه عصريه من الكويت', '⭐⭐⭐⭐⭐(4.8)', ['1.jpg', '2.jpg', '3.jpg'], 'أزرق', 'M,L'); openModal2(); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-                <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه عصريه من الكويت" data-product-number="2" data-price="700" data-delivery-charge="30">اشترِ الآن</a>
+                <a href="#" class="buy-button" onclick="openPopup('ساعه عصريه من الكويت', '2', '700', '30'); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">اشترِ الآن</a>
             </div>
             
             <div style="clear:both;"></div>
