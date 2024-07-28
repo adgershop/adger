@@ -1523,16 +1523,18 @@ margin-left: 8px;
                     <script>
                         let currentSlide2 = 0;
                         let startX;
-                        let slides2 = ['1.jpg', '2.jpg', '3.jpg'];
+                        let slides2 = ['1.jpg', '2.jpg', '3.jpg']; // Example images
                     
                         function openModal2() {
                             document.getElementById('modal2').style.display = 'block';
+                            document.querySelector('.close2').style.display = 'block'; // Show the close button
                             createIndicators();
                             showSlide2(currentSlide2);
                         }
                     
                         function closeModal2() {
                             document.getElementById('modal2').style.display = 'none';
+                            document.querySelector('.close2').style.display = 'none'; // Hide the close button
                         }
                     
                         function showSlide2(index) {
@@ -1557,7 +1559,7 @@ margin-left: 8px;
                                 indicator.onclick = () => showSlide2(index);
                                 indicatorsContainer.appendChild(indicator);
                             });
-                            updateActiveIndicator(currentSlide2);
+                            updateActiveIndicator(currentSlide2); // Set the initial active indicator
                         }
                     
                         document.getElementById('slide2').addEventListener('touchstart', (e) => {
@@ -1583,6 +1585,7 @@ margin-left: 8px;
                             showSlide2(currentSlide2);
                         }
                     
+                        // Function to update product details
                         function updateProductDetails(title, description, additionalText, additionalText2, images, color, size, height) {
                             document.getElementById('product-title').innerText = title;
                             document.getElementById('product-description').innerText = description;
@@ -1591,10 +1594,21 @@ margin-left: 8px;
                             document.getElementById('product-color').innerText = color;
                             document.getElementById('product-size').innerText = size;
                             document.getElementById('product-height').innerText = height;
-                            slides2 = images;
+                            slides2 = images; // Update the slides array
                             currentSlide2 = 0;
-                            showSlide2(0);
+                            showSlide2(0); // Show the first image
                             createIndicators();
+                        }
+                    
+                        function openPopup(button) {
+                            // Retrieve product details from data attributes
+                            const productName = button.getAttribute('data-product-name');
+                            const productNumber = button.getAttribute('data-product-number');
+                            const price = button.getAttribute('data-price');
+                            const deliveryCharge = button.getAttribute('data-delivery-charge');
+                    
+                            // Example: Display product details in an alert
+                            alert(`Product Name: ${productName}\nProduct Number: ${productNumber}\nPrice: ${price}\nDelivery Charge: ${deliveryCharge}`);
                         }
                     </script>
                     
@@ -2278,24 +2292,9 @@ margin-left: 8px;
                 <!-- WhatsApp Message Button -->
             </div>
             <div class="product-images">
-                <img src="1.jpg" alt="product" onclick="updateProductDetailsSmall('ساعه جديدة', 'السعر: 750 جنيه', 'ساعة مميزة', '⭐⭐⭐⭐⭐(4.9)', ['1.jpg', '2.jpg', '3.jpg'], 'أسود', 'M,L'); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-                <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه جديدة" data-product-number="2" data-price="750" data-delivery-charge="30">اشترِ الآن</a>
+                <img src="1.jpg" alt="product" onclick="updateProductDetails('ساعه عصريه', 'السعر: 700 جنيه', 'ساعه عصريه من الكويت', '⭐⭐⭐⭐⭐(4.8)', ['1.jpg', '2.jpg', '3.jpg'], 'أزرق', 'M,L'); openModal2(); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+                <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه عصريه من الكويت" data-product-number="2" data-price="700" data-delivery-charge="30">اشترِ الآن</a>
             </div>
-            
-            <script>
-                function updateProductDetailsSmall(title, description, additionalText, additionalText2, images, color, size) {
-                    document.getElementById('product-title').innerText = title;
-                    document.getElementById('product-description').innerText = description;
-                    document.getElementById('additional-text').innerText = additionalText;
-                    document.getElementById('additional-text-2').innerText = additionalText2;
-                    document.getElementById('product-color').innerText = color;
-                    document.getElementById('product-size').innerText = size;
-                    slides2 = images;
-                    currentSlide2 = 0;
-                    showSlide2(0);
-                    createIndicators();
-                }
-            </script>
             
             <div style="clear:both;"></div>
                     <style>
