@@ -1465,23 +1465,21 @@ margin-left: 8px;
              
                 </head>
                 <body>
-                
                     <!DOCTYPE html>
                     <html lang="en">
                     <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Product Modal</title>
-                    <style>
-                        .product-detail {
-                            display: block;
-                            margin-bottom: 10px;
-                        }
-                    
-                        .product-detail span {
-                            display: block;
-                        }
-                    </style>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Product Modal</title>
+                        <style>
+                            .product-detail {
+                                display: block;
+                                margin-bottom: 10px;
+                            }
+                            .product-detail span {
+                                display: block;
+                            }
+                        </style>
                     </head>
                     <body>
                     
@@ -1496,7 +1494,7 @@ margin-left: 8px;
                             <div class="custom-paragraph">
                                 <h1 id="product-title" class="custom-h1-purple">ساعه من فيترون</h1>
                                 <p id="additional-text" class="custom-h1-green">نص إضافي هنا</p>
-                                <p id="additional-text-2" class="custom-h1-blue">نص إضافي 2 هنا</p>
+                                <p id="additional-text-2" class="custom-h1-blue">نص إضافي 2 هنا</p> <!-- New text -->
                                 <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
                                 <div class="product-details">
                                     <div class="product-detail">
@@ -1515,7 +1513,7 @@ margin-left: 8px;
                             </div>
                             <br>
                             <div style="text-align: center;">
-                                <a href="#" class="buy-button" onclick="openPopup('ساعه من فيترون', '1', '600', '50'); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">اشترِ الآن</a>
+                                <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه من فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
                             </div>
                         </div>
                     </div>
@@ -1585,6 +1583,7 @@ margin-left: 8px;
                             showSlide2(currentSlide2);
                         }
                     
+                        // Function to update product details
                         function updateProductDetails(title, description, additionalText, additionalText2, images, color, size, height) {
                             document.getElementById('product-title').innerText = title;
                             document.getElementById('product-description').innerText = description;
@@ -1593,19 +1592,16 @@ margin-left: 8px;
                             document.getElementById('product-color').innerText = color;
                             document.getElementById('product-size').innerText = size;
                             document.getElementById('product-height').innerText = height;
-                            slides2 = images;
+                            slides2 = images; // Update the slides array
                             currentSlide2 = 0;
-                            showSlide2(0);
+                            showSlide2(0); // Show the first image
                             createIndicators();
-                        }
-                    
-                        function openPopup(productName, productNumber, price, deliveryCharge) {
-                            alert(`Product Name: ${productName}\nProduct Number: ${productNumber}\nPrice: ${price}\nDelivery Charge: ${deliveryCharge}`);
                         }
                     </script>
                     
                     </body>
                     </html>
+                    
                     
                     </body>
                     </html>
@@ -2284,8 +2280,8 @@ margin-left: 8px;
                 <!-- WhatsApp Message Button -->
             </div>
             <div class="product-images">
-                <img src="1.jpg" alt="product" onclick="updateProductDetails('ساعه عصريه', 'السعر: 700 جنيه', 'ساعه عصريه من الكويت', '⭐⭐⭐⭐⭐(4.8)', ['1.jpg', '2.jpg', '3.jpg'], 'أزرق', 'M,L'); openModal2(); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-                <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="قاعدة ماوس" data-product-number="2" data-price="50" data-delivery-charge="50">اشترِ الآن</a>
+                <img src="1.jpg" alt="product" onclick="updateProductDetails('ساعه من فيترون', 'السعر: 600 جنيه', 'ساعه جذابه من الكويت', '⭐⭐⭐⭐⭐(5.0)', ['1.jpg', '1.2.jpg', '1.3.jpg'], 'فيترون', 'فضى فى ذهبى', 'L,XL'); openModal2();" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+                <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه  فيترون" data-product-number="1" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
             </div>
             
             <div style="clear:both;"></div>
