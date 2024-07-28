@@ -57,17 +57,47 @@ h3 {
   button:focus {
     outline: none;
 }
+@keyframes borderAnimation {
+    0% {
+        border-color: #0056b3;
+    }
+    25% {
+        border-color: #0099cc;
+    }
+    50% {
+        border-color: #00cc99;
+    }
+    75% {
+        border-color: #33cc33;
+    }
+    100% {
+        border-color: #0056b3;
+    }
+}
+
 .read-more {
-    color: rgb(46, 82, 136);
-    background-color: rgb(22, 224, 15);
-    padding: 5px 10px;
-    border: none;
-    border-radius: 7px;
+    color: white; /* تغيير لون الخط إلى الأبيض */
+    background: linear-gradient(135deg, #00ffff, hwb(167 42% 38%));
+    padding: 10px 16px; /* زيادة المساحة الداخلية للزر */
+    border: 2px solid #0056b3; /* تعيين الحد الأساسي */
+    border-radius: 15px; /* جعل الحدود مدورة قليلاً */
     cursor: pointer;
     display: inline-block;
     text-align: center;
-    margin: 0; /* تقليل المساحة الفاصلة */
+    font-family: 'Arial', sans-serif; /* تغيير نوع الخط */
+    font-size: 16px; /* زيادة حجم الخط */
+    font-weight: bold; /* جعل الخط عريض */
+    margin: 5px 0; /* زيادة المسافة الفاصلة */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف للزر */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* إضافة تأثيرات انتقالية للخلفية والحجم */
+    animation: borderAnimation 4s infinite; /* تطبيق تأثير التحرك حول الحافة */
 }
+
+.read-more:hover {
+    background-color: #004080; /* تغيير لون الخلفية عند تمرير الفأرة */
+    transform: scale(1.05); /* تكبير الزر قليلاً عند التمرير */
+}
+
 
 .modal2 {
     margin-top: 62px;
@@ -79,11 +109,11 @@ h3 {
     width: 100%;
     height: 100%;
     overflow: hidden; /* منع التمرير الرمادي */
-    background: linear-gradient(135deg, #14aaaa, hwb(167 48% 4%));
+    background: linear-gradient(135deg, #ffffff, hwb(0 100% 0%));
 }
 
 .modal2-content {
-    background: linear-gradient(135deg, #14aaaa, hwb(167 48% 4%));
+    background: linear-gradient(135deg, #ffffff, hwb(0 100% 0%));
     margin: 0 auto;
     padding: 20px 20px 25px; /* إضافة 5 بيكسل في الأسفل */
     padding-top: 95px;
