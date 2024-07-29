@@ -120,6 +120,16 @@ videoObserver.observe(videos);
 
 
 
+function toggleCart() {
+    var cartPage = document.getElementById('cartPage');
+    if (cartPage.style.display === 'none' || cartPage.style.display === '') {
+        cartPage.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // منع التمرير في الصفحة الرئيسية
+    } else {
+        cartPage.style.display = 'none';
+        document.body.style.overflow = ''; // إعادة تفعيل التمرير في الصفحة الرئيسية
+    }
+}
 
 
 
