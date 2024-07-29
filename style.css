@@ -110,6 +110,8 @@ h3 {
     height: 100%;
     overflow: hidden; /* منع التمرير الرمادي */
     background: linear-gradient(135deg, #ffffff, hwb(0 100% 0%));
+    overflow: auto;
+
 }
 
 .modal2-content {
@@ -127,6 +129,8 @@ h3 {
     overflow-y: auto; /* جعل محتوى المودال قابلًا للتمرير */
     max-height: calc(75vh - 25px); /* تحديد ارتفاع أقصى لمحتوى المودال مع الأخذ في الاعتبار المسافة الإضافية */
     scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
+    overflow-y: auto;
+
 }
 
 .modal2-content::-webkit-scrollbar {

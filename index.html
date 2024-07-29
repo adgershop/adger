@@ -1465,7 +1465,6 @@ margin-left: 8px;
              
                 </head>
                 <body>
-                
                     <!DOCTYPE html>
                     <html lang="en">
                     <head>
@@ -1473,11 +1472,14 @@ margin-left: 8px;
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Product Modal</title>
                     <style>
+                        body.modal-open {
+                            overflow: hidden;
+                        }
+            
                         .product-detail {
                             display: block;
                             margin-bottom: 10px;
                         }
-                    
                         .product-detail span {
                             display: block;
                         }
@@ -1528,13 +1530,16 @@ margin-left: 8px;
                         function openModal2() {
                             document.getElementById('modal2').style.display = 'block';
                             document.querySelector('.close2').style.display = 'block'; // Show the close button
+                            document.body.classList.add('modal-open'); // Disable background scroll
                             createIndicators();
                             showSlide2(currentSlide2);
+                            scrollModalToTop();
                         }
                     
                         function closeModal2() {
                             document.getElementById('modal2').style.display = 'none';
                             document.querySelector('.close2').style.display = 'none'; // Hide the close button
+                            document.body.classList.remove('modal-open'); // Enable background scroll
                         }
                     
                         function showSlide2(index) {
@@ -1598,8 +1603,18 @@ margin-left: 8px;
                             currentSlide2 = 0;
                             showSlide2(0); // Show the first image
                             createIndicators();
+                            scrollModalToTop();
+                        }
+                    
+                        // Function to scroll modal content to top
+                        function scrollModalToTop() {
+                            const modalContent = document.querySelector('.modal2-content');
+                            modalContent.scrollTop = 0;
                         }
                     </script>
+                    </body>
+                    </html>
+                    
                     
                     </body>
                     </html>
