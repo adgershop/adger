@@ -2042,16 +2042,9 @@ margin-left: 8px;
                 </head>
                 <body>
                    
+                    <style>
                         
-                        <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة المنتج</title>
-    <style>
-        /* CSS للنافذة المنبثقة */
-        .popup {
+                        .popup {
             display: none;
             position: fixed;
             top: 0;
@@ -2063,99 +2056,111 @@ margin-left: 8px;
             align-items: center;
             overflow: auto; /* السماح بالتمرير داخل النافذة المنبثقة */
         }
-        
-        .popup.active {
-            display: flex;
-        }
-
-        .popup-content {
-            background: linear-gradient(135deg, #ffffff, #ffffff);
-            padding: 20px;
-            border-radius: 5px;
-            width: 100%; /* تقليل عرض النافذة ليكون أقل واسعاً */
-            max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
-            box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* تحويل محاذاة المحتوى ليكون في الأعلى */
-            align-items: center; /* محاذاة المحتوى بشكل أفقي في المنتصف */
-            margin: auto;
-            text-align: center; /* توسيط النص عمودياً */
-            position: relative;
-        }
-
-        .popup-content h1 {
-            font-family: 'Dancing Script', cursive; /* خط زخرفي */
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .popup-input {
-            width: calc(100% - 40px); /* تعديل عرض حقول الإدخال ليتناسب مع التباعدات */
-            margin: 10px 0;
-            padding: 10px;
-            border: 2px solid #00b3ff;
-            border-radius: 11px;
-        }
-
-        .quantity-input {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-        }
-
-        .quantity-label {
-            flex: 1;
-            text-align: left; /* محاذاة النص إلى اليسار */
-        }
-
-        .quantity-number {
-            margin: 0 10px;
-        }
-
-        .quantity-buttons {
-            display: flex;
-        }
-
-        .quantity-button {
-            padding: 8px 15px;
-            margin: 0 5px;
-            border: 1px solid #00b3ff;
-            background-color: #00a6ff;
-            cursor: pointer;
-        }
-
-        .popup-button {
-            width: 50%; /* تعديل عرض الأزرار ليكون أقل قليلاً */
-            margin-top: 10px; /* تباعد من الأعلى للأزرار */
-            padding: 12px 25px;
-            text-align: center;
-            text-decoration: none;
-            font-size: 18px;
-            display: inline-block; /* عرض الأزرار على سطر واحد مع التباعد المناسب */
-        }
-
-        .popup-button:hover {
-            background-color: #ffa601;
-        }
-
-        .popup-button.cancel {
-            background-color: #e74c3c;
-        }
-
-        .popup-header {
-            text-align: center;
-            margin-bottom: 20px; /* تباعد أكبر من الأعلى للرأس */
-        }
-
-        .popup-title {
-            margin: 0;
-        }
-
-        /* CSS لجعل التمرير غير ممكن في الصفحة الرئيسية عند عرض النافذة المنبثقة */
         body.popup-open {
             overflow: hidden;
         }
+                    .popup.active {
+                        display: flex;
+                    }
+                    
+                    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); /* خط زخرفي من Google Fonts */
+  .popup-content {
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%; /* تقليل عرض النافذة ليكون أقل واسعاً */
+    max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
+    box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* تحويل محاذاة المحتوى ليكون في الأعلى */
+    align-items: center; /* محاذاة المحتوى بشكل 
+                  أفقي في المنتصف */
+    margin: auto;
+    text-align: center; /* توسيط النص عمودياً */
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* توسيط النافذة في منتصف الشاشة */
+}
+
+.popup-content h1 {
+    font-family: 'Dancing Script', cursive; /* خط زخرفي */
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.popup-input {
+    width: calc(100% - 40px); /* تعديل عرض حقول الإدخال ليتناسب مع التباعدات */
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid #00b3ff;
+    border-radius: 11px;
+}
+
+.quantity-input {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.quantity-label {
+    flex: 1;
+    text-align: left; /* محاذاة النص إلى اليسار */
+}
+
+.quantity-number {
+    margin: 0 10px;
+}
+
+.quantity-buttons {
+    display: flex;
+}
+
+.quantity-button {
+    padding: 8px 15px;
+    margin: 0 5px;
+    border: 1px solid #00b3ff;
+    background-color: #00a6ff;
+    cursor: pointer;
+}
+
+.popup-button {
+    width: 50%; /* تعديل عرض الأزرار ليكون أقل قليلاً */
+    margin-top: 10px; /* تباعد من الأعلى للأزرار */
+    padding: 12px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    display: inline-block; /* عرض الأزرار على سطر واحد مع التباعد المناسب */
+}
+
+.popup-button:hover {
+    background-color: #ffa601;
+}
+
+.popup-button.cancel {
+    background-color: #e74c3c;
+}
+
+.popup-header {
+    text-align: center;
+    margin-bottom: 20px; /* تباعد أكبر من الأعلى للرأس */
+}
+
+.popup-title {
+    margin: 0;
+}
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة المنتج</title>
+    <style>
+        .popup { display: none; }
+        .popup.active { display: block; }
     </style>
 </head>
 <body>
@@ -2227,6 +2232,7 @@ margin-left: 8px;
             popup.classList.remove('active');
             document.body.classList.remove('popup-open'); // استعادة التمرير على الصفحة الرئيسية
         }
+
 
         function openEmail() {
             var name = document.getElementById('name').value;
@@ -6782,6 +6788,28 @@ margin-left: 8px;
             z-index: 1000;
             text-align: left;
         }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
         .popup .close-btn1 {
             background: red;
             color: white;
@@ -6862,22 +6890,24 @@ margin-left: 8px;
         </html>
         
    </div>
+   <div id="overlay" class="overlay" onclick="hidePopup('myPopup')"></div>
 
-    <script>
-        function showPopup(event, popupId) {
-            event.preventDefault();
-            document.getElementById(popupId).style.display = 'block';
-        }
+   <script>
+    function showPopup(event, popupId) {
+        event.preventDefault();
+        document.getElementById(popupId).style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Disable scrolling
+    }
 
-        function hidePopup(popupId) {
-            document.getElementById(popupId).style.display = 'none';
-        }
-    </script>
+    function hidePopup(popupId) {
+        document.getElementById(popupId).style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        document.body.style.overflow = ''; // Re-enable scrolling
+    }
+</script>
 </body>
 </html>
-
-
-
 
 
 
