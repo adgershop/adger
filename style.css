@@ -59,27 +59,27 @@ h3 {
 }
 @keyframes borderAnimation {
     0% {
-        border-color: #0056b3;
+        border-color: #ff0000;
     }
     25% {
-        border-color: #0099cc;
+        border-color: #fd4800;
     }
     50% {
-        border-color: #00cc99;
+        border-color: #a11111;
     }
     75% {
-        border-color: #33cc33;
+        border-color: #ea6d14;
     }
     100% {
-        border-color: #0056b3;
+        border-color: #50104f;
     }
 }
 
 .read-more {
     color: white; /* تغيير لون الخط إلى الأبيض */
-    background: linear-gradient(135deg, #00ffff, hwb(167 42% 38%));
+    background: linear-gradient(135deg, #ff7b00, hwb(8 11% 9%));
     padding: 10px 16px; /* زيادة المساحة الداخلية للزر */
-    border: 2px solid #0056b3; /* تعيين الحد الأساسي */
+    border: 2px solid #d32300; /* تعيين الحد الأساسي */
     border-radius: 15px; /* جعل الحدود مدورة قليلاً */
     cursor: pointer;
     display: inline-block;
@@ -88,13 +88,13 @@ h3 {
     font-size: 16px; /* زيادة حجم الخط */
     font-weight: bold; /* جعل الخط عريض */
     margin: 5px 0; /* زيادة المسافة الفاصلة */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف للزر */
+    box-shadow: 0 4px 6px rgb(255, 255, 255); /* إضافة ظل خفيف للزر */
     transition: background-color 0.3s ease, transform 0.3s ease; /* إضافة تأثيرات انتقالية للخلفية والحجم */
     animation: borderAnimation 4s infinite; /* تطبيق تأثير التحرك حول الحافة */
 }
 
 .read-more:hover {
-    background-color: #004080; /* تغيير لون الخلفية عند تمرير الفأرة */
+    background-color: #36002c; /* تغيير لون الخلفية عند تمرير الفأرة */
     transform: scale(1.05); /* تكبير الزر قليلاً عند التمرير */
 }
 
