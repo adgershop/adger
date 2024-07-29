@@ -480,6 +480,7 @@ margin-left: 8px;
             display: none;
             z-index: 1000;
             overflow-y: scroll;
+            overflow: auto; /* Allow scrolling within the white page */
         }
 
         #back-button {
@@ -625,15 +626,16 @@ margin-left: 8px;
     </svg>          
 </button>
 
+
 <script>
     function openWhitePage() {
-        document.body.style.overflow = 'hidden';
         document.getElementById('white-page').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent main page scrolling
     }
 
     function closeWhitePage() {
-        document.body.style.overflow = 'auto';
         document.getElementById('white-page').style.display = 'none';
+        document.body.style.overflow = ''; // Restore main page scrolling
     }
 
     function goBack() {
