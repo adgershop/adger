@@ -585,11 +585,15 @@ margin-left: 8px;
 </head>
 <body>
     <!-- The menu button with an SVG icon -->
-    <button id="custom-menu-button"return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+</head>
+<body>
+    <!-- The menu button with an SVG icon -->
+    <button id="custom-menu-button" onclick="openWhitePage()" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
         <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M4 6h16M4 12h16M4 18h16" />
         </svg>
     </button>
+
 
     <!-- The white page that appears when the menu button is clicked -->
     <div id="white-page">
@@ -614,21 +618,30 @@ margin-left: 8px;
     </style>
 </head>
 <body>
-    <button id="back-button" class="button" onclick="goBack()"return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-          </svg>          
-          
-    </button>
+  <!-- Back button -->
+  <button id="back-button" class="button" onclick="closeWhitePage()" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+    </svg>          
+</button>
 
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
+<script>
+    function openWhitePage() {
+        document.body.style.overflow = 'hidden';
+        document.getElementById('white-page').style.display = 'block';
+    }
+
+    function closeWhitePage() {
+        document.body.style.overflow = 'auto';
+        document.getElementById('white-page').style.display = 'none';
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>
-
         <!-- Menu content areas -->
         <div id="menu-content-1" class="menu-content">
             <!DOCTYPE html>
@@ -6862,7 +6875,6 @@ margin-left: 8px;
     </script>
 </body>
 </html>
-
 
 
 
