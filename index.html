@@ -1544,12 +1544,12 @@ margin-left: 8px;
                     <script>
                         let currentSlide2 = 0;
                         let startX;
-                        let slides2 = ['1.jpg', '2.jpg', '3.jpg']; // Example images
+                        let slides2 = ['1.jpg', '2.jpg', '3.jpg']; 
                     
                         function openModal2() {
                             document.getElementById('modal2').style.display = 'block';
-                            document.querySelector('.close2').style.display = 'block'; // Show the close button
-                            document.body.classList.add('modal-open'); // Disable background scroll
+                            document.querySelector('.close2').style.display = 'block'; 
+                            document.body.classList.add('modal-open'); 
                             createIndicators();
                             showSlide2(currentSlide2);
                             scrollModalToTop();
@@ -1557,8 +1557,8 @@ margin-left: 8px;
                     
                         function closeModal2() {
                             document.getElementById('modal2').style.display = 'none';
-                            document.querySelector('.close2').style.display = 'none'; // Hide the close button
-                            document.body.classList.remove('modal-open'); // Enable background scroll
+                            document.querySelector('.close2').style.display = 'none'; 
+                            document.body.classList.remove('modal-open'); 
                         }
                     
                         function showSlide2(index) {
@@ -1583,7 +1583,7 @@ margin-left: 8px;
                                 indicator.onclick = () => showSlide2(index);
                                 indicatorsContainer.appendChild(indicator);
                             });
-                            updateActiveIndicator(currentSlide2); // Set the initial active indicator
+                            updateActiveIndicator(currentSlide2); 
                         }
                     
                         document.getElementById('slide2').addEventListener('touchstart', (e) => {
@@ -1609,7 +1609,6 @@ margin-left: 8px;
                             showSlide2(currentSlide2);
                         }
                     
-                        // Function to update product details
                         function updateProductDetails(title, description, additionalText, additionalText2, images, color, size, height) {
                             document.getElementById('product-title').innerText = title;
                             document.getElementById('product-description').innerText = description;
@@ -1618,14 +1617,13 @@ margin-left: 8px;
                             document.getElementById('product-color').innerText = color;
                             document.getElementById('product-size').innerText = size;
                             document.getElementById('product-height').innerText = height;
-                            slides2 = images; // Update the slides array
+                            slides2 = images; 
                             currentSlide2 = 0;
-                            showSlide2(0); // Show the first image
+                            showSlide2(0); 
                             createIndicators();
                             scrollModalToTop();
                         }
                     
-                        // Function to scroll modal content to top
                         function scrollModalToTop() {
                             const modalContent = document.querySelector('.modal2-content');
                             modalContent.scrollTop = 0;
@@ -2044,122 +2042,120 @@ margin-left: 8px;
                 </head>
                 <body>
                    
-                    <style>
                         
-                    .popup {
-                        display: none;
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: rgb(255, 255, 255);
-                        justify-content: center;
-                        align-items: center;
-                    }
-                    
-                    .popup.active {
-                        display: flex;
-                    }
-                    
-                    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); /* خط زخرفي من Google Fonts */
-  .popup-content {
-    background: linear-gradient(135deg, #ffffff, #ffffff);
-    padding: 20px;
-    border-radius: 5px;
-    width: 100%; /* تقليل عرض النافذة ليكون أقل واسعاً */
-    max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
-    box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* تحويل محاذاة المحتوى ليكون في الأعلى */
-    align-items: center; /* محاذاة المحتوى بشكل 
-                  أفقي في المنتصف */
-    margin: auto;
-    text-align: center; /* توسيط النص عمودياً */
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* توسيط النافذة في منتصف الشاشة */
-}
-
-.popup-content h1 {
-    font-family: 'Dancing Script', cursive; /* خط زخرفي */
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-
-.popup-input {
-    width: calc(100% - 40px); /* تعديل عرض حقول الإدخال ليتناسب مع التباعدات */
-    margin: 10px 0;
-    padding: 10px;
-    border: 2px solid #00b3ff;
-    border-radius: 11px;
-}
-
-.quantity-input {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-}
-
-.quantity-label {
-    flex: 1;
-    text-align: left; /* محاذاة النص إلى اليسار */
-}
-
-.quantity-number {
-    margin: 0 10px;
-}
-
-.quantity-buttons {
-    display: flex;
-}
-
-.quantity-button {
-    padding: 8px 15px;
-    margin: 0 5px;
-    border: 1px solid #00b3ff;
-    background-color: #00a6ff;
-    cursor: pointer;
-}
-
-.popup-button {
-    width: 50%; /* تعديل عرض الأزرار ليكون أقل قليلاً */
-    margin-top: 10px; /* تباعد من الأعلى للأزرار */
-    padding: 12px 25px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 18px;
-    display: inline-block; /* عرض الأزرار على سطر واحد مع التباعد المناسب */
-}
-
-.popup-button:hover {
-    background-color: #ffa601;
-}
-
-.popup-button.cancel {
-    background-color: #e74c3c;
-}
-
-.popup-header {
-    text-align: center;
-    margin-bottom: 20px; /* تباعد أكبر من الأعلى للرأس */
-}
-
-.popup-title {
-    margin: 0;
-}
-
-<!DOCTYPE html>
+                        <!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحة المنتج</title>
     <style>
-        .popup { display: none; }
-        .popup.active { display: block; }
+        /* CSS للنافذة المنبثقة */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            justify-content: center;
+            align-items: center;
+            overflow: auto; /* السماح بالتمرير داخل النافذة المنبثقة */
+        }
+        
+        .popup.active {
+            display: flex;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, #ffffff, #ffffff);
+            padding: 20px;
+            border-radius: 5px;
+            width: 100%; /* تقليل عرض النافذة ليكون أقل واسعاً */
+            max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
+            box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* تحويل محاذاة المحتوى ليكون في الأعلى */
+            align-items: center; /* محاذاة المحتوى بشكل أفقي في المنتصف */
+            margin: auto;
+            text-align: center; /* توسيط النص عمودياً */
+            position: relative;
+        }
+
+        .popup-content h1 {
+            font-family: 'Dancing Script', cursive; /* خط زخرفي */
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .popup-input {
+            width: calc(100% - 40px); /* تعديل عرض حقول الإدخال ليتناسب مع التباعدات */
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px solid #00b3ff;
+            border-radius: 11px;
+        }
+
+        .quantity-input {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .quantity-label {
+            flex: 1;
+            text-align: left; /* محاذاة النص إلى اليسار */
+        }
+
+        .quantity-number {
+            margin: 0 10px;
+        }
+
+        .quantity-buttons {
+            display: flex;
+        }
+
+        .quantity-button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            border: 1px solid #00b3ff;
+            background-color: #00a6ff;
+            cursor: pointer;
+        }
+
+        .popup-button {
+            width: 50%; /* تعديل عرض الأزرار ليكون أقل قليلاً */
+            margin-top: 10px; /* تباعد من الأعلى للأزرار */
+            padding: 12px 25px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            display: inline-block; /* عرض الأزرار على سطر واحد مع التباعد المناسب */
+        }
+
+        .popup-button:hover {
+            background-color: #ffa601;
+        }
+
+        .popup-button.cancel {
+            background-color: #e74c3c;
+        }
+
+        .popup-header {
+            text-align: center;
+            margin-bottom: 20px; /* تباعد أكبر من الأعلى للرأس */
+        }
+
+        .popup-title {
+            margin: 0;
+        }
+
+        /* CSS لجعل التمرير غير ممكن في الصفحة الرئيسية عند عرض النافذة المنبثقة */
+        body.popup-open {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -2203,6 +2199,7 @@ margin-left: 8px;
         function openPopup(button) {
             var popup = document.getElementById('popup');
             popup.classList.add('active');
+            document.body.classList.add('popup-open'); // منع التمرير على الصفحة الرئيسية
 
             var savedName = localStorage.getItem('savedName');
             if (savedName) {
@@ -2228,6 +2225,7 @@ margin-left: 8px;
         function closePopup() {
             var popup = document.getElementById('popup');
             popup.classList.remove('active');
+            document.body.classList.remove('popup-open'); // استعادة التمرير على الصفحة الرئيسية
         }
 
         function openEmail() {
