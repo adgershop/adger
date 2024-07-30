@@ -155,20 +155,26 @@ h3 {
     text-align: center;
     margin-bottom: 20px;
 }
+.carousel2 {
+    overflow: hidden; /* للتأكد من أن الصورة لن تخرج عن الإطار المحدد */
+    position: relative;
+}
 
 .carousel2 img {
     width: 100%;
     max-width: 500px;
     height: auto;
     user-select: none;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer; /* لتغيير شكل المؤشر عند التمرير فوق الصورة */
+    transform-origin: center; /* يمكن تعديل هذه القيمة لتحديد نقطة الزوم */
 }
 
-
-.carousel2 img:hover {
-    transform: scale(1.5); /* Adjust scale as needed */
+.carousel2 img:active {
+    transform: scale(1.5); /* يمكنك تعديل القيمة حسب الحاجة */
     z-index: 1000;
     position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* إضافة ظل للصورة لتأثير أعمق */
 }
 
 .indicators {
