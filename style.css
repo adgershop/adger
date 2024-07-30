@@ -77,9 +77,9 @@ h3 {
 
 .read-more {
     color: white; /* تغيير لون الخط إلى الأبيض */
-    background: linear-gradient(135deg, #ff7b00, #fc5000); /* تغيير معرف اللون */
-    padding: 8px 12px; /* زيادة المساحة الداخلية للزر */
-    border: 2px solid #d32300; /* تعيين الحد الأساسي */
+    background: linear-gradient(135deg, #ff9d41, #ff813d); /* تغيير معرف اللون */
+    padding: 8px 10px; /* زيادة المساحة الداخلية للزر */
+    border: 1px solid #d32300; /* تعيين الحد الأساسي */
     border-radius: 15px; /* جعل الحدود مدورة قليلاً */
     cursor: pointer;
     display: inline-block;
@@ -111,12 +111,12 @@ h3 {
     width: 100%;
     height: 100%;
     overflow: hidden; /* منع التمرير الرمادي */
-    background: linear-gradient(135deg, #ffcfef, hwb(334 95% 2%));
+    background: linear-gradient(135deg, #ffdcf3, hwb(334 95% 2%));
 
 }
 
 .modal2-content {
-    background: linear-gradient(135deg, #ffcfef, hwb(334 95% 2%));
+    background: linear-gradient(135deg, #ffdcf3, hwb(334 95% 2%));
     margin: 0 auto;
     padding: 20px 20px 25px; /* إضافة 5 بيكسل في الأسفل */
     padding-top: 95px;
