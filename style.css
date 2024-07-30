@@ -161,6 +161,14 @@ h3 {
     max-width: 500px;
     height: auto;
     user-select: none;
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.carousel2 img:hover {
+    transform: scale(1.5); /* Adjust scale as needed */
+    z-index: 1000;
+    position: relative;
 }
 
 .indicators {
