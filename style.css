@@ -78,7 +78,7 @@ h3 {
     color: white; /* تغيير لون الخط إلى الأبيض */
     background: linear-gradient(135deg, #00d9d2, #20b1ff); /* تغيير معرف اللون */
     padding: 10px 10px; /* زيادة المساحة الداخلية للزر */
-    width: 100%;
+    width: 27%;
     border: 1px solid #00a5d3; /* تعيين الحد الأساسي */
     border-radius: 13px; /* جعل الحدود مدورة قليلاً */
     cursor: pointer;
@@ -197,12 +197,19 @@ h3 {
     font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
     font-size: 19px; /* يمكنك تغيير حجم الخط هنا */
 }
-
 .custom-h1-red {
-    color:  rgb(233, 4, 4);
+    color: rgb(233, 4, 4);
     font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
     font-size: 15px; /* يمكنك تغيير حجم الخط هنا */
+    width: 100%;
+    background: linear-gradient(135deg, #ffcc33 0%, #ff0000 100%); /* تدرج لوني جميل للخلفية */
+    color: white; /* لون النص */
+    padding: 5px; /* مساحة داخلية حول النص */
+    border-radius: 5px; /* زوايا مستديرة للخلفية */
+    font-weight: bold; /* جعل النص عريضًا */
+    display: inline-block; /* ضمان أن الخلفية تلتف حول النص */
 }
+
 .product-info11{
     margin-top: -37px;
 }
