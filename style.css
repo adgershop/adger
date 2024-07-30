@@ -77,8 +77,8 @@ h3 {
 
 .read-more {
     color: white; /* تغيير لون الخط إلى الأبيض */
-    background: linear-gradient(135deg, #159692, #20b1ff); /* تغيير معرف اللون */
-    padding: 8px 10px; /* زيادة المساحة الداخلية للزر */
+    background: linear-gradient(135deg, #00d9d2, #20b1ff); /* تغيير معرف اللون */
+    padding: 10px 144px; /* زيادة المساحة الداخلية للزر */
     border: 1px solid #00a5d3; /* تعيين الحد الأساسي */
     border-radius: 13px; /* جعل الحدود مدورة قليلاً */
     cursor: pointer;
