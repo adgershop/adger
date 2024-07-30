@@ -112,12 +112,12 @@ h3 {
     width: 100%;
     height: 100%;
     overflow: hidden; /* منع التمرير الرمادي */
-    background: linear-gradient(135deg,hwb(0 100% 0%), hwb(0 100% 0%));
+    background: linear-gradient(135deg, hsl(0, 0%, 100%), hwb(327 96% 0%));
 
 }
 
 .modal2-content {
-    background: linear-gradient(135deg,hwb(0 100% 0%), hwb(0 100% 0%));
+    background: linear-gradient(135deg,hwb(334 97% 0%), hwb(334 97% 0%));
     margin: 0 auto;
     padding: 20px 20px 25px; /* إضافة 5 بيكسل في الأسفل */
     padding-top: 95px;
@@ -158,11 +158,12 @@ h3 {
 }
 
 .carousel2 img {
-    width: 100%;
-    max-width: center;
+    width: 122%;
+    max-width: 500px;
     height: auto;
     user-select: none;
-    margin-top: -28px;
+    margin-right: -15px;
+    margin-top: -25px;
     
 }
 
@@ -187,7 +188,7 @@ h3 {
 
 .custom-paragraph {
     text-align: right;
-    margin-right: 2px;
+    margin-right: 22px;
     margin-top: 20px;
 }
 
