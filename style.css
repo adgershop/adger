@@ -163,8 +163,7 @@ h3 {
     max-width: 500px;
     height: auto;
     user-select: none;
-    border-top: 2px solid black; /* يضيف خطًا أسود أعلى الصورة */
-    border-bottom: 2px solid black; /* يضيف خطًا أسود أسفل الصورة */
+    border: 2px solid #00a5d3; /* تعيين الحد الأساسي */
 }
 
 .indicators {
