@@ -168,6 +168,10 @@ h3 {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     cursor: pointer; /* لتغيير شكل المؤشر عند التمرير فوق الصورة */
     transform-origin: center; /* يمكن تعديل هذه القيمة لتحديد نقطة الزوم */
+    -webkit-touch-callout: none; /* لمنع خيارات النسخ والتنزيل على iOS */
+    -webkit-user-select: none; /* لمنع التحديد على iOS */
+    -ms-touch-action: none; /* لمنع التفاعل على Windows */
+    touch-action: none; /* لمنع التفاعل على أجهزة اللمس */
 }
 
 .carousel2 img:active {
