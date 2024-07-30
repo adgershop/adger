@@ -53,32 +53,32 @@ h3 {
   }
   
 
-
   button:focus {
-    outline: none;
+    outline: none; /* إزالة الإطار عند التركيز */
 }
-@keyframes borderAnimation {
+
+@keyframes customBorderAnimation {
     0% {
-        border-color: #ff0000;
+        border-color: #d1492358; /* اللون الأول */
     }
     25% {
-        border-color: #fd4800;
+        border-color: #fd48006c; /* اللون الثاني */
     }
     50% {
-        border-color: #a11111;
+        border-color: #ff00003f; /* اللون الثالث */
     }
     75% {
-        border-color: #ea6d14;
+        border-color: #ea6d1462; /* اللون الرابع */
     }
     100% {
-        border-color: #50104f;
+        border-color: #0db1c737; /* اللون الخامس */
     }
 }
 
 .read-more {
     color: white; /* تغيير لون الخط إلى الأبيض */
-    background: linear-gradient(135deg, #ff7b00, hwb(8 11% 9%));
-    padding: 10px 16px; /* زيادة المساحة الداخلية للزر */
+    background: linear-gradient(135deg, #ff7b00, #fc5000); /* تغيير معرف اللون */
+    padding: 8px 12px; /* زيادة المساحة الداخلية للزر */
     border: 2px solid #d32300; /* تعيين الحد الأساسي */
     border-radius: 15px; /* جعل الحدود مدورة قليلاً */
     cursor: pointer;
@@ -88,14 +88,16 @@ h3 {
     font-size: 16px; /* زيادة حجم الخط */
     font-weight: bold; /* جعل الخط عريض */
     margin: 5px 0; /* زيادة المسافة الفاصلة */
-    box-shadow: 0 4px 6px rgb(255, 255, 255); /* إضافة ظل خفيف للزر */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* إضافة تأثيرات انتقالية للخلفية والحجم */
-    animation: borderAnimation 4s infinite; /* تطبيق تأثير التحرك حول الحافة */
+    box-shadow: 0 4px 6px rgba(148, 75, 75, 0.874); /* إضافة ظل خفيف للزر */
+    transition: background-color 0.6s ease, transform 0.3s ease; /* إضافة تأثيرات انتقالية للخلفية والحجم */
+    animation: customBorderAnimation 3s infinite; /* تطبيق تأثير التحرك حول الحافة */
+    position: relative; /* التأكد من أن z-index يعمل */
+    z-index: 10; /* تعيين z-index لضمان ظهور الزر فوق العناصر الأخرى */
 }
 
 .read-more:hover {
-    background-color: #36002c; /* تغيير لون الخلفية عند تمرير الفأرة */
-    transform: scale(1.05); /* تكبير الزر قليلاً عند التمرير */
+    background-color: #efdbeb; /* تغيير لون الخلفية عند تمرير الفأرة */
+    transform: scale(1.02); /* تكبير الزر قليلاً عند التمرير */
 }
 
 
@@ -109,12 +111,12 @@ h3 {
     width: 100%;
     height: 100%;
     overflow: hidden; /* منع التمرير الرمادي */
-    background: linear-gradient(135deg, #ffffff, hwb(0 100% 0%));
+    background: linear-gradient(135deg, #ffcfef, hwb(334 95% 2%));
 
 }
 
 .modal2-content {
-    background: linear-gradient(135deg, #ffffff, hwb(0 100% 0%));
+    background: linear-gradient(135deg, #ffcfef, hwb(334 95% 2%));
     margin: 0 auto;
     padding: 20px 20px 25px; /* إضافة 5 بيكسل في الأسفل */
     padding-top: 95px;
