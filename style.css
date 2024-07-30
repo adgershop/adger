@@ -159,7 +159,7 @@ h3 {
 
 .carousel2 img {
     width: 100%;
-    max-width: center;
+    max-width: 500px;
     height: auto;
     user-select: none;
     
@@ -193,7 +193,7 @@ h3 {
 .custom-h1-purple {
     color: rgb(36, 4, 36);
     font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
-    font-size: 20px; /* يمكنك تغيير حجم الخط هنا */
+    font-size: 19px; /* يمكنك تغيير حجم الخط هنا */
 }
 
 .custom-h1-red {
