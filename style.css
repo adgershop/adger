@@ -90,7 +90,8 @@ h3 {
     margin: 5px 0; /* زيادة المسافة الفاصلة */
     box-shadow: 0 2px 4px rgba(75, 148, 128, 0.874); /* تعديل قيمة الظل الخفيف للزر */
     transition: background-color 0.3s ease, transform 0.2s ease; /* تقليل مدة تأثيرات الانتقال للخلفية والحجم */
-    animation: customBorderAnimation 3s infinite; /* تطبيق تأثير التحرك حول الحافة */
+    /* قم بإزالة الأنيميشن مؤقتًا لمعرفة إذا كانت هي السبب في البطء */
+    /* animation: customBorderAnimation 3s infinite; */
     position: relative; /* التأكد من أن z-index يعمل */
     z-index: 10; /* تعيين z-index لضمان ظهور الزر فوق العناصر الأخرى */
 }
