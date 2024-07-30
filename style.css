@@ -52,7 +52,6 @@ h3 {
     flex-grow: 1; /* Allow the search bar to grow and take available space */
   }
   
-
   button:focus {
     outline: none; /* إزالة الإطار عند التركيز */
 }
@@ -89,8 +88,8 @@ h3 {
     font-size: 13px; /* زيادة حجم الخط */
     font-weight: bold; /* جعل الخط عريض */
     margin: 5px 0; /* زيادة المسافة الفاصلة */
-    box-shadow: 0 2px 4x rgba(75, 148, 128, 0.874); /* إضافة ظل خفيف للزر */
-    transition: background-color 0.6s ease, transform 0.3s ease; /* إضافة تأثيرات انتقالية للخلفية والحجم */
+    box-shadow: 0 2px 4px rgba(75, 148, 128, 0.874); /* تعديل قيمة الظل الخفيف للزر */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* تقليل مدة تأثيرات الانتقال للخلفية والحجم */
     animation: customBorderAnimation 3s infinite; /* تطبيق تأثير التحرك حول الحافة */
     position: relative; /* التأكد من أن z-index يعمل */
     z-index: 10; /* تعيين z-index لضمان ظهور الزر فوق العناصر الأخرى */
@@ -101,6 +100,7 @@ h3 {
     transform: scale(1.02); /* تكبير الزر قليلاً عند التمرير */
     color: #ffffff;
 }
+
 
 
 .modal2 {
