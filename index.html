@@ -254,9 +254,60 @@ margin-left: 8px;
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
                 </svg>
             </div>
-            <input type="text" id="searchInput" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER..." oninput="toggleClearButton(this)">
-            <span id="clearButton" class="clear-button" onclick="clearSearchInput(event)">✖</span>
-        
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+                <style>
+                    .clear-button {
+                        display: none; /* زر الإغلاق يكون مخفيًا في البداية */
+                        cursor: pointer;
+                    }
+                </style>
+            </head>
+            <body>
+                <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في ADGER..." oninput="toggleClearButton(this)">
+                <span id="clearButton" class="clear-button" onclick="handleClick(event)">✖</span>
+            
+                <script>
+                function handleClick(event) {
+                    clearSearchInput(event); // الوظيفة الأصلية
+                    closeModal2(); // إغلاق الموديل
+                }
+            
+                function clearSearchInput(event) {
+                    // الدالة الأصلية لمسح حقل البحث
+                    console.log("Clearing search input");
+                    document.getElementById('searchInput').value = '';
+                    toggleClearButton(document.getElementById('searchInput'));
+                }
+            
+                function closeModal2() {
+                    // الدالة لإغلاق الموديل
+                    console.log("Closing modal");
+                    // هنا يمكن أن تضع الكود لإخفاء النافذة (الموديل)
+                }
+            
+                function toggleClearButton(inputElement) {
+                    // دالة لإظهار أو إخفاء زر الإغلاق
+                    var clearButton = document.getElementById('clearButton');
+                    console.log("toggleClearButton called with value:", inputElement.value);
+                    if (inputElement.value.length > 0) {
+                        clearButton.style.display = 'inline';
+                    } else {
+                        clearButton.style.display = 'none';
+                    }
+                }
+            
+                function searchProducts() {
+                    // دالة البحث
+                    console.log("searchProducts called");
+                }
+                </script>
+            </body>
+            </html>     
         <script>
             function toggleClearButton(input) {
                 const clearButton = document.getElementById('clearButton');
@@ -1530,11 +1581,11 @@ margin-left: 8px;
                                         <span id="product-color">أحمر</span>
                                     </div>
                                     <div class="product-detail">
-                                        <span>اللون:</span>
+                                        <span> المقاس:</span>
                                         <span id="product-size">L</span>
                                     </div>
                                     <div class="product-detail">
-                                        <span>المقاس:</span>
+                                        <span>رقم المنتج:</span>
                                         <span id="product-height">20 سم</span>
                                     </div>
                                 </div>
