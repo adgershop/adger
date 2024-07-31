@@ -122,7 +122,7 @@ h3 {
     width: auto; /* استخدام auto بدلاً من center */
     max-width: 1110px; /* التأكد من أن العرض لا يتجاوز 1110px */
     position: relative; /* مهم لجعل position: sticky بالنسبة لهذا العنصر */
-    top: 0; /* البدء من الأعلى */
+    top: 11px; /* البدء من الأعلى */
     transform: none; /* إزالة التحويل */
     overflow-y: auto; /* جعل محتوى المودال قابلًا للتمرير */
     max-height: 100vh; /* تحديد ارتفاع أقصى لمحتوى المودال */
