@@ -109,20 +109,19 @@ h3 {
     top: 0;
     width: 100%;
     height: 100%; /* استخدام 100% لتغطية الارتفاع بالكامل */
-    overflow: hidden; /* منع التمرير الرمادي */
-    background: linear-gradient(135deg, hwb(0 100% 0%), hwb(0 100% 0%));
+    overflow: hidden; /* منع التمرير الرمادي على خلفية المودال */
+    background: rgba(0, 0, 0, 0.5); /* خلفية شبه شفافة لتوفير تباين مع المحتوى */
 }
 
 .modal2-content {
-    background: linear-gradient(135deg, hwb(0 100% 0%), hwb(0 100% 0%));
+    background: white; /* تغيير الخلفية إلى اللون الأبيض */
     margin: 50px auto 15px auto; /* إضافة مسافة 50 بكسل من الأعلى و15 بكسل من الأسفل */
     padding: 20px; /* ضبط الحشوة بشكل متساوي */
     width: auto; /* استخدام auto بدلاً من center */
     max-width: 1110px; /* التأكد من أن العرض لا يتجاوز 1110px */
-    position: relative; /* مهم لجعل position: sticky بالنسبة لهذا العنصر */
-    transform: none; /* إزالة التحويل */
-    overflow-y: auto; /* جعل محتوى المودال قابلًا للتمرير */
+    position: relative; /* لتحديد الموضع داخل المودال */
     max-height: calc(100vh - 50px - 15px); /* تحديد ارتفاع أقصى لمحتوى المودال مع اعتبار المسافة العليا والسفلى */
+    overflow-y: auto; /* جعل محتوى المودال قابلاً للتمرير عموديًا */
     box-sizing: border-box; /* ضمان أن padding يضاف بشكل صحيح للعنصر */
     scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
 }
