@@ -102,7 +102,6 @@ h3 {
     color: #ffffff;
 }
 
-
 .modal2 {
     display: none;
     position: fixed;
@@ -119,23 +118,22 @@ h3 {
     background: linear-gradient(135deg, hwb(0 100% 0%), hwb(0 100% 0%));
     margin: 0 auto;
     padding: 20px; /* ضبط الحشوة بشكل متساوي */
+    padding-top: 20px; /* تعيين حشوة 20 بكسل من الأعلى */
+    padding-bottom: 0; /* إزالة الحشوة من الأسفل */
+    margin-bottom: 50px; /* تعيين مسافة 50 بكسل في الأسفل بدلاً من الحشوة */
     width: auto; /* استخدام auto بدلاً من center */
     max-width: 1110px; /* التأكد من أن العرض لا يتجاوز 1110px */
     position: relative; /* مهم لجعل position: sticky بالنسبة لهذا العنصر */
-    top: 11px; /* البدء من الأعلى */
+    top: 20px; /* البدء من الأعلى بترك مسافة 20 بكسل */
     transform: none; /* إزالة التحويل */
     overflow-y: auto; /* جعل محتوى المودال قابلًا للتمرير */
-    max-height: 100vh; /* تحديد ارتفاع أقصى لمحتوى المودال */
+    max-height: calc(100vh - 70px); /* تحديد ارتفاع أقصى لمحتوى المودال مع الأخذ في الاعتبار المسافة من الأعلى والأسفل */
     box-sizing: border-box; /* ضمان أن padding يضاف بشكل صحيح للعنصر */
     scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
 }
 
 .modal2-content::-webkit-scrollbar {
     display: none; /* إخفاء شريط التمرير في Chrome و Safari */
-}
-.modal2-content > * {
-    margin: 0;
-    padding: 0;
 }
 
 .close2 {
