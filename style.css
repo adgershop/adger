@@ -115,14 +115,14 @@ h3 {
 
 .modal2-content {
     background: linear-gradient(135deg, hwb(0 100% 0%), hwb(0 100% 0%));
-    margin: 50px auto 11px auto; /* إضافة مسافة 50 بكسل من الأعلى و11 بكسل من الأسفل */
+    margin: 50px auto 15px auto; /* إضافة مسافة 50 بكسل من الأعلى و15 بكسل من الأسفل */
     padding: 20px; /* ضبط الحشوة بشكل متساوي */
     width: auto; /* استخدام auto بدلاً من center */
     max-width: 1110px; /* التأكد من أن العرض لا يتجاوز 1110px */
     position: relative; /* مهم لجعل position: sticky بالنسبة لهذا العنصر */
     transform: none; /* إزالة التحويل */
     overflow-y: auto; /* جعل محتوى المودال قابلًا للتمرير */
-    max-height: calc(100vh - 50px - 11px); /* تحديد ارتفاع أقصى لمحتوى المودال مع اعتبار المسافة العليا والسفلى */
+    max-height: calc(100vh - 50px - 15px); /* تحديد ارتفاع أقصى لمحتوى المودال مع اعتبار المسافة العليا والسفلى */
     box-sizing: border-box; /* ضمان أن padding يضاف بشكل صحيح للعنصر */
     scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
 }
