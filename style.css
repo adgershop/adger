@@ -161,7 +161,6 @@ h3 {
     max-width: 500px;
     height: auto;
     user-select: none;
-    border: 1px solid rgb(52, 52, 52);/* تعيين الحد الأساسي */
 }
 
 .indicators {
@@ -197,11 +196,11 @@ h3 {
 .custom-h1-red {
     color: rgb(233, 4, 4);
     font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
-    font-size: 15px; /* يمكنك تغيير حجم الخط هنا */
-    width: 97px;
+    font-size: 14px; /* يمكنك تغيير حجم الخط هنا */
+    width: 94px;
     background: linear-gradient(135deg, #ff9100 0%, #ff2a00 100%); /* تدرج لوني جميل للخلفية */
     color: white; /* لون النص */
-    padding: 4px; /* مساحة داخلية حول النص */
+    padding: 3px; /* مساحة داخلية حول النص */
     border-radius: 5px; /* زوايا مستديرة للخلفية */
     font-weight: bold; /* جعل النص عريضًا */
     display: inline-block; /* ضمان أن الخلفية تلتف حول النص */
