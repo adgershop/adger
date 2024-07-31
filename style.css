@@ -101,6 +101,7 @@ h3 {
     transform: scale(1.02); /* تكبير الزر قليلاً عند التمرير */
     color: #ffffff;
 }
+
 .modal2 {
     display: none;
     position: fixed;
@@ -108,20 +109,22 @@ h3 {
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%; /* استخدام 100% لتغطية الارتفاع بالكامل */
-    overflow: hidden; /* منع التمرير الرمادي على خلفية المودال */
-    background: rgba(0, 0, 0, 0.5); /* خلفية شبه شفافة لتوفير تباين مع المحتوى */
+    height: 100%;
+    overflow: auto; /* السماح بالتمرير في حالة زيادة المحتوى */
+    background: linear-gradient(135deg, hwb(0 100% 0%), hwb(0 100% 0%));
 }
 
 .modal2-content {
-    background: white; /* تغيير الخلفية إلى اللون الأبيض */
-    margin: 50px auto 15px auto; /* إضافة مسافة 50 بكسل من الأعلى و15 بكسل من الأسفل */
+    background: linear-gradient(135deg, hwb(0 100% 0%), hwb(0 100% 0%));
+    margin: 50px auto; /* المسافة من الأعلى */
     padding: 20px; /* ضبط الحشوة بشكل متساوي */
     width: auto; /* استخدام auto بدلاً من center */
     max-width: 1110px; /* التأكد من أن العرض لا يتجاوز 1110px */
-    position: relative; /* لتحديد الموضع داخل المودال */
-    max-height: calc(100vh - 50px - 15px); /* تحديد ارتفاع أقصى لمحتوى المودال مع اعتبار المسافة العليا والسفلى */
-    overflow-y: auto; /* جعل محتوى المودال قابلاً للتمرير عموديًا */
+    position: relative; /* مهم لجعل position: sticky بالنسبة لهذا العنصر */
+    transform: none; /* إزالة التحويل */
+    overflow-y: auto; /* جعل محتوى المودال قابلًا للتمرير */
+    min-height: 100%; /* تأكيد أن المحتوى يمتد ليغطي ارتفاع المودال بالكامل */
+    height: auto; /* التأكد من أن الارتفاع يتكيف مع المحتوى */
     box-sizing: border-box; /* ضمان أن padding يضاف بشكل صحيح للعنصر */
     scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
 }
@@ -134,6 +137,7 @@ h3 {
     margin: 0;
     padding: 0;
 }
+
 
 .close2 {
     position: sticky; /* تغيير من fixed إلى sticky */
