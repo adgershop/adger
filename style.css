@@ -113,11 +113,11 @@ h3 {
     overflow: hidden; /* منع التمرير الرمادي */
     background: linear-gradient(135deg, hwb(0 100% 0%), hwb(0 100% 0%));
 }
+
 .modal2-content {
     background: linear-gradient(135deg, hwb(0 100% 0%), hwb(0 100% 0%));
     margin: 50px auto 0 auto; /* إضافة مسافة 50 بكسل من الأعلى */
     padding: 20px; /* ضبط الحشوة بشكل متساوي */
-    padding-bottom: 55px; /* إضافة مسافة سفلية 55 بكسل */
     width: auto; /* استخدام auto بدلاً من center */
     max-width: 1110px; /* التأكد من أن العرض لا يتجاوز 1110px */
     position: relative; /* مهم لجعل position: sticky بالنسبة لهذا العنصر */
@@ -136,7 +136,6 @@ h3 {
     margin: 0;
     padding: 0;
 }
-
 
 .close2 {
     position: sticky; /* تغيير من fixed إلى sticky */
