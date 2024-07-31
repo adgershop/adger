@@ -115,7 +115,6 @@ h3 {
     height: 100%;
     overflow: hidden; /* منع التمرير الرمادي */
     background: linear-gradient(135deg,hwb(0 100% 0%), hwb(0 100% 0%));
-
 }
 
 .modal2-content {
@@ -133,7 +132,6 @@ h3 {
     overflow-y: auto; /* جعل محتوى المودال قابلًا للتمرير */
     max-height: calc(75vh - 25px); /* تحديد ارتفاع أقصى لمحتوى المودال مع الأخذ في الاعتبار المسافة الإضافية */
     scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
-
 }
 
 .modal2-content::-webkit-scrollbar {
@@ -163,7 +161,7 @@ h3 {
     max-width: 500px;
     height: auto;
     user-select: none;
-    border: 1px solid #00a5d3; /* تعيين الحد الأساسي */
+    border: 1px solid rgb(52, 52, 52);/* تعيين الحد الأساسي */
 }
 
 .indicators {
@@ -203,7 +201,7 @@ h3 {
     width: 97px;
     background: linear-gradient(135deg, #ff9100 0%, #ff2a00 100%); /* تدرج لوني جميل للخلفية */
     color: white; /* لون النص */
-    padding: 5px; /* مساحة داخلية حول النص */
+    padding: 4px; /* مساحة داخلية حول النص */
     border-radius: 5px; /* زوايا مستديرة للخلفية */
     font-weight: bold; /* جعل النص عريضًا */
     display: inline-block; /* ضمان أن الخلفية تلتف حول النص */
