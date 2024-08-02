@@ -133,3 +133,46 @@ function toggleCart() {
 
 
 
+// دالة لإدخال الكلمة المحددة في حقل البحث
+function insertSearchTerm(term) {
+    var searchInput = document.getElementById('searchInput');
+    searchInput.value = term;
+    searchProducts(); // لتشغيل وظيفة البحث بعد إدخال الكلمة
+    toggleClearButton(searchInput); // لتبديل زر المسح بناءً على المحتوى الجديد
+}
+
+// دالة لإغلاق الـ Modal2
+function closeModal2() {
+    // أضف هنا الكود لإغلاق الـ Modal2
+}
+
+// دالة للبحث عن المنتجات
+function searchProducts() {
+    var searchInput = document.getElementById('searchInput');
+    var searchLinks = document.querySelector('.search-links');
+    if (searchInput.value.trim() !== '') {
+        searchLinks.style.display = 'none'; // إخفاء الروابط عند البحث
+    } else {
+        searchLinks.style.display = 'flex'; // عرض الروابط عندما لا يكون هناك نص
+    }
+}
+
+// دالة لتبديل زر مسح البحث
+function toggleClearButton(input) {
+    var clearButton = document.getElementById('clearButton');
+    if (input.value.trim() !== '') {
+        clearButton.style.display = 'inline'; // عرض زر المسح
+    } else {
+        clearButton.style.display = 'none'; // إخفاء زر المسح
+    }
+}
+
+// دالة للتعامل مع نقر زر المسح
+function handleClearClick() {
+    var searchInput = document.getElementById('searchInput');
+    searchInput.value = ''; // مسح النص في حقل البحث
+    searchProducts(); // إعادة تشغيل البحث بعد مسح النص
+    toggleClearButton(searchInput); // تحديث حالة زر المسح
+}
+
+

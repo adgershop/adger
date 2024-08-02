@@ -232,3 +232,29 @@ h3 {
 }
 
 
+/* تنسيق روابط البحث */
+.search-links {
+    background-color: #f0f0f0; /* لون خلفية يمكن تغييره حسب التصميم */
+    padding: 5px 0; /* مساحة من الأعلى والأسفل */
+    margin: 0; /* إزالة الهوامش */
+    width: 100%; /* توسيع الخلفية لتشمل عرض الشاشة */
+    margin-top: 0px;
+    box-sizing: border-box; /* التأكد من أن العرض يشمل الحشو */
+    overflow-x: auto; /* السماح بالتمرير الأفقي */
+    white-space: nowrap; /* منع التفاف النص */
+}
+
+.search-links a {
+    text-decoration: none; /* إزالة الخط السفلي للرابط */
+    color: #333; /* لون النص */
+    display: inline-block; /* يجعل الرابط كزر قابل للتنسيق */
+    padding: 5px 15px; /* مساحة حول النص */
+    margin-right: 10px; /* مساحة بين الروابط */
+    background-color: #e0e0e0; /* لون خلفية الرابط */
+    border-radius: 3px; /* زوايا دائرية للرابط */
+    transition: background-color 0.3s; /* تأثير انتقال اللون عند التمرير */
+}
+
+.search-links a:hover {
+    background-color: #d0d0d0; /* لون خلفية الرابط عند التمرير */
+}
