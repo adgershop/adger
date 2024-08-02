@@ -234,7 +234,7 @@ h3 {
 
 /* تنسيق روابط البحث */
 .search-links {
-    background: linear-gradient(135deg, #424b53, #50767a); /* Background color for search bar area *//* لون خلفية يمكن تغييره حسب التصميم */
+    background: linear-gradient(135deg, #4e5861, #486468); /* Background color for search bar area *//* لون خلفية يمكن تغييره حسب التصميم */
     padding: 5px 0; /* مساحة من الأعلى والأسفل */
     margin: 0; /* إزالة الهوامش */
     max-width: 105%;
