@@ -239,6 +239,7 @@ h3 {
     margin: 0; /* إزالة الهوامش */
     width: 100%; /* توسيع الخلفية لتشمل عرض الشاشة */
     margin-top: 0px;
+    margin-bottom: 11px;
     box-sizing: border-box; /* التأكد من أن العرض يشمل الحشو */
     overflow-x: auto; /* السماح بالتمرير الأفقي */
     white-space: nowrap; /* منع التفاف النص */
@@ -258,3 +259,4 @@ h3 {
 .search-links a:hover {
     background-color: #d0d0d0; /* لون خلفية الرابط عند التمرير */
 }
+

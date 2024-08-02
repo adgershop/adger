@@ -1396,7 +1396,7 @@ margin-left: 8px;
 <title>Slideshow</title>
 <style>
     .white-bar {
-        height: 10px;
+        height: 30px;
         background-color: white;
         text-align: center;
         margin-bottom: 20px;
@@ -1418,7 +1418,7 @@ margin-left: 8px;
 
     .slides {
         width: 100%;
-        height: 166px;
+        height: 173px;
         display: none;
         
     }
@@ -1447,7 +1447,30 @@ margin-left: 8px;
 </head>
 <body>
     <div class="white-bar"></div>
-
+    <div class="search-links" id="searchLinks">
+        <a href="#" onclick="resetSearch(); return false;">جميع</a>
+        <a href="#" onclick="insertSearchTerm('العاب'); return false;">العاب</a>
+        <a href="#" onclick="insertSearchTerm('كمبيوتر'); return false;">كمبيوتر</a>
+        <a href="#" onclick="insertSearchTerm('كتب'); return false;">كتب</a>
+        <a href="#" onclick="insertSearchTerm('مجلات'); return false;">مجلات</a>
+        <a href="#" onclick="insertSearchTerm('لاصق'); return false;">لاصق</a>
+    </div>
+    <div id="searchResults">
+        <!-- Search results will be displayed here -->
+    </div>
+    <script>
+     
+    
+        function resetSearch() {
+            // Clear the search results
+            document.getElementById('searchResults').innerHTML = '';
+    
+            // Reload the page to reset everything
+            setTimeout(() => {
+                window.location.reload(); // Refresh the page
+            }, 100); // Short delay to ensure clearing of results
+        }
+    </script>
     <div class="content" id="content">
         <!-- عرض الصور -->
         <div class="slideshow-container" id="slideshow-container">
@@ -1487,7 +1510,7 @@ if (!spacing) {
     spacing = document.createElement('div');
     spacing.className = 'spacing';
     spacing.id = 'spacing';
-    spacing.style.marginBottom = '-3.1em'; // إضافة مسافة تعادل سطر فارغ
+    spacing.style.marginBottom = '-4.8em'; // إضافة مسافة تعادل سطر فارغ
     document.body.insertBefore(spacing, document.querySelector('.white-bar').nextSibling);
 }
 
@@ -2364,14 +2387,19 @@ if (!spacing) {
 </html>
 
         </div>
-        <div class="search-links" id="searchLinks">
-            <a href="#" onclick="insertSearchTerm('العاب'); return false;">العاب</a>
-            <a href="#" onclick="insertSearchTerm('كمبيوتر'); return false;">كمبيوتر</a>
-            <a href="#" onclick="insertSearchTerm('كتب'); return false;">كتب</a>
-            <a href="#" onclick="insertSearchTerm('مجلات'); return false;">مجلات</a>
-            <a href="#" onclick="insertSearchTerm('لاصق'); return false;">لاصق</a>
-        </div>
+    
         
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            window.addEventListener('load', function() {
+                // Scroll down slightly to hide the address bar
+                setTimeout(function() {
+                    window.scrollTo(0, 1);
+                }, 0);
+            });
+        </script>
+     
            <div class="product">
             <div class="product-info">
                 <h2 style="font-size: 17px;">ساعه من فيترون</h2>
