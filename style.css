@@ -198,7 +198,7 @@ h3 {
     color: rgb(233, 4, 4);
     font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
     font-size: 14px; /* يمكنك تغيير حجم الخط هنا */
-    width: 100px;
+    width: 101px;
     background: linear-gradient(135deg, #ff9100 0%, #ff2a00 100%); /* تدرج لوني جميل للخلفية */
     color: white; /* لون النص */
     padding: 3px; /* مساحة داخلية حول النص */
