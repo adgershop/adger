@@ -237,7 +237,8 @@ h3 {
     background-color: #3d5b66; /* Background color for search bar area *//* لون خلفية يمكن تغييره حسب التصميم */
     padding: 5px 0; /* مساحة من الأعلى والأسفل */
     margin: 0; /* إزالة الهوامش */
-    width: 106%; /* توسيع الخلفية لتشمل عرض الشاشة */
+    max-width: 105%;
+    margin-left: -8px;
     margin-top: 0px;
     margin-bottom: 11px;
     margin-right: -9px;
