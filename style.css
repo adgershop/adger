@@ -234,7 +234,7 @@ h3 {
 
 /* تنسيق روابط البحث */
 .search-links {
-    background-color: #3d5b66; /* Background color for search bar area *//* لون خلفية يمكن تغييره حسب التصميم */
+    background: linear-gradient(135deg, #82899f, #476b6e); /* Background color for search bar area *//* لون خلفية يمكن تغييره حسب التصميم */
     padding: 5px 0; /* مساحة من الأعلى والأسفل */
     margin: 0; /* إزالة الهوامش */
     max-width: 105%;
@@ -246,6 +246,7 @@ h3 {
     overflow-x: auto; /* السماح بالتمرير الأفقي */
     white-space: nowrap; /* منع التفاف النص */
     scrollbar-width: none; /* Firefox: Hide scrollbar */
+    padding-bottom: -3px;
 }
 
 .search-links::-webkit-scrollbar {
@@ -256,10 +257,10 @@ h3 {
     text-decoration: none; /* إزالة الخط السفلي للرابط */
     color: #333; /* لون النص */
     display: inline-block; /* يجعل الرابط كزر قابل للتنسيق */
-    padding: 5px 15px; /* مساحة حول النص */
+    padding: 4px 13px; /* مساحة حول النص */
     margin-right: 10px; /* مساحة بين الروابط */
-    background-color: #ffffff; /* لون خلفية الرابط */
-    border-radius: 3px; /* زوايا دائرية للرابط */
+    background: linear-gradient(135deg, #ffc116, #f0ffa7); /* لون خلفية الرابط */
+    border-radius: 39px; /* زوايا دائرية للرابط */
     transition: background-color 0.3s; /* تأثير انتقال اللون عند التمرير */
 }
 
