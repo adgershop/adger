@@ -1448,6 +1448,48 @@ margin-left: 8px;
 <body>
     <div class="white-bar"></div>
 
+    <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slideshow with Line Indicator</title>
+    <style>
+        .slideshow-container {
+            position: relative;
+            max-width: 500px;
+            margin: auto;
+        }
+        .slides {
+            display: none;
+            width: 100%;
+        }
+        .slides.active {
+            display: block;
+        }
+
+        .lines-container {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        .line {
+            display: inline-block;
+            width: 11px;
+            height: 2px;
+            margin: 0 3px;
+            background-color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: -12px;
+        }
+        .line.active {
+            background-color: #595959;
+        }
+    </style>
+</head>
+<body>
     <div class="content" id="content">
         <!-- عرض الصور -->
         <div class="slideshow-container" id="slideshow-container">
@@ -1455,6 +1497,12 @@ margin-left: 8px;
             <img class="slides active" src="i1.jpg">
             <img class="slides" src="i2.jpg">
             <img class="slides" src="i3.jpg">
+            <!-- Line indicators -->
+            <div class="lines-container" id="lines-container">
+                <span class="line active" onclick="currentSlide(0)"></span>
+                <span class="line" onclick="currentSlide(1)"></span>
+                <span class="line" onclick="currentSlide(2)"></span>
+            </div>
         </div>
     </div>
 
@@ -1462,26 +1510,40 @@ margin-left: 8px;
     <script>
         let slideIndex = 0;
         let slides = document.getElementsByClassName("slides");
+        let lines = document.getElementsByClassName("line");
         let slideshowContainer = document.getElementById("slideshow-container");
 
-        // وظيفة لتغيير الشريحة
-        function changeSlide(n) {
-            slides[slideIndex].style.display = "none";
-            slideIndex = (slideIndex + n + slides.length) % slides.length;
+        function showSlides(index) {
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
+
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                lines[i].classList.remove("active");
+            }
+
             slides[slideIndex].style.display = "block";
+            lines[slideIndex].classList.add("active");
         }
 
-        // تشغيل عرض الصور تلقائيا
+        function changeSlide(n) {
+            slideIndex += n;
+            showSlides(slideIndex);
+        }
+
+        function currentSlide(n) {
+            slideIndex = n;
+            showSlides(slideIndex);
+        }
+
         setInterval(() => changeSlide(1), 5000); // تغيير الصورة كل 5 ثواني
 
-        // وظيفة إزالة الخلفية الزرقاء بكل محتوياتها
         function removeContent() {
             let content = document.getElementById("content");
             if (content) {
                 content.style.display = "none";
             }
 
-            // إضافة مسافة تعادل 2 <br> عند إخفاء المحتوى
             let spacing = document.getElementById('spacing');
             if (!spacing) {
                 spacing = document.createElement('div');
@@ -1491,21 +1553,18 @@ margin-left: 8px;
             }
         }
 
-        // وظيفة لعرض المحتوى مرة أخرى وإزالة المسافة
         function showContent() {
             let content = document.getElementById("content");
             if (content) {
                 content.style.display = "block";
             }
 
-            // إزالة المسافة المضافة
             let spacing = document.getElementById('spacing');
             if (spacing) {
                 spacing.remove();
             }
         }
 
-        // وظيفة لإخفاء المحتوى عند الكتابة وإظهاره عند حذف الكتابة
         function handleInput(event) {
             if (event.target.value.trim() === "") {
                 showContent();
@@ -1514,21 +1573,22 @@ margin-left: 8px;
             }
         }
 
-        // إضافة مستمع الحدث لصندوق البحث
         window.addEventListener('load', () => {
-            const searchBox = document.querySelector('input[type="text"]'); // تعديل هذا لاختيار صندوق البحث الخاص بك
+            const searchBox = document.querySelector('input[type="text"]');
             if (searchBox) {
                 searchBox.addEventListener('input', handleInput);
             }
         });
 
-        // استخدام Hammer.js للاستماع إلى أحداث السحب
         const hammertime = new Hammer(slideshowContainer);
         hammertime.on('swipeleft', () => changeSlide(1));
         hammertime.on('swiperight', () => changeSlide(-1));
+
+        showSlides(slideIndex);
     </script>
 </body>
 </html>
+
 
     
 <div id="productContainer">
@@ -1599,6 +1659,7 @@ margin-left: 8px;
                                     <p id="additional-text-2" class="custom-h1-blue">نص إضافي 2 هنا</p> <!-- New text -->
                                     <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
                                     <h3 style="color: rgb(13, 163, 68);">إرجاع مجانى</h3>
+
                                     <div class="product-details">
                                         <div class="product-detail">
                                             <span>العلامه التجاريه:</span>
@@ -1615,6 +1676,8 @@ margin-left: 8px;
                                     </div>
                                     <h3 style="color: rgb(255, 34, 0); font-size: 20px; margin-bottom: -4px;">التفاصيل:</h3>
                                     <p id="additional-text-3" class="custom-h1-black"></p> <!-- New text -->
+                                    <h3 style="color: rgb(54, 93, 120); font-size: 15px; margin-top: -12px;">● طريقة الدفع|  نقدا عند الاستلام </h3>
+
                                 </div>
                                 <br>
                                 <div style="text-align: center;">
@@ -2373,8 +2436,9 @@ margin-left: 8px;
                     </head>
                     <body>
                     
-                    <p class="hidden-text">رقم المنتج|1</p>
-                    
+                    <p class="hidden-text">رقم المنتج1# رقم المنتج 1# رقم المنتج|1# رقم المنتج| 1# ر</p>
+                    <p class="hidden-text">ساعات ساعة</p>
+
                     </body>
                     </html>
              
@@ -2417,7 +2481,7 @@ margin-left: 8px;
                         'فيترون', 
                         'فضى فى ذهبى', 
                         'XL', 
-                        '● رقم المنتج|1\n ● مواد| معدن \n ● الوزن| لاشئ\n●  السعر بالدولار| ≈ 12.5\n'
+                        '● رقم المنتج| 1#\n ● مواد| معدن \n ● الوزن| لاشئ\n●  السعر بالدولار| ≈ 12.5\n'
                     ); openModal2();" 
                     ontouchstart="this.focus();" 
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -2471,7 +2535,8 @@ margin-left: 8px;
                     </head>
                     <body>
                     
-                    <p class="hidden-text">رقم المنتج|2</p>
+                        <p class="hidden-text">رقم المنتج2# رقم المنتج 2# رقم المنتج|2# رقم المنتج| 2# ر</p>
+                        <p class="hidden-text">فرشة ماوس </p>
                     
                     </body>
                     </html>
@@ -2504,7 +2569,7 @@ margin-left: 8px;
                         'لاشئ', 
                         'لا شئ', 
                         '27*23', 
-                        '● رقم المنتج|2\n ● مواد| قماش \n ● الوزن| لاشئ\n●  السعر بالدولار| ≈ 0.96\n'
+                        '● رقم المنتج| 2#\n ● مواد| قماش \n ● الوزن| لاشئ\n●  السعر بالدولار| ≈ 0.96\n'
                     ); openModal2();" 
                     ontouchstart="this.focus();" 
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -2561,8 +2626,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|3</p>
-                
+                    <p class="hidden-text">رقم المنتج3# رقم المنتج 3# رقم المنتج|3# رقم المنتج| 3# ر</p>
+                    <p class="hidden-text">ماوس من دون سلك ماوس بدون سلك ماوس من غير سلك موس</p>                
                 </body>
                 </html>
          
@@ -2594,7 +2659,7 @@ margin-left: 8px;
                     'XO', 
                     'اسود', 
                     '8سم', 
-                    '● رقم المنتج|3\n ● مواد| بلاستيك\n● السعر بالدولار| ≈ 2.67\n'
+                    '● رقم المنتج| 3#\n ● مواد| بلاستيك\n● السعر بالدولار| ≈ 2.67\n'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -2650,8 +2715,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|4</p>
-                
+                    <p class="hidden-text">رقم المنتج4# رقم المنتج 4# رقم المنتج|4# رقم المنتج| 4# ر</p>
+                    <p class="hidden-text">كتب </p>                
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -2702,7 +2767,7 @@ margin-left: 8px;
                     'مكتبة جرير', 
                     'أبيض', 
                     '50', 
-                    '● رقم المنتج|4\n ● مواد| ورق\n● السعر بالدولار| ≈ 1.44\n'
+                    '● رقم المنتج| 4#\n ● مواد| ورق\n● السعر بالدولار| ≈ 1.44\n'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -2737,8 +2802,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|5</p>
-        
+            <p class="hidden-text">رقم المنتج5# رقم المنتج 5# رقم المنتج|5# رقم المنتج| 5# ر</p>
+            <p class="hidden-text"> </p>             
         </body>
         </html>
      <link rel="stylesheet" href="styles.css">
@@ -2787,7 +2852,7 @@ margin-left: 8px;
                     'لا شئ', 
                     'أسود', 
                     '1.5 متر', 
-                    '● رقم المنتج|5\n ● مواد| معدن\n●  الاستخدام| حمل الأجهزة\n● السعر بالدولار| ≈ 2.06\n'
+                    '● رقم المنتج| 5#\n ● مواد| معدن\n●  الاستخدام| حمل الأجهزة\n● السعر بالدولار| ≈ 2.06\n'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -2822,8 +2887,8 @@ margin-left: 8px;
                     </head>
                     <body>
                     
-                    <p class="hidden-text">رقم المنتج|6</p>
-                    
+                        <p class="hidden-text">رقم المنتج6# رقم المنتج 6# رقم المنتج|6# رقم المنتج| 6# ر</p>
+                        <p class="hidden-text">اضائه اضاءه ادوات تصوير ادوادت للتصوير</p>                        
                     </body>
                     </html>
                  <link rel="stylesheet" href="styles.css">
@@ -2873,7 +2938,7 @@ margin-left: 8px;
                     'لا شئ', 
                     'أبيض', 
                     '26 سم', 
-                    '● رقم المنتج|6\n ● مواد| بلاستيك\n●  الاستخدام| إضاءة تصوير\n● السعر بالدولار| ≈ 2.26\n'
+                    '● رقم المنتج| 6#\n ● مواد| بلاستيك\n●  الاستخدام| إضاءة تصوير\n● السعر بالدولار| ≈ 2.26\n'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -2909,8 +2974,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|7</p>
-        
+            <p class="hidden-text">رقم المنتج7# رقم المنتج 7# رقم المنتج|7# رقم المنتج| 7# ر</p>
+            <p class="hidden-text">طاولة مذاكره</p>            
         </body>
         </html>
     <link rel="stylesheet" href="styles.css">
@@ -2960,7 +3025,7 @@ margin-left: 8px;
                     'لا شئ', 
                     'خشبي', 
                     'لا شئ', 
-                    '● رقم المنتج|7\n ● مواد| خشب\n●  الاستخدام| للابتوب والتابلت\n● السعر بالدولار| ≈ 4.01\n'
+                    '● رقم المنتج| 7#\n ● مواد| خشب\n●  الاستخدام| للابتوب والتابلت\n● السعر بالدولار| ≈ 4.01\n'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -2995,8 +3060,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|8</p>
-        
+            <p class="hidden-text">رقم المنتج8# رقم المنتج 8# رقم المنتج|8# رقم المنتج| 8# ر</p>
+            <p class="hidden-text">تابلت للرسم </p>            
         </body>
         </html>
      <link rel="stylesheet" href="styles.css">
@@ -3046,7 +3111,7 @@ margin-left: 8px;
                     'لا شئ', 
                     'أزرق وأسود', 
                     '50 سم', 
-                    '● رقم المنتج|8\n ● مواد| بلاستيك ومعدن\n●  الاستخدام| تابلت محمول\n● السعر بالدولار| ≈ 1.44\n'
+                    '● رقم المنتج| 8#\n ● مواد| بلاستيك ومعدن\n●  الاستخدام| تابلت محمول\n● السعر بالدولار| ≈ 1.44\n'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3081,8 +3146,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|9</p>
-        
+            <p class="hidden-text">رقم المنتج9# رقم المنتج 9# رقم المنتج|9# رقم المنتج| 9# ر</p>
+            <p class="hidden-text">ساند لابتوب </p>            
         </body>
         </html>
      <link rel="stylesheet" href="styles.css">
@@ -3131,7 +3196,7 @@ margin-left: 8px;
                     'لا شئ', 
                     'فضي', 
                     'لا شئ', 
-                    '● رقم المنتج|9\n ● مواد| ألومنيوم\n● الاستخدام| حامل لابتوب\n● السعر بالدولار| ≈ 2.98\n'
+                    '● رقم المنتج| 9#\n ● مواد| ألومنيوم\n● الاستخدام| حامل لابتوب\n● السعر بالدولار| ≈ 2.98\n'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3168,8 +3233,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|10</p>
-    
+        <p class="hidden-text">رقم المنتج10# رقم المنتج 10# رقم المنتج|10# رقم المنتج| 10# ر</p>
+        <p class="hidden-text">موس للاعاب ماوس للاعاب </p>        
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -3217,7 +3282,7 @@ margin-left: 8px;
                     'لا شئ', 
                     'متعدد', 
                     '30سم', 
-                    '● رقم المنتج|10\n ● مواد| بلاستيك\n● السعر بالدولار| ≈ 4.01\n'
+                    '● رقم المنتج| 10#\n ● مواد| بلاستيك\n● السعر بالدولار| ≈ 4.01\n'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3249,8 +3314,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|11</p>
-        
+            <p class="hidden-text">رقم المنتج11# رقم المنتج 11# رقم المنتج|11# رقم المنتج| 11# ر</p>
+            <p class="hidden-text">اغراض كمبيوتر للكمبيوتر</p>            
         </body>
         </html>
      <link rel="stylesheet" href="styles.css">
@@ -3300,7 +3365,7 @@ margin-left: 8px;
                     'كرومال', 
                     'لا شئ', 
                     '15 سم', 
-                    '● رقم المنتج|11\n ● مواد| ذاكرة\n● الوزن| 50 جرام\n● السعر بالدولار| ≈ 18.93\n'
+                    '● رقم المنتج| 11#\n ● مواد| ذاكرة\n● الوزن| 50 جرام\n● السعر بالدولار| ≈ 18.93\n'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3334,8 +3399,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|12</p>
-        
+            <p class="hidden-text">رقم المنتج12# رقم المنتج 12# رقم المنتج|12# رقم المنتج| 12# ر</p>
+            <p class="hidden-text">بطاريه بطارية </p>            
         </body>
         </html>
      <link rel="stylesheet" href="styles.css">
@@ -3384,7 +3449,7 @@ margin-left: 8px;
                     'توشيبا', 
                     'معدن', 
                     '7سم', 
-                    '● رقم المنتج|12\n ● مواد| معدن\n● الوزن| 20g\n● السعر بالدولار| ≈ 0.51'
+                    '● رقم المنتج| 12#\n ● مواد| معدن\n● الوزن| 20g\n● السعر بالدولار| ≈ 0.51'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3418,8 +3483,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|13</p>
-        
+            <p class="hidden-text">رقم المنتج13# رقم المنتج 13# رقم المنتج|13# رقم المنتج| 13# ر</p>
+            <p class="hidden-text"> </p>            
         </body>
         </html>
      <link rel="stylesheet" href="styles.css">
@@ -3469,7 +3534,7 @@ margin-left: 8px;
                     'سانديسك', 
                     'فضى', 
                     '12 سم', 
-                    '● رقم المنتج|13\n ● مواد| معدن\n● الوزن| 5g\n● السعة| 32GB\n● السعر بالدولار| ≈ 4.32'
+                    '● رقم المنتج| 13#\n ● مواد| معدن\n● الوزن| 5g\n● السعة| 32GB\n● السعر بالدولار| ≈ 4.32'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3502,8 +3567,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|14</p>
-        
+            <p class="hidden-text">رقم المنتج14# رقم المنتج 14# رقم المنتج|14# رقم المنتج| 14# ر</p>
+            <p class="hidden-text">كارد كارت موميرى</p>            
         </body>
         </html>
      <link rel="stylesheet" href="styles.css">
@@ -3552,7 +3617,7 @@ margin-left: 8px;
                     'كينجستون', 
                     'لا شئ', 
                     'أسود', 
-                    '● رقم المنتج|14\n ● مواد| بلاستيك\n● الوزن| 10g\n● السعة| 128GB\n● السعر بالدولار| ≈ 8.23'
+                    '● رقم المنتج| 14#\n ● مواد| بلاستيك\n● الوزن| 10g\n● السعة| 128GB\n● السعر بالدولار| ≈ 8.23'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3584,8 +3649,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|15</p>
-        
+            <p class="hidden-text">رقم المنتج15# رقم المنتج 15# رقم المنتج|15# رقم المنتج| 15# ر</p>
+            <p class="hidden-text">كتب</p>            
         </body>
         </html>
      <link rel="stylesheet" href="styles.css">
@@ -3635,7 +3700,7 @@ margin-left: 8px;
                     'مكتبة جرير', 
                     'لا شئ', 
                     'لا شئ', 
-                    '● رقم المنتج|15\n● النوع| كتاب\n● المؤلف| بنيامين جراهام\n● الطبعة| —\n● عدد الصفحات| —\n● السعر بالدولار| ≈ 5.04'
+                    '● رقم المنتج| 15#\n● النوع| كتاب\n● المؤلف| بنيامين جراهام\n● الطبعة| —\n● عدد الصفحات| —\n● السعر بالدولار| ≈ 5.04'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3670,8 +3735,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|16</p>
-    
+        <p class="hidden-text">رقم المنتج16# رقم المنتج 16# رقم المنتج|16# رقم المنتج| 16# ر</p>
+        <p class="hidden-text">بطاريات بطارية</p>        
     </body>
     </html>
   <link rel="stylesheet" href="styles.css">
@@ -3721,7 +3786,7 @@ margin-left: 8px;
                     'لا شئ', 
                     'لا شئ', 
                     'لا شئ', 
-                    '● رقم المنتج|16\n● النوع| بطارية زنك وكاربون\n● الجهد| 9 فولت\n● السعر بالدولار| ≈ 1.29'
+                    '● رقم المنتج| 16#\n● النوع| بطارية زنك وكاربون\n● الجهد| 9 فولت\n● السعر بالدولار| ≈ 1.29'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3756,8 +3821,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|17</p>
-                
+                    <p class="hidden-text">رقم المنتج17# رقم المنتج 17# رقم المنتج|17# رقم المنتج| 17# ر</p>
+                    <p class="hidden-text">لزق </p>                    
                 </body>
                 </html>
                <link rel="stylesheet" href="styles.css">
@@ -3806,7 +3871,7 @@ margin-left: 8px;
                     '—', 
                     'فضى', 
                     '2 بوصة', 
-                    '● رقم المنتج|17\n● النوع| شريط لاصق\n● السعر بالدولار| ≈ 1.23'
+                    '● رقم المنتج| 17#\n● النوع| شريط لاصق\n● السعر بالدولار| ≈ 1.23'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3839,8 +3904,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|18</p>
-    
+        <p class="hidden-text">رقم المنتج18# رقم المنتج 18# رقم المنتج|18# رقم المنتج| 18# ر</p>
+        <p class="hidden-text">شنطه شنطة</p>        
     </body>
     </html>
  <link rel="stylesheet" href="styles.css">
@@ -3890,7 +3955,7 @@ margin-left: 8px;
                     '—', 
                     'رصاصي*أسود', 
                     '—', 
-                    '● رقم المنتج|18\n● مواد| قماش\n● النوع| حقيبة يد\n● السعر بالدولار| ≈ 2.76'
+                    '● رقم المنتج| 18#\n● مواد| قماش\n● النوع| حقيبة يد\n● السعر بالدولار| ≈ 2.76'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3922,8 +3987,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|19</p>
-        
+            <p class="hidden-text">رقم المنتج19# رقم المنتج 19# رقم المنتج|19# رقم المنتج| 19# ر</p>
+            <p class="hidden-text">اضاءه اضاءة </p>            
         </body>
         </html>
     <link rel="stylesheet" href="styles.css">
@@ -3973,7 +4038,7 @@ margin-left: 8px;
                     '—', 
                     'أزرق', 
                     '3 متر', 
-                    '● رقم المنتج|19\n● النوع| سلك إضاءة\n● اللون| أزرق\n● الطول| 3 متر\n● السعر بالدولار| ≈ 1.13'
+                    '● رقم المنتج| 19#\n● النوع| سلك إضاءة\n● اللون| أزرق\n● الطول| 3 متر\n● السعر بالدولار| ≈ 1.13'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4004,8 +4069,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|20</p>
-    
+        <p class="hidden-text">رقم المنتج20# رقم المنتج 20# رقم المنتج|20# رقم المنتج| 20# ر</p>
+        <p class="hidden-text">جزمه</p>        
     </body>
     </html>
     <link rel="stylesheet" href="styles.css">
@@ -4042,8 +4107,24 @@ margin-left: 8px;
             </head>
         </div>
         <div class="product-images">
-            <img src="20.jpg" alt="product" onclick="updateProductDetails('حذاء foot steps ', 'السعر: 260 جنيه', '       ', 'لا يوجد تقييم', ['20.jpg'], 'foot steps', 'اسود', '44'); openModal2();" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+            <img 
+                src="20.jpg" 
+                alt="product" 
+                onclick="updateProductDetails(
+                    'حذاء foot steps', 
+                    'السعر: 260 جنيه', 
+                    '  ', 
+                    'لا يوجد تقييم', 
+                    ['20.jpg'], 
+                    'foot steps', 
+                    'أسود', 
+                    '44', 
+                    '● رقم المنتج| 20#\n● النوع| حذاء\n● العلامة التجارية| foot steps\n● السعر بالدولار| ≈ 5.35'
+                ); openModal2(); return false;" 
+                ontouchstart="this.focus();" 
+                style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
         </div>
+        
         <div style="clear:both;"></div>
         <button onclick="addToCart(this)" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent; outline: none;">    
             <svg width="56" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -4071,8 +4152,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|21</p>
-        
+            <p class="hidden-text">رقم المنتج21# رقم المنتج 21# رقم المنتج|21# رقم المنتج| 21# ر</p>
+            <p class="hidden-text">كتب</p>            
         </body>
         </html>
      <link rel="stylesheet" href="styles.css">
@@ -4122,7 +4203,7 @@ margin-left: 8px;
                     'دار الفاروق', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|21\n● النوع| كتاب\n● الناشر| دار الفاروق\n● السعر بالدولار| ≈ 3.91'
+                    '● رقم المنتج| 21#\n● النوع| كتاب\n● الناشر| دار الفاروق\n● السعر بالدولار| ≈ 3.91'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4154,8 +4235,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|22</p>
-        
+        <p class="hidden-text">رقم المنتج22# رقم المنتج 22# رقم المنتج|22# رقم المنتج| 22# ر</p>
+            <p class="hidden-text">لعبه العاب تيك توك</p>          
         </body>
         </html>
     <link rel="stylesheet" href="styles.css">
@@ -4204,7 +4285,7 @@ margin-left: 8px;
                     '—', 
                     'متعدد الألوان', 
                     '—', 
-                    '● رقم المنتج|22\n● النوع| لعبة\n● المواد| بلاستيك\n● السعر بالدولار| ≈ 0.51'
+                    '● رقم المنتج| 22#\n● النوع| لعبة\n● المواد| بلاستيك\n● السعر بالدولار| ≈ 0.51'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4235,8 +4316,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|23</p>
-                
+                    <p class="hidden-text">رقم المنتج23# رقم المنتج 23# رقم المنتج|23# رقم المنتج| 23# ر</p>
+                    <p class="hidden-text">مجلات مجله</p>                    
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -4286,7 +4367,7 @@ margin-left: 8px;
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|23\n● النوع| مجلة\n● المواد| ورق\n● السعر بالدولار| ≈ 0.51'
+                    '● رقم المنتج| 23#\n● النوع| مجلة\n● المواد| ورق\n● السعر بالدولار| ≈ 0.51'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4317,8 +4398,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|24</p>
-                
+                    <p class="hidden-text">رقم المنتج24# رقم المنتج 24# رقم المنتج|24# رقم المنتج| 24# ر</p>
+                    <p class="hidden-text"> </p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -4367,7 +4448,7 @@ margin-left: 8px;
                     '—', 
                     'أبيض', 
                     'A4', 
-                    '● رقم المنتج|24\n● النوع| ورق طباعة\n● اللون| أبيض\n● المقاس| A4\n● العدد| 500 ورقة\n● السعر بالدولار| ≈ 1.02'
+                    '● رقم المنتج| 24#\n● النوع| ورق طباعة\n● اللون| أبيض\n● المقاس| A4\n● العدد| 500 ورقة\n● السعر بالدولار| ≈ 1.02'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4401,8 +4482,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|25</p>
-                
+                    <p class="hidden-text">رقم المنتج25# رقم المنتج 25# رقم المنتج|25# رقم المنتج| 25# ر</p>
+                    <p class="hidden-text">عربى انجليزى</p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -4452,7 +4533,7 @@ margin-left: 8px;
                     '—', 
                     'أسود', 
                     '—', 
-                    '● رقم المنتج|25\n● النوع| ملصقات كيبورد\n● اللغة| عربي إنجليزي\n● السعر بالدولار| ≈ 0.61'
+                    '● رقم المنتج| 25#\n● النوع| ملصقات كيبورد\n● اللغة| عربي إنجليزي\n● السعر بالدولار| ≈ 0.61'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4483,8 +4564,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|26</p>
-                
+                    <p class="hidden-text">رقم المنتج26# رقم المنتج 26# رقم المنتج|26# رقم المنتج| 26# ر</p>
+                    <p class="hidden-text">كتب</p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -4533,7 +4614,7 @@ margin-left: 8px;
                     'مكتبة جرير', 
                     'أبيض', 
                     '—', 
-                    '● رقم المنتج|26\n● النوع| كتاب\n● العنوان| محاط بالحمقى\n● المؤلف| توماس اريكسون\n● السعر بالدولار| ≈ 2.94\n● البائع| مكتبة جرير'
+                    '● رقم المنتج| 26#\n● النوع| كتاب\n● العنوان| محاط بالحمقى\n● المؤلف| توماس اريكسون\n● السعر بالدولار| ≈ 2.94\n● البائع| مكتبة جرير'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4562,8 +4643,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|27</p>
-                
+                    <p class="hidden-text">رقم المنتج27# رقم المنتج 27# رقم المنتج|27# رقم المنتج| 27# ر</p>
+                    <p class="hidden-text">العاب تيك توك لعبه</p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -4612,7 +4693,7 @@ margin-left: 8px;
                     '—', 
                     'أخضر*أحمر', 
                     '—', 
-                    '● رقم المنتج|27\n● النوع| لعبة\n● اللون| أخضر*أحمر\n● السعر بالدولار| ≈ 3.69'
+                    '● رقم المنتج| 27#\n● النوع| لعبة\n● اللون| أخضر*أحمر\n● السعر بالدولار| ≈ 3.69'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4643,8 +4724,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|28</p>
-                
+                    <p class="hidden-text">رقم المنتج28# رقم المنتج 28# رقم المنتج|28# رقم المنتج| 28# ر</p>
+                    <p class="hidden-text"> </p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -4694,7 +4775,7 @@ margin-left: 8px;
                     '—', 
                     'أسود', 
                     '—', 
-                    '● رقم المنتج|28\n● النوع| جراب هاتف\n● المتوافق معه| آيفون 15 برو ماكس\n● المادة| سيليكون\n● اللون| أسود\n● السعر بالدولار| ≈ 2.04'
+                    '● رقم المنتج| 28#\n● النوع| جراب هاتف\n● المتوافق معه| آيفون 15 برو ماكس\n● المادة| سيليكون\n● اللون| أسود\n● السعر بالدولار| ≈ 2.04'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4725,8 +4806,8 @@ margin-left: 8px;
             </head>
             <body>
             
-            <p class="hidden-text">رقم المنتج|29</p>
-            
+                <p class="hidden-text">رقم المنتج29# رقم المنتج 29# رقم المنتج|29# رقم المنتج| 29# ر</p>
+                <p class="hidden-text">قلم هاتف </p>              
             </body>
             </html>
           <link rel="stylesheet" href="styles.css">
@@ -4776,7 +4857,7 @@ margin-left: 8px;
                     'زوتيك', 
                     'أسود', 
                     '—', 
-                    '● رقم المنتج|29\n● النوع| قلم ستايلس\n● الميزة| 2 في 1 مع شاشة لمس\n● اللون| أسود\n● السعر بالدولار| ≈ 0.92'
+                    '● رقم المنتج| 29#\n● النوع| قلم ستايلس\n● الميزة| 2 في 1 مع شاشة لمس\n● اللون| أسود\n● السعر بالدولار| ≈ 0.92'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4806,8 +4887,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|30</p>
-                
+                    <p class="hidden-text">رقم المنتج30# رقم المنتج 30# رقم المنتج|30# رقم المنتج| 30# ر</p>
+                    <p class="hidden-text"> </p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -4857,7 +4938,7 @@ margin-left: 8px;
                     'EPOBOND', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|30\n● النوع| عبوات صمغ\n● الاستخدام| متعدد الأغراض\n● السعر بالدولار| ≈ 0.41'
+                    '● رقم المنتج| 30#\n● النوع| عبوات صمغ\n● الاستخدام| متعدد الأغراض\n● السعر بالدولار| ≈ 0.41'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4887,7 +4968,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|31</p>
+                    <p class="hidden-text">رقم المنتج31# رقم المنتج 31# رقم المنتج|31# رقم المنتج| 31# ر</p>
+                    <p class="hidden-text">مجله مجلات</p>  
                 
                 </body>
                 </html>
@@ -4938,7 +5020,7 @@ margin-left: 8px;
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|31\n● النوع| مجلة\n● العدد| 195 للشباب\n● السعر بالدولار| ≈ 0.71'
+                    '● رقم المنتج| 31#\n● النوع| مجلة\n● العدد| 195 للشباب\n● السعر بالدولار| ≈ 0.71'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4968,8 +5050,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|32</p>
-                
+                    <p class="hidden-text">رقم المنتج32# رقم المنتج 32# رقم المنتج|32# رقم المنتج| 32# ر</p>
+                    <p class="hidden-text">العاب لعبه</p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -5018,7 +5100,7 @@ margin-left: 8px;
                     '—', 
                     'برتقالي', 
                     '—', 
-                    '● رقم المنتج|32\n● النوع| لعبة كرة تفاعلية\n● الوظيفة| تخفيف التوتر\n● السعر بالدولار| ≈ 1.12'
+                    '● رقم المنتج| 32#\n● النوع| لعبة كرة تفاعلية\n● الوظيفة| تخفيف التوتر\n● السعر بالدولار| ≈ 1.12'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5048,8 +5130,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|33</p>
-                
+                    <p class="hidden-text">رقم المنتج33# رقم المنتج 33# رقم المنتج|33# رقم المنتج| 33# ر</p>
+                    <p class="hidden-text"> </p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -5099,7 +5181,7 @@ margin-left: 8px;
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|33\n● النوع| ميزان إلكتروني\n● المادة| زجاج سميك\n● السعر بالدولار| ≈ 3.84'
+                    '● رقم المنتج| 33#\n● النوع| ميزان إلكتروني\n● المادة| زجاج سميك\n● السعر بالدولار| ≈ 3.84'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5129,8 +5211,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|34</p>
-                
+                    <p class="hidden-text">رقم المنتج34# رقم المنتج 34# رقم المنتج|34# رقم المنتج| 34# ر</p>
+                    <p class="hidden-text"> </p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -5180,7 +5262,7 @@ margin-left: 8px;
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|34\n● النوع| ميزان شنط\n● الاستخدام| للسفر\n● السعر بالدولار| ≈ 6.30'
+                    '● رقم المنتج| 34#\n● النوع| ميزان شنط\n● الاستخدام| للسفر\n● السعر بالدولار| ≈ 6.30'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5212,8 +5294,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|35</p>
-                
+                    <p class="hidden-text">رقم المنتج35# رقم المنتج 35# رقم المنتج|35# رقم المنتج| 35# ر</p>
+                    <p class="hidden-text">حقيبة شنطة لاب</p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -5263,7 +5345,7 @@ margin-left: 8px;
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|35\n● النوع| حافظة لابتوب\n● الحجم| 5.6 بوصة\n● السعر بالدولار| ≈ 3.69'
+                    '● رقم المنتج| 35#\n● النوع| حافظة لابتوب\n● الحجم| 5.6 بوصة\n● السعر بالدولار| ≈ 3.69'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5294,8 +5376,8 @@ margin-left: 8px;
         </head>
         <body>
         
-        <p class="hidden-text">رقم المنتج|36</p>
-        
+            <p class="hidden-text">رقم المنتج36# رقم المنتج 36# رقم المنتج|36# رقم المنتج| 36# ر</p>
+            <p class="hidden-text">كتب</p>          
         </body>
         </html>
      <link rel="stylesheet" href="styles.css">
@@ -5344,7 +5426,7 @@ margin-left: 8px;
                     'طاهر المعتز بالله', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|36\n● النوع| كتاب\n● المؤلف| طاهر المعتز بالله\n● السعر بالدولار| ≈ 1.93'
+                    '● رقم المنتج| 36#\n● النوع| كتاب\n● المؤلف| طاهر المعتز بالله\n● السعر بالدولار| ≈ 1.93'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5374,8 +5456,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|37</p>
-    
+        <p class="hidden-text">رقم المنتج37# رقم المنتج 37# رقم المنتج|37# رقم المنتج| 37# ر</p>
+        <p class="hidden-text">شنطه شنطة شنط</p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -5425,7 +5507,7 @@ margin-left: 8px;
                     'مينترا هوم', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|37\n● النوع| حقيبة ظهر مدرسية\n● السعر بالدولار| ≈ 4.16'
+                    '● رقم المنتج| 37#\n● النوع| حقيبة ظهر مدرسية\n● السعر بالدولار| ≈ 4.16'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5457,8 +5539,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|38</p>
-    
+        <p class="hidden-text">رقم المنتج38# رقم المنتج 38# رقم المنتج|38# رقم المنتج| 38# ر</p>
+        <p class="hidden-text"> </p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -5508,7 +5590,7 @@ margin-left: 8px;
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|38\n● النوع| مجموعة أقلام الرسم\n● الألوان| مائية\n● السعر بالدولار| ≈ 4.01'
+                    '● رقم المنتج| 38#\n● النوع| مجموعة أقلام الرسم\n● الألوان| مائية\n● السعر بالدولار| ≈ 4.01'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5540,8 +5622,8 @@ margin-left: 8px;
                 </head>
                 <body>
                 
-                <p class="hidden-text">رقم المنتج|39</p>
-                
+                    <p class="hidden-text">رقم المنتج39# رقم المنتج 39# رقم المنتج|39# رقم المنتج| 39# ر</p>
+                    <p class="hidden-text">ادوات اقلام ادوات مدرسيه  مذاكره</p>                  
                 </body>
                 </html>
             <link rel="stylesheet" href="styles.css">
@@ -5591,7 +5673,7 @@ margin-left: 8px;
                     '—', 
                     'أسود', 
                     '—', 
-                    '● رقم المنتج|39\n● النوع| حامل أقلام\n● اللون| أسود\n● السعر بالدولار| ≈ 1.22'
+                    '● رقم المنتج| 39#\n● النوع| حامل أقلام\n● اللون| أسود\n● السعر بالدولار| ≈ 1.22'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5624,8 +5706,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|40</p>
-    
+        <p class="hidden-text">رقم المنتج40# رقم المنتج 40# رقم المنتج|40# رقم المنتج| 40# ر</p>
+        <p class="hidden-text">ادوات خشبيه</p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -5674,7 +5756,7 @@ margin-left: 8px;
                     '—', 
                     'أبيض*رصاصي', 
                     '—', 
-                    '● رقم المنتج|40\n● النوع| رف كتب من الخشب\n● السعر بالدولار| ≈ 12.73'
+                    '● رقم المنتج| 40#\n● النوع| رف كتب من الخشب\n● السعر بالدولار| ≈ 12.73'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5706,8 +5788,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|41</p>
-    
+        <p class="hidden-text">رقم المنتج40# رقم المنتج 41# رقم المنتج|41# رقم المنتج| 41# ر</p>
+        <p class="hidden-text">ساعة</p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -5756,7 +5838,7 @@ margin-left: 8px;
                     '—', 
                     'فضي', 
                     '4 بوصة', 
-                    '● رقم المنتج|41\n● النوع| ساعة منبه\n● الميزة| جرس مزدوج\n● الحجم| 4 بوصة\n● السعر بالدولار| ≈ 3.84'
+                    '● رقم المنتج| 41#\n● النوع| ساعة منبه\n● الميزة| جرس مزدوج\n● الحجم| 4 بوصة\n● السعر بالدولار| ≈ 3.84'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5788,8 +5870,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|42</p>
-    
+        <p class="hidden-text">رقم المنتج42# رقم المنتج 42# رقم المنتج|42# رقم المنتج| 42# ر</p>
+        <p class="hidden-text">العاب لعبه لعب ذكاء</p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -5838,7 +5920,7 @@ margin-left: 8px;
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|42\n● النوع| مكعب روبيك\n● الحجم| 3x3\n● السعر بالدولار| ≈ 1.22'
+                    '● رقم المنتج| 42#\n● النوع| مكعب روبيك\n● الحجم| 3x3\n● السعر بالدولار| ≈ 1.22'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5871,8 +5953,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|43</p>
-    
+        <p class="hidden-text">رقم المنتج43# رقم المنتج 43# رقم المنتج|43# رقم المنتج| 43# ر</p>
+        <p class="hidden-text">مايك</p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -5922,7 +6004,7 @@ margin-left: 8px;
                     '—', 
                     'أسود', 
                     '—', 
-                    '● رقم المنتج|43\n● النوع| ميكرفون صغير للموبايل\n● السعر بالدولار| ≈ 0.77'
+                    '● رقم المنتج| 43#\n● النوع| ميكرفون صغير للموبايل\n● السعر بالدولار| ≈ 0.77'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5954,8 +6036,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|44</p>
-    
+        <p class="hidden-text">رقم المنتج44# رقم المنتج 44# رقم المنتج|44# رقم المنتج| 44# ر</p>
+        <p class="hidden-text">زجاجات فارغة رش للرش</p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -6004,7 +6086,7 @@ margin-left: 8px;
                     '—', 
                     'شفاف', 
                     '50 أونصة', 
-                    '● رقم المنتج|44\n● النوع| زجاجات بخاخ فارغة\n● العدد| ستة عبوات\n● المادة| بلاستيك\n● الحجم| 50 أونصة\n● السعر بالدولار| ≈ 2.34'
+                    '● رقم المنتج| 44#\n● النوع| زجاجات بخاخ فارغة\n● العدد| ستة عبوات\n● المادة| بلاستيك\n● الحجم| 50 أونصة\n● السعر بالدولار| ≈ 2.34'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6037,8 +6119,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|45</p>
-    
+        <p class="hidden-text">رقم المنتج45# رقم المنتج 45# رقم المنتج|45# رقم المنتج| 45# ر</p>
+        <p class="hidden-text">حفلات </p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -6087,7 +6169,7 @@ margin-left: 8px;
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|45\n● النوع| مفرقعات زينة\n● الاستخدام| للحفلات\n● السعر بالدولار| ≈ 1.12'
+                    '● رقم المنتج| 45#\n● النوع| مفرقعات زينة\n● الاستخدام| للحفلات\n● السعر بالدولار| ≈ 1.12'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6120,8 +6202,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|46</p>
-    
+        <p class="hidden-text">رقم المنتج46# رقم المنتج 46# رقم المنتج|46# رقم المنتج| 46# ر</p>
+        <p class="hidden-text">حفلات </p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -6170,7 +6252,7 @@ margin-left: 8px;
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|46\n● النوع| سبراي ثلج\n● الاستخدام| للافراح والحفلات\n● السعر بالدولار| ≈ 1.00'
+                    '● رقم المنتج| 46#\n● النوع| سبراي ثلج\n● الاستخدام| للافراح والحفلات\n● السعر بالدولار| ≈ 1.00'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6204,8 +6286,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|47</p>
-    
+        <p class="hidden-text">رقم المنتج47# رقم المنتج 47# رقم المنتج|47# رقم المنتج| 47# ر</p>
+        <p class="hidden-text"> </p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -6254,7 +6336,7 @@ margin-left: 8px;
                     '—', 
                     'أخضر', 
                     '—', 
-                    '● رقم المنتج|47\n● النوع| قلم ليزر\n● اللون| أخضر\n● السعر بالدولار| ≈ 8.12'
+                    '● رقم المنتج| 47#\n● النوع| قلم ليزر\n● اللون| أخضر\n● السعر بالدولار| ≈ 8.12'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6286,8 +6368,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|48</p>
-    
+        <p class="hidden-text">رقم المنتج48# رقم المنتج 48# رقم المنتج|48# رقم المنتج| 48# ر</p>
+        <p class="hidden-text">وصله وصلة </p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -6338,7 +6420,7 @@ margin-left: 8px;
                     '—', 
                     'أبيض', 
                     '—', 
-                    '● رقم المنتج|48\n● النوع| كابل شحن سريع\n● اللون| أبيض\n● السعر بالدولار| ≈ 1.02'
+                    '● رقم المنتج| 48#\n● النوع| كابل شحن سريع\n● اللون| أبيض\n● السعر بالدولار| ≈ 1.02'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6372,8 +6454,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|48</p>
-    
+        <p class="hidden-text">رقم المنتج49# رقم المنتج 49# رقم المنتج|49# رقم المنتج| 49# ر</p>
+        <p class="hidden-text">ادوات تزين للحائط </p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -6421,7 +6503,7 @@ margin-left: 8px;
                     '—', 
                     'متعدد الألوان', 
                     '—', 
-                    '● رقم المنتج|49\n● النوع| دبابيس حائط ملونة\n● عدد القطع| 35 قطعة\n● السعر بالدولار| ≈ 2.04'
+                    '● رقم المنتج| 49#\n● النوع| دبابيس حائط ملونة\n● عدد القطع| 35 قطعة\n● السعر بالدولار| ≈ 2.04'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6453,8 +6535,8 @@ margin-left: 8px;
     </head>
     <body>
     
-    <p class="hidden-text">رقم المنتج|50</p>
-    
+        <p class="hidden-text">رقم المنتج50# رقم المنتج 50# رقم المنتج|50# رقم المنتج| 50# ر</p>
+        <p class="hidden-text">مجله مجلات</p>      
     </body>
     </html>
 <link rel="stylesheet" href="styles.css">
@@ -6508,7 +6590,7 @@ margin-left: 8px;
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج|50\n● النوع| مجلة ميكي\n● العدد| 1000\n● السعر بالدولار| ≈ 0.49'
+                    '● رقم المنتج| 50#\n● النوع| مجلة ميكي\n● العدد| 1000\n● السعر بالدولار| ≈ 0.49'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
