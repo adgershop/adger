@@ -234,7 +234,7 @@ h3 {
 
 /* تنسيق روابط البحث */
 .search-links {
-    background: linear-gradient(135deg, #82899f, #476b6e); /* Background color for search bar area *//* لون خلفية يمكن تغييره حسب التصميم */
+    background: linear-gradient(135deg, #424b53, #50767a); /* Background color for search bar area *//* لون خلفية يمكن تغييره حسب التصميم */
     padding: 5px 0; /* مساحة من الأعلى والأسفل */
     margin: 0; /* إزالة الهوامش */
     max-width: 105%;
@@ -255,16 +255,16 @@ h3 {
 
 .search-links a {
     text-decoration: none; /* إزالة الخط السفلي للرابط */
-    color: #333; /* لون النص */
+    color: #ffffff; /* لون النص */
     display: inline-block; /* يجعل الرابط كزر قابل للتنسيق */
-    padding: 4px 13px; /* مساحة حول النص */
+    padding: 4px 5px; /* مساحة حول النص */
     margin-right: 10px; /* مساحة بين الروابط */
-    background: linear-gradient(135deg, #ffc116, #f0ffa7); /* لون خلفية الرابط */
-    border-radius: 39px; /* زوايا دائرية للرابط */
+    border-radius: 11px; /* زوايا دائرية للرابط */
     transition: background-color 0.3s; /* تأثير انتقال اللون عند التمرير */
+    font-size: 18px;
 }
 
 .search-links a:hover {
-    background-color: #d0d0d0; /* لون خلفية الرابط عند التمرير */
+    background-color: #fa5c00; /* لون خلفية الرابط عند التمرير */
 }
 
