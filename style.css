@@ -198,7 +198,7 @@ h3 {
     color: rgb(233, 4, 4);
     font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
     font-size: 14px; /* يمكنك تغيير حجم الخط هنا */
-    width: 103px;
+    width: 106px;
     background: linear-gradient(135deg, #ff0000 0%, #ff2a00 100%); /* تدرج لوني جميل للخلفية */
     color: white; /* لون النص */
     padding: 3px; /* مساحة داخلية حول النص */
@@ -288,4 +288,27 @@ h3 {
 .product-item {
     text-align: right; /* محاذاة النصوص إلى اليمين */
 }
+
+.cart-header {
+    display: flex;
+    align-items: center;
+}
+
+.cart-text {
+    margin-left: 8px; /* Adjust spacing as needed */
+    font-size: 19px; /* Slightly larger font size for better visibility */
+    color: #364a6e; /* A modern shade of blue */
+    font-family: 'Lobster', cursive; /* Decorative font for a stylish look */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    letter-spacing: 0.5px; /* Slightly increased spacing between letters */
+    font-weight: bold; /* Bold text for emphasis */
+    transition: color 0.3s ease, text-shadow 0.3s ease; /* Smooth transition effects */
+}
+
+/* Add a hover effect to make the text more interactive */
+.cart-text:hover {
+    color: #3c4d60; /* Darker blue on hover */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); /* Slightly stronger shadow on hover */
+}
+
 
