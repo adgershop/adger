@@ -2448,7 +2448,7 @@ if (!spacing) {
             // Remove focus from any focused element to prevent the keyboard from opening on mobile devices
             document.activeElement.blur();
 
-            // Wait for a short duration to ensure blur is processed before opening the email
+            // Use setTimeout to ensure focus is removed before opening the email client
             setTimeout(function() {
                 var name = document.getElementById('name').value;
                 var contactNumber = document.getElementById('contact-number').value;
@@ -2467,7 +2467,7 @@ if (!spacing) {
                 );
 
                 var mailtoLink = `mailto:adger.shop@gmail.com?subject=${subject}&body=${body}`;
-                window.open(mailtoLink, '_blank');
+                window.location.href = mailtoLink;
 
                 localStorage.setItem('savedName', name);
                 localStorage.setItem('savedContactNumber', contactNumber);
