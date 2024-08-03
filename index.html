@@ -2444,35 +2444,30 @@ if (!spacing) {
             document.body.classList.remove('popup-open'); // استعادة التمرير على الصفحة الرئيسية
         }
 
+
         function openEmail() {
-            // Remove focus from any focused element to prevent the keyboard from opening on mobile devices
-            document.activeElement.blur();
+            var name = document.getElementById('name').value;
+            var contactNumber = document.getElementById('contact-number').value;
+            var location = document.getElementById('location').value;
+            var quantity = document.getElementById('quantity-number').innerText;
+            var popup = document.getElementById('popup');
+            var productName = popup.dataset.productName || "اسم المنتج غير محدد";
+            var productNumber = popup.dataset.productNumber || "رقم المنتج غير محدد";
+            var price = parseFloat(popup.dataset.price) || 0;
+            var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
+            var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
 
-            // Use setTimeout to ensure focus is removed before opening the email client
-            setTimeout(function() {
-                var name = document.getElementById('name').value;
-                var contactNumber = document.getElementById('contact-number').value;
-                var location = document.getElementById('location').value;
-                var quantity = document.getElementById('quantity-number').innerText;
-                var popup = document.getElementById('popup');
-                var productName = popup.dataset.productName || "اسم المنتج غير محدد";
-                var productNumber = popup.dataset.productNumber || "رقم المنتج غير محدد";
-                var price = parseFloat(popup.dataset.price) || 0;
-                var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
-                var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
+            var subject = encodeURIComponent('#طلب شراء');
+            var body = encodeURIComponent(
+                `#طلب شراء\n${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nرقم التواصل: ${contactNumber}\nالموقع الجغرافي: ${location}\nالسعر: ${price} جنيه\nسعر التوصيل,يختلف احياناً: ${deliveryCharge} جنيه\nالسعر الإجمالي: ${totalPrice} جنيه`
+            );
 
-                var subject = encodeURIComponent('#طلب شراء');
-                var body = encodeURIComponent(
-                    `#طلب شراء\n${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nرقم التواصل: ${contactNumber}\nالموقع الجغرافي: ${location}\nالسعر: ${price} جنيه\nسعر التوصيل,يختلف احياناً: ${deliveryCharge} جنيه\nالسعر الإجمالي: ${totalPrice} جنيه`
-                );
+            var mailtoLink = `mailto:adger.shop@gmail.com?subject=${subject}&body=${body}`;
+            window.open(mailtoLink, '_blank');
 
-                var mailtoLink = `mailto:adger.shop@gmail.com?subject=${subject}&body=${body}`;
-                window.location.href = mailtoLink;
-
-                localStorage.setItem('savedName', name);
-                localStorage.setItem('savedContactNumber', contactNumber);
-                localStorage.setItem('savedLocation', location);
-            }, 100); // Adjust the timeout duration if needed
+            localStorage.setItem('savedName', name);
+            localStorage.setItem('savedContactNumber', contactNumber);
+            localStorage.setItem('savedLocation', location);
         }
 
         function changeQuantity(change) {
@@ -5218,7 +5213,7 @@ if (!spacing) {
             <h3>
                 <span class="price-label">السعر:</span>
                 <span class="price-amount" style="position: relative; top: 3px; font-size: 80%; color: rgb(255, 106, 0);">00</span>
-                <span class="price-amount">190</span>
+                <span class="price-amount">300</span>
                 <span class="price-currency">جنيه</span>
             </h3>
         </body>
@@ -5252,14 +5247,14 @@ if (!spacing) {
                 alt="product" 
                 onclick="updateProductDetails(
                     'ميزان إلكتروني رقمي', 
-                    'السعر: ₀₀ 190 جنيه', 
+                    'السعر: ₀₀ 300 جنيه', 
                     'مصنوع من زجاج سميك', 
                     'لا يوجد تقييم', 
                     ['33.jpg'], 
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 33#\n● النوع| ميزان إلكتروني\n● المادة| زجاج سميك\n● السعر بالدولار| ≈ 3.84'
+                    '● رقم المنتج| 33#\n● النوع| ميزان إلكتروني\n● المادة| زجاج سميك\n● السعر بالدولار| ≈ 6.17'
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5272,7 +5267,7 @@ if (!spacing) {
             </svg>
         </button>
 <br>
-<a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"data-product-name="ميزان الكترونى رقمى" data-product-number="33" data-price="190" data-delivery-charge="50">اشترِ الآن</a>
+<a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;"data-product-name="ميزان الكترونى رقمى" data-product-number="33" data-price="300" data-delivery-charge="50">اشترِ الآن</a>
     </div>
 
 
