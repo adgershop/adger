@@ -2446,32 +2446,33 @@ if (!spacing) {
 
         function openEmail() {
             // Remove focus from any focused element to prevent the keyboard from opening on mobile devices
-            if (document.activeElement) {
-                document.activeElement.blur();
-            }
+            document.activeElement.blur();
 
-            var name = document.getElementById('name').value;
-            var contactNumber = document.getElementById('contact-number').value;
-            var location = document.getElementById('location').value;
-            var quantity = document.getElementById('quantity-number').innerText;
-            var popup = document.getElementById('popup');
-            var productName = popup.dataset.productName || "اسم المنتج غير محدد";
-            var productNumber = popup.dataset.productNumber || "رقم المنتج غير محدد";
-            var price = parseFloat(popup.dataset.price) || 0;
-            var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
-            var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
+            // Wait for a short duration to ensure blur is processed before opening the email
+            setTimeout(function() {
+                var name = document.getElementById('name').value;
+                var contactNumber = document.getElementById('contact-number').value;
+                var location = document.getElementById('location').value;
+                var quantity = document.getElementById('quantity-number').innerText;
+                var popup = document.getElementById('popup');
+                var productName = popup.dataset.productName || "اسم المنتج غير محدد";
+                var productNumber = popup.dataset.productNumber || "رقم المنتج غير محدد";
+                var price = parseFloat(popup.dataset.price) || 0;
+                var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
+                var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
 
-            var subject = encodeURIComponent('#طلب شراء');
-            var body = encodeURIComponent(
-                `#طلب شراء\n${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nرقم التواصل: ${contactNumber}\nالموقع الجغرافي: ${location}\nالسعر: ${price} جنيه\nسعر التوصيل,يختلف احياناً: ${deliveryCharge} جنيه\nالسعر الإجمالي: ${totalPrice} جنيه`
-            );
+                var subject = encodeURIComponent('#طلب شراء');
+                var body = encodeURIComponent(
+                    `#طلب شراء\n${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nرقم التواصل: ${contactNumber}\nالموقع الجغرافي: ${location}\nالسعر: ${price} جنيه\nسعر التوصيل,يختلف احياناً: ${deliveryCharge} جنيه\nالسعر الإجمالي: ${totalPrice} جنيه`
+                );
 
-            var mailtoLink = `mailto:adger.shop@gmail.com?subject=${subject}&body=${body}`;
-            window.open(mailtoLink, '_blank');
+                var mailtoLink = `mailto:adger.shop@gmail.com?subject=${subject}&body=${body}`;
+                window.open(mailtoLink, '_blank');
 
-            localStorage.setItem('savedName', name);
-            localStorage.setItem('savedContactNumber', contactNumber);
-            localStorage.setItem('savedLocation', location);
+                localStorage.setItem('savedName', name);
+                localStorage.setItem('savedContactNumber', contactNumber);
+                localStorage.setItem('savedLocation', location);
+            }, 100); // Adjust the timeout duration if needed
         }
 
         function changeQuantity(change) {
