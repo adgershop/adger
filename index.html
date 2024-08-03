@@ -2444,8 +2444,12 @@ if (!spacing) {
             document.body.classList.remove('popup-open'); // استعادة التمرير على الصفحة الرئيسية
         }
 
-
         function openEmail() {
+            // Remove focus from any focused element to prevent the keyboard from opening on mobile devices
+            if (document.activeElement) {
+                document.activeElement.blur();
+            }
+
             var name = document.getElementById('name').value;
             var contactNumber = document.getElementById('contact-number').value;
             var location = document.getElementById('location').value;
