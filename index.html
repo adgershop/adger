@@ -2374,7 +2374,34 @@ if (!spacing) {
         body.popup-open { overflow: hidden; } /* منع التمرير على الصفحة الرئيسية */
         .popup-input { margin-bottom: 10px; }
         .quantity-input { margin-bottom: 10px; }
-        .popup-select { margin-bottom: 10px; }
+        .popup-select-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .popup-select-label {
+            margin-right: 10px;
+            font-weight: bold;
+            flex: 1;
+        }
+        .popup-select {
+            padding: 5px;
+            flex: 2;
+            border: 1px solid #282828; /* تعيين الحد الأساسي */
+            margin-left: 11px;
+            margin-right: 77px;
+        }
+        .quantity-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        .quantity-button {
+            padding: 5px 10px;
+        }
+        .popup-button {
+            margin: 5px;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
@@ -2384,6 +2411,10 @@ if (!spacing) {
                 <input type="text" id="name" class="popup-input" placeholder="الاسم الثلاثي">
                 <input type="text" id="contact-number" class="popup-input" placeholder="رقم التواصل">
                 <input type="text" id="location" class="popup-input" placeholder="الموقع الجغرافي" onclick="getLocation()" readonly>
+                
+                <div id="color-select-container" class="popup-select-container"></div>
+                <div id="size-select-container" class="popup-select-container"></div>
+                
                 <div class="quantity-input">
                     <span class="quantity-label">الكمية:</span>
                     <span id="quantity-number" class="quantity-number">1</span>
@@ -2392,8 +2423,6 @@ if (!spacing) {
                         <button class="quantity-button" onclick="changeQuantity(-1)">-</button>
                     </div>
                 </div>
-                <div id="color-select-container"></div>
-                <div id="size-select-container"></div>
             </div>
             <button class="popup-button" onclick="openEmail()">موافق</button>
             <button class="popup-button cancel" onclick="closePopup()">إلغاء</button>
@@ -2437,6 +2466,11 @@ if (!spacing) {
 
             if (colorOptions) {
                 var colors = colorOptions.split(',');
+                var colorLabel = document.createElement('span');
+                colorLabel.className = 'popup-select-label';
+                colorLabel.innerText = 'اللون:';
+                colorSelectContainer.appendChild(colorLabel);
+                
                 var colorSelect = document.createElement('select');
                 colorSelect.id = 'color';
                 colorSelect.className = 'popup-select';
@@ -2451,6 +2485,11 @@ if (!spacing) {
 
             if (sizeOptions) {
                 var sizes = sizeOptions.split(',');
+                var sizeLabel = document.createElement('span');
+                sizeLabel.className = 'popup-select-label';
+                sizeLabel.innerText = 'المقاس:';
+                sizeSelectContainer.appendChild(sizeLabel);
+                
                 var sizeSelect = document.createElement('select');
                 sizeSelect.id = 'size';
                 sizeSelect.className = 'popup-select';
@@ -2524,6 +2563,7 @@ if (!spacing) {
     </script>
 </body>
 </html>
+
 
 
         </div>
