@@ -2372,6 +2372,9 @@ if (!spacing) {
         .popup { display: none; }
         .popup.active { display: block; }
         body.popup-open { overflow: hidden; } /* منع التمرير على الصفحة الرئيسية */
+        .popup-input { margin-bottom: 10px; }
+        .quantity-input { margin-bottom: 10px; }
+        .popup-select { margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -2389,6 +2392,8 @@ if (!spacing) {
                         <button class="quantity-button" onclick="changeQuantity(-1)">-</button>
                     </div>
                 </div>
+                <div id="color-select-container"></div>
+                <div id="size-select-container"></div>
             </div>
             <button class="popup-button" onclick="openEmail()">موافق</button>
             <button class="popup-button cancel" onclick="closePopup()">إلغاء</button>
@@ -2396,22 +2401,6 @@ if (!spacing) {
     </div>
 
     <script>
-        function getLocation() {
-            document.activeElement.blur();
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-                document.getElementById('location').value = latitude + ', ' + longitude;
-                localStorage.setItem('savedLocation', latitude + ', ' + longitude);
-            }, function(error) {
-                if (error.code === error.PERMISSION_DENIED) {
-                    document.getElementById('location').value = 'يرجى تمكين خدمة الموقع من إعدادات الهاتف ثم إعادة المحاولة.';
-                } else {
-                    document.getElementById('location').value = 'الرجاء الضغط على الثلاث نقط اعلى المتصفح ثم فتح فى chrome.';
-                }
-            });
-        }
-
         function openPopup(button) {
             var popup = document.getElementById('popup');
             popup.classList.add('active');
@@ -2436,6 +2425,43 @@ if (!spacing) {
             popup.dataset.productNumber = button.getAttribute('data-product-number');
             popup.dataset.price = button.getAttribute('data-price');
             popup.dataset.deliveryCharge = button.getAttribute('data-delivery-charge');
+
+            var colorOptions = button.getAttribute('data-colors');
+            var sizeOptions = button.getAttribute('data-sizes');
+
+            var colorSelectContainer = document.getElementById('color-select-container');
+            var sizeSelectContainer = document.getElementById('size-select-container');
+
+            colorSelectContainer.innerHTML = '';
+            sizeSelectContainer.innerHTML = '';
+
+            if (colorOptions) {
+                var colors = colorOptions.split(',');
+                var colorSelect = document.createElement('select');
+                colorSelect.id = 'color';
+                colorSelect.className = 'popup-select';
+                colors.forEach(function(color) {
+                    var option = document.createElement('option');
+                    option.value = color.trim();
+                    option.text = color.trim();
+                    colorSelect.appendChild(option);
+                });
+                colorSelectContainer.appendChild(colorSelect);
+            }
+
+            if (sizeOptions) {
+                var sizes = sizeOptions.split(',');
+                var sizeSelect = document.createElement('select');
+                sizeSelect.id = 'size';
+                sizeSelect.className = 'popup-select';
+                sizes.forEach(function(size) {
+                    var option = document.createElement('option');
+                    option.value = size.trim();
+                    option.text = size.trim();
+                    sizeSelect.appendChild(option);
+                });
+                sizeSelectContainer.appendChild(sizeSelect);
+            }
         }
 
         function closePopup() {
@@ -2444,12 +2470,13 @@ if (!spacing) {
             document.body.classList.remove('popup-open'); // استعادة التمرير على الصفحة الرئيسية
         }
 
-
         function openEmail() {
             var name = document.getElementById('name').value;
             var contactNumber = document.getElementById('contact-number').value;
             var location = document.getElementById('location').value;
             var quantity = document.getElementById('quantity-number').innerText;
+            var color = document.getElementById('color') ? document.getElementById('color').value : '';
+            var size = document.getElementById('size') ? document.getElementById('size').value : '';
             var popup = document.getElementById('popup');
             var productName = popup.dataset.productName || "اسم المنتج غير محدد";
             var productNumber = popup.dataset.productNumber || "رقم المنتج غير محدد";
@@ -2459,7 +2486,7 @@ if (!spacing) {
 
             var subject = encodeURIComponent('#طلب شراء');
             var body = encodeURIComponent(
-                `#طلب شراء\n${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nرقم التواصل: ${contactNumber}\nالموقع الجغرافي: ${location}\nالسعر: ${price} جنيه\nسعر التوصيل,يختلف احياناً: ${deliveryCharge} جنيه\nالسعر الإجمالي: ${totalPrice} جنيه`
+                `#طلب شراء\n${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nرقم التواصل: ${contactNumber}\nالموقع الجغرافي: ${location}${color ? '\nاللون: ' + color : ''}${size ? '\nالمقاس: ' + size : ''}\nالسعر: ${price} جنيه\nسعر التوصيل,يختلف احياناً: ${deliveryCharge} جنيه\nالسعر الإجمالي: ${totalPrice} جنيه`
             );
 
             var mailtoLink = `mailto:adger.shop@gmail.com?subject=${subject}&body=${body}`;
@@ -2478,9 +2505,26 @@ if (!spacing) {
                 quantityField.innerText = newQuantity;
             }
         }
+
+        function getLocation() {
+            document.activeElement.blur();
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                document.getElementById('location').value = latitude + ', ' + longitude;
+                localStorage.setItem('savedLocation', latitude + ', ' + longitude);
+            }, function(error) {
+                if (error.code === error.PERMISSION_DENIED) {
+                    document.getElementById('location').value = 'يرجى تمكين خدمة الموقع من إعدادات الهاتف ثم إعادة المحاولة.';
+                } else {
+                    document.getElementById('location').value = 'الرجاء الضغط على الثلاث نقط اعلى المتصفح ثم فتح فى chrome.';
+                }
+            });
+        }
     </script>
 </body>
 </html>
+
 
         </div>
     
@@ -2589,7 +2633,7 @@ if (!spacing) {
                         </svg>
                     </button>
     <br>
-    <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه من فيترون" data-product-number="1#" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
+    <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="كتاب محاط بالحمقى" data-product-number="26#" data-price="145" data-delivery-charge="50" data-colors="أبيض,أسود,أزرق" data-sizes="L,XL,2XL">اشترِ الآن</a>
     
                 </body>
                 </html>
