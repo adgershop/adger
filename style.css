@@ -310,3 +310,10 @@ h3 {
     color: #3c4d60; /* Darker blue on hover */
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); /* Slightly stronger shadow on hover */
 }
+.quantity-button {
+    -webkit-tap-highlight-color: transparent; /* Removes tap highlight color on mobile */
+    outline: none; /* Removes focus outline */
+    border: none; /* Removes default border, if needed */
+    background: none; /* Removes default background, if needed */
+    /* Add any other styles you want for the button */
+}
