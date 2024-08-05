@@ -1681,24 +1681,24 @@ if (!spacing) {
                         <!DOCTYPE html>
                         <html lang="en">
                         <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Product Modal</title>
-                        <style>
-                            body.modal-open {
-                                overflow: hidden;
-                            }
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Product Modal</title>
+                            <style>
+                                body.modal-open {
+                                    overflow: hidden;
+                                }
                         
-                            .product-detail {
-                                display: block;
-                                margin-bottom: 10px;
-                                font-size: 15px;
-                                color: #1b2971;
-                            }
-                            .product-detail span {
-                                display: block;
-                            }
-                        </style>
+                                .product-detail {
+                                    display: block;
+                                    margin-bottom: 10px;
+                                    font-size: 15px;
+                                    color: #1b2971;
+                                }
+                                .product-detail span {
+                                    display: block;
+                                }
+                            </style>
                         </head>
                         <body>
                         
@@ -1713,15 +1713,16 @@ if (!spacing) {
                                 <div class="custom-paragraph">
                                     <h1 id="product-title" class="custom-h1-purple">ساعه من فيترون</h1>
                                     <p id="additional-text" class="custom-h1-green">نص إضافي هنا</p>
-                                    <p id="additional-text-2" class="custom-h1-blue" style="color: #223b45;">نص إضافي 2 هنا</p> <!-- New text -->
+                                    <p id="additional-text-2" class="custom-h1-blue" style="color: #223b45;">نص إضافي 2 هنا</p>
                                     <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
+                                    <h2 id="additional-price" style="color: #6e6e6e; font-size: 14px; margin-top: 4px;">سعر آخر: 500 جنيه</h2> 
                                     <h3 style="color: rgb(13, 163, 68);">إرجاع مجانى</h3>
-
+                        
                                     <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -1px;">📦 طريقة الدفع|  نقدًا عند الاستلام </h3>
                                     <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚚  توصيل بواسطة| اراميكس</h3>
                                     <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚛  سعر الشحن | ≈ 50 جنيه</h3>
                                     <h3 style="color: rgba(255, 115, 0, 0.956); font-size: 15px; margin-top: -11px;">🛡 معاملتك آمنة</h3>
-
+                        
                                     <div class="product-details">
                                         <div class="product-detail">
                                             <span>العلامه التجاريه:</span>
@@ -1737,9 +1738,7 @@ if (!spacing) {
                                         </div>
                                     </div>
                                     <h3 style="color: rgb(255, 34, 0); font-size: 20px; margin-bottom: -4px;">التفاصيل:</h3>
-                                    <p id="additional-text-3" class="custom-h1-black"></p> <!-- New text -->
-            
-
+                                    <p id="additional-text-3" class="custom-h1-black"></p>
                                 </div>
                                 <br>
                                 <div style="text-align: center;">
@@ -1749,7 +1748,6 @@ if (!spacing) {
                                         <span style="color: #000000; font-size: 14px;">ⓘ ممول</span>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                         
@@ -1821,15 +1819,16 @@ if (!spacing) {
                                 showSlide2(currentSlide2);
                             }
                         
-                            function updateProductDetails(title, description, additionalText, additionalText2, images, color, size, height, newAdditionalText) {
+                            function updateProductDetails(title, description, additionalText, additionalText2, images, color, size, height, newAdditionalText, newPrice) {
                                 document.getElementById('product-title').innerText = title;
                                 document.getElementById('product-description').innerText = description;
                                 document.getElementById('additional-text').innerText = additionalText;
                                 document.getElementById('additional-text-2').innerText = additionalText2;
-                                document.getElementById('additional-text-3').innerText = newAdditionalText; // New text
+                                document.getElementById('additional-text-3').innerText = newAdditionalText; 
                                 document.getElementById('product-color').innerText = color;
                                 document.getElementById('product-size').innerText = size;
                                 document.getElementById('product-height').innerText = height;
+                                document.getElementById('additional-price').innerText = newPrice; // Update the new price
                                 slides2 = images; 
                                 currentSlide2 = 0;
                                 showSlide2(0); 
@@ -1844,9 +1843,7 @@ if (!spacing) {
                         </script>
                         </body>
                         </html>
-                                            
-                    </body>
-                    </html>
+                        
                     
                     <style>
                         .product-details {
@@ -2596,10 +2593,12 @@ if (!spacing) {
             <body>
                 <h3>
                     <span class="price-label">السعر:</span>
+                    <span class="price-down" style="position: relative; top: 3px; font-size: 111%;  color: rgb(79, 207, 44);">⬇</span>
                     <span class="price-amount" style="position: relative; top: 3px; font-size: 80%; color: rgb(255, 106, 0);">00</span>
                     <span class="price-amount">600</span>
                     <span class="price-currency">جنيه</span>
                 </h3>
+                <h3 style="text-decoration: line-through; color: #6e6e6e;">840 جنيه</h3>
             </body>
             </html>
             <div class="rating-container" data-empty-stars="0" data-comment="⭐⭐⭐⭐⭐(5.0)&nbsp;&nbsp;&nbsp; المنتج ممتاز" return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -2623,18 +2622,20 @@ if (!spacing) {
                     alt="product" 
                     onclick="updateProductDetails(
                         'ساعه من فيترون', 
-                        'السعر: ₀₀ 600 جنيه', 
+                        'السعر: 600 جنيه', 
                         'ساعه جذابه من الكويت', 
                         '⭐⭐⭐⭐⭐(5.0)', 
                         ['1.jpg', '1.2.jpg', '1.3.jpg'], 
                         'فيترون', 
                         'فضى فى ذهبى', 
                         'XL', 
-                        '● رقم المنتج| 1#\n ● مواد| معدن \n ● الوزن| لاشئ\n●  السعر بالدولار| ≈ 12.5\n'
+                        '● رقم المنتج| 1#\n ● مواد| معدن \n ● الوزن| لاشئ\n● السعر بالدولار| ≈ 12.5\n',
+                        'كان ب 840 جنيه' // تعديل السعر الآخر هنا
                     ); openModal2();" 
                     ontouchstart="this.focus();" 
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
             </div>
+            
             
             <div style="clear:both;"></div>
                     <style>
@@ -2717,7 +2718,8 @@ if (!spacing) {
                         'لاشئ', 
                         'لا شئ', 
                         '27*23', 
-                        '● رقم المنتج| 2#\n ● مواد| قماش \n ● الوزن| لاشئ\n●  السعر بالدولار| ≈ 0.96\n'
+                        '● رقم المنتج| 2#\n ● مواد| قماش \n ● الوزن| لاشئ\n●  السعر بالدولار| ≈ 0.96\n',
+                        '   ' // تعديل السعر الآخر هنا
                     ); openModal2();" 
                     ontouchstart="this.focus();" 
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -2807,7 +2809,8 @@ if (!spacing) {
                     'XO', 
                     'اسود', 
                     '8سم', 
-                    '● رقم المنتج| 3#\n ● مواد| بلاستيك\n● السعر بالدولار| ≈ 2.67\n'
+                    '● رقم المنتج| 3#\n ● مواد| بلاستيك\n● السعر بالدولار| ≈ 2.67\n',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -2915,7 +2918,8 @@ if (!spacing) {
                     'مكتبة جرير', 
                     'أبيض', 
                     '50', 
-                    '● رقم المنتج| 4#\n ● مواد| ورق\n● السعر بالدولار| ≈ 1.44\n'
+                    '● رقم المنتج| 4#\n ● مواد| ورق\n● السعر بالدولار| ≈ 1.44\n',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3000,7 +3004,8 @@ if (!spacing) {
                     'لا شئ', 
                     'أسود', 
                     '1.5 متر', 
-                    '● رقم المنتج| 5#\n ● مواد| معدن\n●  الاستخدام| حمل الأجهزة\n● السعر بالدولار| ≈ 2.06\n'
+                    '● رقم المنتج| 5#\n ● مواد| معدن\n●  الاستخدام| حمل الأجهزة\n● السعر بالدولار| ≈ 2.06\n',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3086,7 +3091,8 @@ if (!spacing) {
                     'لا شئ', 
                     'أبيض', 
                     '26 سم', 
-                    '● رقم المنتج| 6#\n ● مواد| بلاستيك\n●  الاستخدام| إضاءة تصوير\n● السعر بالدولار| ≈ 2.26\n'
+                    '● رقم المنتج| 6#\n ● مواد| بلاستيك\n●  الاستخدام| إضاءة تصوير\n● السعر بالدولار| ≈ 2.26\n',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3173,7 +3179,8 @@ if (!spacing) {
                     'لا شئ', 
                     'خشبي', 
                     'لا شئ', 
-                    '● رقم المنتج| 7#\n ● مواد| خشب\n●  الاستخدام| للابتوب والتابلت\n● السعر بالدولار| ≈ 4.01\n'
+                    '● رقم المنتج| 7#\n ● مواد| خشب\n●  الاستخدام| للابتوب والتابلت\n● السعر بالدولار| ≈ 4.01\n',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3259,7 +3266,8 @@ if (!spacing) {
                     'لا شئ', 
                     'أزرق وأسود', 
                     '50 سم', 
-                    '● رقم المنتج| 8#\n ● مواد| بلاستيك ومعدن\n●  الاستخدام| تابلت محمول\n● السعر بالدولار| ≈ 1.44\n'
+                    '● رقم المنتج| 8#\n ● مواد| بلاستيك ومعدن\n●  الاستخدام| تابلت محمول\n● السعر بالدولار| ≈ 1.44\n',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3344,7 +3352,8 @@ if (!spacing) {
                     'لا شئ', 
                     'فضي', 
                     'لا شئ', 
-                    '● رقم المنتج| 9#\n ● مواد| ألومنيوم\n● الاستخدام| حامل لابتوب\n● السعر بالدولار| ≈ 2.98\n'
+                    '● رقم المنتج| 9#\n ● مواد| ألومنيوم\n● الاستخدام| حامل لابتوب\n● السعر بالدولار| ≈ 2.98\n',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3430,7 +3439,8 @@ if (!spacing) {
                     'لا شئ', 
                     'متعدد', 
                     '30سم', 
-                    '● رقم المنتج| 10#\n ● مواد| بلاستيك\n● السعر بالدولار| ≈ 4.01\n'
+                    '● رقم المنتج| 10#\n ● مواد| بلاستيك\n● السعر بالدولار| ≈ 4.01\n',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3513,7 +3523,8 @@ if (!spacing) {
                     'كرومال', 
                     'لا شئ', 
                     '15 سم', 
-                    '● رقم المنتج| 11#\n ● مواد| ذاكرة\n● الوزن| 50 جرام\n● السعر بالدولار| ≈ 18.93\n'
+                    '● رقم المنتج| 11#\n ● مواد| ذاكرة\n● الوزن| 50 جرام\n● السعر بالدولار| ≈ 18.93\n',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3597,7 +3608,8 @@ if (!spacing) {
                     'توشيبا', 
                     'معدن', 
                     '7سم', 
-                    '● رقم المنتج| 12#\n ● مواد| معدن\n● الوزن| 20g\n● السعر بالدولار| ≈ 0.51'
+                    '● رقم المنتج| 12#\n ● مواد| معدن\n● الوزن| 20g\n● السعر بالدولار| ≈ 0.51',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3682,7 +3694,8 @@ if (!spacing) {
                     'سانديسك', 
                     'فضى', 
                     '12 سم', 
-                    '● رقم المنتج| 13#\n ● مواد| معدن\n● الوزن| 5g\n● السعة| 32GB\n● السعر بالدولار| ≈ 4.32'
+                    '● رقم المنتج| 13#\n ● مواد| معدن\n● الوزن| 5g\n● السعة| 32GB\n● السعر بالدولار| ≈ 4.32',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3765,7 +3778,8 @@ if (!spacing) {
                     'كينجستون', 
                     'لا شئ', 
                     'أسود', 
-                    '● رقم المنتج| 14#\n ● مواد| بلاستيك\n● الوزن| 10g\n● السعة| 128GB\n● السعر بالدولار| ≈ 8.23'
+                    '● رقم المنتج| 14#\n ● مواد| بلاستيك\n● الوزن| 10g\n● السعة| 128GB\n● السعر بالدولار| ≈ 8.23',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3848,7 +3862,8 @@ if (!spacing) {
                     'مكتبة جرير', 
                     'لا شئ', 
                     'لا شئ', 
-                    '● رقم المنتج| 15#\n● النوع| كتاب\n● المؤلف| بنيامين جراهام\n● الطبعة| —\n● عدد الصفحات| —\n● السعر بالدولار| ≈ 5.04'
+                    '● رقم المنتج| 15#\n● النوع| كتاب\n● المؤلف| بنيامين جراهام\n● الطبعة| —\n● عدد الصفحات| —\n● السعر بالدولار| ≈ 5.04',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3934,7 +3949,8 @@ if (!spacing) {
                     'لا شئ', 
                     'لا شئ', 
                     'لا شئ', 
-                    '● رقم المنتج| 16#\n● النوع| بطارية زنك وكاربون\n● الجهد| 9 فولت\n● السعر بالدولار| ≈ 1.29'
+                    '● رقم المنتج| 16#\n● النوع| بطارية زنك وكاربون\n● الجهد| 9 فولت\n● السعر بالدولار| ≈ 1.29',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4019,7 +4035,8 @@ if (!spacing) {
                     '—', 
                     'فضى', 
                     '2 بوصة', 
-                    '● رقم المنتج| 17#\n● النوع| شريط لاصق\n● السعر بالدولار| ≈ 1.23'
+                    '● رقم المنتج| 17#\n● النوع| شريط لاصق\n● السعر بالدولار| ≈ 1.23',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4103,7 +4120,8 @@ if (!spacing) {
                     '—', 
                     'رصاصي*أسود', 
                     '—', 
-                    '● رقم المنتج| 18#\n● مواد| قماش\n● النوع| حقيبة يد\n● السعر بالدولار| ≈ 2.76'
+                    '● رقم المنتج| 18#\n● مواد| قماش\n● النوع| حقيبة يد\n● السعر بالدولار| ≈ 2.76',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4186,7 +4204,8 @@ if (!spacing) {
                     '—', 
                     'أزرق', 
                     '3 متر', 
-                    '● رقم المنتج| 19#\n● النوع| سلك إضاءة\n● اللون| أزرق\n● الطول| 3 متر\n● السعر بالدولار| ≈ 1.13'
+                    '● رقم المنتج| 19#\n● النوع| سلك إضاءة\n● اللون| أزرق\n● الطول| 3 متر\n● السعر بالدولار| ≈ 1.13',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4267,7 +4286,8 @@ if (!spacing) {
                     'foot steps', 
                     'أسود', 
                     '44', 
-                    '● رقم المنتج| 20#\n● النوع| حذاء\n● العلامة التجارية| foot steps\n● السعر بالدولار| ≈ 5.35'
+                    '● رقم المنتج| 20#\n● النوع| حذاء\n● العلامة التجارية| foot steps\n● السعر بالدولار| ≈ 5.35',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2(); return false;" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4351,7 +4371,8 @@ if (!spacing) {
                     'دار الفاروق', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 21#\n● النوع| كتاب\n● الناشر| دار الفاروق\n● السعر بالدولار| ≈ 3.91'
+                    '● رقم المنتج| 21#\n● النوع| كتاب\n● الناشر| دار الفاروق\n● السعر بالدولار| ≈ 3.91',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4433,7 +4454,8 @@ if (!spacing) {
                     '—', 
                     'متعدد الألوان', 
                     '—', 
-                    '● رقم المنتج| 22#\n● النوع| لعبة\n● المواد| بلاستيك\n● السعر بالدولار| ≈ 0.51'
+                    '● رقم المنتج| 22#\n● النوع| لعبة\n● المواد| بلاستيك\n● السعر بالدولار| ≈ 0.51',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4515,7 +4537,8 @@ if (!spacing) {
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 23#\n● النوع| مجلة\n● المواد| ورق\n● السعر بالدولار| ≈ 0.51'
+                    '● رقم المنتج| 23#\n● النوع| مجلة\n● المواد| ورق\n● السعر بالدولار| ≈ 0.51',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4596,7 +4619,8 @@ if (!spacing) {
                     '—', 
                     'أبيض', 
                     'A4', 
-                    '● رقم المنتج| 24#\n● النوع| ورق طباعة\n● اللون| أبيض\n● المقاس| A4\n● العدد| 500 ورقة\n● السعر بالدولار| ≈ 6.78'
+                    '● رقم المنتج| 24#\n● النوع| ورق طباعة\n● اللون| أبيض\n● المقاس| A4\n● العدد| 500 ورقة\n● السعر بالدولار| ≈ 6.78',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4681,7 +4705,8 @@ if (!spacing) {
                     '—', 
                     'أسود', 
                     '—', 
-                    '● رقم المنتج| 25#\n● النوع| ملصقات كيبورد\n● اللغة| عربي إنجليزي\n● السعر بالدولار| ≈ 0.61'
+                    '● رقم المنتج| 25#\n● النوع| ملصقات كيبورد\n● اللغة| عربي إنجليزي\n● السعر بالدولار| ≈ 0.61',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4762,7 +4787,8 @@ if (!spacing) {
                     'مكتبة جرير', 
                     'أبيض', 
                     '—', 
-                    '● رقم المنتج| 26#\n● النوع| كتاب\n● العنوان| محاط بالحمقى\n● المؤلف| توماس اريكسون\n● السعر بالدولار| ≈ 2.94\n● البائع| مكتبة جرير'
+                    '● رقم المنتج| 26#\n● النوع| كتاب\n● العنوان| محاط بالحمقى\n● المؤلف| توماس اريكسون\n● السعر بالدولار| ≈ 2.94\n● البائع| مكتبة جرير',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4841,7 +4867,8 @@ if (!spacing) {
                     '—', 
                     'أخضر*أحمر', 
                     '—', 
-                    '● رقم المنتج| 27#\n● النوع| لعبة\n● اللون| أخضر*أحمر\n● السعر بالدولار| ≈ 3.69'
+                    '● رقم المنتج| 27#\n● النوع| لعبة\n● اللون| أخضر*أحمر\n● السعر بالدولار| ≈ 3.69',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -4923,7 +4950,8 @@ if (!spacing) {
                     '—', 
                     'أسود', 
                     '—', 
-                    '● رقم المنتج| 28#\n● النوع| جراب هاتف\n● المتوافق معه| آيفون 15 برو ماكس\n● المادة| سيليكون\n● اللون| أسود\n● السعر بالدولار| ≈ 2.04'
+                    '● رقم المنتج| 28#\n● النوع| جراب هاتف\n● المتوافق معه| آيفون 15 برو ماكس\n● المادة| سيليكون\n● اللون| أسود\n● السعر بالدولار| ≈ 2.04',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5005,7 +5033,8 @@ if (!spacing) {
                     'زوتيك', 
                     'أسود', 
                     '—', 
-                    '● رقم المنتج| 29#\n● النوع| قلم ستايلس\n● الميزة| 2 في 1 مع شاشة لمس\n● اللون| أسود\n● السعر بالدولار| ≈ 0.92'
+                    '● رقم المنتج| 29#\n● النوع| قلم ستايلس\n● الميزة| 2 في 1 مع شاشة لمس\n● اللون| أسود\n● السعر بالدولار| ≈ 0.92',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5086,7 +5115,8 @@ if (!spacing) {
                     'EPOBOND', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 30#\n● النوع| عبوات صمغ\n● الاستخدام| متعدد الأغراض\n● السعر بالدولار| ≈ 0.41'
+                    '● رقم المنتج| 30#\n● النوع| عبوات صمغ\n● الاستخدام| متعدد الأغراض\n● السعر بالدولار| ≈ 0.41',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5168,7 +5198,8 @@ if (!spacing) {
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 31#\n● النوع| مجلة\n● العدد| 195 للشباب\n● السعر بالدولار| ≈ 0.71'
+                    '● رقم المنتج| 31#\n● النوع| مجلة\n● العدد| 195 للشباب\n● السعر بالدولار| ≈ 0.71',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5248,7 +5279,8 @@ if (!spacing) {
                     '—', 
                     'برتقالي', 
                     '—', 
-                    '● رقم المنتج| 32#\n● النوع| لعبة كرة تفاعلية\n● الوظيفة| تخفيف التوتر\n● السعر بالدولار| ≈ 1.12'
+                    '● رقم المنتج| 32#\n● النوع| لعبة كرة تفاعلية\n● الوظيفة| تخفيف التوتر\n● السعر بالدولار| ≈ 1.12',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5329,7 +5361,8 @@ if (!spacing) {
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 33#\n● النوع| ميزان إلكتروني\n● المادة| زجاج سميك\n● السعر بالدولار| ≈ 6.17'
+                    '● رقم المنتج| 33#\n● النوع| ميزان إلكتروني\n● المادة| زجاج سميك\n● السعر بالدولار| ≈ 6.17',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5410,7 +5443,8 @@ if (!spacing) {
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 34#\n● النوع| ميزان شنط\n● الاستخدام| للسفر\n● السعر بالدولار| ≈ 6.30'
+                    '● رقم المنتج| 34#\n● النوع| ميزان شنط\n● الاستخدام| للسفر\n● السعر بالدولار| ≈ 6.30',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5493,7 +5527,8 @@ if (!spacing) {
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 35#\n● النوع| حافظة لابتوب\n● الحجم| 5.6 بوصة\n● السعر بالدولار| ≈ 3.69'
+                    '● رقم المنتج| 35#\n● النوع| حافظة لابتوب\n● الحجم| 5.6 بوصة\n● السعر بالدولار| ≈ 3.69',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5574,7 +5609,8 @@ if (!spacing) {
                     'طاهر المعتز بالله', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 36#\n● النوع| كتاب\n● المؤلف| طاهر المعتز بالله\n● السعر بالدولار| ≈ 1.93'
+                    '● رقم المنتج| 36#\n● النوع| كتاب\n● المؤلف| طاهر المعتز بالله\n● السعر بالدولار| ≈ 1.93',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5655,7 +5691,8 @@ if (!spacing) {
                     'مينترا هوم', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 37#\n● النوع| حقيبة ظهر مدرسية\n● السعر بالدولار| ≈ 4.16'
+                    '● رقم المنتج| 37#\n● النوع| حقيبة ظهر مدرسية\n● السعر بالدولار| ≈ 4.16',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5738,7 +5775,8 @@ if (!spacing) {
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 38#\n● النوع| مجموعة أقلام الرسم\n● الألوان| مائية\n● السعر بالدولار| ≈ 4.01'
+                    '● رقم المنتج| 38#\n● النوع| مجموعة أقلام الرسم\n● الألوان| مائية\n● السعر بالدولار| ≈ 4.01',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5821,7 +5859,8 @@ if (!spacing) {
                     '—', 
                     'أسود', 
                     '—', 
-                    '● رقم المنتج| 39#\n● النوع| حامل أقلام\n● اللون| أسود\n● السعر بالدولار| ≈ 1.22'
+                    '● رقم المنتج| 39#\n● النوع| حامل أقلام\n● اللون| أسود\n● السعر بالدولار| ≈ 1.22',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5904,7 +5943,8 @@ if (!spacing) {
                     '—', 
                     'أبيض*رصاصي', 
                     '—', 
-                    '● رقم المنتج| 40#\n● النوع| رف كتب من الخشب\n● السعر بالدولار| ≈ 12.73'
+                    '● رقم المنتج| 40#\n● النوع| رف كتب من الخشب\n● السعر بالدولار| ≈ 12.73',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -5986,7 +6026,8 @@ if (!spacing) {
                     '—', 
                     'فضي', 
                     '4 بوصة', 
-                    '● رقم المنتج| 41#\n● النوع| ساعة منبه\n● الميزة| جرس مزدوج\n● الحجم| 4 بوصة\n● السعر بالدولار| ≈ 3.84'
+                    '● رقم المنتج| 41#\n● النوع| ساعة منبه\n● الميزة| جرس مزدوج\n● الحجم| 4 بوصة\n● السعر بالدولار| ≈ 3.84',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6068,7 +6109,8 @@ if (!spacing) {
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 42#\n● النوع| مكعب روبيك\n● الحجم| 3x3\n● السعر بالدولار| ≈ 1.22'
+                    '● رقم المنتج| 42#\n● النوع| مكعب روبيك\n● الحجم| 3x3\n● السعر بالدولار| ≈ 1.22',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6152,7 +6194,8 @@ if (!spacing) {
                     '—', 
                     'أسود', 
                     '—', 
-                    '● رقم المنتج| 43#\n● النوع| ميكرفون صغير للموبايل\n● السعر بالدولار| ≈ 0.77'
+                    '● رقم المنتج| 43#\n● النوع| ميكرفون صغير للموبايل\n● السعر بالدولار| ≈ 0.77',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6234,7 +6277,8 @@ if (!spacing) {
                     '—', 
                     'شفاف', 
                     '50 أونصة', 
-                    '● رقم المنتج| 44#\n● النوع| زجاجات بخاخ فارغة\n● العدد| ستة عبوات\n● المادة| بلاستيك\n● الحجم| 50 أونصة\n● السعر بالدولار| ≈ 2.34'
+                    '● رقم المنتج| 44#\n● النوع| زجاجات بخاخ فارغة\n● العدد| ستة عبوات\n● المادة| بلاستيك\n● الحجم| 50 أونصة\n● السعر بالدولار| ≈ 2.34',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6317,7 +6361,8 @@ if (!spacing) {
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 45#\n● النوع| مفرقعات زينة\n● الاستخدام| للحفلات\n● السعر بالدولار| ≈ 1.12'
+                    '● رقم المنتج| 45#\n● النوع| مفرقعات زينة\n● الاستخدام| للحفلات\n● السعر بالدولار| ≈ 1.12',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6400,7 +6445,8 @@ if (!spacing) {
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 46#\n● النوع| سبراي ثلج\n● الاستخدام| للافراح والحفلات\n● السعر بالدولار| ≈ 1.00'
+                    '● رقم المنتج| 46#\n● النوع| سبراي ثلج\n● الاستخدام| للافراح والحفلات\n● السعر بالدولار| ≈ 1.00',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6484,7 +6530,8 @@ if (!spacing) {
                     '—', 
                     'أخضر', 
                     '—', 
-                    '● رقم المنتج| 47#\n● النوع| قلم ليزر\n● اللون| أخضر\n● السعر بالدولار| ≈ 8.12'
+                    '● رقم المنتج| 47#\n● النوع| قلم ليزر\n● اللون| أخضر\n● السعر بالدولار| ≈ 8.12',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6568,7 +6615,8 @@ if (!spacing) {
                     '—', 
                     'أبيض', 
                     '—', 
-                    '● رقم المنتج| 48#\n● النوع| كابل شحن سريع\n● اللون| أبيض\n● السعر بالدولار| ≈ 1.02'
+                    '● رقم المنتج| 48#\n● النوع| كابل شحن سريع\n● اللون| أبيض\n● السعر بالدولار| ≈ 1.02',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6651,7 +6699,8 @@ if (!spacing) {
                     '—', 
                     'متعدد الألوان', 
                     '—', 
-                    '● رقم المنتج| 49#\n● النوع| دبابيس حائط ملونة\n● عدد القطع| 35 قطعة\n● السعر بالدولار| ≈ 2.04'
+                    '● رقم المنتج| 49#\n● النوع| دبابيس حائط ملونة\n● عدد القطع| 35 قطعة\n● السعر بالدولار| ≈ 2.04',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6738,7 +6787,8 @@ if (!spacing) {
                     '—', 
                     '—', 
                     '—', 
-                    '● رقم المنتج| 50#\n● النوع| مجلة ميكي\n● العدد| 1000\n● السعر بالدولار| ≈ 0.49'
+                    '● رقم المنتج| 50#\n● النوع| مجلة ميكي\n● العدد| 1000\n● السعر بالدولار| ≈ 0.49',
+                    '  ' // تعديل السعر الآخر هنا
                 ); openModal2();" 
                 ontouchstart="this.focus();" 
                 style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -6807,10 +6857,14 @@ if (!spacing) {
 <body>
 <h3>
     <span class="price-label">السعر:</span>
+    <span class="price-down" style="position: relative; top: 3px; font-size: 111%;  color: rgb(79, 207, 44);">⬇</span>
     <span class="price-amount" style="position: relative; top: 3px; font-size: 80%; color: rgb(255, 106, 0);">00</span>
     <span class="price-amount">500</span>
     <span class="price-currency">جنيه</span>
 </h3>
+<h3 style="text-decoration: line-through; color: #6e6e6e; display: inline;">600 جنيه</h3>
+<span style="color: rgb(255, 0, 0); font-size: 13px;">-16.67%</span>
+
 </body>
 </html>  
 <!-- WhatsApp Message Button -->
@@ -6847,7 +6901,8 @@ if (!spacing) {
                 'نايك', 
                 '(عند الشراء)', 
                 '(عند الشراء)', 
-                '● رقم المنتج| 51#\n● النوع|ملابس\n● عدد القطع| 3 قطعة\n● السعر بالدولار| ≈ 10.29'
+                '● رقم المنتج| 51#\n● النوع|ملابس\n● عدد القطع| 3 قطعة\n● السعر بالدولار| ≈ 10.29',
+                'كان ب 600 جنيه (-16.67)'
             ); openModal2();" 
             ontouchstart="this.focus();" 
             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
