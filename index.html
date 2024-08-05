@@ -1688,6 +1688,7 @@ if (!spacing) {
                                 body.modal-open {
                                     overflow: hidden;
                                 }
+                        
                                 .product-detail {
                                     display: block;
                                     margin-bottom: 10px;
@@ -1700,28 +1701,6 @@ if (!spacing) {
                             </style>
                         </head>
                         <body>
-                        
-                        <div class="product-images">
-                            <img 
-                                src="1.jpg" 
-                                alt="product" 
-                                onclick="updateProductDetails(
-                                    'ساعه من فيترون', 
-                                    'السعر: 600 جنيه', 
-                                    'ساعه جذابه من الكويت', 
-                                    '⭐⭐⭐⭐⭐(5.0)', 
-                                    ['1.jpg', '1.2.jpg', '1.3.jpg'], 
-                                    'فيترون', 
-                                    'فضى فى ذهبى', 
-                                    'XL', 
-                                    '● رقم المنتج| 1#\n ● مواد| معدن \n ● الوزن| لاشئ\n● السعر بالدولار| ≈ 12.5\n',
-                                    'كان ب 840 جنيه (-28.57%)'
-                                ); openModal2();" 
-                                ontouchstart="this.focus();" 
-                                style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-                        </div>
-                        
-                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه من فيترون" data-product-number="1#" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
                         
                         <div id="modal2" class="modal2">
                             <div class="modal2-content">
@@ -1738,6 +1717,7 @@ if (!spacing) {
                                     <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
                                     <h2 id="additional-price" style="color: #6e6e6e; font-size: 14px; margin-top: 4px;">سعر آخر: 500 جنيه</h2> 
                                     <h3 style="color: rgb(13, 163, 68);">إرجاع مجانى</h3>
+                        
                                     <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -1px;">📦 طريقة الدفع|  نقدًا عند الاستلام </h3>
                                     <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚚  توصيل بواسطة| اراميكس</h3>
                                     <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚛  سعر الشحن | ≈ 50 جنيه</h3>
@@ -1759,9 +1739,6 @@ if (!spacing) {
                                     </div>
                                     <h3 style="color: rgb(255, 34, 0); font-size: 20px; margin-bottom: -4px;">التفاصيل:</h3>
                                     <p id="additional-text-3" class="custom-h1-black"></p>
-                        
-                                    <!-- Buy Now Button Inside Modal -->
-                                    <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه من فيترون" data-product-number="1#" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
                                 </div>
                                 <br>
                                 <div style="text-align: center;">
@@ -1851,29 +1828,23 @@ if (!spacing) {
                                 document.getElementById('product-color').innerText = color;
                                 document.getElementById('product-size').innerText = size;
                                 document.getElementById('product-height').innerText = height;
-                                document.getElementById('additional-price').innerText = newPrice; 
-                                slides2 = images;
+                                document.getElementById('additional-price').innerText = newPrice; // Update the new price
+                                slides2 = images; 
                                 currentSlide2 = 0;
+                                showSlide2(0); 
                                 createIndicators();
-                                showSlide2(currentSlide2);
+                                scrollModalToTop();
                             }
                         
                             function scrollModalToTop() {
-                                document.getElementById('modal2').scrollTo(0, 0);
-                            }
-                        
-                            function openPopup(button) {
-                                const productName = button.getAttribute('data-product-name');
-                                const productNumber = button.getAttribute('data-product-number');
-                                const price = button.getAttribute('data-price');
-                                const deliveryCharge = button.getAttribute('data-delivery-charge');
-                                const url = `mailto:?subject=طلب شراء ${productName}&body=رقم المنتج: ${productNumber}%0Aالاسم: ${productName}%0Aالسعر: ${price}%0Aسعر التوصيل: ${deliveryCharge}`;
-                                window.open(url, '_blank');
+                                const modalContent = document.querySelector('.modal2-content');
+                                modalContent.scrollTop = 0;
                             }
                         </script>
                         </body>
                         </html>
                         
+                    
                     <style>
                         .product-details {
                             display: flex;
@@ -2667,56 +2638,6 @@ if (!spacing) {
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
             </div>
             
-            <!-- زر اشترِ الآن داخل النافذة المنبثقة -->
-            <div id="modal2" class="modal2" style="display: none;">
-                <div class="modal2-content">
-                    <div class="carousel2">
-                        <img id="slide2" src="1.jpg" alt="Image">
-                    </div>
-                    <div class="indicators" id="indicators">
-                        <!-- Indicators will be added here dynamically -->
-                    </div>
-                    <div class="custom-paragraph">
-                        <h1 id="product-title" class="custom-h1-purple">ساعه من فيترون</h1>
-                        <p id="additional-text" class="custom-h1-green">نص إضافي هنا</p>
-                        <p id="additional-text-2" class="custom-h1-blue" style="color: #223b45;">نص إضافي 2 هنا</p>
-                        <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
-                        <h2 id="additional-price" style="color: #6e6e6e; font-size: 14px; margin-top: 4px;">سعر آخر: 500 جنيه</h2> 
-                        <h3 style="color: rgb(13, 163, 68);">إرجاع مجانى</h3>
-                        <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -1px;">📦 طريقة الدفع| نقدًا عند الاستلام </h3>
-                        <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚚 توصيل بواسطة| اراميكس</h3>
-                        <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚛 سعر الشحن | ≈ 50 جنيه</h3>
-                        <h3 style="color: rgba(255, 115, 0, 0.956); font-size: 15px; margin-top: -11px;">🛡 معاملتك آمنة</h3>
-            
-                        <div class="product-details">
-                            <div class="product-detail">
-                                <span>العلامه التجاريه:</span>
-                                <span id="product-color">أحمر</span>
-                            </div>
-                            <div class="product-detail">
-                                <span> اللون:</span>
-                                <span id="product-size">L</span>
-                            </div>
-                            <div class="product-detail">
-                                <span>المقاس:</span>
-                                <span id="product-height">20 سم</span>
-                            </div>
-                        </div>
-                        <h3 style="color: rgb(255, 34, 0); font-size: 20px; margin-bottom: -4px;">التفاصيل:</h3>
-                        <p id="additional-text-3" class="custom-h1-black"></p>
-                    </div>
-                    <br>
-                    <div style="text-align: center;">
-                        <button class="read-more" onclick="closeModal2()">إرجع لشراء المنتج</button>
-                        <hr style="border: none; border-top: 5px solid #f0f0f0; margin: 20px 0 10px 0;">
-                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه من فيترون" data-product-number="1#" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
-                        <div style="text-align: right; padding-right: 20px;">
-                            <span style="color: #000000; font-size: 14px;">ⓘ ممول</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
             
             <div style="clear:both;"></div>
                     <style>
@@ -2788,74 +2709,23 @@ if (!spacing) {
             </div>
             <div class="product-images">
                 <img 
-                    src="1.jpg" 
+                    src="2.jpg" 
                     alt="product" 
                     onclick="updateProductDetails(
-                        'ساعه من فيترون', 
-                        'السعر: 600 جنيه', 
-                        'ساعه جذابه من الكويت', 
-                        '⭐⭐⭐⭐⭐(5.0)', 
-                        ['1.jpg', '1.2.jpg', '1.3.jpg'], 
-                        'فيترون', 
-                        'فضى فى ذهبى', 
-                        'XL', 
-                        '● رقم المنتج| 1#\n ● مواد| معدن \n ● الوزن| لاشئ\n● السعر بالدولار| ≈ 12.5\n',
-                        'كان ب 840 جنيه (-28.57%)' // تعديل السعر الآخر هنا
+                        'قاعدة ماوس', 
+                        'السعر: ₀₀ 50  جنيه', 
+                        'قاعدة ماوس كبيرة الحجم لتناسب جميع احجام الماوسات', 
+                        'لا يوجد تقيم', 
+                        ['2.jpg', '2.2.jpg', '2.3.jpg'], 
+                        'لاشئ', 
+                        'لا شئ', 
+                        '27*23', 
+                        '● رقم المنتج| 2#\n ● مواد| قماش \n ● الوزن| لاشئ\n●  السعر بالدولار| ≈ 0.96\n',
+                        '   ' // تعديل السعر الآخر هنا
                     ); openModal2();" 
                     ontouchstart="this.focus();" 
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
             </div>
-            
-            <!-- زر اشترِ الآن داخل النافذة المنبثقة -->
-            <div id="modal2" class="modal2" style="display: none;">
-                <div class="modal2-content">
-                    <div class="carousel2">
-                        <img id="slide2" src="1.jpg" alt="Image">
-                    </div>
-                    <div class="indicators" id="indicators">
-                        <!-- Indicators will be added here dynamically -->
-                    </div>
-                    <div class="custom-paragraph">
-                        <h1 id="product-title" class="custom-h1-purple">ساعه من فيترون</h1>
-                        <p id="additional-text" class="custom-h1-green">نص إضافي هنا</p>
-                        <p id="additional-text-2" class="custom-h1-blue" style="color: #223b45;">نص إضافي 2 هنا</p>
-                        <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
-                        <h2 id="additional-price" style="color: #6e6e6e; font-size: 14px; margin-top: 4px;">سعر آخر: 500 جنيه</h2> 
-                        <h3 style="color: rgb(13, 163, 68);">إرجاع مجانى</h3>
-                        <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -1px;">📦 طريقة الدفع| نقدًا عند الاستلام </h3>
-                        <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚚 توصيل بواسطة| اراميكس</h3>
-                        <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚛 سعر الشحن | ≈ 50 جنيه</h3>
-                        <h3 style="color: rgba(255, 115, 0, 0.956); font-size: 15px; margin-top: -11px;">🛡 معاملتك آمنة</h3>
-            
-                        <div class="product-details">
-                            <div class="product-detail">
-                                <span>العلامه التجاريه:</span>
-                                <span id="product-color">أحمر</span>
-                            </div>
-                            <div class="product-detail">
-                                <span> اللون:</span>
-                                <span id="product-size">L</span>
-                            </div>
-                            <div class="product-detail">
-                                <span>المقاس:</span>
-                                <span id="product-height">20 سم</span>
-                            </div>
-                        </div>
-                        <h3 style="color: rgb(255, 34, 0); font-size: 20px; margin-bottom: -4px;">التفاصيل:</h3>
-                        <p id="additional-text-3" class="custom-h1-black"></p>
-                    </div>
-                    <br>
-                    <div style="text-align: center;">
-                        <button class="read-more" onclick="closeModal2()">إرجع لشراء المنتج</button>
-                        <hr style="border: none; border-top: 5px solid #f0f0f0; margin: 20px 0 10px 0;">
-                        <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name=" من فيترون" data-product-number="1#" data-price="600" data-delivery-charge="50">اشترِ الآن</a>
-                        <div style="text-align: right; padding-right: 20px;">
-                            <span style="color: #000000; font-size: 14px;">ⓘ ممول</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
             
             <div style="clear:both;"></div>
                     <style>
