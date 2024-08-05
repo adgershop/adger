@@ -56,49 +56,32 @@ h3 {
     outline: none; /* إزالة الإطار عند التركيز */
 }
 
-@keyframes customBorderAnimation {
-    0% {
-        border-color: #23b7d158; /* اللون الأول */
-    }
-    25% {
-        border-color: #0cbcfc6c; /* اللون الثاني */
-    }
-    50% {
-        border-color: #0099ff3f; /* اللون الثالث */
-    }
-    75% {
-        border-color: #1d74b362; /* اللون الرابع */
-    }
-    100% {
-        border-color: #0db1c737; /* اللون الخامس */
-    }
-}
+
 
 .read-more {
     color: white; /* تغيير لون الخط إلى الأبيض */
-    background: linear-gradient(135deg, #00d9d2, #20b1ff); /* تغيير معرف اللون */
+    background: linear-gradient(135deg, #2a2a2a, #2e2f30); /* تغيير معرف اللون */
     padding: 10px 10px; /* زيادة المساحة الداخلية للزر */
-    width: 100%;
-    border: 1px solid #00a5d3; /* تعيين الحد الأساسي */
-    border-radius: 13px; /* جعل الحدود مدورة قليلاً */
+    width: 100%; /* عرض الزر ليملأ العرض الكامل للنافذة */
+    border-radius: 1px; /* جعل الحدود مدورة قليلاً */
     cursor: pointer;
     display: inline-block;
     text-align: center;
     font-family: 'Arial', sans-serif; /* تغيير نوع الخط */
     font-size: 13px; /* زيادة حجم الخط */
     font-weight: bold; /* جعل الخط عريض */
-    margin: 5px 0; /* زيادة المسافة الفاصلة */
+    margin: 0; /* إزالة المسافة الفاصلة */
     box-shadow: 0 2px 4px rgba(75, 148, 128, 0.874); /* تعديل قيمة الظل الخفيف للزر */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* تقليل مدة تأثيرات الانتقال للخلفية والحجم */
-    /* قم بإزالة الأنيميشن مؤقتًا لمعرفة إذا كانت هي السبب في البطء */
-    /* animation: customBorderAnimation 3s infinite; */
-    position: relative; /* التأكد من أن z-index يعمل */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* تأثيرات الانتقال للخلفية والظل فقط */
+    position: fixed; /* تأمين الزر في مكان ثابت على الشاشة */
+    bottom: 0; /* المسافة من أسفل الشاشة */
+    left: 0; /* تحديد الموضع عند الجانب الأيسر من الشاشة */
     z-index: 10; /* تعيين z-index لضمان ظهور الزر فوق العناصر الأخرى */
 }
 
 .read-more:hover {
     background-color: #efdbeb; /* تغيير لون الخلفية عند تمرير الفأرة */
-    transform: scale(1.02); /* تكبير الزر قليلاً عند التمرير */
+    transform: scale(1.0); /* تكبير الزر قليلاً عند التمرير */
     color: #ffffff;
 }
 
