@@ -129,7 +129,7 @@ h3 {
     width: 33px;
     height: 33px;
     cursor: pointer;
-    z-index: 10000;
+    z-index: 10; /* تعديل قيمة z-index إلى أقل من العناصر الأخرى */
     color: #03003cf8;
     display: none;
 }
