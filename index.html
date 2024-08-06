@@ -1654,242 +1654,204 @@ if (!spacing) {
              
                 </head>
                 <body>
-                    <!DOCTYPE html>
-                    <html lang="en">
-                    <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Product Modal</title>
-                    <style>
-                        body.modal-open {
-                            overflow: hidden;
-                        }
-            
-                        .product-detail {
-                            display: block;
-                            margin-bottom: 10px;
-                            font-size: 15px;
-                            color: #1b2971;
-                        }
-                        .product-detail span {
-                            display: block;
-                        }
-                    </style>
-                    </head>
-                    <body>
-                    
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>Product Modal</title>
-                            <style>
-                                body.modal-open {
-                                    overflow: hidden;
-                                }
-                        
-                                .product-detail {
-                                    display: block;
-                                    margin-bottom: 10px;
-                                    font-size: 15px;
-                                    color: #1b2971;
-                                }
-                                .product-detail span {
-                                    display: block;
-                                }
-                        
-                                /* CSS for additional images section */
-                                .additional-images {
-                                    display: flex;
-                                    flex-direction: column;
-                                    margin-top: 20px;
-                                    padding: 10px 0;
-                                }
-                                .additional-images img {
-                                    width: 100%; /* Full width of parent container */
-                                    max-width: 100%;
-                                    margin-bottom: 10px;
-                                }
-                                
-                                /* Style for horizontal line */
-                                .additional-images hr {
-                                    border: none;
-                                    border-top: 5px solid #f0f0f0;
-                                    margin: 20px 0 10px 0;
-                                }
-                        
-                                /* Hide scrollbar for WebKit browsers */
-                                .additional-images::-webkit-scrollbar {
-                                    display: none;
-                                }
-                            </style>
-                        </head>
-                        <body>
-                            <div id="modal2" class="modal2">
-                                <div class="modal2-content">
-                                    <div class="carousel2">
-                                        <img id="slide2" src="1.jpg" alt="Image">
-                                    </div>
-                                    <div class="indicators" id="indicators">
-                                        <!-- Indicators will be added here dynamically -->
-                                    </div>
-                                    <div class="custom-paragraph">
-                                        <h1 id="product-title" class="custom-h1-purple">ساعه من فيترون</h1>
-                                        <p id="additional-text" class="custom-h1-green">نص إضافي هنا</p>
-                                        <p id="additional-text-2" class="custom-h1-blue" style="color: #223b45;">نص إضافي 2 هنا</p>
-                                        <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
-                                        <h2 id="additional-price" style="color: #6e6e6e; font-size: 14px; margin-top: 4px;">سعر آخر: 500 جنيه</h2> 
-                                        <h3 style="color: rgb(13, 163, 68);">إرجاع مجانى</h3>
-                                        <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -1px;">📦 طريقة الدفع| نقدًا عند الاستلام </h3>
-                                        <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚚  توصيل بواسطة| اراميكس</h3>
-                                        <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚛  سعر الشحن | ≈ 50 جنيه</h3>
-                                        <h3 style="color: rgba(255, 115, 0, 0.956); font-size: 15px; margin-top: -11px;">🛡 معاملتك آمنة</h3>
-                                        <div class="product-details">
-                                            <div class="product-detail">
-                                                <span>العلامه التجاريه:</span>
-                                                <span id="product-color">أحمر</span>
-                                            </div>
-                                            <div class="product-detail">
-                                                <span> اللون:</span>
-                                                <span id="product-size">L</span>
-                                            </div>
-                                            <div class="product-detail">
-                                                <span>المقاس:</span>
-                                                <span id="product-height">20 سم</span>
-                                            </div>
-                                        </div>
-                                        <h3 style="color: rgb(255, 34, 0); font-size: 20px; margin-bottom: -4px;">التفاصيل:</h3>
-                                        <p id="additional-text-3" class="custom-h1-black"></p>
-                        
-                                        <!-- Additional images section -->
-                                        <div class="additional-images" id="additional-images">
-                                            <!-- Images will be added here dynamically -->
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div style="text-align: center;">
-                                        <button class="read-more" onclick="closeModal2()">إرجع لشراء المنتج</button>
-                                        <hr style="border: none; border-top: 5px solid #f0f0f0; margin: 20px 0 10px 0;">
-                                        <div style="text-align: right; padding-right: 20px;">
-                                            <span style="color: #000000; font-size: 14px;">ⓘ ممول</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <script>
-                                let currentSlide2 = 0;
-                                let startX;
-                                let slides2 = ['1.jpg', '2.jpg', '3.jpg']; 
-                                
-                                function openModal2() {
-                                    document.getElementById('modal2').style.display = 'block';
-                                    document.querySelector('.close2').style.display = 'block'; 
-                                    document.body.classList.add('modal-open'); 
-                                    createIndicators();
-                                    showSlide2(currentSlide2);
-                                    scrollModalToTop();
-                                }
-                        
-                                function closeModal2() {
-                                    document.getElementById('modal2').style.display = 'none';
-                                    document.querySelector('.close2').style.display = 'none'; 
-                                    document.body.classList.remove('modal-open'); 
-                                }
-                        
-                                function showSlide2(index) {
-                                    const slide2 = document.getElementById('slide2');
-                                    slide2.src = slides2[index];
-                                    updateActiveIndicator(index);
-                                }
-                        
-                                function updateActiveIndicator(index) {
-                                    const indicators = document.querySelectorAll('.indicator');
-                                    indicators.forEach((indicator, i) => {
-                                        indicator.classList.toggle('active', i === index);
-                                    });
-                                }
-                        
-                                function createIndicators() {
-                                    const indicatorsContainer = document.getElementById('indicators');
-                                    indicatorsContainer.innerHTML = '';
-                                    slides2.forEach((_, index) => {
-                                        const indicator = document.createElement('div');
-                                        indicator.classList.add('indicator');
-                                        indicator.onclick = () => showSlide2(index);
-                                        indicatorsContainer.appendChild(indicator);
-                                    });
-                                    updateActiveIndicator(currentSlide2); 
-                                }
-                        
-                                document.getElementById('slide2').addEventListener('touchstart', (e) => {
-                                    startX = e.touches[0].clientX;
-                                });
-                        
-                                document.getElementById('slide2').addEventListener('touchend', (e) => {
-                                    const endX = e.changedTouches[0].clientX;
-                                    if (startX > endX + 50) {
-                                        nextSlide2();
-                                    } else if (startX < endX - 50) {
-                                        prevSlide2();
-                                    }
-                                });
-                        
-                                function prevSlide2() {
-                                    currentSlide2 = (currentSlide2 === 0) ? slides2.length - 1 : currentSlide2 - 1;
-                                    showSlide2(currentSlide2);
-                                }
-                        
-                                function nextSlide2() {
-                                    currentSlide2 = (currentSlide2 === slides2.length - 1) ? 0 : currentSlide2 + 1;
-                                    showSlide2(currentSlide2);
-                                }
-                        
-                                function updateProductDetails(title, description, additionalText, additionalText2, images, color, size, height, newAdditionalText, newPrice) {
-                                    document.getElementById('product-title').innerText = title;
-                                    document.getElementById('product-description').innerText = description;
-                                    document.getElementById('additional-text').innerText = additionalText;
-                                    document.getElementById('additional-text-2').innerText = additionalText2;
-                                    document.getElementById('additional-text-3').innerText = newAdditionalText; 
-                                    document.getElementById('product-color').innerText = color;
-                                    document.getElementById('product-size').innerText = size;
-                                    document.getElementById('product-height').innerText = height;
-                                    document.getElementById('additional-price').innerText = newPrice; // Update the new price
-                                    slides2 = images; 
-                                    currentSlide2 = 0;
-                                    showSlide2(0); 
-                                    createIndicators();
-                                    scrollModalToTop();
-                                    updateAdditionalImages(images);
-                                }
-                        
-                                function updateAdditionalImages(images) {
-                                    const additionalImagesContainer = document.getElementById('additional-images');
-                                    additionalImagesContainer.innerHTML = '';
-                                    images.forEach((image, index) => {
-                                        const img = document.createElement('img');
-                                        img.src = image;
-                                        img.alt = 'Additional Image'; // Add alt text
-                                        additionalImagesContainer.appendChild(img);
-                                        if (index < images.length - 1) { // Add a horizontal line between images
-                                            const hr = document.createElement('hr');
-                                            additionalImagesContainer.appendChild(hr);
-                                        }
-                                    });
-                                }
-                        
-                                function scrollModalToTop() {
-                                    const modalContent = document.querySelector('.modal2-content');
-                                    modalContent.scrollTop = 0;
-                                }
-                        
-                                // Initial call to populate the additional images
-                                updateAdditionalImages(slides2);
-                            </script>
-                        </body>
-                        </html>
-                        
+           
+     <!DOCTYPE html>
+     <html lang="en">
+     <head>
+         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>Product Modal</title>
+         <style>
+             body.modal-open {
+                 overflow: hidden;
+             }
+     
+             .product-detail {
+                 display: block;
+                 margin-bottom: 10px;
+                 font-size: 15px;
+                 color: #1b2971;
+             }
+             .product-detail span {
+                 display: block;
+             }
+     
+             /* CSS for additional images section */
+             .additional-images {
+                 display: flex;
+                 flex-direction: column;
+                 margin-top: 20px;
+                 padding: 10px 0;
+             }
+             .additional-images img {
+                 width: 100%; /* Full width of parent container */
+                 max-width: 100%;
+                 margin-bottom: 10px;
+             }
+             
+             /* Hide scrollbar for WebKit browsers */
+             .additional-images::-webkit-scrollbar {
+                 display: none;
+             }
+         </style>
+     </head>
+     <body>
+         <div id="modal2" class="modal2">
+             <div class="modal2-content">
+                 <div class="carousel2">
+                     <img id="slide2" src="1.jpg" alt="Image">
+                 </div>
+                 <div class="indicators" id="indicators">
+                     <!-- Indicators will be added here dynamically -->
+                 </div>
+                 <div class="custom-paragraph">
+                     <h1 id="product-title" class="custom-h1-purple">ساعه من فيترون</h1>
+                     <p id="additional-text" class="custom-h1-green">نص إضافي هنا</p>
+                     <p id="additional-text-2" class="custom-h1-blue" style="color: #223b45;">نص إضافي 2 هنا</p>
+                     <h1 id="product-description" class="custom-h1-red">السعر: 600 جنيه</h1>
+                     <h2 id="additional-price" style="color: #6e6e6e; font-size: 14px; margin-top: 4px;">سعر آخر: 500 جنيه</h2> 
+                     <h3 style="color: rgb(13, 163, 68);">إرجاع مجانى</h3>
+                     <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -1px;">📦 طريقة الدفع| نقدًا عند الاستلام </h3>
+                     <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚚  توصيل بواسطة| اراميكس</h3>
+                     <h3 style="color: rgb(47, 104, 67); font-size: 15px; margin-top: -14px;">🚛  سعر الشحن | ≈ 50 جنيه</h3>
+                     <h3 style="color: rgba(255, 115, 0, 0.956); font-size: 15px; margin-top: -11px;">🛡 معاملتك آمنة</h3>
+                     <div class="product-details">
+                         <div class="product-detail">
+                             <span>العلامه التجاريه:</span>
+                             <span id="product-color">أحمر</span>
+                         </div>
+                         <div class="product-detail">
+                             <span> اللون:</span>
+                             <span id="product-size">L</span>
+                         </div>
+                         <div class="product-detail">
+                             <span>المقاس:</span>
+                             <span id="product-height">20 سم</span>
+                         </div>
+                     </div>
+                     <h3 style="color: rgb(255, 34, 0); font-size: 20px; margin-bottom: -4px;">التفاصيل:</h3>
+                     <p id="additional-text-3" class="custom-h1-black"></p>
+     
+                     <!-- Additional images section -->
+                     <div class="additional-images" id="additional-images">
+                         <!-- Images will be added here dynamically -->
+                     </div>
+                 </div>
+                 <br>
+                 <div style="text-align: center;">
+                     <button class="read-more" onclick="closeModal2()">إرجع لشراء المنتج</button>
+                     <hr style="border: none; border-top: 5px solid #f0f0f0; margin: 20px 0 10px 0;">
+                     <div style="text-align: right; padding-right: 20px;">
+                         <span style="color: #000000; font-size: 14px;">ⓘ ممول</span>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         
+         <script>
+             let currentSlide2 = 0;
+             let startX;
+             let slides2 = ['1.jpg', '2.jpg', '3.jpg']; 
+             
+             function openModal2() {
+                 document.getElementById('modal2').style.display = 'block';
+                 document.querySelector('.close2').style.display = 'block'; 
+                 document.body.classList.add('modal-open'); 
+                 createIndicators();
+                 showSlide2(currentSlide2);
+                 scrollModalToTop();
+             }
+     
+             function closeModal2() {
+                 document.getElementById('modal2').style.display = 'none';
+                 document.querySelector('.close2').style.display = 'none'; 
+                 document.body.classList.remove('modal-open'); 
+             }
+     
+             function showSlide2(index) {
+                 const slide2 = document.getElementById('slide2');
+                 slide2.src = slides2[index];
+                 updateActiveIndicator(index);
+             }
+     
+             function updateActiveIndicator(index) {
+                 const indicators = document.querySelectorAll('.indicator');
+                 indicators.forEach((indicator, i) => {
+                     indicator.classList.toggle('active', i === index);
+                 });
+             }
+     
+             function createIndicators() {
+                 const indicatorsContainer = document.getElementById('indicators');
+                 indicatorsContainer.innerHTML = '';
+                 slides2.forEach((_, index) => {
+                     const indicator = document.createElement('div');
+                     indicator.classList.add('indicator');
+                     indicator.onclick = () => showSlide2(index);
+                     indicatorsContainer.appendChild(indicator);
+                 });
+                 updateActiveIndicator(currentSlide2); 
+             }
+     
+             document.getElementById('slide2').addEventListener('touchstart', (e) => {
+                 startX = e.touches[0].clientX;
+             });
+     
+             document.getElementById('slide2').addEventListener('touchend', (e) => {
+                 const endX = e.changedTouches[0].clientX;
+                 if (startX > endX + 50) {
+                     nextSlide2();
+                 } else if (startX < endX - 50) {
+                     prevSlide2();
+                 }
+             });
+     
+             function prevSlide2() {
+                 currentSlide2 = (currentSlide2 === 0) ? slides2.length - 1 : currentSlide2 - 1;
+                 showSlide2(currentSlide2);
+             }
+     
+             function nextSlide2() {
+                 currentSlide2 = (currentSlide2 === slides2.length - 1) ? 0 : currentSlide2 + 1;
+                 showSlide2(currentSlide2);
+             }
+     
+             function updateProductDetails(title, description, additionalText, additionalText2, images, color, size, height, newAdditionalText, newPrice) {
+                 document.getElementById('product-title').innerText = title;
+                 document.getElementById('product-description').innerText = description;
+                 document.getElementById('additional-text').innerText = additionalText;
+                 document.getElementById('additional-text-2').innerText = additionalText2;
+                 document.getElementById('additional-text-3').innerText = newAdditionalText; 
+                 document.getElementById('product-color').innerText = color;
+                 document.getElementById('product-size').innerText = size;
+                 document.getElementById('product-height').innerText = height;
+                 document.getElementById('additional-price').innerText = newPrice; // Update the new price
+                 slides2 = images; 
+                 currentSlide2 = 0;
+                 showSlide2(0); 
+                 createIndicators();
+                 scrollModalToTop();
+                 updateAdditionalImages(images);
+             }
+     
+             function updateAdditionalImages(images) {
+                 const additionalImagesContainer = document.getElementById('additional-images');
+                 additionalImagesContainer.innerHTML = '';
+                 images.forEach(image => {
+                     const img = document.createElement('img');
+                     img.src = image;
+                     img.alt = 'Additional Image'; // Add alt text
+                     additionalImagesContainer.appendChild(img);
+                 });
+             }
+     
+             function scrollModalToTop() {
+                 const modalContent = document.querySelector('.modal2-content');
+                 modalContent.scrollTop = 0;
+             }
+         </script>
+     </body>
+     </html>
                     
                     <style>
                         .product-details {
