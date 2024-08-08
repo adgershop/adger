@@ -154,12 +154,13 @@ h3 {
 }
 
 .indicator {
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
-    background-color: gray;
+    background-color: rgb(253, 253, 253);
     margin: 0 5px;
     cursor: pointer;
+    border: 1px solid rgb(52, 52, 52);
 }
 
 .indicator.active {
