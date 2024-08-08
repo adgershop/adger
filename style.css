@@ -154,8 +154,8 @@ h3 {
 }
 
 .indicator {
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background-color: rgb(253, 253, 253);
     margin: 0 5px;
