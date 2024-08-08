@@ -160,7 +160,6 @@ h3 {
     background-color: rgb(215, 215, 215);
     margin: 0 5px;
     cursor: pointer;
-    border: 1px solid rgb(52, 52, 52);
 }
 
 .indicator.active {
@@ -250,7 +249,7 @@ h3 {
 }
 
 .search-links a:hover {
-    background-color: #d6d6d64f; /* لون خلفية الرابط عند التمرير */
+    background-color: #d6d6d600; /* لون خلفية الرابط عند التمرير */
 }
 
 /* خصائص عامة للعربة */
