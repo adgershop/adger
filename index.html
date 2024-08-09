@@ -2590,13 +2590,13 @@ if (!spacing) {
             } else if (error.code === error.POSITION_UNAVAILABLE) {
                 document.getElementById('location').value = 'موقعك الحالي غير متاح.';
             } else if (error.code === error.TIMEOUT) {
-                document.getElementById('location').value = 'انتهى وقت الحصول على الموقع.';
+                document.getElementById('location').value = 'انتهى وقت الحصول على الموقع. حاول مرة أخرى.';
             } else {
                 document.getElementById('location').value = 'حدث خطأ غير معروف.';
             }
             console.error('Error Code: ' + error.code + ', Message: ' + error.message);
         },
-        { timeout: 10000 } // حدد مهلة للحصول على الموقع (بالمللي ثانية)
+        { timeout: 30000, maximumAge: 0, enableHighAccuracy: true } // زيادة المهلة إلى 30 ثانية
     );
 }
 
