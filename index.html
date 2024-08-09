@@ -8251,6 +8251,73 @@ if (!spacing) {
 
 
 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة الموقع كتطبيق</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .install-btn {
+            display: none; /* الزر سيكون مخفيًا افتراضيًا */
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .install-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>أضف هذا الموقع إلى الشاشة الرئيسية</h1>
+<p>اضغط على الزر أدناه لإضافة الموقع إلى شاشتك الرئيسية كتطبيق.</p>
+
+<button id="installBtn" class="install-btn">تثبيت الموقع</button>
+
+<script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    // الاستماع لحدث beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = 'inline-block'; // عرض الزر
+
+        installBtn.addEventListener('click', () => {
+            installBtn.style.display = 'none'; // إخفاء الزر بعد النقر
+            deferredPrompt.prompt(); // إظهار نافذة التثبيت
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('تم قبول التثبيت');
+                } else {
+                    console.log('تم رفض التثبيت');
+                }
+                deferredPrompt = null;
+            });
+        });
+    });
+
+    // إخفاء الزر إذا تم تثبيت التطبيق بالفعل
+    window.addEventListener('appinstalled', () => {
+        installBtn.style.display = 'none';
+    });
+</script>
+
+</body>
+</html>
 
 
 
