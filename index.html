@@ -2294,8 +2294,7 @@ if (!spacing) {
                 <body>
                    
                     <style>
-                        
-                        .popup {
+                         .popup {
             display: none;
             position: fixed;
             top: 0;
@@ -2310,97 +2309,94 @@ if (!spacing) {
         body.popup-open {
             overflow: hidden;
         }
-                    .popup.active {
-                        display: flex;
-                    }
-                    
-                    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); /* خط زخرفي من Google Fonts */
-  .popup-content {
-    background: linear-gradient(135deg, #ffffff, #ffffff);
-    padding: 20px;
-    border-radius: 5px;
-    width: 100%; /* تقليل عرض النافذة ليكون أقل واسعاً */
-    max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
-    box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* تحويل محاذاة المحتوى ليكون في الأعلى */
-    align-items: center; /* محاذاة المحتوى بشكل 
-                  أفقي في المنتصف */
-    margin: auto;
-    text-align: center; /* توسيط النص عمودياً */
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* توسيط النافذة في منتصف الشاشة */
-}
+        .popup.active {
+            display: flex;
+        }
 
-.popup-content h1 {
-    font-family: 'Dancing Script', cursive; /* خط زخرفي */
-    font-size: 36px;
-    margin-bottom: 20px;
-}
+        .popup-content {
+            background: linear-gradient(135deg, #ffffff, #ffffff);
+            padding: 20px;
+            border-radius: 5px;
+            width: 100%; /* تقليل عرض النافذة ليكون أقل واسعاً */
+            max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
+            box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* تحويل محاذاة المحتوى ليكون في الأعلى */
+            align-items: center; /* محاذاة المحتوى بشكل أفقي في المنتصف */
+            margin: auto;
+            text-align: center; /* توسيط النص عمودياً */
+            position: relative;
+            height: 80%; /* تحديد ارتفاع ثابت للنافذة */
+            overflow: auto; /* السماح بالتمرير إذا لزم الأمر */
+        }
 
-.popup-input {
-    width: calc(100% - 40px); /* تعديل عرض حقول الإدخال ليتناسب مع التباعدات */
-    margin: 10px 0;
-    padding: 10px;
-    border: 2px solid #00b3ff;
-    border-radius: 11px;
-}
+        .popup-content h1 {
+            font-family: 'Dancing Script', cursive; /* خط زخرفي */
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
 
-.quantity-input {
-    display: flex;
-    align-items: center;
-    margin: 10px 9px;
-}
+        .popup-input {
+            width: calc(100% - 40px); /* تعديل عرض حقول الإدخال ليتناسب مع التباعدات */
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px solid #00b3ff;
+            border-radius: 11px;
+        }
 
-.quantity-label {
-    flex: 1;
-    text-align: left; /* محاذاة النص إلى اليسار */
-}
+        .quantity-input {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
 
-.quantity-number {
-    margin: 0 10px;
-}
+        .quantity-label {
+            flex: 1;
+            text-align: left; /* محاذاة النص إلى اليسار */
+        }
 
-.quantity-buttons {
-    display: flex;
-}
+        .quantity-number {
+            margin: 0 10px;
+        }
 
-.quantity-button {
-    padding: 8px 15px;
-    margin: 0 5px;
-    background-color: #4d4d4d;
-    cursor: pointer;
-}
+        .quantity-buttons {
+            display: flex;
+        }
 
-.popup-button {
-    width: 50%; /* تعديل عرض الأزرار ليكون أقل قليلاً */
-    margin-top: 10px; /* تباعد من الأعلى للأزرار */
-    padding: 12px 25px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 18px;
-    display: inline-block; /* عرض الأزرار على سطر واحد مع التباعد المناسب */
-}
+        .quantity-button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            background-color: #4d4d4d;
+            cursor: pointer;
+        }
 
-.popup-button:hover {
-    background-color: #ffa601;
-}
+        .popup-button {
+            width: 50%; /* تعديل عرض الأزرار ليكون أقل قليلاً */
+            margin-top: 10px; /* تباعد من الأعلى للأزرار */
+            padding: 12px 25px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            display: inline-block; /* عرض الأزرار على سطر واحد مع التباعد المناسب */
+        }
 
-.popup-button.cancel {
-    background-color: #e74c3c;
-}
+        .popup-button:hover {
+            background-color: #ffa601;
+        }
 
-.popup-header {
-    text-align: center;
-    margin-bottom: 20px; /* تباعد أكبر من الأعلى للرأس */
-}
+        .popup-button.cancel {
+            background-color: #e74c3c;
+        }
 
-.popup-title {
-    margin: 0;
-}
+        .popup-header {
+            text-align: center;
+            margin-bottom: 20px; /* تباعد أكبر من الأعلى للرأس */
+        }
+
+        .popup-title {
+            margin: 0;
+        }
 <!DOCTYPE html>
 <html lang="ar">
 <head>
