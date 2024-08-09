@@ -193,42 +193,40 @@ function handleClearClick() {
 
 
 
+// طلب الإذن باستخدام JavaScript Bridge
 function requestLocationPermission() {
-    if (typeof window.JavaScriptBridge !== 'undefined') {
-        window.JavaScriptBridge.requestPermission('location', function(result) {
-            if (result.granted) {
-                console.log('Location permission granted.');
-                median_geolocation_ready();
+    // تحقق من وجود مكتبة JavaScript Bridge
+    if (typeof window.median !== 'undefined') {
+        window.median.requestPermission('location', function (status) {
+            if (status === 'granted') {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
             } else {
-                console.log('Location permission denied.');
+                console.log("Location permission denied.");
             }
         });
     } else {
-        console.log('JavaScriptBridge is not available.');
-        median_geolocation_ready(); // للاختبار في المتصفح
+        console.log("JavaScript Bridge not available.");
     }
 }
 
-function median_geolocation_ready() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                console.log('Latitude: ' + position.coords.latitude + ', Longitude: ' + position.coords.longitude);
-            },
-            (error) => {
-                console.error('Error retrieving location:', error.message);
-            },
-            {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            }
-        );
-    } else {
-        console.log('Geolocation is not supported by this browser.');
-    }
+function showPosition(position) {
+    console.log("Latitude: " + position.coords.latitude + 
+        ", Longitude: " + position.coords.longitude);
 }
 
-window.onload = () => {
-    requestLocationPermission();
-};
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            console.log("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            console.log("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            console.log("An unknown error occurred.");
+            break;
+    }
+}
