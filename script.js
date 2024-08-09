@@ -180,6 +180,8 @@ function requestLocationPermission() {
     if (typeof window.JavaScriptBridge !== 'undefined') {
         // طلب الإذن للوصول إلى الموقع
         window.JavaScriptBridge.requestPermission('location', function(result) {
+            console.log('Permission request result:', result); // تسجيل نتيجة طلب الإذن
+            
             if (result.granted) {
                 console.log('Location permission granted.');
                 median_geolocation_ready();
@@ -195,12 +197,19 @@ function requestLocationPermission() {
 
 function median_geolocation_ready() {
     if (navigator.geolocation) {
+        console.log('Geolocation is supported.');
+        
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 console.log('Latitude: ' + position.coords.latitude + ', Longitude: ' + position.coords.longitude);
             },
             (error) => {
-                console.error('Error retrieving location:', error);
+                console.error('Error retrieving location:', error.message);
+            },
+            {
+                enableHighAccuracy: true, // حاول الحصول على الموقع بدقة عالية
+                timeout: 5000, // مهلة انتظار للحصول على الموقع
+                maximumAge: 0 // لا تستخدم الموقع المخزن سابقًا
             }
         );
     } else {
