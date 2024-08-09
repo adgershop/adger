@@ -176,39 +176,15 @@ function handleClearClick() {
 }
 
 
-function requestLocationPermission() {
+function requestPermission(permissionType) {
     if (typeof window.JavaScriptBridge !== 'undefined') {
-        // طلب الإذن للوصول إلى الموقع
-        window.JavaScriptBridge.requestPermission('location', function(result) {
-            if (result.granted) {
-                console.log('Location permission granted.');
-                median_geolocation_ready();
-            } else {
-                console.log('Location permission denied.');
-            }
+        window.JavaScriptBridge.requestPermission(permissionType, function(result) {
+            console.log(permissionType + ' permission request result:', result);
         });
     } else {
         console.log('JavaScriptBridge is not available.');
-        median_geolocation_ready(); // للاختبار في المتصفح
     }
 }
 
-function median_geolocation_ready() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                console.log('Latitude: ' + position.coords.latitude + ', Longitude: ' + position.coords.longitude);
-            },
-            (error) => {
-                console.error('Error retrieving location:', error);
-            }
-        );
-    } else {
-        console.log('Geolocation is not supported by this browser.');
-    }
-}
-
-// عند تحميل الصفحة
-window.onload = () => {
-    requestLocationPermission();
-};
+// مثال: طلب إذن الموقع
+requestPermission('location');
