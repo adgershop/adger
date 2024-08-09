@@ -2573,31 +2573,42 @@ if (!spacing) {
                 quantityField.innerText = newQuantity;
             }
         }
-
         function getLocation() {
-    document.activeElement.blur();
-    navigator.geolocation.getCurrentPosition(
-        function(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            document.getElementById('location').value = latitude + ', ' + longitude;
-            localStorage.setItem('savedLocation', latitude + ', ' + longitude);
-            console.log('Latitude: ' + latitude + ', Longitude: ' + longitude);
-        },
-        function(error) {
-            if (error.code === error.PERMISSION_DENIED) {
-                document.getElementById('location').value = 'يرجى تمكين خدمة الموقع من إعدادات الهاتف ثم إعادة المحاولة.';
-            } else if (error.code === error.POSITION_UNAVAILABLE) {
-                document.getElementById('location').value = 'موقعك الحالي غير متاح.';
-            } else if (error.code === error.TIMEOUT) {
-                document.getElementById('location').value = 'انتهى وقت الحصول على الموقع. حاول مرة أخرى.';
-            } else {
-                document.getElementById('location').value = 'حدث خطأ غير معروف.';
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                document.getElementById('location').value = latitude + ', ' + longitude;
+                localStorage.setItem('savedLocation', latitude + ', ' + longitude);
+            },
+            function(error) {
+                var errorMessage = '';
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMessage = 'يرجى تمكين خدمة الموقع من إعدادات الهاتف ثم إعادة المحاولة.';
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMessage = 'الموقع غير متاح.';
+                        break;
+                    case error.TIMEOUT:
+                        errorMessage = 'الوقت المستغرق للحصول على الموقع انتهى.';
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        errorMessage = 'حدث خطأ غير معروف.';
+                        break;
+                }
+                document.getElementById('location').value = errorMessage;
+            },
+            {
+                enableHighAccuracy: true, // طلب دقة عالية
+                timeout: 5000, // المهلة الزمنية للحصول على الموقع (5 ثوانٍ)
+                maximumAge: 0 // عدم استخدام موقع محفوظ
             }
-            console.error('Error Code: ' + error.code + ', Message: ' + error.message);
-        },
-        { timeout: 30000, maximumAge: 0, enableHighAccuracy: true } // زيادة المهلة إلى 30 ثانية
-    );
+        );
+    } else {
+        document.getElementById('location').value = 'ميزة الموقع غير مدعومة في متصفحك.';
+    }
 }
 
     </script>
