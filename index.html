@@ -8228,6 +8228,7 @@ if (!spacing) {
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8259,26 +8260,40 @@ if (!spacing) {
         <p id="location">Requesting location...</p>
     </div>
     <script>
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    // النجاح في الحصول على الموقع
-                    document.getElementById("location").innerText =
-                        "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
-                },
-                (error) => {
-                    // الفشل في الحصول على الموقع
-                    document.getElementById("location").innerText = "Unable to retrieve location.";
-                }
-            );
-        } else {
-            // الموقع الجغرافي غير مدعوم
-            document.getElementById("location").innerText = "Geolocation is not supported by this browser.";
+        // Function to handle geolocation request
+        function requestLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        // Success: display location
+                        document.getElementById("location").innerText =
+                            "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
+                    },
+                    (error) => {
+                        // Error: unable to retrieve location
+                        document.getElementById("location").innerText = "Unable to retrieve location.";
+                    }
+                );
+            } else {
+                // Geolocation not supported
+                document.getElementById("location").innerText = "Geolocation is not supported by this browser.";
+            }
         }
+
+        // Function to be called when location services are initialized in the app
+        function median_geolocation_ready() {
+            // Call the function to request location after initialization
+            requestLocation();
+        }
+
+        // Simulate calling median_geolocation_ready when the app initializes location services
+        // In a real scenario, this function should be called by the JavaScript Bridge when the app is ready
+        window.onload = () => {
+            median_geolocation_ready();
+        };
     </script>
 </body>
 </html>
-
 
 
 
