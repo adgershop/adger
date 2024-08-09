@@ -2554,7 +2554,7 @@ if (!spacing) {
 
             var subject = encodeURIComponent('#طلب شراء');
             var body = encodeURIComponent(
-                `#طلب شراء\n${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nرقم التواصل: ${contactNumber}\nالموقع الجغرافي: ${location}${color ? '\nاللون: ' + color : ''}${size ? '\nالمقاس: ' + size : ''}\nالسعر: ${price} جنيه\nسعر التوصيل,يختلف احياناً: ${deliveryCharge} جنيه\nالسعر الإجمالي: ${totalPrice} جنيه`
+                `${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nرقم التواصل: ${contactNumber}\nالموقع الجغرافي: ${location}${color ? '\nاللون: ' + color : ''}${size ? '\nالمقاس: ' + size : ''}\nالسعر: ${price} جنيه\nسعر التوصيل,يختلف احياناً: ${deliveryCharge} جنيه\nالسعر الإجمالي: ${totalPrice} جنيه`
             );
 
             var mailtoLink = `mailto:adger.shop@gmail.com?subject=${subject}&body=${body}`;
