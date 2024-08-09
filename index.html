@@ -8230,60 +8230,6 @@ if (!spacing) {
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Median Location Example</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        #location {
-            font-size: 18px;
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <h1>Location Request</h1>
-    <p id="location">Requesting location...</p>
-    <script>
-        function requestLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        document.getElementById("location").innerText =
-                            "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
-                    },
-                    (error) => {
-                        document.getElementById("location").innerText = "Unable to retrieve location.";
-                    }
-                );
-            } else {
-                document.getElementById("location").innerText = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        function median_geolocation_ready() {
-            requestLocation();
-        }
-
-        window.onload = () => {
-            if (typeof window.JavaScriptBridge !== 'undefined') {
-                window.JavaScriptBridge.onReady(() => {
-                    median_geolocation_ready();
-                });
-            } else {
-                median_geolocation_ready(); // For testing in a standard browser
-            }
-        };
-    </script>
-</body>
-</html>
 
 
 
