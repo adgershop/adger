@@ -178,6 +178,7 @@ function handleClearClick() {
 
 function requestLocationPermission() {
     if (typeof window.JavaScriptBridge !== 'undefined') {
+        // طلب الإذن للوصول إلى الموقع
         window.JavaScriptBridge.requestPermission('location', function(result) {
             if (result.granted) {
                 console.log('Location permission granted.');
@@ -199,7 +200,7 @@ function median_geolocation_ready() {
                 console.log('Latitude: ' + position.coords.latitude + ', Longitude: ' + position.coords.longitude);
             },
             (error) => {
-                console.log('Unable to retrieve location.');
+                console.error('Error retrieving location:', error);
             }
         );
     } else {
