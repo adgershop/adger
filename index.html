@@ -2315,24 +2315,24 @@ if (!spacing) {
                     }
                     
                     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); /* خط زخرفي من Google Fonts */
- 
-                    .popup-content {
-            background: linear-gradient(135deg, #ffffff, #ffffff);
-            padding: 20px;
-            border-radius: 5px;
-            width: 100%; /* تقليل عرض النافذة ليكون أقل واسعاً */
-            max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
-            box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* تحويل محاذاة المحتوى ليكون في الأعلى */
-            align-items: center; /* محاذاة المحتوى بشكل أفقي في المنتصف */
-            margin: auto;
-            text-align: center; /* توسيط النص عمودياً */
-            position: relative;
-            height: 80%; /* تحديد ارتفاع ثابت للنافذة */
-            overflow: auto; /* السماح بالتمرير إذا لزم الأمر */
-        }
+  .popup-content {
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%; /* تقليل عرض النافذة ليكون أقل واسعاً */
+    max-width: 500px; /* حد أقصى للعرض للحفاظ على القابلية للقراءة */
+    box-sizing: border-box; /* تضمين الحواف في حساب العرض والارتفاع */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* محاذاة المحتوى بشكل 
+                  أفقي في المنتصف */
+    margin: auto;
+    text-align: center; /* توسيط النص عمودياً */
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* توسيط النافذة في منتصف الشاشة */
+}
 
 .popup-content h1 {
     font-family: 'Dancing Script', cursive; /* خط زخرفي */
