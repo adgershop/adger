@@ -204,3 +204,16 @@ if (navigator.geolocation) {
 } else {
     document.getElementById("location").innerText = "Geolocation is not supported by this browser.";
 }
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            console.log("Latitude: " + position.coords.latitude);
+            console.log("Longitude: " + position.coords.longitude);
+        },
+        (error) => {
+            console.error("Error Code = " + error.code + " - " + error.message);
+        }
+    );
+} else {
+    console.log("Geolocation is not supported by this browser.");
+}
