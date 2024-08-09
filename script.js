@@ -176,3 +176,31 @@ function handleClearClick() {
 }
 
 
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            // نجاح: الوصول إلى الموقع الجغرافي
+            console.log("Latitude: " + position.coords.latitude);
+            console.log("Longitude: " + position.coords.longitude);
+        },
+        (error) => {
+            // فشل: لم يتمكن من الحصول على الموقع
+            console.error("Error Code = " + error.code + " - " + error.message);
+        }
+    );
+} else {
+    console.log("Geolocation is not supported by this browser.");
+}
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            document.getElementById("location").innerText =
+                "Your location: Latitude " + position.coords.latitude + ", Longitude " + position.coords.longitude;
+        },
+        (error) => {
+            document.getElementById("location").innerText = "Unable to retrieve location.";
+        }
+    );
+} else {
+    document.getElementById("location").innerText = "Geolocation is not supported by this browser.";
+}
