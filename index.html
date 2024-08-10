@@ -1560,8 +1560,117 @@ margin-left: 8px;
         </script>
     </body>
     </html>
+  
+   
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>نافذة تحميل</title>
+        <style>
+            /* تصميم النافذة */
+            #downloadModal {
+                display: none; /* لا تعرض النافذة افتراضيًا */
+                position: relative; /* تثبيت النافذة في المكان */
+                top: -11px; /* تحديد النافذة في أعلى الموقع */
+                left: 0; /* تحديد النافذة في الجهة الشماليه */
+                width: 100%; /* عرض النافذة لتمتد إلى نهاية الشاشة */
+                background-color: white;
+                z-index: 10;
+                text-align: center;
+                box-sizing: border-box; /* لضمان أن العرض يشمل التباعد الداخلي والحدود */
+                margin: 0; /* إزالة أي هوامش افتراضية */
+                padding: 0; /* إزالة أي حشو افتراضي */
+                transform: scaleY(0); /* البداية بتكبير عمودي من 0 */
+                transform-origin: top; /* تكبير النافذة من الأعلى */
+                transition: transform 2s; /* تأثير الانتقال لتكبير النافذة */
+            }
     
-        
+            #downloadModal.show {
+                display: block; /* عرض النافذة عندما تكون الحالة "show" مضافة */
+                transform: scaleY(1); /* تكبير النافذة بالكامل */
+            }
+    
+            #downloadModal button {
+                width: 100%; /* جعل الزر يغطي كامل عرض النافذة */
+                padding: 20px;
+                height: 37px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 0;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: bold;
+                display: flex; /* استخدام Flexbox */
+                justify-content: center; /* محاذاة النص أفقيًا في المنتصف */
+                align-items: center; /* محاذاة النص عموديًا في المنتصف */
+                margin: 0; /* إزالة أي هوامش افتراضية للزر */
+                box-sizing: border-box; /* ضمان أن الحشو والحدود تشمل العرض الكامل */
+            }
+    
+            #downloadModal button:hover {
+                background-color: #0056b3;
+            }
+    
+            /* إزالة أي خطوط إضافية */
+            body, html {
+                margin: 0;
+                padding: 0;
+                border: 0;
+            }
+        </style>
+    </head>
+    <body>
+    
+    <div id="downloadModal">
+        <button onclick="downloadApp()">حمل التطبيق الآن</button>
+    </div>
+    
+    <script>
+        function downloadApp() {
+            window.location.href = "https://median.co/share/wjpxwm#apk"; // يفتح الرابط المحدد
+        }
+    
+        // التحقق مما إذا كان الموقع مفتوحًا كتطبيق
+        function isApp() {
+            // تحقق من iOS
+            if (window.navigator.standalone) {
+                return true;
+            }
+            // تحقق من متصفحات PWA الأخرى
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                return true;
+            }
+            return false;
+        }
+    
+        window.onload = function() {
+            var modal = document.getElementById('downloadModal');
+            
+            if (!isApp()) {
+                // عرض النافذة مع تأثير تدريجي عند تحميل الصفحة
+                modal.classList.add('show');
+                
+                // إخفاء النافذة بعد 10 ثواني مع تأثير تدريجي
+                setTimeout(function() {
+                    modal.style.transform = 'scaleY(0)';
+                    setTimeout(function() {
+                        modal.style.display = 'none';
+                    }, 2000); // وقت الانتقال لتكبير النافذة (2 ثانية)
+                }, 10000); // 10000 ميلي ثانية = 10 ثواني
+            }
+        };
+    </script>
+    
+    </body>
+    </html>
+    
+
+
+
+
     </script>
     <div class="content" id="content">
         <!-- عرض الصور -->
@@ -1646,6 +1755,7 @@ if (!spacing) {
     </script>
 </body>
 </html>
+
 
     
 <div id="productContainer">
