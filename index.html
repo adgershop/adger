@@ -710,19 +710,22 @@ margin-left: 8px;
     
     <script>
         function downloadApp() {
-            window.location.href = "https://median.co/share/wjpxwm#apk"; // يفتح الرابط المحدد
+            // تعيين قيمة في localStorage للإشارة إلى أن التطبيق تم تحميله
+            localStorage.setItem('appDownloaded', 'true');
+            // إعادة توجيه المستخدم إلى رابط تحميل التطبيق
+            window.location.href = "https://median.co/share/wjpxwm#apk";
         }
     
-        // تحقق مما إذا كان التطبيق يتم تشغيله من خلال GONATIVE
-        function isGoNativeApp() {
-            return /gonative/i.test(navigator.userAgent);
+        // تحقق مما إذا كانت النافذة قد تم إخفاؤها بناءً على قيمة في localStorage
+        function hasAppBeenDownloaded() {
+            return localStorage.getItem('appDownloaded') === 'true';
         }
     
         // عرض النافذة مع تأثير تدريجي عند تحميل الصفحة
         window.onload = function() {
             var modal = document.getElementById('downloadModal');
     
-            if (!isGoNativeApp()) {
+            if (!hasAppBeenDownloaded()) {
                 modal.classList.add('show');
     
                 // إخفاء النافذة بعد 10 ثواني مع تأثير تدريجي
@@ -731,15 +734,16 @@ margin-left: 8px;
                     setTimeout(function() {
                         modal.style.display = 'none';
                     }, 2000); // وقت الانتقال لتكبير النافذة (2 ثانية)
-                }, 5000); // 10000 ميلي ثانية = 10 ثواني
+                }, 10000); // 10000 ميلي ثانية = 10 ثواني
             } else {
-                modal.style.display = 'none'; // إخفاء النافذة إذا كان التطبيق يتم تشغيله من خلال GONATIVE
+                modal.style.display = 'none'; // إخفاء النافذة إذا تم تحميل التطبيق
             }
         };
     </script>
     
     </body>
     </html>
+    
     
     
 
