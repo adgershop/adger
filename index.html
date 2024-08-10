@@ -1475,17 +1475,23 @@ margin-left: 8px;
     </head>
     <body>
         <div class="search-links" id="searchLinks">
-            <a href="#" onclick="refreshPage(); return false;" id="allLink" class="highlight" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">الجميع</a>
-            <a href="#" onclick="insertSearchTerm('ملابس'); return false;" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">ملابس</a>
-            <a href="#" onclick="insertSearchTerm('إلكترونيات'); return false;" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">إلكترونيات</a>
-            <a href="#" onclick="insertSearchTerm('ادوات مدرسيه'); return false;" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">ادوات مدرسيه</a>
-            <a href="#" onclick="insertSearchTerm('كتب'); return false;" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">كتب</a>
-            <a href="#" onclick="insertSearchTerm('مجلات'); return false;" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">مجلات</a>
-            <a href="#" onclick="insertSearchTerm('أثري'); return false;" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">أثري</a>
-            <a href="#" onclick="insertSearchTerm('ساعات'); return false;" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">ساعات</a>
-            <a href="#" onclick="insertSearchTerm('العاب'); return false;" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">العاب</a>
+            <a href="#" onclick="refreshPage(); removeFocus(this); return false;" id="allLink" class="highlight" style="-webkit-tap-highlight-color: transparent;">الجميع</a>
+            <a href="#" onclick="insertSearchTerm('ملابس'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">ملابس</a>
+            <a href="#" onclick="insertSearchTerm('إلكترونيات'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">إلكترونيات</a>
+            <a href="#" onclick="insertSearchTerm('ادوات مدرسيه'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">ادوات مدرسيه</a>
+            <a href="#" onclick="insertSearchTerm('كتب'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">كتب</a>
+            <a href="#" onclick="insertSearchTerm('مجلات'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">مجلات</a>
+            <a href="#" onclick="insertSearchTerm('أثري'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">أثري</a>
+            <a href="#" onclick="insertSearchTerm('ساعات'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">ساعات</a>
+            <a href="#" onclick="insertSearchTerm('العاب'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">العاب</a>
         </div>
-    
+        
+        <script>
+        function removeFocus(element) {
+            element.blur(); // إزالة التركيز عن العنصر
+        }
+        </script>
+        
     
         <div id="searchResults">
             <!-- Search results will be displayed here -->
