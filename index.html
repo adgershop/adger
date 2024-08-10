@@ -649,97 +649,7 @@ margin-left: 8px;
             <path d="M4 6h16M4 12h16M4 18h16" />
         </svg>
     </button>
-    <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نافذة تحميل</title>
-    <style>
-        /* تصميم النافذة */
-        #downloadModal {
-            display: none; /* إخفاء النافذة بشكل افتراضي */
-            position: fixed; /* تثبيت النافذة في المكان */
-            bottom: -45px; /* تحديد النافذة في أسفل الصفحة */
-            left: 0; /* تحديد النافذة في الجهة الشماليه */
-            width: 100vw; /* عرض النافذة لتمتد إلى عرض الشاشة بالكامل */
-            height: 80px; /* ارتفاع النافذة حسب الحاجة */
-            background-color: white;
-            z-index: 10;
-            text-align: center;
-            box-sizing: border-box; /* لضمان أن العرض يشمل التباعد الداخلي والحدود */
-            margin: 0; /* إزالة أي هوامش افتراضية */
-            padding: 0; /* إزالة أي حشو افتراضي */
-            transform: scaleY(0); /* البداية بتكبير عمودي من 0 */
-            transform-origin: bottom; /* تكبير النافذة من الأسفل */
-            transition: transform 2s; /* تأثير الانتقال لتكبير النافذة */
-        }
-
-        #downloadModal.show {
-            display: block; /* عرض النافذة */
-            transform: scaleY(1); /* تكبير النافذة بالكامل */
-        }
-
-        #downloadModal button {
-            width: 100%; /* جعل الزر يغطي كامل عرض النافذة */
-            padding: 20px;
-            height: 33px; /* زيادة ارتفاع الزر ليكون أكثر وضوحاً */
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 0;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            display: flex; /* استخدام Flexbox */
-            justify-content: center; /* محاذاة النص أفقيًا في المنتصف */
-            align-items: center; /* محاذاة النص عموديًا في المنتصف */
-            margin: 0; /* إزالة أي هوامش افتراضية للزر */
-            box-sizing: border-box; /* ضمان أن الحشو والحدود تشمل العرض الكامل */
-        }
-
-        #downloadModal button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-
-<div id="downloadModal">
-    <button onclick="downloadApp()" style="font-size: 17px;">حمل التطبيق الآن</button>
-</div>
-
-<script>
-    function downloadApp() {
-        // تغيير القيمة في localStorage لإظهار أنه تم النقر
-        localStorage.setItem('downloadModalClicked', 'true');
-        window.location.href = "https://median.co/share/wjpxwm#apk"; // يفتح الرابط المحدد
-    }
-
-    // عرض النافذة مع تأثير تدريجي عند تحميل الصفحة
-    window.onload = function() {
-        var modal = document.getElementById('downloadModal');
-
-        // التحقق مما إذا كان قد تم النقر على الزر من قبل
-        if (!localStorage.getItem('downloadModalClicked')) {
-            modal.classList.add('show');
-
-            // إخفاء النافذة بعد 10 ثواني مع تأثير تدريجي
-            setTimeout(function() {
-                modal.style.transform = 'scaleY(0)';
-                setTimeout(function() {
-                    modal.style.display = 'none';
-                }, 2000); // وقت الانتقال لتكبير النافذة (2 ثانية)
-            }, 10000); // 10000 ميلي ثانية = 10 ثواني
-        }
-    };
-</script>
-
-</body>
-</html>
-
-
-    
+  
     
     
 
@@ -747,10 +657,20 @@ margin-left: 8px;
     <div id="white-page">
         <div id="menu-items">
             <a href="#" id="menu-item-2">حسابى</a><br>
-            <a href="#" id="menu-item-1">فديوهات ادجر</a><br>
+            <a href="#" id="menu-item-1">فديوهات أدجر</a><br>
             <a href="#" id="menu-item-3">ابلغ عن مشكله</a><br>
-        </div>
+            <a href="https://median.co/share/wjpxwm#apk" id="menu-item-4" 
+            style="background-color: rgb(242, 75, 42); 
+                   border-radius: 77px; 
+                   font-size: 16px; 
+                   color: white; 
+                   text-align: center; 
+                   display: inline-block; 
+                   padding: 6px 15px; 
+                   text-decoration: none;">تطبيق أدجر</a><br>
+                 </div>
        
+        
     <style>
         .button {
             display: flex;
