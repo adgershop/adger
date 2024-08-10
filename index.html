@@ -649,7 +649,99 @@ margin-left: 8px;
             <path d="M4 6h16M4 12h16M4 18h16" />
         </svg>
     </button>
-
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>نافذة تحميل</title>
+        <style>
+            /* تصميم النافذة */
+            #downloadModal {
+                display: block; /* عرض النافذة عند تحميل الصفحة */
+                position: fixed; /* تثبيت النافذة في المكان */
+                bottom: -45px; /* تحديد النافذة في أسفل الصفحة */
+                left: 0; /* تحديد النافذة في الجهة الشماليه */
+                width: 100vw; /* عرض النافذة لتمتد إلى عرض الشاشة بالكامل */
+                height: 80px; /* ارتفاع النافذة حسب الحاجة */
+                background-color: white;
+                z-index: 1;
+                text-align: center;
+                box-sizing: border-box; /* لضمان أن العرض يشمل التباعد الداخلي والحدود */
+                margin: 0; /* إزالة أي هوامش افتراضية */
+                padding: 0; /* إزالة أي حشو افتراضي */
+                transform: scaleY(0); /* البداية بتكبير عمودي من 0 */
+                transform-origin: bottom; /* تكبير النافذة من الأسفل */
+                transition: transform 2s; /* تأثير الانتقال لتكبير النافذة */
+            }
+    
+            #downloadModal.show {
+                transform: scaleY(1); /* تكبير النافذة بالكامل */
+            }
+    
+            #downloadModal button {
+                width: 100%; /* جعل الزر يغطي كامل عرض النافذة */
+                padding: 20px;
+                height: 29px; /* زيادة ارتفاع الزر ليكون أكثر وضوحاً */
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 0;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: bold;
+                display: flex; /* استخدام Flexbox */
+                justify-content: center; /* محاذاة النص أفقيًا في المنتصف */
+                align-items: center; /* محاذاة النص عموديًا في المنتصف */
+                margin: 0; /* إزالة أي هوامش افتراضية للزر */
+                box-sizing: border-box; /* ضمان أن الحشو والحدود تشمل العرض الكامل */
+            }
+    
+            #downloadModal button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+    
+    <div id="downloadModal">
+        <button onclick="downloadApp()">حمل التطبيق الآن</button>
+    </div>
+    
+    <script>
+        function downloadApp() {
+            window.location.href = "https://median.co/share/wjpxwm#apk"; // يفتح الرابط المحدد
+        }
+    
+        // تحقق مما إذا كان التطبيق يتم تشغيله من خلال GONATIVE
+        function isGoNativeApp() {
+            return /gonative/i.test(navigator.userAgent);
+        }
+    
+        // عرض النافذة مع تأثير تدريجي عند تحميل الصفحة
+        window.onload = function() {
+            var modal = document.getElementById('downloadModal');
+    
+            if (!isGoNativeApp()) {
+                modal.classList.add('show');
+    
+                // إخفاء النافذة بعد 10 ثواني مع تأثير تدريجي
+                setTimeout(function() {
+                    modal.style.transform = 'scaleY(0)';
+                    setTimeout(function() {
+                        modal.style.display = 'none';
+                    }, 2000); // وقت الانتقال لتكبير النافذة (2 ثانية)
+                }, 5000); // 10000 ميلي ثانية = 10 ثواني
+            } else {
+                modal.style.display = 'none'; // إخفاء النافذة إذا كان التطبيق يتم تشغيله من خلال GONATIVE
+            }
+        };
+    </script>
+    
+    </body>
+    </html>
+    
+    
 
     <!-- The white page that appears when the menu button is clicked -->
     <div id="white-page">
@@ -1562,112 +1654,6 @@ margin-left: 8px;
     </html>
   
    
-    <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>نافذة تحميل</title>
-        <style>
-            /* تصميم النافذة */
-            #downloadModal {
-                display: none; /* لا تعرض النافذة افتراضيًا */
-                position: relative; /* تثبيت النافذة في المكان */
-                top: -11px; /* تحديد النافذة في أعلى الموقع */
-                left: 0; /* تحديد النافذة في الجهة الشماليه */
-                width: 100%; /* عرض النافذة لتمتد إلى نهاية الشاشة */
-                background-color: white;
-                z-index: 10;
-                text-align: center;
-                box-sizing: border-box; /* لضمان أن العرض يشمل التباعد الداخلي والحدود */
-                margin: 0; /* إزالة أي هوامش افتراضية */
-                padding: 0; /* إزالة أي حشو افتراضي */
-                transform: scaleY(0); /* البداية بتكبير عمودي من 0 */
-                transform-origin: top; /* تكبير النافذة من الأعلى */
-                transition: transform 2s; /* تأثير الانتقال لتكبير النافذة */
-            }
-    
-            #downloadModal.show {
-                display: block; /* عرض النافذة عندما تكون الحالة "show" مضافة */
-                transform: scaleY(1); /* تكبير النافذة بالكامل */
-            }
-    
-            #downloadModal button {
-                width: 100%; /* جعل الزر يغطي كامل عرض النافذة */
-                padding: 20px;
-                height: 37px;
-                background-color: #007BFF;
-                color: white;
-                border: none;
-                border-radius: 0;
-                cursor: pointer;
-                font-size: 18px;
-                font-weight: bold;
-                display: flex; /* استخدام Flexbox */
-                justify-content: center; /* محاذاة النص أفقيًا في المنتصف */
-                align-items: center; /* محاذاة النص عموديًا في المنتصف */
-                margin: 0; /* إزالة أي هوامش افتراضية للزر */
-                box-sizing: border-box; /* ضمان أن الحشو والحدود تشمل العرض الكامل */
-            }
-    
-            #downloadModal button:hover {
-                background-color: #0056b3;
-            }
-    
-            /* إزالة أي خطوط إضافية */
-            body, html {
-                margin: 0;
-                padding: 0;
-                border: 0;
-            }
-        </style>
-    </head>
-    <body>
-    
-    <div id="downloadModal">
-        <button onclick="downloadApp()">حمل التطبيق الآن</button>
-    </div>
-    
-    <script>
-        function downloadApp() {
-            window.location.href = "https://median.co/share/wjpxwm#apk"; // يفتح الرابط المحدد
-        }
-    
-        // التحقق مما إذا كان الموقع مفتوحًا كتطبيق
-        function isApp() {
-            // تحقق من iOS
-            if (window.navigator.standalone) {
-                return true;
-            }
-            // تحقق من متصفحات PWA الأخرى
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                return true;
-            }
-            return false;
-        }
-    
-        window.onload = function() {
-            var modal = document.getElementById('downloadModal');
-            
-            if (!isApp()) {
-                // عرض النافذة مع تأثير تدريجي عند تحميل الصفحة
-                modal.classList.add('show');
-                
-                // إخفاء النافذة بعد 10 ثواني مع تأثير تدريجي
-                setTimeout(function() {
-                    modal.style.transform = 'scaleY(0)';
-                    setTimeout(function() {
-                        modal.style.display = 'none';
-                    }, 2000); // وقت الانتقال لتكبير النافذة (2 ثانية)
-                }, 10000); // 10000 ميلي ثانية = 10 ثواني
-            }
-        };
-    </script>
-    
-    </body>
-    </html>
-    
-
 
 
 
