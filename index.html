@@ -656,11 +656,25 @@ margin-left: 8px;
     <!-- The white page that appears when the menu button is clicked -->
     <div id="white-page">
         <div id="menu-items">
+            <a href="#" id="home-icon" onclick="closeWhitePage()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#000"/>
+                </svg>
+                <span style="vertical-align: middle;">الصفحة الرئيسية</span>
+            </a>
+            
+            <script>
+                function closeWhitePage() {
+                    // ضع هنا الكود الخاص بك لإغلاق الصفحة البيضاء
+                    document.getElementById('whitePage').style.display = 'none';
+                }
+            </script><br>
+            
             <a href="#" id="menu-item-2">حسابى</a><br>
             <a href="#" id="menu-item-1">فديوهات أدجر</a><br>
             <a href="#" id="menu-item-3">ابلغ عن مشكله</a><br>
             <a href="https://median.co/share/wjpxwm#apk" id="menu-item-3" style="color: #1127a3; font-size: 19px; display: flex; align-items: center;"ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-                <img src="logo.jpg" alt="Adger Logo" style="width: 34px; height: 31px; margin-right: 5px;"ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+                <img src="dw.jpg" alt="Adger Logo" style="width: 38px; height: 37px; margin-right: 55px;"ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
                 تطبيق أدجر
             </a><br>
                     </div>
@@ -1790,31 +1804,31 @@ if (!spacing) {
                                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                                         <title>WhatsApp Button</title>
                                         <style>
-                                            .whatsapp-button {
-                                                position: fixed; /* Make it stay fixed on the screen */
-                                                bottom: 47px; /* Distance from the bottom */
-                                                left: 12px; /* Distance from the right */
-                                                background-color: #ffffff;
-                                                color: white;
-                                                padding: 15px; /* Adjust size as needed */
-                                                border-radius: 49%; /* Make it circular */
-                                                text-align: center;
-                                                text-decoration: none;
-                                                font-size: 19px;
-                                                font-weight: bold;
-                                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                                                transition: background-color 0.3s ease;
-                                                display: flex; /* Center the text inside the circle */
-                                                align-items: center;
-                                                justify-content: center;
-                                                width: 10px; /* Adjust size as needed */
-                                                height: 10px; /* Adjust size as needed */
-                                                line-height: 1; /* Adjust text alignment */
-                                            }
-                                    
-                                            .whatsapp-button:hover {
-                                                background-color: #128C7E; /* Darker WhatsApp color on hover */
-                                            }
+                                        .whatsapp-button {
+                                        position: fixed; /* Make it stay fixed on the screen */
+                                        bottom: 28px; /* Distance from the bottom */
+                                        left: 1px; /* Distance from the left */
+                                          background-color: transparent; /* No background color */
+                                        color: white; /* Text color */
+                                        padding: 15px; /* Adjust size as needed */
+                                         border: none; /* No border */
+                                          border-radius: 50%; /* Make it circular */
+                                           text-align: center;
+                                          text-decoration: none;
+                                          font-size: 22px;
+                                        font-weight: bold;
+                                         box-shadow: none; /* No shadow */
+                                        transition: background-color 0.3s ease;
+                                             display: flex; /* Center the text inside the circle */
+                                            align-items: center;
+                                              justify-content: center;
+                                              width: 50px; /* Adjust size as needed */
+                                            height: 50px; /* Adjust size as needed */
+                                            line-height: 1; /* Adjust text alignment */
+                                           }
+
+
+
                                         </style>
                                     </head>
                                     <body>
