@@ -8879,27 +8879,26 @@ if (hasError) {
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap');
 
         .paragraph-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f9;
-            margin: 0;
+            text-align: center;
+            margin-top: 50px;
         }
 
         #custom-paragraph {
             font-family: 'Tajawal', sans-serif;
-            font-size: 24px;
-            color: #544f69;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-            line-height: 1.6;
-            margin: 10px 0;
+            font-size: 23px;
+            font-weight: bold;
+            background: linear-gradient(to right, #b6b, #f00);
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.8;
+            margin: 0;
             padding: 10px;
-            border-bottom: 2px solid #d1d1e9;
-            max-width: 80%;
-            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+            display: inline-block;
         }
+
+      
     </style>
 </head>
 <body>
@@ -8908,7 +8907,7 @@ if (hasError) {
         <p id="custom-paragraph">لا توجد نتائج لمنتجات أخرى!</p>
         <p id="custom-paragraph"></p>
     </div>
-
+<br><br>
 </body>
 </html>
 
