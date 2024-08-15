@@ -2602,31 +2602,42 @@ if (!spacing) {
             var deliveryCharge = parseFloat(popup.dataset.deliveryCharge) || 0;
             var totalPrice = (price * parseInt(quantity)) + deliveryCharge;
             var nameField = document.getElementById('name');
-    var contactNumberField = document.getElementById('contact-number');
-    var name = nameField.value.trim();
-    var contactNumber = contactNumberField.value.trim();
-    
-    // إزالة أي تنسيق تحذيري قديم
+var contactNumberField = document.getElementById('contact-number');
+
+// إزالة أي تنسيق تحذيري عند البدء في الكتابة
+nameField.addEventListener('input', function() {
     nameField.classList.remove('error');
+});
+
+contactNumberField.addEventListener('input', function() {
     contactNumberField.classList.remove('error');
+});
 
-    // تحقق من الحقول الفارغة
-    var hasError = false;
+var name = nameField.value.trim();
+var contactNumber = contactNumberField.value.trim();
 
-    if (!name) {
-        nameField.classList.add('error');
-        hasError = true;
-    }
-    
-    if (!contactNumber) {
-        contactNumberField.classList.add('error');
-        hasError = true;
-    }
+// إزالة أي تنسيق تحذيري قديم
+nameField.classList.remove('error');
+contactNumberField.classList.remove('error');
 
-    // منع الانتقال إذا كان هناك خطأ
-    if (hasError) {
-        return;
-    }
+// تحقق من الحقول الفارغة
+var hasError = false;
+
+if (!name) {
+    nameField.classList.add('error');
+    hasError = true;
+}
+
+if (!contactNumber) {
+    contactNumberField.classList.add('error');
+    hasError = true;
+}
+
+// منع الانتقال إذا كان هناك خطأ
+if (hasError) {
+    return;
+}
+
             var subject = encodeURIComponent('#طلب شراء');
             var body = encodeURIComponent(
                 `${productName}\nرقم المنتج|${productNumber} , الكمية: ${quantity}\nالاسم الثلاثي: ${name}\nرقم التواصل: ${contactNumber}\nالموقع الجغرافي: ${location}${color ? '\nاللون: ' + color : ''}${size ? '\nالمقاس: ' + size : ''}\nالسعر: ${price} جنيه\nسعر التوصيل,يختلف احياناً: ${deliveryCharge} جنيه\nالسعر الإجمالي: ${totalPrice} جنيه`
