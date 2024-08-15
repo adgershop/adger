@@ -270,6 +270,17 @@ margin-left: 8px;
                 </style>
             </head>
             <body>
+                <style>
+                    .adger{
+                        font-family: Arial, sans-serif;
+            font-size: 26px; /* زيادة حجم الخط */
+            font-weight: bold;
+            background: linear-gradient(to right, #ff3300, #ffaa69); /* تأثير التدرج اللوني */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+                    }
+                </style>
+                <h2 class="adger">Adger</h2>
                 <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)">
                 <span id="clearButton" class="clear-button" onclick="handleClick(event)">✖</span>
             
