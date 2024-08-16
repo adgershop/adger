@@ -130,7 +130,7 @@ h3 {
     right: -7px; /* يمكن تعديل هذه القيمة حسب الحاجة */
     margin-right: -9px;
     margin-left: -2px;
-    width: 30px;
+    width: 33px;
     height: 24px;
     cursor: pointer;
     z-index: 10; /* تعديل قيمة z-index إلى أقل من العناصر الأخرى */
