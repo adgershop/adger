@@ -129,7 +129,7 @@ h3 {
     top: center; /* يمكن تعديل هذه القيمة حسب الحاجة */
     right: 9px; /* يمكن تعديل هذه القيمة حسب الحاجة */
     width: 33px;
-    height: 33px;
+    height: 24px;
     cursor: pointer;
     z-index: 10; /* تعديل قيمة z-index إلى أقل من العناصر الأخرى */
     color: #000000f8;
