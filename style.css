@@ -127,7 +127,9 @@ h3 {
 .close2 {
     position: sticky; /* تغيير من fixed إلى sticky */
     top: center; /* يمكن تعديل هذه القيمة حسب الحاجة */
-    right: 9px; /* يمكن تعديل هذه القيمة حسب الحاجة */
+    right: -7px; /* يمكن تعديل هذه القيمة حسب الحاجة */
+    margin-right: -12px;
+    margin-left: -5px;
     width: 33px;
     height: 24px;
     cursor: pointer;
