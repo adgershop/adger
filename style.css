@@ -127,7 +127,7 @@ h3 {
     position: sticky; /* تغيير من fixed إلى sticky */
     top: center; /* يمكن تعديل هذه القيمة حسب الحاجة */
     right: 9px; /* يمكن تعديل هذه القيمة حسب الحاجة */
-    margin-right: -1px;
+    margin-right: 1px;
     width: 33px;
     height: 25px;
     cursor: pointer;
