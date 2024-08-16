@@ -252,9 +252,10 @@ margin-left: 8px;
     <body>
         <div class="search-container">
             <div class="close2" onclick="closeModal2()">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                </svg>
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                  </svg>
+                  
             </div>
             <!DOCTYPE html>
             <html lang="en">
@@ -270,6 +271,18 @@ margin-left: 8px;
                 </style>
             </head>
             <body>
+                <style>
+                .adger{
+                    font-family: Arial, sans-serif;
+            font-size: 23px; /* زيادة حجم الخط */
+            margin-left: 1px;
+            font-weight: bold;
+            background: linear-gradient(to right, #ff623a, #ffaa69); /* تأثير التدرج اللوني */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+                }
+            </style>
+            <h2 class="adger">Adger</h2>
                 <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)">
                 <span id="clearButton" class="clear-button" onclick="handleClick(event)">✖</span>
             
