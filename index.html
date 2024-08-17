@@ -282,17 +282,24 @@ margin-left: 8px;
                         background: linear-gradient(to right, #f37420, #ffc4c4);
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
+                        cursor: pointer; /* يظهر المؤشر كأنه زر */
                     }
-                    
+                
                     @media (max-width: 767px) {
                         .adger {
                             font-size: 20px;
                         }
                     }
-                    
-                    </style>
-                    
-                    <h2 class="adger">Adger</h2>
+                </style>
+                
+                <h2 class="adger" ondblclick="refreshPage()">Adger</h2>
+                
+                <script>
+                    function refreshPage() {
+                        location.reload(); // يعيد تحميل الصفحة
+                    }
+                </script>
+                
                     
                 <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)">
                 <span id="clearButton" class="clear-button" onclick="handleClick(event)">✖</span>
