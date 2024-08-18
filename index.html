@@ -8382,7 +8382,7 @@ if (hasError) {
   <style>
     .scroll-to-top {
       position: fixed;
-      bottom: 20px;
+      bottom: 16px;
       left: 20px;
       background-color: #fff; /* لون الخلفية البيضاء */
       border-radius: 50%; /* لجعل الخلفية دائرية */
@@ -8407,11 +8407,7 @@ if (hasError) {
 </head>
 <body>
 
-  <!-- محتوى الصفحة -->
-  <div style="height: 1500px;">
-    <h1>مرحبًا بك في الصفحة!</h1>
-    <p>قم بالتمرير لأسفل لرؤية زر الصعود للأعلى.</p>
-  </div>
+ 
 
   <!-- زر الصعود للأعلى -->
   <a href="#" class="scroll-to-top">
@@ -8424,7 +8420,7 @@ if (hasError) {
     // إظهار الزر عند التمرير 100 بكسل
     window.onscroll = function() {
       const scrollButton = document.querySelector('.scroll-to-top');
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 200) {
         scrollButton.style.display = "block";
       } else {
         scrollButton.style.display = "none";
