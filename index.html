@@ -9072,7 +9072,6 @@ if (hasError) {
     <span class="close" onclick="closeLightbox()">&times;</span>
     <img id="lightbox-img" src="" alt="Enlarged product">
 </div>
-
 <script>
     function searchProducts() {
         var input, filter, products, product, i, txtValue;
@@ -9097,26 +9096,18 @@ if (hasError) {
         }
     }
 
-    document.getElementById('searchInput').addEventListener('search', function() {
-        // This event fires when the user presses the "Enter" key on the mobile keyboard
-        document.getElementById('searchInput').blur(); // Close the keyboard
+    // Function to close the keyboard when pressing Enter/Go without clearing the input
+    document.getElementById('searchInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent default behavior of Enter key
+
+            // Close the keyboard by blurring the input field
+            document.getElementById('searchInput').blur();
+        }
     });
-
-    function copyText(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            alert("تم نسخ النص: " + text);
-        });
-    }
-
-    function openLightbox(src) {
-        document.getElementById('lightbox-img').src = src;
-        document.getElementById('lightbox').style.display = 'flex';
-    }
-
-    function closeLightbox() {
-        document.getElementById('lightbox').style.display = 'none';
-    }
 </script>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
