@@ -9072,6 +9072,7 @@ if (hasError) {
     <span class="close" onclick="closeLightbox()">&times;</span>
     <img id="lightbox-img" src="" alt="Enlarged product">
 </div>
+
 <script>
     function searchProducts() {
         var input, filter, products, product, i, txtValue;
@@ -9096,6 +9097,11 @@ if (hasError) {
         }
     }
 
+    document.getElementById('searchInput').addEventListener('search', function() {
+        // This event fires when the user presses the "Enter" key on the mobile keyboard
+        document.getElementById('searchInput').blur(); // Close the keyboard
+    });
+
     function copyText(text) {
         navigator.clipboard.writeText(text).then(() => {
             alert("تم نسخ النص: " + text);
@@ -9111,7 +9117,6 @@ if (hasError) {
         document.getElementById('lightbox').style.display = 'none';
     }
 </script>
-
 
 <!DOCTYPE html>
 <html lang="en">
