@@ -8373,6 +8373,72 @@ if (hasError) {
 
 
 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الصفحة مع زر الصعود للأعلى</title>
+  <style>
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #fff; /* لون الخلفية البيضاء */
+      border-radius: 50%; /* لجعل الخلفية دائرية */
+      padding: 7px; /* المسافة بين السهم وحدود الخلفية */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل خلفي خفيف */
+      display: none; /* مخفي افتراضيًا */
+      text-align: center; /* محاذاة النص والسهم */
+      color: #333; /* لون السهم */
+      font-size: 24px; /* حجم السهم */
+    }
+
+    .scroll-to-top:hover {
+      background-color: #f0f0f0; /* تغيير لون الخلفية عند التمرير */
+    }
+
+    .scroll-to-top svg {
+      width: 26px;
+      height: 26px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- محتوى الصفحة -->
+  <div style="height: 1500px;">
+    <h1>مرحبًا بك في الصفحة!</h1>
+    <p>قم بالتمرير لأسفل لرؤية زر الصعود للأعلى.</p>
+  </div>
+
+  <!-- زر الصعود للأعلى -->
+  <a href="#" class="scroll-to-top">
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
+    </svg>
+  </a>
+
+  <script>
+    // إظهار الزر عند التمرير 100 بكسل
+    window.onscroll = function() {
+      const scrollButton = document.querySelector('.scroll-to-top');
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollButton.style.display = "block";
+      } else {
+        scrollButton.style.display = "none";
+      }
+    };
+
+    // الانتقال إلى أعلى الصفحة بسلاسة عند الضغط على الزر
+    document.querySelector('.scroll-to-top').addEventListener('click', function(event) {
+      event.preventDefault();
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  </script>
+
+</body>
+</html>
 
 
 
