@@ -1824,81 +1824,92 @@ if (!spacing) {
                                         💬 | محادثة البائع
                                     </a><br><br>
                                     <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ميزات الأمان والخصوصية</title>
-    <style>
-        .features-container {
-            display: flex;
-            overflow-x: auto; /* تمكين التمرير الأفقي */
-            white-space: nowrap;
-            padding: 5px 0; /* إزالة الشريط والخلفية */
-        }
-
-        .feature {
-            flex: 0 0 auto; /* منع تغيير الحجم التلقائي للعناصر */
-            text-align: center;
-            width: 60px; /* عرض لكل ميزة */
-            margin: 0 10px; /* مسافة بين العناصر */
-        }
-
-        .feature svg {
-            width: 20px; /* حجم أيقونات مناسب */
-            height: 20px;
-            margin-bottom: 5px;
-        }
-
-        .feature p {
-            font-size: 12px; /* حجم مناسب للنص */
-            color: #333;
-        }
-
-        /* إخفاء شريط التمرير على المتصفحات */
-        .features-container::-webkit-scrollbar {
-            display: none;
-        }
-        .features-container {
-            -ms-overflow-style: none;  /* إخفاء شريط التمرير على Internet Explorer */
-            scrollbar-width: none;  /* إخفاء شريط التمرير على Firefox */
-        }
-    </style>
-</head>
-<body>
-
-<div class="features-container">
-  <div class="feature">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="1" y="4" width="22" height="16" rx="3" ry="3"></rect>
-      <path d="M1 10h22"></path>
-    </svg>
-    <p>دفع آمن</p>
-  </div>
-  <div class="feature">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 22s8-4.5 8-10V5l-8-3-8 3v7c0 5.5 8 10 8 10z"></path>
-    </svg>
-    <p>تأمين الخصوصية</p>
-  </div>
-  <div class="feature">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="1 4 1 10 7 10"></polyline>
-      <path d="M3.51 15A9 9 0 1 1 21 12h-5"></path>
-    </svg>
-    <p>إرجاع مجاني</p>
-  </div>
-  <div class="feature">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 1v22"></path>
-      <path d="M5 8.5c0-1.1 1.34-2 3-2s3 .9 3 2-.9 2-2 2H5.5C5 10.5 5 13 8 13s4 1.34 4 3.5S9.87 19 8 19 5 18.1 5 17"></path>
-    </svg>
-    <p>ضمان الأسعار</p>
-  </div>
-</div>
-
-</body>
-</html>
+                                    <html lang="ar">
+                                    <head>
+                                        <meta charset="UTF-8">
+                                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                        <title>ميزات الأمان والخصوصية</title>
+                                        <style>
+                                            .features-container {
+                                                display: flex;
+                                                overflow-x: auto; /* تمكين التمرير الأفقي */
+                                                white-space: nowrap;
+                                                padding: 5px 0;
+                                            }
+                                    
+                                            .feature {
+                                                flex: 0 0 auto; /* منع تغيير الحجم التلقائي للعناصر */
+                                                text-align: center;
+                                                width: 60px; /* عرض لكل ميزة */
+                                                margin: 0 10px; /* مسافة بين العناصر */
+                                            }
+                                    
+                                            .feature svg {
+                                                width: 24px; /* حجم أيقونات مناسب */
+                                                height: 24px;
+                                                margin-bottom: 5px;
+                                            }
+                                    
+                                            .feature p {
+                                                font-size: 12px; /* حجم مناسب للنص */
+                                                color: #333;
+                                            }
+                                    
+                                            /* إخفاء شريط التمرير على المتصفحات */
+                                            .features-container::-webkit-scrollbar {
+                                                display: none;
+                                            }
+                                            .features-container {
+                                                -ms-overflow-style: none;  /* إخفاء شريط التمرير على Internet Explorer */
+                                                scrollbar-width: none;  /* إخفاء شريط التمرير على Firefox */
+                                            }
+                                        </style>
+                                    </head>
+                                    <body>
+                                    
+                                    <div class="features-container">
+                                      <!-- الأيقونات والنصوص -->
+                                      <div class="feature">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                          <rect x="1" y="4" width="22" height="16" rx="3" ry="3"></rect>
+                                          <path d="M1 10h22"></path>
+                                        </svg>
+                                        <p>دفع آمن</p>
+                                      </div>
+                                      <div class="feature">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                          <path d="M12 22s8-4.5 8-10V5l-8-3-8 3v7c0 5.5 8 10 8 10z"></path>
+                                        </svg>
+                                        <p>خصوصية آمنه</p>
+                                      </div>
+                                      <div class="feature">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                          <polyline points="1 4 1 10 7 10"></polyline>
+                                          <path d="M3.51 15A9 9 0 1 1 21 12h-5"></path>
+                                        </svg>
+                                        <p>إرجاع مجاني</p>
+                                      </div>
+                                      <div class="feature">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                          <path d="M12 1v22"></path>
+                                          <path d="M5 8.5c0-1.1 1.34-2 3-2s3 .9 3 2-.9 2-2 2H5.5C5 10.5 5 13 8 13s4 1.34 4 3.5S9.87 19 8 19 5 18.1 5 17"></path>
+                                        </svg>
+                                        <p>ضمان الأسعار</p>
+                                      </div>
+                                    
+                                      <!-- فيديوهات أدجر -->
+                                      <div class="feature">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm0 0-4 4m5 0H4m1 0 4-4m1 4 4-4m-4 7v6l4-3-4-3Z"/>
+                                          </svg>
+                                          
+                                        <p>فيديوهات أدجر</p>
+                                      </div>
+                                    </div>
+                                    
+                                    </body>
+                                    </html>
+                                    
 <hr style="border: none; border-top: 6px solid #f0f0f0;"> <br>
 
 
