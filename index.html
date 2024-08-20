@@ -2840,7 +2840,7 @@ if (hasError) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-  .carousel-container {
+ .carousel-container {
     width: 100%; /* عرض كامل لعرض النافذة */
     height: 150px; /* تعديل الطول ليناسب النص */
     margin: 0; /* إزالة الهوامش */
@@ -2875,6 +2875,8 @@ if (hasError) {
     user-select: none;
     outline: none; /* إزالة التحديد الأزرق */
     border: none; /* إزالة الحدود */
+    -webkit-tap-highlight-color: transparent; /* إخفاء التأثير عند النقر على الأجهزة التي تعمل باللمس */
+    touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
 }
 
 /* إزالة التحديد الأزرق عند التركيز أو النقر */
@@ -2882,6 +2884,7 @@ if (hasError) {
 .carousel-item:active {
     outline: none;
     box-shadow: none; /* إزالة الظل الأزرق عند النقر */
+    border: none;
 }
 
 /* إزالة التأثير الأزرق عند تحديد العنصر في الهواتف */
