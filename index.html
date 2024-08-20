@@ -2873,12 +2873,18 @@ if (hasError) {
     display: inline-block; /* ضمان بقاء العناصر في سطر واحد */
     -webkit-user-select: none; /* منع تحديد العنصر */
     user-select: none;
-}
-
-.carousel-item:focus {
     outline: none; /* إزالة التحديد الأزرق */
+    border: none; /* إزالة الحدود */
 }
 
+/* إزالة التحديد الأزرق عند التركيز أو النقر */
+.carousel-item:focus,
+.carousel-item:active {
+    outline: none;
+    box-shadow: none; /* إزالة الظل الأزرق عند النقر */
+}
+
+/* إزالة التأثير الأزرق عند تحديد العنصر في الهواتف */
 .carousel-item img {
     width: 100px;
     height: 100px;
@@ -2889,6 +2895,22 @@ if (hasError) {
     -webkit-tap-highlight-color: transparent; /* إزالة التأثير الأزرق عند النقر في الهواتف */
     -webkit-user-select: none; /* منع تحديد الصورة */
     user-select: none;
+    outline: none; /* إزالة التحديد */
+    border: none; /* إزالة الحدود */
+    touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
+}
+
+/* تعزيز إخفاء التأثير الأزرق عبر المتصفحات */
+.carousel-item:focus-visible,
+.carousel-item img:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.carousel-item, .carousel-item img {
+    -moz-focusring: none; /* إخفاء التأثير في فايرفوكس */
+    outline: 0; /* إخفاء التحديد في المتصفحات الأخرى */
+    box-shadow: none; /* إخفاء الظلال */
 }
 
 .carousel-title {
