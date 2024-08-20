@@ -2840,7 +2840,7 @@ if (hasError) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-    .carousel-container {
+  .carousel-container {
     width: 100%; /* عرض كامل لعرض النافذة */
     height: 150px; /* تعديل الطول ليناسب النص */
     margin: 0; /* إزالة الهوامش */
@@ -2871,6 +2871,12 @@ if (hasError) {
     cursor: pointer;
     scroll-snap-align: start; /* محاذاة العناصر إلى بداية الحاوية */
     display: inline-block; /* ضمان بقاء العناصر في سطر واحد */
+    -webkit-user-select: none; /* منع تحديد العنصر */
+    user-select: none;
+}
+
+.carousel-item:focus {
+    outline: none; /* إزالة التحديد الأزرق */
 }
 
 .carousel-item img {
@@ -2880,6 +2886,9 @@ if (hasError) {
     object-fit: cover;
     display: block;
     margin: 0 auto; /* محاذاة الصورة في المنتصف */
+    -webkit-tap-highlight-color: transparent; /* إزالة التأثير الأزرق عند النقر في الهواتف */
+    -webkit-user-select: none; /* منع تحديد الصورة */
+    user-select: none;
 }
 
 .carousel-title {
@@ -2890,6 +2899,7 @@ if (hasError) {
     font-weight: bold; /* جعل النص سميكًا */
     white-space: normal; /* السماح بتغليف النص */
 }
+
 
     </style>
     <title>Auto Scrolling Carousel</title>
