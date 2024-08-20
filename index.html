@@ -2853,6 +2853,13 @@ if (hasError) {
     scrollbar-width: none;  /* إخفاء شريط التمرير في Firefox */
 }
 
+/* استعلام الوسائط لتعديل المسافة السفلية على الهواتف */
+@media (max-width: 767px) {
+    .carousel-container {
+        margin-bottom: -44px; /* المسافة السفلية على الهواتف */
+    }
+}
+
 .carousel-container::-webkit-scrollbar {
     display: none;  /* إخفاء شريط التمرير في Chrome, Safari, و Opera */
 }
@@ -2901,6 +2908,15 @@ if (hasError) {
     border: none; /* إزالة الحدود */
     touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
 }
+
+/* استعلام الوسائط لتغيير الأبعاد على الهواتف */
+@media (max-width: 767px) {
+    .carousel-item img {
+        width: 70px; /* عرض الصورة على الهواتف */
+        height: 70px; /* ارتفاع الصورة على الهواتف */
+    }
+}
+
 
 /* تعزيز إخفاء التأثير الأزرق عبر المتصفحات */
 .carousel-item:focus-visible,
