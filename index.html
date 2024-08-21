@@ -273,6 +273,7 @@ margin-left: 8px;
                 </style>
             </head>
             <body>
+                
                 <style>
                     .adger {
                         font-family: Arial, sans-serif;
@@ -295,6 +296,112 @@ margin-left: 8px;
                 
                 <h2 class="adger" ondblclick="refreshPage()" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">Adger</h2>
                 
+                <!DOCTYPE html>
+                <html lang="ar">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <style>
+                        .icon-btn {
+                            cursor: pointer;
+                            display: inline-block;
+                            color: azure;
+                            position: relative;
+                            z-index: 1000; /* التأكد من ظهور الأيقونة فوق العناصر الأخرى */
+                            margin-right: 7px;
+                            margin-left: 2px;
+                        }
+                        #greeting-message {
+                            margin-top: 20px;
+                            font-size: 1.2rem;
+                            color: gold;
+                            margin-left: 5px;
+                        }
+                        .input-title {
+                            font-size: 1.2rem;
+                            margin-bottom: 10px;
+                            color: #333;
+                        }
+                        .input-container {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            background-color: #fff;
+                            border-radius: 15px;
+                            padding: 30px;
+                            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+                            width: 300px;
+                            text-align: center;
+                            z-index: 1000; /* التأكد من أن النافذة تظهر فوق العناصر الأخرى */
+                            display: none; /* إخفاء النافذة */
+                        }
+                        .input-container input {
+                            width: 100%;
+                            padding: 10px;
+                            margin-bottom: 20px;
+                            border-radius: 5px;
+                            border: 1px solid #ddd;
+                            font-size: 1rem;
+                        }
+                        .input-container button {
+                            padding: 10px 20px;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            background-color: #007BFF;
+                            color: white;
+                            font-size: 1rem;
+                            margin: 5px;
+                        }
+                    </style>
+                    <title>حقل إدخال الاسم</title>
+                </head>
+                <body>
+                    <div class="icon-btn" onclick="showInputField()">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                
+                    <div class="input-container" id="na1">
+                        <div class="input-title">ادخل الاسم الخاص بك</div>
+                        <input type="text2" id="name-input" placeholder="ادخل اسمك">
+                        <button onclick="saveName()">موافق</button>
+                    </div>
+                
+                    <div id="greeting-message"></div>
+                
+                    <script>
+                        function showInputField() {
+                            const inputContainer = document.getElementById('na1');
+                            inputContainer.style.display = 'flex'; // عرض النافذة عند النقر على الأيقونة
+                        }
+                
+                        function saveName() {
+                            const name = document.getElementById('name-input').value;
+                            if (name) {
+                                localStorage.setItem('userName', name);
+                                document.getElementById('greeting-message').textContent = `أهلاً ${name}`;
+                                document.getElementById('na1').style.display = 'none'; // إخفاء النافذة بعد حفظ الاسم
+                            }
+                        }
+                
+                        // Load the saved name when the page loads
+                        window.onload = function() {
+                            const savedName = localStorage.getItem('userName');
+                            if (savedName) {
+                                document.getElementById('greeting-message').textContent = ` أهلاً ${savedName}`;
+                            }
+                        }
+                    </script>
+                </body>
+                </html>
+                
+
                 <script>
                     function refreshPage() {
                         location.reload(); // يعيد تحميل الصفحة
@@ -8702,11 +8809,6 @@ if (hasError) {
 <br>
 <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="خنجر يختفى امسكان" data-product-number="66#" data-price="120" data-delivery-charge="50" >اشترِ الآن</a></div>
 </div>
-
-
-
-
-
 
 
 
