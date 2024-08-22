@@ -464,16 +464,18 @@ margin-left: 8px;
                     <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
                 
                     <script>
-                        function handleClearButton() {
-                            const searchInput = document.getElementById('searchInput');
-                            clearSearchInput();  // Clear the input
-                            if (document.activeElement === searchInput) {
-                                setTimeout(() => {
-                                    searchInput.focus();  // Refocus immediately after clearing
-                                    searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
-                                }, 0);
-                            }
-                        }
+                      function handleClearButton() {
+    const searchInput = document.getElementById('searchInput');
+    clearSearchInput();  // Clear the input
+    if (document.activeElement === searchInput) {
+        setTimeout(() => {
+            searchInput.focus();  // Refocus immediately after clearing
+            searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
+        }, 0);
+    }
+    closeModal2();  // Close the modal when the clear button is clicked
+}
+
                 
                         function clearSearchInput() {
                             console.log("Clearing search input");
