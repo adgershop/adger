@@ -302,27 +302,8 @@ margin-left: 8px;
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <style>
-                        .icon-btn {
-                            cursor: pointer;
-                            display: inline-block;
-                            color: azure;
-                            position: relative;
-                            z-index: 1000; /* التأكد من ظهور الأيقونة فوق العناصر الأخرى */
-                            margin-right: 7px;
-                            margin-left: 2px;
-                        }
-                        #greeting-message {
-                            margin-top: 20px;
-                            font-size: 1.2rem;
-                            color: gold;
-                            margin-left: 5px;
-                        }
-                        .input-title {
-                            font-size: 1.2rem;
-                            margin-bottom: 10px;
-                            color: #333;
-                        }
-                        .input-container {
+                        /* نمط الزر والنافذة */
+                        #popup-window666 {
                             display: flex;
                             flex-direction: column;
                             align-items: center;
@@ -334,81 +315,136 @@ margin-left: 8px;
                             border-radius: 15px;
                             padding: 30px;
                             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-                            width: 300px;
+                            width: 355px;
                             text-align: center;
-                            z-index: 1000; /* التأكد من أن النافذة تظهر فوق العناصر الأخرى */
-                            display: none; /* إخفاء النافذة */
+                            z-index: 1000;
+                            display: none;
                         }
-                        .input-container input {
-                            width: 100%;
+                
+                        #greet666 {
+                            margin-top: 20px;
+                            font-size: 1.2rem;
+                            color: gold;
+                            margin-right: 14px; /* زيادة المسافة بين "أهلاً" والاسم */
+                            margin-left: -12px;
+                            display: none; /* إخفاء عبارة "أهلاً" بشكل افتراضي */
+                        }
+                
+                        #greet666 span.hello {
+                            color: rgb(23, 183, 223); /* لون كلمة "أهلاً" */
+                        }
+                
+                        #open-btn666 {
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            background-color: transparent;
+                            border: none;
+                        }
+                
+                        #open-btn666 svg {
+                            cursor: pointer;
+                            display: inline-block;
+                            color: azure;
+                            position: relative;
+                            z-index: 1000;
+                            margin-left: -12px;
+                            margin-right: -12px;
+                        }
+                
+                        #popup-window666 input[type="tex1t"] {
+                            width: 90%;
                             padding: 10px;
                             margin-bottom: 20px;
                             border-radius: 5px;
                             border: 1px solid #ddd;
                             font-size: 1rem;
                         }
-                               .input-container button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #007BFF;
-            color: white;
-            font-size: 1rem;
-            margin: 5px;
-        }
-
-        /* إخفاء المحتوى على الهواتف */
-        @media (max-width: 767px) {
-            .icon-btn,
-            .input-container,
-            #greeting-message {
-                display: none;
-            }
-        }
+                
+                        #popup-window666 p {
+                            font-size: 1rem;
+                            margin-bottom: 10px;
+                            color: #333;
+                        }
+                
+                        button {
+                            padding: 10px 20px;
+                            background-color: #007bff;
+                            color: #fff;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        }
+                
+                        button:hover {
+                            background-color: #0056b3;
+                        }
+                
+                        /* استعلام وسائط لإخفاء المحتوى على الشاشات الصغيرة */
+                        @media only screen and (max-width: 768px) {
+                            #popup-window666,
+                            #open-btn666,
+                            #greet666 {
+                                display: none;
+                            }
+                        }
                     </style>
-                    <title>حقل إدخال الاسم</title>
+                    <title>نافذة إدخال الاسم</title>
                 </head>
                 <body>
-                    <div class="icon-btn" onclick="showInputField()">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
-                        </svg>
-                    </div>
                 
-                    <div class="input-container" id="na1">
-                        <div class="input-title">ادخل الاسم الخاص بك</div>
-                        <input type="text2" id="name-input" placeholder="ادخل اسمك">
-                        <button onclick="saveName()">موافق</button>
-                    </div>
+                <button id="open-btn666">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+                    </svg>
+                    <span id="greet666"><span class="hello">أهلاً</span> <span class="name"></span></span>
+                </button>
                 
-                    <div id="greeting-message"></div>
+                <div id="popup-window666">
+                    <p>أدخل الاسم الخاص بك:</p> <!-- النص المطلوب -->
+                    <input type="tex1t" id="name-input666" placeholder="أدخل اسمك هنا">
+                    <br>
+                    <button id="submit-btn666">موافق</button>
+                </div>
                 
-                    <script>
-                        function showInputField() {
-                            const inputContainer = document.getElementById('na1');
-                            inputContainer.style.display = 'flex'; // عرض النافذة عند النقر على الأيقونة
+                <script>
+                    // الحصول على العناصر
+                    const openBtn666 = document.getElementById('open-btn666');
+                    const popupWindow666 = document.getElementById('popup-window666');
+                    const nameInput666 = document.getElementById('name-input666');
+                    const greet666 = document.getElementById('greet666');
+                    const submitBtn666 = document.getElementById('submit-btn666');
+                    const nameSpan = document.querySelector('#greet666 .name');
+                
+                    // جلب الاسم من localStorage إذا كان موجود
+                    const savedName = localStorage.getItem('userName666');
+                    if (savedName) {
+                        nameSpan.textContent = savedName;
+                        greet666.style.display = 'inline'; // عرض عبارة "أهلاً" إذا كان الاسم موجود
+                        nameInput666.value = savedName; // تعيين الاسم المحفوظ في حقل النص
+                    }
+                
+                    // عرض النافذة عند النقر على الزر
+                    openBtn666.addEventListener('click', () => {
+                        popupWindow666.style.display = 'block';
+                    });
+                
+                    // حفظ الاسم وإغلاق النافذة
+                    submitBtn666.addEventListener('click', () => {
+                        const name = nameInput666.value;
+                        if (name) {
+                            localStorage.setItem('userName666', name);
+                            nameSpan.textContent = name;
+                            greet666.style.display = 'inline'; // عرض عبارة "أهلاً" بعد إدخال الاسم
+                            popupWindow666.style.display = 'none';
                         }
+                    });
+                </script>
                 
-                        function saveName() {
-                            const name = document.getElementById('name-input').value;
-                            if (name) {
-                                localStorage.setItem('userName', name);
-                                document.getElementById('greeting-message').textContent = `أهلاً ${name}`;
-                                document.getElementById('na1').style.display = 'none'; // إخفاء النافذة بعد حفظ الاسم
-                            }
-                        }
-                
-                        // Load the saved name when the page loads
-                        window.onload = function() {
-                            const savedName = localStorage.getItem('userName');
-                            if (savedName) {
-                                document.getElementById('greeting-message').textContent = ` أهلاً ${savedName}`;
-                            }
-                        }
-                    </script>
                 </body>
                 </html>
+                
+                
                 
 
                 <script>
