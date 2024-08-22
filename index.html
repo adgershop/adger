@@ -459,83 +459,60 @@ margin-left: 8px;
                     }
                 </script>
                 
-                    
-                <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)">
-                <span id="clearButton" class="clear-button" onclick="handleClick(event)">✖</span>
-            
-                <script>
-                function handleClick(event) {
-                    clearSearchInput(event); // الوظيفة الأصلية
-                    closeModal2(); // إغلاق الموديل
-                }
-            
-                function clearSearchInput(event) {
-                    // الدالة الأصلية لمسح حقل البحث
-                    console.log("Clearing search input");
-                    document.getElementById('searchInput').value = '';
-                    toggleClearButton(document.getElementById('searchInput'));
-                }
-            
-                function closeModal2() {
-                    // الدالة لإغلاق الموديل
-                    console.log("Closing modal");
-                    // هنا يمكن أن تضع الكود لإخفاء النافذة (الموديل)
-                }
-            
-                function toggleClearButton(inputElement) {
-                    // دالة لإظهار أو إخفاء زر الإغلاق
-                    var clearButton = document.getElementById('clearButton');
-                    console.log("toggleClearButton called with value:", inputElement.value);
-                    if (inputElement.value.length > 0) {
-                        clearButton.style.display = 'inline';
-                    } else {
-                        clearButton.style.display = 'none';
-                    }
-                }
-            
-                function searchProducts() {
-                    // دالة البحث
-                    console.log("searchProducts called");
-                }
-                </script>
-            </body>
-            </html>     
-        <script>
-            function toggleClearButton(input) {
-                const clearButton = document.getElementById('clearButton');
-                clearButton.style.display = input.value ? 'block' : 'none';
-            }
-        
-            function clearSearchInput(event) {
-                event.preventDefault(); // Prevent the default action (focusing the input)
-                const searchInput = document.getElementById('searchInput');
-                searchInput.value = '';
-                toggleClearButton(searchInput);
-                searchInput.dispatchEvent(new Event('input')); // Trigger input event manually
-        
-                // Scroll to the top of the page
-                window.scrollTo(0, 0);
-        
-                // Call your searchProducts function to update the search results
-                searchProducts();
-            }
-        
-            function searchProducts() {
-                const searchInput = document.getElementById('searchInput');
-                const query = searchInput.value;
-                // Implement your search logic here using the query
-                console.log('Searching products for:', query);
-        
-                if (query === '') {
-                    // Handle the case when the search input is cleared
-                    console.log('Search input cleared.');
-                    // Perform any additional actions needed when the search is cleared
-                }
-            }
-        </script>
-        
-    </body>
-    </html>
+                
+                    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)">
+                    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+                
+                    <script>
+                        function handleClearButton() {
+                            const searchInput = document.getElementById('searchInput');
+                            clearSearchInput();  // Clear the input
+                            if (document.activeElement === searchInput) {
+                                setTimeout(() => {
+                                    searchInput.focus();  // Refocus immediately after clearing
+                                    searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
+                                }, 0);
+                            }
+                        }
+                
+                        function clearSearchInput() {
+                            console.log("Clearing search input");
+                            const searchInput = document.getElementById('searchInput');
+                            searchInput.value = '';
+                            toggleClearButton(searchInput);
+                            searchInput.dispatchEvent(new Event('input')); // Trigger input event manually
+                
+                            // Scroll to the top of the page
+                            window.scrollTo(0, 0);
+                
+                            // Call your searchProducts function to update the search results
+                            searchProducts();
+                        }
+                
+                        function closeModal2() {
+                            console.log("Closing modal");
+                            // Add code here to hide the modal
+                        }
+                
+                        function toggleClearButton(inputElement) {
+                            const clearButton = document.getElementById('clearButton');
+                            clearButton.style.display = inputElement.value.length > 0 ? 'inline' : 'none';
+                        }
+                
+                        function searchProducts() {
+                            const searchInput = document.getElementById('searchInput');
+                            const query = searchInput.value;
+                            console.log('Searching products for:', query);
+                
+                            if (query === '') {
+                                console.log('Search input cleared.');
+                            }
+                        }
+                    </script>
+                
+                </body>
+                </html>
+                
     
         <!DOCTYPE html>
         <html lang="ar">
@@ -3250,8 +3227,8 @@ if (hasError) {
      
            <div class="product">
             <div class="product-info">
-                <h2 style="font-size: 17px;">ساعه من فيترون</h2>
-                <p>سوار بلون فضى فى ذهبى</p>
+                <h2 style="font-size: 17px;">ساعه سمارت-Ft80</h2>
+                <p>أسود 1.54 بوصه</p>
                 <style>
                     .hidden-text {
                         display: none;
@@ -3274,11 +3251,11 @@ if (hasError) {
                     <span class="price-label">السعر:</span>
                     <span class="price-down" style="position: relative; top: 3px; font-size: 111%;  color: rgb(79, 207, 44);">⬇</span>
                     <span class="price-amount" style="position: relative; top: 3px; font-size: 80%; color: rgb(255, 106, 0);">00</span>
-                    <span class="price-amount">600</span>
+                    <span class="price-amount">230</span>
                     <span class="price-currency">جنيه</span>
                 </h3>
-                <h3 style="text-decoration: line-through; color: #6e6e6e; display: inline;">840 جنيه</h3>
-                <span style="color: rgb(255, 0, 0); font-size: 13px;">-28.57%</span>
+                <h3 style="text-decoration: line-through; color: #6e6e6e; display: inline;">469 جنيه</h3>
+                <span style="color: rgb(255, 0, 0); font-size: 13px;">-50.96%</span>
                 <br><br> <!-- يضيف سطرين فارغين لإضافة مسافة إضافية -->
                </body>
             </html>
@@ -3293,16 +3270,16 @@ if (hasError) {
                     src="1.jpg" 
                     alt="product" 
                     onclick="updateProductDetails(
-                        'ساعه من فيترون', 
-                        'السعر: 600 جنيه', 
-                        'ساعه جذابه من الكويت', 
+                        'ساعه سمارت-Ft80 ', 
+                        'السعر: 230 جنيه', 
+                        'سود 1.54 بوصه', 
                         '⭐⭐⭐⭐⭐ 5.0', 
-                        ['1.jpg', '1.2.jpg', '1.3.jpg'], 
-                        'فيترون', 
-                        'فضى فى ذهبى', 
-                        'XL', 
-                        '● رقم المنتج| 1#\n ● مواد| معدن \n ● الوزن| لاشئ\n● السعر بالدولار| ≈ 12.5\n',
-                        'كان ب 840 جنيه (-28.57%)' // تعديل السعر الآخر هنا
+                        ['1.jpg', '1.2.jpg'], 
+                        'لا شئ', 
+                        'أسود', 
+                        '1.54 بوصه ', 
+                        '● رقم المنتج| 1#\n ● الموديل| Ft80 \n ● حجم القرص| 44 ملم \n ●  النوع| ساعه سمارت \n ●  الدعم| تدعم الغه العربيه و تدعم الاتصال بالبلوتوث مع دعم مكالمة بلوتوث \n ●  البطارية| 200 مللي أمبير  \n ●  خامة الحسم| زنك \n ●  خامة السوار| سيليكون   \n● السعر بالدولار| ≈ 5.66\n',
+                        'كان ب 469 جنيه (-50.96%)' // تعديل السعر الآخر هنا
                     ); openModal2();" 
                     ontouchstart="this.focus();" 
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
@@ -3338,7 +3315,7 @@ if (hasError) {
                         </svg>
                     </button>
     <br>
-    <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه من فيترون" data-product-number="1#" data-price="600" data-delivery-charge="50">اشترِ الآن</a>    
+    <a href="#" class="buy-button" onclick="openPopup(this); return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;" data-product-name="ساعه سمارت-Ft80" data-product-number="1#" data-price="230" data-delivery-charge="50">اشترِ الآن</a>    
                 </body>
                 </html>
             </div>
