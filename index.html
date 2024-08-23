@@ -470,11 +470,11 @@ padding-right: 11px;
         box-sizing: border-box; /* اجعل padding يحتسب ضمن عرض العنصر */
         direction: rtl; /* تغيير اتجاه النص ليكون من اليمين إلى اليسار إذا كانت اللغة العربية */
     }
+
     input:focus {
     outline: none;
     box-shadow: none;
 }
-
     </style>
 </head>
 <body>
@@ -500,18 +500,19 @@ padding-right: 11px;
         closeModal2();  // Close the modal when the clear button is clicked
     }
 
-    function handleClearButton() {
-    const searchInput = document.getElementById('searchInput');
-    clearSearchInput();  // Clear the input
-
-    // Delay the focus to let the browser handle the UI updates
-    setTimeout(() => {
-        searchInput.focus();  // Refocus immediately after clearing
-        searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
-    }, 0);
-
-    closeModal2();  // Close the modal when the clear button is clicked
-}
+    function clearSearchInput() {
+        console.log("Clearing search input");
+        const searchInput = document.getElementById('searchInput');
+        searchInput.value = '';  // Clear the input
+        toggleClearButton(searchInput);  // Update the clear button
+        searchInput.dispatchEvent(new Event('input'));  // Trigger input event manually
+        
+        // Scroll to the top of the page
+        window.scrollTo(0, 0);
+        
+        // Call your searchProducts function to update the search results
+        searchProducts();
+    }
 
     function closeModal2() {
         console.log("Closing modal");
