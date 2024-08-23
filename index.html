@@ -492,7 +492,21 @@ padding-right: 11px;
             searchInput.focus();  // إعادة التركيز فورًا بعد المسح
             searchInput.setSelectionRange(0, 0);  // وضع المؤشر في بداية الصندوق
             
-            // محاكاة نقرة داخل صندوق البحث
+            // محاكاة ضغط فعلي داخل صندوق البحث
+            const mouseDownEvent = new MouseEvent('mousedown', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+            searchInput.dispatchEvent(mouseDownEvent);  // إرسال حدث mousedown
+            
+            const mouseUpEvent = new MouseEvent('mouseup', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+            searchInput.dispatchEvent(mouseUpEvent);  // إرسال حدث mouseup
+            
             const clickEvent = new MouseEvent('click', {
                 bubbles: true,
                 cancelable: true,
