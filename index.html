@@ -48,7 +48,7 @@
 
         .search-bar {
     padding: 8px; /* تقليل الحشو */
-    border: 1px solid #e26600; /* اللون */
+    border: 1px solid rgba(226, 102, 0, 0.5); /* لون الحدود مع شفافية */
     border-radius: 15px; /* زاوية مدورة */
     width: 70%; /* العرض */
     max-width: 100%; /* لضبط العرض بناءً على الشاشة */
@@ -58,10 +58,10 @@
     font-size: 16px; /* حجم الخط */
     -webkit-appearance: none; /* إزالة التصميم الافتراضي */
     appearance: none;
-    overflow: hidden; /* لإخفاء الشريط الأبيض */
+    background-color: rgba(255, 255, 255, 0.5); /* خلفية بيضاء مع شفافية */
 }
 
-@media (max-width: 600px) {
+@media (max-width: 717px) {
     .search-bar {
         width: 100%; /* العرض الكامل على الشاشات الصغيرة */
         margin-left: 0; /* إزالة المسافة على اليسار */
