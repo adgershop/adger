@@ -476,62 +476,60 @@ padding-right: 11px;
 </head>
 <body>
 
-    <input type="text" id="searchInput" onfocus="keepWhiteBarVisible()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
     <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+
+<script>
+    function handleClearButton() {
+    const searchInput = document.getElementById('searchInput');
     
-    <script>
-        function handleClearButton() {
-            const searchInput = document.getElementById('searchInput');
-            clearSearchInput();  // Clear the input
+    clearSearchInput();  // تفريغ محتوى حقل الإدخال
     
-            // حافظ على التركيز على حقل الإدخال لضمان استمرار ظهور لوحة المفاتيح
-            searchInput.focus();
-            searchInput.setSelectionRange(0, 0);  // ضع المؤشر في بداية الحقل
-            
-            closeModal2();  // أغلق المودال عند النقر على زر الإكس
-        }
+    requestAnimationFrame(() => {
+        searchInput.focus();  // إعادة التركيز على الحقل
+        // عدم تغيير موضع المؤشر، ليظل الشريط الأبيض كما هو
+    });
     
-        function clearSearchInput() {
-            console.log("Clearing search input");
-            const searchInput = document.getElementById('searchInput');
-            searchInput.value = '';  // مسح الحقل
-            toggleClearButton(searchInput);  // تحديث زر الإكس
-            searchInput.dispatchEvent(new Event('input'));  // تحفيز حدث الإدخال يدويًا
-    
-            // قم بالتمرير إلى أعلى الصفحة
-            window.scrollTo(0, 0);
-            
-            // استدعاء دالة البحث لتحديث النتائج
-            searchProducts();
-        }
-    
-        function closeModal2() {
-            console.log("Closing modal");
-            // يمكنك إضافة الكود لإخفاء المودال هنا
-            // ولكن لن نقوم بإخفاء لوحة المفاتيح أو الشريط الأبيض
-        }
-    
-        function toggleClearButton(inputElement) {
-            const clearButton = document.getElementById('clearButton');
-            clearButton.style.display = inputElement.value.length > 0 ? 'inline' : 'none';
-        }
-    
-        function searchProducts() {
-            const searchInput = document.getElementById('searchInput');
-            const query = searchInput.value;
-            console.log('Searching products for:', query);
-            
-            if (query === '') {
-                console.log('Search input cleared.');
-            }
-        }
+    closeModal2();  // إغلاق المودال عند النقر على زر الحذف
+}
+
+    function clearSearchInput() {
+        console.log("Clearing search input");
+        const searchInput = document.getElementById('searchInput');
+        searchInput.value = '';  // Clear the input
+        toggleClearButton(searchInput);  // Update the clear button
+        searchInput.dispatchEvent(new Event('input'));  // Trigger input event manually
         
-        function keepWhiteBarVisible() {
-            // هذه الدالة تحافظ على ظهور الشريط الأبيض عند التركيز
-            console.log("Keeping the white bar visible");
+        // Scroll to the top of the page
+        window.scrollTo(0, 0);
+        
+        // Call your searchProducts function to update the search results
+        searchProducts();
+    }
+
+    function closeModal2() {
+        console.log("Closing modal");
+        // Add code here to hide the modal
+    }
+
+    function toggleClearButton(inputElement) {
+        const clearButton = document.getElementById('clearButton');
+        clearButton.style.display = inputElement.value.length > 0 ? 'inline' : 'none';
+    }
+
+    function searchProducts() {
+        const searchInput = document.getElementById('searchInput');
+        const query = searchInput.value;
+        console.log('Searching products for:', query);
+        
+        if (query === '') {
+            console.log('Search input cleared.');
         }
-    </script>
-    
+    }
+</script>
+
+</body>
+</html>
                 
     
         <!DOCTYPE html>
