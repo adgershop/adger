@@ -56,10 +56,14 @@
     margin-left: 8px; /* المسافة على اليسار */
     box-sizing: border-box; /* لضبط الحشو والحدود داخل العرض */
     font-size: 16px; /* حجم الخط داخل شريط البحث */
-    -webkit-appearance: none; /* إزالة تصميم المتصفح الافتراضي */
+      -webkit-appearance: none; /* إزالة تصميم المتصفح الافتراضي */
     appearance: none;
+    webkit-overflow-scrolling: touch;
 }
-
+input:focus {
+    outline-color: transparent;
+    border: 2px solid skyblue;
+}
 
         .product-images {
             float: left;
@@ -477,6 +481,7 @@ padding-right: 11px;
 
 <script>
     function handleClearButton() {
+        const searchInput = document.getElementById('searchInput');
         const isFocused = document.activeElement === searchInput;
         
         clearSearchInput();  // Clear the input
