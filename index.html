@@ -476,7 +476,7 @@ margin-left: 8px;
 </head>
 <body>
 
-<input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)">
+<input type="teقxt" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)">
 <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
@@ -518,9 +518,11 @@ margin-left: 8px;
 
     function toggleClearButton(inputElement) {
         const clearButton = document.getElementById('clearButton');
+        clearButton.style.display = inputElement.value.length > 0 ? 'inline' : 'none';
     }
 
     function searchProducts() {
+        const searchInput = document.getElementById('searchInput');
         const query = searchInput.value;
         console.log('Searching products for:', query);
         
