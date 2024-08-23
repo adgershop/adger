@@ -476,8 +476,23 @@ margin-left: 8px;
 </head>
 <body>
 
-    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    <input type="text" id="searchInput" 
+    onfocus="closeModal2()" 
+    onkeyup="searchProducts()" 
+    class="search-bar" 
+    placeholder="ابحث في Adger" 
+    oninput="toggleClearButton(this)">
+
+<script>
+ // تعطيل خاصية الإكمال التلقائي عبر JavaScript
+ document.addEventListener('DOMContentLoaded', function () {
+     document.getElementById('searchInput').setAttribute('autocomplete', 'off');
+     document.getElementById('searchInput').setAttribute('autocorrect', 'off');
+     document.getElementById('searchInput').setAttribute('autocapitalize', 'off');
+     document.getElementById('searchInput').setAttribute('spellcheck', 'false');
+ });
+</script>
+<span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
