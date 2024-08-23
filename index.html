@@ -12230,22 +12230,14 @@ if (hasError) {
 
     // Function to close the keyboard when pressing Enter/Go without clearing the input
     document.getElementById('searchInput').addEventListener('focus', function() {
-    // Temporarily blur the input to prevent the white bar from appearing
-    setTimeout(function() {
-        document.getElementById('searchInput').blur();
-    }, 100); // Adjust the timeout value if needed
+    // منع التمرير التلقائي عند التركيز
+    window.scrollTo(0, 0);
 });
 
-// Optionally, you can re-focus the input field after a certain event, like a keypress, or after scrolling
 document.getElementById('searchInput').addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent default behavior of Enter key
-        document.getElementById('searchInput').blur(); // Close the keyboard
-
-        // Optionally, re-focus the input after a delay if necessary
-        setTimeout(function() {
-            document.getElementById('searchInput').focus();
-        }, 500); // Adjust this timeout as necessary
+        event.preventDefault(); // منع السلوك الافتراضي لمفتاح Enter
+        document.getElementById('searchInput').blur(); // إغلاق الكيبورد
     }
 });
 
