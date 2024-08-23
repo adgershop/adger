@@ -482,54 +482,23 @@ padding-right: 11px;
 <script>
    function handleClearButton() {
     const searchInput = document.getElementById('searchInput');
-    const isFocused = document.activeElement === searchInput;
     
-    clearSearchInput();  // مسح الإدخال
+    // احفظ موضع التمرير الحالي
+    const scrollPosition = window.scrollY;
     
-    // إذا كان الإدخال مفعلاً، أعد التركيز بعد المسح
-    if (isFocused) {
-        requestAnimationFrame(() => {
-            searchInput.focus();  // إعادة التركيز على الإدخال
-            searchInput.setSelectionRange(0, 0);  // وضع المؤشر في بداية النص
-            
-            // على الأجهزة المحمولة، قم بضبط عرض الصفحة لمنع إزالة الشريط الأبيض
-            if (isMobileDevice()) {
-                preventKeyboardHiding();
-            }
-        });
-    }
-    
-    closeModal2();  // إغلاق النافذة المنبثقة عند النقر على زر المسح
-}
-
-function clearSearchInput() {
-    console.log("Clearing search input");
-    const searchInput = document.getElementById('searchInput');
-    searchInput.value = '';  // مسح الإدخال
-    toggleClearButton(searchInput);  // تحديث زر المسح
+    // مسح النص مع الحفاظ على التركيز
+    searchInput.value = '';
     searchInput.dispatchEvent(new Event('input'));  // إرسال حدث الإدخال بشكل يدوي
     
-    // التمرير إلى أعلى الصفحة
-    window.scrollTo(0, 0);
-    
-    // استدعاء دالة البحث لتحديث النتائج
-    searchProducts();
-}
+    // إعادة التركيز مع الحفاظ على موضع التمرير والكيبورد
+    requestAnimationFrame(() => {
+        searchInput.focus();
+        searchInput.setSelectionRange(0, 0);  // وضع المؤشر في بداية النص
+        window.scrollTo(0, scrollPosition);  // إعادة موضع التمرير كما كان
+    });
 
-function preventKeyboardHiding() {
-    // منع اختفاء الشريط الأبيض فوق لوحة المفاتيح على الهواتف المحمولة
-    const dummyInput = document.createElement('input');
-    dummyInput.style.position = 'absolute';
-    dummyInput.style.top = '-9999px';
-    document.body.appendChild(dummyInput);
-    dummyInput.focus();
-    setTimeout(() => {
-        dummyInput.remove();
-    }, 50);
-}
-
-function isMobileDevice() {
-    return /Mobi|Android/i.test(navigator.userAgent);
+    // هنا يمكنك إغلاق النافذة المنبثقة إذا كان ذلك مطلوبًا
+    closeModal2();  // إغلاق النافذة المنبثقة عند النقر على زر المسح
 }
 </script>
 
