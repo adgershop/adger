@@ -506,20 +506,19 @@ input:focus {
         closeModal2();  // Close the modal when the clear button is clicked
     }
 
-    function clearSearchInput() {
-        console.log("Clearing search input");
-        const searchInput = document.getElementById('searchInput');
-        searchInput.value = '';  // Clear the input
-        toggleClearButton(searchInput);  // Update the clear button
-        searchInput.dispatchEvent(new Event('input'));  // Trigger input event manually
-        
-        // Scroll to the top of the page
-        window.scrollTo(0, 0);
-        
-        // Call your searchProducts function to update the search results
-        searchProducts();
-    }
+    function handleClearButton() {
+    const searchInput = document.getElementById('searchInput');
+    clearSearchInput();  // Clear the input
 
+    // Delay focusing to ensure UI updates are processed
+    setTimeout(() => {
+        searchInput.focus();  // Refocus immediately after clearing
+        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });  // Ensure input is visible
+        searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
+    }, 0);
+
+    closeModal2();  // Close the modal when the clear button is clicked
+}
     function closeModal2() {
         console.log("Closing modal");
         // Add code here to hide the modal
