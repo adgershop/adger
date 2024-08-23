@@ -476,33 +476,39 @@ padding-right: 11px;
 </head>
 <body>
 
-    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+    <input type="text" id="searchInput" onfocus="keepWhiteBarVisible()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
     <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
     
     <script>
         function handleClearButton() {
+            const searchInput = document.getElementById('searchInput');
             clearSearchInput();  // Clear the input
-            closeModal2();  // Close the modal when the clear button is clicked
-            document.getElementById('searchInput').blur();  // Remove focus to hide the keyboard and white bar
+    
+            // حافظ على التركيز على حقل الإدخال لضمان استمرار ظهور لوحة المفاتيح
+            searchInput.focus();
+            searchInput.setSelectionRange(0, 0);  // ضع المؤشر في بداية الحقل
+            
+            closeModal2();  // أغلق المودال عند النقر على زر الإكس
         }
     
         function clearSearchInput() {
             console.log("Clearing search input");
             const searchInput = document.getElementById('searchInput');
-            searchInput.value = '';  // Clear the input
-            toggleClearButton(searchInput);  // Update the clear button
-            searchInput.dispatchEvent(new Event('input'));  // Trigger input event manually
-            
-            // Scroll to the top of the page
+            searchInput.value = '';  // مسح الحقل
+            toggleClearButton(searchInput);  // تحديث زر الإكس
+            searchInput.dispatchEvent(new Event('input'));  // تحفيز حدث الإدخال يدويًا
+    
+            // قم بالتمرير إلى أعلى الصفحة
             window.scrollTo(0, 0);
             
-            // Call your searchProducts function to update the search results
+            // استدعاء دالة البحث لتحديث النتائج
             searchProducts();
         }
     
         function closeModal2() {
             console.log("Closing modal");
-            // Add code here to hide the modal
+            // يمكنك إضافة الكود لإخفاء المودال هنا
+            // ولكن لن نقوم بإخفاء لوحة المفاتيح أو الشريط الأبيض
         }
     
         function toggleClearButton(inputElement) {
@@ -518,6 +524,11 @@ padding-right: 11px;
             if (query === '') {
                 console.log('Search input cleared.');
             }
+        }
+        
+        function keepWhiteBarVisible() {
+            // هذه الدالة تحافظ على ظهور الشريط الأبيض عند التركيز
+            console.log("Keeping the white bar visible");
         }
     </script>
     
