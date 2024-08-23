@@ -512,17 +512,12 @@ padding-right: 11px;
         // Add code here to hide the modal
     }
 
-   
-
-    function searchProducts() {
-        const searchInput = document.getElementById('searchInput');
-        const query = searchInput.value;
-        console.log('Searching products for:', query);
-        
-        if (query === '') {
-            console.log('Search input cleared.');
-        }
+    function toggleClearButton(inputElement) {
+        const clearButton = document.getElementById('clearButton');
+        clearButton.style.display = inputElement.value.length > 0 ? 'inline' : 'none';
     }
+
+    
 </script>
 
 </body>
