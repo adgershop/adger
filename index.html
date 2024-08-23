@@ -475,80 +475,97 @@ margin-left: 8px;
     </style>
 </head>
 <body>
-
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Input Example</title>
+        <style>
+            .search-bar {
+                width: 300px;
+                padding: 10px;
+                font-size: 16px;
+            }
+            .clear-button {
+                cursor: pointer;
+                font-size: 20px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+    
     <input type="text" id="searchInput" 
-    onfocus="closeModal2()" 
-    onkeyup="searchProducts()" 
-    class="search-bar" 
-    placeholder="ابحث في Adger" 
-    oninput="toggleClearButton(this)">
-
-<script>
- // تعطيل خاصية الإكمال التلقائي عبر JavaScript
- document.addEventListener('DOMContentLoaded', function () {
-     document.getElementById('searchInput').setAttribute('autocomplete', 'off');
-     document.getElementById('searchInput').setAttribute('autocorrect', 'off');
-     document.getElementById('searchInput').setAttribute('autocapitalize', 'off');
-     document.getElementById('searchInput').setAttribute('spellcheck', 'false');
- });
-</script>
-<span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
-
-<script>
-    function handleClearButton() {
-        const searchInput = document.getElementById('searchInput');
-        const isFocused = document.activeElement === searchInput;
-        
-        clearSearchInput();  // Clear the input
-        
-        // Only refocus if the input was focused before
-        if (isFocused) {
-            requestAnimationFrame(() => {
-                searchInput.focus();  // Refocus immediately after clearing
-                searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
-            });
+           onfocus="closeModal2()" 
+           onkeyup="searchProducts()" 
+           class="search-bar" 
+           placeholder="ابحث في Adger" 
+           oninput="toggleClearButton(this)" 
+           autocomplete="off" 
+           autocorrect="off" 
+           autocapitalize="off" 
+           spellcheck="false">
+    
+    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    
+    <script>
+        function handleClearButton() {
+            const searchInput = document.getElementById('searchInput');
+            const isFocused = document.activeElement === searchInput;
+            
+            clearSearchInput();  // Clear the input
+            
+            // فقط إعادة التركيز إذا كان الحقل مركزاً بالفعل
+            if (isFocused) {
+                searchInput.blur();  // إزالة التركيز لفترة قصيرة
+                setTimeout(() => {
+                    searchInput.focus();  // إعادة التركيز بعد إزالة الشريط الأبيض
+                    searchInput.setSelectionRange(0, 0);  // تعيين المؤشر في بداية الحقل
+                }, 100);  // الانتظار 100 مللي ثانية
+            }
+            
+            closeModal2();  // إغلاق الـ Modal
         }
-        
-        closeModal2();  // Close the modal when the clear button is clicked
-    }
-
-    function clearSearchInput() {
-        console.log("Clearing search input");
-        const searchInput = document.getElementById('searchInput');
-        searchInput.value = '';  // Clear the input
-        toggleClearButton(searchInput);  // Update the clear button
-        searchInput.dispatchEvent(new Event('input'));  // Trigger input event manually
-        
-        // Scroll to the top of the page
-        window.scrollTo(0, 0);
-        
-        // Call your searchProducts function to update the search results
-        searchProducts();
-    }
-
-    function closeModal2() {
-        console.log("Closing modal");
-        // Add code here to hide the modal
-    }
-
-    function toggleClearButton(inputElement) {
-        const clearButton = document.getElementById('clearButton');
-        clearButton.style.display = inputElement.value.length > 0 ? 'inline' : 'none';
-    }
-
-    function searchProducts() {
-        const searchInput = document.getElementById('searchInput');
-        const query = searchInput.value;
-        console.log('Searching products for:', query);
-        
-        if (query === '') {
-            console.log('Search input cleared.');
+    
+        function clearSearchInput() {
+            console.log("Clearing search input");
+            const searchInput = document.getElementById('searchInput');
+            searchInput.value = '';  // مسح النص
+            toggleClearButton(searchInput);  // تحديث حالة زر المسح
+            searchInput.dispatchEvent(new Event('input'));  // تحفيز حدث input يدوياً
+            
+            // تمرير الصفحة إلى الأعلى
+            window.scrollTo(0, 0);
+            
+            // تحديث نتائج البحث
+            searchProducts();
         }
-    }
-</script>
-
-</body>
-</html>
+    
+        function closeModal2() {
+            console.log("Closing modal");
+            // قم بإضافة الكود لإخفاء الـ Modal هنا
+        }
+    
+        function toggleClearButton(inputElement) {
+            const clearButton = document.getElementById('clearButton');
+            clearButton.style.display = inputElement.value.length > 0 ? 'inline' : 'none';
+        }
+    
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value;
+            console.log('Searching products for:', query);
+            
+            if (query === '') {
+                console.log('Search input cleared.');
+            }
+        }
+    </script>
+    
+    </body>
+    </html>
+    
                 
     
         <!DOCTYPE html>
