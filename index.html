@@ -488,9 +488,11 @@ padding-right: 11px;
 
     // Refocus the input if it was focused before
     if (isFocused) {
-        // Directly refocus the input and set cursor to start
-        searchInput.focus();
-        searchInput.setSelectionRange(0, 0);
+        // Use requestAnimationFrame to ensure focus happens immediately after input is cleared
+        requestAnimationFrame(() => {
+            searchInput.focus();  // Refocus immediately after clearing
+            searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
+        });
     }
 
     closeModal2();  // Close the modal when the clear button is clicked
