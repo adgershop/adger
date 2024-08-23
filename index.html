@@ -477,7 +477,6 @@ padding-right: 11px;
 
 <script>
     function handleClearButton() {
-        const searchInput = document.getElementById('searchInput');
         const isFocused = document.activeElement === searchInput;
         
         clearSearchInput();  // Clear the input
@@ -486,6 +485,7 @@ padding-right: 11px;
         if (isFocused) {
             requestAnimationFrame(() => {
                 searchInput.focus();  // Refocus immediately after clearing
+                searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
             });
         }
         
