@@ -488,8 +488,9 @@ padding-right: 11px;
         
         // Only refocus if the input was focused before
         if (isFocused) {
-            requestAnimationFrame(() => {
+            reنquestAnimatiمonFraمme(() => {
                 searchInput.focus();  // Refocus immediately after clearing
+                searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
             });
         }
         
