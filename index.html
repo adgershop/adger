@@ -324,6 +324,7 @@ padding-right: 11px;
                             margin-right: 14px; /* زيادة المسافة بين "أهلاً" والاسم */
                             margin-left: -12px;
                             display: none; /* إخفاء عبارة "أهلاً" بشكل افتراضي */
+                            white-space: nowrap; /* منع نزول النص إلى السطر التالي */
                         }
                 
                         #greet666 span.hello {
@@ -472,69 +473,8 @@ padding-right: 11px;
 </head>
 <body>
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Search Example</title>
-        <style>
-            .search-bar {
-                padding: 10px;
-                width: 300px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                position: relative;
-            }
-            #clearButton {
-                display: none;
-                position: absolute;
-                right: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-                cursor: pointer;
-                background: none;
-                border: none;
-                font-size: 18px;
-            }
-        </style>
-    </head>
-    <body>
-        <div style="position: relative;">
-            <input type="text" id="searchInput" 
-                   class="search-bar" 
-                   placeholder="ابحث في Adger" 
-                   onkeyup="searchProducts()" 
-                   oninput="toggleClearButton(this)" 
-                   autocomplete="off" 
-                   spellcheck="false">
-            <button id="clearButton" onclick="clearSearch()">✖</button>
-        </div>
-    
-        <script>
-            function searchProducts() {
-                // Your search logic here
-                console.log("Searching for: " + document.getElementById('searchInput').value);
-            }
-    
-            function toggleClearButton(input) {
-                var clearButton = document.getElementById('clearButton');
-                if (input.value.length > 0) {
-                    clearButton.style.display = 'block';
-                } else {
-                    clearButton.style.display = 'none';
-                }
-            }
-    
-            function clearSearch() {
-                document.getElementById('searchInput').value = '';
-                toggleClearButton(document.getElementById('searchInput'));
-                document.getElementById('searchInput').focus();
-            }
-        </script>
-    </body>
-    </html>
-        <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
