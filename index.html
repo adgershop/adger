@@ -47,13 +47,17 @@
         }
 
         .search-bar {
-            padding: 10px;
-            border: 1px solid #17a105;
-            border-radius: 5px;
-            width: 100%;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
+    padding: 10px;
+    border: 1px solid #e26600; /* لون الحدود */
+    border-radius: 15px; /* زاوية مدورة للحدود */
+    width: 70%; /* العرض لضبط بجانب أيقونة السلة */
+    max-width: 6000px; /* العرض الأقصى لشريط البحث */
+    margin-right: 4px; /* المسافة بين شريط البحث وزر */
+    margin-left: 8px; /* المسافة على اليسار */
+    box-sizing: border-box; /* لضبط الحشو والحدود داخل العرض */
+    font-size: 16px; /* حجم الخط داخل شريط البحث */
+}
+
 
         .product-images {
             float: left;
@@ -122,16 +126,6 @@
 padding-right: 11px;
 }
 
-.search-bar {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #e26600;
-  border-radius: 15px;
-  width: 70%; /* Adjusted width to fit the cart icon */
-  max-width: 6000px; /* Maximum width for the search bar */
-  margin-right: 4px; /* Add space between search box and button */
-margin-left: 8px;
-}
 
 
 
@@ -476,8 +470,18 @@ margin-left: 8px;
 </head>
 <body>
 
-<input type="teقxt" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)">
-<span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    <input type="text" 
+    id="searchInput" 
+    onfocus="closeModal2()" 
+    onkeyup="searchProducts()" 
+    class="search-bar" 
+    placeholder="ابحث في Adger" 
+    oninput="toggleClearButton(this)" 
+    autocomplete="off" 
+    autocorrect="off" 
+    autocapitalize="off" 
+    spellcheck="false">
+ <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
