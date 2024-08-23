@@ -464,7 +464,13 @@ padding-right: 11px;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مثال</title>
     <style>
-      
+      input[type="text"] {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
         .clear-button {
             display: none;
             cursor: pointer;
@@ -473,7 +479,8 @@ padding-right: 11px;
 </head>
 <body>
 
-    <div class="search--search--C_fO_MU"><input class="search--keyword--15P08Ji" type="text" placeholder="led شريط أضواء للغرفة" autocomplete="off" maxlength="50" id="search-words" value="" data-spm-anchor-id="a2g0o.categorymp.0.i6.36bcccKVccKV26"><div class="search--picSearch--3aeyGeH"><div class="esm--picture-search-container--1byK0Ue esm--rtl-picture-search-container--1gO0JI2"><div class="esm--picture-search-btn--2xHyX4O"><img width="24" height="24" src="https://ae01.alicdn.com/kf/Sf683a50b80cc4690a747a857f150abc8p/48x48.png"></div><canvas id="canvas" style="display: none;"></canvas></div></div><input class="search--submit--2VTbd-T" type="button"></div>    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
