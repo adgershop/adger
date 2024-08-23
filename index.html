@@ -478,63 +478,60 @@ padding-right: 11px;
 
     <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
     <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
-
-<script>
-    function handleClearButton() {
-        const searchInput = document.getElementById('searchInput');
-        const isFocused = document.activeElement === searchInput;
-        
-        clearSearchInput();  // Clear the input
-        
-        // Only refocus if the input was focused before
-        if (isFocused) {
-            requestAnimationFrame(() => {
-                searchInput.focus();  // Refocus immediately after clearing
-                searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
-            });
+    <script>
+        // Make sure the white bar remains visible and fixed
+        function handleClearButton() {
+            const searchInput = document.getElementById('searchInput');
+            const isFocused = document.activeElement === searchInput;
+            
+            clearSearchInput();  // Clear the input
+            
+            // Only refocus if the input was focused before
+            if (isFocused) {
+                requestAnimationFrame(() => {
+                    searchInput.focus();  // Refocus immediately after clearing
+                    searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
+                });
+            }
+            
+            closeModal2();  // Close the modal when the clear button is clicked
         }
-        
-        closeModal2();  // Close the modal when the clear button is clicked
-    }
-
-    function clearSearchInput() {
-        console.log("Clearing search input");
-        const searchInput = document.getElementById('searchInput');
-        searchInput.value = '';  // Clear the input
-        toggleClearButton(searchInput);  // Update the clear button
-        searchInput.dispatchEvent(new Event('input'));  // Trigger input event manually
-        
-        // Scroll to the top of the page
-        window.scrollTo(0, 0);
-        
-        // Call your searchProducts function to update the search results
-        searchProducts();
-    }
-
-    function closeModal2() {
-        console.log("Closing modal");
-        // Add code here to hide the modal
-    }
-
-    function toggleClearButton(inputElement) {
-        const clearButton = document.getElementById('clearButton');
-        clearButton.style.display = inputElement.value.length > 0 ? 'inline' : 'none';
-    }
-
-    function searchProducts() {
-        const searchInput = document.getElementById('searchInput');
-        const query = searchInput.value;
-        console.log('Searching products for:', query);
-        
-        if (query === '') {
-            console.log('Search input cleared.');
+      
+        function clearSearchInput() {
+            console.log("Clearing search input");
+            const searchInput = document.getElementById('searchInput');
+            searchInput.value = '';  // Clear the input
+            toggleClearButton(searchInput);  // Update the clear button
+            searchInput.dispatchEvent(new Event('input'));  // Trigger input event manually
+            
+            // Scroll to the top of the page without affecting the white bar
+            window.scrollTo(0, 0);
+            
+            // Call your searchProducts function to update the search results
+            searchProducts();
         }
-    }
-</script>
-
-</body>
-</html>
-                
+      
+        function closeModal2() {
+            console.log("Closing modal");
+            // Add code here to hide the modal
+        }
+      
+        function toggleClearButton(inputElement) {
+            const clearButton = document.getElementById('clearButton');
+            clearButton.style.display = inputElement.value.length > 0 ? 'inline' : 'none';
+        }
+      
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value;
+            console.log('Searching products for:', query);
+            
+            if (query === '') {
+                console.log('Search input cleared.');
+            }
+        }
+      </script>
+            
     
         <!DOCTYPE html>
         <html lang="ar">
