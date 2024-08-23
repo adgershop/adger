@@ -479,15 +479,18 @@ padding-right: 11px;
     <script>
         function handleClearButton() {
             const searchInput = document.getElementById('searchInput');
-            clearSearchInput();  // Clear the input
-    
-            // Refocus immediately after clearing
+            
+            // Clear the input and update the clear button
+            clearSearchInput();
+            
+            // Refocus the input immediately after clearing
             requestAnimationFrame(() => {
-                searchInput.focus();
+                searchInput.focus();  // Refocus the input
                 searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
             });
             
-            closeModal2();  // Close the modal when the clear button is clicked
+            // Close the modal
+            closeModal2();
         }
     
         function clearSearchInput() {
