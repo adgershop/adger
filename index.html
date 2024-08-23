@@ -471,16 +471,7 @@ padding-right: 11px;
         direction: rtl; /* تغيير اتجاه النص ليكون من اليمين إلى اليسار إذا كانت اللغة العربية */
     }
 
-    html, body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden; /* لمنع التمرير التلقائي */
-}
 
-input:focus {
-    outline: none; /* إزالة التحديد من الإدخال */
-    box-shadow: none; /* إزالة أي تأثيرات أخرى قد تؤثر على العرض */
-}
     </style>
 </head>
 <body>
@@ -506,19 +497,20 @@ input:focus {
         closeModal2();  // Close the modal when the clear button is clicked
     }
 
-    function handleClearButton() {
-    const searchInput = document.getElementById('searchInput');
-    clearSearchInput();  // Clear the input
+    function clearSearchInput() {
+        console.log("Clearing search input");
+        const searchInput = document.getElementById('searchInput');
+        searchInput.value = '';  // Clear the input
+        toggleClearButton(searchInput);  // Update the clear button
+        searchInput.dispatchEvent(new Event('input'));  // Trigger input event manually
+        
+        // Scroll to the top of the page
+        window.scrollTo(0, 0);
+        
+        // Call your searchProducts function to update the search results
+        searchProducts();
+    }
 
-    // Delay focusing to ensure UI updates are processed
-    setTimeout(() => {
-        searchInput.focus();  // Refocus immediately after clearing
-        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });  // Ensure input is visible
-        searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
-    }, 0);
-
-    closeModal2();  // Close the modal when the clear button is clicked
-}
     function closeModal2() {
         console.log("Closing modal");
         // Add code here to hide the modal
@@ -12200,7 +12192,29 @@ if (hasError) {
 
 
 
+<style>
+    /* This will help remove unnecessary appearance styles in mobile devices */
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
 
+/* Make sure the input field doesn't have additional padding or margins */
+#searchInput {
+    padding: 0;
+    margin: 0;
+    outline: none; /* Removes the default focus outline */
+    border: none;  /* Removes the default border */
+    box-shadow: none; /* Removes any shadows */
+}
+
+/* Prevent zooming in on input when focusing on mobile */
+input[type="text"], input[type="search"] {
+    font-size: 16px; /* Adjust the font size to prevent auto-zoom */
+}
+
+</style>
 
 
 
