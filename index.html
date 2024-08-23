@@ -484,11 +484,15 @@ padding-right: 11px;
                 width: 300px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
+                position: relative;
             }
             #clearButton {
                 display: none;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
                 cursor: pointer;
-                margin-left: -30px;
                 background: none;
                 border: none;
                 font-size: 18px;
@@ -496,14 +500,16 @@ padding-right: 11px;
         </style>
     </head>
     <body>
-        <input type="text" id="searchInput" 
-               class="search-bar" 
-               placeholder="ابحث في Adger" 
-               onkeyup="searchProducts()" 
-               oninput="toggleClearButton(this)" 
-               autocomplete="off" 
-               spellcheck="false">
-        <button id="clearButton" onclick="clearSearch()">✖</button>
+        <div style="position: relative;">
+            <input type="text" id="searchInput" 
+                   class="search-bar" 
+                   placeholder="ابحث في Adger" 
+                   onkeyup="searchProducts()" 
+                   oninput="toggleClearButton(this)" 
+                   autocomplete="off" 
+                   spellcheck="false">
+            <button id="clearButton" onclick="clearSearch()">✖</button>
+        </div>
     
         <script>
             function searchProducts() {
@@ -514,7 +520,7 @@ padding-right: 11px;
             function toggleClearButton(input) {
                 var clearButton = document.getElementById('clearButton');
                 if (input.value.length > 0) {
-                    clearButton.style.display = 'inline';
+                    clearButton.style.display = 'block';
                 } else {
                     clearButton.style.display = 'none';
                 }
