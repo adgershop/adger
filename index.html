@@ -47,23 +47,28 @@
         }
 
         .search-bar {
-    padding: 10px;
-    border: 1px solid #e26600; /* لون الحدود */
-    border-radius: 15px; /* زاوية مدورة للحدود */
-    width: 70%; /* العرض لضبط بجانب أيقونة السلة */
-    max-width: 6000px; /* العرض الأقصى لشريط البحث */
-    margin-right: 4px; /* المسافة بين شريط البحث وزر */
+    padding: 8px; /* تقليل الحشو */
+    border: 1px solid #e26600; /* اللون */
+    border-radius: 15px; /* زاوية مدورة */
+    width: 70%; /* العرض */
+    max-width: 100%; /* لضبط العرض بناءً على الشاشة */
+    margin-right: 4px; /* المسافة على اليمين */
     margin-left: 8px; /* المسافة على اليسار */
-    box-sizing: border-box; /* لضبط الحشو والحدود داخل العرض */
-    font-size: 16px; /* حجم الخط داخل شريط البحث */
-      -webkit-appearance: none; /* إزالة تصميم المتصفح الافتراضي */
+    box-sizing: border-box; /* لتضمين الحشو والحدود في العرض */
+    font-size: 16px; /* حجم الخط */
+    -webkit-appearance: none; /* إزالة التصميم الافتراضي */
     appearance: none;
-    webkit-overflow-scrolling: touch;
+    overflow: hidden; /* لإخفاء الشريط الأبيض */
 }
-input:focus {
-    outline-color: transparent;
-    border: 2px solid skyblue;
+
+@media (max-width: 600px) {
+    .search-bar {
+        width: 100%; /* العرض الكامل على الشاشات الصغيرة */
+        margin-left: 0; /* إزالة المسافة على اليسار */
+        margin-right: 0; /* إزالة المسافة على اليمين */
+    }
 }
+
 
         .product-images {
             float: left;
