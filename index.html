@@ -46,9 +46,15 @@
             margin-bottom: 20px;
         }
 
-        .search-bar {
+        /* إعدادات عامة لجسم الصفحة لإزالة الهوامش والحشو */
+body {
+    margin: 0; /* إزالة الهوامش */
+    padding: 0; /* إزالة الحشو */
+}
+
+.search-bar {
     padding: 8px; /* تقليل الحشو */
-    border: 1px solid rgba(226, 102, 0, 0.5); /* لون الحدود مع شفافية */
+    border: 1px solid #e26600; /* لون الحدود */
     border-radius: 15px; /* زاوية مدورة */
     width: 70%; /* العرض */
     max-width: 100%; /* لضبط العرض بناءً على الشاشة */
@@ -58,10 +64,12 @@
     font-size: 16px; /* حجم الخط */
     -webkit-appearance: none; /* إزالة التصميم الافتراضي */
     appearance: none;
-    background-color: rgba(255, 255, 255, 0.5); /* خلفية بيضاء مع شفافية */
+    outline: none; /* إزالة الشريط الأبيض */
+    background-color: #fff; /* خلفية بيضاء لتجنب الفجوات */
+    position: relative; /* تأكيد وضعية النسبية */
 }
 
-@media (max-width: 717px) {
+@media (max-width: 600px) {
     .search-bar {
         width: 100%; /* العرض الكامل على الشاشات الصغيرة */
         margin-left: 0; /* إزالة المسافة على اليسار */
