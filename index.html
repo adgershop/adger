@@ -471,9 +471,15 @@ padding-right: 11px;
         direction: rtl; /* تغيير اتجاه النص ليكون من اليمين إلى اليسار إذا كانت اللغة العربية */
     }
 
-    input:focus {
-    outline: none;
-    box-shadow: none;
+    html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* لمنع التمرير التلقائي */
+}
+
+input:focus {
+    outline: none; /* إزالة التحديد من الإدخال */
+    box-shadow: none; /* إزالة أي تأثيرات أخرى قد تؤثر على العرض */
 }
     </style>
 </head>
