@@ -480,24 +480,24 @@ padding-right: 11px;
     <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
-  function handleClearButton() {
+   function handleClearButton() {
     const searchInput = document.getElementById('searchInput');
+    const isFocused = document.activeElement === searchInput;
     
-    clearSearchInput();  // مسح حقل الإدخال
-
-    // إعادة التركيز بعد مسح الإدخال
-    requestAnimationFrame(() => {
-        searchInput.focus();  // إعادة التركيز على حقل الإدخال
-        searchInput.setSelectionRange(0, 0);  // وضع المؤشر في بداية النص
-        
-        // في حالة الهواتف المحمولة، يتم ضبط التمرير بشكل دقيق لمنع إزالة الشريط الأبيض
-        if (isMobileDevice()) {
-            document.body.style.overflow = 'hidden';  // تعطيل التمرير مؤقتاً
-            setTimeout(() => {
-                document.body.style.overflow = '';  // إعادة التمرير بعد التأكد من إعادة التركيز
-            }, 50);
-        }
-    });
+    clearSearchInput();  // مسح الإدخال
+    
+    // إذا كان الإدخال مفعلاً، أعد التركيز بعد المسح
+    if (isFocused) {
+        requestAnimationFrame(() => {
+            searchInput.focus();  // إعادة التركيز على الإدخال
+            searchInput.setSelectionRange(0, 0);  // وضع المؤشر في بداية النص
+            
+            // على الأجهزة المحمولة، قم بضبط عرض الصفحة لمنع إزالة الشريط الأبيض
+            if (isMobileDevice()) {
+                preventKeyboardHiding();
+            }
+        });
+    }
     
     closeModal2();  // إغلاق النافذة المنبثقة عند النقر على زر المسح
 }
@@ -514,6 +514,18 @@ function clearSearchInput() {
     
     // استدعاء دالة البحث لتحديث النتائج
     searchProducts();
+}
+
+function preventKeyboardHiding() {
+    // منع اختفاء الشريط الأبيض فوق لوحة المفاتيح على الهواتف المحمولة
+    const dummyInput = document.createElement('input');
+    dummyInput.style.position = 'absolute';
+    dummyInput.style.top = '-9999px';
+    document.body.appendChild(dummyInput);
+    dummyInput.focus();
+    setTimeout(() => {
+        dummyInput.remove();
+    }, 50);
 }
 
 function isMobileDevice() {
