@@ -476,31 +476,13 @@ padding-right: 11px;
 </head>
 <body>
 
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Search Bar</title>
-        <style>
-            /* Add some basic styling to the search bar */
-            .search-bar {
-                width: 100%;
-                padding: 10px;
-                font-size: 16px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-            }
-        </style>
-    </head>
-    <body>
-        <!-- The search input field -->
-        <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="new-password">
-        
-        <!-- Add the JavaScript code to disable autocomplete -->
-        <script>
-            document.getElementById('searchInput').setAttribute('autocomplete', 'off');
-        </script>
-    </body>
-    </html>    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    <input type="text" id="searchInput" 
+    autocomplete="off" 
+    autocomplete="new-password" 
+    readonly 
+    onfocus="this.removeAttribute('readonly');" 
+    inputmode="none" 
+    pattern="[a-zA-Z]*" />    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
