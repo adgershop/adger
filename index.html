@@ -480,7 +480,8 @@ padding-right: 11px;
     <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
-    function handleClearButton() {
+    
+function handleClearButton() {
     const searchInput = document.getElementById('searchInput');
     
     // Clear the input and update the clear button
@@ -489,8 +490,10 @@ padding-right: 11px;
     // Refocus on the input element if it's already focused
     if (document.activeElement === searchInput) {
         // Keep the keyboard open and refocus smoothly without causing flicker
-        searchInput.focus();
-        searchInput.setSelectionRange(0, 0);  // Set cursor to the start
+        setTimeout(() => {
+            searchInput.focus();
+            searchInput.setSelectionRange(0, 0);  // Set cursor to the start
+        }, 10);  // Small delay to ensure smooth behavior
     }
 
     closeModal2();  // Close the modal when the clear button is clicked
