@@ -476,13 +476,8 @@ padding-right: 11px;
 </head>
 <body>
 
-    <input type="text" id="searchInput" 
-    autocomplete="off" 
-    autocomplete="new-password" 
-    readonly 
-    onfocus="this.removeAttribute('readonly');" 
-    pattern="[a-zA-Z]*" 
-    placeholder="Search...">    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
@@ -1636,7 +1631,7 @@ padding-right: 11px;
 
     .slides {
         width: 100%;
-        height: 111px;
+        height: 199px;
         display: none;
     }
 
