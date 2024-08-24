@@ -480,23 +480,7 @@ padding-right: 11px;
     <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
-    function handleClearButton() {
-        const searchInput = document.getElementById('searchInput');
-        const isFocused = document.activeElement === searchInput;
-        
-        clearSearchInput();  // Clear the input
-        
-        // Only refocus if the input was focused before
-        if (isFocused) {
-            requestAnimationFrame(() => {
-                searchInput.focus();  // Refocus immediately after clearing
-                searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
-            });
-        }
-        
-        closeModal2();  // Close the modal when the clear button is clicked
-    }
-    function handleClearButton() {
+ function handleClearButton() {
     const searchInput = document.getElementById('searchInput');
     const wasFocused = document.activeElement === searchInput;
 
@@ -516,6 +500,7 @@ padding-right: 11px;
     // قوة إعادة عرض الشريط الأبيض أعلى لوحة المفاتيح
     window.scrollTo(0, 0);
 }
+
     function clearSearchInput() {
         console.log("Clearing search input");
         const searchInput = document.getElementById('searchInput');
