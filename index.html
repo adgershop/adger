@@ -477,19 +477,11 @@ padding-right: 11px;
 <body>
 
     <!DOCTYPE html>
-    <html lang="ar">
+    <html>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Bar</title>
         <style>
-            /* جعل الحقل النصي ثابتاً في الجزء السفلي من الشاشة */
-            .search-bar-container {
-                bottom: 0;
-                left: 0;
-                padding: 10px;
-                z-index: 1000; /* تأكد من أن الحقل يظهر فوق أي محتوى آخر */
-            }
-    
+            /* Add some basic styling to the search bar */
             .search-bar {
                 width: 100%;
                 padding: 10px;
@@ -497,38 +489,18 @@ padding-right: 11px;
                 border: 1px solid #ccc;
                 border-radius: 5px;
             }
-    
-            /* تحسين التجربة على الهواتف المحمولة */
-            @media (max-width: 768px) {
-                .search-bar {
-                    font-size: 18px;
-                }
-            }
         </style>
     </head>
     <body>
-        <!-- حاوية الحقل النصي مثبتة في الأسفل -->
-        <div class="search-bar-container">
-            <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
-        </div>
-    
+        <!-- The search input field -->
+        <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="new-password">
+        
+        <!-- Add the JavaScript code to disable autocomplete -->
         <script>
-            // وظائف أخرى (استبدلها بوظائفك الخاصة)
-            function closeModal2() {
-                // إغلاق المودال 2
-            }
-    
-            function searchProducts() {
-                // البحث عن المنتجات
-            }
-    
-            function toggleClearButton(input) {
-                // عرض أو إخفاء زر "مسح"
-            }
+            document.getElementById('searchInput').setAttribute('autocomplete', 'off');
         </script>
     </body>
-    </html>
-        <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    </html>    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
