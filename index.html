@@ -476,27 +476,24 @@ padding-right: 11px;
 </head>
 <body>
 
-    <input type="tegxt" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
     <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
  function handleClearButton() {
     const searchInput = document.getElementById('searchInput');
-    const isFocused = document.activeElement === searchInput;
-    
-    clearSearchInput();  // مسح النص من حقل البحث
-    
-    // إعادة التركيز فقط إذا كان حقل الإدخال مفعلاً
-    if (isFocused) {
-        requestAnimationFrame(() => {
-            searchInput.focus({ preventScroll: true });  // إعادة التركيز بدون التمرير
-        });
-    }
-    
-    // تأجيل إغلاق المودال قليلاً بعد إعادة التركيز
-    setTimeout(() => {
-        closeModal2();  // إغلاق المودال بعد فترة قصيرة
-    }, 50);  // 50 ميلي ثانية تكفي عادة لإعادة التركيز بدون مشاكل
+
+    clearSearchInput();  // مسح النص من صندوق البحث
+
+    // إعادة التركيز فوراً بدون تأخير
+    requestAnimationFrame(() => {
+        searchInput.focus();  // إعادة التركيز على صندوق البحث
+    });
+
+    // ضمان بقاء الشريط الأبيض مرئيًا
+    requestAnimationFrame(() => {
+        searchInput.setSelectionRange(0, 0);  // وضع المؤشر في بداية النص بعد المسح
+    });
 }
     function clearSearchInput() {
         console.log("Clearing search input");
