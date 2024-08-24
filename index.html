@@ -482,25 +482,37 @@ padding-right: 11px;
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-            /* تقليل المسافات عند التركيز على الأجهزة المحمولة */
+            /* جعل الحقل النصي ثابتاً في الجزء السفلي من الشاشة */
+            .search-bar-container {
+                bottom: 0;
+                left: 0;
+                padding: 10px;
+                z-index: 1000; /* تأكد من أن الحقل يظهر فوق أي محتوى آخر */
+            }
+    
+            .search-bar {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+    
+            /* تحسين التجربة على الهواتف المحمولة */
             @media (max-width: 768px) {
-                input:focus {
-                    padding-bottom: 0;
-                    margin-bottom: 0;
-                    outline: none;
+                .search-bar {
+                    font-size: 18px;
                 }
             }
         </style>
     </head>
     <body>
-        <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+        <!-- حاوية الحقل النصي مثبتة في الأسفل -->
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+        </div>
     
         <script>
-            // تطبيق السلوك السلس عند التركيز على الحقل النصي
-            document.getElementById("searchInput").addEventListener("focus", function() {
-                this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            });
-    
             // وظائف أخرى (استبدلها بوظائفك الخاصة)
             function closeModal2() {
                 // إغلاق المودال 2
