@@ -494,12 +494,15 @@ padding-right: 11px;
         });
     }
     
-    // Prevent the keyboard from hiding
+    // Ensure the keyboard remains visible
     setTimeout(() => {
         searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 0);
     
-    closeModal2();  // Close the modal when the clear button is clicked
+    // Close the modal without hiding the keyboard
+    setTimeout(() => {
+        closeModal2();  // Close the modal when the clear button is clicked
+    }, 100);
 }
     function clearSearchInput() {
         console.log("Clearing search input");
