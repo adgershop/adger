@@ -486,10 +486,11 @@ padding-right: 11px;
 
     clearSearchInput();  // مسح النص من حقل البحث
 
-    // إذا كان هناك تركيز بالفعل على صندوق البحث، أعد التركيز بدون تأخير
+    // فقط إذا كان التركيز موجود بالفعل، أعِد التركيز مباشرةً بدون أي تأخير
     if (isFocused) {
-        searchInput.focus({ preventScroll: true });  // إعادة التركيز فوراً بدون تمرير الصفحة
-        searchInput.setSelectionRange(0, 0);  // وضع المؤشر في بداية النص بعد المسح
+        requestAnimationFrame(() => {
+            searchInput.setSelectionRange(0, 0);  // وضع المؤشر في بداية النص بعد المسح
+        });
     }
 }
 
