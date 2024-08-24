@@ -481,22 +481,26 @@ padding-right: 11px;
 
 <script>
     function handleClearButton() {
-        const searchInput = document.getElementById('searchInput');
-        const isFocused = document.activeElement === searchInput;
-        
-        clearSearchInput();  // Clear the input
-        
-        // Only refocus if the input was focused before
-        if (isFocused) {
-            requestAnimationFrame(() => {
-                searchInput.focus();  // Refocus immediately after clearing
-                searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
-            });
-        }
-        
-        closeModal2();  // Close the modal when the clear button is clicked
+    const searchInput = document.getElementById('searchInput');
+    const isFocused = document.activeElement === searchInput;
+    
+    clearSearchInput();  // Clear the input
+    
+    // Only refocus if the input was focused before
+    if (isFocused) {
+        requestAnimationFrame(() => {
+            searchInput.focus();  // Refocus immediately after clearing
+            searchInput.setSelectionRange(0, 0);  // Set cursor to the start of the input
+        });
     }
-
+    
+    // Prevent the keyboard from hiding
+    setTimeout(() => {
+        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 0);
+    
+    closeModal2();  // Close the modal when the clear button is clicked
+}
     function clearSearchInput() {
         console.log("Clearing search input");
         const searchInput = document.getElementById('searchInput');
