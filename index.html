@@ -480,8 +480,19 @@ padding-right: 11px;
     <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
- function handleClearButton() {
-    clearSearchInput();  // Clear the input
+    function handleClearButton() {
+    const searchInput = document.getElementById('searchInput');
+    
+    // Clear the input and update the clear button
+    clearSearchInput();
+    
+    // Refocus on the input element if it's already focused
+    if (document.activeElement === searchInput) {
+        // Keep the keyboard open and refocus smoothly without causing flicker
+        searchInput.focus();
+        searchInput.setSelectionRange(0, 0);  // Set cursor to the start
+    }
+
     closeModal2();  // Close the modal when the clear button is clicked
 }
 
@@ -490,24 +501,13 @@ function clearSearchInput() {
     searchInput.value = '';  // Clear the input
     toggleClearButton(searchInput);  // Update the clear button visibility
     searchInput.dispatchEvent(new Event('input'));  // Trigger input event manually
-
+    
     // Scroll to the top of the page
     window.scrollTo(0, 0);
-
-    // Update search results
+    
+    // Call your searchProducts function to update the search results
     searchProducts();
 }
-
-function closeModal2() {
-    console.log("Closing modal");
-    // Add code here to hide the modal
-}
-
-function toggleClearButton(inputElement) {
-    const clearButton = document.getElementById('clearButton');
-    clearButton.style.display = inputElement.value.length > 0 ? 'inline' : 'none';
-}
-
 
     function clearSearchInput() {
         console.log("Clearing search input");
