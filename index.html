@@ -476,8 +476,33 @@ padding-right: 11px;
 </head>
 <body>
 
-    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
-    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <style>
+        input {
+          -webkit-appearance: none; /* لإزالة التأثيرات الافتراضية في WebKit */
+          background-color: transparent; /* لتعيين خلفية شفافة */
+          outline: none; /* إزالة التحديد */
+          border: none; /* إزالة الحدود */
+          box-shadow: none; /* إزالة الظلال */
+        }
+        
+        input:focus {
+          outline: none; /* إزالة التحديد عند التركيز */
+          background-color: transparent; /* خلفية شفافة عند التركيز */
+          box-shadow: none; /* إزالة أي ظلال */
+        }
+      </style>
+    </head>
+    <body>
+    
+      <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+    
+    </body>
+    </html>
+        <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
