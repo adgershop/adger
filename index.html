@@ -483,18 +483,18 @@ padding-right: 11px;
  function handleClearButton() {
     const searchInput = document.getElementById('searchInput');
 
-    clearSearchInput();  // مسح النص من صندوق البحث
+    clearSearchInput();  // مسح النص من حقل البحث
 
-    // إعادة التركيز فوراً بدون تأخير
-    requestAnimationFrame(() => {
+    // تأجيل التركيز قليلاً لضمان عدم اختفاء الشريط الأبيض
+    setTimeout(() => {
         searchInput.focus();  // إعادة التركيز على صندوق البحث
-    });
-
-    // ضمان بقاء الشريط الأبيض مرئيًا
-    requestAnimationFrame(() => {
         searchInput.setSelectionRange(0, 0);  // وضع المؤشر في بداية النص بعد المسح
-    });
+    }, 0);  // استخدام تأخير زمني بسيط للغاية
+
+    // إلغاء إغلاق المودال إذا كنت تريد الحفاظ على التركيز
+    // إذا كان لا بد من إغلاق المودال، جرب تأجيله أيضًا
 }
+
     function clearSearchInput() {
         console.log("Clearing search input");
         const searchInput = document.getElementById('searchInput');
