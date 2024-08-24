@@ -475,34 +475,32 @@ padding-right: 11px;
     </style>
 </head>
 <body>
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-      <style>
-        input {
-          -webkit-appearance: none; /* لإزالة التأثيرات الافتراضية في WebKit */
-          background-color: transparent; /* لتعيين خلفية شفافة */
-          outline: none; /* إزالة التحديد */
-          border: none; /* إزالة الحدود */
-          box-shadow: none; /* إزالة الظلال */
-        }
-        
-        input:focus {
-          outline: none; /* إزالة التحديد عند التركيز */
-          background-color: transparent; /* خلفية شفافة عند التركيز */
-          box-shadow: none; /* إزالة أي ظلال */
-        }
-      </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>إخفاء الشريط الأبيض</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                overflow: hidden; /* لإخفاء الشريط الأبيض */
+            }
+        </style>
     </head>
     <body>
-    
-      <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
-    
+        <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+        <script>
+            document.addEventListener('focusin', (event) => {
+                if (event.target.tagName === 'INPUT') {
+                    window.scrollTo(0, 0); // لإخفاء الشريط الأبيض عند التركيز على صندوق البحث
+                }
+            });
+        </script>
     </body>
     </html>
-        <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
