@@ -492,19 +492,21 @@ padding-right: 11px;
     </head>
     <body>
     
-    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+    <input type="text" id="searchInput" onfocus="hideBottomBar()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
     
     <script>
       // إخفاء الشريط الأبيض عند التركيز على حقل الإدخال
-      document.getElementById('searchInput').addEventListener('focus', function() {
-        document.body.style.paddingBottom = '0px';
-      });
-    
-      // وظائف إضافية (closeModal2, searchProducts, toggleClearButton)
-      function closeModal2() {
-        // تنفيذ الكود الخاص بإغلاق المودال
+      function hideBottomBar() {
+        const input = document.getElementById('searchInput');
+        input.addEventListener('focus', function() {
+          document.body.style.paddingBottom = '0px';
+        });
+        input.addEventListener('blur', function() {
+          document.body.style.paddingBottom = ''; // إرجاع القيمة الأصلية
+        });
       }
     
+      // وظائف إضافية (searchProducts, toggleClearButton)
       function searchProducts() {
         // تنفيذ الكود الخاص بالبحث عن المنتجات
       }
