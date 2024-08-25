@@ -477,77 +477,45 @@ padding-right: 11px;
 <body>
 
     <!DOCTYPE html>
-    <html lang="ar">
+    <html lang="en">
     <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Search Bar Fix</title>
-      <style>
-        html, body {
-          height: 100%;
-          margin: 0;
-          overflow: hidden; /* منع تغيير حجم العرض */
-          touch-action: manipulation; /* تقليل التأثيرات غير المرغوب فيها على العرض */
-          background-color: #f5f5f5; /* تغيير لون الخلفية */
-        }
-    
-        .search-bar {
-          position: relative;
-          height: 40px;
-          font-size: 16px;
-          width: 90%;
-          margin: 10px auto;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          outline: none;
-        }
-      </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      /* تأكد من أن النافذة لا تتغير حجمها عند ظهور لوحة المفاتيح */
+      html, body {
+        overflow-y: hidden; /* منع ظهور التمرير العمودي */
+      }
+      .search-bar {
+        /* أنماط إضافية لحقل الإدخال */
+      }
+    </style>
     </head>
     <body>
     
-      <input 
-        type="text" 
-        id="searchInput" 
-        inputmode="text" 
-        onfocus="handleFocus()" 
-        onkeyup="searchProducts()" 
-        class="search-bar" 
-        placeholder="ابحث في Adger" 
-        oninput="toggleClearButton(this)" 
-        autocomplete="off"
-      >
+    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
     
-      <script>
-        function handleFocus() {
-          closeModal2();
-          // منع التمرير عند التركيز على الإدخال
-          document.body.style.overflow = 'hidden';
-        }
+    <script>
+      // إخفاء الشريط الأبيض عند التركيز على حقل الإدخال
+      document.getElementById('searchInput').addEventListener('focus', function() {
+        document.body.style.paddingBottom = '0px';
+      });
     
-        function closeModal2() {
-          // الكود لإغلاق المودال الخاص بك
-          console.log("Modal closed");
-        }
+      // وظائف إضافية (closeModal2, searchProducts, toggleClearButton)
+      function closeModal2() {
+        // تنفيذ الكود الخاص بإغلاق المودال
+      }
     
-        function searchProducts() {
-          // كود البحث الخاص بك
-          console.log("Searching products...");
-        }
+      function searchProducts() {
+        // تنفيذ الكود الخاص بالبحث عن المنتجات
+      }
     
-        function toggleClearButton(input) {
-          // إظهار زر المسح إذا كان هناك نص في حقل الإدخال
-          if (input.value.length > 0) {
-            console.log("Show clear button");
-          } else {
-            console.log("Hide clear button");
-          }
-        }
-      </script>
+      function toggleClearButton(input) {
+        // تنفيذ الكود الخاص بإظهار/إخفاء زر المسح
+      }
+    </script>
     
     </body>
-    </html>
-        <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    </html>    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
