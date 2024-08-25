@@ -507,6 +507,8 @@ padding-right: 11px;
         <span id="clearButton" class="clear-button" onmousedown="clearSearchInput(event)">✖</span>
     
         <script>
+            let isFocused = false;
+    
             function closeModal2() {
                 // الكود لإغلاق النافذة (حسب الحاجة)
             }
@@ -531,9 +533,21 @@ padding-right: 11px;
                 searchInput.value = "";
                 // تحديث حالة زر الإكس
                 toggleClearButton(searchInput);
-                // إعادة التركيز مباشرة إلى صندوق البحث
-                searchInput.focus();
+    
+                // إذا كان حقل الإدخال يحتوي على التركيز، نعيد التركيز
+                if (isFocused) {
+                    searchInput.focus();
+                }
             }
+    
+            // التحقق إذا كان حقل البحث يحتوي على التركيز
+            document.getElementById("searchInput").addEventListener("focus", function() {
+                isFocused = true;
+            });
+    
+            document.getElementById("searchInput").addEventListener("blur", function() {
+                isFocused = false;
+            });
     
             // عند تحميل الصفحة، إخفاء زر الإكس إذا كان الحقل فارغًا
             document.addEventListener("DOMContentLoaded", function () {
