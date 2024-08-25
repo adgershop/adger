@@ -117,7 +117,7 @@
   align-items: center;
   justify-content: center; /* Center items horizontally */
   padding: 1px;
-  background-color: #2b3336; /* Background color for search bar area */
+  background-color: #272b2c; /* Background color for search bar area */
   border-radius: 1px;
   height: 60px; /* Adjust the height as needed */
   position: fixed; /* Fixes the position of the search bar */
@@ -475,56 +475,8 @@ padding-right: 11px;
     </style>
 </head>
 <body>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>React Native Example</title>
-      <!-- React Native Web -->
-      <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-      <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-      <script src="https://unpkg.com/react-native-web@0.17.7/dist/react-native-web.js"></script>
-    </head>
-    <body>
-      <div id="root"></div>
-      <script type="text/babel">
-        const { View, TextInput, KeyboardAvoidingView, StyleSheet } = ReactNativeWeb;
-    
-        const SearchInput = () => {
-          const [searchText, setSearchText] = React.useState('');
-    
-          return (
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
-              <TextInput
-                style={styles.input}
-                placeholder="ابحث في Adger"
-                onChangeText={setSearchText}
-                value={searchText}
-                autoCompleteType="off"
-              />
-            </KeyboardAvoidingView>
-          );
-        };
-    
-        const styles = StyleSheet.create({
-          container: {
-            flex: 1,
-            justifyContent: 'center',
-            paddingHorizontal: 10,
-          },
-          input: {
-            borderWidth: 1,
-            borderColor: 'gray',
-            padding: 10,
-            marginBottom: 10,
-          },
-        });
-    
-        ReactDOM.render(<SearchInput />, document.getElementById('root'));
-      </script>
-    </body>
-    </html>    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+
+    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
     <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
