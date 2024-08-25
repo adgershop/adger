@@ -482,20 +482,6 @@ padding-right: 11px;
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-            .search-bar {
-                width: 200px;
-                padding: 8px;
-                font-size: 16px;
-            }
-    
-            .clear-button {
-                cursor: pointer;
-                font-size: 20px;
-                margin-left: 10px;
-                color: red;
-                user-select: none;
-            }
-    
             .clear-button.hidden {
                 display: none;
             }
@@ -508,15 +494,22 @@ padding-right: 11px;
     
         <script>
             let isFocused = false;
-    
+        
             function closeModal2() {
                 // الكود لإغلاق النافذة (حسب الحاجة)
+                // مثال على إغلاق مودال:
+                var modal = document.getElementById("myModal");
+                if (modal) {
+                    modal.style.display = "none";
+                }
             }
-    
+        
             function searchProducts() {
                 // الكود الخاص بالبحث عن المنتجات (حسب الحاجة)
+                // مثال بسيط للبحث عن كل المنتجات عند البحث بحقل فارغ:
+                console.log("البحث عن جميع المنتجات");
             }
-    
+        
             function toggleClearButton(input) {
                 var clearButton = document.getElementById("clearButton");
                 if (input.value.trim() === "") {
@@ -525,37 +518,48 @@ padding-right: 11px;
                     clearButton.classList.remove("hidden");
                 }
             }
-    
+        
             function clearSearchInput(event) {
                 event.preventDefault(); // منع فقدان التركيز
                 var searchInput = document.getElementById("searchInput");
                 // تفريغ النص
                 searchInput.value = "";
+                
                 // تحديث حالة زر الإكس
                 toggleClearButton(searchInput);
-    
-                // إذا كان حقل الإدخال يحتوي على التركيز، نعيد التركيز
+                
+                // تحفيز حدث الإدخال يدوياً لتحديث النتائج
+                searchInput.dispatchEvent(new Event('input'));
+        
+                // إعادة التركيز إذا كان الحقل يحتوي على التركيز
                 if (isFocused) {
                     searchInput.focus();
                 }
+        
+                // الانتقال إلى أعلى الصفحة
+                window.scrollTo(0, 0);
+                
+                // البحث عن كل المنتجات إذا كان الحقل فارغًا
+                searchProducts();
+        
+                // إغلاق المودال
+                closeModal2();
             }
-    
+        
             // التحقق إذا كان حقل البحث يحتوي على التركيز
             document.getElementById("searchInput").addEventListener("focus", function() {
                 isFocused = true;
             });
-    
+        
             document.getElementById("searchInput").addEventListener("blur", function() {
                 isFocused = false;
             });
-    
+        
             // عند تحميل الصفحة، إخفاء زر الإكس إذا كان الحقل فارغًا
             document.addEventListener("DOMContentLoaded", function () {
                 toggleClearButton(document.getElementById("searchInput"));
             });
         </script>
-    </body>
-    </html>
     
                 
     
