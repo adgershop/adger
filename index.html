@@ -475,49 +475,57 @@ padding-right: 11px;
     </style>
 </head>
 <body>
-
     <!DOCTYPE html>
     <html lang="en">
     <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-      /* تأكد من أن النافذة لا تتغير حجمها عند ظهور لوحة المفاتيح */
-      html, body {
-        overflow-y: hidden; /* منع ظهور التمرير العمودي */
-      }
-      .search-bar {
-        padding-bottom: 20px; /* أضف بعض المساحة الإضافية لتجنب تداخل الشريط الأبيض */
-      }
-    </style>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>React Native Example</title>
+      <!-- React Native Web -->
+      <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+      <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+      <script src="https://unpkg.com/react-native-web@0.17.7/dist/react-native-web.js"></script>
     </head>
     <body>
+      <div id="root"></div>
+      <script type="text/babel">
+        const { View, TextInput, KeyboardAvoidingView, StyleSheet } = ReactNativeWeb;
     
-    <input type="text" id="searchInput" onfocus="hideBottomBar()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+        const SearchInput = () => {
+          const [searchText, setSearchText] = React.useState('');
     
-    <script>
-      // إخفاء الشريط الأبيض عند التركيز على حقل الإدخال
-      function hideBottomBar() {
-        const input = document.getElementById('searchInput');
-        input.addEventListener('focus', function() {
-          document.body.style.paddingBottom = '0px';
+          return (
+            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+              <TextInput
+                style={styles.input}
+                placeholder="ابحث في Adger"
+                onChangeText={setSearchText}
+                value={searchText}
+                autoCompleteType="off"
+              />
+            </KeyboardAvoidingView>
+          );
+        };
+    
+        const styles = StyleSheet.create({
+          container: {
+            flex: 1,
+            justifyContent: 'center',
+            paddingHorizontal: 10,
+          },
+          input: {
+            borderWidth: 1,
+            borderColor: 'gray',
+            padding: 10,
+            marginBottom: 10,
+          },
         });
-        input.addEventListener('blur', function() {
-          document.body.style.paddingBottom = ''; // إرجاع القيمة الأصلية
-        });
-      }
     
-      // وظائف إضافية (searchProducts, toggleClearButton)
-      function searchProducts() {
-        // تنفيذ الكود الخاص بالبحث عن المنتجات
-      }
-    
-      function toggleClearButton(input) {
-        // تنفيذ الكود الخاص بإظهار/إخفاء زر المسح
-      }
-    </script>
-    
+        ReactDOM.render(<SearchInput />, document.getElementById('root'));
+      </script>
     </body>
-    </html>    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
+    </html>    <input type="text" id="searchInput" onfocus="closeModal2()" onkeyup="searchProducts()" class="search-bar" placeholder="ابحث في Adger" oninput="toggleClearButton(this)" autocomplete="off">
+    <span id="clearButton" class="clear-button" onmousedown="handleClearButton()">✖</span>
 
 <script>
     function handleClearButton() {
