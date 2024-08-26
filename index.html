@@ -1320,7 +1320,7 @@ padding-right: 11px;
                         
                         <div class="profile-picture-container">
                             <label for="profilePicture">الصورة الشخصية:</label>
-                            <div class="profile-picture" id="profilePictureCircle" onclick="document.getElementById('profilePicture').click();">
+                            <div class="profile-picture" id="profilePictureCircle" onclick="document.getElementById('profilePicture').click();return false;" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
                                 <!-- Empty div, no file input or text here -->
                             </div>
                             <style>
