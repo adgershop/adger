@@ -1272,7 +1272,7 @@ padding-right: 11px;
                         <input type="text" id="name11" name="name11" required>
                         
                         <label for="phone">رقم الهاتف:</label>
-                        <input type="text" id="phone" name="phone" required>
+                     <input type="text" id="phone" name="phone" pattern="[0-9]+" required title="Please enter numbers only.">
                         
                         <label for="password">كلمة المرور:</label>
                         <input type="password" id="password" name="password" required>
@@ -1289,16 +1289,14 @@ padding-right: 11px;
                             </style>
                             <input class="imc" type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(this);" required>
                         </div>
-        <br>
+                         <br>
                         <button type="submit" class="submit-button">تسجيل الدخول</button>
                     </form>
                 </div>
                 
                 <div class="user-profile" id="userProfile">
                     <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@500&display=swap" rel="stylesheet">
-
                     <h2 style="color: #3a5366; font-size: 15px; text-align: right; margin-right: -38px; margin-top: -3px; font-family: 'Lemonada', cursive; margin-bottom: 22px;">حسابي على أدجر :</h2>
-
                     <img id="userImage" src="" alt="Profile Picture">
                     <p id="userName"></p>
                 </div>
