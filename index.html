@@ -780,7 +780,6 @@ padding-right: 11px;
         #menu-items a {
             display: block;
             margin-top: 22px;
-
             margin-bottom: -12px;
             font-size: 24px;
             color: #333333;
@@ -873,6 +872,51 @@ padding-right: 11px;
     <!-- The white page that appears when the menu button is clicked -->
     <div id="white-page">
         <div id="menu-items">
+            <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خط زخرفي</title>
+    <style>
+        .decorative-line {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, red, transparent, red);
+            border-radius: 2px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .decorative-line::before, .decorative-line::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: -3px;
+        }
+
+        .decorative-line::before {
+            left: -15px;
+        }
+
+        .decorative-line::after {
+            right: -15px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: #232f5f; margin-right: 17px;">ADGER</h1>
+    
+    <p>شركة تجاره عالميه توفر كل ما يتلبى الشخص </p>
+
+    <div class="decorative-line"></div>
+
+</body>
+</html>
+
             <br>
             <a href="#" id="home-icon" onclick="closeWhitePage()">                
                 <span style="vertical-align: middle; margin-left: 3px;">الصفحة الرئيسية</span>
