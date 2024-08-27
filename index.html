@@ -989,7 +989,7 @@ padding-right: 11px;
                 <title>بحث الفيديوهات</title>
                 <style>
                     #video-search {
-                        width: calc(78% - 20px); /* يعرض العنصر بعرض 100% من الشاشة مع خصم 20px */
+                        width: calc(54% - 20px); /* يعرض العنصر بعرض 100% من الشاشة مع خصم 20px */
                         padding: 10px;
                         font-size: 16px;
                         border: 2px solid #9f9f9f;
@@ -1003,6 +1003,11 @@ padding-right: 11px;
                         transition: top 0.3s ease-in-out; /* تنقل أنيميشن للظهور */
                         margin-top: 38px;
                     }
+                    @media (max-width: 1300px) {
+    #video-search {
+        width: calc(78% - 20px); /* العرض على الهواتف */
+    }
+}
                     #no-results {
                         font-size: 18px;
                         font-weight: bold;
