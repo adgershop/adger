@@ -243,6 +243,12 @@ padding-right: 11px;
                 text-align: center;
                 line-height: center;
             }
+            @media (min-width: 768px) {
+    .clear-button {
+        left: 244px; /* Adjusted position for larger screens */
+    }
+}
+
         </style>
     </head>
     <body>
@@ -596,7 +602,77 @@ padding-right: 11px;
             </style>
         </head>
         <body>
+            <!DOCTYPE html>
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>كود البلد وعلم مصر</title>
+                <style>
+                    .container22 {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        margin-left: 12px;
+                        margin-right: 12px;
+                        position: relative; /* To position the hover text */
+                        cursor: pointer; /* Changes the cursor to a pointer */
+                    }
+                    .country-code {
+                        display: inline-flex;
+                        align-items: center;
+                        font-size: 18px;
+                        white-space: nowrap; /* Ensures everything stays on one line */
+                    }
+                    .flag {
+                        width: 24px;
+                        height: 16px;
+                        margin-left: 8px;
+                    }
+                    /* Hidden text that appears on hover */
+                    .hover-text {
+                        display: none;
+                        position: absolute;
+                        top: 100%; /* Position below the content */
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background-color: #000000;
+                        color: #fff;
+                        padding: 4px 8px;
+                        border-radius: 9px;
+                        white-space: nowrap;
+                        font-size: 14px;
+                    }
+                    .container22:hover .hover-text {
+                        display: block;
+                    }
+                    /* Media query to hide the content on screens smaller than 768px */
+                    @media only screen and (max-width: 768px) {
+                        .container22 {
+                            display: none !important;
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container22">
+                    <div class="country-code">
+                        <span style="color: #fff;">البلد :</span>
+                        <span style="color: #fff; width: 44px;">EGP</span>
+                        <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
+                    </div>
+                    <div class="hover-text">جمهورية مصر العربية</div>
+                </div>
+            </body>
+            </html>
             
+            
+   
+            
+
+
+
             <div class="cart-icon-container">
                 <div class="cart-icon" onclick="toggleCart()" onmousedown="return false;" onselectstart="return false;">
                     <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
