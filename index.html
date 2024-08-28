@@ -138,6 +138,12 @@ padding-right: 11px;
     position: relative; /* تأكد من ضبط العنصر النسبي */
     margin-left: -20px;
   }
+  @media (min-width: 767px) {
+                         .cart-icon {
+                            margin-left: -13px;
+                        }
+                    }
+
   .cart-count {
     position: absolute;
     top: 13px;
@@ -245,7 +251,7 @@ padding-right: 11px;
             }
             @media (min-width: 768px) {
     .clear-button {
-        left: 244px; /* Adjusted position for larger screens */
+        left: 355px; /* Adjusted position for larger screens */
     }
 }
 
@@ -602,6 +608,53 @@ padding-right: 11px;
             </style>
         </head>
         <body>
+
+
+            <!DOCTYPE html>
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>زر مراسلة</title>
+                <style>
+                    .message-button {
+                        display: flex;
+                        align-items: center;
+                        background-color: #ffffff00; /* لون واتساب */
+                        color: #ffffff;
+                        padding: 10px 15px; /* إضافة padding على الجوانب */
+                        border-radius: 5px;
+                        text-decoration: none;
+                        font-size: 16px;
+                        font-weight: bold;
+                        border: none;
+                        margin-left: -4px;
+                    }
+            
+                    .message-button svg {
+                        margin-left: 5px; /* تقليص المسافة بين الرمز والنص */
+                        color: #ffffff;
+                    }
+            
+                    @media (max-width: 767px) {
+                        .message-button {
+                       display: none;
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                <a href="https://wa.me/+201152366798" class="message-button" target="_blank">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.556 8.5h8m-8 3.5H12m7.111-7H4.89a.896.896 0 0 0-.629.256.868.868 0 0 0-.26.619v9.25c0 .232.094.455.26.619A.896.896 0 0 0 4.89 16H9l3 4 3-4h4.111a.896.896 0 0 0 .629-.256.868.868 0 0 0 .26-.619v-9.25a.868.868 0 0 0-.26-.619.896.896 0 0 0-.63-.256Z"/>
+                    </svg>
+                    مراسلة
+                </a>
+            </body>
+            </html>
+            
+
+            
             <!DOCTYPE html>
             <html lang="ar">
             <head>
@@ -614,7 +667,7 @@ padding-right: 11px;
                         justify-content: center;
                         align-items: center;
                         text-align: center;
-                        margin-left: 12px;
+                        margin-left: 15px;
                         margin-right: 12px;
                         position: relative; /* To position the hover text */
                         cursor: pointer; /* Changes the cursor to a pointer */
@@ -887,7 +940,11 @@ padding-right: 11px;
             margin: -18px 0 0 7px;
             margin-left: -13px;
         }
-
+        @media only screen and (min-width: 768px) {
+            #custom-menu-button {
+                          margin-left: -5px;
+                        }
+                    }
         #custom-menu-button svg {
             width: 100%;
             height: 100%;
