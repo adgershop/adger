@@ -3510,7 +3510,7 @@ if (hasError) {
                     onclick="updateProductDetails(
                         'ساعه سمارت-Ft80 ', 
                         'السعر: 230 جنيه', 
-                        'سود 1.54 بوصه', 
+                        'أسود اللون 1.54 بوصه', 
                         '⭐⭐⭐⭐⭐ 5.0', 
                         ['1.jpg', '1.2.jpg'], 
                         'لا شئ', 
@@ -8962,13 +8962,13 @@ if (hasError) {
             onclick="updateProductDetails(
                 'مزيل وبر كهربائي قابل لاعادة الشحن', 
                 'السعر: ₀₀ 230 جنيه', 
-                 'مزيل الوبر الكهربائي القابل لإعادة الشحن من سوكاني هو رفيقك المثالي أثناء التنقل. إنه خفيف الوزن للغاية وقابل لإعادة الشحن، مما يجعله مناسبًا للسفر', 
+                 'مزيل الوبر الكهربائي القابل لإعادة الشحن من سوكاني ', 
                 'لا يوجد تقييم', 
                 ['65.jpg','65.2.jpg'], 
                  'سوكاني', 
                 'أزرق', 
                 'لا شئ', 
-                '● رقم المنتج| 65#\n● النوع|العناية بالملابس\n● الوزن| 100 غرامات\n● وضعية التشغيل | تلقائي\n● السعر بالدولار| ≈ 4.73',
+                '● رقم المنتج| 65#\n● النوع|العناية بالملابس\n● الوزن| 100 غرامات\n● وضعية التشغيل | تلقائي\n●  السعر بالدولار| ≈ 4.73 \n هو رفيقك المثالي أثناء التنقل. إنه خفيف الوزن للغاية وقابل لإعادة الشحن، مما يجعله مناسبًا للسفر',
                 '  ' // تعديل السعر الآخر هنا
             ); openModal2();" 
             ontouchstart="this.focus();" 
@@ -9085,6 +9085,71 @@ if (hasError) {
 
 
 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة منتجات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .product {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>المنتجات</h1>
+
+    <div class="product">
+        <h2>منتج 1</h2>
+        <img src="https://via.placeholder.com/300x200?text=Loading..." data-src="https://via.placeholder.com/600x400?text=Product+1" alt="منتج 1" class="lazy">
+    </div>
+
+    <div class="product">
+        <h2>منتج 2</h2>
+        <img src="https://via.placeholder.com/300x200?text=Loading..." data-src="https://via.placeholder.com/600x400?text=Product+2" alt="منتج 2" class="lazy">
+    </div>
+
+    <div class="product">
+        <h2>منتج 3</h2>
+        <img src="https://via.placeholder.com/300x200?text=Loading..." data-src="https://via.placeholder.com/600x400?text=Product+3" alt="منتج 3" class="lazy">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let lazyImages = document.querySelectorAll('img.lazy');
+            let observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        let img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove("lazy");
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            lazyImages.forEach(function(image) {
+                observer.observe(image);
+            });
+        });
+    </script>
+
+</body>
+</html>
 
 
 
@@ -12465,7 +12530,7 @@ if (hasError) {
     <title>Beautiful Footer</title>
     <style>
         .footer {
-            background-color: #232f5f;
+            background-color: #2b3336; /* Background color for search bar area */
             color: white;
             padding: 40px 0;
             text-align: center;
@@ -12612,8 +12677,8 @@ if (hasError) {
         <body>
             <div class="container22">
                 <div class="country-code">
-                    <span>البلد: </span>
-                    <span style="color: #000000; width: 44px;">EGP</span>
+                    <span>البلد : </span>
+                    <span style="color: #fffbfb; width: 44px;">EGP</span>
                     <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
                 </div>
             </div>
