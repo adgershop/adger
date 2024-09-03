@@ -178,9 +178,10 @@ h3 {
 
 .custom-h1-purple {
     color: rgb(36, 4, 36);
-    font-family: Tahoma, sans-serif; /* يمكنك تغيير الخط هنا */
+    font-family: Verdana, Geneva, sans-serif; /* خطوط مدعومة بشكل جيد */
     font-size: 16px; /* يمكنك تغيير حجم الخط هنا */
 }
+
 
 .custom-h1-red {
     color: rgb(233, 4, 4);
