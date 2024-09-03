@@ -179,10 +179,17 @@ h3 {
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400&display=swap');
 
 .custom-h1-purple {
-    color: rgb(65, 65, 65);
+    color: rgb(49, 49, 49);
     font-size: 16px; /* يمكنك تغيير حجم الخط هنا */
     font-family: 'Cairo', sans-serif; /* استبدل 'Cairo' باسم الخط الذي تريده */
 }
+
+@media (max-width: 768px) {
+    .custom-h1-purple {
+        font-size: 14px; /* يمكنك تغيير حجم الخط هنا */
+    }
+}
+
 .custom-h1-red {
     color: rgb(233, 4, 4);
     font-family: Arial, sans-serif; /* يمكنك تغيير الخط هنا */
