@@ -1179,7 +1179,7 @@ padding-right: 11px;
                 <title>بحث الفيديوهات</title>
                 <style>
                     #video-search {
-                        width: calc(54% - 20px); /* يعرض العنصر بعرض 100% من الشاشة مع خصم 20px */
+                        width: calc(35% - 20px); /* يعرض العنصر بعرض 100% من الشاشة مع خصم 20px */
                         padding: 10px;
                         font-size: 16px;
                         border: 2px solid #c9c9c9;
@@ -1198,6 +1198,13 @@ padding-right: 11px;
         width: calc(78% - 20px); /* العرض على الهواتف */
     }
 }
+@media (min-width: 768px) {
+    #video-search {
+        margin-right: -13px;
+    }
+}
+
+    
                     #no-results {
                         font-size: 18px;
                         font-weight: bold;
@@ -1215,6 +1222,11 @@ padding-right: 11px;
                     }
                     .video {
                         width: 133%;
+                    }
+                    @media only screen and (min-width: 768px) {
+                        .video {
+                          width: 100%;
+                        }
                     }
                 </style>
             </head>
@@ -1257,7 +1269,14 @@ padding-right: 11px;
                                 height: 7px; /* ارتفاع الشريط */
                                 background-color: rgba(186, 182, 182, 0.753);
                             }
-                        
+                            @media (min-width: 768px) {
+                                .video-container::after {
+                                  margin-right: 3%;
+       width: 94%;
+    }
+}
+
+    
                         </style>
                     </head>
                     <body>
