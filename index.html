@@ -1255,20 +1255,11 @@ padding-right: 11px;
                                 box-sizing: border-box;
                             }
                             .video-container {
-                                margin-bottom: 95px;
+                                margin-bottom: 15px;
                                 padding-bottom: 20px;
-                                position: relative; /* لضمان أن العنصر الوهمي يتم وضعه بشكل صحيح */      margin-top: -111px;
+                                position: relative; /* لضمان أن العنصر الوهمي يتم وضعه بشكل صحيح */      margin-top: -22px;
                             }
-                            .video-container::after {
-                                content: '';
-                               margin-left: -4vh;  margin-right: -4vh;
-                                position: absolute;
-                                bottom: -20px;
-                                left: 0; /* يبدأ من الحافة اليسرى للحاوية */
-                                right: 0; /* يمتد إلى الحافة اليمنى للحاوية */
-                                height: 7px; /* ارتفاع الشريط */
-                                background-color: rgba(186, 182, 182, 0.753);
-                            }
+                     
                             @media (min-width: 768px) {
                                 .video-container::after {
                                   margin-right: 3%;
