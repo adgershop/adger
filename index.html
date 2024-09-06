@@ -1284,18 +1284,32 @@ padding-right: 11px;
                             <input type="text" id="video-search" placeholder="ابحث عن الفيديو..." oninput="searchVideos()" onkeydown="handleKeyPress(event)">
 
                             <script>
-                            function searchVideos() {
-                                // Implement your video search logic here
-                                console.log("Searching for videos...");
-                            }
+                                function searchVideos() {
+                                    // Get the search input value
+                                    const searchTerm = document.getElementById("video-search").value.trim();
+                                    
+                                    // Implement your video search logic here
+                                    console.log("Searching for videos with term:", searchTerm);
                             
-                            function handleKeyPress(event) {
-                                if (event.key === "Enter") {
-                                    searchVideos(); // Trigger search
-                                    document.getElementById("video-search").blur(); // Remove focus from the input field
+                                    // Example: Simulate checking if a video matches the search term
+                                    const video = document.getElementById("video");
+                                    if (searchTerm === "") {
+                                        video.style.display = "block"; // Show the video if search is empty
+                                    } else {
+                                        // If no video matches, hide it
+                                        // You might need to replace this with actual search logic
+                                        video.style.display = "none"; // Hide the video if no match found
+                                    }
                                 }
-                            }
-                            </script>
+                                
+                                function handleKeyPress(event) {
+                                    if (event.key === "Enter") {
+                                        searchVideos(); // Trigger search
+                                        document.getElementById("video-search").blur(); // Remove focus from the input field
+                                    }
+                                }
+                                </script>
+                            </div>
                           <div id="no-results" style="display:none;">لا توجد نتائج</div>
                             
                             <div class="video-container" data-title="كتاب المستثمر الذكى">
