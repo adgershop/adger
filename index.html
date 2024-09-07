@@ -1123,6 +1123,221 @@ padding-right: 11px;
             <a href="#" id="menu-item-2">حسابى</a><br>
             <a href="#" id="menu-item-1" style="margin-right: 1px;">فديوهات أدجر</a><br>
             <a href="#" id="menu-item-3">أبلغ عن مشكلة</a><br>
+            <!DOCTYPE html>
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>إضافة منتج</title>
+                <style>
+                    /* Styles for modal */
+                    .modal2134 {
+                        display: none;
+                        position: fixed;
+                        z-index: 1;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        overflow: auto;
+                        background-color: rgba(0, 0, 0, 0.4);
+                    }
+                    .modal2134-content {
+                        background-color: #fefefe;
+                        margin: 15% auto;
+                        padding: 20px;
+                        border: 1px solid #888;
+                        width: 80%;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                        position: relative;
+                    }
+                    /* Style for labels */
+                    .labe2 {
+                        font-size: 1.1em;
+                        color: #333;
+                        margin-top: 10px;
+                        display: block;
+                    }
+                    /* Style for inputs */
+                    .inpu2 {
+                        width: 100%;
+                        padding: 10px;
+                        margin: 8px 0;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        font-size: 1em;
+                        box-sizing: border-box;
+                        position: relative;
+                    }
+                    #request {
+                        height: 122px; /* Set height for request input */
+                        padding: 10px; /* Adjust padding to fit text */
+                        line-height: 1.5em; /* Adjust line height for better text alignment */
+                        box-sizing: border-box;
+                        overflow-y: auto; /* Add scroll if text overflows */
+                        resize: none; /* Disable resizing */
+                    }
+                    .inpu2:focus {
+                        border-color: #4CAF50;
+                        outline: none;
+                        box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+                    }
+                    /* Style for warning icons */
+                    .warning-icon {
+                        position: absolute;
+                        right: 10px;
+                        color: red;
+                        display: none;
+                    }
+                    .request-warning-icon {
+                        top: 13%; /* Specific position for request field */
+                    }
+                    .other-warning-icon {
+                        top: 35%; /* Default position for other warning icons */
+                    }
+                    /* Style for butt22 */
+                    .butt22 {
+                        background-color: #355c6d;
+                        color: white;
+                        border: none;
+                        padding: 14px 36px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 18px;
+                        cursor: pointer;
+                        border-radius: 24px;
+                        transition: background-color 0.3s ease;
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        bottom: 20px; /* Position button at the bottom of the modal */
+                    }
+                 
+                </style>
+            </head>
+            <body>
+                <a href="#" id="menu-item-34">تخصيص طلب</a>
+            
+                <!-- Modal -->
+                <div id="productModal" class="modal2134">
+                    <div class="modal2134-content">
+                        <h2>محقق الأمنيات</h2>
+                        <label for="request" class="labe2">الطلب:</label>
+                        <div style="position: relative;">
+                            <textarea id="request" name="request" class="inpu2"></textarea>
+                            <i class="fas fa-exclamation-circle warning-icon request-warning-icon" id="request-warning"></i>
+                        </div><br><br>
+                        <p>معلومات عني:</p> <!-- Added information section -->
+                        <label for="type" class="labe2">الأسم:</label>
+                        <div style="position: relative;">
+                            <input type="text" id="type" name="type" class="inpu2">
+                            <i class="fas fa-exclamation-circle warning-icon other-warning-icon" id="type-warning"></i>
+                        </div><br><br>
+                        <label for="typeNumber" class="labe2">رقم الهاتف:</label>
+                        <div style="position: relative;">
+                            <input type="text" id="typeNumber" name="typeNumber" class="inpu2">
+                            <i class="fas fa-exclamation-circle warning-icon other-warning-icon" id="typeNumber-warning"></i>
+                        </div><br><br><br><br>
+                        <button class="butt22" id="submitBtn">موافق</button>
+                    </div>
+                </div>
+            
+                <script>
+                    // Open modal on link click
+                    document.getElementById('menu-item-34').onclick = function() {
+                        document.getElementById('productModal').style.display = 'block';
+            
+                        // Clear the request field
+                        document.getElementById('request').value = '';
+            
+                        // Populate fields if saved values exist
+                        var type = localStorage.getItem('type');
+                        var typeNumber = localStorage.getItem('typeNumber');
+            
+                        if (type) document.getElementById('type').value = type;
+                        if (typeNumber) document.getElementById('typeNumber').value = typeNumber;
+            
+                        // Hide warning icons initially
+                        document.getElementById('request-warning').style.display = 'none';
+                        document.getElementById('type-warning').style.display = 'none';
+                        document.getElementById('typeNumber-warning').style.display = 'none';
+                    };
+            
+                    // Handle form submission
+                    document.getElementById('submitBtn').onclick = function() {
+                        var type = document.getElementById('type').value.trim();
+                        var typeNumber = document.getElementById('typeNumber').value.trim();
+                        var request = document.getElementById('request').value.trim();
+            
+                        var valid = true;
+            
+                        // Show or hide warning icons
+                        if (!request) {
+                            document.getElementById('request-warning').style.display = 'inline';
+                            valid = false;
+                        } else {
+                            document.getElementById('request-warning').style.display = 'none';
+                        }
+                        if (!type) {
+                            document.getElementById('type-warning').style.display = 'inline';
+                            valid = false;
+                        } else {
+                            document.getElementById('type-warning').style.display = 'none';
+                        }
+                        if (!typeNumber) {
+                            document.getElementById('typeNumber-warning').style.display = 'inline';
+                            valid = false;
+                        } else {
+                            document.getElementById('typeNumber-warning').style.display = 'none';
+                        }
+            
+                        if (valid) {
+                            // Save type and typeNumber to localStorage if they have values
+                            if (type) localStorage.setItem('type', type);
+                            if (typeNumber) localStorage.setItem('typeNumber', typeNumber);
+            
+                            // Prepare email
+                            var subject = 'طلب';
+                            var body = `الطلب: ${request}\nالأسم: ${type}\nرقم الهاتف: ${typeNumber}`;
+            
+                            // Open email client
+                            window.location.href = `mailto:adger.shop@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+                            // Close modal
+                            document.getElementById('productModal').style.display = 'none';
+                        }
+                    };
+            
+                    // Hide warning icon when focusing or typing in the input field
+                    var inputs = document.querySelectorAll('.inpu2');
+                    inputs.forEach(function(input) {
+                        input.addEventListener('focus', function() {
+                            var warningId = input.id + '-warning';
+                            document.getElementById(warningId).style.display = 'none';
+                        });
+                        input.addEventListener('input', function() {
+                            var warningId = input.id + '-warning';
+                            if (input.value.trim() !== '') {
+                                document.getElementById(warningId).style.display = 'none';
+                            }
+                        });
+                    });
+            
+                    // Close modal when clicking outside of it
+                    window.onclick = function(event) {
+                        if (event.target == document.getElementById('productModal')) {
+                            document.getElementById('productModal').style.display = 'none';
+                        }
+                    };
+                </script>
+                <!-- Font Awesome CDN -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+            </body>
+            </html>
+            
+            
             
             <a href="https://median.co/share/wjpxwm#apk" id="menu-item-3" style="color: #1127a3; font-size: 19px; display: flex; align-items: center; -webkit-tap-highlight-color: transparent;">
                 <img src="dw.jpg" alt="Adger Logo" style="width: 38px; height: 37px; margin-right: -4px; margin-left: -1px; -webkit-tap-highlight-color: transparent;">
