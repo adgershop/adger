@@ -1376,33 +1376,40 @@ padding-right: 11px;
 </head>
 <body>
   <!-- Back button -->
-
-
-  <!-- Back button -->
-  <button id="back-button" class="button" onclick="closeWhitePage()" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+<!-- Back button -->
+<button id="back-button" class="button" onclick="closeWhitePage()" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
     </svg>          
 </button>
 
-
 <script>
+    // Function to close both the white page and the modal
+    function closeWhitePage() {
+        document.getElementById('white-page').style.display = 'none';
+        document.getElementById('productModal').style.display = 'none'; // Ensure both elements are hidden
+        document.body.style.overflow = ''; // Restore main page scrolling
+    }
+
+    // Function to open the white page
     function openWhitePage() {
         document.getElementById('white-page').style.display = 'block';
         document.body.style.overflow = 'hidden'; // Prevent main page scrolling
     }
 
-    function closeWhitePage() {
-        document.getElementById('white-page').style.display = 'none';
-        document.body.style.overflow = ''; // Restore main page scrolling
-    }
-
+    // Optional: Function to navigate back in history
     function goBack() {
         window.history.back();
     }
+
+    // Ensure back button also handles modal closure
+    document.getElementById('back-button').onclick = function() {
+        closeWhitePage();
+    };
 </script>
 </body>
 </html>
+
 
 
         <!-- Menu content areas -->
