@@ -1376,11 +1376,28 @@ padding-right: 11px;
 </head>
 <body>
   <!-- Back button -->
-  <button id="back-button" class="button" onclick="closeWhitePage()" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+
+<!-- زر العودة -->
+<button id="back-button" class="button" onclick="closeWhitePage()" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-      </svg>
+    </svg>
 </button>
+
+<script>
+    // وظيفة إغلاق المودال عند النقر على زر العودة
+    document.getElementById('back-button').onclick = function() {
+        document.getElementById('productModal').style.display = 'none';
+    };
+
+    // يمكنك أيضاً تضمين الكود لإغلاق المودال عند النقر على closeBtn إذا كنت تريد
+    document.getElementById('closeBtn').onclick = function() {
+        document.getElementById('productModal').style.display = 'none';
+    };
+</script>
+
+</body>
+</html>
 
 <script>
     function openWhitePage() {
@@ -1785,7 +1802,7 @@ padding-right: 11px;
                 
                 <div class="user-profile" id="userProfile">
                     <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@500&display=swap" rel="stylesheet">
-                    <h2 style="color: #3a5366; font-size: 15px; text-align: right; margin-right: -38px; margin-top: -3px; font-family: 'Lemonada', cursive; margin-bottom: 26px;">حسابي على أدجر :</h2>
+                    <h2 style="color: #3a5366; font-size: 15px; text-align: right; margin-right: 30px; margin-top: -3px; font-family: 'Lemonada', cursive; margin-bottom: 26px;">حسابي على أدجر :</h2>
                     <img id="userImage" src="" alt="Profile Picture">
                     <p id="userName"></p>
                 </div>
