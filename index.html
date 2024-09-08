@@ -1377,12 +1377,33 @@ padding-right: 11px;
 <body>
   <!-- Back button -->
 
-<!-- زر العودة -->
-<button id="back-button" class="button" onclick="closeWhitePage()" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
-    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 24 24">
+
+  <!-- Back button -->
+  <button id="back-button" class="button" onclick="closeWhitePage()" ontouchstart="this.focus();" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;">
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-    </svg>
+    </svg>          
 </button>
+
+
+<script>
+    function openWhitePage() {
+        document.getElementById('white-page').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent main page scrolling
+    }
+
+    function closeWhitePage() {
+        document.getElementById('white-page').style.display = 'none';
+        document.body.style.overflow = ''; // Restore main page scrolling
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>
+
 
         <!-- Menu content areas -->
         <div id="menu-content-1" class="menu-content">
