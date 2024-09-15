@@ -2185,21 +2185,25 @@ padding-right: 11px;
         </div>
     
         <script>
+            function removeFocus(element) {
+                element.blur(); // إزالة التركيز عن العنصر
+            }
+        
             const allLink = document.getElementById('allLink');
             const searchLinks = document.getElementById('searchLinks');
-    
+        
             // Function to refresh the page
             function refreshPage() {
                 window.location.reload();
             }
-    
+        
             // Function to insert the selected term into the search field
             function insertSearchTerm(term) {
                 var searchInput = document.getElementById('searchInput');
                 searchInput.value = term; // Set the search term in the input
                 searchProducts(); // Trigger the search function
                 toggleClearButton(searchInput); // Toggle the clear button based on the new content
-    
+        
                 // Highlight the selected link
                 removeHighlight();
                 if (term !== 'الجميع') {
@@ -2208,7 +2212,7 @@ padding-right: 11px;
                     allLink.classList.add('highlight');
                 }
             }
-    
+        
             // Function to search for products
             function searchProducts() {
                 var searchInput = document.getElementById('searchInput');
@@ -2218,7 +2222,7 @@ padding-right: 11px;
                     searchLinks.style.display = 'flex'; // Show links when there's no text
                 }
             }
-    
+        
             // Function to toggle the search clear button
             function toggleClearButton(input) {
                 var clearButton = document.getElementById('clearButton');
@@ -2226,17 +2230,22 @@ padding-right: 11px;
                     clearButton.style.display = 'inline'; // Show clear button
                 } else {
                     clearButton.style.display = 'none'; // Hide clear button
+                    // Re-highlight 'الجميع' link when the search input is cleared
+                    allLink.classList.add('highlight');
                 }
             }
-    
+        
             // Function to handle clear button click
             function handleClearClick() {
                 var searchInput = document.getElementById('searchInput');
                 searchInput.value = ''; // Clear the text in the search field
                 searchProducts(); // Re-run the search function after clearing the text
                 toggleClearButton(searchInput); // Update the clear button state
+                // Ensure 'الجميع' is highlighted after clearing
+                removeHighlight();
+                allLink.classList.add('highlight');
             }
-    
+        
             // Function to remove the highlight class from all links
             function removeHighlight() {
                 const links = searchLinks.getElementsByTagName('a');
@@ -2244,7 +2253,7 @@ padding-right: 11px;
                     links[i].classList.remove('highlight');
                 }
             }
-    
+        
             // Event listener to remove highlight when clicking anywhere else
             document.addEventListener('click', function (event) {
                 if (!searchLinks.contains(event.target)) {
@@ -2252,13 +2261,10 @@ padding-right: 11px;
                     allLink.classList.add('highlight'); // Reapply highlight to 'الجميع'
                 }
             });
-    
+        
             // Ensure 'الجميع' remains highlighted on page load
             allLink.classList.add('highlight');
         </script>
-    </body>
-    </html>
-
 
     </script>
     <div class="content" id="content">
@@ -3737,8 +3743,8 @@ if (hasError) {
      
            <div class="product">
             <div class="product-info">
-                <h2 style="font-size: 17px;">ساعه ذكية عالية الدقه </h2>
-                <p>X8 ultra تعمل باللمس</p>
+                <h2 style="font-size: 17px;">ساعه ذكية عالية الدقه تعمل باللمس </h2>
+                <p>X8 ultra</p>
                 <style>
                     .hidden-text {
                         display: none;
@@ -3831,8 +3837,8 @@ if (hasError) {
             
         <div class="product">
             <div class="product-info">
-                <h2 style="font-size: 17px;">قاعدة ماوس</h2>
-                <p>قاعدة ماوس كبيرة الحجم لتناسب جميع أحجام الماوسات</p>
+                <h2 style="font-size: 17px;">قاعدة ماوس كبيرة الحجم</h2>
+                <p></p>
                 <style>
                     .hidden-text {
                         display: none;
@@ -3868,9 +3874,9 @@ if (hasError) {
                     src="2.jpg" 
                     alt="product" 
                     onclick="updateProductDetails(
-                        'قاعدة ماوس', 
-                        'السعر: ₀₀ 50  جنيه', 
                         'قاعدة ماوس كبيرة الحجم لتناسب جميع احجام الماوسات', 
+                        'السعر: ₀₀ 50  جنيه', 
+                        '  ', 
                         'لا يوجد تقيم', 
                         ['2.jpg', '2.2.jpg', '2.3.jpg'], 
                         'لاشئ', 
@@ -3916,11 +3922,10 @@ if (hasError) {
     
                 </body>
                 </html>
-             
             </div>
-            
         </div>
     <!-- Repeat the product structure for other products -->
+
     <div class="product">
         <div class="product-info">
             <h2 style="font-size: 17px;">ماوس لاسلكى من xo</h2>
@@ -4071,9 +4076,9 @@ if (hasError) {
                 src="4.jpg" 
                 alt="product" 
                 onclick="updateProductDetails(
-                    'كتاب ابق قوياً', 
+                    'كتاب ابق قوياً ل ديمى لوفاتو يتكلم الكتاب عن حكم و نصائح ', 
                     'السعر: ₀₀ 70 جنيه', 
-                    'ل ديمى لوفاتو يتكلم الكتاب عن حكم شهيره ونصائح قوية', 
+                    '', 
                     'لا يوجد تقييم', 
                     ['4.jpg', '4.2.jpg', '4.3.jpg'], 
                     'مكتبة جرير', 
