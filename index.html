@@ -2246,6 +2246,14 @@ padding-right: 11px;
                 allLink.classList.add('highlight');
             }
                 
+            // Function to remove the highlight class from all links
+            function removeHighlight() {
+                const links = searchLinks.getElementsByTagName('a');
+                for (let i = 0; i < links.length; i++) {
+                    links[i].classList.remove('highlight');
+                }
+            }
+
             // Event listener to remove highlight when clicking anywhere else
             document.addEventListener('click', function (event) {
                 if (!searchLinks.contains(event.target)) {
