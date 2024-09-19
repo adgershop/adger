@@ -2170,23 +2170,16 @@ padding-right: 11px;
             <a href="#" onclick="insertSearchTerm('ادوات كهربية'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">ادوات كهربية</a>
             <a href="#" onclick="insertSearchTerm('الرياضة'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">الرياضة</a>
             <a href="#" onclick="insertSearchTerm('خفة يد'); removeFocus(this); return false;" style="-webkit-tap-highlight-color: transparent;">خفة يد</a>
-
+            <!-- Add other links here -->
         </div>
         
-        <script>
-        function removeFocus(element) {
-            element.blur(); // إزالة التركيز عن العنصر
-        }
-        </script>
-        
-    
         <div id="searchResults">
             <!-- Search results will be displayed here -->
         </div>
-    
+        
         <script>
             function removeFocus(element) {
-                element.blur(); // إزالة التركيز عن العنصر
+                element.blur(); // Remove focus from the element
             }
         
             const allLink = document.getElementById('allLink');
@@ -2220,6 +2213,9 @@ padding-right: 11px;
                     searchLinks.style.display = 'none'; // Hide links when searching
                 } else {
                     searchLinks.style.display = 'flex'; // Show links when there's no text
+                    // Remove highlight from all links and highlight "الجميع"
+                    removeHighlight();
+                    allLink.classList.add('highlight');
                 }
             }
         
@@ -2231,6 +2227,7 @@ padding-right: 11px;
                 } else {
                     clearButton.style.display = 'none'; // Hide clear button
                     // Re-highlight 'الجميع' link when the search input is cleared
+                    removeHighlight();
                     allLink.classList.add('highlight');
                 }
             }
@@ -2245,7 +2242,7 @@ padding-right: 11px;
                 removeHighlight();
                 allLink.classList.add('highlight');
             }
-                
+            
             // Function to remove the highlight class from all links
             function removeHighlight() {
                 const links = searchLinks.getElementsByTagName('a');
@@ -2253,19 +2250,11 @@ padding-right: 11px;
                     links[i].classList.remove('highlight');
                 }
             }
-
-            // Event listener to remove highlight when clicking anywhere else
-            document.addEventListener('click', function (event) {
-                if (!searchLinks.contains(event.target)) {
-                    removeHighlight();
-                    allLink.classList.add('highlight'); // Reapply highlight to 'الجميع'
-                }
-            });
         
             // Ensure 'الجميع' remains highlighted on page load
             allLink.classList.add('highlight');
         </script>
-
+        
     </script>
     <div class="content" id="content">
         <!-- عرض الصور -->
