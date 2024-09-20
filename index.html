@@ -2176,74 +2176,77 @@ padding-right: 11px;
         <div id="searchResults">
             <!-- Search results will be displayed here -->
         </div>
-        
         <script>
             function removeFocus(element) {
-                element.blur(); // Remove focus from the element
+                element.blur(); // إزالة التركيز من العنصر
             }
         
             const allLink = document.getElementById('allLink');
             const searchLinks = document.getElementById('searchLinks');
         
-            // Function to refresh the page
+            // دالة لتحديث الصفحة
             function refreshPage() {
                 window.location.reload();
             }
         
-            // Function to insert the selected term into the search field
+            // دالة لإدخال المصطلح المحدد في حقل البحث
             function insertSearchTerm(term) {
                 var searchInput = document.getElementById('searchInput');
-                searchInput.value = term; // Set the search term in the input
-                searchProducts(); // Trigger the search function
-                toggleClearButton(searchInput); // Toggle the clear button based on the new content
+                searchInput.value = term; // إدخال المصطلح في الحقل
+                searchProducts(); // تنفيذ وظيفة البحث
+                toggleClearButton(searchInput); // إظهار زر المسح بناءً على المحتوى الجديد
         
-                // Highlight the selected link
+                // تمييز الرابط المحدد
                 removeHighlight();
                 if (term !== 'الجميع') {
                     document.querySelector(`.search-links a[onclick*="${term}"]`).classList.add('highlight');
                 } else {
                     allLink.classList.add('highlight');
+                    scrollToAllLink(); // تمرير إلى "الجميع"
                 }
             }
         
-            // Function to search for products
+            // دالة للبحث عن المنتجات
             function searchProducts() {
                 var searchInput = document.getElementById('searchInput');
                 if (searchInput.value.trim() !== '') {
-                    searchLinks.style.display = 'none'; // Hide links when searching
+                    searchLinks.style.display = 'none'; // إخفاء الروابط عند البحث
                 } else {
-                    searchLinks.style.display = 'flex'; // Show links when there's no text
-                    // Remove highlight from all links and highlight "الجميع"
+                    searchLinks.style.display = 'flex'; // إظهار الروابط عندما لا يوجد نص
+                    // إزالة التمييز من جميع الروابط وتمييز "الجميع"
                     removeHighlight();
                     allLink.classList.add('highlight');
+                    scrollToAllLink(); // تمرير إلى "الجميع"
                 }
             }
         
-            // Function to toggle the search clear button
+            // دالة لإظهار أو إخفاء زر المسح
             function toggleClearButton(input) {
                 var clearButton = document.getElementById('clearButton');
                 if (input.value.trim() !== '') {
-                    clearButton.style.display = 'inline'; // Show clear button
+                    clearButton.style.display = 'inline'; // إظهار زر المسح
                 } else {
-                    clearButton.style.display = 'none'; // Hide clear button
-                    // Re-highlight 'الجميع' link when the search input is cleared
+                    clearButton.style.display = 'none'; // إخفاء زر المسح
+                    // إعادة تمييز رابط "الجميع" عند تفريغ حقل البحث
                     removeHighlight();
                     allLink.classList.add('highlight');
+                    scrollToAllLink(); // تمرير إلى "الجميع"
                 }
             }
         
-            // Function to handle clear button click
+            // دالة عند النقر على زر المسح
             function handleClearClick() {
                 var searchInput = document.getElementById('searchInput');
-                searchInput.value = ''; // Clear the text in the search field
-                searchProducts(); // Re-run the search function after clearing the text
-                toggleClearButton(searchInput); // Update the clear button state
-                // Ensure 'الجميع' is highlighted after clearing
+                searchInput.value = ''; // مسح النص في حقل البحث
+                searchProducts(); // إعادة تنفيذ وظيفة البحث بعد المسح
+                toggleClearButton(searchInput); // تحديث حالة زر المسح
+                // التأكد من تمييز "الجميع" بعد المسح
                 removeHighlight();
                 allLink.classList.add('highlight');
+                scrollToAllLink(); // تمرير إلى "الجميع"
             }
-            
-            // Function to remove the highlight class from all links
+        
+            // دالة لإزالة التمييز من جميع الروابط
             function removeHighlight() {
                 const links = searchLinks.getElementsByTagName('a');
                 for (let i = 0; i < links.length; i++) {
@@ -2251,9 +2254,16 @@ padding-right: 11px;
                 }
             }
         
-            // Ensure 'الجميع' remains highlighted on page load
+            // دالة للتمرير إلى رابط "الجميع"
+            function scrollToAllLink() {
+                searchLinks.scrollLeft = allLink.offsetLeft - (searchLinks.clientWidth / 2) + (allLink.clientWidth / 2);
+            }
+        
+            // التأكد من بقاء "الجميع" مميزًا ويتم التمرير إليه عند تحميل الصفحة
             allLink.classList.add('highlight');
+            scrollToAllLink();
         </script>
+        
         
     </script>
     <div class="content" id="content">
