@@ -9444,13 +9444,99 @@ if (hasError) {
 
 
 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تشغيل صوت من فيديو يوتيوب</title>
+    <style>
+        #playAudio {
+            position: fixed;
+            bottom: 54px;
+            left: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            padding: 6px;
+            height: 23px;
+            width: 23px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            cursor: pointer;
+            display: none; /* إخفاء الزر في البداية */
+        }
+        #playIcon, #pauseIcon {
+            font-size: 19px;
+            fill: goldenrod;
+            z-index: 1;
+            width: 16px;
+            height: 16px;
+            position: absolute; /* تثبيت الأيقونات */
+            top: 50%; /* محاذاة عمودية في المنتصف */
+            left: 50%; /* محاذاة أفقية في المنتصف */
+            transform: translate(-50%, -50%); /* الحفاظ على التموضع في المركز */
+            pointer-events: none;
+        }
 
+        #pauseIcon {
+            display: none; /* إخفاء أيقونة الإيقاف في البداية */
+        }
+    </style>
+</head>
+<body>
 
+    <div id="playAudio">
+        <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <polygon points="6,4 20,12 6,20"/>
+        </svg>
 
+        <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <rect x="6" y="4" width="4" height="16" />
+            <rect x="14" y="4" width="4" height="16" />
+        </svg>
+    </div>
 
+    <iframe id="youtubeVideo" width="0" height="0" src="https://www.youtube.com/embed/FYljFwW5aMQ?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
+    <script>
+        var isPlaying = false;
+        var playAudioBtn = document.getElementById('playAudio');
 
+        // إظهار الزر عند التمرير لأسفل 300 بكسل
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 355) {
+                playAudioBtn.style.display = 'block';
+            } else {
+                playAudioBtn.style.display = 'none';
+            }
+        });
 
+        document.getElementById('playAudio').addEventListener('click', function() {
+            var youtubeVideo = document.getElementById('youtubeVideo');
+            var playIcon = document.getElementById('playIcon');
+            var pauseIcon = document.getElementById('pauseIcon');
+
+            if (!isPlaying) {
+                youtubeVideo.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            } else {
+                youtubeVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            }
+
+            isPlaying = !isPlaying;
+        });
+    </script>
+
+</body>
+</html>
 
 
 
