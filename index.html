@@ -13366,74 +13366,106 @@ if (hasError) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تشغيل صوت من فيديو يوتيوب</title>
+    <title>تشغيل صوت من فيديو يوتيوب وزر الصعود للأعلى</title>
     <style>
-        #playAudio {
+        /* التصميم للحاوية لتكون عمودية */
+        .button-container {
             position: fixed;
-            bottom: 54px;
+            bottom: 20px;
             left: 20px;
             background-color: #fff;
-            border-radius: 50%;
-            padding: 6px;
-            height: 23px;
-            width: 22px;
+            border-radius: 10px;
+            padding: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            display: none; /* إخفاء الأزرار حتى يتم التمرير */
+            flex-direction: column; /* ترتيب الأزرار عموديًا */
+            gap: 15px; /* مسافة بين الأزرار */
+            width: 12px; /* عرض مستطيل */
+            height: 40px; /* ارتفاع تلقائي بناءً على المحتوى */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* تنسيق زر تشغيل الصوت */
+        #playAudio {
+            cursor: pointer;
             color: #333;
             font-size: 24px;
             outline: none;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
-            cursor: pointer;
-            display: none; /* إخفاء الزر في البداية */
+            display: flex;
+            align-items: center; /* محاذاة العمودي */
+            justify-content: center; /* محاذاة الأفقي */
+            width: 100%; /* جعل الزر يأخذ عرض الحاوية */
+           margin-bottom: -39px;
         }
+
         #playIcon, #pauseIcon {
             font-size: 19px;
             fill: goldenrod;
-            z-index: 1;
             width: 16px;
             height: 16px;
-            position: absolute;
-            top: 17.5px;
-            left: 17.4px;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
+            pointer-events: none; /* منع الأحداث من التأثير على الأيقونات */
         }
 
         #pauseIcon {
             display: none; /* إخفاء أيقونة الإيقاف في البداية */
         }
+
+        /* تنسيق زر الصعود للأعلى */
+        .scroll-to-top {
+            color: #333;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center; /* محاذاة الأيقونة في الوسط */
+            margin-bottom: -11px;
+        }
+
+        .scroll-to-top svg {
+            width: 24px;
+            height: 26px;
+        }
+
+        /* تنسيق الخط الفاصل بين الأزرار */
+        .separator {
+            width: 100%;
+            height: 2px;
+            background-color: #ddd;
+            margin-top: 16px
+        }
     </style>
 </head>
 <body>
 
-    <div id="playAudio">
-        <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <polygon points="6,4 20,12 6,20"/>
-        </svg>
+    <!-- الحاوية العمودية للأزرار -->
+    <div class="button-container">
+        <!-- زر تشغيل الصوت -->
+        <div id="playAudio">
+            <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <polygon points="6,4 20,12 6,20"/>
+            </svg>
 
-        <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <rect x="6" y="4" width="4" height="16" />
-            <rect x="14" y="4" width="4" height="16" />
-        </svg>
+            <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <rect x="6" y="4" width="4" height="16" />
+                <rect x="14" y="4" width="4" height="16" />
+            </svg>
+        </div>
+
+        <!-- الخط الفاصل -->
+        <div class="separator"></div>
+
+        <!-- زر الصعود للأعلى -->
+        <a href="#" class="scroll-to-top">
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
+            </svg>
+        </a>
     </div>
 
     <iframe id="youtubeVideo" width="0" height="0" src="https://www.youtube.com/embed/oR5aGowK5V4?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -13442,15 +13474,17 @@ if (hasError) {
         var isPlaying = false;
         var playAudioBtn = document.getElementById('playAudio');
 
-        // إظهار الزر عند التمرير لأسفل 355 بكسل
+        // إظهار الأزرار فقط بعد التمرير لأسفل بعد تحميل الصفحة
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 355) {
-                playAudioBtn.style.display = 'block';
+            var buttonContainer = document.querySelector('.button-container');
+            if (window.scrollY > 100) {
+                buttonContainer.style.display = 'flex';
             } else {
-                playAudioBtn.style.display = 'none';
+                buttonContainer.style.display = 'none';
             }
         });
 
+        // تشغيل وإيقاف الفيديو من يوتيوب
         document.getElementById('playAudio').addEventListener('click', function() {
             var youtubeVideo = document.getElementById('youtubeVideo');
             var playIcon = document.getElementById('playIcon');
@@ -13468,161 +13502,16 @@ if (hasError) {
 
             isPlaying = !isPlaying;
         });
+
+        // الانتقال إلى أعلى الصفحة بسرعة عند الضغط على زر الصعود
+        document.querySelector('.scroll-to-top').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.scrollTo({top: 0, behavior: 'auto'});
+        });
     </script>
 
 </body>
 </html>
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الصفحة مع زر الصعود للأعلى</title>
-  <style>
-    .scroll-to-top {
-      position: fixed;
-      bottom: 16px;
-      left: 20px;
-      background-color: #fff; /* لون الخلفية البيضاء */
-      border-radius: 50%; /* لجعل الخلفية دائرية */
-      padding: 5px; /* المسافة بين السهم وحدود الخلفية */
-      height: 25px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل خلفي خفيف */
-      display: none; /* مخفي افتراضيًا */
-      text-align: center; /* محاذاة النص والسهم */
-      color: #333; /* لون السهم */
-      font-size: 24px; /* حجم السهم */
-    }
-
-    .scroll-to-top:hover {
-      background-color: #f0f0f0; /* تغيير لون الخلفية عند التمرير */
-    }
-
-    .scroll-to-top svg {
-      width: 24px;
-      height: 26px;
-    }
-  </style>
-</head>
-<body>
-
- 
-
-  <!-- زر الصعود للأعلى -->
-  <a href="#" class="scroll-to-top">
-    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
-    </svg>
-  </a>
-
-  <script>
-    // إظهار الزر عند التمرير 100 بكسل
-    window.onscroll = function() {
-      const scrollButton = document.querySelector('.scroll-to-top');
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 355) {
-        scrollButton.style.display = "block";
-      } else {
-        scrollButton.style.display = "none";
-      }
-    };
-
-     // الانتقال إلى أعلى الصفحة بسرعة
-  document.querySelector('.scroll-to-top').addEventListener('click', function(event) {
-    event.preventDefault();
-    window.scrollTo({top: 0, behavior: 'auto'}); // استخدم 'auto' لتسريع الانتقال
-  });
-  </script>
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
