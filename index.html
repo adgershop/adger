@@ -13321,51 +13321,6 @@ if (hasError) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -13373,25 +13328,24 @@ if (hasError) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تشغيل صوت من فيديو يوتيوب وزر الصعود للأعلى</title>
     <style>
-        /* التصميم للحاوية لتكون عمودية */
+        /* تصميم الحاوية العمودية للأزرار */
         .button-container {
             position: fixed;
             bottom: 20px;
             left: 20px;
+            width: 14px;
             background-color: #fff;
             border-radius: 10px;
             padding: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: none; /* إخفاء الأزرار حتى يتم التمرير */
-            flex-direction: column; /* ترتيب الأزرار عموديًا */
-            gap: 15px; /* مسافة بين الأزرار */
-            width: 12px; /* عرض مستطيل */
-            height: 40px; /* ارتفاع تلقائي بناءً على المحتوى */
-            justify-content: center;
-            align-items: center;
+            flex-direction: column; /* ترتيب العناصر عموديًا */
+            gap: 11px; /* مسافة بين العناصر */
+            justify-content: center; /* توسيط العناصر عموديًا */
+            align-items: center; /* توسيط العناصر أفقيًا */
         }
 
-        /* تنسيق زر تشغيل الصوت */
+        /* تصميم زر تشغيل الصوت */
         #playAudio {
             cursor: pointer;
             color: #333;
@@ -13400,10 +13354,9 @@ if (hasError) {
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             display: flex;
-            align-items: center; /* محاذاة العمودي */
-            justify-content: center; /* محاذاة الأفقي */
-            width: 100%; /* جعل الزر يأخذ عرض الحاوية */
-           margin-bottom: -39px;
+            align-items: center; /* محاذاة عمودية للعنصر */
+            justify-content: center; /* محاذاة أفقية للعنصر */
+            width: 100%; /* عرض كامل للحاوية */
         }
 
         #playIcon, #pauseIcon {
@@ -13411,33 +13364,34 @@ if (hasError) {
             fill: goldenrod;
             width: 16px;
             height: 16px;
-            pointer-events: none; /* منع الأحداث من التأثير على الأيقونات */
+            pointer-events: none; /* منع التأثيرات */
         }
 
         #pauseIcon {
-            display: none; /* إخفاء أيقونة الإيقاف في البداية */
+            display: none; /* إخفاء أيقونة الإيقاف مؤقتًا */
         }
 
-        /* تنسيق زر الصعود للأعلى */
+        /* تصميم زر الصعود للأعلى */
         .scroll-to-top {
             color: #333;
             font-size: 24px;
             cursor: pointer;
             text-align: center; /* محاذاة الأيقونة في الوسط */
-            margin-bottom: -11px;
         }
 
         .scroll-to-top svg {
-            width: 24px;
-            height: 26px;
+            width: 21px;
+            height: 21;
+            margin-bottom: -9px;
         }
 
-        /* تنسيق الخط الفاصل بين الأزرار */
+        /* تصميم الخط الفاصل */
         .separator {
-            width: 100%;
-            height: 2px;
-            background-color: #ddd;
-            margin-top: 16px
+            width: 17px; /* عرض الخط */
+            height: 2px; /* ارتفاع أطول لضمان رؤية واضحة */
+            background-color: #ccc; /* لون الخط */
+            align-self: center; /* توسيط الخط داخل الحاوية */
+            margin-bottom: -14px;
         }
     </style>
 </head>
@@ -13512,6 +13466,44 @@ if (hasError) {
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
