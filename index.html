@@ -299,7 +299,7 @@ padding-right: 11px;
                         .adger {
                             font-size: 20px;
                           margin-left: 1px;
-                          margin-right: 1px;
+                          margin-right: -1px;
                         }
                     }
                     @media (min-width: 767px) {
@@ -503,8 +503,8 @@ submitBtn666.addEventListener('click', () => {
     const name = nameInput666.value;
     if (name) {
         localStorage.setItem('userName666', name);  // حفظ الاسم في localStorage
-        greet666.style.marginLeft = '5px'; // تغيير margin-left إلى 9px
-        localStorage.setItem('marginLeft666', '5px'); // حفظ margin-left في localStorage
+        greet666.style.marginLeft = '-2px'; // تغيير margin-left إلى 9px
+        localStorage.setItem('marginLeft666', '-2px'); // حفظ margin-left في localStorage
 
         nameSpan.textContent = name;
         greet666.style.display = 'inline'; // عرض عبارة "أهلاً" بعد إدخال الاسم
