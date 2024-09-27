@@ -52,7 +52,7 @@
     border-radius: 15px; /* زاوية مدورة للحدود */
     width: 70%; /* العرض لضبط بجانب أيقونة السلة */
     max-width: 6000px; /* العرض الأقصى لشريط البحث */
-    margin-right: 2px; /* المسافة بين شريط البحث وزر */
+    margin-right: 6px; /* المسافة بين شريط البحث وزر */
     margin-left: 8px; /* المسافة على اليسار */
     box-sizing: border-box; /* لضبط الحشو والحدود داخل العرض */
     font-size: 16px; /* حجم الخط داخل شريط البحث */
@@ -298,6 +298,7 @@ padding-right: 11px;
                     @media (max-width: 767px) {
                         .adger {
                             font-size: 20px;
+                          margin-left: 6px;
                         }
                     }
                     @media (min-width: 767px) {
@@ -469,37 +470,47 @@ padding-right: 11px;
                 </div>
                 
                 <script>
-                    // الحصول على العناصر
-                    const openBtn666 = document.getElementById('open-btn666');
-                    const popupWindow666 = document.getElementById('popup-window666');
-                    const nameInput666 = document.getElementById('name-input666');
-                    const greet666 = document.getElementById('greet666');
-                    const submitBtn666 = document.getElementById('submit-btn666');
-                    const nameSpan = document.querySelector('#greet666 .name');
-                
-                    // جلب الاسم من localStorage إذا كان موجود
-                    const savedName = localStorage.getItem('userName666');
-                    if (savedName) {
-                        nameSpan.textContent = savedName;
-                        greet666.style.display = 'inline'; // عرض عبارة "أهلاً" إذا كان الاسم موجود
-                        nameInput666.value = savedName; // تعيين الاسم المحفوظ في حقل النص
-                    }
-                
-                    // عرض النافذة عند النقر على الزر
-                    openBtn666.addEventListener('click', () => {
-                        popupWindow666.style.display = 'block';
-                    });
-                
-                    // حفظ الاسم وإغلاق النافذة
-                    submitBtn666.addEventListener('click', () => {
-                        const name = nameInput666.value;
-                        if (name) {
-                            localStorage.setItem('userName666', name);
-                            nameSpan.textContent = name;
-                            greet666.style.display = 'inline'; // عرض عبارة "أهلاً" بعد إدخال الاسم
-                            popupWindow666.style.display = 'none';
-                        }
-                    });
+            // الحصول على العناصر
+const openBtn666 = document.getElementById('open-btn666');
+const popupWindow666 = document.getElementById('popup-window666');
+const nameInput666 = document.getElementById('name-input666');
+const greet666 = document.getElementById('greet666');
+const submitBtn666 = document.getElementById('submit-btn666');
+const nameSpan = document.querySelector('#greet666 .name');
+
+// جلب الاسم و margin-left من localStorage إذا كانا موجودين
+const savedName = localStorage.getItem('userName666');
+const savedMarginLeft = localStorage.getItem('marginLeft666');
+
+if (savedName) {
+    nameSpan.textContent = savedName;
+    greet666.style.display = 'inline'; // عرض عبارة "أهلاً" إذا كان الاسم موجود
+    nameInput666.value = savedName; // تعيين الاسم المحفوظ في حقل النص
+    
+    if (savedMarginLeft) {
+        greet666.style.marginLeft = savedMarginLeft; // تعيين margin-left المحفوظ
+    }
+}
+
+// عرض النافذة عند النقر على الزر
+openBtn666.addEventListener('click', () => {
+    popupWindow666.style.display = 'block';
+});
+
+// حفظ الاسم و margin-left وإغلاق النافذة
+submitBtn666.addEventListener('click', () => {
+    const name = nameInput666.value;
+    if (name) {
+        localStorage.setItem('userName666', name);  // حفظ الاسم في localStorage
+        greet666.style.marginLeft = '5px'; // تغيير margin-left إلى 9px
+        localStorage.setItem('marginLeft666', '5px'); // حفظ margin-left في localStorage
+
+        nameSpan.textContent = name;
+        greet666.style.display = 'inline'; // عرض عبارة "أهلاً" بعد إدخال الاسم
+        popupWindow666.style.display = 'none';
+    }
+});
+
                 </script>
                 
                 </body>
