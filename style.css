@@ -141,9 +141,9 @@ h3 {
 @media only screen and (max-width: 768px) {
     .close2 {
     
-                 margin-right: -11px;
-                 margin-left: -1px;
-                 margin-top: 1px;
+                 margin-right: -10px;
+                 margin-left: 1px;
+                 margin-top: 1.1px;
                  margin-bottom: 1px;
                 } }
 
