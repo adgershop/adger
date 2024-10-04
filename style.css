@@ -134,13 +134,12 @@ h3 {
     height: 24px;
     cursor: pointer;
     z-index: 10; /* تعديل قيمة z-index إلى أقل من العناصر الأخرى */
-    color: rgb(183, 255, 255);
+    color: rgb(197, 232, 255);
     display: none;
 }
 @media only screen and (max-width: 768px) {
     .close2 {
                  margin-right: -12.6px;
-             
                 } }
 
 
