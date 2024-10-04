@@ -134,7 +134,7 @@ h3 {
     height: 24px;
     cursor: pointer;
     z-index: 10; /* تعديل قيمة z-index إلى أقل من العناصر الأخرى */
-    color: rgb(245, 245, 245);
+    color: rgb(255, 255, 255);
     display: none;
 }
 @media only screen and (max-width: 768px) {
