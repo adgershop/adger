@@ -136,11 +136,12 @@ h3 {
     z-index: 10; /* تعديل قيمة z-index إلى أقل من العناصر الأخرى */
     color: rgb(255, 255, 255);
     display: none;
-    margin-top: 1px;
 }
+
 @media only screen and (max-width: 768px) {
     .close2 {
                  margin-right: -12.6px;
+                 margin-left: -1px;
                 } }
 
 .carousel2 {
