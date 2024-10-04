@@ -130,9 +130,8 @@ h3 {
     right: -7px; /* يمكن تعديل هذه القيمة حسب الحاجة */
     margin-right: -9px;
     margin-left: -2px;
-    width: 30px;
-    height: 21px;
-    margin-bottom: 7px;
+    width: 33px;
+    height: 24px;
     cursor: pointer;
     z-index: 10; /* تعديل قيمة z-index إلى أقل من العناصر الأخرى */
     color: rgb(255, 255, 255);
@@ -141,11 +140,7 @@ h3 {
 }
 @media only screen and (max-width: 768px) {
     .close2 {
-        height: 26px;
-        width: 26px;
-margin-bottom: -2px;
-margin-left: -1px;
-        margin-right: -12.6px;
+                 margin-right: -12.6px;
                 } }
 
 .carousel2 {
