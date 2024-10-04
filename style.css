@@ -140,11 +140,10 @@ h3 {
 
 @media only screen and (max-width: 768px) {
     .close2 {
-        width: 26px;
-        height: 26px;
+    
                  margin-right: -11px;
                  margin-left: -1px;
-                 margin-top: 4px;
+                 margin-top: -1px;
                 } }
 
 .carousel2 {
