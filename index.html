@@ -13931,15 +13931,31 @@ if (hasError) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400&display=swap" rel="stylesheet">
             <title>معلومات عنا</title>
+            <style>
+                /* إضافة تنسيق للأزرار والنص */
+                .container {
+                    display: flex; /* استخدام الفليكس لجعل العناصر في صف واحد */
+                    align-items: center; /* محاذاة العناصر عمودياً في المنتصف */
+                }
+                .close-arrow {
+                    background-color: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    padding: 0; 
+                    margin-left: 12px; /* إضافة هامش للزر */
+                    margin-top: 5px;
+                }
+            </style>
         </head>
         <body>
-            <span style="color: black; font-size: 18px; font-family: 'Cairo', sans-serif; margin-left: -1px; margin-bottom: 73px;">معلومات عنا</span>
-            
-            <button class="close-arrow" onclick="hidePopup('aboutPopup')" style="background-color: transparent; border: none; cursor: pointer; padding: 0; margin-left: 12px;">
-                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
-                </svg>
-            </button>
+            <div class="container">
+                <span style="color: black; font-size: 18px; font-family: 'Cairo', sans-serif;">معلومات عنا</span>
+                <button class="close-arrow" onclick="hidePopup('aboutPopup')">
+                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
+                    </svg>
+                </button>
+            </div>
         
             <script>
             function hidePopup(popupId) {
@@ -13948,6 +13964,7 @@ if (hasError) {
             </script>
         </body>
         </html>
+        
         
     
 
