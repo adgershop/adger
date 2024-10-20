@@ -13936,6 +13936,9 @@ if (hasError) {
                 .container {
                     display: flex; /* استخدام الفليكس لجعل العناصر في صف واحد */
                     align-items: center; /* محاذاة العناصر عمودياً في المنتصف */
+                    margin-bottom: 22px;
+                    margin-top: 12px;
+                    margin-right: 16px;
                 }
                 .close-arrow {
                     background-color: transparent; 
@@ -13945,15 +13948,25 @@ if (hasError) {
                     margin-left: 12px; /* إضافة هامش للزر */
                     margin-top: 5px;
                 }
+                .close-arrow:focus {
+                    outline: none; /* إزالة التركيز عند النقر */
+                }
+                .close-text {
+                    color: black; 
+                    font-size: 18px; 
+                    font-family: 'Cairo', sans-serif; 
+                    cursor: pointer; /* جعل النص قابل للنقر */
+                }
             </style>
         </head>
         <body>
             <div class="container">
-                <span style="color: black; font-size: 18px; font-family: 'Cairo', sans-serif;">معلومات عنا</span>
+                <span class="close-text" onclick="hidePopup('aboutPopup')">معلومات عنا</span>
                 <button class="close-arrow" onclick="hidePopup('aboutPopup')">
-                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
-                    </svg>
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                      </svg>
+                      
                 </button>
             </div>
         
@@ -13964,6 +13977,7 @@ if (hasError) {
             </script>
         </body>
         </html>
+        
         
         
     
