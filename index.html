@@ -13924,19 +13924,30 @@ if (hasError) {
     </footer>
 
     <div class="popup" id="aboutPopup">
-        <button class="close-arrow" onclick="hidePopup('aboutPopup')" style="background-color: transparent; border: none; cursor: pointer; padding: 0; margin-left: 100%; margin-bottom: 22px; margin-top: 20px; display: flex; align-items: center;">
-          <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24">
-            <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-          </svg>
-          <span style="color: rgb(52, 52, 61); font-size: 20px; white-space: nowrap; margin-left: 5px; font-family: 'Roboto', sans-serif; margin-top: -8px;">معلومات عنا</span>
-        </button>
-      
-      <script>
-        function hidePopup(popupId) {
-          document.getElementById(popupId).style.display = "none";
-        }
-      </script>
-      
+        <button class="close-arrow" onclick="hidePopup('aboutPopup')" style="background-color: transparent; border: none; cursor: pointer; padding: 0;">
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+            </svg>
+            <!DOCTYPE html>
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400&display=swap" rel="stylesheet">
+                <title>معلومات عنا</title>
+            </head>
+            <body>
+                <span style="color: black; font-size: 20px; font-family: 'Cairo', sans-serif; margin-left: 12px;">معلومات عنا</span>
+            </body>
+            </html>
+                    </button>
+    
+    <script>
+    function hidePopup(popupId) {
+        document.getElementById(popupId).style.display = "none";
+    }
+    </script>
+    
 
 
 
