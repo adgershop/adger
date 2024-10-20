@@ -13924,38 +13924,63 @@ if (hasError) {
     </footer>
 
     <div class="popup" id="aboutPopup">
-        <button class="close-btn1" onclick="hidePopup('aboutPopup')">X</button>
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>مثال على إضافة هامش لعنصر h2</title>
-            <style>
-                h2 {
-                    margin-left: 10px; /* يمكنك تعديل القيمة حسب الحاجة */
-                }
-            </style>
-        </head>
-        <body>
-            <h2>معلومات عنا</h2>
-        </body>
-        </html>
-        
+        <button class="close-arrow" onclick="hidePopup('aboutPopup')" style="background-color: transparent; border: none; cursor: pointer; padding: 0; margin-left: 100%; margin-bottom: 22px; margin-top: 20px; display: flex; align-items: center;">
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24">
+                <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+            </svg>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+                <title>معلومات عنا</title>
+            </head>
+            <body>
+                <span style="color: rgb(52, 52, 61); font-size: 20px; white-space: nowrap; margin-left: 5px; font-family: 'Roboto', sans-serif; margin-top: -8px;">معلومات عنا</span>
+                  </button>    
+          <script>
+          function hidePopup(popupId) {
+            document.getElementById(popupId).style.display = "none";
+          }
+          </script>
+
+
+
         <!DOCTYPE html>
         <html lang="ar">
         <head>
             <meta charset="UTF-8">
-            <title>تصغير حجم النص</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+        
+            <!-- تضمين خط Tajawal من Google Fonts -->
+            <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+        
             <style>
+                /* استخدام خط محلي */
+                @font-face {
+                    font-family: 'CustomFont';
+                    src: url('path_to_your_font/CustomFont.ttf') format('truetype');
+                }
+        
+                /* تنسيق النص */
                 .rtl-text {
                     direction: rtl;
                     text-align: right;
                     margin-right: 20px; /* تغيير القيمة كما يناسبك */
                     font-size: 18px; /* تحديد حجم النص */
                     color: #393b3b; /* تحديد لون النص */
+                    /* استخدام الخط المخصص أولاً، وإذا لم يكن متوفراً يتم استخدام خط Tajawal من Google Fonts */
+                    font-family: 'CustomFont', 'Tajawal', sans-serif;
                 }
             </style>
+        </head>
+        <body>
+            <div class="rtl-text">
+              ADGER شركة تجارة عالمية
+            </div>
+        </body>
+        </html>
+        
         </head>
         <body>
             <h1 class="rtl-text">مرحبًا! <br> انا سيف الدين <br>اسست ادجر فى 2024/7/15 <br>نحن ليس لدينا شحن خاص بنا ولكننا نتعامل مع شركة شحن خارجيه فى الوقت الحالى<br>اذا وصلك منتج ليس كما كان فى الصوره او كان به اى كسر فيمكنك التواصل معنا واسترجاعه مجاناً<br>إن ادجر توفر خدمات اكثر سلاسه للتسوق<br>الأن اصبح التسوق سهلاً ابدأ بالشراء
