@@ -62,7 +62,7 @@ h3 {
 .read-more {
     color: white; /* تغيير لون الخط إلى الأبيض */
     background: linear-gradient(135deg, #ff1515, #0e81f5); /* تغيير معرف اللون */
-    padding: 13px 10px; /* زيادة المساحة الداخلية للزر */
+    padding: 12px 10px; /* زيادة المساحة الداخلية للزر */
     width: 100%; /* عرض الزر ليملأ العرض الكامل للنافذة */
     border-radius: 0px; /* جعل الحدود مدورة قليلاً */
     cursor: pointer;
