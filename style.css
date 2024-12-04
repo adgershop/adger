@@ -253,6 +253,12 @@ h3 {
     scrollbar-width: none; /* Firefox: Hide scrollbar */
     padding-bottom: -3px;
 }
+@media (max-width: 768px) {
+    .search-links {
+        padding: 6px 0; /* مساحة من الأعلى والأسفل */
+    }
+}
+
 
 .search-links::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera: Hide scrollbar */
