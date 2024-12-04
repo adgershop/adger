@@ -240,7 +240,7 @@ h3 {
 /* تنسيق روابط البحث */
 .search-links {
     background-color: #344347;
-    padding: 5px 0; /* مساحة من الأعلى والأسفل */
+    padding: 9px 0; /* مساحة من الأعلى والأسفل */
     margin: 0; /* إزالة الهوامش */
     max-width: 105%;
     margin-left: -8px;
