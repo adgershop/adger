@@ -255,7 +255,7 @@ h3 {
 }
 @media (max-width: 768px) {
     .search-links {
-        padding: 6px 0; /* مساحة من الأعلى والأسفل */
+        padding: 5px 0; /* مساحة من الأعلى والأسفل */
     }
 }
 
