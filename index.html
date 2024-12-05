@@ -1113,49 +1113,80 @@ submitBtn666.addEventListener('click', () => {
     <div id="white-page">
         <div id="menu-items">
             <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خط زخرفي</title>
-    <style>
-        .decorative-line {
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, red, transparent, red);
-            border-radius: 2px;
-            margin: 20px 0;
-            position: relative;
-        }
-
-        .decorative-line::before, .decorative-line::after {
-            content: '';
-            width: 10px;
-            height: 10px;
-            background-color: rgb(255, 81, 0);
-            border-radius: 50%;
-            position: absolute;
-            top: -3px;
-        }
-
-        .decorative-line::before {
-            left: -15px;
-        }
-
-        .decorative-line::after {
-            right: -15px;
-        }
-    </style>
-</head>
-<body>
-    <h1 style="color: #ff5405; margin-right: 17px;">ADGER</h1>
-    
-    <p>شركة تجارة عالمية توفر كل ما يتلبى الشخص </p>
-
-    <div class="decorative-line"></div>
-
-</body>
-</html>
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>خط زخرفي</title>
+                <style>
+                    .decorative-line {
+                        width: calc(100% - 4px); /* لتقليل العرض بمقدار 4 بكسل */
+                        height: 6px;
+                        background: linear-gradient(to right, #ff5733 0%, #ffc400 25%, #33ff57 50%, #00c4ff 75%, #ff00c4 100%);
+                        border-radius: 3px;
+                        margin: 20px 0;
+                        position: relative;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                        margin-right: 7px; /* لإضافة مسافة 4 بكسل على اليمين */
+                    }
+            
+                    .decorative-line::before, .decorative-line::after {
+                        content: '';
+                        width: 14px;
+                        height: 14px;
+                        background: radial-gradient(circle, #ff5733 0%, #ffc400 25%, #33ff57 50%, #00c4ff 75%, #ff00c4 100%);
+                        border-radius: 50%;
+                        position: absolute;
+                        top: -4px;
+                        animation: pulse 2s infinite;
+                    }
+            
+                    .decorative-line::before {
+                        left: -20px;
+                    }
+            
+                    .decorative-line::after {
+                        right: -20px;
+                    }
+            
+                    @keyframes pulse {
+                        0%, 100% {
+                            transform: scale(1);
+                        }
+                        50% {
+                            transform: scale(1.5);
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                <h1 style="color: #ff5405; margin-right: 17px;">ADGER</h1>
+                <!DOCTYPE html>
+                <html lang="ar">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>نص مزخرف</title>
+                    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+                    <style>
+                        .fancy-text {
+                            font-family: 'Cairo', sans-serif; /* خط مزخرف عصري */
+                            font-size: 17px; /* حجم الخط */
+                            color: #2c3e50; /* لون الخط */
+                            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* تأثير الظل للنص */
+                            letter-spacing: 0.5px; /* تباعد الأحرف */
+                            line-height: 1.5; /* ارتفاع السطر */
+                        }
+                    </style>
+                </head>
+                <body>
+                    <p class="fancy-text">شركة تجارة عالمية توفر كل ما يتلبى الشخص</p>
+                </body>
+                </html>
+                                <div class="decorative-line"></div>
+            </body>
+            </html>
+            
 
             <br>
             <a href="#" id="home-icon" onclick="closeWhitePage()">                
@@ -4134,7 +4165,7 @@ if (hasError) {
                 }
         
                 .discount-text .number {
-                    color: rgb(255, 0, 34);
+                    color: rgb(0, 60, 255);
                 }
             </style>
         </head>
