@@ -4095,6 +4095,101 @@ if (hasError) {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>عرض صور متغيرة</title>
+            <style>
+                #imageContainer {
+                    position: relative;
+                    width: 100%;
+                    height: 322px;
+                    background-color: black; /* لون خلفية احتياطي */
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    overflow: hidden;
+                }
+        
+                .image {
+                    width: 100%; /* العرض يملأ كامل الحيز */
+                    height: 100%; /* الارتفاع يتناسب مع العرض */
+                    position: absolute;
+                    opacity: 0;
+                    transition: opacity 1s ease-in-out; /* تأثير التلاشي */
+                }
+        
+                .image.active {
+                    opacity: 1;
+                }
+            </style>
+        </head>
+        <body>
+            <div id="imageContainer">
+                <img src="1.jpg" alt="صورة 1" class="image active">
+                <img src="1.2.jpg" alt="صورة 2" class="image">
+                <img src="1.3.jpg" alt="صورة 3" class="image">
+                <img src="1.4.jpg" alt="صورة 4" class="image">
+                <img src="1.3.jpg" alt="صورة 5" class="image">
+            </div>
+        
+            <div id="contentContainer">
+                <!-- المحتوى الإضافي هنا -->
+            </div>
+        
+            <script>
+                let currentIndex = 0;
+                const images = document.querySelectorAll('.image');
+                const totalImages = images.length;
+        
+                // دالة لتغيير الصورة
+                function changeImage() {
+                    // إزالة الفئة "active" من الصورة الحالية
+                    images[currentIndex].classList.remove('active');
+        
+                    // تحديث الفهرس
+                    currentIndex = (currentIndex + 1) % totalImages;
+        
+                    // إضافة الفئة "active" للصورة التالية
+                    images[currentIndex].classList.add('active');
+                }
+        
+                // تغيير الصورة كل 10 ثوانٍ
+                setInterval(changeImage, 10000);
+        
+                function selectItem(title) {
+                    const searchInput = document.getElementById("searchInput");
+                    searchInput.value = title;
+                    let event = new Event('input', { bubbles: true });
+                    searchInput.dispatchEvent(event);
+                }
+        
+                document.getElementById("searchInput").addEventListener("input", function() {
+                    const value = this.value.trim();
+                    const imageContainer = document.getElementById("imageContainer");
+                    const contentContainer = document.getElementById("contentContainer");
+                    if (value === "") {
+                        imageContainer.style.display = "flex";
+                        contentContainer.style.display = "block";
+                    } else {
+                        imageContainer.style.display = "none";
+                        contentContainer.style.display = "none";
+                    }
+                });
+            </script>
+        </body>
+        </html>
+        
+        
+        
+
+        
+
+
+
+        <!DOCTYPE html>
+        <html lang="ar">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>عرض الصور والتمرير الأفقي</title>
             <style>
                 #mainContainer {
@@ -4165,7 +4260,7 @@ if (hasError) {
                 }
         
                 .discount-text .number {
-                    color: rgb(0, 60, 255);
+                    color: rgb(252, 24, 130);
                 }
             </style>
         </head>
