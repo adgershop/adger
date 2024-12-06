@@ -4177,7 +4177,7 @@ if (hasError) {
                     searchField.dispatchEvent(event);
                 }
         
-                document.getElementById("fieldSearch").addEventListener("input", function () {
+                document.getElementById("searchInput").addEventListener("input", function () {
                     const value = this.value.trim();
                     const containerImages = document.getElementById("containerImages");
                     const containerContent = document.getElementById("containerContent");
@@ -4193,110 +4193,10 @@ if (hasError) {
             </script>
         </body>
         </html>
-        
 
 
 
         
-
-
-        <!DOCTYPE html>
-        <html lang="ar">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>عرض صور متغيرة</title>
-            <style>
-                #imageContainer {
-                    position: relative;
-                    width: 100%;
-                    height: 255px;
-                    background-color: rgba(255, 255, 255, 0); /* لون خلفية احتياطي */
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin-bottom: 20px;
-                    overflow: hidden;
-                }
-        
-                .image {
-                    width: 100%; /* العرض يملأ كامل الحيز */
-                    height: 100%; /* الارتفاع يتناسب مع العرض */
-                    position: absolute;
-                    opacity: 0;
-                    transition: opacity 1s ease-in-out; /* تأثير التلاشي */
-                }
-                @media only screen and (min-width: 768px) {
-                    #imageContainer {
-                       display: none;
-                        }
-                    }
-                .image.active {
-                    opacity: 1;
-                }
-            </style>
-        </head>
-        <body>
-            <div id="imageContainer">
-                <img src="p1.jpg" alt="صورة 1" class="image active">
-                <img src="p2.jpg" alt="صورة 2" class="image">
-                <img src="p3.jpg" alt="صورة 3" class="image">
-                <img src="p4.jpg" alt="صورة 4" class="image">
-                <img src="p5.jpg" alt="صورة 5" class="image">
-            </div>
-        
-            <div id="contentContainer">
-                <!-- المحتوى الإضافي هنا -->
-            </div>
-        
-            <script>
-                let currentIndex = 0;
-                const images = document.querySelectorAll('.image');
-                const totalImages = images.length;
-        
-                // دالة لتغيير الصورة
-                function changeImage() {
-                    // إزالة الفئة "active" من الصورة الحالية
-                    images[currentIndex].classList.remove('active');
-        
-                    // تحديث الفهرس
-                    currentIndex = (currentIndex + 1) % totalImages;
-        
-                    // إضافة الفئة "active" للصورة التالية
-                    images[currentIndex].classList.add('active');
-                }
-        
-                // تغيير الصورة كل 10 ثوانٍ
-                setInterval(changeImage, 10000);
-        
-                function selectItem(title) {
-                    const searchInput = document.getElementById("searchInput");
-                    searchInput.value = title;
-                    let event = new Event('input', { bubbles: true });
-                    searchInput.dispatchEvent(event);
-                }
-        
-                document.getElementById("searchInput").addEventListener("input", function() {
-                    const value = this.value.trim();
-                    const imageContainer = document.getElementById("imageContainer");
-                    const contentContainer = document.getElementById("contentContainer");
-                    if (value === "") {
-                        imageContainer.style.display = "flex";
-                        contentContainer.style.display = "block";
-                    } else {
-                        imageContainer.style.display = "none";
-                        contentContainer.style.display = "none";
-                    }
-                });
-            </script>
-        </body>
-        </html>
-        
-        
-        
-
-        
-
 
 
         <!DOCTYPE html>
@@ -4327,10 +4227,16 @@ if (hasError) {
                 }
         
                 .caption-text {
-                    text-align: center;
-                    font-size: 16px;
-                    margin-top: 5px;
-                }
+    text-align: center;
+    font-size: 16px;
+    margin-top: 5px;
+    color: #ffffff;
+    background-color: #ba0000;
+    border-radius: 44px;
+    height: 22px;
+    line-height: 22px; /* لضبط ارتفاع النص بحيث يملأ كامل ارتفاع العنصر */
+}
+
         
                 .title-text {
                     margin-top: 14px;
@@ -4387,49 +4293,41 @@ if (hasError) {
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
-                    <div class="price-text">السعر 650 جنيه</div>
                     <div class="discount-text">أقل من <span class="number">100</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
-                    <div class="price-text">السعر 650 جنيه</div>
                     <div class="discount-text">ب <span class="number">100</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
-                    <div class="price-text">السعر 650 جنيه</div>
                     <div class="discount-text">أقل من <span class="number">500</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
-                    <div class="price-text">السعر 650 جنيه</div>
                     <div class="discount-text">ب <span class="number">500</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
-                    <div class="price-text">السعر 650 جنيه</div>
                     <div class="discount-text">أقل من <span class="number">1000</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
-                    <div class="price-text">السعر 650 جنيه</div>
                     <div class="discount-text">ب <span class="number">1000</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
-                    <div class="price-text">السعر 650 جنيه</div>
                     <div class="discount-text">أقل من <span class="number">10.000</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
-                    <div class="price-text">السعر 650 جنيه</div>
                     <div class="discount-text">ب <span class="number">10.000</span> جنيه</div>
                 </div>
             </div>
