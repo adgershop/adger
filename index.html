@@ -4087,7 +4087,117 @@ if (hasError) {
 
 
 
+        <!DOCTYPE html>
+        <html lang="ar">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>عرض صور متغيرة</title>
+            <style>
+                #containerImages {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                    background-color: rgba(255, 255, 255, 0); /* لون خلفية احتياطي */
+                    overflow: hidden;
+                }
+        
+                .groupImages {
+                    display: none;
+                    width: 100%;
+                    justify-content: center;
+                    gap: 10px;
+                }
+        
+                .imageGroup.active {
+                    display: flex;
+                }
+        
+                .singleImage {
+                    width: calc(25% - 10px); /* توزيع الصور بنسبة ربع العرض */
+                    height: 288px;
+                    object-fit: cover;
+                    border: 2px solid #ccc; /* حد اختياري */
+                    transition: opacity 1s ease-in-out; /* تأثير التلاشي */
+                }
+        
+                @media only screen and (max-width: 768px) {
+                    .singleImage {
+                        width: calc(50% - 10px); /* عرض الصور في شاشتين لكل صف عند العرض الصغير */
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div id="containerImages">
+                <div class="groupImages imageGroup active">
+                    <img src="p4.jpg" alt="صورة 1" class="singleImage">
+                    <img src="p2.jpg" alt="صورة 2" class="singleImage">
+                    <img src="p3.jpg" alt="صورة 3" class="singleImage">
+                    <img src="p5.jpg" alt="صورة 4" class="singleImage">
+                </div>
+                <div class="groupImages imageGroup">
+                    <img src="p4.jpg" alt="صورة 5" class="singleImage">
+                    <img src="p2.jpg" alt="صورة 6" class="singleImage">
+                    <img src="p5.jpg" alt="صورة 7" class="singleImage">
+                    <img src="p3.jpg" alt="صورة 8" class="singleImage">
+                </div>
+            </div>
+            <div id="containerContent">
+                <!-- المحتوى الإضافي هنا -->
+            </div>
+            <script>
+                let currentGroupIndex = 0;
+                const imageGroups = document.querySelectorAll('.imageGroup');
+                const totalGroups = imageGroups.length;
+        
+                // دالة لتغيير المجموعة النشطة
+                function changeImageGroup() {
+                    // إزالة الفئة "active" من المجموعة الحالية
+                    imageGroups[currentGroupIndex].classList.remove('active');
+        
+                    // تحديث فهرس المجموعة
+                    currentGroupIndex = (currentGroupIndex + 1) % totalGroups;
+        
+                    // إضافة الفئة "active" للمجموعة التالية
+                    imageGroups[currentGroupIndex].classList.add('active');
+                }
+        
+                // تغيير المجموعة كل 5 ثوانٍ
+                setInterval(changeImageGroup, 5000);
+        
+                // التحكم في الحقل وإظهار أو إخفاء الصور والمحتوى
+                function selectItem(title) {
+                    const searchField = document.getElementById("fieldSearch");
+                    searchField.value = title;
+                    let event = new Event('input', { bubbles: true });
+                    searchField.dispatchEvent(event);
+                }
+        
+                document.getElementById("fieldSearch").addEventListener("input", function () {
+                    const value = this.value.trim();
+                    const containerImages = document.getElementById("containerImages");
+                    const containerContent = document.getElementById("containerContent");
+        
+                    if (value === "") {
+                        containerImages.style.display = "flex";
+                        containerContent.style.display = "block";
+                    } else {
+                        containerImages.style.display = "none";
+                        containerContent.style.display = "none";
+                    }
+                });
+            </script>
+        </body>
+        </html>
+        
 
+
+
+        
 
 
         <!DOCTYPE html>
@@ -4100,7 +4210,7 @@ if (hasError) {
                 #imageContainer {
                     position: relative;
                     width: 100%;
-                    height: 222px;
+                    height: 255px;
                     background-color: rgba(255, 255, 255, 0); /* لون خلفية احتياطي */
                     display: flex;
                     justify-content: center;
@@ -4110,15 +4220,15 @@ if (hasError) {
                 }
         
                 .image {
-                    width: 511px; /* العرض يملأ كامل الحيز */
+                    width: 100%; /* العرض يملأ كامل الحيز */
                     height: 100%; /* الارتفاع يتناسب مع العرض */
                     position: absolute;
                     opacity: 0;
                     transition: opacity 1s ease-in-out; /* تأثير التلاشي */
                 }
-                @media only screen and (max-width: 768px) {
-                    .image {
-                        width: 100%;
+                @media only screen and (min-width: 768px) {
+                    #imageContainer {
+                       display: none;
                         }
                     }
                 .image.active {
