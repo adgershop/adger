@@ -4088,6 +4088,186 @@ if (hasError) {
 
 
         <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض الصور والتمرير الأفقي</title>
+    <style>
+        #mainContent {
+            display: block;
+        }
+
+        #horizontalImages {
+            display: flex;
+            overflow-x: auto; /* تمكين التمرير الأفقي */
+            white-space: nowrap;
+            scrollbar-width: none; /* إخفاء شريط التمرير في المتصفحات التي تدعم هذه الخاصية مثل Firefox */
+        }
+
+        /* لمتصفحات WebKit مثل Chrome وSafari */
+        #horizontalImages::-webkit-scrollbar {
+            display: none; /* إخفاء شريط التمرير */
+        }
+
+        .imageHolder {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .thumbnail {
+            width: 150px; /* العرض */
+            height: 150px; /* الارتفاع */
+            object-fit: cover; /* للحفاظ على نسبة الأبعاد وتعبئة الإطار */
+        }
+
+        .captionText {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .mainHeading {
+            margin-top: 7px;
+            margin-bottom: 27px;
+            font-size: 48px;
+            text-align: center;
+            background: linear-gradient(90deg, #FF5733, #ff0000); /* تدرج لونين */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+       
+
+        .priceTag {
+            text-align: center;
+            font-size: 17px;
+            margin-top: 11px;
+            color: #ff0303;
+            margin-bottom: -14px;
+        }
+
+        .discountTag {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 24px;
+            color: #ffffff;
+            background-color: #ff4343;
+            padding: 7px; /* أضف هذه السطر لزيادة المساحة داخل الخلفية */
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="mainContent">
+    <h2 class="mainHeading">قـــســـم الأسعــــار</h2>
+
+    <div id="horizontalImages">
+        <div class="imageHolder">
+            <img src="a1.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-1">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-1">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-1">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a2.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-2">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-2">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-2">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a3.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-3">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-3">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-3">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a4.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-4">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-4">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-4">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a5.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-4">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-4">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-4">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a6.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-4">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-4">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-4">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a7.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-4">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-4">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-4">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a8.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-4">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-4">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-4">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a9.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-4">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-4">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-4">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a10.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-4">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-4">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-4">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a11.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-4">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-4">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-4">الخصم -74%</div>
+        </div>
+        <div class="imageHolder">
+            <img src="a12.jpg" alt="Title 1" class="thumbnail" onclick="selectItem('ساعة ذكية')" />
+            <div class="captionText" id="caption-4">ساعة ذكية تعمل باللمس </div>
+            <div class="priceTag" id="price-4">السعر 650 جنيه</div>
+            <div class="discountTag" id="discount-4">الخصم -74%</div>
+        </div>
+        <!-- إضافة المزيد من الصور إذا لزم الأمر -->
+    </div>
+</div>
+
+<script>
+    function selectItem(title) {
+        const searchInput = document.getElementById("searchInput");
+        searchInput.value = title;
+        let event = new Event('input', { bubbles: true });
+        searchInput.dispatchEvent(event);
+    }
+
+    document.getElementById("searchInput").addEventListener("input", function() {
+        const value = this.value.trim();
+        const contentContainer = document.getElementById("mainContent");
+        if (value === "") {
+            contentContainer.style.display = "block";
+        } else {
+            contentContainer.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>
+
+
+
+
+        <!DOCTYPE html>
         <html lang="ar">
         <head>
             <meta charset="UTF-8">
@@ -4230,11 +4410,9 @@ if (hasError) {
     text-align: center;
     font-size: 16px;
     margin-top: 5px;
-    color: #ffffff;
-    background-color: #ba0000;
+    color: #303030;
     border-radius: 44px;
     height: 22px;
-    line-height: 22px; /* لضبط ارتفاع النص بحيث يملأ كامل ارتفاع العنصر */
 }
 
         
@@ -4287,47 +4465,55 @@ if (hasError) {
         <body>
         
         <div id="mainContainer">
-            <h2 class="title-text"> قــســم الأســعــار </h2>
+            <h2 class="title-text">منتجات ممــيزه</h2>
         
             <div id="photosContainer">
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="price-text">333</div>
                     <div class="discount-text">أقل من <span class="number">100</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="price-text">333</div>
                     <div class="discount-text">ب <span class="number">100</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="price-text">333</div>
                     <div class="discount-text">أقل من <span class="number">500</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="price-text">333</div>
                     <div class="discount-text">ب <span class="number">500</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="price-text">333</div>
                     <div class="discount-text">أقل من <span class="number">1000</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="price-text">333</div>
                     <div class="discount-text">ب <span class="number">1000</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="price-text">333</div>
                     <div class="discount-text">أقل من <span class="number">10.000</span> جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="price-text">333</div>
                     <div class="discount-text">ب <span class="number">10.000</span> جنيه</div>
                 </div>
             </div>
