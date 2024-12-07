@@ -3699,8 +3699,14 @@ if (hasError) {
     border: none; /* إزالة الحدود */
     -webkit-tap-highlight-color: transparent; /* إخفاء التأثير عند النقر على الأجهزة التي تعمل باللمس */
     touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
+    margin-left: 22px;
 }
-
+/* استعلام الوسائط لتغيير الأبعاد على الهواتف */
+@media (max-width: 767px) {
+    .carousel-item {
+        margin-left: 1px;
+    }
+}
 /* إزالة التحديد الأزرق عند التركيز أو النقر */
 .carousel-item:focus,
 .carousel-item:active {
@@ -3913,6 +3919,8 @@ if (hasError) {
         
                 #contentContainer {
                     display: block;
+                    margin-left: -8px;
+                    margin-right: -8px;
                 }
                 #imagesContainer {
     display: flex;
@@ -3929,6 +3937,7 @@ if (hasError) {
                 .image-wrapper {
                     display: inline-block;
                     margin-right: 10px;
+                    margin-left: 10px;
                 }
                 .search-image {
                     width: 150px; /* العرض */
@@ -4105,6 +4114,8 @@ if (hasError) {
             overflow-x: auto; /* تمكين التمرير الأفقي */
             white-space: nowrap;
             scrollbar-width: none; /* إخفاء شريط التمرير في المتصفحات التي تدعم هذه الخاصية مثل Firefox */
+            margin-left: -8px;
+            margin-right: -8px;
         }
 
         /* لمتصفحات WebKit مثل Chrome وSafari */
@@ -4115,6 +4126,7 @@ if (hasError) {
         .imageHolder {
             display: inline-block;
             margin-right: 10px;
+            margin-left: 10px;
         }
 
         .thumbnail {
