@@ -4385,8 +4385,9 @@ if (hasError) {
                     margin-top: 10px; /* زيادة المسافة العلوية */
                     color: #303030;
                     border-radius: 44px;
-                    height: 30px; /* زيادة الارتفاع */
+                    height: auto; /* إلغاء الارتفاع الثابت */
                     font-family: 'Cairo', sans-serif; /* استخدام خط Cairo */
+                    line-height: 1.5; /* تحسين وضوح النص */
                 }
         
                 .title-text {
@@ -4415,14 +4416,31 @@ if (hasError) {
                 .discount-text {
                     text-align: center;
                     font-size: 18px; /* زيادة حجم النص */
-                    margin-top: 25px; /* زيادة المسافة العلوية */
-                    margin-bottom: 30px; /* زيادة المسافة السفلية */
+                    margin-top: 15px; /* زيادة المسافة العلوية */
+                    margin-bottom: 10px; /* تقليل المسافة السفلية */
                     color: #ff0000;
                     padding: 10px; /* زيادة المساحة داخل الخلفية */
+                    font-family: 'Cairo', sans-serif; /* استخدام خط Cairo */
                 }
         
                 .discount-text .number {
                     color: rgb(252, 24, 130);
+                }
+        
+                .additional-text-1 {
+                    text-align: center;
+                    font-size: 16px; /* حجم النص الإضافي */
+                    margin-top: 10px; /* المسافة العلوية */
+                    color: #303030; /* لون النص */
+                    font-family: 'Cairo', sans-serif; /* استخدام خط Cairo */
+                }
+        
+                .additional-text-2 {
+                    text-align: center;
+                    font-size: 14px; /* حجم النص الإضافي */
+                    margin-top: 5px; /* المسافة العلوية */
+                    color: #505050; /* لون النص */
+                    font-family: 'Cairo', sans-serif; /* استخدام خط Cairo */
                 }
             </style>
         </head>
@@ -4435,41 +4453,57 @@ if (hasError) {
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="additional-text-1">النص الإضافي الأول</div>
+                    <div class="additional-text-2">النص الإضافي الثاني</div>
                     <div class="discount-text">السعر: 650 جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="additional-text-1">النص الإضافي الأول</div>
+                    <div class="additional-text-2">النص الإضافي الثاني</div>
                     <div class="discount-text">السعر: 650 جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="additional-text-1">النص الإضافي الأول</div>
+                    <div class="additional-text-2">النص الإضافي الثاني</div>
                     <div class="discount-text">السعر: 650 جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="additional-text-1">النص الإضافي الأول</div>
+                    <div class="additional-text-2">النص الإضافي الثاني</div>
                     <div class="discount-text">السعر: 650 جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="additional-text-1">النص الإضافي الأول</div>
+                    <div class="additional-text-2">النص الإضافي الثاني</div>
                     <div class="discount-text">السعر: 650 جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="additional-text-1">النص الإضافي الأول</div>
+                    <div class="additional-text-2">النص الإضافي الثاني</div>
                     <div class="discount-text">السعر: 650 جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="additional-text-1">النص الإضافي الأول</div>
+                    <div class="additional-text-2">النص الإضافي الثاني</div>
                     <div class="discount-text">السعر: 650 جنيه</div>
                 </div>
                 <div class="photo-wrapper">
                     <img src="1.jpg" alt="Title 1" class="photo-image" onclick="selectItem('ساعة ذكية')" />
                     <div class="caption-text">ساعة ذكية تعمل باللمس </div>
+                    <div class="additional-text-1">النص الإضافي الأول</div>
+                    <div class="additional-text-2">النص الإضافي الثاني</div>
                     <div class="discount-text">السعر: 650 جنيه</div>
                 </div>
             </div>
@@ -4497,10 +4531,6 @@ if (hasError) {
         </body>
         </html>
         
-        
-
-
-
 
 
 
