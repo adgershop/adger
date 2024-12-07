@@ -3652,246 +3652,152 @@ if (hasError) {
         
 
         <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
- .carousel-container {
-    width: 100%;
-    height: 150px; /* تعديل الطول ليناسب النص */
-    overflow-x: auto; /* السماح بالتمرير الأفقي */
-    overflow-y: hidden; /* إخفاء التمرير العمودي */
-    white-space: nowrap; /* عرض العناصر في خط واحد */
-    position: relative;
-    scroll-behavior: smooth; /* التمرير السلس */
-    box-sizing: border-box; /* تضمين الحواف والهوامش في الحجم الكلي للعنصر */
-    -ms-overflow-style: none;  /* إخفاء شريط التمرير في Internet Explorer و Edge */
-    scrollbar-width: none;  /* إخفاء شريط التمرير في Firefox */
-}
-
-/* استعلام الوسائط لتعديل المسافة السفلية على الهواتف */
-@media (max-width: 767px) {
-    .carousel-container {
-        margin-bottom: -23px; /* المسافة السفلية على الهواتف */
-    }
-}
-
-.carousel-container::-webkit-scrollbar {
-    display: none;  /* إخفاء شريط التمرير في Chrome, Safari, و Opera */
-}
-
-.carousel-track {
-    display: flex;
-    transition: transform 0.5s ease;
-    scroll-snap-type: x mandatory; /* التمرير إلى العناصر */
-    gap: 13px; /* إضافة مسافة بين العناصر */
-}
-
-.carousel-item {
-    flex: 0 0 auto; /* منع انكماش العناصر */
-    text-align: center;
-    cursor: pointer;
-    scroll-snap-align: start; /* محاذاة العناصر إلى بداية الحاوية */
-    display: inline-block; /* ضمان بقاء العناصر في سطر واحد */
-    -webkit-user-select: none; /* منع تحديد العنصر */
-    user-select: none;
-    outline: none; /* إزالة التحديد الأزرق */
-    border: none; /* إزالة الحدود */
-    -webkit-tap-highlight-color: transparent; /* إخفاء التأثير عند النقر على الأجهزة التي تعمل باللمس */
-    touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
-    margin-left: 22px;
-}
-/* استعلام الوسائط لتغيير الأبعاد على الهواتف */
-@media (max-width: 767px) {
-    .carousel-item {
-        margin-left: -1px;
-    }
-}
-/* إزالة التحديد الأزرق عند التركيز أو النقر */
-.carousel-item:focus,
-.carousel-item:active {
-    outline: none;
-    box-shadow: none; /* إزالة الظل الأزرق عند النقر */
-    border: none;
-}
-
-/* إزالة التأثير الأزرق عند تحديد العنصر في الهواتف */
-.carousel-item img {
-    width: 86px;
-    height: 86px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto; /* محاذاة الصورة في المنتصف */
-    -webkit-tap-highlight-color: transparent; /* إزالة التأثير الأزرق عند النقر في الهواتف */
-    -webkit-user-select: none; /* منع تحديد الصورة */
-    user-select: none;
-    outline: none; /* إزالة التحديد */
-    border: none; /* إزالة الحدود */
-    touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
-}
-
-/* استعلام الوسائط لتغيير الأبعاد على الهواتف */
-@media (max-width: 767px) {
-    .carousel-item img {
-        width: 75px; /* عرض الصورة على الهواتف */
-        height: 75px; /* ارتفاع الصورة على الهواتف */
-        margin-left: 1px;
-    }
-}
-
-
-/* تعزيز إخفاء التأثير الأزرق عبر المتصفحات */
-.carousel-item:focus-visible,
-.carousel-item img:focus-visible {
-    outline: none;
-    box-shadow: none;
-}
-
-.carousel-item, .carousel-item img {
-    -moz-focusring: none; /* إخفاء التأثير في فايرفوكس */
-    outline: 0; /* إخفاء التحديد في المتصفحات الأخرى */
-    box-shadow: none; /* إخفاء الظلال */
-}
-
-.carousel-title {
-    margin-top: 5px;
-    text-align: center;
-    font-size: 14px;
-    color: #333; /* تغيير لون النص */
-    font-weight: bold; /* جعل النص سميكًا */
-    white-space: normal; /* السماح بتغليف النص */
-}
-
-
-    </style>
-    <title>Auto Scrolling Carousel</title>
-</head>
-<body>
-
-    <div class="carousel-container" id="carouselContainer">
-        <div class="carousel-track" id="carouselTrack">
-            <!-- Add carousel items here -->
-            <div class="carousel-item" onclick="selectItem('خصومات')">
-                <img src="t1.jpg" alt="Image 1">
-                <p class="carousel-title">خصومات</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('إلكترونيات')">
-                <img src="t2.jpg" alt="Image 2">
-                <p class="carousel-title">إلكترونيات</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('كتب')">
-                <img src="t3.jpg" alt="Image 2">
-                <p class="carousel-title">كتب</p>
-            </div>
-            <!-- Add 7 more items here -->
-            <div class="carousel-item" onclick="selectItem('أثري')">
-                <img src="t4.jpg" alt="Image 3">
-                <p class="carousel-title">أثري</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('العاب')">
-                <img src="t5.jpg" alt="Image 4">
-                <p class="carousel-title">العاب</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('ادوات مدرسية')">
-                <img src="t6.jpg" alt="Image 5">
-                <p class="carousel-title">ادوات مدرسية</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('ملابس')">
-                <img src="t7.jpg" alt="Image 6">
-                <p class="carousel-title">ملابس</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('مجلات')">
-                <img src="t8.jpg" alt="Image 7">
-                <p class="carousel-title">مجلات</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('اقلام')">
-                <img src="t9.jpg" alt="Image 8">
-                <p class="carousel-title">اقلام</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('حقائب')">
-                <img src="t10.jpg" alt="Image 9">
-                <p class="carousel-title">حقائب</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('من الخشب')">
-                <img src="t11.jpg" alt="Image 10">
-                <p class="carousel-title">من الخشب</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('ادوات للتصوير')">
-                <img src="t12.jpg" alt="Image 10">
-                <p class="carousel-title">ادوات للتصوير</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('اغراض للزينه')">
-                <img src="t13.jpg" alt="Image 10">
-                <p class="carousel-title">اغراض للزينه</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('خفة يد')">
-                <img src="t14.jpg" alt="Image 10">
-                <p class="carousel-title">خفة يد</p>
-            </div>
-            <div class="carousel-item" onclick="selectItem('ساعات')">
-                <img src="t15.jpg" alt="Image 10">
-                <p class="carousel-title">ساعات</p>
+        <html lang="ar">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>عرض الصور والنصوص</title>
+            <style>
+                #mainContentArea {
+                    display: block;
+                }
+        
+                #imageTextContainer {
+                    display: flex;
+                    overflow-x: auto; /* تمكين التمرير الأفقي */
+                    white-space: nowrap;
+                    scrollbar-width: none; /* إخفاء شريط التمرير في المتصفحات التي تدعم هذه الخاصية مثل Firefox */
+                    margin-left: -8px;
+                    margin-right: -8px;
+                    margin-bottom: 55px;
+                }
+        
+                /* لمتصفحات WebKit مثل Chrome وSafari */
+                #imageTextContainer::-webkit-scrollbar {
+                    display: none; /* إخفاء شريط التمرير */
+                }
+        
+                .imageTextHolder {
+                    display: flex;
+                    flex-direction: row; /* لضمان أن الصورة تكون على اليمين والنص على اليسار */
+                    align-items: center;
+                    margin-right: 10px;
+                    margin-left: 10px;
+                    border: 2px solid rgb(85, 85, 85); /* خط أسود */
+                    background-color: rgba(255, 255, 255, 0.5); /* خلفية شفافة */
+                    padding: 10px;
+                    border-radius: 8px; /* حواف مستديرة */
+                }
+        
+                .thumbnailImage {
+                    width: 88px; /* العرض */
+                    height: 88px; /* الارتفاع */
+                    border-radius: 33px;
+                    object-fit: cover; /* للحفاظ على نسبة الأبعاد وتعبئة الإطار */
+                    margin-bottom: 23px;
+                    margin-left: 10px; /* مسافة بين النص والصورة */
+                }
+        
+                .textContent {
+                    text-align: right;
+                    font-size: 14px;
+                    margin-top: 5px;
+                    font-family: 'Cairo', sans-serif; /* تغيير الخط */
+                }
+        
+                .mainTitle {
+                    margin-top: 7px;
+                    margin-bottom: 27px;
+                    font-size: 48px;
+                    text-align: center;
+                    background: linear-gradient(90deg, #FF5733, #ff0000); /* تدرج لونين */
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-weight: bold;
+                }
+        
+            </style>
+        </head>
+        <body>
+        
+        <div id="mainContentArea">
+            <h2 class="mainTitle"> </h2>
+        
+            <div id="imageTextContainer">
+                <div class="imageTextHolder">
+                    <img src="t1.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('خصومات')" />
+                    <div class="textContent">خصومات</div>
                 </div>
-                <div class="carousel-item" onclick="selectItem('الأحذية')">
-                    <img src="t16.jpg" alt="Image 10">
-                    <p class="carousel-title">الأحذية</p>
+                <div class="imageTextHolder">
+                    <img src="t2.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('إلكترونيات')" />
+                    <div class="textContent">إلكترونيات</div>
                 </div>
-                    <div class="carousel-item" onclick="selectItem('المنزل')">
-                        <img src="t17.jpg" alt="Image 10">
-                        <p class="carousel-title">المنزل</p>
+                <div class="imageTextHolder">
+                    <img src="t3.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem(' كتب')" />
+                    <div class="textContent">كتب</div>
+                </div>
+                <div class="imageTextHolder">
+                    <img src="t4.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('ساعة ذكية')" />
+                    <div class="textContent">ساعة ذكية</div>
+                </div>
+                <div class="imageTextHolder">
+                    <img src="t5.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('ساعة ذكية')" />
+                    <div class="textContent">ساعة ذكية</div>
+                </div>
+                <div class="imageTextHolder">
+                    <img src="t6.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('ساعة ذكية')" />
+                    <div class="textContent">ساعة ذكية</div>
+                </div>
+                <div class="imageTextHolder">
+                    <img src="t7.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('ساعة ذكية')" />
+                    <div class="textContent">ساعة ذكية</div>
+                </div>
+                <div class="imageTextHolder">
+                    <img src="t8.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('ساعة ذكية')" />
+                    <div class="textContent">ساعة ذكية</div>
+                </div>
+                <div class="imageTextHolder">
+                    <img src="t9.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('ساعة ذكية')" />
+                    <div class="textContent">ساعة ذكية</div>
+                </div>
+                <div class="imageTextHolder">
+                    <img src="t10.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('ساعة ذكية')" />
+                    <div class="textContent">ساعة ذكية</div>
+                </div>
+                <div class="imageTextHolder">
+                    <img src="t11.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('ساعة ذكية')" />
+                    <div class="textContent">ساعة ذكية</div>
+                </div>
+                <div class="imageTextHolder">
+                    <img src="t12.jpg" alt="Title 1" class="thumbnailImage" onclick="selectItem('ساعة ذكية')" />
+                    <div class="textContent">ساعة ذكية</div>
+                </div>
+                <!-- إضافة المزيد من الصور إذا لزم الأمر -->
             </div>
-            <div class="carousel-item" onclick="selectItem('حرف')">
-                <img src="t18.jpg" alt="Image 10">
-                <p class="carousel-title">حرف</p>
-    </div>
-    <div class="carousel-item" onclick="selectItem('الإكسسوارات')">
-        <img src="t19.jpg" alt="Image 10">
-        <p class="carousel-title">الإكسسوارات</p>
-</div>
-<div class="carousel-item" onclick="selectItem('ملحقات الهاتف')">
-    <img src="t20.jpg" alt="Image 10">
-    <p class="carousel-title">ملحقات الهاتف</p>
-</div>
-<div class="carousel-item" onclick="selectItem(' ادوات كهربية')">
-    <img src="t21.jpg" alt="Image 10">
-    <p class="carousel-title">ادوات كهربية</p>
-</div>
-<div class="carousel-item" onclick="selectItem('الرياضة')">
-    <img src="t22.jpg" alt="Image 10">
-    <p class="carousel-title">الرياضة</p>
-</div>
-
         </div>
-    </div>
-
-
-    <script>
-        let searchInput = document.getElementById("searchInput");
-
-        function selectItem(title) {
-            searchInput.value = title;
-            let event = new Event('input', { bubbles: true });
-            searchInput.dispatchEvent(event);
-        }
-
-        searchInput.addEventListener("input", function() {
-            if (searchInput.value.trim() !== "") {
-                document.getElementById('carouselContainer').style.display = "none";
-            } else {
-                document.getElementById('carouselContainer').style.display = "block";
+        
+        <script>
+            function selectItem(title) {
+                const searchInput = document.getElementById("searchInput");
+                searchInput.value = title;
+                let event = new Event('input', { bubbles: true });
+                searchInput.dispatchEvent(event);
             }
-            searchProducts();
-        });
-
-        function searchProducts() {
-            let searchTerm = searchInput.value;
-            console.log("Searching for:", searchTerm);
-        }
-    </script>
-</body>
-</html>
+        
+            document.getElementById("searchInput").addEventListener("input", function() {
+                const value = this.value.trim();
+                const contentContainer = document.getElementById("mainContentArea");
+                if (value === "") {
+                    contentContainer.style.display = "block";
+                } else {
+                    contentContainer.style.display = "none";
+                }
+            });
+        </script>
+        
+        </body>
+        </html>
+        
 
         
         
