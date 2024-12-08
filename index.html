@@ -3702,7 +3702,11 @@ if (hasError) {
                     border-radius: 8px; /* حواف مستديرة */
                     box-sizing: border-box;
                 }
-        
+                @media (max-width: 767px) {
+                    .carousel-item-container {
+                        border: 2px solid rgba(255, 255, 255, 0); /* خط */
+                    }
+                }
                 .carousel-item {
                     flex: 0 0 auto; /* منع انكماش العناصر */
                     cursor: pointer;
@@ -3741,8 +3745,8 @@ if (hasError) {
                 /* استعلام الوسائط لتغيير الأبعاد على الهواتف */
                 @media (max-width: 767px) {
                     .carousel-item img {
-                        width: 69px; /* عرض الصورة على الهواتف */
-                        height: 69px; /* ارتفاع الصورة على الهواتف */
+                        width: 68px; /* عرض الصورة على الهواتف */
+                        height: 68px; /* ارتفاع الصورة على الهواتف */
                         margin-left: 1px;
                     }
                 }
