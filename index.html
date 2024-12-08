@@ -3690,7 +3690,12 @@ if (hasError) {
             scroll-snap-type: x mandatory; /* التمرير إلى العناصر */
             gap: 13px; /* إضافة مسافة بين العناصر */
         }
-
+        @media (max-width: 767px) {
+            .carousel-track {
+                gap: 1px; /* إضافة مسافة بين العناصر */
+                margin-right: -15px;
+            }
+        }
         .carousel-item-container {
             display: flex;
             flex-direction: row; /* لضمان أن الصورة تكون على اليمين والنص على اليسار */
@@ -3747,8 +3752,8 @@ if (hasError) {
         }
         @media (max-width: 767px) {
             .carousel-item img {
-                width: 68px; /* عرض الصورة على الهواتف */
-                height: 68px; /* ارتفاع الصورة على الهواتف */
+                width: 64px; /* عرض الصورة على الهواتف */
+                height: 64px; /* ارتفاع الصورة على الهواتف */
                 margin-left: 1px;
             }
         }
