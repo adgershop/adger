@@ -3741,14 +3741,18 @@ if (hasError) {
                     border: none; /* إزالة الحدود */
                     touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
                 }
-        
+                @media (max-width: 767px) {
+                    .carousel-item img{
+                        margin-right: -20px;
+                    }
+                }
                 /* استعلام الوسائط لتغيير الأبعاد على الهواتف */
                 @media (max-width: 767px) {
                     .carousel-item img {
                         width: 68px; /* عرض الصورة على الهواتف */
                         height: 68px; /* ارتفاع الصورة على الهواتف */
                         margin-left: 1px;
-                        margin-right: -16px;
+                       
                     }
                 }
         
@@ -3779,7 +3783,7 @@ if (hasError) {
                    @media (max-width: 767px) {
                     .carousel-title {
                   font-size: 12px;
-                  margin-left: -14px;
+                  margin-left: -9px;
                     }
                 }
         
@@ -3861,7 +3865,7 @@ if (hasError) {
                         <div class="carousel-item">
                             <img src="t12.jpg" alt="Image 2">
                         </div>
-                        <p class="carousel-title">للتصوير</p>
+                        <p class="carousel-title" style="margin-left: 4px;">للتصوير</p>
                     </div>
                     <!-- Add more items here if needed -->
                 </div>
