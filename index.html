@@ -3652,250 +3652,238 @@ if (hasError) {
         
 
         <!DOCTYPE html>
-        <html lang="ar">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                .carousel-container {
-                    width: 100%;
-                    height: 150px; /* تعديل الطول ليناسب النص */
-                    overflow-x: auto; /* السماح بالتمرير الأفقي */
-                    overflow-y: hidden; /* إخفاء التمرير العمودي */
-                    white-space: nowrap; /* عرض العناصر في خط واحد */
-                    position: relative;
-                    scroll-behavior: smooth; /* التمرير السلس */
-                    box-sizing: border-box; /* تضمين الحواف والهوامش في الحجم الكلي للعنصر */
-                    -ms-overflow-style: none;  /* إخفاء شريط التمرير في Internet Explorer و Edge */
-                    scrollbar-width: none;  /* إخفاء شريط التمرير في Firefox */
-                    margin-bottom: 5px;
-                    margin-right: -2px;
-                }
-        
-                /* استعلام الوسائط لتعديل المسافة السفلية على الهواتف */
-                @media (max-width: 767px) {
-                    .carousel-container {
-                        margin-bottom: -51px; /* المسافة السفلية على الهواتف */
-                        width: 101%;
-                    }
-                }
-        
-                .carousel-container::-webkit-scrollbar {
-                    display: none;  /* إخفاء شريط التمرير في Chrome, Safari, و Opera */
-                }
-        
-                .carousel-track {
-                    display: flex;
-                    transition: transform 0.5s ease;
-                    scroll-snap-type: x mandatory; /* التمرير إلى العناصر */
-                    gap: 13px; /* إضافة مسافة بين العناصر */
-                }
-        
-                .carousel-item-container {
-                    display: flex;
-                    flex-direction: row; /* لضمان أن الصورة تكون على اليمين والنص على اليسار */
-                    align-items: center;
-                    padding: 9px;
-                    margin: 2px;
-                    border: 2px solid rgba(153, 153, 153, 0.877); /* خط */
-                    background-color: rgba(255, 255, 255, 0.5); /* خلفية شفافة */
-                    border-radius: 8px; /* حواف مستديرة */
-                    box-sizing: border-box;
-                }
-                @media (max-width: 767px) {
-                    .carousel-item-container {
-                        border: none; /* خط */
-                    }
-                }
-                .carousel-item {
-                    flex: 0 0 auto; /* منع انكماش العناصر */
-                    cursor: pointer;
-                    display: inline-block; /* ضمان بقاء العناصر في سطر واحد */
-                    -webkit-user-select: none; /* منع تحديد العنصر */
-                    user-select: none;
-                    outline: none; /* إزالة التحديد الأزرق */
-                    border: none; /* إزالة الحدود */
-                    -webkit-tap-highlight-color: transparent; /* إخفاء التأثير عند النقر على الأجهزة التي تعمل باللمس */
-                    touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
-                    margin-right: 10px; /* مسافة بين النص والصورة */
-                }
-        
-                .carousel-item:focus,
-                .carousel-item:active {
-                    outline: none;
-                    box-shadow: none; /* إزالة الظل الأزرق عند النقر */
-                    border: none;
-                }
-        
-                .carousel-item img {
-                    width: 86px;
-                    height: 86px;
-                    border-radius: 15%;
-                    object-fit: cover;
-                    display: block;
-                    margin: 0 auto; /* محاذاة الصورة في المنتصف */
-                    -webkit-tap-highlight-color: transparent; /* إزالة التأثير الأزرق عند النقر في الهواتف */
-                    -webkit-user-select: none; /* منع تحديد الصورة */
-                    user-select: none;
-                    outline: none; /* إزالة التحديد */
-                    border: none; /* إزالة الحدود */
-                    touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
-                }
-                @media (max-width: 767px) {
-                    .carousel-item img{
-                        margin-right: -20px;
-                    }
-                }
-                /* استعلام الوسائط لتغيير الأبعاد على الهواتف */
-                @media (max-width: 767px) {
-                    .carousel-item img {
-                        width: 68px; /* عرض الصورة على الهواتف */
-                        height: 68px; /* ارتفاع الصورة على الهواتف */
-                        margin-left: 1px;
-                       
-                    }
-                }
-        
-                /* تعزيز إخفاء التأثير الأزرق عبر المتصفحات */
-                .carousel-item:focus-visible,
-                .carousel-item img:focus-visible {
-                    outline: none;
-                    box-shadow: none;
-                }
-        
-                .carousel-item, .carousel-item img {
-                    -moz-focusring: none; /* إخفاء التأثير في فايرفوكس */
-                    outline: 0; /* إخفاء التحديد في المتصفحات الأخرى */
-                    box-shadow: none; /* إخفاء الظلال */
-                }
-        
-                .carousel-title {
-                    margin-top: 5px;
-                    text-align: center;
-                    font-size: 13px;
-                    color: #3f3f3f; /* تغيير لون النص */
-                    font-weight: bold; /* جعل النص سميكًا */
-                    white-space: normal; /* السماح بتغليف النص */
-                    margin-right: 11px;
-                    font-family: 'Cairo', sans-serif; /* تغيير الخط */
-                }
-                   /* استعلام الوسائط لتغيير الأبعاد على الهواتف */
-                   @media (max-width: 767px) {
-                    .carousel-title {
-                  font-size: 12px;
-                  margin-left: -9px;
-                    }
-                }
-        
-            </style>
-            <title>Auto Scrolling Carousel</title>
-        </head>
-        <body>
-        
-            <div class="carousel-container" id="carouselContainer">
-                <div class="carousel-track" id="carouselTrack">
-                    <!-- Add carousel items here -->
-                    <div class="carousel-item-container" onclick="selectItem('خصومات')">
-                        <div class="carousel-item">
-                            <img src="t1.jpg" alt="Image 2">
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .carousel-container {
+            width: 100%;
+            height: 150px; /* تعديل الطول ليناسب النص */
+            overflow-x: auto; /* السماح بالتمرير الأفقي */
+            overflow-y: hidden; /* إخفاء التمرير العمودي */
+            white-space: nowrap; /* عرض العناصر في خط واحد */
+            position: relative;
+            scroll-behavior: smooth; /* التمرير السلس */
+            box-sizing: border-box; /* تضمين الحواف والهوامش في الحجم الكلي للعنصر */
+            -ms-overflow-style: none;  /* إخفاء شريط التمرير في Internet Explorer و Edge */
+            scrollbar-width: none;  /* إخفاء شريط التمرير في Firefox */
+            margin-bottom: 5px;
+            margin-right: -2px;
+        }
+
+        /* استعلام الوسائط لتعديل المسافة السفلية على الهواتف */
+        @media (max-width: 767px) {
+            .carousel-container {
+                margin-bottom: 9px; /* المسافة السفلية على الهواتف */
+                width: 101%;
+            }
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;  /* إخفاء شريط التمرير في Chrome, Safari, و Opera */
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            scroll-snap-type: x mandatory; /* التمرير إلى العناصر */
+            gap: 13px; /* إضافة مسافة بين العناصر */
+        }
+
+        .carousel-item-container {
+            display: flex;
+            flex-direction: row; /* لضمان أن الصورة تكون على اليمين والنص على اليسار */
+            align-items: center;
+            padding: 9px;
+            margin: 2px;
+            border: 2px solid rgba(153, 153, 153, 0.877); /* خط */
+            background-color: rgba(255, 255, 255, 0.5); /* خلفية شفافة */
+            border-radius: 8px; /* حواف مستديرة */
+            box-sizing: border-box;
+        }
+        @media (max-width: 767px) {
+            .carousel-item-container {
+                border: none; /* خط */
+                flex-direction: column; /* ترتيب عمودي للنص والصورة */
+                align-items: center;
+                text-align: center; /* محاذاة النص في المنتصف */
+            }
+        }
+
+        .carousel-item {
+            flex: 0 0 auto; /* منع انكماش العناصر */
+            cursor: pointer;
+            display: inline-block; /* ضمان بقاء العناصر في سطر واحد */
+            -webkit-user-select: none; /* منع تحديد العنصر */
+            user-select: none;
+            outline: none; /* إزالة التحديد الأزرق */
+            border: none; /* إزالة الحدود */
+            -webkit-tap-highlight-color: transparent; /* إخفاء التأثير عند النقر على الأجهزة التي تعمل باللمس */
+            touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
+            margin-right: 10px; /* مسافة بين النص والصورة */
+        }
+
+        .carousel-item:focus,
+        .carousel-item:active {
+            outline: none;
+            box-shadow: none; /* إزالة الظل الأزرق عند النقر */
+            border: none;
+        }
+
+        .carousel-item img {
+            width: 86px;
+            height: 86px;
+            border-radius: 15%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto; /* محاذاة الصورة في المنتصف */
+            -webkit-tap-highlight-color: transparent; /* إزالة التأثير الأزرق عند النقر في الهواتف */
+            -webkit-user-select: none; /* منع تحديد الصورة */
+            user-select: none;
+            outline: none; /* إزالة التحديد */
+            border: none; /* إزالة الحدود */
+            touch-action: manipulation; /* تحسين التفاعل على الأجهزة التي تعمل باللمس */
+        }
+        @media (max-width: 767px) {
+            .carousel-item img {
+                width: 68px; /* عرض الصورة على الهواتف */
+                height: 68px; /* ارتفاع الصورة على الهواتف */
+                margin-left: 1px;
+            }
+        }
+
+        .carousel-title {
+            margin-top: 5px;
+            text-align: center;
+            font-size: 13px;
+            color: #3f3f3f; /* تغيير لون النص */
+            font-weight: bold; /* جعل النص سميكًا */
+            white-space: normal; /* السماح بتغليف النص */
+            margin-right: 11px;
+            font-family: 'Cairo', sans-serif; /* تغيير الخط */
+        }
+        @media (max-width: 767px) {
+            .carousel-title {
+                font-size: 12px;
+                margin-left: -14px;
+                margin-top: 10px; /* إضافة مسافة بين النص والصورة */
+            }
+        }
+    </style>
+    <title>Auto Scrolling Carousel</title>
+</head>
+<body>
+
+    <div class="carousel-container" id="carouselContainer">
+        <div class="carousel-track" id="carouselTrack">
+            <!-- Add carousel items here -->
+                               <!-- Add carousel items here -->
+                               <div class="carousel-item-container" onclick="selectItem('خصومات')">
+                                <div class="carousel-item">
+                                    <img src="t1.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">خصومات</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('إلكترونيات')">
+                                <div class="carousel-item">
+                                    <img src="t2.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">إلكترونيات</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('كتب')">
+                                <div class="carousel-item">
+                                    <img src="t3.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">كتب</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('أثرى')">
+                                <div class="carousel-item">
+                                    <img src="t4.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">أثرى</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('ألعاب')">
+                                <div class="carousel-item">
+                                    <img src="t5.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">ألعاب</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('أدوات مدرسية')">
+                                <div class="carousel-item">
+                                    <img src="t6.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">أدوات مدرسية</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('ملابس')">
+                                <div class="carousel-item">
+                                    <img src="t7.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">ملابس</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('مجلات')">
+                                <div class="carousel-item">
+                                    <img src="t8.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">مجلات</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('أقلام')">
+                                <div class="carousel-item">
+                                    <img src="t9.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">أقلام</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('حقائب')">
+                                <div class="carousel-item">
+                                    <img src="t10.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">حقائب</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('من الخشب')">
+                                <div class="carousel-item">
+                                    <img src="t11.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">من الخشب</p>
+                            </div>
+                            <div class="carousel-item-container" onclick="selectItem('للتصوير')">
+                                <div class="carousel-item">
+                                    <img src="t12.jpg" alt="Image 2">
+                                </div>
+                                <p class="carousel-title">للتصوير</p>
+                            </div>
+                            <!-- Add more items here if needed -->
                         </div>
-                        <p class="carousel-title">خصومات</p>
                     </div>
-                    <div class="carousel-item-container" onclick="selectItem('إلكترونيات')">
-                        <div class="carousel-item">
-                            <img src="t2.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title">إلكترونيات</p>
-                    </div>
-                    <div class="carousel-item-container" onclick="selectItem('كتب')">
-                        <div class="carousel-item">
-                            <img src="t3.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title">كتب</p>
-                    </div>
-                    <div class="carousel-item-container" onclick="selectItem('أثرى')">
-                        <div class="carousel-item">
-                            <img src="t4.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title">أثرى</p>
-                    </div>
-                    <div class="carousel-item-container" onclick="selectItem('ألعاب')">
-                        <div class="carousel-item">
-                            <img src="t5.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title">ألعاب</p>
-                    </div>
-                    <div class="carousel-item-container" onclick="selectItem('أدوات مدرسية')">
-                        <div class="carousel-item">
-                            <img src="t6.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title">أدوات مدرسية</p>
-                    </div>
-                    <div class="carousel-item-container" onclick="selectItem('ملابس')">
-                        <div class="carousel-item">
-                            <img src="t7.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title">ملابس</p>
-                    </div>
-                    <div class="carousel-item-container" onclick="selectItem('مجلات')">
-                        <div class="carousel-item">
-                            <img src="t8.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title">مجلات</p>
-                    </div>
-                    <div class="carousel-item-container" onclick="selectItem('أقلام')">
-                        <div class="carousel-item">
-                            <img src="t9.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title">أقلام</p>
-                    </div>
-                    <div class="carousel-item-container" onclick="selectItem('حقائب')">
-                        <div class="carousel-item">
-                            <img src="t10.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title">حقائب</p>
-                    </div>
-                    <div class="carousel-item-container" onclick="selectItem('من الخشب')">
-                        <div class="carousel-item">
-                            <img src="t11.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title">من الخشب</p>
-                    </div>
-                    <div class="carousel-item-container" onclick="selectItem('للتصوير')">
-                        <div class="carousel-item">
-                            <img src="t12.jpg" alt="Image 2">
-                        </div>
-                        <p class="carousel-title" style="margin-left: 4px;">للتصوير</p>
-                    </div>
-                    <!-- Add more items here if needed -->
-                </div>
-            </div>
-        
-            <script>
-                let searchInput = document.getElementById("searchInput");
-        
-                function selectItem(title) {
-                    searchInput.value = title;
-                    let event = new Event('input', { bubbles: true });
-                    searchInput.dispatchEvent(event);
-                }
-        
-                searchInput.addEventListener("input", function() {
-                    if (searchInput.value.trim() !== "") {
-                        document.getElementById('carouselContainer').style.display = "none";
-                    } else {
-                        document.getElementById('carouselContainer').style.display = "block";
-                    }
-                    searchProducts();
-                });
-        
-                function searchProducts() {
-                    let searchTerm = searchInput.value;
-                    console.log("Searching for:", searchTerm);
-                }
-            </script>
-        </body>
-        </html>
+            
+
+
+      
+    <script>
+        let searchInput = document.getElementById("searchInput");
+
+        function selectItem(title) {
+            searchInput.value = title;
+            let event = new Event('input', { bubbles: true });
+            searchInput.dispatchEvent(event);
+        }
+
+        searchInput.addEventListener("input", function() {
+            if (searchInput.value.trim() !== "") {
+                document.getElementById('carouselContainer').style.display = "none";
+            } else {
+                document.getElementById('carouselContainer').style.display = "block";
+            }
+            searchProducts();
+        });
+
+        function searchProducts() {
+            let searchTerm = searchInput.value;
+            console.log("Searching for:", searchTerm);
+        }
+    </script>
+</body>
+</html>
+
         
         
 
