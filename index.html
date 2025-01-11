@@ -443,7 +443,7 @@
         .gallery .item {
             width: calc((100% - 12px) / 7); /* 7 عناصر مع فجوة 2px بينها */
             text-align: center; /* توسيط النصوص */
-            border: 10px solid rgba(139, 139, 139, 0); /* إطار حول كل عنصر */
+            border: 8px solid rgba(139, 139, 139, 0); /* إطار حول كل عنصر */
             margin-bottom: 20px; /* مسافة أسفل كل عنصر */
             box-sizing: border-box; /* تضمن أن الإطار لا يزيد من حجم العنصر */
         }
@@ -458,7 +458,9 @@
             font-size: 14px;
             color: #333;
         }
-
+.text{
+    font-family: 'Cairo', sans-serif; /* تطبيق خط Cairo */
+}
         /* التصميم المتجاوب */
         @media (max-width: 1200px) {
             .gallery .item {
@@ -484,7 +486,7 @@
         <!-- عنصر 1 -->
         <div class="item">
             <img src="1.jpg" alt="صورة 1">
-            <div class="text">النص 1</div>
+            <div class="text" style="color: #ffa600;">النص 1</div>
             <div class="text">النص 2</div>
             <div class="text">النص 3</div>
             <div class="text">النص 4</div>
