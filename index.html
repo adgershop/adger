@@ -7,3 +7,536 @@
     <title>Adger</title>
     <link rel="icon" href="logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+
+
+
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>صندوق بحث مع شريط تنقل</title>
+        <!-- إضافة خط Cairo من Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+            }
+    
+            /* تصميم صندوق البحث */
+            .search-background {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 77px;
+                background-color: rgb(255, 255, 255);
+                z-index: 1; /* تأكيد بقاء الشريط الأسود فوق المحتوى */
+            }
+    
+            .search-container {
+                position: fixed; /* تعديل الوضع إلى ثابت */
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                direction: rtl; /* اتجاه النص من اليمين إلى اليسار */
+                z-index: 2; /* تأكيد بقاء الشريط الأسود فوق المحتوى */
+            }
+    
+            .search-container input[type="text"] {
+                padding: 10px;
+                padding-left: 60px; /* مساحة لزر X وزر البحث */
+                border: 1px solid #000000;
+                border-radius: 50px;
+                font-size: 16px;
+                width: 300px;
+                outline: none;
+                transition: border-color 0.3s;
+                direction: rtl; /* اتجاه النص من اليمين إلى اليسار */
+            }
+    
+            .search-container input[type="text"]:focus {
+                border-color: #000000;
+                box-shadow: 0 0 2px #000000;
+            }
+    
+            .search-container .clear-button,
+            .search-container .search-button {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 16px;
+            }
+    
+            .search-container .clear-button {
+                left: 44px; /* زر X على اليسار */
+                display: none;
+                color: #000000;
+            }
+    
+            .search-container .search-button {
+                left: 4px; /* زر البحث على اليسار */
+                background-color: black; /* خلفية سوداء لزر البحث */
+                color: white; /* لون النص أبيض */
+                width: 40px;
+                height: 34px;
+                display: flex; /* استخدام Flexbox */
+                align-items: center; /* محاذاة رأسية */
+                justify-content: center; /* محاذاة أفقية */
+                border-radius: 33px; /* شكل دائري للزر */
+            }
+    
+            .search-container .search-button:hover {
+                background-color: #333; /* تغيير اللون عند التمرير */
+            }
+    
+            .search-container .search-button svg {
+                width: 20px;
+                height: 20px;
+                fill: white; /* لون الأيقونة أبيض */
+            }
+    
+            .search-container .clear-button:hover {
+                color: #0056b3;
+            }
+    
+            .search-container .clear-button svg {
+                width: 20px;
+                height: 20px;
+            }
+    
+            /* تصميم شريط التنقل */
+            .navbar {
+                margin-top: 77px; /* مسافة من صندوق البحث */
+                background-color: white;
+                height: 59px;
+                width: 100%;
+                border-bottom: 1px solid #ccc;
+                display: flex;
+                align-items: center;
+                position: sticky; /* تثبيت الشريط */
+                top: 77px; /* التثبيت أسفل صندوق البحث */
+                z-index: 1; /* التأكد من أن الشريط يظهر فوق المحتوى الآخر */
+                overflow-x: scroll; /* التمرير الأفقي */
+                white-space: nowrap; /* منع العناصر من الانتقال إلى سطر جديد */
+                scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
+                -ms-overflow-style: none; /* إخفاء شريط التمرير في Edge */
+            }
+    
+            /* إخفاء شريط التمرير في Chrome و Safari */
+            .navbar::-webkit-scrollbar {
+                display: none;
+            }
+    
+            .navbar ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                padding-right: 20px; /* مسافة من اليمين */
+                padding-left: 20px; /* مسافة من اليسار */
+            }
+    
+            .navbar ul li {
+                margin-right: 20px;
+            }
+    
+            /* إضافة مسافة سالبة -11px بين "الكل" والحافة اليمنى */
+            .navbar ul li:first-child {
+                margin-right: -6px; /* المسافة السالبة */
+            }
+    
+            .navbar ul li a {
+                text-decoration: none;
+                color: black;
+                font-size: 16px;
+                position: relative;
+                white-space: nowrap;
+                padding-bottom: 10px;
+                font-family: 'Cairo', sans-serif; /* تطبيق خط Cairo */
+            }
+    
+            /* الخط كجزء من النص */
+            .navbar ul li a::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                background-color: black;
+                bottom: 0;
+                left: 0;
+                transform: scaleX(0); /* الخط مخفي بشكل افتراضي */
+                transition: transform 0.3s ease; /* تأثير الحركة */
+            }
+    
+            /* إظهار الخط عند النشاط */
+            .navbar ul li a.active::after {
+                transform: scaleX(1); /* الخط مرئي */
+            }
+        </style>
+    </head>
+    <body>
+    
+    <div class="search-background"></div>
+    
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="ابحث هنا">
+        <button class="clear-button" id="clear-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M18 6L6 18" stroke="#333" stroke-width="2" />
+            <path d="M6 6L18 18" stroke="#333" stroke-width="2" />
+          </svg>
+        </button>
+        <button class="search-button" id="search-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <circle cx="10" cy="10" r="7" fill="none" stroke="white" stroke-width="2" />
+            <path d="M15 15l4 4" stroke="white" stroke-width="2" />
+          </svg>
+        </button>
+    </div>
+    
+    <!-- شريط التنقل -->
+    <div class="navbar">
+        <ul>
+            <li><a href="#" class="active" style="color: #ff0000;">الكل</a></li>
+            <li><a href="#">هواتف</a></li>
+            <li><a href="#">لابتوب</a></li>
+            <li><a href="#">مكتب</a></li>
+            <li><a href="#">هواتف</a></li>
+            <li><a href="#">لابتوب</a></li>
+            <li><a href="#">مكتب</a></li>
+            <li><a href="#">هواتف</a></li>
+            <li><a href="#">لابتوب</a></li>
+            <li><a href="#">مكتب</a></li>
+            <!-- يمكنك إضافة المزيد من العناصر هنا -->
+        </ul>
+    </div>
+    
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const clearButton = document.getElementById('clear-button');
+    
+        // إظهار أو إخفاء زر X بناءً على محتوى صندوق البحث
+        searchInput.addEventListener('input', function() {
+            if (searchInput.value.length > 0) {
+                clearButton.style.display = 'block';
+            } else {
+                clearButton.style.display = 'none';
+            }
+        });
+    
+        // مسح النص عند النقر على زر X
+        clearButton.addEventListener('click', function() {
+            searchInput.value = '';
+            clearButton.style.display = 'none';
+            searchInput.focus(); // إبقاء التركيز على صندوق البحث بعد حذف النص
+        });
+    
+        // إزالة التركيز من صندوق البحث عند النقر على Enter
+        searchInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                searchInput.blur(); // إزالة التركيز
+            }
+        });
+    
+        // تحريك الخط عند النقر في شريط التنقل
+        const links = document.querySelectorAll('.navbar ul li a');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                links.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+    
+    </body>
+    </html>
+
+
+
+
+
+
+    
+
+
+
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>تشغيل صوت من فيديو يوتيوب وزر الصعود للأعلى</title>
+        <style>
+            /* تصميم الحاوية العمودية للأزرار */
+            .button-container {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                width: 14px;
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                display: none; /* إخفاء الأزرار حتى يتم التمرير */
+                flex-direction: column; /* ترتيب العناصر عموديًا */
+                gap: 11px; /* مسافة بين العناصر */
+                justify-content: center; /* توسيط العناصر عموديًا */
+                align-items: center; /* توسيط العناصر أفقيًا */
+            }
+    
+            /* تصميم زر تشغيل الصوت */
+            #playAudio {
+                cursor: pointer;
+                color: #333;
+                font-size: 24px;
+                outline: none;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+                display: flex;
+                align-items: center; /* محاذاة عمودية للعنصر */
+                justify-content: center; /* محاذاة أفقية للعنصر */
+                width: 100%; /* عرض كامل للحاوية */
+            }
+    
+            #playIcon, #pauseIcon {
+                font-size: 19px;
+                fill: goldenrod;
+                width: 16px;
+                height: 16px;
+                pointer-events: none; /* منع التأثيرات */
+            }
+    
+            #pauseIcon {
+                display: none; /* إخفاء أيقونة الإيقاف مؤقتًا */
+            }
+    
+            /* تصميم زر الصعود للأعلى */
+            .scroll-to-top {
+                color: #333;
+                font-size: 24px;
+                cursor: pointer;
+                text-align: center; /* محاذاة الأيقونة في الوسط */
+            }
+    
+            .scroll-to-top svg {
+                width: 21px;
+                height: 21;
+                margin-bottom: -11px;
+            }
+    
+            /* تصميم الخط الفاصل */
+            .separator {
+                width: 17px; /* عرض الخط */
+                height: 2px; /* ارتفاع أطول لضمان رؤية واضحة */
+                background-color: #ccc; /* لون الخط */
+                align-self: center; /* توسيط الخط داخل الحاوية */
+                margin-bottom: -18px;
+                margin-top: -6px;
+            }
+        </style>
+    </head>
+    <body>
+    
+        <!-- الحاوية العمودية للأزرار -->
+        <div class="button-container">
+            <!-- زر تشغيل الصوت -->
+            <div id="playAudio">
+                <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <polygon points="6,4 20,12 6,20"/>
+                </svg>
+    
+                <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <rect x="6" y="4" width="4" height="16" />
+                    <rect x="14" y="4" width="4" height="16" />
+                </svg>
+            </div>
+    
+            <!-- الخط الفاصل -->
+            <div class="separator"></div>
+    
+            <!-- زر الصعود للأعلى -->
+            <a href="#" class="scroll-to-top">
+                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
+                </svg>
+            </a>
+        </div>
+    
+        <!-- فيديو يوتيوب مع الرابط الجديد -->
+        <iframe id="youtubeVideo" width="0" height="0" src="https://www.youtube.com/embed/YBr3ff5YCQk?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    
+        <script>
+            var isPlaying = false;
+            var playAudioBtn = document.getElementById('playAudio');
+    
+            // إظهار الأزرار فقط بعد التمرير لأسفل بعد تحميل الصفحة
+            window.addEventListener('scroll', function() {
+                var buttonContainer = document.querySelector('.button-container');
+                if (window.scrollY > 100) {
+                    buttonContainer.style.display = 'flex';
+                } else {
+                    buttonContainer.style.display = 'none';
+                }
+            });
+    
+            // تشغيل وإيقاف الفيديو من يوتيوب
+            document.getElementById('playAudio').addEventListener('click', function() {
+                var youtubeVideo = document.getElementById('youtubeVideo');
+                var playIcon = document.getElementById('playIcon');
+                var pauseIcon = document.getElementById('pauseIcon');
+    
+                if (!isPlaying) {
+                    youtubeVideo.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                } else {
+                    youtubeVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                }
+    
+                isPlaying = !isPlaying;
+            });
+    
+            // الانتقال إلى أعلى الصفحة بسرعة عند الضغط على زر الصعود
+            document.querySelector('.scroll-to-top').addEventListener('click', function(event) {
+                event.preventDefault();
+                window.scrollTo({top: 0, behavior: 'auto'});
+            });
+        </script>
+    
+    </body>
+    </html>
+
+    
+
+
+
+
+
+
+<br><br><br><br>
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الصور المتجاوب</title>
+    <style>
+        /* التنسيق الأساسي */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px; /* المسافة بين العناصر */
+            padding: 0 10px; /* المسافة على يمين ويسار الشاشة */
+            justify-content: center;
+        }
+
+        .gallery .item {
+            width: calc((100% - 12px) / 7); /* 7 عناصر مع فجوة 2px بينها */
+            text-align: center; /* توسيط النصوص */
+            border: 1px solid rgb(139, 139, 139); /* إطار حول كل عنصر */
+            margin-bottom: 20px; /* مسافة أسفل كل عنصر */
+            box-sizing: border-box; /* تضمن أن الإطار لا يزيد من حجم العنصر */
+        }
+
+        .gallery .item img {
+            width: 100%; /* الصورة تأخذ عرض العنصر بالكامل */
+            height: auto;
+        }
+
+        .gallery .item .text {
+            margin-top: 5px; /* مسافة بين الصورة والنصوص */
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* التصميم المتجاوب */
+        @media (max-width: 1200px) {
+            .gallery .item {
+                width: calc((100% - 10px) / 5); /* 5 عناصر */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery .item {
+                width: calc((100% - 8px) / 2); /* صورتين بجانب بعض */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery .item {
+                width: calc((100% - 4px) / 2); /* صورتين بجانب بعض */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <!-- عنصر 1 -->
+        <div class="item">
+            <img src="1.jpg" alt="صورة 1">
+            <div class="text">النص 1</div>
+            <div class="text">النص 2</div>
+            <div class="text">النص 3</div>
+            <div class="text">النص 4</div>
+        </div>
+        <!-- عنصر 2 -->
+        <div class="item">
+            <img src="1.jpg" alt="صورة 1">
+            <div class="text">النص 1</div>
+            <div class="text">النص 2</div>
+            <div class="text">النص 3</div>
+            <div class="text">النص 4</div>
+        </div>
+        <!-- عنصر 3 -->
+        <div class="item">
+            <img src="1.jpg" alt="صورة 1">
+            <div class="text">النص 1</div>
+            <div class="text">النص 2</div>
+            <div class="text">النص 3</div>
+            <div class="text">النص 4</div>
+        </div>
+        <!-- عنصر 4 -->
+        <div class="item">
+            <img src="1.jpg" alt="صورة 1">
+            <div class="text">النص 1</div>
+            <div class="text">النص 2</div>
+            <div class="text">النص 3</div>
+            <div class="text">النص 4</div>
+        </div>
+        <!-- عنصر 5 -->
+        <div class="item">
+            <img src="1.jpg" alt="صورة 1">
+            <div class="text">النص 1</div>
+            <div class="text">النص 2</div>
+            <div class="text">النص 3</div>
+            <div class="text">النص 4</div>
+        </div>
+        <!-- عنصر 6 -->
+        <div class="item">
+            <img src="1.jpg" alt="صورة 1">
+            <div class="text">النص 1</div>
+            <div class="text">النص 2</div>
+            <div class="text">النص 3</div>
+            <div class="text">النص 4</div>
+        </div>
+        <!-- عنصر 7 -->
+        <div class="item">
+            <img src="1.jpg" alt="صورة 1">
+            <div class="text">النص 1</div>
+            <div class="text">النص 2</div>
+            <div class="text">النص 3</div>
+            <div class="text">النص 4</div>
+        </div>
+    </div>
+</body>
+</html>
