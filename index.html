@@ -23,6 +23,7 @@
                 margin: 0;
                 padding: 0;
                 font-family: Arial, sans-serif;
+                background-color: #f9f9f9; /* لون خلفية الصفحة */
             }
     
             /* تصميم صندوق البحث */
@@ -32,34 +33,37 @@
                 left: 0;
                 width: 100%;
                 height: 77px;
-                background-color: rgb(245, 245, 245);
-                z-index: 1; /* تأكيد بقاء الشريط الأسود فوق المحتوى */
+                background-color: #ffffff; /* لون خلفية فاتح */
+                z-index: 1;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* إضافة ظل لفصل الخلفية */
             }
     
             .search-container {
-                position: fixed; /* تعديل الوضع إلى ثابت */
+                position: fixed;
                 top: 20px;
                 left: 50%;
                 transform: translateX(-50%);
-                direction: rtl; /* اتجاه النص من اليمين إلى اليسار */
-                z-index: 2; /* تأكيد بقاء الشريط الأسود فوق المحتوى */
+                direction: rtl;
+                z-index: 2;
             }
     
             .search-container input[type="text"] {
                 padding: 10px;
-                padding-left: 60px; /* مساحة لزر X وزر البحث */
-                border: 1px solid #000000;
+                padding-left: 60px;
+                border: 1px solid #e0e0e0; /* لون حدود أفتح */
                 border-radius: 50px;
                 font-size: 16px;
                 width: 258px;
                 outline: none;
                 transition: border-color 0.3s;
-                direction: rtl; /* اتجاه النص من اليمين إلى اليسار */
+                direction: rtl;
+                background-color: #ffffff; /* لون خلفية صندوق البحث */
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* إضافة ظل */
             }
     
             .search-container input[type="text"]:focus {
                 border-color: #000000;
-                box-shadow: 0 0 2px #000000;
+                box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); /* زيادة الظل عند التركيز */
             }
     
             .search-container .clear-button,
@@ -74,31 +78,31 @@
             }
     
             .search-container .clear-button {
-                left: 44px; /* زر X على اليسار */
+                left: 44px;
                 display: none;
                 color: #000000;
             }
     
             .search-container .search-button {
-                left: 4px; /* زر البحث على اليسار */
-                background-color: black; /* خلفية سوداء لزر البحث */
-                color: white; /* لون النص أبيض */
+                left: 4px;
+                background-color: #000000; /* لون خلفية الزر */
+                color: white;
                 width: 40px;
                 height: 34px;
-                display: flex; /* استخدام Flexbox */
-                align-items: center; /* محاذاة رأسية */
-                justify-content: center; /* محاذاة أفقية */
-                border-radius: 33px; /* شكل دائري للزر */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 33px;
             }
     
             .search-container .search-button:hover {
-                background-color: #c41111; /* تغيير اللون عند التمرير */
+                background-color: #333; /* تغيير اللون عند التمرير */
             }
     
             .search-container .search-button svg {
                 width: 20px;
                 height: 20px;
-                fill: white; /* لون الأيقونة أبيض */
+                fill: white;
             }
     
             .search-container .clear-button:hover {
@@ -112,20 +116,20 @@
     
             /* تصميم شريط التنقل */
             .navbar {
-                margin-top: 77px; /* مسافة من صندوق البحث */
+                margin-top: 77px;
                 background-color: white;
                 height: 59px;
                 width: 100%;
-                border-bottom: 1px solid #ccc;
+                border-bottom: 1px solid #e0e0e0; /* لون حدود أفتح */
                 display: flex;
                 align-items: center;
-                position: sticky; /* تثبيت الشريط */
-                top: 77px; /* التثبيت أسفل صندوق البحث */
-                z-index: 1; /* التأكد من أن الشريط يظهر فوق المحتوى الآخر */
-                overflow-x: scroll; /* التمرير الأفقي */
-                white-space: nowrap; /* منع العناصر من الانتقال إلى سطر جديد */
-                scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
-                -ms-overflow-style: none; /* إخفاء شريط التمرير في Edge */
+                position: sticky;
+                top: 77px;
+                z-index: 1;
+                overflow-x: scroll;
+                white-space: nowrap;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
             }
     
             /* إخفاء شريط التمرير في Chrome و Safari */
@@ -138,17 +142,17 @@
                 margin: 0;
                 padding: 0;
                 display: flex;
-                padding-right: 20px; /* مسافة من اليمين */
-                padding-left: 20px; /* مسافة من اليسار */
+                padding-right: 20px;
+                padding-left: 20px;
             }
     
             .navbar ul li {
                 margin-right: 20px;
             }
     
-            /* إضافة مسافة سالبة -11px بين "الكل" والحافة اليمنى */
+            /* إضافة مسافة سالبة بين "الكل" والحافة اليمنى */
             .navbar ul li:first-child {
-                margin-right: -6px; /* المسافة السالبة */
+                margin-right: -6px;
             }
     
             .navbar ul li a {
@@ -158,7 +162,7 @@
                 position: relative;
                 white-space: nowrap;
                 padding-bottom: 10px;
-                font-family: 'Cairo', sans-serif; /* تطبيق خط Cairo */
+                font-family: 'Cairo', sans-serif;
             }
     
             /* الخط كجزء من النص */
@@ -170,13 +174,13 @@
                 background-color: black;
                 bottom: 0;
                 left: 0;
-                transform: scaleX(0); /* الخط مخفي بشكل افتراضي */
-                transition: transform 0.3s ease; /* تأثير الحركة */
+                transform: scaleX(0);
+                transition: transform 0.3s ease;
             }
     
             /* إظهار الخط عند النشاط */
             .navbar ul li a.active::after {
-                transform: scaleX(1); /* الخط مرئي */
+                transform: scaleX(1);
             }
         </style>
     </head>
@@ -234,13 +238,13 @@
         clearButton.addEventListener('click', function() {
             searchInput.value = '';
             clearButton.style.display = 'none';
-            searchInput.focus(); // إبقاء التركيز على صندوق البحث بعد حذف النص
+            searchInput.focus();
         });
     
         // إزالة التركيز من صندوق البحث عند النقر على Enter
         searchInput.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
-                searchInput.blur(); // إزالة التركيز
+                searchInput.blur();
             }
         });
     
