@@ -32,7 +32,7 @@
                 left: 0;
                 width: 100%;
                 height: 77px;
-                background-color: rgb(255, 255, 255);
+                background-color: rgb(245, 245, 245);
                 z-index: 1; /* تأكيد بقاء الشريط الأسود فوق المحتوى */
             }
     
@@ -51,7 +51,7 @@
                 border: 1px solid #000000;
                 border-radius: 50px;
                 font-size: 16px;
-                width: 300px;
+                width: 288px;
                 outline: none;
                 transition: border-color 0.3s;
                 direction: rtl; /* اتجاه النص من اليمين إلى اليسار */
@@ -423,6 +423,11 @@
 
 
 
+
+
+
+    
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -435,14 +440,14 @@
             display: flex;
             flex-wrap: wrap;
             gap: 2px; /* المسافة بين العناصر */
-            padding: 0 -10000px; /* المسافة على يمين ويسار الشاشة */
+            padding: -5px -100px; /* المسافة على يمين ويسار الشاشة */
             justify-content: center;
         }
  
         .gallery .item {
             width: calc((100% - 12px) / 7); /* 7 عناصر مع فجوة 2px بينها */
             text-align: center; /* توسيط النصوص */
-            border: 4px solid rgba(139, 139, 139, 0); /* إطار حول كل عنصر */
+            border: 5px solid rgba(139, 139, 139, 0); /* إطار حول كل عنصر */
             margin-bottom: 20px; /* مسافة أسفل كل عنصر */
             box-sizing: border-box; /* تضمن أن الإطار لا يزيد من حجم العنصر */
         }
