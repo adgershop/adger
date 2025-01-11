@@ -33,7 +33,7 @@
                 left: 0;
                 width: 100%;
                 height: 77px;
-                background-color: rgb(245, 245, 245);
+                background-color: rgb(255, 255, 255);
                 z-index: 1; /* تأكيد بقاء الشريط الأسود فوق المحتوى */
             }
     
@@ -114,15 +114,14 @@
     
             /* تصميم شريط التنقل */
             .navbar {
-                margin-top: 77px; /* مسافة من صندوق البحث */
-                background-color: white;
+                background-color: rgb(255, 255, 255);
                 height: 59px;
                 width: 100%;
                 border-bottom: 1px solid #ccc;
                 display: flex;
                 align-items: center;
                 position: sticky; /* تثبيت الشريط */
-                top: 77px; /* التثبيت أسفل صندوق البحث */
+                top: 62px; /* التثبيت أسفل صندوق البحث */
                 z-index: 1; /* التأكد من أن الشريط يظهر فوق المحتوى الآخر */
                 overflow-x: scroll; /* التمرير الأفقي */
                 white-space: nowrap; /* منع العناصر من الانتقال إلى سطر جديد */
@@ -190,8 +189,8 @@
         <input type="text" id="search-input" placeholder="ابحث هنا">
         <button class="clear-button" id="clear-button">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M18 6L6 18" stroke="#333" stroke-width="2" />
-            <path d="M6 6L18 18" stroke="#333" stroke-width="2" />
+            <path d="M18 6L6 18" stroke="#333" stroke-width="3" />
+            <path d="M6 6L18 18" stroke="#333" stroke-width="3" />
           </svg>
         </button>
         <button class="search-button" id="search-button">
@@ -430,7 +429,7 @@
 
 
     
-
+<br><b><br><br></b>
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -443,7 +442,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 2px; /* المسافة بين العناصر */
-            padding: -5px -100px; /* المسافة على يمين ويسار الشاشة */
+            padding: -15px -100px; /* المسافة على يمين ويسار الشاشة */
             justify-content: center;
         }
  
