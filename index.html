@@ -253,6 +253,12 @@
                 justify-content: center;
                 border-radius: 33px;
             }
+ /* التصميم المتجاوب */
+ @media (max-width: 767px) {
+    .search-container .search-button {
+                  left: 6px;
+                }}
+
     
             .search-container .search-button:hover {
                 background-color: #333;
@@ -560,93 +566,103 @@
     </div>
     
     <script>
-        const searchInput = document.getElementById('search-input');
-        const clearButton = document.getElementById('clear-button');
-        const searchButton = document.getElementById('search-button');
-        const imageItems = document.querySelectorAll('.image-item');
-        const noResultsMessage = document.getElementById('no-results');
-        const searchTermSpan = document.getElementById('search-term');
-        const navLinks = document.querySelectorAll('.navbar ul li a');
-    
-        // عند الكتابة في حقل البحث
-        searchInput.addEventListener('input', function () {
-            if (searchInput.value.length > 0) {
-                clearButton.style.display = 'block';
-            } else {
-                clearButton.style.display = 'none';
-            }
-        });
-    
-        // عند النقر على زر الإزالة
-        clearButton.addEventListener('click', function () {
-            searchInput.value = '';
-            clearButton.style.display = 'none';
-            searchInput.focus();
-            filterImages();
-        });
-    
-        // عند النقر على زر البحث
-        searchButton.addEventListener('click', function () {
-            filterImages();
-            searchInput.blur();
-        });
-    
-        // عند الضغط على زر Enter داخل صندوق البحث
-        searchInput.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                filterImages();
-                searchInput.blur();
-            }
-        });
-    
-        // عند فقدان التركيز على صندوق البحث
-        searchInput.addEventListener('blur', function () {
-            filterImages();
-        });
-    
-        // تصفية الصور بناءً على النص المدخل
-        function filterImages() {
-            const searchTerm = searchInput.value.toLowerCase();
-            let hasResults = false;
-    
-            imageItems.forEach((item) => {
-                const text = item.querySelector('p').textContent.toLowerCase();
-                const hiddenText = item.querySelector('.hidden-text').textContent.toLowerCase();
-                if (text.includes(searchTerm) || hiddenText.includes(searchTerm)) {
-                    item.classList.remove('hidden');
-                    hasResults = true;
-                } else {
-                    item.classList.add('hidden');
-                }
-            });
-    
-            if (!hasResults && searchTerm.trim() !== '') {
-                searchTermSpan.textContent = searchTerm;
-                noResultsMessage.style.display = 'block';
-            } else {
-                noResultsMessage.style.display = 'none';
-            }
-    
-            if (searchTerm.trim() === '') {
-                noResultsMessage.style.display = 'none';
-            }
+       const searchInput = document.getElementById('search-input');
+const clearButton = document.getElementById('clear-button');
+const searchButton = document.getElementById('search-button');
+const imageItems = document.querySelectorAll('.image-item');
+const noResultsMessage = document.getElementById('no-results');
+const searchTermSpan = document.getElementById('search-term');
+const navLinks = document.querySelectorAll('.navbar ul li a');
+const allLink = document.querySelector('.navbar ul li a.active'); // الرابط "الكل"
+
+// عند الكتابة في حقل البحث
+searchInput.addEventListener('input', function () {
+    if (searchInput.value.length > 0) {
+        clearButton.style.display = 'block';
+    } else {
+        clearButton.style.display = 'none';
+    }
+});
+
+// عند النقر على زر الإزالة
+clearButton.addEventListener('click', function () {
+    searchInput.value = '';
+    clearButton.style.display = 'none';
+    searchInput.focus();
+    filterImages();
+    resetToAll(); // إعادة تعيين التحديد إلى "الكل"
+});
+
+// عند النقر على زر البحث
+searchButton.addEventListener('click', function () {
+    filterImages();
+    searchInput.blur();
+    resetToAll(); // إعادة تعيين التحديد إلى "الكل"
+});
+
+// عند الضغط على زر Enter داخل صندوق البحث
+searchInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        filterImages();
+        searchInput.blur();
+        resetToAll(); // إعادة تعيين التحديد إلى "الكل"
+    }
+});
+
+// عند فقدان التركيز على صندوق البحث
+searchInput.addEventListener('blur', function () {
+    filterImages();
+});
+
+// تصفية الصور بناءً على النص المدخل
+function filterImages() {
+    const searchTerm = searchInput.value.toLowerCase();
+    let hasResults = false;
+
+    imageItems.forEach((item) => {
+        const text = item.querySelector('p').textContent.toLowerCase();
+        const hiddenText = item.querySelector('.hidden-text').textContent.toLowerCase();
+        if (text.includes(searchTerm) || hiddenText.includes(searchTerm)) {
+            item.classList.remove('hidden');
+            hasResults = true;
+        } else {
+            item.classList.add('hidden');
         }
-    
-        // عند النقر على روابط شريط التنقل
-        navLinks.forEach((link) => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const linkText = this.textContent.trim();
-    
-                if (linkText === "الكل") {
-                    // إذا كان الرابط "الكل"، تحديث الصفحة
-                    window.location.reload();
-                } else {
-                    searchInput.value = linkText; // وضع النص في حقل البحث
-                    navLinks.forEach((l) => l.classList.remove('active'));
-                    this.classList.add('active');
-                    filterImages(); // تصفية الصور بناءً على النص الجديد
-                }
-            });
-        });
+    });
+
+    if (!hasResults && searchTerm.trim() !== '') {
+        searchTermSpan.textContent = searchTerm;
+        noResultsMessage.style.display = 'block';
+    } else {
+        noResultsMessage.style.display = 'none';
+    }
+
+    if (searchTerm.trim() === '') {
+        noResultsMessage.style.display = 'none';
+    }
+}
+
+// إعادة تعيين التحديد إلى "الكل"
+function resetToAll() {
+    navLinks.forEach((link) => link.classList.remove('active'));
+    allLink.classList.add('active');
+}
+
+// عند النقر على روابط شريط التنقل
+navLinks.forEach((link) => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const linkText = this.textContent.trim();
+
+        if (linkText === "الكل") {
+            // إذا كان الرابط "الكل"، تحديث الصفحة
+            window.location.reload();
+        } else {
+            searchInput.value = linkText; // وضع النص في حقل البحث
+            navLinks.forEach((l) => l.classList.remove('active'));
+            this.classList.add('active');
+            filterImages(); // تصفية الصور بناءً على النص الجديد
+        }
+    });
+});
     </script>
