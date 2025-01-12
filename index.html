@@ -175,8 +175,6 @@
 
 
 
-
-
     <!DOCTYPE html>
     <html lang="ar" dir="rtl">
     <head>
@@ -411,7 +409,20 @@
             }
     
             /* التصميم المتجاوب */
-            @media (min-width: 768px) {
+            @media (max-width: 767px) {
+                .image-container {
+                    padding: 5px; /* تقليل المسافة الجانبية على الهواتف */
+                }
+                .image-item {
+                    width: calc((100% - 10px) / 2); /* صورتين بجانب بعض */
+                }
+            }
+            @media (min-width: 600px) and (max-width: 1199px) {
+                .image-item {
+                    width: calc((100% - 30px) / 3); /* 4 عناصر على شاشات الأجهزة اللوحية */
+                }
+            }
+            @media (min-width: 768px) and (max-width: 1199px) {
                 .image-item {
                     width: calc((100% - 30px) / 4); /* 4 عناصر على شاشات الأجهزة اللوحية */
                 }
