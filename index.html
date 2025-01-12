@@ -22,7 +22,7 @@
                 bottom: 20px;
                 left: 20px;
                 width: 14px;
-                background-color: #fff;
+                background-color: #ffffff;
                 border-radius: 10px;
                 padding: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -65,12 +65,13 @@
                 font-size: 24px;
                 cursor: pointer;
                 text-align: center; /* محاذاة الأيقونة في الوسط */
+                margin-top: -16px;
             }
     
             .scroll-to-top svg {
                 width: 21px;
                 height: 21;
-                margin-bottom: -11px;
+                margin-bottom: -17px;
             }
     
             /* تصميم الخط الفاصل */
@@ -158,9 +159,6 @@
     </html>
 
     
-
-
-
 
 
 
@@ -408,6 +406,10 @@
                 font-size: 14px;
             }
     
+            .hidden-text {
+                display: none; /* إخفاء النص المخفي */
+            }
+    
             /* التصميم المتجاوب */
             @media (max-width: 767px) {
                 .image-container {
@@ -417,11 +419,7 @@
                     width: calc((100% - 10px) / 2); /* صورتين بجانب بعض */
                 }
             }
-            @media (min-width: 600px) and (max-width: 1199px) {
-                .image-item {
-                    width: calc((100% - 30px) / 3); /* 4 عناصر على شاشات الأجهزة اللوحية */
-                }
-            }
+    
             @media (min-width: 768px) and (max-width: 1199px) {
                 .image-item {
                     width: calc((100% - 30px) / 4); /* 4 عناصر على شاشات الأجهزة اللوحية */
@@ -481,6 +479,7 @@
                 <div class="letter">EGP</div>
             </div>
             <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
+            <span class="hidden-text">ساعة ذكية</span> <!-- النص المخفي -->
         </div>
         <div class="image-item">
             <img src="1.jpg" alt="صورة 1">
@@ -492,6 +491,7 @@
                 <div class="letter">EGP</div>
             </div>
             <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
+            <span class="hidden-text">نص مخفي 1</span> <!-- النص المخفي -->
         </div>
         <div class="image-item">
             <img src="1.jpg" alt="صورة 1">
@@ -503,6 +503,7 @@
                 <div class="letter">EGP</div>
             </div>
             <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
+            <span class="hidden-text">نص مخفي 2</span> <!-- النص المخفي -->
         </div>
         <div class="image-item">
             <img src="1.jpg" alt="صورة 1">
@@ -514,6 +515,7 @@
                 <div class="letter">EGP</div>
             </div>
             <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
+            <span class="hidden-text">نص مخفي 3</span> <!-- النص المخفي -->
         </div>
         <div class="image-item">
             <img src="1.jpg" alt="صورة 1">
@@ -525,6 +527,7 @@
                 <div class="letter">EGP</div>
             </div>
             <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
+            <span class="hidden-text">نص مخفي 4</span> <!-- النص المخفي -->
         </div>
         <div class="image-item">
             <img src="1.jpg" alt="صورة 1">
@@ -536,6 +539,7 @@
                 <div class="letter">EGP</div>
             </div>
             <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
+            <span class="hidden-text">نص مخفي 5</span> <!-- النص المخفي -->
         </div>
         <div class="image-item">
             <img src="1.jpg" alt="صورة 1">
@@ -547,6 +551,7 @@
                 <div class="letter">EGP</div>
             </div>
             <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
+            <span class="hidden-text">نص مخفي 6</span> <!-- النص المخفي -->
         </div>
     </div>
     
@@ -561,8 +566,10 @@
         const imageItems = document.querySelectorAll('.image-item');
         const noResultsMessage = document.getElementById('no-results');
         const searchTermSpan = document.getElementById('search-term');
+        const navLinks = document.querySelectorAll('.navbar ul li a');
     
-        searchInput.addEventListener('input', function() {
+        // عند الكتابة في حقل البحث
+        searchInput.addEventListener('input', function () {
             if (searchInput.value.length > 0) {
                 clearButton.style.display = 'block';
             } else {
@@ -570,36 +577,42 @@
             }
         });
     
-        clearButton.addEventListener('click', function() {
+        // عند النقر على زر الإزالة
+        clearButton.addEventListener('click', function () {
             searchInput.value = '';
             clearButton.style.display = 'none';
             searchInput.focus();
             filterImages();
         });
     
-        searchButton.addEventListener('click', function() {
+        // عند النقر على زر البحث
+        searchButton.addEventListener('click', function () {
             filterImages();
             searchInput.blur();
         });
     
-        searchInput.addEventListener('keydown', function(event) {
+        // عند الضغط على زر Enter داخل صندوق البحث
+        searchInput.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
                 filterImages();
                 searchInput.blur();
             }
         });
     
-        searchInput.addEventListener('blur', function() {
+        // عند فقدان التركيز على صندوق البحث
+        searchInput.addEventListener('blur', function () {
             filterImages();
         });
     
+        // تصفية الصور بناءً على النص المدخل
         function filterImages() {
             const searchTerm = searchInput.value.toLowerCase();
             let hasResults = false;
     
-            imageItems.forEach(item => {
+            imageItems.forEach((item) => {
                 const text = item.querySelector('p').textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
+                const hiddenText = item.querySelector('.hidden-text').textContent.toLowerCase();
+                if (text.includes(searchTerm) || hiddenText.includes(searchTerm)) {
                     item.classList.remove('hidden');
                     hasResults = true;
                 } else {
@@ -619,15 +632,21 @@
             }
         }
     
-        const navLinks = document.querySelectorAll('.navbar ul li a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
+        // عند النقر على روابط شريط التنقل
+        navLinks.forEach((link) => {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
-                navLinks.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
+                const linkText = this.textContent.trim();
+    
+                if (linkText === "الكل") {
+                    // إذا كان الرابط "الكل"، تحديث الصفحة
+                    window.location.reload();
+                } else {
+                    searchInput.value = linkText; // وضع النص في حقل البحث
+                    navLinks.forEach((l) => l.classList.remove('active'));
+                    this.classList.add('active');
+                    filterImages(); // تصفية الصور بناءً على النص الجديد
+                }
             });
         });
     </script>
-    
-    </body>
-    </html>
