@@ -481,9 +481,8 @@
         id="search-box" 
         placeholder="ابحث هنا..." 
         autocomplete="off" 
-        readonly 
-        onclick="redirectToSearch()">
-    <button id="search-button" onclick="redirectToSearch()">
+        onclick="redirectToSearchPage()"> <!-- حدث النقر على صندوق البحث -->
+    <button id="search-button" onclick="performSearch()"> <!-- حدث النقر على زر البحث -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -492,14 +491,35 @@
 </div>
 
 <script>
-    function redirectToSearch() {
-        // الكود الخاص بالبحث أو إعادة التوجيه
-        console.log('تم النقر على البحث');
-        // مثال على إعادة التوجيه
-        // window.location.href = "search-page.html";
+    // دالة لتوجيه المستخدم إلى صفحة البحث عند النقر على صندوق البحث
+    function redirectToSearchPage() {
+        window.location.href = "search.html"; // توجيه إلى search.html
+    }
+
+    // دالة لتنفيذ البحث عند النقر على زر البحث
+    function performSearch() {
+        const searchQuery = document.getElementById('search-box').value;
+        
+        if (searchQuery.trim() !== "") {
+            // قم بتنفيذ عملية البحث هنا
+            console.log('بحث عن:', searchQuery);
+            
+            // يمكنك إضافة الكود الخاص بالبحث هنا
+            // مثلاً: إظهار نتائج البحث في نفس الصفحة دون إعادة التوجيه
+            displaySearchResults(searchQuery);
+        } else {
+            console.log('الرجاء إدخال نص للبحث');
+        }
+    }
+
+    // مثال على دالة لعرض نتائج البحث
+    function displaySearchResults(query) {
+        // قم بتنفيذ الكود لعرض نتائج البحث في الصفحة
+        const resultsContainer = document.createElement('div');
+        resultsContainer.innerHTML = `<p>نتائج البحث عن: ${query}</p>`;
+        document.body.appendChild(resultsContainer);
     }
 </script>
-
 
 <script>
     // وظيفة إعادة التوجيه إلى صفحة search.html

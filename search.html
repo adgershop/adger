@@ -271,6 +271,7 @@
 
     <!-- صندوق البحث -->
     <div class="search-container">
+        <input type="text" id="search-input-hidden" style="position:absolute;top:-9999px;">
         <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
         <button class="clear-button" id="clear-button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -334,6 +335,7 @@
     <script>
         // العناصر الأساسية
         const searchInput = document.getElementById('search-input');
+        const searchInputHidden = document.getElementById('search-input-hidden');
         const searchButton = document.getElementById('search-button');
         const backButton = document.getElementById('back-button');
         const searchHistoryGrid = document.getElementById('search-history');
@@ -453,9 +455,10 @@
         // تركيز المؤشر على صندوق البحث عند تحميل الصفحة
         window.addEventListener('load', function () {
             setTimeout(function () {
-                searchInput.focus(); // التركيز على الحقل
-                searchInput.dispatchEvent(new Event('touchstart', { bubbles: true, cancelable: true })); // محاولة لتحفيز ظهور لوحة المفاتيح
-                searchInput.dispatchEvent(new Event('touchend', { bubbles: true, cancelable: true }));
+                searchInputHidden.focus(); // التركيز على الحقل المخفي لإظهار لوحة المفاتيح
+                setTimeout(function() {
+                    searchInput.focus(); // ثم التركيز على حقل البحث الفعلي
+                }, 100); // تأخير بسيط لضمان ظهور لوحة المفاتيح
             }, 500); // تأخير 500 مللي ثانية
         });
     </script>
