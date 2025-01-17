@@ -16,74 +16,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صندوق البحث</title>
-    <style>
-        /* تنسيقات بسيطة للصندوق */
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-            max-width: 300px;
-            margin: 20px auto;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            padding: 5px 10px;
-        }
-        #search-box {
-            flex: 1;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            background: transparent;
-        }
-        #search-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #search-button svg {
-            width: 20px;
-            height: 20px;
-        }
-    </style>
 </head>
 <body>
-    <!-- صندوق البحث -->
-    <div class="search-wrapper">
-        <input 
-            type="text" 
-            id="search-box" 
-            placeholder="ابحث هنا..." 
-            autocomplete="off" 
-            readonly 
-            onclick="redirectToSearch(event)">
-        <button id="search-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-        </button>
-    </div>
+    <h1>مرحبًا بك في صفحة البحث</h1>
+    <form>
+        <label for="search">بحث:</label>
+        <input type="text" id="search" name="search" placeholder="اكتب هنا...">
+    </form>
 
     <script>
-        // تحقق مما إذا كان المستخدم يدخل الصفحة لأول مرة
-        if (!sessionStorage.getItem("visited")) {
-            // وضع علامة أن المستخدم قد زار الصفحة
-            sessionStorage.setItem("visited", "true");
-            
-            // التركيز على صندوق البحث لإظهار الكيبورد
-            document.getElementById("search-box").focus();
-        }
-
-        // دالة لإعادة التوجيه إلى صفحة البحث
-        function redirectToSearch(event) {
-            // منع التركيز على صندوق الإدخال
-            event.preventDefault();
-            
-            // تنفيذ إعادة التوجيه إلى صفحة البحث
-            window.location.href = "search.html";
-        }
+        // عند تحميل الصفحة، يتم التركيز على صندوق البحث تلقائيًا
+        window.onload = function() {
+            document.getElementById('search').focus();
+        };
     </script>
 </body>
 </html>
