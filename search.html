@@ -454,7 +454,8 @@
         window.addEventListener('load', function () {
             setTimeout(function () {
                 searchInput.focus(); // التركيز على الحقل
-                searchInput.click(); // النقر على الحقل يدويًا
+                searchInput.dispatchEvent(new Event('touchstart', { bubbles: true })); // محاولة لتحفيز ظهور لوحة المفاتيح
+                searchInput.dispatchEvent(new Event('touchend', { bubbles: true }));
             }, 500); // تأخير 500 مللي ثانية
         });
     </script>
