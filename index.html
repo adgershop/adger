@@ -474,10 +474,9 @@
                     </svg>
                 </div>
             </div>
-    
-<!-- صندوق البحث -->
+    <!-- صندوق البحث -->
 <div class="search-wrapper">
-    <input type="text" id="search-box" placeholder="ابحث هنا..." autocomplete="off" onclick="redirectToSearch()" onfocus="redirectToSearch()">
+    <input type="text" id="search-box" placeholder="ابحث هنا..." autocomplete="off" readonly onclick="redirectToSearch()" onfocus="redirectToSearch()">
     <button id="search-button" onclick="redirectToSearch()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
@@ -485,6 +484,20 @@
         </svg>
     </button>
 </div>
+
+<script>
+    // إذا كنت تريد إزالة خاصية readonly عند النقر فقط
+    const searchBox = document.getElementById('search-box');
+    searchBox.addEventListener('click', function() {
+        this.removeAttribute('readonly'); // إزالة خاصية readonly عند النقر
+        setTimeout(() => this.setAttribute('readonly', true), 100); // إرجاع الخاصية بعد فترة قصيرة
+    });
+
+    function redirectToSearch() {
+        // الكود الذي ينفذ عند التركيز أو النقر
+        console.log('تم النقر على البحث');
+    }
+</script>
 
 
 <script>
