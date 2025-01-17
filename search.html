@@ -12,461 +12,478 @@
 
     
     <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة البحث</title>
-    <style>
-        /* تصميم الصفحة */
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(to right, #f8f8f89f, #f3f3f39f);
-            margin: 0;
-            padding: 0;
-        }
-
-        /* خلفية البحث البيضاء الثابتة */
-        .search-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 97px;
-            background-color: rgb(255, 255, 255);
-            z-index: 1;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* إضافة ظل لطيف */
-        }
-        @media (max-width: 767px) {
-            .search-background  {
-             height: 86px;
-            }}
-
-
-
-        /* صندوق البحث */
-        .search-container {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            direction: rtl;
-            z-index: 2;
-            background-color: transparent;
-            width: 60%;
-            max-width: 600px;
-        }
-
-        /* حقل الإدخال */
-        .search-container input[type="text"] {
-            width: 100%;
-            padding: 10px 12px 10px 53px;
-            font-size: 16px;
-            border: 1px solid #000000;
-            border-radius: 51px;
-            outline: none;
-            box-sizing: border-box;
-            text-align: right;
-            direction: rtl;
-            transition: border-color 0.3s;
-        }
-
-        .search-container input[type="text"]:focus {
-            border-color: #000000;
-            box-shadow: 0 0 2px #000000;
-        }
-
-        /* زر البحث */
-        .search-container .search-button {
-            position: absolute;
-            left: 3px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: black;
-            color: white;
-            width: 40px;
-            height: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 33px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .search-container .search-button:hover {
-            background-color: #333;
-        }
-
-        .search-container .search-button svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
-
-        /* زر "X" لحذف النص */
-        .search-container .clear-button {
-            position: absolute;
-            left: 44px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            display: none;
-            color: #000000;
-        }
-
-        .search-container .clear-button:hover {
-            color: #0056b3;
-        }
-
-        .search-container .clear-button svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* زر الرجوع */
-        .back-button {
-            position: fixed;
-            top: 17px;
-            left: 20px;
-            background-color: transparent;
-            color: black;
-            border: none;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 3;
-        }
-
-        .back-button svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* سجل البحث */
-        .search-history-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            padding: 20px;
-            margin-top: 100px;
-        }
-
-        .search-item {
-            position: relative;
-            border: 1px solid #ccc;
-            background-color: #ffffff;
-            border-radius: 100px;
-            padding: 10px;
-            padding-right: 22px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .search-item:hover {
-            background-color: #f3f3f3;
-        }
-
-        .search-item span {
-            font-size: 16px;
-            flex-grow: 1;
-        }
-
-        .search-item small {
-            font-size: 12px;
-            color: #888;
-            margin-left: 10px;
-        }
-
-        .search-item .delete-button {
-            position: relative;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #ff0000;
-            font-size: 16px;
-            padding: 0;
-            margin-left: 10px;
-        }
-
-        .delete-button:hover {
-            color: #cc0000;
-        }
-
-        /* نتائج البحث (الصور) */
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .image-item {
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .image-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .image-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        /* تصميم متجاوب */
-        @media (max-width: 767px) {
-            .search-history-grid {
-                grid-template-columns: repeat(2, 1fr);
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>صفحة البحث</title>
+        <style>
+            /* تصميم الصفحة */
+            body {
+                font-family: 'Cairo', sans-serif;
+                background: linear-gradient(to right, #f8f8f89f, #f3f3f39f);
+                margin: 0;
+                padding: 0;
             }
-
-            .image-grid {
-                grid-template-columns: repeat(3, 1fr); /* 3 أعمدة على الهواتف */
-                gap: 8px; /* تقليل المسافة بين الصور */
+    
+            /* صندوق البحث */
+            .search-container {
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                direction: rtl;
+                z-index: 2;
+                background-color: transparent;
+                width: 60%;
+                max-width: 600px;
             }
-
-            .image-item img {
-                width: 100%; /* جعل العرض 100% من الحاوية */
-                height: auto; /* جعل الارتفاع يتكيف مع العرض */
-                max-width: 100%; /* التأكد من عدم تجاوز العرض الأصلي */
+    
+            /* حقل الإدخال */
+            .search-container input[type="text"] {
+                width: 100%;
+                padding: 10px 12px 10px 53px;
+                font-size: 16px;
+                border: 1px solid #000000;
+                border-radius: 51px;
+                outline: none;
+                box-sizing: border-box;
+                text-align: right;
+                direction: rtl;
+                transition: border-color 0.3s;
             }
-
-            /* إخفاء التاريخ على الهواتف */
-            .search-item small {
+    
+            .search-container input[type="text"]:focus {
+                border-color: #000000;
+                box-shadow: 0 0 2px #000000;
+            }
+    
+            /* زر البحث */
+            .search-container .search-button {
+                position: absolute;
+                left: 3px;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: black;
+                color: white;
+                width: 40px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 33px;
+                border: none;
+                cursor: pointer;
+            }
+    
+            .search-container .search-button:hover {
+                background-color: #333;
+            }
+    
+            .search-container .search-button svg {
+                width: 20px;
+                height: 20px;
+                fill: white;
+            }
+    
+            /* زر "X" لحذف النص */
+            .search-container .clear-button {
+                position: absolute;
+                left: 44px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 16px;
                 display: none;
+                color: #000000;
             }
-        }
-
-        @media (min-width: 768px) and (max-width: 1024px) {
+    
+            .search-container .clear-button:hover {
+                color: #0056b3;
+            }
+    
+            .search-container .clear-button svg {
+                width: 20px;
+                height: 20px;
+            }
+    
+            /* زر الرجوع */
+            .back-button {
+                position: fixed;
+                top: 17px;
+                left: 20px;
+                background-color: transparent;
+                color: black;
+                border: none;
+                padding: 10px;
+                border-radius: 50%;
+                cursor: pointer;
+                z-index: 3;
+            }
+    
+            .back-button svg {
+                width: 24px;
+                height: 24px;
+            }
+    
+            /* سجل البحث */
+            .search-history-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                margin-top: 100px;
+            }
+    
+            .search-history-header h2 {
+                margin: 0;
+                font-size: 18px;
+            }
+    
+            .search-history-header .delete-all-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #ff0000;
+                font-size: 16px;
+                padding: 0;
+            }
+    
+            .search-history-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px; /* تعديل المسافة بين العناصر */
+                padding: 20px;
+            }
+    
+            .search-item {
+                border: 1px solid #ccc;
+                background-color: #ffffff;
+                border-radius: 100px;
+                padding: 10px 15px; /* تعديل padding ليتناسب مع حجم النص */
+                cursor: pointer;
+                display: inline-flex; /* تغيير إلى inline-flex لتكييف الحجم مع النص */
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+    
+            .search-item:hover {
+                background-color: #f3f3f3;
+            }
+    
+            .search-item span {
+                font-size: 16px;
+                flex-grow: 1;
+            }
+    
+            .search-item small {
+                font-size: 12px;
+                color: #888;
+                margin-left: 10px;
+            }
+    
+            .search-item .delete-button {
+                position: relative;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #ff0000;
+                font-size: 16px;
+                padding: 0;
+                margin-left: 10px;
+            }
+    
+            .delete-button:hover {
+                color: #cc0000;
+            }
+    
+            /* نتائج البحث (الصور) */
             .image-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .image-item img {
-                max-width: 90%;
-            }
-        }
-
-        @media (min-width: 1025px) {
-            .image-grid {
+                display: grid;
                 grid-template-columns: repeat(6, 1fr);
+                gap: 10px;
+                padding: 20px;
+                margin-top: 20px;
+                background-color: #8A2BE2; /* خلفية بنفسجية */
             }
-        }
-    </style>
-</head>
-<body>
-    <!-- زر الرجوع -->
-    <button class="back-button" id="back-button">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
-        </svg>
-    </button>
-
-    <!-- خلفية البحث البيضاء الثابتة -->
-    <div class="search-background"></div>
-
-    <!-- صندوق البحث -->
-    <div class="search-container">
-        <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
-        <button class="clear-button" id="clear-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M18 6L6 18" stroke="#333" stroke-width="1" />
-                <path d="M6 6L18 18" stroke="#333" stroke-width="3" />
+    
+            .image-item {
+                border-radius: 10px; /* تم إبقاء الزوايا المدورة */
+                overflow: hidden;
+                cursor: pointer;
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+    
+            .image-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+    
+            .image-item:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+    
+            /* تصميم متجاوب */
+            @media (max-width: 767px) {
+                .search-history-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+    
+                .image-grid {
+                    grid-template-columns: repeat(3, 1fr); /* 3 أعمدة على الهواتف */
+                    gap: 8px; /* تقليل المسافة بين الصور */
+                }
+    
+                .image-item img {
+                    width: 100%; /* جعل العرض 100% من الحاوية */
+                    height: auto; /* جعل الارتفاع يتكيف مع العرض */
+                    max-width: 100%; /* التأكد من عدم تجاوز العرض الأصلي */
+                }
+    
+                /* إخفاء التاريخ على الهواتف */
+                .search-item small {
+                    display: none;
+                }
+            }
+    
+            @media (min-width: 768px) and (max-width: 1024px) {
+                .image-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+    
+                .image-item img {
+                    max-width: 90%;
+                }
+            }
+    
+            @media (min-width: 1025px) {
+                .image-grid {
+                    grid-template-columns: repeat(6, 1fr);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- زر الرجوع -->
+        <button class="back-button" id="back-button">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
             </svg>
         </button>
-        <button class="search-button" id="search-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <circle cx="10" cy="10" r="7" fill="none" stroke="white" stroke-width="2" />
-                <path d="M15 15l4 4" stroke="white" stroke-width="2" />
-            </svg>
-        </button>
-    </div>
-
-    <!-- سجل البحث -->
-    <div class="search-history-grid" id="search-history">
-        <!-- يتم ملء هذا الجزء بالبيانات من localStorage -->
-    </div>
-
-    <!-- نتائج البحث (الصور) -->
-    <div class="image-grid" id="image-grid">
-        <div class="image-item" data-term="بحث 1">
-            <img src="1.jpg" alt="بحث 1">
+    
+        <!-- صندوق البحث -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
+            <button class="clear-button" id="clear-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M18 6L6 18" stroke="#333" stroke-width="1" />
+                    <path d="M6 6L18 18" stroke="#333" stroke-width="3" />
+                </svg>
+            </button>
+            <button class="search-button" id="search-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="10" cy="10" r="7" fill="none" stroke="white" stroke-width="2" />
+                    <path d="M15 15l4 4" stroke="white" stroke-width="2" />
+                </svg>
+            </button>
         </div>
-        <div class="image-item" data-term="بحث 2">
-            <img src="1.2.jpg" alt="بحث 2">
+    
+        <!-- عنوان سجل البحث -->
+        <div class="search-history-header">
+            <h2>بحث المحفوظات</h2>
+            <button class="delete-all-button" id="delete-all-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#ff0000" stroke-width="2" fill="none"/>
+                    <path d="M10 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M14 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
         </div>
-        <div class="image-item" data-term="بحث 3">
-            <img src="1.3.jpg" alt="بحث 3">
+    
+        <!-- سجل البحث -->
+        <div class="search-history-grid" id="search-history">
+            <!-- يتم ملء هذا الجزء بالبيانات من localStorage -->
         </div>
-        <div class="image-item" data-term="بحث 4">
-            <img src="1.2.jpg" alt="بحث 4">
+    
+        <!-- نتائج البحث (الصور) -->
+        <div class="image-grid" id="image-grid">
+            <div class="image-item" data-term="بحث 1">
+                <img src="1.jpg" alt="بحث 1">
+            </div>
+            <div class="image-item" data-term="بحث 2">
+                <img src="1.2.jpg" alt="بحث 2">
+            </div>
+            <div class="image-item" data-term="بحث 3">
+                <img src="1.3.jpg" alt="بحث 3">
+            </div>
+            <div class="image-item" data-term="بحث 4">
+                <img src="1.2.jpg" alt="بحث 4">
+            </div>
+            <div class="image-item" data-term="بحث 5">
+                <img src="1.jpg" alt="بحث 5">
+            </div>
+            <div class="image-item" data-term="بحث 6">
+                <img src="1.2.jpg" alt="بحث 6">
+            </div>
+            <div class="image-item" data-term="بحث 7">
+                <img src="1.3.jpg" alt="بحث 7">
+            </div>
+            <div class="image-item" data-term="بحث 8">
+                <img src="1.jpg" alt="بحث 8">
+            </div>
+            <div class="image-item" data-term="بحث 9">
+                <img src="1.2.jpg" alt="بحث 9">
+            </div>
+            <div class="image-item" data-term="بحث 10">
+                <img src="1.3.jpg" alt="بحث 10">
+            </div>
+            <div class="image-item" data-term="بحث 11">
+                <img src="1.jpg" alt="بحث 11">
+            </div>
+            <div class="image-item" data-term="بحث 12">
+                <img src="1.2.jpg" alt="بحث 12">
+            </div>
         </div>
-        <div class="image-item" data-term="بحث 5">
-            <img src="1.jpg" alt="بحث 5">
-        </div>
-        <div class="image-item" data-term="بحث 6">
-            <img src="1.2.jpg" alt="بحث 6">
-        </div>
-        <div class="image-item" data-term="بحث 7">
-            <img src="1.3.jpg" alt="بحث 7">
-        </div>
-        <div class="image-item" data-term="بحث 8">
-            <img src="1.jpg" alt="بحث 8">
-        </div>
-        <div class="image-item" data-term="بحث 9">
-            <img src="1.2.jpg" alt="بحث 9">
-        </div>
-        <div class="image-item" data-term="بحث 10">
-            <img src="1.3.jpg" alt="بحث 10">
-        </div>
-        <div class="image-item" data-term="بحث 11">
-            <img src="1.jpg" alt="بحث 11">
-        </div>
-        <div class="image-item" data-term="بحث 12">
-            <img src="1.2.jpg" alt="بحث 12">
-        </div>
-    </div>
-
-    <script>
-        // العناصر الأساسية
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
-        const backButton = document.getElementById('back-button');
-        const searchHistoryGrid = document.getElementById('search-history');
-        const imageGrid = document.getElementById('image-grid');
-        const clearButton = document.getElementById('clear-button');
-
-        // الرجوع إلى الصفحة الرئيسية
-        backButton.addEventListener('click', function () {
-            window.location.href = 'index.html';
-        });
-
-        // عند النقر على زر البحث
-        searchButton.addEventListener('click', function () {
-            const searchTerm = searchInput.value.trim();
-            if (searchTerm) {
-                saveSearchTerm(searchTerm);
-                window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
-            }
-        });
-
-        // عند الضغط على Enter داخل صندوق البحث
-        searchInput.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
+    
+        <script>
+            // العناصر الأساسية
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const backButton = document.getElementById('back-button');
+            const searchHistoryGrid = document.getElementById('search-history');
+            const imageGrid = document.getElementById('image-grid');
+            const clearButton = document.getElementById('clear-button');
+            const deleteAllButton = document.getElementById('delete-all-button');
+    
+            // الرجوع إلى الصفحة الرئيسية
+            backButton.addEventListener('click', function () {
+                window.location.href = 'index.html';
+            });
+    
+            // عند النقر على زر البحث
+            searchButton.addEventListener('click', function () {
                 const searchTerm = searchInput.value.trim();
                 if (searchTerm) {
                     saveSearchTerm(searchTerm);
                     window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
                 }
-            }
-        });
-
-        // إظهار زر "X" عند البدء بالكتابة
-        searchInput.addEventListener('input', function () {
-            if (searchInput.value.trim() !== '') {
-                clearButton.style.display = 'block';
-            } else {
-                clearButton.style.display = 'none';
-            }
-        });
-
-        // إضافة حدث النقر على زر "X" لحذف النص
-        clearButton.addEventListener('click', function () {
-            searchInput.value = '';
-            clearButton.style.display = 'none';
-            searchInput.focus();
-        });
-
-        // حفظ مصطلح البحث في localStorage
-        function saveSearchTerm(term) {
-            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-            const isTermExists = searchHistory.some(entry => entry.term === term);
-            if (!isTermExists) {
-                const today = new Date();
-                const date = today.toLocaleDateString('ar-EG'); // تاريخ اليوم بتنسيق عربي
-                searchHistory.push({ term, date });
-                localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-            }
-        }
-
-        // عرض سجل البحث في الشبكة
-        function displaySearchHistory() {
-            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-            searchHistoryGrid.innerHTML = '';
-            searchHistory.forEach((entry) => {
-                const searchItem = document.createElement('div');
-                searchItem.className = 'search-item';
-
-                // التحقق من عرض الشاشة لتحديد ما إذا كان الجهاز لوحيًا
-                const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
-
-                // تقصير النص إلى 8 أحرف مع إضافة ".." إذا كان الجهاز لوحيًا
-                const displayTerm = isTablet && entry.term.length > 8 ? entry.term.substring(0, 8) + '..' : entry.term;
-
-                searchItem.innerHTML = `
-                    <span>${displayTerm}</span>
-                    <small>${entry.date}</small>
-                    <button class="delete-button">✖</button>
-                `;
-
-                searchItem.addEventListener('click', function () {
-                    searchInput.value = entry.term; // استخدام النص الكامل عند النقر
-                    searchButton.click();
-                });
-
-                searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    searchItem.remove();
-                    removeSearchTermFromHistory(entry.term);
-                });
-
-                searchHistoryGrid.appendChild(searchItem);
             });
-        }
-
-        // حذف مصطلح البحث من localStorage
-        function removeSearchTermFromHistory(term) {
-            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-            const updatedHistory = searchHistory.filter(entry => entry.term !== term);
-            localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
-        }
-
-        // إضافة حدث النقر على الصور
-        imageGrid.addEventListener('click', function (event) {
-            const imageItem = event.target.closest('.image-item');
-            if (imageItem) {
-                const searchTerm = imageItem.getAttribute('data-term');
-                if (searchTerm) {
-                    saveSearchTerm(searchTerm);
-                    window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
+    
+            // عند الضغط على Enter داخل صندوق البحث
+            searchInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    const searchTerm = searchInput.value.trim();
+                    if (searchTerm) {
+                        saveSearchTerm(searchTerm);
+                        window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
+                    }
+                }
+            });
+    
+            // إظهار زر "X" عند البدء بالكتابة
+            searchInput.addEventListener('input', function () {
+                if (searchInput.value.trim() !== '') {
+                    clearButton.style.display = 'block';
+                } else {
+                    clearButton.style.display = 'none';
+                }
+            });
+    
+            // إضافة حدث النقر على زر "X" لحذف النص
+            clearButton.addEventListener('click', function () {
+                searchInput.value = '';
+                clearButton.style.display = 'none';
+                searchInput.focus();
+            });
+    
+            // حفظ مصطلح البحث في localStorage
+            function saveSearchTerm(term) {
+                const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                const isTermExists = searchHistory.some(entry => entry.term === term);
+                if (!isTermExists) {
+                    const today = new Date();
+                    const date = today.toLocaleDateString('ar-EG'); // تاريخ اليوم بتنسيق عربي
+                    searchHistory.push({ term, date });
+                    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
                 }
             }
-        });
-
-        // عرض سجل البحث عند تحميل الصفحة
-        displaySearchHistory();
-
-        // تركيز المؤشر على صندوق البحث عند تحميل الصفحة
-        window.addEventListener('load', function () {
-            setTimeout(function () {
-                searchInput.focus(); // التركيز على الحقل
-                searchInput.click(); // النقر على الحقل يدويًا
-            }, 500); // تأخير 500 مللي ثانية
-        });
-    </script>
-</body>
-</html>
+    
+            // عرض سجل البحث في الشبكة
+            function displaySearchHistory() {
+                const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                searchHistoryGrid.innerHTML = '';
+                searchHistory.forEach((entry) => {
+                    const searchItem = document.createElement('div');
+                    searchItem.className = 'search-item';
+    
+                    // التحقق من عرض الشاشة لتحديد ما إذا كان الجهاز لوحيًا
+                    const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
+    
+                    // تقصير النص إلى 8 أحرف مع إضافة ".." إذا كان الجهاز لوحيًا
+                    const displayTerm = isTablet && entry.term.length > 8 ? entry.term.substring(0, 8) + '..' : entry.term;
+    
+                    searchItem.innerHTML = `
+                        <span>${displayTerm}</span>
+                        <small>${entry.date}</small>
+                        <button class="delete-button">✖</button>
+                    `;
+    
+                    searchItem.addEventListener('click', function () {
+                        searchInput.value = entry.term; // استخدام النص الكامل عند النقر
+                        searchButton.click();
+                    });
+    
+                    searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
+                        event.stopPropagation();
+                        searchItem.remove();
+                        removeSearchTermFromHistory(entry.term);
+                    });
+    
+                    searchHistoryGrid.appendChild(searchItem);
+                });
+            }
+    
+            // حذف مصطلح البحث من localStorage
+            function removeSearchTermFromHistory(term) {
+                const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                const updatedHistory = searchHistory.filter(entry => entry.term !== term);
+                localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+            }
+    
+            // حذف كل عناصر البحث
+            deleteAllButton.addEventListener('click', function () {
+                localStorage.removeItem('searchHistory');
+                displaySearchHistory();
+            });
+    
+            // إضافة حدث النقر على الصور
+            imageGrid.addEventListener('click', function (event) {
+                const imageItem = event.target.closest('.image-item');
+                if (imageItem) {
+                    const searchTerm = imageItem.getAttribute('data-term');
+                    if (searchTerm) {
+                        saveSearchTerm(searchTerm);
+                        window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
+                    }
+                }
+            });
+    
+            // عرض سجل البحث عند تحميل الصفحة
+            displaySearchHistory();
+    
+            // تركيز المؤشر على صندوق البحث عند تحميل الصفحة
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    searchInput.focus(); // التركيز على الحقل
+                    searchInput.click(); // النقر على الحقل يدويًا
+                }, 500); // تأخير 500 مللي ثانية
+            });
+        </script>
+    </body>
+    </html>
