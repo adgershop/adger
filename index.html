@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="style.css">
 
 
+
+
+
+    
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -158,8 +162,482 @@
     </body>
     </html>
 
+
+
+
+
+
+
+
+
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>الصفحة الرئيسية</title>
+        <style>
+            /* التنسيق العام */
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background-color: #ffffff;
+                padding-top: 132px; /* زيادة الحشو الأعلى لاستيعاب الشريطين */
+            }
+    
+            /* الشريط العلوي الثابت */
+            .header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 66px;
+                background-color: white;
+                padding: 0 20px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                z-index: 1;
+            }
+    
+            /* الشريط الأبيض الثابت أسفل الشريط العلوي */
+            .sub-header {
+                position: fixed;
+                top: 66px;
+                left: 0;
+                right: 0;
+                height: 48px;
+                background-color: white;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+                display: flex;
+                align-items: center;
+                padding: 0 20px;
+            }
+    
+            /* قائمة العناصر في الشريط الأبيض */
+            .sub-header nav {
+                display: flex;
+                gap: 30px;
+                position: relative;
+            }
+    
+            .sub-header nav a {
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                cursor: pointer;
+                padding: 10px 0; /* إضافة حشو لتحسين المظهر */
+            }
+    
+            /* الخط الرصاصي الرفيع تحت العنصر المحدد */
+            .underline {
+                position: absolute;
+                bottom: 0;
+                height: 2px;
+                background-color: #000000; /* لون الخط */
+                transition: all 0.3s ease;
+            }
+    
+            /* بقية التنسيقات كما هي */
+            .search-wrapper {
+                position: relative;
+                width: 60%;
+                max-width: 600px;
+            }
+    
+            #search-box {
+                width: 100%;
+                padding: 10px 12px 10px 53px;
+                font-size: 16px;
+                border: 1px solid #000000;
+                border-radius: 51px;
+                outline: none;
+                box-sizing: border-box;
+                text-align: right;
+                direction: rtl;
+            }
+    
+            #search-button {
+                position: absolute;
+                left: 3px;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: black;
+                color: white;
+                width: 40px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 33px;
+                border: none;
+                cursor: pointer;
+            }
+    
+            #search-button svg {
+                width: 20px;
+                height: 20px;
+                color: white;
+            }
+    
+            .right-elements {
+                display: flex;
+                align-items: center;
+                gap: 30px;
+            }
+    
+            .right-elements span {
+                font-size: 16px;
+                color: #333;
+            }
+    
+            .user-icon {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+    
+            .user-icon svg {
+                width: 24px;
+                height: 24px;
+                color: #333;
+            }
+    
+            .welcome-message {
+                font-size: 16px;
+                color: #007bff;
+            }
+    
+            .welcome-message span {
+                font-weight: bold;
+                color: #333;
+            }
+    
+            .left-elements {
+                display: flex;
+                align-items: center;
+                gap: 30px;
+            }
+    
+            .menu-icon, .cart-icon, .message-button {
+                cursor: pointer;
+            }
+    
+            .menu-icon svg, .cart-icon svg, .message-button svg {
+                width: 24px;
+                height: 24px;
+                color: #333;
+            }
+    
+            .cart-icon {
+                position: relative;
+            }
+    
+            .cart-count {
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background-color: red;
+                color: white;
+                font-size: 12px;
+                padding: 2px 6px;
+                border-radius: 50%;
+            }
+    
+            /* تعديلات النافذة الجانبية */
+            .menu-popup {
+                display: none;
+                position: fixed;
+                top: 0; /* تبدأ من أعلى الشاشة */
+                left: -250px;
+                width: 250px;
+                height: 100vh; /* تمتد من أعلى الشاشة إلى أسفلها */
+                background-color: white;
+                box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                z-index: 1000;
+                transition: left 0.3s ease-in-out;
+                overflow-y: auto; /* إضافة شريط تمرير إذا كان المحتوى أطول من الشاشة */
+            }
+    
+            @keyframes slideIn {
+                from {
+                    left: -250px;
+                }
+                to {
+                    left: 0;
+                }
+            }
+    
+            @keyframes slideOut {
+                from {
+                    left: 0;
+                }
+                to {
+                    left: -250px;
+                }
+            }
+    
+            .menu-popup.active {
+                display: block;
+                animation: slideIn 0.3s ease-in-out forwards;
+            }
+    
+            .menu-popup.closing {
+                animation: slideOut 0.3s ease-in-out forwards;
+            }
+    
+            .menu-popup .back-arrow {
+                cursor: pointer;
+                margin-bottom: 20px;
+            }
+    
+            .menu-popup .back-arrow svg {
+                width: 24px;
+                height: 24px;
+                color: #333;
+            }
+    
+            .menu-popup p {
+                font-size: 18px;
+                color: #333;
+                cursor: pointer;
+            }
+    
+            .menu-icon {
+                margin-left: 10px;
+            }
+    
+            .adger {
+                font-family: Arial, sans-serif;
+                font-size: 27px;
+                margin-left: 10px;
+                font-weight: bold;
+                background: linear-gradient(to right, #f37420, #ffc4c4);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                cursor: pointer;
+                user-select: none;
+            }
+    
+            @media (max-width: 767px) {
+                .adger {
+                    font-size: 20px;
+                    margin-left: 1px;
+                    margin-right: -4px;
+                }
+            }
+    
+            @media (min-width: 767px) {
+                .adger {
+                    margin-left: 10px;
+                }
+            }
+    
+            .container22 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+    
+            .country-code {
+                display: inline-flex;
+                align-items: center;
+                font-size: 18px;
+            }
+    
+            .flag {
+                width: 24px;
+                height: 16px;
+                margin-left: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- الهيكل الرئيسي -->
+        <div class="header">
+            <!-- العناصر على اليمين -->
+            <div class="right-elements">
+                <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
+                <span style="font-family: Cairo, sans-serif;">اللغه / <span style="color: red;">ar</span></span>
+                <div class="user-icon" onclick="window.location.href='account.html'">
+                    <div class="welcome-message" id="welcomeMessage">
+                        أهلاً <span id="usernameDisplay"></span>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+            </div>
+    
+<!-- صندوق البحث -->
+<div class="search-wrapper">
+    <input type="text" id="search-box" placeholder="ابحث هنا..." autocomplete="off" onclick="redirectToSearch()" onfocus="redirectToSearch()">
+    <button id="search-button" onclick="redirectToSearch()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+    </button>
+</div>
+
+
+<script>
+    // وظيفة إعادة التوجيه إلى صفحة search.html
+    function redirectToSearch() {
+        window.location.href = "search.html";
+    }
+</script>
+
+
+    
+            <!-- العناصر على اليسار -->
+            <div class="left-elements">
+                <div class="container22">
+                    <div class="country-code">
+                        <span>البلد / </span>
+                        <span style="color: #000000; width: 44px;">EGP</span>
+                        <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
+                    </div>
+                </div>
+                <!-- زر المراسلة -->
+                <div class="message-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                    <span style="font-family: Cairo, sans-serif;">مراسلة</span>
+                </div>
+                <!-- أيقونة السلة -->
+                <div class="cart-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </div>
+                <!-- أيقونة القائمة -->
+                <div class="menu-icon" onclick="toggleMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    
+       <!-- الشريط الأبيض الثابت أسفل الشريط العلوي -->
+<div class="sub-header">
+    <nav>
+        <!-- تعديل هنا: إزالة selectItem عند النقر على "الكل" -->
+        <a href="index.html" style="font-family: Cairo, sans-serif; color: #ff0062;">الكل</a>
+        <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
+        <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
+        <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
+        <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
+        <div class="underline"></div>
+    </nav>
+</div>
+
+<!-- نافذة القائمة الجانبية -->
+<div class="menu-popup" id="menuPopup">
+    <div class="back-arrow" onclick="toggleMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"></path>
+        </svg>
+    </div>
+    <p onclick="window.location.href='account.html'">حسابي</p>
+</div>
+
+<script>
+    // استرجاع بيانات المستخدم من localStorage
+    const username = localStorage.getItem('username');
+
+    // عرض "أهلاً" مع اسم المستخدم أو نص بديل
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+
+    if (username) {
+        usernameDisplay.textContent = username; // عرض اسم المستخدم
+    } else {
+        welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+    }
+
+    // دالة لإظهار أو إخفاء القائمة الجانبية
+    function toggleMenu() {
+        const menuPopup = document.getElementById('menuPopup');
+        if (menuPopup.classList.contains('active')) {
+            menuPopup.classList.remove('active');
+            menuPopup.classList.add('closing');
+            setTimeout(() => {
+                menuPopup.classList.remove('closing');
+                menuPopup.style.display = 'none';
+            }, 300); // يتناسب مع مدة animation
+        } else {
+            menuPopup.style.display = 'block';
+            menuPopup.classList.add('active');
+        }
+    }
+
+    // دالة لتنفيذ البحث
+    function performSearch(searchTerm) {
+        const products = document.querySelectorAll('.product'); // جميع المنتجات
+
+        products.forEach(product => {
+            const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
+            if (productName.includes(searchTerm.toLowerCase())) {
+                product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
+            } else {
+                product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
+            }
+        });
+    }
+
+    // دالة لتحريك الخط ووضع الكلمة في صندوق البحث (إن وجدت)
+    function selectItem(item, element) {
+        const searchBox = document.getElementById('search-box');
+        if (item) {
+            searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كانت موجودة)
+            performSearch(item); // تنفيذ البحث
+        }
+
+        const underline = document.querySelector('.underline');
+        const itemRect = element.getBoundingClientRect();
+        const navRect = element.parentElement.getBoundingClientRect();
+
+        underline.style.width = `${itemRect.width}px`;
+        underline.style.left = `${itemRect.left - navRect.left}px`;
+    }
+
+    // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
+    window.onload = function () {
+        const defaultItem = document.querySelector('.sub-header nav a');
+        const underline = document.querySelector('.underline');
+        const itemRect = defaultItem.getBoundingClientRect();
+        const navRect = defaultItem.parentElement.getBoundingClientRect();
+
+        // ضبط الخط تحت "الكل" بشكل افتراضي
+        underline.style.width = `${itemRect.width}px`;
+        underline.style.left = `${itemRect.left - navRect.left}px`;
+    };
+</script>
+
+
+
+
+
+
+
+
     
 
+    <br><br><br><br><br><br>
 
 
 
@@ -174,216 +652,96 @@
 
 
     <!DOCTYPE html>
-    <html lang="ar" dir="rtl">
+    <html lang="ar">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>صندوق بحث مع صور ونصوص</title>
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+        <title>معرض الصور</title>
         <style>
+            /* CSS */
             body {
+                font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
-                font-family: 'Cairo', sans-serif;
-                background-color: #fff;
-            }
-    
-            .search-background {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 77px;
-                background-color: rgb(255, 255, 255);
-                z-index: 1;
-            }
-    
-            .search-container {
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                direction: rtl;
-                z-index: 2;
-                background-color: transparent;
-            }
-    
-            .search-container input[type="text"] {
-                padding: 10px;
-                padding-left: 60px;
-                border: 1px solid #000000;
-                border-radius: 50px;
-                font-size: 16px;
-                width: 258px;
-                outline: none;
-                transition: border-color 0.3s;
-                direction: rtl;
-            }
-    
-            .search-container input[type="text"]:focus {
-                border-color: #000000;
-                box-shadow: 0 0 2px #000000;
-            }
-    
-            .search-container .clear-button,
-            .search-container .search-button {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                background: none;
-                border: none;
-                cursor: pointer;
-                font-size: 16px;
-            }
-    
-            .search-container .clear-button {
-                left: 44px;
-                display: none;
-                color: #000000;
-            }
-    
-            .search-container .search-button {
-                left: 4px;
-                background-color: black;
-                color: white;
-                width: 40px;
-                height: 34px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 33px;
-            }
- /* التصميم المتجاوب */
- @media (max-width: 466px) {
-    .search-container .search-button {
-                  left: 6px;
-                }}
-
-    
-            .search-container .search-button:hover {
-                background-color: #333;
-            }
-    
-            .search-container .search-button svg {
-                width: 20px;
-                height: 20px;
-                fill: white;
-            }
-    
-            .search-container .clear-button:hover {
-                color: #0056b3;
-            }
-    
-            .search-container .clear-button svg {
-                width: 20px;
-                height: 20px;
-            }
-    
-            .navbar {
-                background-color: rgb(255, 255, 255);
-                height: 59px;
-                width: 100%;
-                border-bottom: 1px solid #ccc;
-                display: flex;
-                align-items: center;
-                position: sticky;
-                top: 62px;
-                z-index: 1;
-                overflow-x: scroll;
-                white-space: nowrap;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-            }
-    
-            .navbar::-webkit-scrollbar {
-                display: none;
-            }
-    
-            .navbar ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                padding-right: 20px;
-                padding-left: 20px;
-            }
-    
-            .navbar ul li {
-                margin-right: 20px;
-            }
-    
-            .navbar ul li:first-child {
-                margin-right: -6px;
-            }
-    
-            .navbar ul li a {
-                text-decoration: none;
-                color: black;
-                font-size: 16px;
-                position: relative;
-                white-space: nowrap;
-                padding-bottom: 10px;
-                font-family: 'Cairo', sans-serif;
-            }
-    
-            .navbar ul li a::after {
-                content: '';
-                position: absolute;
-                width: 100%;
-                height: 2px;
-                background-color: black;
-                bottom: 0;
-                left: 0;
-                transform: scaleX(0);
-                transform-origin: bottom right;
-                transition: transform 0.3s ease;
-            }
-    
-            .navbar ul li a.active::after {
-                transform: scaleX(1);
-                transform-origin: bottom left;
-            }
-    
-            .image-container {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px; /* المسافة بين العناصر */
-                padding: 20px; /* المسافة على يمين ويسار الشاشة */
-                justify-content: center;
-                margin-top: 120px; /* مسافة من الشريط العلوي */
-            }
-    
-            .image-item {
-                width: calc((100% - 10px) / 2); /* صورتين بجانب بعض على الهواتف */
-                text-align: center;
-                border: 1px solid #ccc;
-                border-radius: 10px;
-                padding: 10px;
                 box-sizing: border-box;
             }
     
-            .image-item img {
-                width: 100%;
-                height: auto;
-                border-radius: 10px;
+            .gallery {
+                display: flex;
+                flex-wrap: wrap; /* لف العناصر عند عدم وجود مساحة كافية */
+                gap: 10px; /* المسافة بين العناصر */
+                justify-content: center; /* توسيط العناصر */
+                padding: 20px; /* هامش عام للشاشات الكبيرة */
             }
     
-            .image-item p {
-                margin-top: 10px;
-                font-size: 16px;
-                color: #333;
+            .image-container {
+                flex: 1 1 calc(16.666% - 20px); /* 6 منتجات في الصف للشاشات الكبيرة */
+                max-width: calc(16.666% - 20px);
+                box-sizing: border-box;
+                position: relative;
             }
     
-            .hidden {
-                display: none;
-            }
-    
-            .no-results {
+            .image-frame {
+                border: 2px solid #cfcfcf;
+                border-radius: 4%;
+                padding: 10px;
                 text-align: center;
-                margin-top: 20px;
-                font-size: 18px;
-                color: #ff0000;
-                display: none;
+                background-color: #f9f9f9;
+                position: relative;
+            }
+    
+            .image-frame img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+            }
+    
+            .text-under {
+                margin-top: 10px;
+                font-size: 14px;
+                line-height: 1.5;
+            }
+    
+            .add-to-cart {
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                background-color: #ffc400;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+    
+            .add-to-cart svg {
+                width: 24px;
+                height: 24px;
+                color: #000;
+            }
+    
+            /* التصميم للشاشات المتوسطة (التابلت) */
+            @media (max-width: 1024px) and (min-width: 769px) {
+                .image-container {
+                    flex: 1 1 calc(25% - 10px); /* 4 منتجات في الصف على التابلت */
+                    max-width: calc(25% - 10px);
+                }
+            }
+    
+            /* التصميم للشاشات الصغيرة (الهواتف) */
+            @media (max-width: 768px) {
+                .gallery {
+                    padding-left: 2px; /* هامش يساري 2px */
+                    padding-right: 2px; /* هامش يميني 2px */
+                }
+    
+                .image-container {
+                    flex: 1 1 calc(50% - 5px); /* منتجين في الصف على الهواتف */
+                    max-width: calc(50% - 5px);
+                }
             }
     
             .container {
@@ -408,261 +766,283 @@
             .letter {
                 position: absolute;
                 bottom: 2px;
-                left: -26px;
+                left: -30px;
                 font-size: 14px;
-            }
-    
-            .hidden-text {
-                display: none; /* إخفاء النص المخفي */
-            }
-    
-            /* التصميم المتجاوب */
-            @media (max-width: 767px) {
-                .image-container {
-                    padding: 5px; /* تقليل المسافة الجانبية على الهواتف */
-                }
-                .image-item {
-                    width: calc((100% - 10px) / 2); /* صورتين بجانب بعض */
-                }
-            }
-    
-            @media (min-width: 768px) and (max-width: 1199px) {
-                .image-item {
-                    width: calc((100% - 30px) / 4); /* 4 عناصر على شاشات الأجهزة اللوحية */
-                }
-            }
-    
-            @media (min-width: 1200px) {
-                .image-item {
-                    width: calc((100% - 60px) / 7); /* 7 عناصر على الشاشات الكبيرة */
-                }
             }
         </style>
     </head>
     <body>
-    
-    <div class="search-background"></div>
-    
-    <div class="search-container">
-        <input type="text" id="search-input" placeholder="ابحث هنا">
-        <button class="clear-button" id="clear-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M18 6L6 18" stroke="#333" stroke-width="3" />
-                <path d="M6 6L18 18" stroke="#333" stroke-width="3" />
-            </svg>
-        </button>
-        <button class="search-button" id="search-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <circle cx="10" cy="10" r="7" fill="none" stroke="white" stroke-width="2" />
-                <path d="M15 15l4 4" stroke="white" stroke-width="2" />
-            </svg>
-        </button>
-    </div>
-    
-    <div class="navbar">
-        <ul>
-            <li><a href="#" class="active" style="color: #ff0000; text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent">الكل</a></li>
-            <li><a href="#" style=" text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent">هواتف</a></li>
-            <li><a href="#" style="color: #008cff; text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent">لابتوب</a></li>
-            <li><a href="#" style=" text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent">مكتب</a></li>
-            <li><a href="#" style=" text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent">هواتف</a></li>
-            <li><a href="#" style=" text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent">لابتوب</a></li>
-            <li><a href="#" style=" text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent">مكتب</a></li>
-            <li><a href="#" style=" text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent">هواتف</a></li>
-            <li><a href="#" style=" text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent">لابتوب</a></li>
-            <li><a href="#" style=" text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent">مكتب</a></li>
-        </ul>
-    </div>
-    
-    <div class="image-container">
-        <div class="image-item">
-            <img src="1.jpg" alt="صورة 1">
-            <p>ساعة ذكية تعمل باللمس</p>
-            <p style=" color: #ffbb00; font-size: 14px; margin-top: -14px; margin-bottom: -4px;">2 مباعه - adger</p>
-            <div class="container">
-                <div class="number">666</div>
-                <div class="zero">00.</div>
-                <div class="letter">EGP</div>
+        <!-- HTML -->
+          <!-- المنتجات -->
+    <div class="gallery">
+        <div class="image-container product" data-name="ساعة تاتش تعمل باللمس">
+            <div class="image-frame">
+                <a href="1.html">
+                    <img src="1.jpg" alt="Image 1">
+                </a>
+                <div class="text-under">
+                    <h1 style="font-family: Cairo, sans-serif; color: #333; font-size: 15px;">ساعة تاتش تعمل باللمس</h1>
+                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                    <div class="container">
+                        <div class="number">666</div>
+                        <div class="zero">00.</div>
+                        <div class="letter">EGP</div>
+                    </div>
+                    <h3 style="font-family: Cairo, sans-serif; color: #ff0000; font-size: 16px; margin-top: -1px;">خصم 33%</h3>
+                </div>
+                <div class="add-to-cart" onclick="addToCart(this)">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                    </svg>
+                </div>
             </div>
-            <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
-            <span class="hidden-text">ساعة ذكية</span> <!-- النص المخفي -->
         </div>
-        <div class="image-item">
-            <img src="1.jpg" alt="صورة 1">
-            <p>هذا نص تحت الصورة الأولى</p>
-            <p style=" color: #ffbb00; font-size: 14px; margin-top: -14px; margin-bottom: -4px;">2 مباعه - adger</p>
-            <div class="container">
-                <div class="number">666</div>
-                <div class="zero">00.</div>
-                <div class="letter">EGP</div>
+
+        <div class="image-container product" data-name="ساعة ت22اتش تعمل باللمس">
+            <div class="image-frame">
+                <a href="search.html">
+                    <img src="1.2.jpg" alt="Image 1">
+                </a>
+                <div class="text-under">
+                    <h1 style="font-family: Cairo, sans-serif; color: #333; font-size: 15px;">ساعة ت22اتش تعمل باللمس</h1>
+                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                    <div class="container">
+                        <div class="number">66</div>
+                        <div class="zero">00.</div>
+                        <div class="letter">EGP</div>
+                    </div>
+                    <h3 style="font-family: Cairo, sans-serif; color: #ff0000; font-size: 16px; margin-top: -1px;">خصم 33%</h3>
+                </div>
+                <div class="add-to-cart" onclick="addToCart(this)">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                    </svg>
+                </div>
             </div>
-            <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
-            <span class="hidden-text">نص مخفي 1</span> <!-- النص المخفي -->
-        </div>
-        <div class="image-item">
-            <img src="1.jpg" alt="صورة 1">
-            <p>هذا نص تحت الصورة الأولى</p>
-            <p style=" color: #ffbb00; font-size: 14px; margin-top: -14px; margin-bottom: -4px;">2 مباعه - adger</p>
-            <div class="container">
-                <div class="number">666</div>
-                <div class="zero">00.</div>
-                <div class="letter">EGP</div>
-            </div>
-            <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
-            <span class="hidden-text">نص مخفي 2</span> <!-- النص المخفي -->
-        </div>
-        <div class="image-item">
-            <img src="1.jpg" alt="صورة 1">
-            <p>هذا نص تحت الصورة الأولى</p>
-            <p style=" color: #ffbb00; font-size: 14px; margin-top: -14px; margin-bottom: -4px;">2 مباعه - adger</p>
-            <div class="container">
-                <div class="number">666</div>
-                <div class="zero">00.</div>
-                <div class="letter">EGP</div>
-            </div>
-            <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
-            <span class="hidden-text">نص مخفي 3</span> <!-- النص المخفي -->
-        </div>
-        <div class="image-item">
-            <img src="1.jpg" alt="صورة 1">
-            <p>هذا نص تحت الصورة الأولى</p>
-            <p style=" color: #ffbb00; font-size: 14px; margin-top: -14px; margin-bottom: -4px;">2 مباعه - adger</p>
-            <div class="container">
-                <div class="number">666</div>
-                <div class="zero">00.</div>
-                <div class="letter">EGP</div>
-            </div>
-            <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
-            <span class="hidden-text">نص مخفي 4</span> <!-- النص المخفي -->
-        </div>
-        <div class="image-item">
-            <img src="1.jpg" alt="صورة 1">
-            <p>هذا نص تحت الصورة الأولى</p>
-            <p style=" color: #ffbb00; font-size: 14px; margin-top: -14px; margin-bottom: -4px;">2 مباعه - adger</p>
-            <div class="container">
-                <div class="number">666</div>
-                <div class="zero">00.</div>
-                <div class="letter">EGP</div>
-            </div>
-            <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
-            <span class="hidden-text">نص مخفي 5</span> <!-- النص المخفي -->
-        </div>
-        <div class="image-item">
-            <img src="1.jpg" alt="صورة 1">
-            <p>هذا نص تحت الصورة الأولى</p>
-            <p style=" color: #ffbb00; font-size: 14px; margin-top: -14px; margin-bottom: -4px;">2 مباعه - adger</p>
-            <div class="container">
-                <div class="number">666</div>
-                <div class="zero">00.</div>
-                <div class="letter">EGP</div>
-            </div>
-            <p style="color: #ff0000; margin: -4px;"> خصم 33%<p>
-            <span class="hidden-text">نص مخفي 6</span> <!-- النص المخفي -->
         </div>
     </div>
-    
-    <div class="no-results" id="no-results">
-        لا توجد نتائج بحث لـ "<span id="search-term"></span>"
+
+<style>
+      .product {
+            display: block; /* إظهار المنتج بشكل افتراضي */
+        }
+
+        .hidden {
+            display: none; /* إخفاء المنتج */
+        }
+
+        #no-results-message {
+            display: none; /* إخفاء الرسالة بشكل افتراضي */
+            text-align: center;
+            margin-top: 50px;
+            font-size: 20px;
+            color: #888;
+        }
+</style>
+
+
+    <!-- رسالة "لا توجد نتائج" -->
+    <div id="no-results-message">
+        لا توجد نتائج لـ "<span id="search-term-display"></span>"
     </div>
+
+
     
     <script>
-       const searchInput = document.getElementById('search-input');
-const clearButton = document.getElementById('clear-button');
-const searchButton = document.getElementById('search-button');
-const imageItems = document.querySelectorAll('.image-item');
-const noResultsMessage = document.getElementById('no-results');
-const searchTermSpan = document.getElementById('search-term');
-const navLinks = document.querySelectorAll('.navbar ul li a');
-const allLink = document.querySelector('.navbar ul li a.active'); // الرابط "الكل"
-
-// عند الكتابة في حقل البحث
-searchInput.addEventListener('input', function () {
-    if (searchInput.value.length > 0) {
-        clearButton.style.display = 'block';
-    } else {
-        clearButton.style.display = 'none';
-    }
-});
-
-// عند النقر على زر الإزالة
-clearButton.addEventListener('click', function () {
-    searchInput.value = '';
-    clearButton.style.display = 'none';
-    searchInput.focus();
-    filterImages();
-    resetToAll(); // إعادة تعيين التحديد إلى "الكل"
-});
-
-// عند النقر على زر البحث
-searchButton.addEventListener('click', function () {
-    filterImages();
-    searchInput.blur();
-    resetToAll(); // إعادة تعيين التحديد إلى "الكل"
-});
-
-// عند الضغط على زر Enter داخل صندوق البحث
-searchInput.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        filterImages();
-        searchInput.blur();
-        resetToAll(); // إعادة تعيين التحديد إلى "الكل"
-    }
-});
-
-// عند فقدان التركيز على صندوق البحث
-searchInput.addEventListener('blur', function () {
-    filterImages();
-});
-
-// تصفية الصور بناءً على النص المدخل
-function filterImages() {
-    const searchTerm = searchInput.value.toLowerCase();
-    let hasResults = false;
-
-    imageItems.forEach((item) => {
-        const text = item.querySelector('p').textContent.toLowerCase();
-        const hiddenText = item.querySelector('.hidden-text').textContent.toLowerCase();
-        if (text.includes(searchTerm) || hiddenText.includes(searchTerm)) {
-            item.classList.remove('hidden');
-            hasResults = true;
-        } else {
-            item.classList.add('hidden');
+        // دالة لقراءة معلمة البحث من URL
+        function getSearchTermFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('search'); // الحصول على قيمة معلمة "search"
         }
-    });
 
-    if (!hasResults && searchTerm.trim() !== '') {
-        searchTermSpan.textContent = searchTerm;
-        noResultsMessage.style.display = 'block';
-    } else {
-        noResultsMessage.style.display = 'none';
-    }
+        // دالة لتنفيذ البحث
+        function performSearch(searchTerm) {
+            const products = document.querySelectorAll('.product'); // جميع المنتجات
+            const noResultsMessage = document.getElementById('no-results-message'); // رسالة "لا توجد نتائج"
+            const searchTermDisplay = document.getElementById('search-term-display'); // العنصر الذي يعرض النص المدخل
 
-    if (searchTerm.trim() === '') {
-        noResultsMessage.style.display = 'none';
-    }
-}
+            let foundResults = false; // متغير لتتبع وجود نتائج
 
-// إعادة تعيين التحديد إلى "الكل"
-function resetToAll() {
-    navLinks.forEach((link) => link.classList.remove('active'));
-    allLink.classList.add('active');
-}
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
+                if (productName.includes(searchTerm.toLowerCase())) {
+                    product.style.display = 'block'; // إظهار المنتج إذا تطابق
+                    foundResults = true; // تم العثور على نتائج
+                } else {
+                    product.style.display = 'none'; // إخفاء المنتج إذا لم يتطابق
+                }
+            });
 
-// عند النقر على روابط شريط التنقل
-navLinks.forEach((link) => {
-    link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const linkText = this.textContent.trim();
-
-        if (linkText === "الكل") {
-            // إذا كان الرابط "الكل"، تحديث الصفحة
-            window.location.reload();
-        } else {
-            searchInput.value = linkText; // وضع النص في حقل البحث
-            navLinks.forEach((l) => l.classList.remove('active'));
-            this.classList.add('active');
-            filterImages(); // تصفية الصور بناءً على النص الجديد
+            // إظهار أو إخفاء رسالة "لا توجد نتائج"
+            if (foundResults) {
+                noResultsMessage.style.display = 'none'; // إخفاء الرسالة إذا وجدت نتائج
+            } else {
+                noResultsMessage.style.display = 'block'; // إظهار الرسالة إذا لم توجد نتائج
+                searchTermDisplay.textContent = searchTerm; // عرض النص المدخل في الرسالة
+            }
         }
-    });
-});
+
+        // تعبئة صندوق البحث وتنفيذ البحث تلقائيًا
+        window.addEventListener('load', function () {
+            const searchTerm = getSearchTermFromURL(); // قراءة معلمة البحث
+            if (searchTerm) {
+                const searchBox = document.getElementById('search-box'); // صندوق البحث في الصفحة الرئيسية
+                searchBox.value = decodeURIComponent(searchTerm); // تعبئة صندوق البحث بالنص
+                performSearch(searchTerm); // تنفيذ البحث تلقائيًا
+            }
+        });
     </script>
+</body>
+</html>
+
+
+
+
+
+
+
+    <script>
+        // 初始化购物车
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let cartCount = cart.length;
+
+// 更新购物车图标数量
+function updateCartCount() {
+    const cartCountElement = document.querySelector('.cart-count');
+    cartCountElement.textContent = cartCount;
+}
+
+// 添加商品到购物车
+function addToCart(button) {
+    const productId = button.getAttribute('data-product-id');
+    const product = {
+        id: productId,
+        name: document.querySelector(`[data-product-id="${productId}"]`).parentElement.querySelector('h1').textContent,
+        price: document.querySelector(`[data-product-id="${productId}"]`).parentElement.querySelector('.number').textContent,
+        image: document.querySelector(`[data-product-id="${productId}"]`).parentElement.querySelector('img').src
+    };
+
+    cart.push(product);
+    cartCount = cart.length;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+}
+
+// 导航到购物车页面
+function navigateToCart() {
+    window.location.href = 'cart.html';
+}
+
+// 初始化页面时更新购物车数量
+updateCartCount();
+
+// 绑定购物车图标的点击事件
+document.querySelector('.cart-icon').addEventListener('click', navigateToCart);
+// دالة لإضافة المنتج إلى العربة
+function addToCart(button) {
+    const productContainer = button.closest('.image-container');
+    const product = {
+        id: productContainer.querySelector('img').src, // استخدام الصورة كمعرف فريد
+        image: productContainer.querySelector('img').src,
+        name: productContainer.querySelector('h1').textContent,
+        sold: productContainer.querySelector('h2').textContent,
+        price: productContainer.querySelector('.number').textContent,
+        discount: productContainer.querySelector('h3').textContent,
+        link: productContainer.querySelector('a').href // حفظ رابط الصفحة المخصصة
+    };
+
+    // استرجاع العربة الحالية من localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(product); // إضافة المنتج الجديد
+    localStorage.setItem('cart', JSON.stringify(cart)); // حفظ العربة المحدثة
+
+    // تحديث عدد العناصر في العربة
+    updateCartCount();
+}
+// دالة لتحديث عدد العناصر في العربة
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCountElement = document.querySelector('.cart-count');
+    cartCountElement.textContent = cart.length;
+}
+
+// تحديث عدد العناصر في العربة عند تحميل الصفحة
+updateCartCount();
+
+    </script>
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل الصفحة</title>
+    <style>
+        /* تصميم دائرة التحميل */
+        .loader {
+            position: fixed;
+            top: 116px; /* تبدأ بعد 100px من الأعلى */
+            left: 0;
+            width: 100%;
+            height: calc(100% - 100px); /* الارتفاع الكلي ناقص 100px */
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* إخفاء المحتوى أثناء التحميل */
+        .page-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- عنصر التحميل -->
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        // إظهار وإخفاء المحتوى ودائرة التحميل
+        document.addEventListener('DOMContentLoaded', function () {
+            const loader = document.getElementById('loader');
+            const pageContent = document.getElementById('page-content');
+
+            // إظهار دائرة التحميل وإخفاء المحتوى
+            loader.style.display = 'flex';
+            pageContent.style.display = 'none';
+        });
+
+        // انتظار اكتمال تحميل الصفحة بالكامل
+        window.onload = function () {
+            const loader = document.getElementById('loader');
+            const pageContent = document.getElementById('page-content');
+
+            // إخفاء دائرة التحميل وإظهار المحتوى
+            loader.style.display = 'none';
+            pageContent.style.display = 'block';
+        };
+    </script>
+</body>
+</html>

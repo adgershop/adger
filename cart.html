@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adger</title>
+    <link rel="icon" href="logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+
+
+    
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>عربة التسوق</title>
+        <style>
+            /* تنسيقات عامة */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                position: relative;
+                min-height: 100vh;
+            }
+    
+            .gallery {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                padding: 20px;
+                margin-bottom: 75px; /* ترك مساحة للفوتر */
+            }
+    
+            .image-container {
+                flex: 1 1 calc(16.666% - 20px); /* 6 منتجات في الصف للشاشات الكبيرة */
+                max-width: calc(16.666% - 20px);
+                box-sizing: border-box;
+                position: relative;
+            }
+    
+            .image-frame {
+                border: 2px solid #cfcfcf;
+                border-radius: 10px; /* تدوير الزوايا */
+                padding: 10px;
+                padding-bottom: 40px; /* تقليل الحشو السفلي */
+                text-align: center;
+                background-color: #f9f9f9;
+                position: relative;
+                overflow: hidden; /* لإخفاء أي محتوى يخرج عن الحدود */
+            }
+    
+            .image-frame img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                cursor: pointer;
+            }
+    
+            .text-under {
+                margin-top: 10px;
+                font-size: 14px;
+                line-height: 1.5;
+            }
+    
+            .container {
+                position: relative;
+                display: inline-block;
+                text-align: center;
+                font-size: 16px;
+                color: #000000;
+            }
+    
+            .number {
+                font-size: 24px;
+            }
+    
+            .zero {
+                position: absolute;
+                bottom: 2px;
+                right: -18px;
+                font-size: 14px;
+            }
+    
+            .letter {
+                position: absolute;
+                bottom: 2px;
+                left: -30px;
+                font-size: 14px;
+            }
+    
+            .remove-button {
+                background-color: #ff0000;
+                color: white;
+                border: none;
+                padding: 10px 0; /* تعديل الحشو ليكون مناسبًا للعرض الكامل */
+                width: 100%; /* جعل الزر يأخذ العرض الكامل */
+                border-radius: 0 0 10px 10px; /* تدوير الزوايا السفلية فقط */
+                cursor: pointer;
+                font-family: Cairo, sans-serif;
+                font-size: 14px;
+                position: absolute; /* لجعل الزر في الأسفل */
+                bottom: 0;
+                left: 0;
+                margin-top: 5px; /* تقليل المسافة بين النص والزر */
+            }
+    
+            .remove-button:hover {
+                background-color: #cc0000;
+            }
+    
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 55px;
+                background-color: #007bff;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 20px;
+                box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+    
+            .total-price {
+                color: white;
+                font-family: Cairo, sans-serif;
+                font-size: 18px;
+            }
+    
+            .back-button {
+                background-color: white;
+                color: #007bff;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-family: Cairo, sans-serif;
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+    
+            .back-button svg {
+                width: 20px;
+                height: 20px;
+            }
+    
+            .back-button:hover {
+                background-color: #f0f0f0;
+            }
+    
+            /* للأجهزة اللوحية (عرض 4 منتجات في الصف) */
+            @media (max-width: 1024px) and (min-width: 768px) {
+                .image-container {
+                    flex: 1 1 calc(25% - 10px); /* 4 منتجات في الصف */
+                    max-width: calc(25% - 10px);
+                }
+            }
+    
+            /* للهواتف (عرض منتجين في الصف) */
+            @media (max-width: 767px) {
+                .image-container {
+                    flex: 1 1 calc(50% - 5px); /* منتجين في الصف */
+                    max-width: calc(50% - 5px);
+                }
+            }
+    
+            /* رسالة العربة الفارغة */
+            #empty-cart-message {
+                display: none; /* مخفي بشكل افتراضي */
+                text-align: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+            }
+    
+            #empty-cart-message img {
+                width: 150px;
+                height: 150px;
+            }
+    
+            #empty-cart-message p {
+                font-family: Cairo, sans-serif;
+                font-size: 18px;
+                color: #333;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 style="text-align: center; font-family: Cairo, sans-serif;">عربة التسوق</h1>
+        <div class="gallery" id="cart-items"></div>
+    
+        <!-- رسالة العربة الفارغة -->
+        <div id="empty-cart-message">
+            <div style="width: 150px; height: 150px; background-color: #e0e0e0; border-radius: 10px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 80px; height: 80px; color: #888;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12" y2="16"></line>
+                </svg>
+            </div>
+            <p>العربة فارغة</p>
+        </div>
+    
+        <!-- خلفية زرقاء في الأسفل -->
+        <div class="footer">
+            <div class="total-price">
+                السعر الإجمالي: <span id="totalPrice">0</span> EGP
+            </div>
+            <button class="back-button" onclick="window.location.href='index.html';">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                الرجوع
+            </button>
+        </div>
+    
+        <script>
+            // استرجاع العربة من localStorage
+           // استرجاع العربة من localStorage
+const cart = JSON.parse(localStorage.getItem('cart')) || [];
+const cartItemsElement = document.getElementById('cart-items');
+const emptyCartMessage = document.getElementById('empty-cart-message');
+
+// إذا كانت العربة فارغة
+if (cart.length === 0) {
+    emptyCartMessage.style.display = 'block'; // إظهار الرسالة
+    cartItemsElement.style.display = 'none'; // إخفاء قائمة المنتجات
+} else {
+    // عرض المنتجات في العربة
+    cart.forEach((product, index) => {
+        const productElement = document.createElement('div');
+        productElement.className = 'image-container';
+        productElement.innerHTML = `
+            <div class="image-frame">
+                <a href="${product.link}"> <!-- استخدام الرابط المحفوظ -->
+                    <img src="${product.image}" alt="${product.name}">
+                </a>
+                <div class="text-under">
+                    <h1 style="font-family: Cairo, sans-serif; color: #333; font-size: 15px;">${product.name}</h1>
+                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">${product.sold}</h2>
+                    <div class="container">
+                        <div class="number">${product.price}</div>
+                        <div class="zero">00.</div>
+                        <div class="letter">EGP</div>
+                    </div>
+                    <h3 style="font-family: Cairo, sans-serif; color: #ff0000; font-size: 16px; margin-top: -1px;">${product.discount}</h3>
+                </div>
+                <button class="remove-button" onclick="removeFromCart(${index})">حذف</button>
+            </div>
+        `;
+        cartItemsElement.appendChild(productElement);
+    });
+}
+    
+            // دالة لحذف المنتج من العربة
+            function removeFromCart(index) {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.splice(index, 1); // حذف المنتج من العربة
+                localStorage.setItem('cart', JSON.stringify(cart)); // حفظ العربة المحدثة
+                location.reload(); // إعادة تحميل الصفحة لتحديث العرض
+            }
+    
+            // دالة لحساب السعر الإجمالي
+            function calculateTotalPrice() {
+                let totalPrice = 0;
+                cart.forEach(product => {
+                    const price = parseFloat(product.price.replace(/,/g, '')); // تحويل السعر إلى رقم
+                    totalPrice += price;
+                });
+                document.getElementById('totalPrice').textContent = totalPrice.toLocaleString(); // عرض السعر الإجمالي
+            }
+    
+            // حساب السعر الإجمالي عند تحميل الصفحة
+            calculateTotalPrice();
+        </script>
+    </body>
+    </html>
