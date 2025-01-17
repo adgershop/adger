@@ -401,14 +401,21 @@
             searchHistory.forEach((entry) => {
                 const searchItem = document.createElement('div');
                 searchItem.className = 'search-item';
+
+                // التحقق من عرض الشاشة لتحديد ما إذا كان الجهاز لوحيًا
+                const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
+
+                // تقصير النص إلى 8 أحرف مع إضافة ".." إذا كان الجهاز لوحيًا
+                const displayTerm = isTablet && entry.term.length > 8 ? entry.term.substring(0, 8) + '..' : entry.term;
+
                 searchItem.innerHTML = `
-                    <span>${entry.term}</span>
+                    <span>${displayTerm}</span>
                     <small>${entry.date}</small>
                     <button class="delete-button">✖</button>
                 `;
 
                 searchItem.addEventListener('click', function () {
-                    searchInput.value = entry.term;
+                    searchInput.value = entry.term; // استخدام النص الكامل عند النقر
                     searchButton.click();
                 });
 
@@ -446,7 +453,7 @@
 
         // تركيز المؤشر على صندوق البحث عند تحميل الصفحة
         window.addEventListener('load', function () {
-            searchInput.focus();
+            searchInput.focus(); // تركيز المؤشر على حقل الإدخال
         });
     </script>
 </body>
