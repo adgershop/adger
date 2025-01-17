@@ -272,7 +272,7 @@
 
     <!-- صندوق البحث -->
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus>
+        <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
         <button class="clear-button" id="clear-button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M18 6L6 18" stroke="#333" stroke-width="1" />
@@ -453,7 +453,10 @@
 
         // تركيز المؤشر على صندوق البحث عند تحميل الصفحة
         window.addEventListener('load', function () {
-            searchInput.focus(); // تركيز المؤشر على حقل الإدخال
+            setTimeout(function () {
+                searchInput.focus(); // تركيز المؤشر على حقل الإدخال
+                searchInput.click(); // فتح لوحة المفاتيح يدويًا
+            }, 300); // تأخير 300 مللي ثانية
         });
     </script>
 </body>
