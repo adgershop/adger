@@ -10,7 +10,6 @@
 
 
 
-    
     <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -453,10 +452,13 @@
 
         // تركيز المؤشر على صندوق البحث عند تحميل الصفحة
         window.addEventListener('load', function () {
-            setTimeout(function () {
-                searchInput.focus(); // التركيز على الحقل
-                searchInput.click(); // النقر على الحقل يدويًا
-            }, 500); // تأخير 500 مللي ثانية
+            // استخدام requestAnimationFrame لضمان أن التركيز يتم بعد انتهاء تحميل الصفحة بالكامل
+            requestAnimationFrame(() => {
+                searchInput.focus();
+                setTimeout(() => {
+                    searchInput.click(); // محاولة لتحفيز ظهور لوحة المفاتيح
+                }, 100); // تأخير بسيط لضمان التركيز بشكل صحيح
+            });
         });
     </script>
 </body>
