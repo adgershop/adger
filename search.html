@@ -235,6 +235,11 @@
             .image-item img {
                 max-width: 80%;
             }
+
+            /* إخفاء التاريخ على الهواتف */
+            .search-item small {
+                display: none;
+            }
         }
 
         @media (min-width: 768px) and (max-width: 1024px) {
@@ -396,12 +401,8 @@
             searchHistory.forEach((entry) => {
                 const searchItem = document.createElement('div');
                 searchItem.className = 'search-item';
-
-                // قص النص إلى 9 أحرف وإضافة "..." إذا كان أطول
-                const displayTerm = entry.term.length > 9 ? entry.term.substring(0, 9) + '...' : entry.term;
-
                 searchItem.innerHTML = `
-                    <span>${displayTerm}</span>
+                    <span>${entry.term}</span>
                     <small>${entry.date}</small>
                     <button class="delete-button">✖</button>
                 `;
