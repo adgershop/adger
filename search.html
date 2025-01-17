@@ -454,13 +454,20 @@
 
         // تركيز المؤشر على صندوق البحث عند تحميل الصفحة
         window.addEventListener('load', function () {
-            // التركيز على حقل الإدخال المخفي
-            dummyInput.focus();
-            // استخدام requestAnimationFrame لضمان أن التركيز يتم بعد انتهاء تحميل الصفحة بالكامل
-            requestAnimationFrame(() => {
-                // التركيز على حقل البحث الرئيسي
+            // التحقق من إذا تم زيارة الصفحة من قبل
+            if (!localStorage.getItem('visitedBefore')) {
+                // التركيز على الحقل المخفي
+                dummyInput.focus();
+                setTimeout(() => {
+                    // التركيز على حقل البحث الفعلي
+                    searchInput.focus();
+                }, 100);
+                // تعيين علامة الزيارة في localStorage
+                localStorage.setItem('visitedBefore', 'true');
+            } else {
+                // التركيز مباشرة على حقل البحث الفعلي
                 searchInput.focus();
-            });
+            }
         });
     </script>
 </body>
