@@ -66,6 +66,16 @@
                 line-height: 1.5;
             }
     
+            .text-under h1 {
+                font-family: Cairo, sans-serif;
+                color: #333;
+                font-size: 15px;
+                white-space: nowrap; /* منع النص من الانتقال إلى سطر جديد */
+                overflow: hidden; /* إخفاء النص الزائد */
+                text-overflow: ellipsis; /* إضافة ... للنص الزائد */
+                width: 100%; /* التأكد من أن النص يأخذ العرض الكامل */
+            }
+    
             .container {
                 position: relative;
                 display: inline-block;
@@ -209,7 +219,7 @@
                     <line x1="12" y1="16" x2="12" y2="16"></line>
                 </svg>
             </div>
-            <p>العربة فارغة</p>
+            <p>عربة التسوق فارغة</p>
         </div>
     
         <!-- خلفية زرقاء في الأسفل -->
@@ -227,41 +237,40 @@
     
         <script>
             // استرجاع العربة من localStorage
-           // استرجاع العربة من localStorage
-const cart = JSON.parse(localStorage.getItem('cart')) || [];
-const cartItemsElement = document.getElementById('cart-items');
-const emptyCartMessage = document.getElementById('empty-cart-message');
-
-// إذا كانت العربة فارغة
-if (cart.length === 0) {
-    emptyCartMessage.style.display = 'block'; // إظهار الرسالة
-    cartItemsElement.style.display = 'none'; // إخفاء قائمة المنتجات
-} else {
-    // عرض المنتجات في العربة
-    cart.forEach((product, index) => {
-        const productElement = document.createElement('div');
-        productElement.className = 'image-container';
-        productElement.innerHTML = `
-            <div class="image-frame">
-                <a href="${product.link}"> <!-- استخدام الرابط المحفوظ -->
-                    <img src="${product.image}" alt="${product.name}">
-                </a>
-                <div class="text-under">
-                    <h1 style="font-family: Cairo, sans-serif; color: #333; font-size: 15px;">${product.name}</h1>
-                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">${product.sold}</h2>
-                    <div class="container">
-                        <div class="number">${product.price}</div>
-                        <div class="zero">00.</div>
-                        <div class="letter">EGP</div>
-                    </div>
-                    <h3 style="font-family: Cairo, sans-serif; color: #ff0000; font-size: 16px; margin-top: -1px;">${product.discount}</h3>
-                </div>
-                <button class="remove-button" onclick="removeFromCart(${index})">حذف</button>
-            </div>
-        `;
-        cartItemsElement.appendChild(productElement);
-    });
-}
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsElement = document.getElementById('cart-items');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+    
+            // إذا كانت العربة فارغة
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block'; // إظهار الرسالة
+                cartItemsElement.style.display = 'none'; // إخفاء قائمة المنتجات
+            } else {
+                // عرض المنتجات في العربة
+                cart.forEach((product, index) => {
+                    const productElement = document.createElement('div');
+                    productElement.className = 'image-container';
+                    productElement.innerHTML = `
+                        <div class="image-frame">
+                            <a href="${product.link}"> <!-- استخدام الرابط المحفوظ -->
+                                <img src="${product.image}" alt="${product.name}">
+                            </a>
+                            <div class="text-under">
+                                <h1>${product.name}</h1>
+                                <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">${product.sold}</h2>
+                                <div class="container">
+                                    <div class="number">${product.price}</div>
+                                    <div class="zero">00.</div>
+                                    <div class="letter">EGP</div>
+                                </div>
+                                <h3 style="font-family: Cairo, sans-serif; color: #ff0000; font-size: 16px; margin-top: -1px;">${product.discount}</h3>
+                            </div>
+                            <button class="remove-button" onclick="removeFromCart(${index})">حذف</button>
+                        </div>
+                    `;
+                    cartItemsElement.appendChild(productElement);
+                });
+            }
     
             // دالة لحذف المنتج من العربة
             function removeFromCart(index) {
