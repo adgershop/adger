@@ -69,13 +69,13 @@
                 font-size: 24px;
                 cursor: pointer;
                 text-align: center; /* محاذاة الأيقونة في الوسط */
-                margin-top: -16px;
+                margin-top: -7px;
             }
     
             .scroll-to-top svg {
                 width: 21px;
                 height: 21;
-                margin-bottom: -17px;
+                margin-bottom: -16px;
             }
     
             /* تصميم الخط الفاصل */
@@ -764,6 +764,7 @@
                 max-width: 100%;
                 height: auto;
                 display: block;
+                border-radius: 18%;
             }
     
             .text-under {
@@ -812,8 +813,8 @@
     
             @media (max-width: 768px) {
                 .gallery {
-                    padding-left: 2px;
-                    padding-right: 2px;
+                    padding-left: 5px;
+                    padding-right: 5px;
                 }
     
                 .image-container {
@@ -1209,11 +1210,12 @@
         /* تصميم دائرة التحميل */
         .loader {
             position: fixed;
-            top: 116px; /* تبدأ بعد 116px من الأعلى */
+            top: 114px; /* تبدأ بعد 116px من الأعلى */
             left: 0;
             width: 100%;
             height: calc(100% - 116px); /* الارتفاع الكلي ناقص 116px */
             background-color: rgb(255, 255, 255);
+            box-shadow: 0 -4px 4px -2px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
