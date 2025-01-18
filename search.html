@@ -63,7 +63,12 @@
                 direction: rtl;
                 transition: border-color 0.3s;
             }
-    
+            @media (max-width: 499px) {
+                .search-container input[type="text"]{
+            width: 109%;
+                }}
+
+
             .search-container input[type="text"]:focus {
                 border-color: #000000;
                 box-shadow: 0 0 2px #000000;
