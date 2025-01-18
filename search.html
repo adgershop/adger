@@ -24,9 +24,9 @@
                 padding: 0;
             }
     
-            /* الخلفية البيضاء بارتفاع 44px */
+            /* الخلفية البيضاء بارتفاع 65px */
             .header-background {
-                position: fixed;
+                position: absolute; /* تغيير من fixed إلى absolute */
                 top: 0;
                 left: 0;
                 width: 100%;
@@ -37,7 +37,7 @@
     
             /* صندوق البحث */
             .search-container {
-                position: fixed;
+                position: absolute; /* تغيير من fixed إلى absolute */
                 top: 10px;
                 left: 50%;
                 transform: translateX(-50%);
@@ -120,7 +120,7 @@
     
             /* زر الرجوع */
             .back-button {
-                position: fixed;
+                position: absolute; /* تغيير من fixed إلى absolute */
                 top: 10px;
                 left: 20px;
                 background-color: transparent;
@@ -301,7 +301,7 @@
         </style>
     </head>
     <body>
-        <!-- الخلفية البيضاء بارتفاع 44px -->
+        <!-- الخلفية البيضاء بارتفاع 65px -->
         <div class="header-background"></div>
     
         <!-- زر الرجوع -->
