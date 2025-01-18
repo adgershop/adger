@@ -512,13 +512,13 @@
                         <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
                     </div>
                 </div>
-                <!-- زر المراسلة -->
-                <div class="message-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                    </svg>
-                    <span style="font-family: Cairo, sans-serif;">مراسلة</span>
-                </div>
+              <!-- زر المراسلة -->
+<div class="message-button" onclick="window.open('https://wa.me/201152366798', '_blank')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+    </svg>
+    <span style="font-family: Cairo, sans-serif;">مراسلة</span>
+</div>
                 <!-- أيقونة السلة -->
                 <div class="cart-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -655,9 +655,6 @@
 
 
 
-
-
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -675,14 +672,14 @@
     
             .gallery {
                 display: flex;
-                flex-wrap: wrap; /* لف العناصر عند عدم وجود مساحة كافية */
-                gap: 10px; /* المسافة بين العناصر */
-                justify-content: center; /* توسيط العناصر */
-                padding: 20px; /* هامش عام للشاشات الكبيرة */
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                padding: 20px;
             }
     
             .image-container {
-                flex: 1 1 calc(16.666% - 20px); /* 6 منتجات في الصف للشاشات الكبيرة */
+                flex: 1 1 calc(16.666% - 20px);
                 max-width: calc(16.666% - 20px);
                 box-sizing: border-box;
                 position: relative;
@@ -709,6 +706,16 @@
                 line-height: 1.5;
             }
     
+            .text-under h1 {
+                font-family: Cairo, sans-serif;
+                color: #333;
+                font-size: 15px;
+                white-space: nowrap; /* منع النص من الانتقال إلى سطر جديد */
+                overflow: hidden; /* إخفاء النص الزائد */
+                text-overflow: ellipsis; /* إضافة ... للنص الزائد */
+                width: 100%; /* تأكد من أن النص يأخذ العرض الكامل */
+            }
+    
             .add-to-cart {
                 position: absolute;
                 bottom: 10px;
@@ -730,23 +737,21 @@
                 color: #000;
             }
     
-            /* التصميم للشاشات المتوسطة (التابلت) */
             @media (max-width: 1024px) and (min-width: 769px) {
                 .image-container {
-                    flex: 1 1 calc(25% - 10px); /* 4 منتجات في الصف على التابلت */
+                    flex: 1 1 calc(25% - 10px);
                     max-width: calc(25% - 10px);
                 }
             }
     
-            /* التصميم للشاشات الصغيرة (الهواتف) */
             @media (max-width: 768px) {
                 .gallery {
-                    padding-left: 2px; /* هامش يساري 2px */
-                    padding-right: 2px; /* هامش يميني 2px */
+                    padding-left: 2px;
+                    padding-right: 2px;
                 }
     
                 .image-container {
-                    flex: 1 1 calc(50% - 5px); /* منتجين في الصف على الهواتف */
+                    flex: 1 1 calc(50% - 5px);
                     max-width: calc(50% - 5px);
                 }
             }
@@ -780,55 +785,53 @@
     </head>
     <body>
         <!-- HTML -->
-          <!-- المنتجات -->
-    <div class="gallery">
-        <div class="image-container product" data-name="ساعة تاتش تعمل باللمس">
-            <div class="image-frame">
-                <a href="1.html">
-                    <img src="1.jpg" alt="Image 1">
-                </a>
-                <div class="text-under">
-                    <h1 style="font-family: Cairo, sans-serif; color: #333; font-size: 15px;">ساعة تاتش تعمل باللمس</h1>
-                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                    <div class="container">
-                        <div class="number">666</div>
-                        <div class="zero">00.</div>
-                        <div class="letter">EGP</div>
+        <div class="gallery">
+            <div class="image-container product" data-name="ساعة تاتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container">
+                            <div class="number">666</div>
+                            <div class="zero">00.</div>
+                            <div class="letter">EGP</div>
+                        </div>
+                        <h3 style="font-family: Cairo, sans-serif; color: #ff0000; font-size: 16px; margin-top: -1px;">خصم 33%</h3>
                     </div>
-                    <h3 style="font-family: Cairo, sans-serif; color: #ff0000; font-size: 16px; margin-top: -1px;">خصم 33%</h3>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
                 </div>
-                <div class="add-to-cart" onclick="addToCart(this)">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                    </svg>
+            </div>
+    
+            <div class="image-container product" data-name="ساعة ت22اتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="search.html">
+                        <img src="1.2.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة ت22اتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container">
+                            <div class="number">66</div>
+                            <div class="zero">00.</div>
+                            <div class="letter">EGP</div>
+                        </div>
+                        <h3 style="font-family: Cairo, sans-serif; color: #ff0000; font-size: 16px; margin-top: -1px;">خصم 33%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="image-container product" data-name="ساعة ت22اتش تعمل باللمس">
-            <div class="image-frame">
-                <a href="search.html">
-                    <img src="1.2.jpg" alt="Image 1">
-                </a>
-                <div class="text-under">
-                    <h1 style="font-family: Cairo, sans-serif; color: #333; font-size: 15px;">ساعة ت22اتش تعمل باللمس</h1>
-                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                    <div class="container">
-                        <div class="number">66</div>
-                        <div class="zero">00.</div>
-                        <div class="letter">EGP</div>
-                    </div>
-                    <h3 style="font-family: Cairo, sans-serif; color: #ff0000; font-size: 16px; margin-top: -1px;">خصم 33%</h3>
-                </div>
-                <div class="add-to-cart" onclick="addToCart(this)">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </div>
-
 <style>
       .product {
             display: block; /* إظهار المنتج بشكل افتراضي */
@@ -983,6 +986,37 @@ updateCartCount();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -993,10 +1027,10 @@ updateCartCount();
         /* تصميم دائرة التحميل */
         .loader {
             position: fixed;
-            top: 116px; /* تبدأ بعد 100px من الأعلى */
+            top: 116px; /* تبدأ بعد 116px من الأعلى */
             left: 0;
             width: 100%;
-            height: calc(100% - 100px); /* الارتفاع الكلي ناقص 100px */
+            height: calc(100% - 116px); /* الارتفاع الكلي ناقص 116px */
             background-color: rgb(255, 255, 255);
             display: flex;
             justify-content: center;
@@ -1011,6 +1045,7 @@ updateCartCount();
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
+            margin-top: -58px; /* تعويض الـ top: 116px */
         }
 
         @keyframes spin {
