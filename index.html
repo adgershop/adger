@@ -802,26 +802,9 @@
             }
     
             @media (max-width: 1024px) and (min-width: 769px) {
-                .gallery {
-                    padding-left: 5px;
-                    padding-right: 5px;
-                }
-    
                 .image-container {
-                    flex: 1 1 calc(50% - 10px); /* جعل العنصر يأخذ نصف العرض */
-                    max-width: calc(50% - 10px); /* جعل العنصر يأخذ نصف العرض */
-                }
-            }
-    
-            @media (min-width: 1025px) {
-                .gallery {
-                    padding-left: 5px;
-                    padding-right: 5px;
-                }
-    
-                .image-container {
-                    flex: 1 1 calc(50% - 10px); /* جعل العنصر يأخذ نصف العرض */
-                    max-width: calc(50% - 10px); /* جعل العنصر يأخذ نصف العرض */
+                    flex: 1 1 calc(25% - 10px);
+                    max-width: calc(25% - 10px);
                 }
             }
     
@@ -832,15 +815,8 @@
                 }
     
                 .image-container {
-                    flex: 1 1 calc(50% - 5px); /* جعل العنصر يأخذ نصف العرض */
-                    max-width: calc(50% - 5px); /* جعل العنصر يأخذ نصف العرض */
-                }
-            }
-    
-            @media (max-width: 480px) {
-                .image-container {
-                    flex: 1 1 100%; /* اجعل العنصر يأخذ العرض الكامل */
-                    max-width: 100%; /* اجعل العنصر يأخذ العرض الكامل */
+                    flex: 1 1 calc(50% - 5px);
+                    max-width: calc(50% - 5px);
                 }
             }
     
@@ -852,33 +828,31 @@
                 color: #000000;
                 margin-top: -8px;
             }
-    
             @media (max-width: 768px) {
                 .container {
-                    margin-top: -10px;
-                }
-            }
-    
+               margin-top: -10px;
+                }}
+
             .number {
-                font-size: 22px;
+                font-size: 24px;
                 color: #303030;
             }
     
             .zero {
                 position: absolute;
                 bottom: 2px;
-                right: -16px;
-                font-size: 12px;
-                color: #ff5100;
+                right: -18px;
+                font-size: 14px;
             }
     
             .letter {
                 position: absolute;
                 bottom: 2px;
-                left: -26px;
-                font-size: 12px;
+                left: -30px;
+                font-size: 14px;
             }
-    
+
+
         </style>
     </head>
     <body>
