@@ -1326,7 +1326,7 @@
 
 
 <br><br>
-    <html lang="ar">
+<html lang="ar">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1342,11 +1342,11 @@
                 position: relative;
             }
     
-            .footer .social-icons {
+            .footer .social-icons-container {
                 margin: 20px 0;
             }
     
-            .footer .social-icons a {
+            .footer .social-icons-container a {
                 margin: 0 10px;
                 color: white;
                 text-decoration: none;
@@ -1355,65 +1355,65 @@
                 transition: transform 0.3s ease;
             }
     
-            .footer .social-icons a:hover {
+            .footer .social-icons-container a:hover {
                 transform: scale(1.2); /* تكبير الأيقونة عند التمرير */
             }
     
-            .footer-logo {
+            .footer-logo-text {
                 font-family: 'Dancing Script', cursive;
                 font-size: 48px;
                 margin-bottom: 20px;
                 color: #ffc400;
             }
     
-            .footer-links {
+            .footer-nav-links {
                 margin: 20px 0;
                 list-style: none;
                 padding: 0;
             }
     
-            .footer-links li {
+            .footer-nav-links li {
                 display: inline;
                 margin: 0 15px;
             }
     
-            .footer-links a {
+            .footer-nav-links a {
                 color: white;
                 text-decoration: none;
             }
     
-            .footer-links a:hover {
+            .footer-nav-links a:hover {
                 text-decoration: underline;
             }
     
-            .copyright {
+            .footer-copyright {
                 margin-top: 20px;
                 color: #fff;
                 font-size: 14px;
             }
     
             /* تنسيق علم مصر */
-            .container22 {
+            .country-info {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 text-align: center;
             }
     
-            .country-code {
+            .country-code-info {
                 display: inline-flex;
                 align-items: center;
                 font-size: 18px;
             }
     
-            .flag {
+            .country-flag {
                 width: 24px;
                 height: 16px;
                 margin-left: 8px;
             }
     
             /* تنسيق أيقونات SVG */
-            .social-icons img {
+            .social-icons-container img {
                 width: 32px; /* حجم الأيقونات */
                 height: 32px;
                 vertical-align: middle;
@@ -1423,8 +1423,8 @@
     </head>
     <body>
         <footer class="footer">
-            <span class="footer-logo">Adger</span>
-            <div class="social-icons">
+            <span class="footer-logo-text">Adger</span>
+            <div class="social-icons-container">
                 <!-- YouTube -->
                 <a href="https://www.youtube.com" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube">
@@ -1443,7 +1443,7 @@
                 </a>
             </div>
     
-            <ul class="footer-links">
+            <ul class="footer-nav-links">
                 <li><a href="about.html">عنا</a></li>
                 <li><a href="https://wa.me/+201152366798" target="_blank">تواصل</a></li>
                 <li>
@@ -1454,18 +1454,18 @@
             </ul>
     
             <!-- علم مصر -->
-            <div class="container22">
-                <div class="country-code">
+            <div class="country-info">
+                <div class="country-code-info">
                     <span>البلد : </span>
                     <span style="color: #fffbfb; width: 44px;">EGP</span>
-                    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
+                    <img class="country-flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
                 </div>
             </div>
     
             <!-- حقوق النشر -->
-            <div class="copyright">
+            <div class="footer-copyright">
                 <span>&copy; 2024 Adger. كل الحقوق محفوظة.</span>
             </div>
         </footer>
     </body>
-    </html>
+</html>
