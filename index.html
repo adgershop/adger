@@ -774,10 +774,10 @@
                 font-family: Cairo, sans-serif;
                 color: #333;
                 font-size: 15px;
-                white-space: nowrap; /* منع النص من الانتقال إلى سطر جديد */
-                overflow: hidden; /* إخفاء النص الزائد */
-                text-overflow: ellipsis; /* إضافة ... للنص الزائد */
-                width: 100%; /* تأكد من أن النص يأخذ العرض الكامل */
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
             }
     
             .add-to-cart {
@@ -820,6 +820,25 @@
                 }
             }
     
+            @media (min-width: 1025px) {
+                .image-container {
+                    flex: 1 1 calc(20% - 20px);
+                    max-width: calc(20% - 20px);
+                }
+    
+                .text-under h1 {
+                    font-size: 18px;
+                }
+    
+                .number {
+                    font-size: 28px;
+                }
+    
+                .zero, .letter {
+                    font-size: 16px;
+                }
+            }
+    
             .container {
                 position: relative;
                 display: inline-block;
@@ -828,11 +847,13 @@
                 color: #000000;
                 margin-top: -8px;
             }
+    
             @media (max-width: 768px) {
                 .container {
-               margin-top: -10px;
-                }}
-
+                    margin-top: -10px;
+                }
+            }
+    
             .number {
                 font-size: 24px;
                 color: #303030;
@@ -851,8 +872,6 @@
                 left: -30px;
                 font-size: 14px;
             }
-
-
         </style>
     </head>
     <body>
