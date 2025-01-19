@@ -615,6 +615,20 @@
                 <div class="underline"></div>
             </nav>
         </div>
+        
+        <style>
+            /* إزالة التحديد الأزرق عند النقر */
+            a {
+                outline: none;
+                -webkit-tap-highlight-color: transparent; /* لإزالة اللون الأزرق على الهواتف */
+                user-select: none; /* لمنع تحديد النص عند النقر بشكل متكرر */
+            }
+        
+            /* إزالة التحديد الأزرق عند النقر على الروابط في متصفحات محددة */
+            a:focus {
+                outline: none;
+            }
+        </style>
     
         <!-- نافذة القائمة الجانبية -->
         <div class="menu-popup" id="menuPopup">
@@ -1044,7 +1058,7 @@
             margin-top: 233px;
             margin-bottom: 233px;
             font-size: 20px;
-            color: #000000;
+            color: #202020;
         }
 </style>
 
