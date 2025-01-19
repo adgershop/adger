@@ -61,46 +61,22 @@
             }
     
             .text-under {
-                margin-top: 10px;
-                font-size: 14px;
-                line-height: 1.5;
-            }
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: right; /* جعل النص يبدأ من اليمين */
+        }
     
-            .text-under h1 {
-                font-family: Cairo, sans-serif;
-                color: #333;
-                font-size: 15px;
-                white-space: nowrap; /* منع النص من الانتقال إلى سطر جديد */
-                overflow: hidden; /* إخفاء النص الزائد */
-                text-overflow: ellipsis; /* إضافة ... للنص الزائد */
-                width: 100%; /* التأكد من أن النص يأخذ العرض الكامل */
-            }
+        .text-under h1 {
+            font-family: Cairo, sans-serif;
+            color: #333;
+            font-size: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
     
-            .container {
-                position: relative;
-                display: inline-block;
-                text-align: center;
-                font-size: 16px;
-                color: #000000;
-            }
-    
-            .number {
-                font-size: 24px;
-            }
-    
-            .zero {
-                position: absolute;
-                bottom: 2px;
-                right: -18px;
-                font-size: 14px;
-            }
-    
-            .letter {
-                position: absolute;
-                bottom: 2px;
-                left: -30px;
-                font-size: 14px;
-            }
     
             .remove-button {
                 background-color: #ff0000;
@@ -236,41 +212,42 @@
         </div>
     
         <script>
-            // استرجاع العربة من localStorage
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const cartItemsElement = document.getElementById('cart-items');
-            const emptyCartMessage = document.getElementById('empty-cart-message');
-    
-            // إذا كانت العربة فارغة
-            if (cart.length === 0) {
-                emptyCartMessage.style.display = 'block'; // إظهار الرسالة
-                cartItemsElement.style.display = 'none'; // إخفاء قائمة المنتجات
-            } else {
-                // عرض المنتجات في العربة
-                cart.forEach((product, index) => {
-                    const productElement = document.createElement('div');
-                    productElement.className = 'image-container';
-                    productElement.innerHTML = `
-                        <div class="image-frame">
-                            <a href="${product.link}"> <!-- استخدام الرابط المحفوظ -->
-                                <img src="${product.image}" alt="${product.name}">
-                            </a>
-                            <div class="text-under">
-                                <h1>${product.name}</h1>
-                                <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">${product.sold}</h2>
-                                <div class="container">
-                                    <div class="number">${product.price}</div>
-                                    <div class="zero">00.</div>
-                                    <div class="letter">EGP</div>
-                                </div>
-                                <h3 style="font-family: Cairo, sans-serif; color: #ff0000; font-size: 16px; margin-top: -1px;">${product.discount}</h3>
-                            </div>
-                            <button class="remove-button" onclick="removeFromCart(${index})">حذف</button>
-                        </div>
-                    `;
-                    cartItemsElement.appendChild(productElement);
-                });
-            }
+           // استرجاع العربة من localStorage
+const cart = JSON.parse(localStorage.getItem('cart')) || [];
+const cartItemsElement = document.getElementById('cart-items');
+const emptyCartMessage = document.getElementById('empty-cart-message');
+
+// إذا كانت العربة فارغة
+if (cart.length === 0) {
+    emptyCartMessage.style.display = 'block'; // إظهار الرسالة
+    cartItemsElement.style.display = 'none'; // إخفاء قائمة المنتجات
+} else {
+    // عرض المنتجات في العربة
+    cart.forEach((product, index) => {
+        const productElement = document.createElement('div');
+        productElement.className = 'image-container';
+        productElement.innerHTML = `
+            <div class="image-frame">
+                <a href="${product.link}"> <!-- استخدام الرابط المحفوظ -->
+                    <img src="${product.image}" alt="${product.name}">
+                </a>
+                <div class="text-under">
+                    <h1>${product.name}</h1>
+                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">${product.sold}</h2>
+                    <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                        <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                        <div class="number" style="font-size: 28px;">${product.price}</div>
+                        <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                    </div>
+                   <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">${product.discount}</h3>
+                </div>
+                <button class="remove-button" onclick="removeFromCart(${index})">حذف</button>
+            </div>
+        `;
+        cartItemsElement.appendChild(productElement);
+    });
+}
+
     
             // دالة لحذف المنتج من العربة
             function removeFromCart(index) {
