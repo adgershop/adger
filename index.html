@@ -473,17 +473,7 @@
                 height: 16px;
                 margin-left: 8px;
             }
-            /* إزالة التحديد الأزرق عند النقر على أيقونة السلة */
-    .cart-icon {
-        outline: none;
-        -webkit-tap-highlight-color: transparent; /* لإزالة اللون الأزرق على الهواتف */
-        user-select: none; /* لمنع تحديد النص عند النقر بشكل متكرر */
-    }
-
-    /* إزالة التحديد الأزرق عند النقر على العناصر الأخرى */
-    .cart-icon:focus {
-        outline: none;
-    }
+            
         </style>
     </head>
     <body>
@@ -594,15 +584,18 @@
                     </svg>
                     <span style="font-family: Cairo, sans-serif;">مراسلة</span>
                 </div>
-                <!-- أيقونة السلة -->
-                <div class="cart-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
-                    <span class="cart-count">0</span>
-                </div>
+              <!-- أيقونة السلة -->
+<div class="cart-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+    <!-- إضافة رابط حول الرقم 0 -->
+    <a href="cart.html" style="text-decoration: none; color: inherit;">
+        <span class="cart-count">0</span>
+    </a>
+</div>
                 <!-- أيقونة القائمة -->
                 <div class="menu-icon" onclick="toggleMenu()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
