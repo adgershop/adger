@@ -69,13 +69,13 @@
                 font-size: 24px;
                 cursor: pointer;
                 text-align: center; /* محاذاة الأيقونة في الوسط */
-                margin-top: -7px;
+                margin-top: -4px;
             }
     
             .scroll-to-top svg {
                 width: 21px;
                 height: 21;
-                margin-bottom: -16px;
+                margin-bottom: -14px;
             }
     
             /* تصميم الخط الفاصل */
@@ -1386,12 +1386,6 @@
                 text-decoration: underline;
             }
     
-            .footer-copyright {
-                margin-top: 20px;
-                color: #fff;
-                font-size: 14px;
-            }
-    
             /* تنسيق علم مصر */
             .country-info {
                 display: flex;
@@ -1417,6 +1411,48 @@
                 width: 32px; /* حجم الأيقونات */
                 height: 32px;
                 vertical-align: middle;
+            }
+    
+            /* تنسيق الخلفية الجديدة */
+            .footer-info-section {
+                background-color: #1a222b; /* لون خلفية مختلف */
+                padding: 20px;
+                margin-top: 20px;
+                border-top: 1px solid #ffc400;
+                border-bottom: 1px solid #ffc400;
+            }
+    
+            .footer-info-section .info-container {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                text-align: center;
+            }
+    
+            .footer-info-section .info-item {
+                margin: 10px;
+                flex: 1 1 200px;
+            }
+    
+            .footer-info-section .info-item h3 {
+                color: #ffc400;
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+    
+            .footer-info-section .info-item p {
+                color: #fff;
+                font-size: 14px;
+            }
+    
+            /* تنسيق حقوق النشر مع خلفية مختلفة */
+            .footer-copyright {
+                background-color: #ffc400; /* لون خلفية مميز */
+                color: #28333f; /* لون النص */
+                padding: 15px 0;
+                margin-top: 20px;
+                font-size: 14px;
+                text-align: center;
             }
         </style>
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
@@ -1462,7 +1498,28 @@
                 </div>
             </div>
     
-            <!-- حقوق النشر -->
+            <!-- قسم المعلومات الجديد -->
+            <div class="footer-info-section">
+                <div class="info-container">
+                    <div class="info-item">
+                        <h3>خدمة العملاء</h3>
+                        <p>دعم فوري على مدار الساعة</p>
+                        <p>اتصل بنا: 0123456789</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>خدمات التوصيل</h3>
+                        <p>توصيل سريع وآمن</p>
+                        <p>تتبع الطلبات عبر الإنترنت</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>الأسعار والضرائب</h3>
+                        <p>أسعار شاملة الضرائب</p>
+                        <p>خصومات حصرية للعملاء</p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- حقوق النشر مع خلفية مختلفة -->
             <div class="footer-copyright">
                 <span>&copy; 2024 Adger. كل الحقوق محفوظة.</span>
             </div>

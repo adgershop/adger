@@ -34,13 +34,12 @@
                 padding: 20px;
                 margin-bottom: 75px; /* ترك مساحة للفوتر */
             }
-    
             .image-container {
-                flex: 1 1 calc(16.666% - 20px); /* 6 منتجات في الصف للشاشات الكبيرة */
-                max-width: calc(16.666% - 20px);
-                box-sizing: border-box;
-                position: relative;
-            }
+            flex: 1 1 calc(16.666% - 20px);
+            max-width: calc(16.666% - 20px);
+            box-sizing: border-box;
+            position: relative;
+        }
     
             .image-frame {
                 border: 2px solid #cfcfcf;
@@ -142,21 +141,36 @@
                 background-color: #f0f0f0;
             }
     
-            /* للأجهزة اللوحية (عرض 4 منتجات في الصف) */
-            @media (max-width: 1024px) and (min-width: 768px) {
-                .image-container {
-                    flex: 1 1 calc(25% - 10px); /* 4 منتجات في الصف */
-                    max-width: calc(25% - 10px);
-                }
+            @media (max-width: 1024px) and (min-width: 769px) {
+            .image-container {
+                flex: 1 1 calc(25% - 10px);
+                max-width: calc(25% - 10px);
             }
-    
-            /* للهواتف (عرض منتجين في الصف) */
-            @media (max-width: 767px) {
-                .image-container {
-                    flex: 1 1 calc(50% - 5px); /* منتجين في الصف */
-                    max-width: calc(50% - 5px);
-                }
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                padding-left: 5px;
+                padding-right: 5px;
             }
+
+            .image-container {
+                flex: 1 1 calc(50% - 5px);
+                max-width: calc(50% - 5px);
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .image-container {
+                flex: 1 1 calc(20% - 20px);
+                max-width: calc(20% - 20px);
+            }
+
+            .text-under h1 {
+                font-size: 18px;
+            }
+        }
+            
     
             /* رسالة العربة الفارغة */
             #empty-cart-message {
