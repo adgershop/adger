@@ -194,6 +194,25 @@
                 color: #333;
                 margin-top: 10px;
             }
+
+    /* إزالة التحديد الأزرق عند النقر على الروابط والصور */
+    a, img {
+        outline: none;
+        -webkit-tap-highlight-color: transparent; /* لإزالة اللون الأزرق على الهواتف */
+        user-select: none; /* لمنع تحديد النص عند النقر بشكل متكرر */
+    }
+
+    /* إزالة التحديد الأزرق عند النقر على الروابط في متصفحات محددة */
+    a:focus, img:focus {
+        outline: none;
+    }
+
+    /* إزالة التحديد الأزرق عند النقر على العناصر الأخرى */
+    .add-to-cart, .image-container, .image-frame {
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
         </style>
     </head>
     <body>
