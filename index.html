@@ -473,6 +473,17 @@
                 height: 16px;
                 margin-left: 8px;
             }
+            /* إزالة التحديد الأزرق عند النقر على أيقونة السلة */
+    .cart-icon {
+        outline: none;
+        -webkit-tap-highlight-color: transparent; /* لإزالة اللون الأزرق على الهواتف */
+        user-select: none; /* لمنع تحديد النص عند النقر بشكل متكرر */
+    }
+
+    /* إزالة التحديد الأزرق عند النقر على العناصر الأخرى */
+    .cart-icon:focus {
+        outline: none;
+    }
         </style>
     </head>
     <body>
