@@ -1,0 +1,97 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معلومات عنا</title>
+    <!-- تحميل خط Cairo من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif; /* تطبيق خط Cairo */
+            background-color: #f0f0f0; /* لون خلفية الصفحة */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ffffff; /* لون خلفية الرأس */
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+        }
+        header h1 {
+            margin: 0;
+            text-align: right; /* العنوان على اليمين */
+            font-size: 22px;
+            color: #353535; /* لون العنوان */
+            border-bottom: 2px solid #242424; /* خط تحت العنوان */
+            display: inline-block;
+            padding-bottom: 5px;
+            cursor: pointer; /* تغيير المؤشر إلى يد عند التمرير */
+        }
+        header h1:hover {
+            color: #000000; /* تغيير لون العنوان عند التمرير */
+        }
+        .content {
+            padding: 20px;
+            margin: 20px;
+        }
+        .content h2 {
+            color: #414141; /* لون العناوين الفرعية */
+            font-size: 20px;
+            position: relative; /* لجعل النقاط تتماشى مع العنوان */
+            padding-right: 20px; /* إضافة مسافة للنقاط */
+        }
+        .content h2::before {
+            content: "•"; /* إضافة النقطة */
+            color: #000000; /* لون النقطة */
+            font-size: 24px;
+            position: absolute;
+            right: 0; /* وضع النقطة على اليسار */
+        }
+        .content p {
+            line-height: 1.6;
+            font-size: 14px;
+            color: #555; /* لون النص */
+        }
+        footer {
+            background-color: #333; /* لون خلفية التذييل */
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 onclick="window.location.href='index.html'">معلومات عنا</h1>
+    </header>
+
+    <div class="content">
+        <h2>من نحن</h2>
+        <p>نحن شركة رائدة في مجال تقديم الحلول التقنية والخدمات المبتكرة لعملائنا. نهدف إلى توفير أفضل الخدمات التي تلبي احتياجات العملاء وتفوق توقعاتهم.</p>
+
+        <h2>سياسة الشحن</h2>
+        <p>نحن نحرص على تقديم خدمة شحن سريعة وموثوقة. نضمن وصول طلباتك في الوقت المحدد وبأفضل حال. لمعرفة المزيد عن سياسة الشحن، يرجى الاطلاع على التفاصيل أدناه.</p>
+
+        <h2>سياسة الإرجاع</h2>
+        <p>نحن نقدم سياسة إرجاع مرنة لضمان رضا العملاء. إذا لم تكن راضيًا عن المنتج، يمكنك إرجاعه خلال 30 يومًا من تاريخ الشراء. يرجى قراءة سياسة الإرجاع الكاملة لفهم الشروط والأحكام.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 شركة أدجر. جميع الحقوق محفوظة.</p>
+    </footer>
+
+</body>
+</html>

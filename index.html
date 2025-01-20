@@ -229,7 +229,7 @@
                 cursor: pointer;
                 padding: 10px 0; /* إضافة حشو لتحسين المظهر */
             }
-    
+
             /* الخط الرصاصي الرفيع تحت العنصر المحدد */
             .underline {
                 position: absolute;
@@ -604,122 +604,148 @@
         </div>
     
         <!-- الشريط الأبيض الثابت أسفل الشريط العلوي -->
-        <div class="sub-header">
-            <nav>
-                <!-- تعديل هنا: إزالة selectItem عند النقر على "الكل" -->
-                <a href="index.html" style="font-family: Cairo, sans-serif; color: #ff2600;">الكل</a>
-                <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
-                <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
-                <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
-                <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
-                <div class="underline"></div>
-            </nav>
-        </div>
-        
-        <style>
-            /* إزالة التحديد الأزرق عند النقر */
-            a {
-                outline: none;
-                -webkit-tap-highlight-color: transparent; /* لإزالة اللون الأزرق على الهواتف */
-                user-select: none; /* لمنع تحديد النص عند النقر بشكل متكرر */
-            }
-        
-            /* إزالة التحديد الأزرق عند النقر على الروابط في متصفحات محددة */
-            a:focus {
-                outline: none;
-            }
-        </style>
-    
-        <!-- نافذة القائمة الجانبية -->
-        <div class="menu-popup" id="menuPopup">
-            <div class="back-arrow" onclick="toggleMenu()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 12H5M12 19l-7-7 7-7"></path>
-                </svg>
+          <!-- الشريط الأبيض الثابت أسفل الشريط العلوي -->
+          <!DOCTYPE html>
+          <html lang="ar" dir="rtl">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>الصفحة الرئيسية</title>
+              <style>
+                  /* تنسيق العنصر النشط */
+                  .sub-header nav a.active {
+                      color: #000000 !important; /* لون النص الأسود */
+                      font-weight: bold; /* يمكنك إضافة تنسيقات إضافية إذا أردت */
+                  }
+          
+                  /* الخط الرصاصي الرفيع تحت العنصر المحدد */
+                  .underline {
+                      position: absolute;
+                      bottom: 0;
+                      height: 2px;
+                      background-color: #000000; /* لون الخط */
+                      transition: all 0.3s ease;
+                  }
+              </style>
+          </head>
+          <body>
+              <!-- الشريط الأبيض الثابت أسفل الشريط العلوي -->
+              <div class="sub-header">
+                <nav>
+                    <!-- تعديل هنا: إضافة selectItem عند النقر على "الكل" -->
+                    <a href="index.html" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
+                    <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
+                    <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
+                    <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
+                    <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
+                    <div class="underline"></div>
+                </nav>
             </div>
-            <p onclick="window.location.href='account.html'">حسابي</p>
-            <p onclick="window.location.href='about.html'">سياسات وأحكام</p>
-        </div>
-    </body>
-    </html>
-
-<script>
-    // استرجاع بيانات المستخدم من localStorage
-    const username = localStorage.getItem('username');
-
-    // عرض "أهلاً" مع اسم المستخدم أو نص بديل
-    const welcomeMessage = document.getElementById('welcomeMessage');
-    const usernameDisplay = document.getElementById('usernameDisplay');
-
-    if (username) {
-        usernameDisplay.textContent = username; // عرض اسم المستخدم
-    } else {
-        welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
-    }
-
-    // دالة لإظهار أو إخفاء القائمة الجانبية
-    function toggleMenu() {
-        const menuPopup = document.getElementById('menuPopup');
-        if (menuPopup.classList.contains('active')) {
-            menuPopup.classList.remove('active');
-            menuPopup.classList.add('closing');
-            setTimeout(() => {
-                menuPopup.classList.remove('closing');
-                menuPopup.style.display = 'none';
-            }, 300); // يتناسب مع مدة animation
-        } else {
-            menuPopup.style.display = 'block';
-            menuPopup.classList.add('active');
-        }
-    }
-
-    // دالة لتنفيذ البحث
-    function performSearch(searchTerm) {
-        const products = document.querySelectorAll('.product'); // جميع المنتجات
-
-        products.forEach(product => {
-            const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
-            if (productName.includes(searchTerm.toLowerCase())) {
-                product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
-            } else {
-                product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
-            }
-        });
-    }
-
-    // دالة لتحريك الخط ووضع الكلمة في صندوق البحث (إن وجدت)
-    function selectItem(item, element) {
-        const searchBox = document.getElementById('search-box');
-        if (item) {
-            searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كانت موجودة)
-            performSearch(item); // تنفيذ البحث
-        }
-
-        const underline = document.querySelector('.underline');
-        const itemRect = element.getBoundingClientRect();
-        const navRect = element.parentElement.getBoundingClientRect();
-
-        underline.style.width = `${itemRect.width}px`;
-        underline.style.left = `${itemRect.left - navRect.left}px`;
-    }
-
-    // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
-    window.onload = function () {
-        const defaultItem = document.querySelector('.sub-header nav a');
-        const underline = document.querySelector('.underline');
-        const itemRect = defaultItem.getBoundingClientRect();
-        const navRect = defaultItem.parentElement.getBoundingClientRect();
-
-        // ضبط الخط تحت "الكل" بشكل افتراضي
-        underline.style.width = `${itemRect.width}px`;
-        underline.style.left = `${itemRect.left - navRect.left}px`;
-    };
-</script>
-
-
-
-
-
+        
+            <!-- نافذة القائمة الجانبية -->
+            <div class="menu-popup" id="menuPopup">
+                <div class="back-arrow" onclick="toggleMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                    </svg>
+                </div>
+                <p onclick="window.location.href='account.html'">حسابي</p>
+                <p onclick="window.location.href='about.html'">سياسات وأحكام</p>
+            </div>
+        
+            <script>
+                // استرجاع بيانات المستخدم من localStorage
+                const username = localStorage.getItem('username');
+        
+                // عرض "أهلاً" مع اسم المستخدم أو نص بديل
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                const usernameDisplay = document.getElementById('usernameDisplay');
+        
+                if (username) {
+                    usernameDisplay.textContent = username; // عرض اسم المستخدم
+                } else {
+                    welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+                }
+        
+                // دالة لإظهار أو إخفاء القائمة الجانبية
+                function toggleMenu() {
+                    const menuPopup = document.getElementById('menuPopup');
+                    if (menuPopup.classList.contains('active')) {
+                        menuPopup.classList.remove('active');
+                        menuPopup.classList.add('closing');
+                        setTimeout(() => {
+                            menuPopup.classList.remove('closing');
+                            menuPopup.style.display = 'none';
+                        }, 300); // يتناسب مع مدة animation
+                    } else {
+                        menuPopup.style.display = 'block';
+                        menuPopup.classList.add('active');
+                    }
+                }
+        
+                // دالة لتنفيذ البحث
+                function performSearch(searchTerm) {
+                    const products = document.querySelectorAll('.product'); // جميع المنتجات
+        
+                    products.forEach(product => {
+                        const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
+                        if (productName.includes(searchTerm.toLowerCase())) {
+                            product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
+                        } else {
+                            product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
+                        }
+                    });
+                }
+        
+                // دالة لتحريك الخط ووضع الكلمة في صندوق البحث (إن وجدت)
+                function selectItem(item, element) {
+                    const searchBox = document.getElementById('search-box');
+        
+                    // إذا كان العنصر المحدد هو "الكل"، قم بإعادة تحميل الصفحة
+                    if (item === 'الكل') {
+                        window.location.href = 'index.html'; // إعادة تحميل الصفحة
+                        return; // إيقاف تنفيذ الدالة هنا
+                    }
+        
+                    // إذا لم يكن العنصر "الكل"، قم بتنفيذ البحث
+                    if (item) {
+                        searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كانت موجودة)
+                        performSearch(item); // تنفيذ البحث
+                    }
+        
+                    // إزالة الفئة النشطة من جميع العناصر
+                    const allItems = document.querySelectorAll('.sub-header nav a');
+                    allItems.forEach(item => item.classList.remove('active'));
+        
+                    // إضافة الفئة النشطة للعنصر المحدد
+                    element.classList.add('active');
+        
+                    // تحريك الخط
+                    const underline = document.querySelector('.underline');
+                    const itemRect = element.getBoundingClientRect();
+                    const navRect = element.parentElement.getBoundingClientRect();
+        
+                    underline.style.width = `${itemRect.width}px`;
+                    underline.style.left = `${itemRect.left - navRect.left}px`;
+                }
+        
+                // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
+                window.onload = function () {
+                    const defaultItem = document.querySelector('.sub-header nav a');
+                    const underline = document.querySelector('.underline');
+                    const itemRect = defaultItem.getBoundingClientRect();
+                    const navRect = defaultItem.parentElement.getBoundingClientRect();
+        
+                    // إضافة الفئة النشطة لعنصر "الكل" بشكل افتراضي
+                    defaultItem.classList.add('active');
+        
+                    // ضبط الخط تحت "الكل" بشكل افتراضي
+                    underline.style.width = `${itemRect.width}px`;
+                    underline.style.left = `${itemRect.left - navRect.left}px`;
+                };
+            </script>
+        </body>
+        </html>
 
 
 
@@ -1235,102 +1261,102 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحميل الصفحة</title>
+    <title>Skeleton Loading مع دائرة تحميل حقيقية</title>
     <style>
-        /* تصميم دائرة التحميل */
-        .loader {
+        /* تنسيق Skeleton Loading */
+        .skeleton-container {
             position: fixed;
-            top: 0;
+            top: 116px; /* بداية الخلفية من 116px من الأعلى */
             left: 0;
             width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
+            height: calc(100% - 116px); /* ارتفاع الخلفية ناقص 116px من الأعلى */
+            background: rgb(255, 255, 255); /* خلفية شبه شفافة */
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             z-index: 1000;
         }
 
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #000;
+        /* الدائرة المتحركة */
+        .skeleton-circle {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+            border: 4px solid #f3f3f3; /* لون الخلفية للدائرة */
+            border-top: 4px solid #000000; /* لون الجزء المتحرك */
+            animation: spin 1s linear infinite; /* دوران مستمر */
         }
 
+        /* رسوم متحركة للدائرة */
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* إخفاء المحتوى أثناء التحميل */
-        .page-content {
-            display: none;
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
 <body>
-    <!-- عنصر التحميل -->
-    <div id="loader" class="loader">
-        <div class="spinner"></div>
+    <!-- Skeleton Loading -->
+    <div class="skeleton-container">
+        <div class="skeleton-circle"></div> <!-- الدائرة المتحركة -->
     </div>
 
-    <!-- محتوى الصفحة -->
-    <div id="page-content" class="page-content">
-        <!-- هنا يمكنك وضع محتوى الصفحة -->
-        <h1>مرحباً بك في الموقع</h1>
-        <p>هذا هو محتوى الصفحة بعد التحميل.</p>
-    </div>
+    <!-- محتوى الصفحة الفعلي (تمت إزالته) -->
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const loader = document.getElementById('loader');
-            const pageContent = document.getElementById('page-content');
-
-            // إظهار دائرة التحميل وإخفاء المحتوى
-            loader.style.display = 'flex';
-            pageContent.style.display = 'none';
-        });
-
-        // انتظار اكتمال تحميل الصفحة بالكامل
-        window.addEventListener('load', function () {
-            const loader = document.getElementById('loader');
-            const pageContent = document.getElementById('page-content');
-
-            // إخفاء دائرة التحميل وإظهار المحتوى
-            loader.style.display = 'none';
-            pageContent.style.display = 'block';
+        // إخفاء Skeleton Loading بعد تحميل الصفحة
+        window.addEventListener('load', function() {
+            const skeletonContainer = document.querySelector('.skeleton-container');
+            skeletonContainer.style.display = 'none';
         });
     </script>
 </body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</html> 
 
 
 
