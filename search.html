@@ -26,20 +26,19 @@
     
             /* الخلفية البيضاء بارتفاع 65px */
             .header-background {
-                position: fixed; /* تغيير من fixed إلى absolute */
+                position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 65px;
                 background: linear-gradient(to right, #f8f8f8, #f3f3f3);
                 z-index: 1;
-               box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
     
             /* صندوق البحث */
             .search-container {
-                position: fixed; /* تغيير من fixed إلى absolute */
+                position: fixed;
                 top: 10px;
                 left: 50%;
                 transform: translateX(-50%);
@@ -63,11 +62,14 @@
                 direction: rtl;
                 transition: border-color 0.3s;
             }
+    
             @media (max-width: 499px) {
-                .search-container input[type="text"]{
-               width: 128%;
-               margin-right: -55px;
-                }}
+                .search-container input[type="text"] {
+                    width: 128%;
+                    margin-right: -55px;
+                }
+            }
+    
             .search-container input[type="text"]:focus {
                 border-color: #000000;
                 box-shadow: 0 0 2px #000000;
@@ -90,12 +92,13 @@
                 border: none;
                 cursor: pointer;
             }
+    
             @media (max-width: 499px) {
-                .search-container .search-button{
-               left: 6px;
-                }}
-
-                
+                .search-container .search-button {
+                    left: 6px;
+                }
+            }
+    
             .search-container .search-button:hover {
                 background-color: #333;
             }
@@ -131,7 +134,7 @@
     
             /* زر الرجوع */
             .back-button {
-                position: fixed; /* تغيير من fixed إلى absolute */
+                position: fixed;
                 top: 10px;
                 left: 20px;
                 background-color: transparent;
@@ -399,181 +402,180 @@
                 <img src="1.2.jpg" alt="بحث 12">
             </div>
         </div>
-    </body>
-    </html>
-    <script>
-        // العناصر الأساسية
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
-        const backButton = document.getElementById('back-button');
-        const searchHistoryGrid = document.getElementById('search-history');
-        const imageGrid = document.getElementById('image-grid');
-        const clearButton = document.getElementById('clear-button');
-        const deleteAllButton = document.getElementById('delete-all-button');
-        const lastSearchItem = document.getElementById('last-search-item');
-        const lastSearchTerm = document.getElementById('last-search-term');
-
-        // الرجوع إلى الصفحة الرئيسية
-        backButton.addEventListener('click', function () {
-            window.location.href = 'index.html';
-        });
-
-        // عند النقر على زر البحث
-        searchButton.addEventListener('click', function () {
-            const searchTerm = searchInput.value.trim();
-            if (searchTerm) {
-                saveSearchTerm(searchTerm);
-                saveLastSearchTerm(searchTerm);
-                window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
-            }
-        });
-
-        // عند الضغط على Enter داخل صندوق البحث
-        searchInput.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
+    
+        <script>
+            // العناصر الأساسية
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const backButton = document.getElementById('back-button');
+            const searchHistoryGrid = document.getElementById('search-history');
+            const imageGrid = document.getElementById('image-grid');
+            const clearButton = document.getElementById('clear-button');
+            const deleteAllButton = document.getElementById('delete-all-button');
+            const lastSearchItem = document.getElementById('last-search-item');
+            const lastSearchTerm = document.getElementById('last-search-term');
+    
+            // الرجوع إلى الصفحة الرئيسية
+            backButton.addEventListener('click', function () {
+                window.location.href = 'index.html'; // تغيير من index.html إلى sea.html
+            });
+    
+            // عند النقر على زر البحث
+            searchButton.addEventListener('click', function () {
                 const searchTerm = searchInput.value.trim();
                 if (searchTerm) {
                     saveSearchTerm(searchTerm);
                     saveLastSearchTerm(searchTerm);
-                    window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
+                    window.location.href = `sea.html?search=${encodeURIComponent(searchTerm)}`; // تغيير من index.html إلى sea.html
                 }
-            }
-        });
-
-        // إظهار زر "X" عند البدء بالكتابة
-        searchInput.addEventListener('input', function () {
-            if (searchInput.value.trim() !== '') {
-                clearButton.style.display = 'block';
-            } else {
-                clearButton.style.display = 'none';
-            }
-        });
-
-        // إضافة حدث النقر على زر "X" لحذف النص
-        clearButton.addEventListener('click', function () {
-            searchInput.value = '';
-            clearButton.style.display = 'none';
-            searchInput.focus();
-        });
-
-        // حفظ مصطلح البحث في localStorage
-        function saveSearchTerm(term) {
-            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-            const existingIndex = searchHistory.findIndex(entry => entry.term === term);
-
-            if (existingIndex !== -1) {
-                // إذا كان النص موجودًا، قم بإزالته أولًا
-                searchHistory.splice(existingIndex, 1);
-            }
-
-            // إضافة النص الجديد في البداية
-            const today = new Date();
-            const date = today.toLocaleDateString('ar-EG'); // تاريخ اليوم بتنسيق عربي
-            searchHistory.unshift({ term, date });
-
-            // حفظ القائمة المحدثة في localStorage
-            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-
-            // عرض سجل البحث المحدث
-            displaySearchHistory();
-        }
-
-        // حفظ آخر نص كتبه المستخدم في localStorage
-        function saveLastSearchTerm(term) {
-            localStorage.setItem('lastSearchTerm', term);
-            displayLastSearchTerm();
-        }
-
-        // عرض آخر نص كتبه المستخدم
-        function displayLastSearchTerm() {
-            const lastTerm = localStorage.getItem('lastSearchTerm') || 'آخر نص كتبه المستخدم';
-            lastSearchTerm.textContent = lastTerm;
-        }
-
-        // عرض سجل البحث في الشبكة
-        function displaySearchHistory() {
-            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-            searchHistoryGrid.innerHTML = '';
-            searchHistory.forEach((entry) => {
-                const searchItem = document.createElement('div');
-                searchItem.className = 'search-item';
-
-                const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
-                const displayTerm = isTablet && entry.term.length > 8 ? entry.term.substring(0, 8) + '..' : entry.term;
-
-                searchItem.innerHTML = `
-                    <span>${displayTerm}</span>
-                    <small>${entry.date}</small>
-                    <button class="delete-button">✖</button>
-                `;
-
-                // عند النقر على عنصر من سجل البحث، يتم البحث عنه مباشرة
-                searchItem.addEventListener('click', function () {
-                    const searchTerm = entry.term;
-                    saveSearchTerm(searchTerm);
-                    saveLastSearchTerm(searchTerm);
-                    window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
-                });
-
-                searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    searchItem.remove();
-                    removeSearchTermFromHistory(entry.term);
-                });
-
-                searchHistoryGrid.appendChild(searchItem);
             });
-        }
-
-        // حذف مصطلح البحث من localStorage
-        function removeSearchTermFromHistory(term) {
-            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-            const updatedHistory = searchHistory.filter(entry => entry.term !== term);
-            localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
-        }
-
-        // حذف كل عناصر البحث
-        deleteAllButton.addEventListener('click', function () {
-            localStorage.removeItem('searchHistory');
-            displaySearchHistory();
-        });
-
-        // إضافة حدث النقر على آخر نص كتبه المستخدم
-        lastSearchItem.addEventListener('click', function () {
-            const lastTerm = localStorage.getItem('lastSearchTerm');
-            if (lastTerm) {
-                searchInput.value = lastTerm; // إدخال النص في صندوق البحث
-                searchInput.focus(); // التركيز على صندوق البحث
-                clearButton.style.display = 'block'; // إظهار زر "X"
-            }
-        });
-
-        // إضافة حدث النقر على الصور
-        imageGrid.addEventListener('click', function (event) {
-            const imageItem = event.target.closest('.image-item');
-            if (imageItem) {
-                const searchTerm = imageItem.getAttribute('data-term');
-                if (searchTerm) {
-                    saveSearchTerm(searchTerm);
-                    saveLastSearchTerm(searchTerm);
-                    window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
+    
+            // عند الضغط على Enter داخل صندوق البحث
+            searchInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    const searchTerm = searchInput.value.trim();
+                    if (searchTerm) {
+                        saveSearchTerm(searchTerm);
+                        saveLastSearchTerm(searchTerm);
+                        window.location.href = `sea.html?search=${encodeURIComponent(searchTerm)}`; // تغيير من index.html إلى sea.html
+                    }
                 }
+            });
+    
+            // إظهار زر "X" عند البدء بالكتابة
+            searchInput.addEventListener('input', function () {
+                if (searchInput.value.trim() !== '') {
+                    clearButton.style.display = 'block';
+                } else {
+                    clearButton.style.display = 'none';
+                }
+            });
+    
+            // إضافة حدث النقر على زر "X" لحذف النص
+            clearButton.addEventListener('click', function () {
+                searchInput.value = '';
+                clearButton.style.display = 'none';
+                searchInput.focus();
+            });
+    
+            // حفظ مصطلح البحث في localStorage
+            function saveSearchTerm(term) {
+                const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                const existingIndex = searchHistory.findIndex(entry => entry.term === term);
+    
+                if (existingIndex !== -1) {
+                    // إذا كان النص موجودًا، قم بإزالته أولًا
+                    searchHistory.splice(existingIndex, 1);
+                }
+    
+                // إضافة النص الجديد في البداية
+                const today = new Date();
+                const date = today.toLocaleDateString('ar-EG'); // تاريخ اليوم بتنسيق عربي
+                searchHistory.unshift({ term, date });
+    
+                // حفظ القائمة المحدثة في localStorage
+                localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    
+                // عرض سجل البحث المحدث
+                displaySearchHistory();
             }
-        });
-
-        // عرض سجل البحث عند تحميل الصفحة
-        displaySearchHistory();
-
-        // عرض آخر نص كتبه المستخدم عند تحميل الصفحة
-        displayLastSearchTerm();
-
-        // تركيز المؤشر على صندوق البحث عند تحميل الصفحة
-        window.addEventListener('load', function () {
-            setTimeout(function () {
-                searchInput.focus(); // التركيز على الحقل
-                searchInput.click(); // النقر على الحقل يدويًا
-            }, 500); // تأخير 500 مللي ثانية
-        });
-    </script>
-</body>
-</html>
+    
+            // حفظ آخر نص كتبه المستخدم في localStorage
+            function saveLastSearchTerm(term) {
+                localStorage.setItem('lastSearchTerm', term);
+                displayLastSearchTerm();
+            }
+    
+            // عرض آخر نص كتبه المستخدم
+            function displayLastSearchTerm() {
+                const lastTerm = localStorage.getItem('lastSearchTerm') || 'آخر نص كتبه المستخدم';
+                lastSearchTerm.textContent = lastTerm;
+            }
+    
+            // عرض سجل البحث في الشبكة
+            function displaySearchHistory() {
+                const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                searchHistoryGrid.innerHTML = '';
+                searchHistory.forEach((entry) => {
+                    const searchItem = document.createElement('div');
+                    searchItem.className = 'search-item';
+    
+                    const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
+                    const displayTerm = isTablet && entry.term.length > 8 ? entry.term.substring(0, 8) + '..' : entry.term;
+    
+                    searchItem.innerHTML = `
+                        <span>${displayTerm}</span>
+                        <small>${entry.date}</small>
+                        <button class="delete-button">✖</button>
+                    `;
+    
+                    // عند النقر على عنصر من سجل البحث، يتم البحث عنه مباشرة
+                    searchItem.addEventListener('click', function () {
+                        const searchTerm = entry.term;
+                        saveSearchTerm(searchTerm);
+                        saveLastSearchTerm(searchTerm);
+                        window.location.href = `sea.html?search=${encodeURIComponent(searchTerm)}`; // تغيير من index.html إلى sea.html
+                    });
+    
+                    searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
+                        event.stopPropagation();
+                        searchItem.remove();
+                        removeSearchTermFromHistory(entry.term);
+                    });
+    
+                    searchHistoryGrid.appendChild(searchItem);
+                });
+            }
+    
+            // حذف مصطلح البحث من localStorage
+            function removeSearchTermFromHistory(term) {
+                const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                const updatedHistory = searchHistory.filter(entry => entry.term !== term);
+                localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+            }
+    
+            // حذف كل عناصر البحث
+            deleteAllButton.addEventListener('click', function () {
+                localStorage.removeItem('searchHistory');
+                displaySearchHistory();
+            });
+    
+            // إضافة حدث النقر على آخر نص كتبه المستخدم
+            lastSearchItem.addEventListener('click', function () {
+                const lastTerm = localStorage.getItem('lastSearchTerm');
+                if (lastTerm) {
+                    searchInput.value = lastTerm; // إدخال النص في صندوق البحث
+                    searchInput.focus(); // التركيز على صندوق البحث
+                    clearButton.style.display = 'block'; // إظهار زر "X"
+                }
+            });
+    
+            // إضافة حدث النقر على الصور
+            imageGrid.addEventListener('click', function (event) {
+                const imageItem = event.target.closest('.image-item');
+                if (imageItem) {
+                    const searchTerm = imageItem.getAttribute('data-term');
+                    if (searchTerm) {
+                        saveSearchTerm(searchTerm);
+                        saveLastSearchTerm(searchTerm);
+                        window.location.href = `sea.html?search=${encodeURIComponent(searchTerm)}`; // تغيير من index.html إلى sea.html
+                    }
+                }
+            });
+    
+            // عرض سجل البحث عند تحميل الصفحة
+            displaySearchHistory();
+    
+            // عرض آخر نص كتبه المستخدم عند تحميل الصفحة
+            displayLastSearchTerm();
+    
+            // تركيز المؤشر على صندوق البحث عند تحميل الصفحة
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    searchInput.focus(); // التركيز على الحقل
+                    searchInput.click(); // النقر على الحقل يدويًا
+                }, 500); // تأخير 500 مللي ثانية
+            });
+        </script>
+    </body>
+    </html>

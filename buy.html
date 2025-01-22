@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adger</title>
+    <link rel="icon" href="logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+
+
+
+
+
+
+
+
+
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>شراء المنتج</title>
+        <style>
+            /* تنسيق النافذة (Modal) */
+            .modal {
+                display: none; /* مخفي بشكل افتراضي */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7); /* خلفية شبه شفافة */
+                justify-content: center;
+                align-items: center;
+                z-index: 1000; /* التأكد من ظهور النافذة فوق كل العناصر */
+            }
+    
+            .modal-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 15px; /* زوايا دائرية */
+                width: 90%;
+                max-width: 400px; /* أقصى عرض للنافذة */
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* ظل أكثر وضوحًا */
+                position: relative;
+                animation: slideIn 0.3s ease-out; /* تأثير ظهور النافذة */
+            }
+    
+            /* تأثير ظهور النافذة */
+            @keyframes slideIn {
+                from {
+                    transform: translateY(-50px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+    
+            .modal-content h2 {
+                text-align: center;
+                color: #333;
+                font-family: Cairo, sans-serif;
+                margin-bottom: 20px;
+            }
+    
+            .modal-content input {
+                width: 355px;
+                padding: 12px;
+                margin: 10px 0;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                font-size: 14px;
+                font-family: Cairo, sans-serif;
+                transition: border-color 0.3s ease;
+                padding-left: 30px; /* إضافة مساحة لعلامة التعجب */
+            }
+    
+            .modal-content input:focus {
+                border-color: #28a745; /* لون الحدود عند التركيز */
+                outline: none;
+            }
+    
+            /* علامة التعجب داخل الحقل */
+            .input-container {
+                position: relative;
+            }
+    
+            .error-icon {
+                position: absolute;
+                left: 18px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: red;
+                font-weight: bold;
+                display: none; /* مخفية بشكل افتراضي */
+            }
+    
+            .modal-content button {
+                width: 100%;
+                padding: 12px;
+                background-color: #1f1f1f;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+    
+            .modal-content button:hover {
+                background-color: #4d4d4d;
+            }
+    
+            /* زر الإغلاق (X) */
+            .close-btn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 24px;
+                color: #888;
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+    
+            .close-btn:hover {
+                color: #333;
+            }
+    
+            /* تنسيق النصوص المعروضة */
+            .delivery-info {
+                margin-top: 20px;
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                background-color: #f9f9f9;
+                font-family: Cairo, sans-serif;
+            }
+    
+            /* تنسيق السعر الإجمالي */
+            .total-price {
+                background-color: #cccccc85;
+                padding: 15px;
+                text-align: right;
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 20px;
+                width: 100%;
+                position: fixed;
+                bottom: 50px;
+                left: 0;
+                right: 0;
+                box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+                font-family: Cairo, sans-serif;
+            }
+    
+            /* زر اتمام الشراء */
+            .confirm-btn {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                padding: 15px;
+                background-color: #2b2b2b;
+                color: white;
+                text-align: center;
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+                border: none;
+                transition: background-color 0.3s ease;
+            }
+    
+            .confirm-btn:hover {
+                background-color: #000000;
+            }
+    
+            /* تنسيق السهم */
+            .back-arrow {
+                display: inline-block;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+    
+            .back-arrow svg {
+                width: 24px;
+                height: 24px;
+                vertical-align: middle;
+            }
+    
+            .line {
+                width: 100%;
+                height: 8px;
+                background-color: #eeeeee;
+            }
+    
+            /* تنسيق النصوص */
+            .product-info {
+                font-family: Cairo, sans-serif;
+                font-size: 16px;
+                margin: 10px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- العنوان مع سهم العودة -->
+        <h1 style="font-size: 22px; color: #000; font-family: Cairo, sans-serif;">
+            <span class="back-arrow" onclick="goToIndex()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/>
+                </svg>
+            </span>
+            شراء المنتج
+        </h1>
+    
+        <div class="line"></div>
+        <br>
+    
+        <!-- عرض معلومات المنتج كنصوص -->
+        <div class="product-info">
+            <strong>اسم المنتج:</strong> <span id="productNameText"></span>
+        </div>
+        <div class="product-info">
+            <strong>رقم المنتج:</strong> <span id="productIdText"></span>
+        </div>
+        <div class="product-info">
+            <strong>الكمية:</strong>
+            <span id="quantityValue">1</span>
+            <button onclick="decreaseQuantity()" style="padding: 5px 10px; margin: 0 5px; border: none; background-color: #f0f0f0; cursor: pointer;">-</button>
+            <button onclick="increaseQuantity()" style="padding: 5px 10px; margin: 0 5px; border: none; background-color: #f0f0f0; cursor: pointer;">+</button>
+        </div>
+        <div class="product-info">
+            <strong>سعر المنتج:</strong> <span id="productPriceText"></span> جنيه
+        </div>
+        <div class="product-info">
+            <strong>سعر الشحن:</strong> <span id="shippingPriceText"></span> جنيه
+        </div>
+        <div class="line"></div>
+        <br>
+    
+        <!-- زر لفتح نافذة موقع التوصيل -->
+        <button type="button" onclick="openModal()" style="
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        ">
+            موقع التوصيل
+        </button>
+    
+        <!-- نافذة موقع التوصيل -->
+        <div id="deliveryModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span> <!-- زر الإغلاق -->
+                <h2>موقع التوصيل</h2>
+                <div class="input-container">
+                    <input type="text" id="name" placeholder="الاسم">
+                    <span class="error-icon" id="nameError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="phone" placeholder="رقم الهاتف">
+                    <span class="error-icon" id="phoneError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="governorate" placeholder="المحافظة">
+                    <span class="error-icon" id="governorateError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="city" placeholder="المدينة">
+                    <span class="error-icon" id="cityError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="street" placeholder="اسم الشارع أو الحي">
+                    <span class="error-icon" id="streetError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="landmark" placeholder="أقرب معلم">
+                    <span class="error-icon" id="landmarkError">!</span>
+                </div>
+                <button type="button" onclick="saveDeliveryInfo()">موافق</button>
+            </div>
+        </div>
+    
+        <!-- مكان عرض معلومات التوصيل -->
+        <div id="deliveryInfoDisplay" class="delivery-info" style="display: none;">
+            <h3>معلومات التوصيل:</h3>
+            <p><strong>الاسم:</strong> <span id="displayName"></span></p>
+            <p><strong>رقم الهاتف:</strong> <span id="displayPhone"></span></p>
+            <p><strong>المحافظة:</strong> <span id="displayGovernorate"></span></p>
+            <p><strong>المدينة:</strong> <span id="displayCity"></span></p>
+            <p><strong>الشارع/الحي:</strong> <span id="displayStreet"></span></p>
+            <p><strong>أقرب معلم:</strong> <span id="displayLandmark"></span></p>
+        </div>
+    
+        <!-- قسم السعر الإجمالي -->
+        <div class="total-price" id="totalPriceDisplay">
+            السعر الإجمالي: <span id="totalPriceValue">0</span> جنيه
+        </div>
+    
+        <!-- زر اتمام الشراء -->
+        <button class="confirm-btn" onclick="confirmPurchase()">موافق / إتمام الشراء</button>
+    
+        <script>
+       // فتح النافذة
+function openModal() {
+    // تحميل البيانات المحفوظة من localStorage (إذا وجدت)
+    const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
+    if (savedDeliveryInfo) {
+        const deliveryInfo = JSON.parse(savedDeliveryInfo);
+        document.getElementById('name').value = deliveryInfo.name;
+        document.getElementById('phone').value = deliveryInfo.phone;
+        document.getElementById('governorate').value = deliveryInfo.governorate;
+        document.getElementById('city').value = deliveryInfo.city;
+        document.getElementById('street').value = deliveryInfo.street;
+        document.getElementById('landmark').value = deliveryInfo.landmark;
+    }
+    document.getElementById('deliveryModal').style.display = 'flex';
+}
+
+// إغلاق النافذة
+function closeModal() {
+    document.getElementById('deliveryModal').style.display = 'none';
+}
+
+// حفظ معلومات التوصيل وعرضها
+function saveDeliveryInfo() {
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const governorate = document.getElementById('governorate').value;
+    const city = document.getElementById('city').value;
+    const street = document.getElementById('street').value;
+    const landmark = document.getElementById('landmark').value;
+
+    // إخفاء جميع علامات الخطأ أولًا
+    document.querySelectorAll('.error-icon').forEach(error => error.style.display = 'none');
+
+    // التحقق من ملء جميع الحقول
+    let isValid = true;
+    if (!name) {
+        document.getElementById('nameError').style.display = 'inline';
+        isValid = false;
+    }
+    if (!phone) {
+        document.getElementById('phoneError').style.display = 'inline';
+        isValid = false;
+    }
+    if (!governorate) {
+        document.getElementById('governorateError').style.display = 'inline';
+        isValid = false;
+    }
+    if (!city) {
+        document.getElementById('cityError').style.display = 'inline';
+        isValid = false;
+    }
+    if (!street) {
+        document.getElementById('streetError').style.display = 'inline';
+        isValid = false;
+    }
+    if (!landmark) {
+        document.getElementById('landmarkError').style.display = 'inline';
+        isValid = false;
+    }
+
+    // إذا كانت جميع الحقول ممتلئة
+    if (isValid) {
+        // عرض المعلومات كنصوص
+        document.getElementById('displayName').textContent = name;
+        document.getElementById('displayPhone').textContent = phone;
+        document.getElementById('displayGovernorate').textContent = governorate;
+        document.getElementById('displayCity').textContent = city;
+        document.getElementById('displayStreet').textContent = street;
+        document.getElementById('displayLandmark').textContent = landmark;
+
+        // إظهار قسم معلومات التوصيل
+        document.getElementById('deliveryInfoDisplay').style.display = 'block';
+
+        // حفظ البيانات في localStorage
+        const deliveryInfo = {
+            name,
+            phone,
+            governorate,
+            city,
+            street,
+            landmark
+        };
+        localStorage.setItem('deliveryInfo', JSON.stringify(deliveryInfo));
+
+        // إغلاق النافذة بعد الحفظ
+        closeModal();
+    }
+}
+
+// التوجيه إلى index.html عند النقر على السهم
+function goToIndex() {
+    window.location.href = 'index.html';
+}
+
+// اتمام الشراء وفتح تطبيق البريد الإلكتروني
+function confirmPurchase() {
+    const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo')) || {};
+
+    // التحقق من وجود بيانات التوصيل
+    if (!deliveryInfo.name || !deliveryInfo.phone || !deliveryInfo.governorate || !deliveryInfo.city || !deliveryInfo.street || !deliveryInfo.landmark) {
+        alert('يرجى إدخال معلومات التوصيل أولاً.');
+        openModal(); // فتح نافذة موقع التوصيل
+        return; // إيقاف التنفيذ
+    }
+
+    const productName = document.getElementById('productNameText').textContent;
+    const productId = document.getElementById('productIdText').textContent;
+    const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
+    const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
+    const quantity = parseInt(document.getElementById('quantityValue').textContent, 10); // الكمية المحددة
+    const totalPrice = (productPrice * quantity) + shippingPrice; // حساب السعر الإجمالي
+
+    const { name, phone, governorate, city, street, landmark } = deliveryInfo;
+
+    // نص البريد الإلكتروني مع إضافة الكمية والسعر الإجمالي
+    const emailBody = `
+        اسم المنتج: ${productName}
+        رقم المنتج: ${productId}
+        الكمية المحددة: ${quantity}
+        سعر المنتج: ${productPrice.toFixed(2)} جنيه
+        سعر الشحن: ${shippingPrice.toFixed(2)} جنيه
+        السعر الإجمالي: ${totalPrice.toFixed(2)} جنيه
+
+        معلومات التوصيل:
+        الاسم: ${name}
+        رقم الهاتف: ${phone}
+        المحافظة: ${governorate}
+        المدينة: ${city}
+        الشارع/الحي: ${street}
+        أقرب معلم: ${landmark}
+    `;
+
+    // إنشاء رابط mailto
+    const mailtoLink = `mailto:adger.shop@gmail.com?subject=تفاصيل الطلب&body=${encodeURIComponent(emailBody)}`;
+
+    // فتح تطبيق البريد الإلكتروني
+    window.location.href = mailtoLink;
+}
+
+// استخراج المعلمات من عنوان URL
+const urlParams = new URLSearchParams(window.location.search);
+const productName = urlParams.get('name');
+const productId = urlParams.get('id');
+const productPrice = parseFloat(urlParams.get('price')) || 0;
+const shippingPrice = parseFloat(urlParams.get('shipping')) || 0;
+
+// عرض معلومات المنتج
+document.getElementById('productNameText').textContent = decodeURIComponent(productName);
+document.getElementById('productIdText').textContent = decodeURIComponent(productId);
+document.getElementById('productPriceText').textContent = productPrice.toFixed(2);
+document.getElementById('shippingPriceText').textContent = shippingPrice.toFixed(2);
+
+// تحميل البيانات المحفوظة من localStorage (إذا وجدت)
+const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
+if (savedDeliveryInfo) {
+    const deliveryInfo = JSON.parse(savedDeliveryInfo);
+    document.getElementById('displayName').textContent = deliveryInfo.name;
+    document.getElementById('displayPhone').textContent = deliveryInfo.phone;
+    document.getElementById('displayGovernorate').textContent = deliveryInfo.governorate;
+    document.getElementById('displayCity').textContent = deliveryInfo.city;
+    document.getElementById('displayStreet').textContent = deliveryInfo.street;
+    document.getElementById('displayLandmark').textContent = deliveryInfo.landmark;
+    document.getElementById('deliveryInfoDisplay').style.display = 'block';
+}
+
+// إدارة الكمية
+let quantity = 1;
+
+function increaseQuantity() {
+    quantity++;
+    document.getElementById('quantityValue').textContent = quantity;
+    updateTotalPrice(); // تحديث السعر الإجمالي
+}
+
+function decreaseQuantity() {
+    if (quantity > 1) {
+        quantity--;
+        document.getElementById('quantityValue').textContent = quantity;
+        updateTotalPrice(); // تحديث السعر الإجمالي
+    }
+}
+
+// تحديث السعر الإجمالي بناءً على الكمية
+function updateTotalPrice() {
+    const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
+    const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
+    const totalPrice = (productPrice * quantity) + shippingPrice;
+    document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2);
+}
+
+// تحديث السعر الإجمالي عند التحميل الأولي
+updateTotalPrice();
+        </script>
+    </body>
+    </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>الصفحة الرئيسية</title>
+        <style>
+            /* التنسيق العام */
+            body {
+                font-family: Arial, sans-serif;
+                padding-top: 66px; /* تعديل الحشو الأعلى بعد إزالة الشريط */
+            }
+    
+            /* الشريط العلوي الثابت */
+            .header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 66px;
+                background-color: #1b1b1b;
+                padding: 0 20px;
+                z-index: 1;
+                box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.1);
+            }
+    
+            /* بقية التنسيقات كما هي */
+            .search-wrapper {
+                position: relative;
+                width: 60%;
+                max-width: 600px;
+            }
+    
+            #search-box {
+                width: 100%;
+                padding: 10px 12px 10px 53px;
+                font-size: 16px;
+                border: 1px solid #ffffff;
+                border-radius: 51px;
+                outline: none;
+                box-sizing: border-box;
+                text-align: right;
+                direction: rtl;
+                cursor: pointer; /* المؤشر الافتراضي */
+            }
+    
+            /* تغيير المؤشر إلى نصي (I-beam) عند التمرير */
+            #search-box:hover {
+                cursor: text;
+            }
+    
+            #search-button {
+                position: absolute;
+                left: 3px;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: black;
+                color: white;
+                width: 40px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 33px;
+                border: none;
+                cursor: pointer;
+            }
+    
+            #search-button svg {
+                width: 20px;
+                height: 20px;
+                color: white;
+            }
+    
+            .right-elements {
+                display: flex;
+                align-items: center;
+                gap: 30px;
+            }
+    
+            .right-elements span {
+                font-size: 16px;
+                color: #ffffff;
+            }
+    
+            .user-icon {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-left: 20px;
+                justify-content: center;
+            }
+    
+            .user-icon svg {
+                width: 24px;
+                height: 24px;
+                color: #ffffff;
+                flex-shrink: 0;
+            }
+    
+            .welcome-message {
+                font-size: 16px;
+                color: #007bff;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+    
+            .welcome-message span {
+                font-weight: bold;
+                color: #ffffff;
+            }
+    
+            .left-elements {
+                display: flex;
+                align-items: center;
+                gap: 30px;
+            }
+    
+            .menu-icon, .cart-icon, .message-button {
+                cursor: pointer;
+            }
+    
+            .menu-icon svg, .cart-icon svg, .message-button svg {
+                width: 24px;
+                height: 24px;
+                color: #ffffff;
+            }
+    
+            .cart-icon {
+                position: relative;
+            }
+    
+            .cart-count {
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background-color: red;
+                color: white;
+                font-size: 12px;
+                padding: 2px 6px;
+                border-radius: 50%;
+            }
+    
+            /* إخفاء العنصر على الهواتف */
+            @media only screen and (max-width: 767px) {
+                .cart-icon {
+                    margin-left: -10px;
+                }
+            }
+    
+            /* تعديلات النافذة الجانبية */
+            .menu-popup {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: -250px;
+                width: 250px;
+                height: 100vh;
+                background-color: white;
+                box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                z-index: 1000;
+                transition: left 0.3s ease-in-out;
+                overflow-y: auto;
+            }
+    
+            /* أنيميشن مخصصة للنافذة الأولى */
+            @keyframes slideIn1 {
+                from {
+                    left: -250px;
+                }
+                to {
+                    left: 0;
+                }
+            }
+    
+            @keyframes slideOut1 {
+                from {
+                    left: 0;
+                }
+                to {
+                    left: -250px;
+                }
+            }
+    
+            /* أنيميشن مخصصة للنافذة الثانية */
+            @keyframes slideIn2 {
+                from {
+                    left: -250px;
+                }
+                to {
+                    left: 0;
+                }
+            }
+    
+            @keyframes slideOut2 {
+                from {
+                    left: 0;
+                }
+                to {
+                    left: -250px;
+                }
+            }
+    
+            /* تطبيق الأنيميشن على النافذة الأولى */
+            .menu-popup-1.active {
+                animation: slideIn1 0.3s ease-in-out forwards;
+            }
+    
+            .menu-popup-1.closing {
+                animation: slideOut1 0.3s ease-in-out forwards;
+            }
+    
+            /* تطبيق الأنيميشن على النافذة الثانية */
+            .menu-popup-2.active {
+                animation: slideIn2 0.3s ease-in-out forwards;
+            }
+    
+            .menu-popup-2.closing {
+                animation: slideOut2 0.3s ease-in-out forwards;
+            }
+    
+            .menu-popup .back-arrow {
+                cursor: pointer;
+                margin-bottom: 20px;
+            }
+    
+            .menu-popup .back-arrow svg {
+                width: 24px;
+                height: 24px;
+                color: #000000;
+            }
+    
+            .menu-popup p {
+                font-size: 18px;
+                color: #000000;
+                cursor: pointer;
+            }
+    
+            .menu-icon {
+                margin-left: 10px;
+            }
+    
+            /* إخفاء العنصر على الهواتف */
+            @media only screen and (max-width: 767px) {
+                .menu-icon {
+                    margin-left: -6px;
+                }
+            }
+    
+            .adger {
+                font-family: Arial, sans-serif;
+                font-size: 27px;
+                margin-left: 10px;
+                font-weight: bold;
+                background: linear-gradient(to right, #f37420, #ffc4c4);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                cursor: pointer;
+                user-select: none;
+            }
+    
+            @media (max-width: 767px) {
+                .adger {
+                    font-size: 20px;
+                }
+            }
+    
+            @media (min-width: 767px) {
+                .adger {
+                    margin-left: 10px;
+                }
+            }
+    
+            .container22 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+    
+            .country-code {
+                display: inline-flex;
+                align-items: center;
+                font-size: 18px;
+            }
+    
+            .flag {
+                width: 24px;
+                height: 16px;
+                margin-left: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- الهيكل الرئيسي -->
+        <div class="header">
+            <!-- العناصر على اليمين -->
+            <div class="right-elements">
+                <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
+                <div class="element-to-hide" style="font-family: Cairo, sans-serif; color: #ffffff;">
+                    اللغه / <span style="color: red;">ar</span>
+                </div>
+                <div class="user-icon" onclick="window.location.href='account.html'">
+                    <div class="welcome-message" id="welcomeMessage">
+                        أهلاً <span id="usernameDisplay"></span>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+            </div>
+            <!-- صندوق البحث -->
+            <div class="search-wrapper">
+                <input 
+                    type="text" 
+                    id="search-box" 
+                    placeholder="ابحث فى أدجر" 
+                    autocomplete="off" 
+                    readonly 
+                    onclick="window.location.href='search.html'"> <!-- التوجيه إلى search.html -->
+                <button id="search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+            <!-- العناصر على اليسار -->
+            <div class="left-elements">
+                <div class="container22">
+                    <div class="country-code hide-on-mobile">
+                        <span style="color: #ffffff;">البلد / </span>
+                        <span style="color: #ffffff; width: 44px;">EGP</span>
+                        <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
+                    </div>
+                </div>
+                <!-- زر المراسلة -->
+                <div class="message-button" onclick="window.open('https://wa.me/201152366798', '_blank')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                    <span style="font-family: Cairo, sans-serif; color: #ffffff;">مراسلة</span>
+                </div>
+                <!-- أيقونة السلة -->
+                <div class="cart-icon" onclick="window.location.href='cart.html'"> <!-- التوجيه إلى cart.html -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </div>
+                <!-- أيقونة القائمة -->
+                <div class="menu-icon" onclick="toggleMenu('menuPopup1')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    
+        <!-- نافذة القائمة الجانبية الأولى -->
+        <div class="menu-popup menu-popup-1" id="menuPopup1">
+            <div class="back-arrow" onclick="toggleMenu('menuPopup1')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                </svg>
+            </div>
+            <p onclick="window.location.href='account.html'">حسابي</p>
+            <p onclick="window.location.href='about.html'">سياسات وأحكام</p>
+        </div>
+    
+        <!-- نافذة القائمة الجانبية الثانية -->
+        <div class="menu-popup menu-popup-2" id="menuPopup2">
+            <div class="back-arrow" onclick="toggleMenu('menuPopup2')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                </svg>
+            </div>
+            <p>نافذة أخرى</p>
+        </div>
+    
+        <script>
+            // دالة لإظهار أو إخفاء القائمة الجانبية
+            function toggleMenu(menuId) {
+                const menuPopup = document.getElementById(menuId);
+                if (menuPopup.classList.contains('active')) {
+                    menuPopup.classList.remove('active');
+                    menuPopup.classList.add('closing');
+                    setTimeout(() => {
+                        menuPopup.classList.remove('closing');
+                        menuPopup.style.display = 'none';
+                    }, 300); // يتناسب مع مدة animation
+                } else {
+                    menuPopup.style.display = 'block';
+                    menuPopup.classList.add('active');
+                }
+            }
+    
+            // استرجاع بيانات المستخدم من localStorage
+            const username = localStorage.getItem('username');
+    
+            // عرض "أهلاً" مع اسم المستخدم أو نص بديل
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            const usernameDisplay = document.getElementById('usernameDisplay');
+    
+            if (username) {
+                usernameDisplay.textContent = username; // عرض اسم المستخدم
+            } else {
+                welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+            }
+        </script>
+    </body>
+    </html>
