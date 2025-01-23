@@ -862,19 +862,20 @@
     
             .add-to-cart-text {
                 background-color: #ffc400;
+                user-select: none; /* يجعل النص غير قابل للتحديد */
             }
     
             .add-to-cart-text:hover {
                 background-color: #ffae00;
             }
-    
             .buy-now-text {
-                background-color: #ff6600;
-            }
-    
-            .buy-now-text:hover {
-                background-color: #ff0000;
-            }
+    background-color: #ff6600;
+    user-select: none; /* يجعل النص غير قابل للتحديد */
+}
+
+.buy-now-text:hover {
+    background-color: #ff0000;
+}
         </style>
     </head>
     <body>
