@@ -165,7 +165,7 @@
                 right: 0;
                 width: 100%;
                 padding: 15px;
-                background-color: #2b2b2b;
+                background-color: #ff8800;
                 color: white;
                 text-align: center;
                 font-size: 18px;
@@ -176,7 +176,7 @@
             }
     
             .confirm-btn:hover {
-                background-color: #000000;
+                background-color: #ff5100;
             }
     
             /* تنسيق السهم */
@@ -209,11 +209,12 @@
     <body>
         <!-- العنوان مع سهم العودة -->
         <h1 style="font-size: 22px; color: #000; font-family: Cairo, sans-serif;">
-            <span class="back-arrow" onclick="goToIndex()">
+            <span class="back-arrow" onclick="goBack()">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/>
                 </svg>
             </span>
+        
             شراء المنتج
         </h1>
     
@@ -399,10 +400,10 @@ function saveDeliveryInfo() {
 }
 
 // التوجيه إلى index.html عند النقر على السهم
-function goToIndex() {
-    window.location.href = 'index.html';
-}
-
+  // دالة للرجوع إلى الصفحة السابقة
+  function goBack() {
+            history.back(); // يعيد المستخدم إلى الصفحة السابقة في سجل التصفح
+        }
 // اتمام الشراء وفتح تطبيق البريد الإلكتروني
 function confirmPurchase() {
     const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo')) || {};
@@ -833,6 +834,42 @@ updateTotalPrice();
                 height: 16px;
                 margin-left: 8px;
             }
+            @media only screen and (max-width: 767px) {
+                        .hide-on-mobile {
+                            display: none;
+                        }
+                    }
+    
+   /* إخفاء العنصر على الهواتف */
+   @media only screen and (max-width: 767px) {
+                        .user-icon {
+                            display: none;
+                        }
+                    }
+                     /* إخفاء العنصر على الهواتف */
+                     @media only screen and (max-width: 767px) {
+                        .element-to-hide {
+                            display: none;
+                        }
+                    }
+                       /* إخفاء العنصر على الهواتف */
+            @media only screen and (max-width: 767px) {
+                .menu-icon {
+                    margin-left: -6px;
+                }
+            }
+                 /* إخفاء العنصر على الهواتف */
+                 @media only screen and (max-width: 767px) {
+                .cart-icon {
+                    margin-left: -10px;
+                }
+            }
+             /* إخفاء زر المراسلة على الهواتف */
+             @media only screen and (max-width: 767px) {
+                        .message-button {
+                            display: none;
+                        }
+                    }
         </style>
     </head>
     <body>

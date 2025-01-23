@@ -647,7 +647,13 @@
             cursor: pointer;
             transition: transform 0.3s;
         }
+        @media only screen and (max-width: 767px) {
+            .carousel img {
+                width: 150px;
+                height: 150px;
+    }
 
+}
             /* تصميم الخط */
             .line {
             width: 100%; /* العرض يمتد إلى نهاية الشاشة */
@@ -684,12 +690,11 @@
 
 
 
-<br>
+<br><br>
     <!-- الخط -->
     <div class="line"></div>
 
 <h1 style="font-family: 'Cairo', sans-serif; color: #ff4800; font-size: 25px;  text-align: right;  margin-right: 15px; ">قسم الخصومات</h1>
-
 
 <!DOCTYPE html>
 <html lang="ar">
@@ -698,8 +703,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>معرض الصور</title>
     <style>
-     
-
         .carousel {
             display: flex;
             overflow-x: auto;
@@ -732,6 +735,38 @@
         .carousel-item p {
             margin: 5px 0;
         }
+
+        /* التعديلات للهواتف */
+        @media (max-width: 768px) {
+            .carousel-item {
+                width: 150px; /* تقليل عرض العنصر */
+                margin: 0 5px; /* تقليل الهوامش */
+                padding: 5px; /* تقليل الحشوات */
+            }
+
+            .carousel-item img {
+                width: 140px; /* تقليل حجم الصور */
+                height: 140px;
+                min-width: 140px;
+                border-radius: 45px;
+            }
+
+            .carousel-item h1 {
+                font-size: 14px !important; /* تقليل حجم النص */
+            }
+
+            .carousel-item h1[style*="font-size: 14px"] {
+                font-size: 12px !important; /* تقليل حجم النص المشطوب */
+            }
+
+            .carousel-item h1[style*="font-size: 13px"] {
+                font-size: 11px !important; /* تقليل حجم نص الخصم */
+                line-height: 24px !important; /* تعديل ارتفاع السطر */
+                height: 24px !important; /* تعديل الارتفاع */
+                padding-right: 6px !important; /* تعديل الحشوات */
+                padding-left: 6px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -745,6 +780,8 @@
             الخصم 2%
             </h1>
         </div>
+
+
         <div class="carousel-item">
             <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
            <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
@@ -754,6 +791,8 @@
             الخصم 2%
             </h1>
         </div>
+
+
         <div class="carousel-item">
             <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
            <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
@@ -763,6 +802,8 @@
             الخصم 2%
             </h1>
         </div>
+
+
         <div class="carousel-item">
             <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
            <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
@@ -772,6 +813,7 @@
             الخصم 2%
             </h1>
         </div>
+
         <div class="carousel-item">
             <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
            <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
@@ -781,6 +823,8 @@
             الخصم 2%
             </h1>
         </div>
+
+
         <div class="carousel-item">
             <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
            <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
@@ -790,6 +834,8 @@
             الخصم 2%
             </h1>
         </div>
+
+
         <div class="carousel-item">
             <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
            <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
@@ -799,6 +845,8 @@
             الخصم 2%
             </h1>
         </div>
+
+
         <div class="carousel-item">
             <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
            <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
@@ -808,6 +856,10 @@
             الخصم 2%
             </h1>
         </div>
+
+
+        
+        <!-- تكرار العناصر الأخرى بنفس الطريقة -->
     </div>
 
     <script>
@@ -821,8 +873,6 @@
 </html>
 
 <br><br>
-
-
 
     <!-- الخط -->
     <div class="line"></div>
