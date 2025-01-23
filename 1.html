@@ -82,7 +82,7 @@
                     align-items: center;
                 margin-top: 22px;
             margin-right: 35px;
-                }
+                }}
     
                 .main-image {
                     margin-left: 0; /* إعادة تعيين الهامش */
@@ -93,6 +93,12 @@
                     width: 100%;
                     max-width: 400px;
                 }
+
+                @media (max-width: 768px) {
+                    .main-image img {
+              width: 350px;
+                }
+
     
                 .thumbnails {
                     flex-direction: row;
@@ -104,10 +110,13 @@
                     max-width: 400px;
                     gap: 10px; /* مسافة بين المربعات الصغيرة */
                 }
+                @media (max-width: 768px) {
+                    .main-image img {
+              width: 350px;
+                }}
     
-                .thumbnail {
-                    margin: 0; /* إزالة الهامش العمودي */
-                    flex: 0 0 auto; /* منع التمدد */
+                .thumbnails  {
+                    width: 350px;
                 }
     
                 .thumbnail img {
