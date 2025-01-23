@@ -7,6 +7,7 @@
     <link rel="icon" href="logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 
+
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -28,10 +29,11 @@
             .gallery {
                 display: flex;
                 align-items: flex-start;
+                flex-direction: row-reverse; /* تغيير الاتجاه لعرض المربعات الصغيرة على اليمين */
             }
     
             .main-image {
-                margin-right: 20px;
+                margin-left: 20px; /* تغيير الهامش من اليمين إلى اليسار */
             }
     
             .main-image img {
@@ -40,22 +42,17 @@
                 border: 2px solid #ccc;
                 border-radius: 10px;
             }
-            @media (max-width: 768px) {
-                .main-image img {
-          width: 350px;
-        }
-    }
+    
             .thumbnails {
                 display: flex;
                 flex-direction: column;
-                max-height: 400px; /* ارتفاع ثابت للمربعات الصغيرة */
-                overflow-y: scroll; /* تمكين التمرير */
-                padding-right: 10px; /* مساحة للشريط */
-                scrollbar-width: none; /* إخفاء شريط التمرير في المتصفحات الحديثة */
-                -ms-overflow-style: none; /* إخفاء شريط التمرير في IE و Edge */
+                max-height: 400px;
+                overflow-y: scroll;
+                padding-left: 10px; /* تغيير الهامش من اليمين إلى اليسار */
+                scrollbar-width: none;
+                -ms-overflow-style: none;
             }
     
-            /* إخفاء شريط التمرير في المتصفحات التي تدعم WebKit (مثل Chrome و Safari) */
             .thumbnails::-webkit-scrollbar {
                 display: none;
             }
@@ -77,11 +74,56 @@
             .thumbnail.active {
                 border-color: #007BFF;
             }
+    
+            /* التعديلات للهواتف */
+            @media (max-width: 768px) {
+                .gallery {
+                    flex-direction: column;
+                    align-items: center;
+                margin-top: 22px;
+            margin-right: 35px;
+                }
+    
+                .main-image {
+                    margin-left: 0; /* إعادة تعيين الهامش */
+                    margin-bottom: 20px;
+                }
+    
+                .main-image img {
+                    width: 100%;
+                    max-width: 400px;
+                }
+    
+                .thumbnails {
+                    flex-direction: row;
+                    max-height: none;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    padding-left: 0; /* إعادة تعيين الهامش */
+                    width: 100%;
+                    max-width: 400px;
+                    gap: 10px; /* مسافة بين المربعات الصغيرة */
+                }
+    
+                .thumbnail {
+                    margin: 0; /* إزالة الهامش العمودي */
+                    flex: 0 0 auto; /* منع التمدد */
+                }
+    
+                .thumbnail img {
+                    width: 50px; /* حجم المربعات الصغيرة */
+                }
+            }
         </style>
     </head>
     <body>
         <div class="gallery">
-            <!-- المربعات الصغيرة على اليسار -->
+            <!-- الصورة الكبيرة في الأعلى -->
+            <div class="main-image">
+                <img id="mainImg" src="a1.jpg" alt="الصورة الرئيسية">
+            </div>
+    
+            <!-- المربعات الصغيرة أسفل الصورة الكبيرة -->
             <div class="thumbnails">
                 <div class="thumbnail active" onclick="changeImage('a1.jpg', this)">
                     <img src="a1.jpg" alt="الصورة 1">
@@ -104,11 +146,6 @@
                 <div class="thumbnail" onclick="changeImage('a7.jpg', this)">
                     <img src="a7.jpg" alt="الصورة 7">
                 </div>
-            </div>
-    
-            <!-- الصورة الكبيرة على اليمين -->
-            <div class="main-image">
-                <img id="mainImg" src="a1.jpg" alt="الصورة الرئيسية">
             </div>
         </div>
     
