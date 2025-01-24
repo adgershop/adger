@@ -136,7 +136,7 @@
                 .gallery {
                     flex-direction: column;
                     align-items: center;
-                    margin-top: 22px;
+                    margin-top: 15px;
                     margin-right: 1px;
                 }
     
@@ -429,11 +429,32 @@
                     const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
                     const nextIndex = (currentIndex + 1) % thumbnails.length;
                     thumbnails[nextIndex].click();
+                    scrollThumbnailIntoView(thumbnails[nextIndex]); // تمرير المربع النشط إلى العرض
                 } else if (endX > startX + 50) {
                     // Swipe right
                     const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
                     const prevIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
                     thumbnails[prevIndex].click();
+                    scrollThumbnailIntoView(thumbnails[prevIndex]); // تمرير المربع النشط إلى العرض
+                }
+            }
+    
+            // تمرير المربع النشط إلى العرض
+            function scrollThumbnailIntoView(thumbnail) {
+                const thumbnailsContainer = document.querySelector('.thumbnails');
+                const containerRect = thumbnailsContainer.getBoundingClientRect();
+                const thumbnailRect = thumbnail.getBoundingClientRect();
+    
+                if (thumbnailRect.left < containerRect.left) {
+                    thumbnailsContainer.scrollBy({
+                        left: thumbnailRect.left - containerRect.left - 10, // إضافة هامش 10px
+                        behavior: 'smooth'
+                    });
+                } else if (thumbnailRect.right > containerRect.right) {
+                    thumbnailsContainer.scrollBy({
+                        left: thumbnailRect.right - containerRect.right + 10, // إضافة هامش 10px
+                        behavior: 'smooth'
+                    });
                 }
             }
     
