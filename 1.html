@@ -7,7 +7,6 @@
     <link rel="icon" href="logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -27,30 +26,35 @@
     
             .gallery {
                 display: flex;
-                align-items: flex-start;
-                flex-direction: row-reverse;
+                flex-direction: column;
+                align-items: center;
                 margin-top: 20px;
+                max-width: 400px; /* نفس عرض الصورة الكبيرة */
             }
     
             .main-media {
-                margin-left: 20px;
+                margin-bottom: 20px;
                 position: relative;
+                overflow: hidden;
             }
     
             .main-media img, .main-media video {
                 width: 400px;
-                height: 400px; /* ضبط الارتفاع ليتناسب مع الصور */
+                height: 400px;
                 border: 2px solid #ccc;
                 border-radius: 10px;
                 display: block;
+                transition: transform 0.3s ease;
             }
     
             .thumbnails {
                 display: flex;
-                flex-direction: column;
-                max-height: 400px;
-                overflow-y: scroll;
-                padding-left: 10px;
+                flex-direction: row;
+                max-width: 370px; /* نفس عرض الصورة الكبيرة */
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding: 10px;
+                gap: 10px;
                 scrollbar-width: none;
                 -ms-overflow-style: none;
             }
@@ -60,14 +64,15 @@
             }
     
             .thumbnail {
-                margin: 10px 0;
+                margin: 0;
+                flex: 0 0 auto;
+                width: 50px;
+                height: 50px;
                 cursor: pointer;
                 border: 2px solid #ccc;
                 border-radius: 5px;
                 padding: 5px;
                 position: relative;
-                width: 50px;
-                height: 50px;
             }
     
             .thumbnail img, .thumbnail video {
@@ -130,47 +135,6 @@
                 height: 24px;
             }
     
-            @media (max-width: 555px) {
-                .gallery {
-                    flex-direction: column;
-                    align-items: center;
-                    margin-top: 22px;
-                    margin-right: 1px;
-                }
-    
-                .main-media {
-                    margin-left: 0;
-                    margin-bottom: 20px;
-                }
-    
-                .main-media img, .main-media video {
-                    width: 311px;
-                    height: 311px; /* ضبط الارتفاع ليتناسب مع الصور */
-                }
-    
-                .thumbnails {
-                    flex-direction: row;
-                    max-height: none;
-                    overflow-x: auto;
-                    overflow-y: hidden;
-                    padding-left: 0;
-                    width: 311px;
-                    gap: 10px;
-                }
-    
-                .thumbnail {
-                    margin: 0;
-                    flex: 0 0 auto;
-                    width: 50px;
-                    height: 50px;
-                }
-    
-                .thumbnail img, .thumbnail video {
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-    
             .all-media {
                 display: flex;
                 flex-direction: column;
@@ -186,13 +150,13 @@
                 margin-bottom: 20px;
                 border-radius: 10px;
             }
-    
-            @media (max-width: 555px) {
-                .all-media img, .all-media video {
-                    margin-bottom: 15px;
-                    width: 100%;
-                }
-            }
+
+                /* لتصغير الارتفاع على الهواتف المحمولة */
+    @media (max-width: 768px) {
+        .all-media img, .all-media video {
+       width: 100%;
+        }
+    }
     
             .content-below-main {
                 margin-top: 20px;
@@ -217,6 +181,7 @@
                 height: 8px;
                 background-color: #eeeeee;
             }
+
         </style>
     </head>
     <body>
@@ -267,6 +232,38 @@
             </div>
         </div>
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         <div class="all-media" id="allMedia"></div>
     
         <script>
@@ -383,51 +380,71 @@
                 }
             });
     
-            // إضافة ميزة التمرير باللمس والفأرة للمربعات الصغيرة
-            const thumbnailsContainer = document.querySelector('.thumbnails');
-            let isDown = false;
-            let startX, scrollLeft;
+            // إضافة ميزة التمرير باللمس للصورة الرئيسية
+            const mainMedia = document.querySelector('.main-media');
+            let touchStartX = 0;
+            let touchEndX = 0;
     
-            thumbnailsContainer.addEventListener('mousedown', (e) => {
-                isDown = true;
-                startX = e.pageX - thumbnailsContainer.offsetLeft;
-                scrollLeft = thumbnailsContainer.scrollLeft;
+            mainMedia.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
             });
     
-            thumbnailsContainer.addEventListener('mouseleave', () => {
-                isDown = false;
+            mainMedia.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].clientX;
+                handleSwipe();
             });
     
-            thumbnailsContainer.addEventListener('mouseup', () => {
-                isDown = false;
-            });
+            function handleSwipe() {
+                const swipeThreshold = 50; // الحد الأدنى للمسافة لاعتبارها تمريرًا
+                const swipeDistance = touchEndX - touchStartX;
     
-            thumbnailsContainer.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - thumbnailsContainer.offsetLeft;
-                const walk = (x - startX) * 3; // السرعة
-                thumbnailsContainer.scrollLeft = scrollLeft - walk;
-            });
+                if (swipeDistance > swipeThreshold) {
+                    // تمرير من اليسار إلى اليمين (السابق)
+                    changeMedia('prev');
+                } else if (swipeDistance < -swipeThreshold) {
+                    // تمرير من اليمين إلى اليسار (التالي)
+                    changeMedia('next');
+                }
+            }
     
-            thumbnailsContainer.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                scrollLeft = thumbnailsContainer.scrollLeft;
-            });
+            // دالة لتغيير الصورة أو الفيديو
+            function changeMedia(direction) {
+                const activeThumbnail = document.querySelector('.thumbnail.active');
+                let nextThumbnail;
     
-            thumbnailsContainer.addEventListener('touchmove', (e) => {
-                const x = e.touches[0].clientX;
-                const walk = (x - startX) * 3; // السرعة
-                thumbnailsContainer.scrollLeft = scrollLeft - walk;
-            });
+                if (direction === 'next') {
+                    nextThumbnail = activeThumbnail.nextElementSibling || thumbnails[0];
+                } else if (direction === 'prev') {
+                    nextThumbnail = activeThumbnail.previousElementSibling || thumbnails[thumbnails.length - 1];
+                }
     
-            thumbnailsContainer.addEventListener('touchend', () => {
-                startX = null;
-            });
+                if (nextThumbnail) {
+                    const src = nextThumbnail.getAttribute('data-src');
+                    const type = nextThumbnail.getAttribute('data-type');
+    
+                    if (type === 'image') {
+                        mainImg.src = src;
+                        mainImg.style.display = 'block';
+                        mainVideo.style.display = 'none';
+                        shareButton.classList.remove('top');
+                        shareButton.classList.add('bottom');
+                    } else if (type === 'video') {
+                        mainVideo.querySelector('source').src = src;
+                        mainVideo.load();
+                        mainImg.style.display = 'none';
+                        mainVideo.style.display = 'block';
+                        shareButton.classList.remove('bottom');
+                        shareButton.classList.add('top');
+                    }
+    
+                    thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                    nextThumbnail.classList.add('active');
+                    nextThumbnail.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            }
         </script>
     </body>
     </html>
-
 
 
 
