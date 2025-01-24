@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
 
 
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -137,7 +136,7 @@
                 .gallery {
                     flex-direction: column;
                     align-items: center;
-                    margin-top: 22px;
+                    margin-top: 15px;
                     margin-right: 1px;
                 }
     
@@ -195,7 +194,7 @@
                 .all-media img, .all-media video {
                     margin-bottom: 15px; /* تقليل المسافة بين الصور على الهواتف */
                     width: 100%;
-
+    
                 }
             }
     
@@ -277,10 +276,11 @@
             </div>
         </div>
     
-       
-         
-       
-        
+
+
+
+
+
 
         <div class="container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; margin-top: 22px;">
             <div class="price" style="display: flex; align-items: center; gap: 5px;">
@@ -312,24 +312,23 @@
                     body {
                         margin: 0;
                         padding: 0;
-                        overflow-x: hidden; /* منع تجاوز العرض */
+                        overflow-x: hidden; /* منع التمرير الأفقي */
                     }
                     .gradient-background {
-                        background: linear-gradient(to bottom, #00aeff, #f1f1f1); /* التدرج من اليسار إلى اليمين */
-                        color: white; /* لون النص */
-                        height: 44px; /* ارتفاع الخلفية */
-                        display: flex;
-                        align-items: flex-end; /* النص يتجه إلى الأسفل */
-                        justify-content: right;
-                        width: 100vw; /* عرض الخلفية */
-                        max-width: 100vw; /* الحد الأقصى لعرض الخلفية */
-                        position: relative;
-                        padding-right: 16px;
-                        padding-bottom: 8px; /* مسافة من أسفل الخلفية */
-                        font-weight: bold; /* النص سميك */
-                        font-family: Cairo, sans-serif;
-                        box-sizing: border-box; /* تضمين الهوامش والحواف ضمن العرض */
-                    }
+    background: linear-gradient(to bottom, #00aeff, #f1f1f1); /* التدرج من الأعلى إلى الأسفل */
+    color: white; /* لون النص */
+    height: 44px; /* ارتفاع الخلفية */
+    display: flex;
+    align-items: flex-end; /* محاذاة النص إلى الأسفل */
+    justify-content: flex-start; /* تغيير هذه القيمة إلى flex-start */
+    width: 100%; /* عرض الخلفية بنسبة 100% من العنصر الأب */
+    padding-right: 16px; /* مسافة من اليمين */
+    padding-bottom: 8px; /* مسافة من الأسفل */
+    font-weight: bold; /* النص سميك */
+    font-family: 'Cairo', sans-serif; /* خط النص */
+    box-sizing: border-box; /* تضمين الهوامش في العرض */
+    text-align: right; /* محاذاة النص إلى اليمين */
+}
                 </style>
             </head>
             <body>
@@ -484,22 +483,7 @@
 
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
         <!-- إضافة عنصر جديد لعرض جميع الصور والفيديوهات تحت بعضها البعض -->
         <div class="all-media" id="allMedia"></div>
     
@@ -569,6 +553,9 @@
     
                     // إضافة الفئة "active" إلى المربع الذي تم النقر عليه
                     this.classList.add('active');
+    
+                    // تحريك المربعات الصغيرة إلى المربع المركز عليه
+                    this.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
                 });
             });
     
@@ -619,10 +606,61 @@
                     allMedia.appendChild(video);
                 }
             });
+    
+            // إضافة ميزة التمرير باللمس للصور الكبيرة
+            let startX, endX;
+            mainImg.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            });
+            mainImg.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                handleSwipe();
+            });
+    
+            mainVideo.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            });
+            mainVideo.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                handleSwipe();
+            });
+    
+            function handleSwipe() {
+                if (startX > endX + 50) {
+                    // Swipe left
+                    const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
+                    const nextIndex = (currentIndex + 1) % thumbnails.length;
+                    thumbnails[nextIndex].click();
+                } else if (endX > startX + 50) {
+                    // Swipe right
+                    const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
+                    const prevIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+                    thumbnails[prevIndex].click();
+                }
+            }
+    
+            // إضافة ميزة التمرير باللمس للمربعات الصغيرة
+            const thumbnailsContainer = document.querySelector('.thumbnails');
+            thumbnailsContainer.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            });
+            thumbnailsContainer.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                handleThumbnailSwipe();
+            });
+    
+            function handleThumbnailSwipe() {
+                if (startX > endX + 50) {
+                    // Swipe left
+                    thumbnailsContainer.scrollBy({ left: 100, behavior: 'smooth' });
+                } else if (endX > startX + 50) {
+                    // Swipe right
+                    thumbnailsContainer.scrollBy({ left: -100, behavior: 'smooth' });
+                }
+            }
         </script>
     </body>
     </html>
-
 
 
 
