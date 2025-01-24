@@ -7,6 +7,7 @@
     <link rel="icon" href="logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 
+
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -27,21 +28,21 @@
             .gallery {
                 display: flex;
                 align-items: flex-start;
-                flex-direction: row-reverse; /* تغيير الاتجاه لعرض المربعات الصغيرة على اليمين */
+                flex-direction: row-reverse;
                 margin-top: 20px;
             }
     
             .main-media {
-                margin-left: 20px; /* تغيير الهامش من اليمين إلى اليسار */
+                margin-left: 20px;
                 position: relative;
             }
     
             .main-media img, .main-media video {
                 width: 400px;
-                height: auto;
-                max-height: 400px;
+                height: 400px; /* ضبط الارتفاع ليتناسب مع الصور */
                 border: 2px solid #ccc;
                 border-radius: 10px;
+                display: block;
             }
     
             .thumbnails {
@@ -49,7 +50,7 @@
                 flex-direction: column;
                 max-height: 400px;
                 overflow-y: scroll;
-                padding-left: 10px; /* تغيير الهامش من اليمين إلى اليسار */
+                padding-left: 10px;
                 scrollbar-width: none;
                 -ms-overflow-style: none;
             }
@@ -66,21 +67,20 @@
                 padding: 5px;
                 position: relative;
                 width: 50px;
-                height: 50px; /* نفس حجم الصور */
+                height: 50px;
             }
     
             .thumbnail img, .thumbnail video {
                 width: 100%;
                 height: 100%;
                 display: block;
-                object-fit: cover; /* لضمان أن الفيديو يتناسب مع المربع */
+                object-fit: cover;
             }
     
             .thumbnail.active {
                 border-color: #007BFF;
             }
     
-            /* أيقونة التشغيل */
             .play-icon {
                 position: absolute;
                 top: 50%;
@@ -93,13 +93,13 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                pointer-events: none; /* لمنع الأيقونة من اعتراض النقرات */
+                pointer-events: none;
             }
     
             .play-icon svg {
                 width: 16px;
                 height: 16px;
-                fill: white; /* لون الأيقونة */
+                fill: white;
             }
     
             .share-button {
@@ -130,7 +130,6 @@
                 height: 24px;
             }
     
-            /* التعديلات للهواتف */
             @media (max-width: 555px) {
                 .gallery {
                     flex-direction: column;
@@ -140,14 +139,13 @@
                 }
     
                 .main-media {
-                    margin-left: 0; /* إعادة تعيين الهامش */
+                    margin-left: 0;
                     margin-bottom: 20px;
                 }
     
                 .main-media img, .main-media video {
                     width: 311px;
-                    height: auto;
-                    max-height: 311px;
+                    height: 311px; /* ضبط الارتفاع ليتناسب مع الصور */
                 }
     
                 .thumbnails {
@@ -155,16 +153,16 @@
                     max-height: none;
                     overflow-x: auto;
                     overflow-y: hidden;
-                    padding-left: 0; /* إعادة تعيين الهامش */
+                    padding-left: 0;
                     width: 311px;
-                    gap: 10px; /* مسافة بين المربعات الصغيرة */
+                    gap: 10px;
                 }
     
                 .thumbnail {
-                    margin: 0; /* إزالة الهامش العمودي */
-                    flex: 0 0 auto; /* منع التمدد */
+                    margin: 0;
+                    flex: 0 0 auto;
                     width: 50px;
-                    height: 50px; /* نفس حجم الصور */
+                    height: 50px;
                 }
     
                 .thumbnail img, .thumbnail video {
@@ -173,30 +171,29 @@
                 }
             }
     
-            /* إضافة أنماط للعنصر الجديد الذي يحتوي على جميع الصور والفيديوهات */
             .all-media {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 margin-top: 20px;
-                width: 100%; /* جعل العرض يأخذ 100% من المساحة المتاحة */
+                width: 100%;
             }
     
             .all-media img, .all-media video {
-                width: 66%; /* جعل العرض 100% من الشاشة */
-                height: 444px; /* الحفاظ على نسبة العرض إلى الارتفاع */
-                margin-bottom: 20px; /* زيادة المسافة بين الصور */
+                width: 66%;
+                height: auto;
+                max-height: 444px;
+                margin-bottom: 20px;
                 border-radius: 10px;
             }
     
             @media (max-width: 555px) {
                 .all-media img, .all-media video {
-                    margin-bottom: 15px; /* تقليل المسافة بين الصور على الهواتف */
+                    margin-bottom: 15px;
                     width: 100%;
                 }
             }
     
-            /* إضافة أنماط للنص والمحتوى الإضافي */
             .content-below-main {
                 margin-top: 20px;
                 text-align: center;
@@ -214,23 +211,21 @@
                 border: 1px solid #ccc;
                 border-radius: 10px;
             }
-             /* تصميم الخط */
-             .line {
-            width: 100%; /* العرض يمتد إلى نهاية الشاشة */
-            height: 8px; /* الارتفاع 8 بكسل */
-            background-color: #eeeeee; /* لون الخط (يمكن تغييره) */
-        }
+    
+            .line {
+                width: 100%;
+                height: 8px;
+                background-color: #eeeeee;
+            }
         </style>
     </head>
     <body>
         <div class="gallery">
-            <!-- الصورة أو الفيديو الكبير في الأعلى -->
             <div class="main-media">
                 <img id="mainMedia" src="" alt="الصورة الرئيسية" style="display: none;">
                 <video id="mainVideo" controls style="display: none;">
                     <source src="" type="video/mp4">
                 </video>
-                <!-- زر المشاركة -->
                 <button class="share-button bottom" id="shareButton" onclick="sharePage()" style="color: #ffffff;">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
@@ -238,7 +233,6 @@
                 </button>
             </div>
     
-            <!-- المربعات الصغيرة أسفل الصورة الكبيرة -->
             <div class="thumbnails">
                 <div class="thumbnail active" data-src="1.jpg" data-type="image">
                     <img src="" alt="الصورة 1">
@@ -263,7 +257,6 @@
                 </div>
                 <div class="thumbnail" data-src="video.mp4" data-type="video">
                     <video src=""></video>
-                    <!-- أيقونة التشغيل -->
                     <div class="play-icon">
                         <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
                             <path class="play-icon-path" d="M8 5v14l11-7z"/>
@@ -274,8 +267,6 @@
             </div>
         </div>
     
-    
-        <!-- إضافة عنصر جديد لعرض جميع الصور والفيديوهات تحت بعضها البعض -->
         <div class="all-media" id="allMedia"></div>
     
         <script>
@@ -296,7 +287,6 @@
             const mainVideo = document.getElementById('mainVideo');
             const shareButton = document.getElementById('shareButton');
     
-            // تعيين الصورة الأولى كصورة رئيسية
             const firstThumbnail = thumbnails[0];
             const firstSrc = firstThumbnail.getAttribute('data-src');
             const firstType = firstThumbnail.getAttribute('data-type');
@@ -307,7 +297,7 @@
                 mainVideo.style.display = 'none';
             } else if (firstType === 'video') {
                 mainVideo.querySelector('source').src = firstSrc;
-                mainVideo.load(); // إعادة تحميل الفيديو
+                mainVideo.load();
                 mainImg.style.display = 'none';
                 mainVideo.style.display = 'block';
             }
@@ -315,12 +305,10 @@
             // تغيير الصورة الرئيسية أو الفيديو عند النقر على المربعات الصغيرة
             thumbnails.forEach(thumbnail => {
                 thumbnail.addEventListener('click', function () {
-                    // إيقاف الفيديو إذا كان يعمل
                     if (!mainVideo.paused) {
                         mainVideo.pause();
                     }
     
-                    // تغيير الصورة الرئيسية أو الفيديو
                     const src = this.getAttribute('data-src');
                     const type = this.getAttribute('data-type');
     
@@ -332,21 +320,18 @@
                         shareButton.classList.add('bottom');
                     } else if (type === 'video') {
                         mainVideo.querySelector('source').src = src;
-                        mainVideo.load(); // إعادة تحميل الفيديو
+                        mainVideo.load();
                         mainImg.style.display = 'none';
                         mainVideo.style.display = 'block';
                         shareButton.classList.remove('bottom');
                         shareButton.classList.add('top');
                     }
     
-                    // إزالة الفئة "active" من جميع المربعات الصغيرة
                     thumbnails.forEach(thumb => thumb.classList.remove('active'));
-    
-                    // إضافة الفئة "active" إلى المربع الذي تم النقر عليه
                     this.classList.add('active');
     
                     // تحريك المربعات الصغيرة إلى المربع المركز عليه
-                    this.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 });
             });
     
@@ -398,57 +383,47 @@
                 }
             });
     
-            // إضافة ميزة التمرير باللمس للصور الكبيرة
-            let startX, endX;
-            mainImg.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-            });
-            mainImg.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                handleSwipe();
-            });
-    
-            mainVideo.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-            });
-            mainVideo.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                handleSwipe();
-            });
-    
-            function handleSwipe() {
-                if (startX > endX + 50) {
-                    // Swipe left
-                    const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
-                    const nextIndex = (currentIndex + 1) % thumbnails.length;
-                    thumbnails[nextIndex].click();
-                } else if (endX > startX + 50) {
-                    // Swipe right
-                    const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
-                    const prevIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
-                    thumbnails[prevIndex].click();
-                }
-            }
-    
-            // إضافة ميزة التمرير باللمس للمربعات الصغيرة
+            // إضافة ميزة التمرير باللمس والفأرة للمربعات الصغيرة
             const thumbnailsContainer = document.querySelector('.thumbnails');
+            let isDown = false;
+            let startX, scrollLeft;
+    
+            thumbnailsContainer.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - thumbnailsContainer.offsetLeft;
+                scrollLeft = thumbnailsContainer.scrollLeft;
+            });
+    
+            thumbnailsContainer.addEventListener('mouseleave', () => {
+                isDown = false;
+            });
+    
+            thumbnailsContainer.addEventListener('mouseup', () => {
+                isDown = false;
+            });
+    
+            thumbnailsContainer.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - thumbnailsContainer.offsetLeft;
+                const walk = (x - startX) * 3; // السرعة
+                thumbnailsContainer.scrollLeft = scrollLeft - walk;
+            });
+    
             thumbnailsContainer.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].clientX;
-            });
-            thumbnailsContainer.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                handleThumbnailSwipe();
+                scrollLeft = thumbnailsContainer.scrollLeft;
             });
     
-            function handleThumbnailSwipe() {
-                if (startX > endX + 50) {
-                    // Swipe left
-                    thumbnailsContainer.scrollBy({ left: 100, behavior: 'smooth' });
-                } else if (endX > startX + 50) {
-                    // Swipe right
-                    thumbnailsContainer.scrollBy({ left: -100, behavior: 'smooth' });
-                }
-            }
+            thumbnailsContainer.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].clientX;
+                const walk = (x - startX) * 3; // السرعة
+                thumbnailsContainer.scrollLeft = scrollLeft - walk;
+            });
+    
+            thumbnailsContainer.addEventListener('touchend', () => {
+                startX = null;
+            });
         </script>
     </body>
     </html>
