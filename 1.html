@@ -192,8 +192,9 @@
     
             @media (max-width: 555px) {
                 .all-media img, .all-media video {
-                    margin-bottom: 22px; /* تقليل المسافة بين الصور على الهواتف */
+                    margin-bottom: 15px; /* تقليل المسافة بين الصور على الهواتف */
                     width: 100%;
+    
                 }
             }
     
@@ -215,13 +216,12 @@
                 border: 1px solid #ccc;
                 border-radius: 10px;
             }
-    
-            /* تصميم الخط */
-            .line {
-                width: 100%; /* العرض يمتد إلى نهاية الشاشة */
-                height: 8px; /* الارتفاع 8 بكسل */
-                background-color: #eeeeee; /* لون الخط (يمكن تغييره) */
-            }
+             /* تصميم الخط */
+             .line {
+            width: 100%; /* العرض يمتد إلى نهاية الشاشة */
+            height: 8px; /* الارتفاع 8 بكسل */
+            background-color: #eeeeee; /* لون الخط (يمكن تغييره) */
+        }
         </style>
     </head>
     <body>
@@ -276,6 +276,10 @@
             </div>
         </div>
     
+
+
+
+    
         <!-- إضافة عنصر جديد لعرض جميع الصور والفيديوهات تحت بعضها البعض -->
         <div class="all-media" id="allMedia"></div>
     
@@ -315,9 +319,7 @@
     
             // تغيير الصورة الرئيسية أو الفيديو عند النقر على المربعات الصغيرة
             thumbnails.forEach(thumbnail => {
-                thumbnail.addEventListener('click', function (event) {
-                    event.preventDefault(); // منع السلوك الافتراضي
-    
+                thumbnail.addEventListener('click', function () {
                     // إيقاف الفيديو إذا كان يعمل
                     if (!mainVideo.paused) {
                         mainVideo.pause();
@@ -349,7 +351,7 @@
                     this.classList.add('active');
     
                     // تحريك المربعات الصغيرة إلى المربع المركز عليه
-                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    this.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
                 });
             });
     
@@ -404,21 +406,17 @@
             // إضافة ميزة التمرير باللمس للصور الكبيرة
             let startX, endX;
             mainImg.addEventListener('touchstart', (e) => {
-                e.preventDefault(); // منع السلوك الافتراضي
                 startX = e.touches[0].clientX;
             });
             mainImg.addEventListener('touchend', (e) => {
-                e.preventDefault(); // منع السلوك الافتراضي
                 endX = e.changedTouches[0].clientX;
                 handleSwipe();
             });
     
             mainVideo.addEventListener('touchstart', (e) => {
-                e.preventDefault(); // منع السلوك الافتراضي
                 startX = e.touches[0].clientX;
             });
             mainVideo.addEventListener('touchend', (e) => {
-                e.preventDefault(); // منع السلوك الافتراضي
                 endX = e.changedTouches[0].clientX;
                 handleSwipe();
             });
@@ -429,43 +427,20 @@
                     const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
                     const nextIndex = (currentIndex + 1) % thumbnails.length;
                     thumbnails[nextIndex].click();
-                    scrollThumbnailIntoView(thumbnails[nextIndex]); // تمرير المربع النشط إلى العرض
                 } else if (endX > startX + 50) {
                     // Swipe right
                     const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
                     const prevIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
                     thumbnails[prevIndex].click();
-                    scrollThumbnailIntoView(thumbnails[prevIndex]); // تمرير المربع النشط إلى العرض
-                }
-            }
-    
-            // تمرير المربع النشط إلى العرض
-            function scrollThumbnailIntoView(thumbnail) {
-                const thumbnailsContainer = document.querySelector('.thumbnails');
-                const containerRect = thumbnailsContainer.getBoundingClientRect();
-                const thumbnailRect = thumbnail.getBoundingClientRect();
-    
-                if (thumbnailRect.left < containerRect.left) {
-                    thumbnailsContainer.scrollBy({
-                        left: thumbnailRect.left - containerRect.left - 10, // إضافة هامش 10px
-                        behavior: 'smooth'
-                    });
-                } else if (thumbnailRect.right > containerRect.right) {
-                    thumbnailsContainer.scrollBy({
-                        left: thumbnailRect.right - containerRect.right + 10, // إضافة هامش 10px
-                        behavior: 'smooth'
-                    });
                 }
             }
     
             // إضافة ميزة التمرير باللمس للمربعات الصغيرة
             const thumbnailsContainer = document.querySelector('.thumbnails');
             thumbnailsContainer.addEventListener('touchstart', (e) => {
-                e.preventDefault(); // منع السلوك الافتراضي
                 startX = e.touches[0].clientX;
             });
             thumbnailsContainer.addEventListener('touchend', (e) => {
-                e.preventDefault(); // منع السلوك الافتراضي
                 endX = e.changedTouches[0].clientX;
                 handleThumbnailSwipe();
             });
@@ -482,6 +457,11 @@
         </script>
     </body>
     </html>
+
+
+
+
+
 
 
 
