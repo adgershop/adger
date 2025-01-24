@@ -31,7 +31,7 @@
                 margin-top: 20px;
                 max-width: 400px; /* نفس عرض الصورة الكبيرة */
             }
-    
+
             .main-media {
                 margin-bottom: 20px;
                 position: relative;
@@ -46,7 +46,14 @@
                 display: block;
                 transition: transform 0.3s ease;
             }
-    
+            @media (max-width: 768px) {
+                .main-media img, .main-media video {
+        max-width: 350px;
+        height: 350px;
+        }
+    }
+
+
             .thumbnails {
                 display: flex;
                 flex-direction: row;
@@ -58,7 +65,12 @@
                 scrollbar-width: none;
                 -ms-overflow-style: none;
             }
-    
+            @media (max-width: 768px) {
+                .thumbnails {
+        max-width: 330px;
+        }
+    }
+
             .thumbnails::-webkit-scrollbar {
                 display: none;
             }
@@ -241,29 +253,231 @@
 
 
 
+        <div class="container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; margin-top: 22px;">
+            <div class="price" style="display: flex; align-items: center; gap: 5px;">
+                <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px; margin-right: 22px;">00.</div>
+                <div class="number" style="font-size: 28px;">44</div>
+                <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                <s style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s> <!-- النص المشطوب -->
+            </div>
+            <div class="additional-text" style="margin-top: -2px; font-size: 13px; color: #fc0000; margin-right: 22px; font-family: Cairo, sans-serif;">
+               خصم اكثر من 80%
+            </div>
+            <div class="second-text" style="margin-top: 10px; font-size: 18px; font-family: Cairo, sans-serif; margin-right: 22px;">
+                هذا نص آخر تحت النص الإضافي.
+            </div>
+
+            <div class="second-text" style="margin-top: 1px; font-size: 14px; font-family: Cairo, sans-serif; color: #000; margin-right: 27px; margin-bottom: 8px;">
+            5 مباع
+            </div>
+           
 
 
+            <!DOCTYPE html>
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>خلفية متدرجة</title>
+                <style>
+                    body {
+                        margin: 0;
+                        padding: 0;
+                        overflow-x: hidden; /* منع التمرير الأفقي */
+                    }
+                    .gradient-background {
+    background: linear-gradient(to bottom, #00aeff, #f1f1f1); /* التدرج من الأعلى إلى الأسفل */
+    color: white; /* لون النص */
+    height: 44px; /* ارتفاع الخلفية */
+    display: flex;
+    align-items: flex-end; /* محاذاة النص إلى الأسفل */
+    justify-content: flex-start; /* تغيير هذه القيمة إلى flex-start */
+    width: 100%; /* عرض الخلفية بنسبة 100% من العنصر الأب */
+    padding-right: 16px; /* مسافة من اليمين */
+    padding-bottom: 8px; /* مسافة من الأسفل */
+    font-weight: bold; /* النص سميك */
+    font-family: 'Cairo', sans-serif; /* خط النص */
+    box-sizing: border-box; /* تضمين الهوامش في العرض */
+    text-align: right; /* محاذاة النص إلى اليمين */
+}
+                </style>
+            </head>
+            <body>
+                <div class="gradient-background">
+                  سياسات أدجر
+                </div>
+            </body>
+            </html>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <div style="margin-top: 10px; font-family: Cairo, sans-serif; margin-right: 15px; margin-bottom: 17px;">
+                <!-- النص مع رمز الشحن -->
+                <div class="second-text" style="display: flex; align-items: center; gap: 8px; font-size: 18px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 4H17V14H3V4ZM3 14H1V16H3V18H5V16H7V18H9V16H11V18H13V16H15V18H17V16H19V14H17V11L20 8H23V14H21V16H23V18H21V20H19V18H17V20H15V18H13V20H11V18H9V20H7V18H5V20H3V18H1V16H3V14ZM17 6H19V9H17V6ZM5 6H7V9H5V6ZM9 6H11V9H9V6ZM13 6H15V9H13V6Z" fill="#000000"/>
+                    </svg>
+                    <span>الشحن متاح لجميع المحافظات</span>
+                </div>
+            
+                <!-- النص الإضافي تحته -->
+                <div class="additional-text" style="margin-top: 5px; font-size: 14px; color: #555;">
+                    يتم التوصيل خلال 3-5 أيام عمل.
+                </div>
+            </div>
+            
         
+            
+            <div style="margin-top: 10px; font-family: Cairo, sans-serif; margin-right: 15px;">
+                <!-- النص مع رمز الأمان -->
+                <div class="second-text" style="display: flex; align-items: center; gap: 8px; font-size: 18px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 7C13.1 7 14 7.9 14 9C14 10.1 13.1 11 12 11C10.9 11 10 10.1 10 9C10 7.9 10.9 7 12 7ZM16 15.86C15.14 16.94 13.77 17.6 12.2 17.6C10.63 17.6 9.26 16.94 8.4 15.86V13.5C8.4 12.67 9.07 12 9.9 12H14.5C15.33 12 16 12.67 16 13.5V15.86Z" fill="#000000"/>
+                    </svg>
+                    <span>الأمان والخصوصية</span>
+                </div>
+            
+                <!-- النصوص الإضافية تحته -->
+                <div class="additional-text" style="margin-top: 5px; font-size: 14px; color: #555;">
+                    <p>المدفوعات الآمنة: نحن لا نشارك بياناتك الشخصية مع أي أطراف ثالثة دون موافقتك.</p>
+                    <p>تفاصيل شخصية آمنة: إننا نحمي خصوصيتك ونحافظ على تفاصيلك الشخصية آمنة ومحمية.</p>
+                </div>
+            </div>
+
+            
+            <div style="margin-top: 10px; font-family: Cairo, sans-serif; margin-right: 15px;">
+                <!-- النص مع رمز الإرجاع المجاني -->
+                <div class="second-text" style="display: flex; align-items: center; gap: 8px; font-size: 18px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5V2L8 6L12 10V7C15.31 7 18 9.69 18 13C18 16.31 15.31 19 12 19C8.69 19 6 16.31 6 13H4C4 17.42 7.58 21 12 21C16.42 21 20 17.42 20 13C20 8.58 16.42 5 12 5Z" fill="#000000"/>
+                    </svg>
+                    <span>إرجاع مجاني</span>
+                </div>
+            
+                <!-- النص الإضافي تحته -->
+                <div class="additional-text" style="margin-top: 5px; font-size: 14px; color: #555;">
+                    يمكنك إرجاع المنتجات مجانًا خلال 14 يومًا من استلامها.
+                </div>
+            </div>
+    
+
+
+<br>
+    <div class="line"></div>
+
+
+
+
+<h2 style="color: #202020; font-size: 17px; font-family: Cairo, sans-serif;  margin-right: 11px;">تفاصيل المنتج</h2>
+
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>جدول معلومات المنتج</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                direction: rtl;
+                text-align: right;
+            }
+            .product-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+            .product-table th, .product-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+            .product-table th {
+                background-color: #f2f2f2;
+            }
+            .product-table tr:hover {
+                background-color: #f1f1f1;
+            }
+        </style>
+    </head>
+    <body>
+        <table class="product-table">
+            <tr>
+                <th>السؤال</th>
+                <th>الإجابة</th>
+            </tr>
+            <tr>
+                <td>اللون</td>
+                <td>أسود</td>
+            </tr>
+            <tr>
+                <td>المادة</td>
+                <td>بلاستيك</td>
+            </tr>
+            <tr>
+                <td>السعر</td>
+                <td>100 دولار</td>
+            </tr>
+            <tr>
+                <td>الوزن</td>
+                <td>1.5 كجم</td>
+            </tr>
+            <tr>
+                <td>الأبعاد</td>
+                <td>10x20x30 سم</td>
+            </tr>
+            <tr>
+                <td>بلد المنشأ</td>
+                <td>الصين</td>
+            </tr>
+        </table>
+    </body>
+    </html>
+
+
+
+<h3 style="color: #474747; margin-right: 11px; font-size: 14px; font-family: Cairo, sans-serif;">   
+
+    كيندل الأسرع في تاريخنا: شاشة Paperwhite الجديدة بحجم 7 بوصات من الجيل القادم تتميز بنسبة تباين أعلى وتقليب الصفحات أسرع بنسبة 25%.  
+    جاهز للسفر: التصميم فائق النحافة يأتي بشاشة أكبر غير عاكسة ليبقى النص واضحًا بغض النظر عن مكان وجودك.  
+    انغمس في كتبك: جهاز الكيندل الخاص بك لا يحتوي على شبكات اجتماعية أو إشعارات أو تطبيقات أخرى قد تشتتك.  
+    بطارية تدوم مع أطول رواية: شحنة واحدة عبر منفذ USB-C تدوم حتى 12 أسبوعًا.  
+    اقرأ في أي إضاءة: قم بتعديل الشاشة من الأبيض إلى الكهرماني للقراءة تحت أشعة الشمس الساطعة أو في الظلام.  
+    مقاوم للماء بلا قلق: خذ قصصك إلى المسبح أو حوض الاستحمام أو أي مكان آخر.  
+    مجموعة هائلة: احصل فورًا على إمكانية الوصول إلى أكثر من 15 مليون عنوان في متجر كيندل حول العالم، وأضف اشتراك Kindle Unlimited للحصول على وصول غير محدود إلى كتالوج يشمل الكتب الأكثر مبيعًا.  
+
+
+</h3>
+
+
+
+    <br>
+<div class="line"></div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="all-media" id="allMedia"></div>
     
         <script>
