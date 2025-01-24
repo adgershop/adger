@@ -23,6 +23,7 @@
                 align-items: center;
                 margin: 0;
                 background-color: #f4f4f4;
+                overflow-x: hidden; /* منع التمرير الأفقي */
             }
     
             .gallery {
@@ -194,7 +195,6 @@
                 .all-media img, .all-media video {
                     margin-bottom: 15px; /* تقليل المسافة بين الصور على الهواتف */
                     width: 100%;
-    
                 }
             }
     
@@ -276,9 +276,8 @@
             </div>
         </div>
     
-
-
-
+    
+    
     
         <!-- إضافة عنصر جديد لعرض جميع الصور والفيديوهات تحت بعضها البعض -->
         <div class="all-media" id="allMedia"></div>
@@ -403,25 +402,26 @@
                 }
             });
     
+            // منع التمرير العمودي عند التمرير الأفقي
+            let startX, startY, endX, endY;
+            function preventVerticalScroll(e) {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            }
+            function handleSwipe(e) {
+                endX = e.changedTouches[0].clientX;
+                endY = e.changedTouches[0].clientY;
+                if (Math.abs(startX - endX) > Math.abs(startY - endY)) {
+                    // Prevent vertical scroll
+                    e.preventDefault();
+                }
+            }
+    
             // إضافة ميزة التمرير باللمس للصور الكبيرة
-            let startX, endX;
-            mainImg.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-            });
+            mainImg.addEventListener('touchstart', preventVerticalScroll);
+            mainImg.addEventListener('touchmove', handleSwipe);
             mainImg.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                handleSwipe();
-            });
-    
-            mainVideo.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-            });
-            mainVideo.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                handleSwipe();
-            });
-    
-            function handleSwipe() {
+                handleSwipe(e);
                 if (startX > endX + 50) {
                     // Swipe left
                     const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
@@ -433,19 +433,31 @@
                     const prevIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
                     thumbnails[prevIndex].click();
                 }
-            }
+            });
+    
+            mainVideo.addEventListener('touchstart', preventVerticalScroll);
+            mainVideo.addEventListener('touchmove', handleSwipe);
+            mainVideo.addEventListener('touchend', (e) => {
+                handleSwipe(e);
+                if (startX > endX + 50) {
+                    // Swipe left
+                    const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
+                    const nextIndex = (currentIndex + 1) % thumbnails.length;
+                    thumbnails[nextIndex].click();
+                } else if (endX > startX + 50) {
+                    // Swipe right
+                    const currentIndex = Array.from(thumbnails).findIndex(thumbnail => thumbnail.classList.contains('active'));
+                    const prevIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+                    thumbnails[prevIndex].click();
+                }
+            });
     
             // إضافة ميزة التمرير باللمس للمربعات الصغيرة
             const thumbnailsContainer = document.querySelector('.thumbnails');
-            thumbnailsContainer.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-            });
+            thumbnailsContainer.addEventListener('touchstart', preventVerticalScroll);
+            thumbnailsContainer.addEventListener('touchmove', handleSwipe);
             thumbnailsContainer.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                handleThumbnailSwipe();
-            });
-    
-            function handleThumbnailSwipe() {
+                handleSwipe(e);
                 if (startX > endX + 50) {
                     // Swipe left
                     thumbnailsContainer.scrollBy({ left: 100, behavior: 'smooth' });
@@ -453,16 +465,10 @@
                     // Swipe right
                     thumbnailsContainer.scrollBy({ left: -100, behavior: 'smooth' });
                 }
-            }
+            });
         </script>
     </body>
     </html>
-
-
-
-
-
-
 
 
 
