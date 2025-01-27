@@ -11,8 +11,6 @@
 
 
 
-
-    
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -35,6 +33,7 @@
                 gap: 11px; /* مسافة بين العناصر */
                 justify-content: center; /* توسيط العناصر عموديًا */
                 align-items: center; /* توسيط العناصر أفقيًا */
+                z-index: 2147483647; /* قيمة عالية جدًا لـ z-index */
             }
     
             /* تصميم زر تشغيل الصوت */
@@ -163,7 +162,7 @@
     </html>
 
 
-
+    
 
 
 
@@ -626,56 +625,75 @@
 
 
 <h1 style="font-family: 'Cairo', sans-serif; color: #ff4800; font-size: 25px;  text-align: right;  margin-right: 15px; ">قسم الأسعار</h1>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Slider</title>
     <style>
-    
-
-        .carousel {
+        .photo-slider {
             display: flex;
             overflow-x: auto;
             scroll-behavior: smooth;
             scrollbar-width: none; /* إخفاء شريط التمرير في المتصفحات الحديثة */
         }
 
-        .carousel::-webkit-scrollbar {
+        .photo-slider::-webkit-scrollbar {
             display: none; /* إخفاء شريط التمرير في WebKit */
         }
 
-        .carousel img {
+        .photo-slider img {
             width: 200px;
             height: 200px;
             margin: 0 10px;
             cursor: pointer;
             transition: transform 0.3s;
         }
+
         @media only screen and (max-width: 767px) {
-            .carousel img {
+            .photo-slider img {
                 width: 120px;
                 height: 120px;
-    }
-
-}
-            /* تصميم الخط */
-            .line {
-            width: 100%; /* العرض يمتد إلى نهاية الشاشة */
-            height: 8px; /* الارتفاع 8 بكسل */
-            background-color: #eeeeee; /* لون الخط (يمكن تغييره) */
+            }
         }
 
+        .arrow-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 1;
+        }
 
+        .left-arrow {
+            left: 10px;
+        }
+
+        .right-arrow {
+            right: 10px;
+        }
     </style>
 </head>
 <body>
-    <div class="carousel">
-        <img src="a1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-        <img src="a2.jpg" alt="صورة 2" onclick="selectImage('نص الصورة 2')">
-        <img src="a3.jpg" alt="صورة 3" onclick="selectImage('نص الصورة 3')">
-        <img src="a4.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
-        <img src="a5.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-        <img src="a6.jpg" alt="صورة 2" onclick="selectImage('نص الصورة 2')">
-        <img src="a7.jpg" alt="صورة 3" onclick="selectImage('نص الصورة 3')">
-        <img src="a8.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
-        <img src="a9.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
-        <img src="a10.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
+    <div class="photo-slider-container" style="position: relative;">
+        <div class="photo-slider">
+            <img src="a1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+            <img src="a2.jpg" alt="صورة 2" onclick="selectImage('نص الصورة 2')">
+            <img src="a3.jpg" alt="صورة 3" onclick="selectImage('نص الصورة 3')">
+            <img src="a4.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
+            <img src="a5.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+            <img src="a6.jpg" alt="صورة 2" onclick="selectImage('نص الصورة 2')">
+            <img src="a7.jpg" alt="صورة 3" onclick="selectImage('نص الصورة 3')">
+            <img src="a8.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
+            <img src="a9.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
+            <img src="a10.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
+        </div>
     </div>
 
     <script>
@@ -684,18 +702,87 @@
             localStorage.setItem('searchText', text); // حفظ النص في localStorage
             window.location.href = 'sea.html'; // التوجيه إلى صفحة sea.html
         }
+
+        // دالة للكشف عن نوع الجهاز
+        function isDesktop() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+            const isTablet = /(ipad|tablet|playbook|silk)|(android(?!.*mobile))/i.test(userAgent);
+            const screenWidth = window.innerWidth;
+
+            // إذا كان الجهاز ليس هاتفًا أو جهازًا لوحيًا وكان عرض الشاشة أكبر من 768 بكسل
+            return !isMobile && !isTablet && screenWidth > 768;
+        }
+
+        // إنشاء الأسهم وإضافتها إلى الصفحة إذا كان الجهاز كمبيوتر
+        function createArrows() {
+            if (!isDesktop()) return; // إذا لم يكن الجهاز كمبيوتر، لا ننفذ الكود
+
+            const container = document.querySelector('.photo-slider-container');
+            const slider = document.querySelector('.photo-slider');
+
+            // إنشاء سهم اليسار
+            const leftArrow = document.createElement('button');
+            leftArrow.innerHTML = '&#10094;'; // رمز السهم الأيسر
+            leftArrow.classList.add('arrow-button', 'left-arrow');
+            leftArrow.onclick = () => {
+                scrollSlider(-200);
+                updateArrowsVisibility();
+            };
+
+            // إنشاء سهم اليمين
+            const rightArrow = document.createElement('button');
+            rightArrow.innerHTML = '&#10095;'; // رمز السهم الأيمن
+            rightArrow.classList.add('arrow-button', 'right-arrow');
+            rightArrow.style.display = 'none'; // إخفاء السهم الأيمن في البداية
+            rightArrow.onclick = () => {
+                scrollSlider(200);
+                updateArrowsVisibility();
+            };
+
+            // إضافة الأسهم إلى الحاوية
+            container.appendChild(leftArrow);
+            container.appendChild(rightArrow);
+
+            // دالة لتحديث رؤية الأسهم بناءً على موقع التمرير
+            function updateArrowsVisibility() {
+                if (slider.scrollLeft === 0) {
+                    rightArrow.style.display = 'none'; // إخفاء السهم الأيمن عند البداية
+                } else {
+                    rightArrow.style.display = 'block'; // إظهار السهم الأيمن
+                }
+
+                if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth) {
+                    leftArrow.style.display = 'none'; // إخفاء السهم الأيسر عند النهاية
+                } else {
+                    leftArrow.style.display = 'block'; // إظهار السهم الأيسر
+                }
+            }
+
+            // تحديث رؤية الأسهم عند التمرير
+            slider.addEventListener('scroll', updateArrowsVisibility);
+
+            // تحديث رؤية الأسهم عند تحميل الصفحة
+            updateArrowsVisibility();
+        }
+
+        // دالة للتمرير
+        function scrollSlider(scrollAmount) {
+            const slider = document.querySelector('.photo-slider');
+            slider.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // إنشاء الأسهم عند تحميل الصفحة إذا كان الجهاز كمبيوتر
+        createArrows();
     </script>
 </body>
 </html>
 
 
-
 <br><br>
-    <!-- الخط -->
-    <div class="line"></div>
-
-<h1 style="font-family: 'Cairo', sans-serif; color: #ff4800; font-size: 25px;  text-align: right;  margin-right: 15px; ">قسم الخصومات</h1>
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -770,96 +857,97 @@
     </style>
 </head>
 <body>
-    <div class="carousel">
-        <div class="carousel-item">
-            <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-            الخصم 2%
-            </h1>
+    <div class="carousel-container" style="position: relative;">
+        <div class="carousel">
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                الخصم 2%
+                </h1>
+            </div>
+    
+    
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                الخصم 2%
+                </h1>
+            </div>
+    
+    
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                الخصم 2%
+                </h1>
+            </div>
+    
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                الخصم 2%
+                </h1>
+            </div>
+    
+    
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                الخصم 2%
+                </h1>
+            </div>
+    
+    
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                الخصم 2%
+                </h1>
+            </div>
+    
+    
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                الخصم 2%
+                </h1>
+            </div>
+
+            <!-- تكرار العناصر الأخرى بنفس الطريقة -->
         </div>
-
-
-        <div class="carousel-item">
-            <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-            الخصم 2%
-            </h1>
-        </div>
-
-
-        <div class="carousel-item">
-            <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-            الخصم 2%
-            </h1>
-        </div>
-
-
-        <div class="carousel-item">
-            <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-            الخصم 2%
-            </h1>
-        </div>
-
-        <div class="carousel-item">
-            <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-            الخصم 2%
-            </h1>
-        </div>
-
-
-        <div class="carousel-item">
-            <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-            الخصم 2%
-            </h1>
-        </div>
-
-
-        <div class="carousel-item">
-            <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-            الخصم 2%
-            </h1>
-        </div>
-
-
-        <div class="carousel-item">
-            <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-           <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-           <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-            الخصم 2%
-            </h1>
-        </div>
-
-
-
-        <!-- تكرار العناصر الأخرى بنفس الطريقة -->
+        <!-- إضافة الأسهم -->
+        <button id="leftArrowDiscount" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; font-size: 20px; z-index: 1; display: none;">&#10094;</button>
+        <button id="rightArrowDiscount" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; font-size: 20px; z-index: 1;">&#10095;</button>
     </div>
 
     <script>
@@ -868,6 +956,55 @@
             localStorage.setItem('searchText', text); // حفظ النص في localStorage
             window.location.href = 'sea.html'; // التوجيه إلى صفحة sea.html
         }
+
+        // دالة للتمرير
+        function scrollCarousel(scrollAmount) {
+            const carousel = document.querySelector('.carousel');
+            carousel.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // إنشاء الأسهم وإضافتها إلى الصفحة
+        function createArrows() {
+            const leftArrow = document.getElementById('leftArrowDiscount');
+            const rightArrow = document.getElementById('rightArrowDiscount');
+            const carousel = document.querySelector('.carousel');
+
+            leftArrow.onclick = () => {
+                scrollCarousel(-200);
+                updateArrowsVisibility();
+            };
+
+            rightArrow.onclick = () => {
+                scrollCarousel(200);
+                updateArrowsVisibility();
+            };
+
+            // دالة لتحديث رؤية الأسهم بناءً على موقع التمرير
+            function updateArrowsVisibility() {
+                if (carousel.scrollLeft === 0) {
+                    leftArrow.style.display = 'block'; // إظهار السهم الأيسر عند البداية
+                    rightArrow.style.display = 'none'; // إخفاء السهم الأيمن عند البداية
+                } else if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth) {
+                    leftArrow.style.display = 'none'; // إخفاء السهم الأيسر عند النهاية
+                    rightArrow.style.display = 'block'; // إظهار السهم الأيمن عند النهاية
+                } else {
+                    leftArrow.style.display = 'block'; // إظهار السهم الأيسر
+                    rightArrow.style.display = 'block'; // إظهار السهم الأيمن
+                }
+            }
+
+            // تحديث رؤية الأسهم عند التمرير
+            carousel.addEventListener('scroll', updateArrowsVisibility);
+
+            // تحديث رؤية الأسهم عند تحميل الصفحة
+            updateArrowsVisibility();
+        }
+
+        // إنشاء الأسهم عند تحميل الصفحة
+        createArrows();
     </script>
 </body>
 </html>
@@ -1119,7 +1256,7 @@
                 background-color: white;
                 box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
                 padding: 20px;
-                z-index: 1000;
+                z-index: 1000000000000;
                 transition: left 0.3s ease-in-out;
                 overflow-y: auto; /* إضافة شريط تمرير إذا كان المحتوى أطول من الشاشة */
             }
@@ -1526,282 +1663,438 @@
 
     <h1  style=" font-family: 'Cairo', sans-serif; color: #464646; font-size: 16px; text-align: center;">*اَلـــمـــحـــتـــوى* </h1>
 
-
     <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>معرض الصور</title>
-    <style>
-        /* CSS */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            direction: rtl; /* جعل اتجاه النص من اليمين إلى اليسار */
-        }
-
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .image-container {
-            flex: 1 1 calc(16.666% - 20px);
-            max-width: calc(16.666% - 20px);
-            box-sizing: border-box;
-            position: relative;
-        }
-
-        .image-frame {
-            border: 2px solid #cfcfcf;
-            border-radius: 4%;
-            padding: 10px;
-            text-align: center;
-            background-color: #f9f9f9;
-            position: relative;
-        }
-
-        .image-frame img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 4%;
-        }
-
-        .text-under {
-            margin-top: 10px;
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: right; /* جعل النص يبدأ من اليمين */
-        }
-
-        .text-under h1 {
-            font-family: Cairo, sans-serif;
-            color: #333;
-            font-size: 15px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100%;
-        }
-
-        .add-to-cart {
-            position: absolute;
-            bottom: 6px;
-            left: 6px;
-            background-color: #ffc400;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .add-to-cart svg {
-            width: 24px;
-            height: 24px;
-            color: #000;
-        }
-
-        @media (max-width: 1024px) and (min-width: 769px) {
-            .image-container {
-                flex: 1 1 calc(25% - 10px);
-                max-width: calc(25% - 10px);
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>معرض الصور</title>
+        <style>
+            /* CSS */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                direction: rtl; /* جعل اتجاه النص من اليمين إلى اليسار */
             }
-        }
-
-        @media (max-width: 768px) {
-            .gallery {
-                padding-left: 5px;
-                padding-right: 5px;
-            }
-
-            .image-container {
-                flex: 1 1 calc(50% - 5px);
-                max-width: calc(50% - 5px);
-            }
-        }
-
-        @media (min-width: 1025px) {
-            .image-container {
-                flex: 1 1 calc(20% - 20px);
-                max-width: calc(20% - 20px);
-            }
-
-            .text-under h1 {
-                font-size: 18px;
-            }
-        }
-
-      
-    </style>
-</head>
-<body>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&display=swap');
-    </style>
     
-    <!-- HTML -->
-    <div id="gallery" class="gallery">
-        <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-            <div class="image-frame">
-                <a href="1.html">
-                    <img src="1.jpg" alt="Image 1">
-                </a>
-                <div class="text-under">
-                    <h1>ساعة تاتش تعمل باللمس</h1>
-                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                   
-                   
-                    <div class="container" style="display: flex;  align-items: right; gap: 5px; width: 100%; ">
-                        <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                        <div class="number" style="font-size: 28px;">44</div>
-                        <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                    </div>
-                    
-                    
-                    <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
-                </div>
-                <div class="add-to-cart" onclick="addToCart(this)">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-        <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-            <div class="image-frame">
-                <a href="1.html">
-                    <img src="1.jpg" alt="Image 1">
-                </a>
-                <div class="text-under">
-                    <h1>ساعة تاتش تعمل باللمس</h1>
-                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                   
-                   
-                    <div class="container" style="display: flex;  align-items: right; gap: 5px; width: 100%; ">
-                        <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                        <div class="number" style="font-size: 28px;">44</div>
-                        <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                    </div>
-                    
-                    
-                    <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
-                </div>
-                <div class="add-to-cart" onclick="addToCart(this)">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-            <div class="image-frame">
-                <a href="1.html">
-                    <img src="1.jpg" alt="Image 1">
-                </a>
-                <div class="text-under">
-                    <h1>ساعة تاتش تعمل باللمس</h1>
-                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                   
-                   
-                    <div class="container" style="display: flex;  align-items: right; gap: 5px; width: 100%; ">
-                        <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                        <div class="number" style="font-size: 28px;">44</div>
-                        <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                    </div>
-                    
-                    
-                    <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
-                </div>
-                <div class="add-to-cart" onclick="addToCart(this)">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-            <div class="image-frame">
-                <a href="1.html">
-                    <img src="1.2.jpg" alt="Image 1">
-                </a>
-                <div class="text-under">
-                    <h1>ساعة تاتش تعمل باللمس</h1>
-                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                   
-                   
-                    <div class="container" style="display: flex;  align-items: right; gap: 5px; width: 100%; ">
-                        <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                        <div class="number" style="font-size: 28px;">474</div>
-                        <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                    </div>
-                    
-                    
-                    <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 3%</h3>
-                </div>
-                <div class="add-to-cart" onclick="addToCart(this)">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-        <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-            <div class="image-frame">
-                <a href="1.html">
-                    <img src="1.jpg" alt="Image 1">
-                </a>
-                <div class="text-under">
-                    <h1>ساعة تاتش تعمل باللمس</h1>
-                    <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                   
-                   
-                    <div class="container" style="display: flex;  align-items: right; gap: 5px; width: 100%; ">
-                        <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                        <div class="number" style="font-size: 28px;">44</div>
-                        <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                    </div>
-                    
-                    
-                    <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
-                </div>
-                <div class="add-to-cart" onclick="addToCart(this)">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- Repeat for other image containers -->
-    </div>
-</body>
-</html>
+            .gallery {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                padding: 20px;
+            }
+    
+            .image-container {
+                flex: 1 1 calc(16.666% - 20px);
+                max-width: calc(16.666% - 20px);
+                box-sizing: border-box;
+                position: relative;
+            }
+    
+            .image-frame {
+                border: 2px solid #cfcfcf;
+                border-radius: 4%;
+                padding: 10px;
+                text-align: center;
+                background-color: #f9f9f9;
+                position: relative;
+            }
+    
+            .image-frame img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 4%;
+            }
+    
+            .text-under {
+                margin-top: 10px;
+                font-size: 14px;
+                line-height: 1.5;
+                text-align: right; /* جعل النص يبدأ من اليمين */
+            }
+    
+            .text-under h1 {
+                font-family: Cairo, sans-serif;
+                color: #333;
+                font-size: 15px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+            }
+    
+            .add-to-cart {
+                position: absolute;
+                bottom: 6px;
+                left: 6px;
+                background-color: #ffc400;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+    
+            .add-to-cart svg {
+                width: 24px;
+                height: 24px;
+                color: #000;
+            }
+    
+            @media (max-width: 1024px) and (min-width: 769px) {
+                .image-container {
+                    flex: 1 1 calc(25% - 10px);
+                    max-width: calc(25% - 10px);
+                }
+            }
+    
+            @media (max-width: 768px) {
+                .gallery {
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+    
+                .image-container {
+                    flex: 1 1 calc(50% - 5px);
+                    max-width: calc(50% - 5px);
+                }
+            }
+    
+            @media (min-width: 1025px) {
+                .image-container {
+                    flex: 1 1 calc(20% - 20px);
+                    max-width: calc(20% - 20px);
+                }
+    
+                .text-under h1 {
+                    font-size: 18px;
+                }
+            }
+    
+            .hidden {
+                display: none;
+            }
+    
+           
+        </style>
+    </head>
+    <body>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&display=swap');
+        </style>
         
+        <!-- HTML -->
+        <div id="gallery" class="gallery">
+            <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div> <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تاتش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Repeat for other image containers with hidden class initially applied -->
+            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
+                <div class="image-frame">
+                    <a href="1.html">
+                        <img src="1.jpg" alt="Image 1">
+                    </a>
+                    <div class="text-under">
+                        <h1>ساعة تا2333تش تعمل باللمس</h1>
+                        <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
+                        <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                            <div class="number" style="font-size: 28px;">44</div>
+                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                        </div>
+                        <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">خصم 323%</h3>
+                    </div>
+                    <div class="add-to-cart" onclick="addToCart(this)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            function addToCart(element) {
+                // Add to cart logic here
+                alert("تمت إضافة المنتج إلى سلة التسوق");
+            }
+    
+            document.addEventListener('scroll', function() {
+                const gallery = document.getElementById('gallery');
+                const hiddenElements = document.querySelectorAll('.hidden');
+                
+                // Check if the user has scrolled to the bottom of the gallery
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+                    let count = 0;
+                    hiddenElements.forEach(element => {
+                        if (count < 5) {
+                            element.classList.remove('hidden');
+                            count++;
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+    </html>
+
+
+
+
+
+
+
+
+
+
+
             <script>
             document.addEventListener("DOMContentLoaded", function() {
                 // Select the gallery container
@@ -2101,175 +2394,164 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Beautiful Footer</title>
+        <title>Modern Footer</title>
         <style>
             /* تنسيق الفوتر */
             .footer {
-                background-color: #28333f; /* لون خلفية الفوتر */
-                color: white;
-                padding: 40px 0;
+                background-color: #80d0ffe5; /* لون خلفية فاتح قريب من الأبيض */
+                color: #333; /* لون النص داكن */
+                padding: 40px 20px;
                 text-align: center;
-                margin-top: -20px;
-                position: relative;
+                font-family: 'Poppins', sans-serif;
             }
-    
-            .footer .social-icons-container {
-                margin: 20px 0;
-            }
-    
-            .footer .social-icons-container a {
-                margin: 0 10px;
-                color: white;
-                text-decoration: none;
-                font-size: 24px;
-                display: inline-block;
-                transition: transform 0.3s ease;
-            }
-    
-            .footer .social-icons-container a:hover {
-                transform: scale(1.2); /* تكبير الأيقونة عند التمرير */
-            }
-    
+
+            /* تنسيق الشعار */
             .footer-logo-text {
                 font-family: 'Dancing Script', cursive;
                 font-size: 48px;
                 margin-bottom: 20px;
-                color: #ffc400;
+                color: #ff6f61; /* لون الشعار */
             }
-    
+
+            /* تنسيق روابط التنقل */
             .footer-nav-links {
                 margin: 20px 0;
                 list-style: none;
                 padding: 0;
-            }
-    
-            .footer-nav-links li {
-                display: inline;
-                margin: 0 15px;
-            }
-    
-            .footer-nav-links a {
-                color: white;
-                text-decoration: none;
-            }
-    
-            .footer-nav-links a:hover {
-                text-decoration: underline;
-            }
-    
-            /* تنسيق علم مصر */
-            .country-info {
                 display: flex;
                 justify-content: center;
-                align-items: center;
-                text-align: center;
+                flex-wrap: wrap;
             }
-    
-            .country-code-info {
-                display: inline-flex;
-                align-items: center;
-                font-size: 18px;
+
+            .footer-nav-links li {
+                margin: 0 15px;
             }
-    
-            .country-flag {
-                width: 24px;
-                height: 16px;
-                margin-left: 8px;
+
+            .footer-nav-links a {
+                color: #333; /* لون النص داكن */
+                text-decoration: none;
+                font-size: 16px;
+                transition: color 0.3s ease;
             }
-    
-            /* تنسيق أيقونات SVG */
+
+            .footer-nav-links a:hover {
+                color: #ff6f61; /* تغيير لون النص عند التمرير */
+            }
+
+            /* تنسيق أيقونات التواصل الاجتماعي */
+            .social-icons-container {
+                margin: 20px 0;
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .social-icons-container a {
+                color: #333; /* لون النص داكن */
+                text-decoration: none;
+                font-size: 24px;
+                transition: transform 0.3s ease;
+            }
+
+            .social-icons-container a:hover {
+                transform: scale(1.2); /* تكبير الأيقونة عند التمرير */
+            }
+
             .social-icons-container img {
-                width: 32px; /* حجم الأيقونات */
+                width: 32px;
                 height: 32px;
                 vertical-align: middle;
             }
-    
-            /* تنسيق الخلفية الجديدة */
+
+            /* تنسيق قسم المعلومات */
             .footer-info-section {
-                background-color: #1a222b; /* لون خلفية مختلف */
+                background-color: #1d1d1dd2; /* لون خلفية فاتح قريب من الأبيض */
                 padding: 20px;
-                margin-top: 20px;
-                border-top: 1px solid #ffc400;
-                border-bottom: 1px solid #ffc400;
+                margin: 20px 0;
+                border-radius: 20px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* إضافة ظل */
             }
-    
+
             .footer-info-section .info-container {
                 display: flex;
                 justify-content: space-around;
                 flex-wrap: wrap;
                 text-align: center;
             }
-    
+
             .footer-info-section .info-item {
                 margin: 10px;
                 flex: 1 1 200px;
             }
-    
+
             .footer-info-section .info-item h3 {
-                color: #ffc400;
+                color: #ff6f61;
                 font-size: 18px;
                 margin-bottom: 10px;
             }
-    
+
             .footer-info-section .info-item p {
-                color: #fff;
+                color: #ffffff; /* لون النص داكن */
                 font-size: 14px;
             }
-    
-            /* تنسيق حقوق النشر مع خلفية مختلفة */
+
+            /* تنسيق حقوق النشر */
             .footer-copyright {
-                background-color: #ffc400; /* لون خلفية مميز */
-                color: #28333f; /* لون النص */
-                padding: 15px 0;
                 margin-top: 20px;
                 font-size: 14px;
-                text-align: center;
+                color: #666; /* لون النص رمادي */
+            }
+
+            /* تنسيق علم مصر */
+            .country-info {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .country-code-info {
+                font-size: 18px;
+                color: #333; /* لون النص داكن */
+            }
+
+            .country-flag {
+                width: 24px;
+                height: 16px;
             }
         </style>
-        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     </head>
     <body>
         <footer class="footer">
+            <!-- الشعار -->
             <span class="footer-logo-text">Adger</span>
+
+            <!-- روابط التنقل -->
+            <ul class="footer-nav-links">
+                <li><a href="about.html">عنا</a></li>
+                <li><a href="https://wa.me/+201152366798" target="_blank">تواصل</a></li>
+                <li><a href="#">للأعلى</a></li>
+            </ul>
+
+            <!-- أيقونات التواصل الاجتماعي -->
             <div class="social-icons-container">
-                <!-- YouTube -->
                 <a href="https://www.youtube.com" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube">
                 </a>
-                <!-- Facebook -->
                 <a href="https://www.facebook.com/profile.php?id=61559937252803&mibextid=ZbWKwL" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
                 </a>
-                <!-- Instagram -->
                 <a href="https://www.instagram.com/adgershop?igsh=YWJkYmR5OXc1bm00" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
                 </a>
-                <!-- X (Twitter) -->
                 <a href="https://x.com/saif__eddine?t=EUrak3O7SNZD7BIFgjiltQ&s=09" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png" alt="X (Twitter)">
                 </a>
             </div>
-    
-            <ul class="footer-nav-links">
-                <li><a href="about.html">عنا</a></li>
-                <li><a href="https://wa.me/+201152366798" target="_blank">تواصل</a></li>
-                <li>
-                    <a href="#" style="text-align: center; display: inline-block;">
-                        <div>للأعلى</div>
-                    </a>
-                </li>
-            </ul>
-    
-            <!-- علم مصر -->
-            <div class="country-info">
-                <div class="country-code-info">
-                    <span>البلد / </span>
-                    <span style="color: #fffbfb; width: 44px;">EGP</span>
-                    <img class="country-flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
-                </div>
-            </div>
-    
-            <!-- قسم المعلومات الجديد -->
+
+            <!-- قسم المعلومات -->
             <div class="footer-info-section">
                 <div class="info-container">
                     <div class="info-item">
@@ -2289,11 +2571,17 @@
                     </div>
                 </div>
             </div>
-    
-            <!-- حقوق النشر مع خلفية مختلفة -->
+
+            <!-- علم مصر -->
+            <div class="country-info">
+                <span class="country-code-info">البلد / EGP</span>
+                <img class="country-flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
+            </div>
+
+            <!-- حقوق النشر -->
             <div class="footer-copyright">
                 <span>&copy; 2024 Adger. كل الحقوق محفوظة.</span>
             </div>
         </footer>
     </body>
-</html
+</html>
