@@ -1944,30 +1944,55 @@
                             <div class="number" style="font-size: 28px;">44</div>
                             <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
                         </div>
-                            <style>
-                                /* تنسيق النص */
-                                .rotating-text {
-                                    font-family: 'Cairo', sans-serif;
-                                    color: #ff0000;
-                                    font-size: 12px;
-                                    margin-top: 2px;
-                                    margin-right: 8.6px;
-                                    text-transform: uppercase;
-                                    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-                                    opacity: 1; /* النص يبدأ ظاهرًا */
-                                    transform: translateY(0); /* النص يبدأ في مكانه */
-                                }
-                            </style>
-                            <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+                        <style>
+                            /* تنسيق النص */
+                            .rotating-text1212 {
+                                font-family: 'Cairo', sans-serif;
+                                color: #ff0000;
+                                font-size: 12px;
+                                margin-top: 2px;
+                                margin-right: 8.6px;
+                                text-transform: uppercase;
+                                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+                                opacity: 1; /* النص يبدأ ظاهرًا */
+                                transform: translateY(0); /* النص يبدأ في مكانه */
+                            }
+                        </style>
+                        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
                         </head>
                         <body>
-                            <!-- المنتج الأول -->
-                            <div class="product">
-                                <h3 class="rotating-text" data-texts='["كان ب 2200 جنيه"]'>خ22صم 32%</h3>
-                            </div>                        
-                            <script>
-                                function startRotatingText(s){document.querySelectorAll(s).forEach(e=>{const t=JSON.parse(e.getAttribute("data-texts")),o=e.textContent;let n=0;setInterval(()=>{e.style.opacity="0",e.style.transform="translateY(20px)",setTimeout(()=>{e.textContent=n<t.length?t[n++]:o,n%=t.length+1,e.style.opacity="1",e.style.transform="translateY(0)"},500)},5000)})}startRotatingText(".rotating-text");
-                                </script>                                
+                  <!-- المنتج الأول -->
+<div class="product1212"> <!-- Added '1212' to the class name -->
+    <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "الخصم 32%"]'>خ22صم 32%</h3> <!-- Added '1212' to the class name -->
+</div>
+
+<script>
+function startRotatingText(s) {
+    document.querySelectorAll(s).forEach(e => {
+        const texts = JSON.parse(e.getAttribute("data-texts"));
+        let currentIndex = 0;
+        let nextIndex = 1; // Start with the second text
+        
+        setInterval(() => {
+            e.style.opacity = "0";
+            e.style.transform = "translateY(20px)";
+            
+            setTimeout(() => {
+                e.textContent = texts[currentIndex]; // Update text content
+                e.style.opacity = "1";
+                e.style.transform = "translateY(0)";
+                
+                // Toggle between the first and second texts
+                currentIndex = nextIndex;
+                nextIndex = (nextIndex === 0) ? 1 : 0; // Switch between 0 and 1
+            }, 500);
+        }, 5000); // Change text every 5 seconds
+    });
+}
+
+startRotatingText(".rotating-text1212");
+</script>
+
                     </div>
                     <div class="add-to-cart" onclick="addToCart(this)">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -1996,12 +2021,37 @@
                             <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
                         </div>
                          <!-- المنتج الأول -->
-                         <div class="product">
-                            <h3 class="rotating-text" data-texts='["كان ب 2000 جنيه"]'>خ22صم 52%</h3>
-                        </div>                        
-                        <script>
-                            function startRotatingText(s){document.querySelectorAll(s).forEach(e=>{const t=JSON.parse(e.getAttribute("data-texts")),o=e.textContent;let n=0;setInterval(()=>{e.style.opacity="0",e.style.transform="translateY(20px)",setTimeout(()=>{e.textContent=n<t.length?t[n++]:o,n%=t.length+1,e.style.opacity="1",e.style.transform="translateY(0)"},500)},5000)})}startRotatingText(".rotating-text");
-                            </script>                            
+<div class="product1212"> <!-- Added '1212' to the class name -->
+    <h3 class="rotating-text1212" data-texts='["كان ب 100 جنيه", "الخصم 322%"]'>خ22صم 32%</h3> <!-- Added '1212' to the class name -->
+</div>
+
+<script>
+function startRotatingText(s) {
+    document.querySelectorAll(s).forEach(e => {
+        const texts = JSON.parse(e.getAttribute("data-texts"));
+        let currentIndex = 0;
+        let nextIndex = 1; // Start with the second text
+        
+        setInterval(() => {
+            e.style.opacity = "0";
+            e.style.transform = "translateY(20px)";
+            
+            setTimeout(() => {
+                e.textContent = texts[currentIndex]; // Update text content
+                e.style.opacity = "1";
+                e.style.transform = "translateY(0)";
+                
+                // Toggle between the first and second texts
+                currentIndex = nextIndex;
+                nextIndex = (nextIndex === 0) ? 1 : 0; // Switch between 0 and 1
+            }, 500);
+        }, 5000); // Change text every 5 seconds
+    });
+}
+
+startRotatingText(".rotating-text1212");
+</script>
+
                     </div>
                     <div class="add-to-cart" onclick="addToCart(this)">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -2033,6 +2083,37 @@
                             <div class="number" style="font-size: 28px;">44</div>
                             <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
                         </div>
+                      <!-- المنتج الأول -->
+<div class="product1212"> <!-- Added '1212' to the class name -->
+    <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "الخصم 32%"]'>خ22صم 32%</h3> <!-- Added '1212' to the class name -->
+</div>
+
+<script>
+function startRotatingText(s) {
+    document.querySelectorAll(s).forEach(e => {
+        const texts = JSON.parse(e.getAttribute("data-texts"));
+        let currentIndex = 0;
+        let nextIndex = 1; // Start with the second text
+        
+        setInterval(() => {
+            e.style.opacity = "0";
+            e.style.transform = "translateY(20px)";
+            
+            setTimeout(() => {
+                e.textContent = texts[currentIndex]; // Update text content
+                e.style.opacity = "1";
+                e.style.transform = "translateY(0)";
+                
+                // Toggle between the first and second texts
+                currentIndex = nextIndex;
+                nextIndex = (nextIndex === 0) ? 1 : 0; // Switch between 0 and 1
+            }, 500);
+        }, 5000); // Change text every 5 seconds
+    });
+}
+
+startRotatingText(".rotating-text1212");
+</script>
 
                     </div>
                     <div class="add-to-cart" onclick="addToCart(this)">
@@ -2057,8 +2138,7 @@
                             <div class="number" style="font-size: 28px;">44</div>
                             <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
                         </div>
-   
-
+       
                     </div>
                     <div class="add-to-cart" onclick="addToCart(this)">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -2067,6 +2147,10 @@
                     </div>
                 </div>
             </div>
+
+
+
+
             <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
                 <div class="image-frame">
                     <a href="1.html">
