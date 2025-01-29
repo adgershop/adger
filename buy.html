@@ -46,7 +46,8 @@
                 position: relative;
                 animation: slideIn 0.3s ease-out; /* تأثير ظهور النافذة */
             }
-    
+      
+
             /* تأثير ظهور النافذة */
             @keyframes slideIn {
                 from {
@@ -77,7 +78,11 @@
                 transition: border-color 0.3s ease;
                 padding-left: 30px; /* إضافة مساحة لعلامة التعجب */
             }
-    
+            @media only screen and (max-width: 767px) {
+                .modal-content input {
+             width: 266px;
+            }
+        }
             .modal-content input:focus {
                 border-color: #28a745; /* لون الحدود عند التركيز */
                 outline: none;
@@ -703,7 +708,7 @@ updateTotalPrice();
                 background-color: white;
                 box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
                 padding: 20px;
-                z-index: 1000;
+                z-index: 100000000000;
                 transition: left 0.3s ease-in-out;
                 overflow-y: auto;
             }
