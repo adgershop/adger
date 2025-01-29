@@ -46,7 +46,11 @@
                 position: relative;
                 animation: slideIn 0.3s ease-out; /* تأثير ظهور النافذة */
             }
-      
+            @media only screen and (max-width: 767px) {
+                .modal-content {
+             max-width: 350px;
+            }
+        }
 
             /* تأثير ظهور النافذة */
             @keyframes slideIn {
@@ -80,7 +84,7 @@
             }
             @media only screen and (max-width: 767px) {
                 .modal-content input {
-             width: 266px;
+            width: 305px;
             }
         }
             .modal-content input:focus {
