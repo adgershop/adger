@@ -384,7 +384,21 @@
                         padding: 0;
                         overflow-x: hidden; /* منع التمرير الأفقي */
                     }
-             
+                    .gradient-background {
+    background: linear-gradient(to bottom, #00aeff, #f1f1f1); /* التدرج من الأعلى إلى الأسفل */
+    color: white; /* لون النص */
+    height: 44px; /* ارتفاع الخلفية */
+    display: flex;
+    align-items: flex-end; /* محاذاة النص إلى الأسفل */
+    justify-content: flex-start; /* تغيير هذه القيمة إلى flex-start */
+    width: 100%; /* عرض الخلفية بنسبة 100% من العنصر الأب */
+    padding-right: 16px; /* مسافة من اليمين */
+    padding-bottom: 8px; /* مسافة من الأسفل */
+    font-weight: bold; /* النص سميك */
+    font-family: 'Cairo', sans-serif; /* خط النص */
+    box-sizing: border-box; /* تضمين الهوامش في العرض */
+    text-align: right; /* محاذاة النص إلى اليمين */
+}
                 </style>
             </head>
             <body>
@@ -1261,14 +1275,7 @@
                 border-radius: 50%;
             }
 
-            #usernameDisplay {
-            white-space: nowrap; /* منع النص من الانتقال إلى سطر جديد */
-            overflow: hidden; /* إخفاء النص الزائد */
-            text-overflow: ellipsis; /* إضافة نقاط (...) للنص الزائد */
-            max-width: 150px; /* تحديد عرض أقصى للعنصر (يمكن تعديله حسب الحاجة) */
-            display: inline-block; /* لجعل العنصر يتصرف كعنصر inline مع إمكانية تحديد عرض */
-        }
-
+        
     
             /* إخفاء العنصر على الهواتف */
             @media only screen and (max-width: 767px) {
