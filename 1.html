@@ -7,6 +7,7 @@
     <link rel="icon" href="logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 
+  
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -26,16 +27,15 @@
     
             .gallery {
                 display: flex;
-                flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
+                flex-direction: row-reverse;
                 margin-top: 20px;
-                max-width: 400px; /* نفس عرض الصورة الكبيرة */
-            }
-
-            .main-media {
-                margin-bottom: 20px;
                 position: relative;
-                overflow: hidden;
+            }
+    
+            .main-media {
+                margin-left: 20px;
+                position: relative;
             }
     
             .main-media img, .main-media video {
@@ -44,48 +44,31 @@
                 border: 2px solid #ccc;
                 border-radius: 10px;
                 display: block;
-                transition: transform 0.3s ease;
             }
-            @media (max-width: 768px) {
-                .main-media img, .main-media video {
-        max-width: 350px;
-        height: 350px;
-        }
-    }
-
-
+    
             .thumbnails {
                 display: flex;
-                flex-direction: row;
-                max-width: 370px; /* نفس عرض الصورة الكبيرة */
-                margin-right: -15px;
-                overflow-x: auto;
-                overflow-y: hidden;
-                padding: 10px;
-                gap: 10px;
+                flex-direction: column;
+                max-height: 400px;
+                overflow-y: scroll;
+                padding-left: 10px;
                 scrollbar-width: none;
                 -ms-overflow-style: none;
             }
-            @media (max-width: 768px) {
-                .thumbnails {
-        max-width: 330px;
-        }
-    }
-
+    
             .thumbnails::-webkit-scrollbar {
                 display: none;
             }
     
             .thumbnail {
-                margin: 0;
-                flex: 0 0 auto;
-                width: 50px;
-                height: 50px;
+                margin: 10px 0;
                 cursor: pointer;
                 border: 2px solid #ccc;
                 border-radius: 5px;
                 padding: 5px;
                 position: relative;
+                width: 50px;
+                height: 50px;
             }
     
             .thumbnail img, .thumbnail video {
@@ -148,6 +131,86 @@
                 height: 24px;
             }
     
+            .arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: rgba(0, 0, 0, 0.5);
+                border: none;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 20px;
+                z-index: 1;
+                display: none; /* إخفاء السهمين افتراضيًا */
+                opacity: 0; /* إخفاء السهام في البداية */
+                transition: opacity 0.5s ease-in-out; /* إضافة تأثير Fade-In */
+            }
+    
+            .arrow.visible {
+                opacity: 1; /* إظهار السهام */
+            }
+    
+            .arrow.left {
+                left: 10px;
+            }
+    
+            .arrow.right {
+                right: 10px;
+            }
+    
+            @media (min-width: 556px) {
+                .arrow {
+                    display: block; /* إظهار السهمين في الشاشات الكبيرة */
+                }
+            }
+    
+            @media (max-width: 555px) {
+                .gallery {
+                    flex-direction: column;
+                    align-items: center;
+                    margin-top: 22px;
+                    margin-right: 1px;
+                }
+    
+                .main-media {
+                    margin-left: 0;
+                    margin-bottom: 20px;
+                }
+    
+                .main-media img, .main-media video {
+                    width: 311px;
+                    height: 311px;
+                }
+    
+                .thumbnails {
+                    flex-direction: row;
+                    max-height: none;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    padding-left: 0;
+                    width: 311px;
+                    gap: 10px;
+                }
+    
+                .thumbnail {
+                    margin: 0;
+                    flex: 0 0 auto;
+                    width: 50px;
+                    height: 50px;
+                }
+    
+                .thumbnail img, .thumbnail video {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+    
             .all-media {
                 display: flex;
                 flex-direction: column;
@@ -163,13 +226,13 @@
                 margin-bottom: 20px;
                 border-radius: 10px;
             }
-
-                /* لتصغير الارتفاع على الهواتف المحمولة */
-    @media (max-width: 768px) {
-        .all-media img, .all-media video {
-       width: 100%;
-        }
-    }
+    
+            @media (max-width: 555px) {
+                .all-media img, .all-media video {
+                    margin-bottom: 15px;
+                    width: 100%;
+                }
+            }
     
             .content-below-main {
                 margin-top: 20px;
@@ -194,7 +257,32 @@
                 height: 8px;
                 background-color: #eeeeee;
             }
-
+    
+            .scroll-bar {
+                width: 100%;
+                height: 8px;
+                background-color: #ccc;
+                border-radius: 4px;
+                position: relative;
+                margin-bottom: 10px;
+                cursor: pointer;
+            }
+    
+            .scroll-bar::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 20%;
+                background-color: #007BFF;
+                border-radius: 4px;
+                transition: width 0.2s ease;
+            }
+    
+            .scroll-bar:hover::before {
+                background-color: #0056b3;
+            }
         </style>
     </head>
     <body>
@@ -209,9 +297,12 @@
                         <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
                     </svg>
                 </button>
+                <button class="arrow left" onclick="prevMedia()">&#10094;</button>
+                <button class="arrow right" onclick="nextMedia()">&#10095;</button>
             </div>
     
             <div class="thumbnails">
+                <div class="scroll-bar"></div>
                 <div class="thumbnail active" data-src="1.jpg" data-type="image">
                     <img src="" alt="الصورة 1">
                 </div>
@@ -233,7 +324,7 @@
                 <div class="thumbnail" data-src="a7.jpg" data-type="image">
                     <img src="" alt="الصورة 7">
                 </div>
-                <div class="thumbnail" data-src="video.mp4" data-type="video">
+                <div class="thumbnail" data-src="3e.mp4" data-type="video">
                     <video src=""></video>
                     <div class="play-icon">
                         <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
@@ -245,6 +336,13 @@
             </div>
         </div>
     
+
+
+
+
+
+
+
 
 
 
@@ -311,7 +409,7 @@
             </html>
 
 
-            <div style="margin-top: 10px; font-family: Cairo, sans-serif; margin-right: 15px; margin-bottom: 17px;">
+            <div style="margin-top: 10px; font-family: Cairo, sans-serif; margin-right: 15px; margin-bottom: 8px;">
                 <!-- النص مع رمز الشحن -->
                 <div class="second-text" style="display: flex; align-items: center; gap: 8px; font-size: 18px;">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -345,7 +443,7 @@
             </div>
 
             
-            <div style="margin-top: 10px; font-family: Cairo, sans-serif; margin-right: 15px;">
+            <div style="margin-top: -1px; font-family: Cairo, sans-serif; margin-right: 15px;">
                 <!-- النص مع رمز الإرجاع المجاني -->
                 <div class="second-text" style="display: flex; align-items: center; gap: 8px; font-size: 18px;">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -435,7 +533,7 @@
 
 
 
-<h3 style="color: #474747; margin-right: 11px; font-size: 14px; font-family: Cairo, sans-serif;">   
+<p style="color: #5e5e5e; margin-right: 11px; font-size: 15px; font-family: Cairo, sans-serif;">   
 
     كيندل الأسرع في تاريخنا: شاشة Paperwhite الجديدة بحجم 7 بوصات من الجيل القادم تتميز بنسبة تباين أعلى وتقليب الصفحات أسرع بنسبة 25%.  
     جاهز للسفر: التصميم فائق النحافة يأتي بشاشة أكبر غير عاكسة ليبقى النص واضحًا بغض النظر عن مكان وجودك.  
@@ -446,7 +544,7 @@
     مجموعة هائلة: احصل فورًا على إمكانية الوصول إلى أكثر من 15 مليون عنوان في متجر كيندل حول العالم، وأضف اشتراك Kindle Unlimited للحصول على وصول غير محدود إلى كتالوج يشمل الكتب الأكثر مبيعًا.  
 
 
-</h3>
+</p>
 
 
 
@@ -454,11 +552,6 @@
 <div class="line"></div>
 
 </div>
-
-
-
-
-
 
 
 
@@ -547,116 +640,117 @@
                 });
             });
     
-            // التحكم في أيقونة التشغيل والإيقاف
-            const mainVideoElement = document.getElementById('mainVideo');
-            const playPauseIcon = document.querySelector('.play-pause-icon');
-            const playIconPath = document.querySelector('.play-icon-path');
-            const pauseIconPath = document.querySelector('.pause-icon-path');
+            // وظائف التمرير بين الصور
+            function prevMedia() {
+                const activeThumbnail = document.querySelector('.thumbnail.active');
+                const prevThumbnail = activeThumbnail.previousElementSibling;
     
-            mainVideoElement.addEventListener('play', () => {
+                if (prevThumbnail) {
+                    prevThumbnail.click();
+                }
+            }
+    
+            function nextMedia() {
+                const activeThumbnail = document.querySelector('.thumbnail.active');
+                const nextThumbnail = activeThumbnail.nextElementSibling;
+    
+                if (nextThumbnail) {
+                    nextThumbnail.click();
+                }
+            }
+    
+            // إضافة إمكانية التمرير بالسحب أو اللمس
+            const mainMediaContainer = document.querySelector('.main-media');
+            let startX = 0;
+            let isDragging = false;
+    
+            mainMediaContainer.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.clientX;
+            });
+    
+            mainMediaContainer.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            });
+    
+            mainMediaContainer.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                handleSwipe(e.clientX);
+            });
+    
+            mainMediaContainer.addEventListener('mouseleave', () => {
+                if (!isDragging) return;
+                isDragging = false;
+            });
+    
+            mainMediaContainer.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                startX = e.touches[0].clientX;
+            });
+    
+            mainMediaContainer.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            });
+    
+            mainMediaContainer.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                handleSwipe(e.changedTouches[0].clientX);
+            });
+    
+            function handleSwipe(endX) {
+                const deltaX = endX - startX;
+                const swipeThreshold = 50; // الحد الأدنى للمسافة لاعتبارها سحبًا
+    
+                if (Math.abs(deltaX) > swipeThreshold) {
+                    if (deltaX < 0) { // تغيير الشرط هنا
+                        prevMedia(); // سحب من اليمين إلى اليسار
+                    } else {
+                        nextMedia(); // سحب من اليسار إلى اليمين
+                    }
+                }
+            }
+    
+            // تغيير الأيقونة في المربع الصغير للفيديو عند التشغيل والإيقاف
+            const videoThumbnail = document.querySelector('.thumbnail[data-type="video"]');
+            const playIconPath = videoThumbnail.querySelector('.play-icon-path');
+            const pauseIconPath = videoThumbnail.querySelector('.pause-icon-path');
+    
+            mainVideo.addEventListener('play', () => {
                 playIconPath.style.display = 'none';
                 pauseIconPath.style.display = 'block';
             });
     
-            mainVideoElement.addEventListener('pause', () => {
+            mainVideo.addEventListener('pause', () => {
                 playIconPath.style.display = 'block';
                 pauseIconPath.style.display = 'none';
             });
     
-            // مشاركة الصفحة
+            // وظيفة مشاركة الصفحة
             function sharePage() {
                 if (navigator.share) {
                     navigator.share({
                         title: 'معرض الصور',
+                        text: 'تصفح هذا المعرض الرائع!',
                         url: window.location.href
-                    }).then(() => {
-                        console.log('شكرًا للمشاركة!');
-                    }).catch(console.error);
+                    })
+                    .then(() => console.log('تمت المشاركة بنجاح'))
+                    .catch((error) => console.error('حدث خطأ أثناء المشاركة:', error));
                 } else {
                     alert('عذرًا، مشاركة الصفحة غير مدعومة في هذا المتصفح.');
                 }
             }
     
-            // إضافة الصور والفيديوهات بشكل تلقائي إلى العنصر الجديد
-            const allMedia = document.getElementById('allMedia');
-            thumbnails.forEach(thumbnail => {
-                const src = thumbnail.getAttribute('data-src');
-                const type = thumbnail.getAttribute('data-type');
-    
-                if (type === 'image') {
-                    const img = document.createElement('img');
-                    img.src = src;
-                    allMedia.appendChild(img);
-                } else if (type === 'video') {
-                    const video = document.createElement('video');
-                    video.controls = true;
-                    video.innerHTML = `<source src="${src}" type="video/mp4">`;
-                    allMedia.appendChild(video);
-                }
+            // إظهار السهام بعد تحميل الصفحة
+            window.addEventListener('load', () => {
+                const arrows = document.querySelectorAll('.arrow');
+                arrows.forEach(arrow => {
+                    arrow.classList.add('visible');
+                });
             });
-    
-            // إضافة ميزة التمرير باللمس للصورة الرئيسية
-            const mainMedia = document.querySelector('.main-media');
-            let touchStartX = 0;
-            let touchEndX = 0;
-    
-            mainMedia.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].clientX;
-            });
-    
-            mainMedia.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].clientX;
-                handleSwipe();
-            });
-    
-            function handleSwipe() {
-                const swipeThreshold = 50; // الحد الأدنى للمسافة لاعتبارها تمريرًا
-                const swipeDistance = touchEndX - touchStartX;
-    
-                if (swipeDistance > swipeThreshold) {
-                    // تمرير من اليسار إلى اليمين (السابق)
-                    changeMedia('prev');
-                } else if (swipeDistance < -swipeThreshold) {
-                    // تمرير من اليمين إلى اليسار (التالي)
-                    changeMedia('next');
-                }
-            }
-    
-            // دالة لتغيير الصورة أو الفيديو
-            function changeMedia(direction) {
-                const activeThumbnail = document.querySelector('.thumbnail.active');
-                let nextThumbnail;
-    
-                if (direction === 'next') {
-                    nextThumbnail = activeThumbnail.nextElementSibling || thumbnails[0];
-                } else if (direction === 'prev') {
-                    nextThumbnail = activeThumbnail.previousElementSibling || thumbnails[thumbnails.length - 1];
-                }
-    
-                if (nextThumbnail) {
-                    const src = nextThumbnail.getAttribute('data-src');
-                    const type = nextThumbnail.getAttribute('data-type');
-    
-                    if (type === 'image') {
-                        mainImg.src = src;
-                        mainImg.style.display = 'block';
-                        mainVideo.style.display = 'none';
-                        shareButton.classList.remove('top');
-                        shareButton.classList.add('bottom');
-                    } else if (type === 'video') {
-                        mainVideo.querySelector('source').src = src;
-                        mainVideo.load();
-                        mainImg.style.display = 'none';
-                        mainVideo.style.display = 'block';
-                        shareButton.classList.remove('bottom');
-                        shareButton.classList.add('top');
-                    }
-    
-                    thumbnails.forEach(thumb => thumb.classList.remove('active'));
-                    nextThumbnail.classList.add('active');
-                    nextThumbnail.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                }
-            }
         </script>
     </body>
     </html>
@@ -681,120 +775,127 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>صور وفيديو</title>
+        <style>
+            .container32 {
+                width: 100%;
+                max-width: 900px; /* عرض متوسط للشاشات الأكبر */
+                margin: 0 auto; /* توسيط المحتوى */
+            }
+    
+            .image32 {
+                width: 100%;
+                height: auto;
+                margin-bottom: 10px;
+                object-fit: cover; /* لضمان تغطية كاملة داخل الإطار */
+            }
+    
+            /* استعلام الوسائط للشاشات الأكبر */
+            @media (min-width: 768px) {
+                .container32 {
+                    max-width: 1200px; /* زيادة العرض للشاشات الأكبر */
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container32">
+            <img class="image32" src="1.jpg" alt="صورة 1">
+            <img class="image32" src="1.2.jpg" alt="صورة 2">
+            <img class="image32" src="1.3.jpg" alt="صورة 3">
+            <img class="image32" src="1.4.jpg" alt="صورة 4">
+            <img class="image32" src="1.jpg" alt="صورة 5">
+        </div>
+    </body>
+    </html>
+
+
+
+
+
+    <br>
 
 
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -804,7 +905,67 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ساعة تاتش تعمل باللمس</title>
+        <title>خلفيه بنص ممول</title>
+        <style>
+    
+            .footer {
+                position: relative;
+                background-color: #f9f9f9;
+                padding: 10px 20px;
+                display: flex;
+                align-items: center;
+                border-top: 1px solid #ddd;
+                width: 100%;
+                justify-content: right; /* محاذاة العناصر إلى اليمين */
+                margin-right: 11px;
+                margin-top: auto; /* لدفع الـ footer إلى أسفل الصفحة */
+                gap: 1px; /* لإضافة مسافة بين النص والأيقونة */
+            }
+    
+            .text {
+                font-size: 16px;
+                font-weight: bold;
+                color: #333;
+                font-family: Cairo, sans-serif;
+            }
+    
+            .content {
+                padding: 20px;
+                flex-grow: 1; /* لجعل المحتوى يأخذ المساحة المتبقية */
+            }
+        </style>
+    </head>
+    <body>
+    
+        <div class="footer">
+            <svg class="w-[22px] h-[22px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+              </svg>
+              
+            <span class="text">ممول</span>
+        </div>
+    </body>
+    </html>
+    
+    </html>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>كود هام لزر الشراء و الاضافه الى العربة</title>
         <style>
             body {
                 font-family: 'Cairo', sans-serif;
@@ -1113,6 +1274,15 @@
                 padding: 2px 6px;
                 border-radius: 50%;
             }
+
+            #usernameDisplay {
+            white-space: nowrap; /* منع النص من الانتقال إلى سطر جديد */
+            overflow: hidden; /* إخفاء النص الزائد */
+            text-overflow: ellipsis; /* إضافة نقاط (...) للنص الزائد */
+            max-width: 150px; /* تحديد عرض أقصى للعنصر (يمكن تعديله حسب الحاجة) */
+            display: inline-block; /* لجعل العنصر يتصرف كعنصر inline مع إمكانية تحديد عرض */
+        }
+
     
             /* إخفاء العنصر على الهواتف */
             @media only screen and (max-width: 767px) {
@@ -1241,7 +1411,24 @@
         <div class="header">
             <!-- العناصر على اليمين -->
             <div class="right-elements">
-                <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
+                <style>
+                    .adger-container {
+                      display: flex;
+                      align-items: center;
+                    }
+                    .adger-container svg {
+                      margin-left: 1px; /* Space between text and arrow */
+                      margin-right: -11px;
+                      cursor: pointer; /* This makes the cursor change to a pointing hand */
+                    }
+                  </style>
+                  
+                  <div class="adger-container" onclick="window.location.href='index.html';">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                      </svg>                      
+                    <h2 class="adger">Adger</h2>
+                  </div>
                 <style>
                     /* إخفاء العنصر على الهواتف */
                     @media only screen and (max-width: 767px) {
@@ -1384,10 +1571,44 @@
             const usernameDisplay = document.getElementById('usernameDisplay');
     
             if (username) {
-                usernameDisplay.textContent = username; // عرض اسم المستخدم
-            } else {
-                welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
-            }
+                    usernameDisplay.textContent = username; // عرض اسم المستخدم
+               
+               
+
+
+
+             // Function to detect if the name contains Arabic characters
+function isArabic(text) {
+    return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
+}
+
+// Function to truncate the username based on language
+function truncateUsername(name) {
+    if (window.innerWidth < 966 && name.length > 7) {
+        const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
+        if (isArabic(name)) {
+            return name.substring(0, maxLength) + '..'; // Keep the ellipsis at the end for Arabic
+        } else {
+            return '..' + name.substring(0, maxLength); // Place the ellipsis at the beginning, truncate from the end for English
+        }
+    }
+    return name;
+}
+
+// Apply the modification on page load and screen resize
+usernameDisplay.textContent = truncateUsername(username);
+window.addEventListener('resize', () => {
+    usernameDisplay.textContent = truncateUsername(username);
+});
+
+
+
+
+
+                    
+                } else {
+                    welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+                }
     
             // دالة لإظهار أو إخفاء القائمة الجانبية
             function toggleMenu() {
@@ -1490,6 +1711,178 @@
     
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>تشغيل صوت من فيديو يوتيوب وزر الصعود للأعلى</title>
+        <style>
+            /* تصميم الحاوية العمودية للأزرار */
+            .button-container {
+                position: fixed;
+                bottom: 70px;
+                left: 20px;
+                width: 14px;
+                background-color: #ffffff;
+                border-radius: 10px;
+                padding: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                display: none; /* إخفاء الأزرار حتى يتم التمرير */
+                flex-direction: column; /* ترتيب العناصر عموديًا */
+                gap: 11px; /* مسافة بين العناصر */
+                justify-content: center; /* توسيط العناصر عموديًا */
+                align-items: center; /* توسيط العناصر أفقيًا */
+            }
+    
+            /* تصميم زر تشغيل الصوت */
+            #playAudio {
+                cursor: pointer;
+                color: #333;
+                font-size: 24px;
+                outline: none;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+                display: flex;
+                align-items: center; /* محاذاة عمودية للعنصر */
+                justify-content: center; /* محاذاة أفقية للعنصر */
+                width: 100%; /* عرض كامل للحاوية */
+            }
+    
+            #playIcon, #pauseIcon {
+                font-size: 19px;
+                fill: goldenrod;
+                width: 16px;
+                height: 16px;
+                pointer-events: none; /* منع التأثيرات */
+            }
+    
+            #pauseIcon {
+                display: none; /* إخفاء أيقونة الإيقاف مؤقتًا */
+            }
+    
+            /* تصميم زر الصعود للأعلى */
+            .scroll-to-top {
+                color: #333;
+                font-size: 24px;
+                cursor: pointer;
+                text-align: center; /* محاذاة الأيقونة في الوسط */
+                margin-top: -4px;
+            }
+    
+            .scroll-to-top svg {
+                width: 21px;
+                height: 21;
+                margin-bottom: -14px;
+            }
+    
+            /* تصميم الخط الفاصل */
+            .separator {
+                width: 17px; /* عرض الخط */
+                height: 2px; /* ارتفاع أطول لضمان رؤية واضحة */
+                background-color: #ccc; /* لون الخط */
+                align-self: center; /* توسيط الخط داخل الحاوية */
+                margin-bottom: -18px;
+                margin-top: -6px;
+            }
+        </style>
+    </head>
+    <body>
+    
+        <!-- الحاوية العمودية للأزرار -->
+        <div class="button-container">
+            <!-- زر تشغيل الصوت -->
+            <div id="playAudio">
+                <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <polygon points="6,4 20,12 6,20"/>
+                </svg>
+    
+                <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <rect x="6" y="4" width="4" height="16" />
+                    <rect x="14" y="4" width="4" height="16" />
+                </svg>
+            </div>
+    
+            <!-- الخط الفاصل -->
+            <div class="separator"></div>
+    
+            <!-- زر الصعود للأعلى -->
+            <a href="#" class="scroll-to-top">
+                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
+                </svg>
+            </a>
+        </div>
+    
+        <!-- فيديو يوتيوب مع الرابط الجديد -->
+        <iframe id="youtubeVideo" width="0" height="0" src="https://www.youtube.com/embed/YBr3ff5YCQk?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    
+        <script>
+            var isPlaying = false;
+            var playAudioBtn = document.getElementById('playAudio');
+    
+            // إظهار الأزرار فقط بعد التمرير لأسفل بعد تحميل الصفحة
+            window.addEventListener('scroll', function() {
+                var buttonContainer = document.querySelector('.button-container');
+                if (window.scrollY > 100) {
+                    buttonContainer.style.display = 'flex';
+                } else {
+                    buttonContainer.style.display = 'none';
+                }
+            });
+    
+            // تشغيل وإيقاف الفيديو من يوتيوب
+            document.getElementById('playAudio').addEventListener('click', function() {
+                var youtubeVideo = document.getElementById('youtubeVideo');
+                var playIcon = document.getElementById('playIcon');
+                var pauseIcon = document.getElementById('pauseIcon');
+    
+                if (!isPlaying) {
+                    youtubeVideo.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                } else {
+                    youtubeVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                }
+    
+                isPlaying = !isPlaying;
+            });
+    
+            // الانتقال إلى أعلى الصفحة بسرعة عند الضغط على زر الصعود
+            document.querySelector('.scroll-to-top').addEventListener('click', function(event) {
+                event.preventDefault();
+                window.scrollTo({top: 0, behavior: 'auto'});
+            });
+        </script>
+    
+    </body>
+    </html>
 
 
 

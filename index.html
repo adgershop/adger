@@ -1647,6 +1647,14 @@
                       background-color: #000000; /* لون الخط */
                       transition: all 0.3s ease;
                   }
+
+                  #usernameDisplay {
+            white-space: nowrap; /* منع النص من الانتقال إلى سطر جديد */
+            overflow: hidden; /* إخفاء النص الزائد */
+            text-overflow: ellipsis; /* إضافة نقاط (...) للنص الزائد */
+            max-width: 150px; /* تحديد عرض أقصى للعنصر (يمكن تعديله حسب الحاجة) */
+            display: inline-block; /* لجعل العنصر يتصرف كعنصر inline مع إمكانية تحديد عرض */
+        }
               </style>
           </head>
           <body>
@@ -1684,6 +1692,40 @@
         
                 if (username) {
                     usernameDisplay.textContent = username; // عرض اسم المستخدم
+               
+               
+
+
+
+             // Function to detect if the name contains Arabic characters
+function isArabic(text) {
+    return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
+}
+
+// Function to truncate the username based on language
+function truncateUsername(name) {
+    if (window.innerWidth < 966 && name.length > 7) {
+        const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
+        if (isArabic(name)) {
+            return name.substring(0, maxLength) + '..'; // Keep the ellipsis at the end for Arabic
+        } else {
+            return '..' + name.substring(0, maxLength); // Place the ellipsis at the beginning, truncate from the end for English
+        }
+    }
+    return name;
+}
+
+// Apply the modification on page load and screen resize
+usernameDisplay.textContent = truncateUsername(username);
+window.addEventListener('resize', () => {
+    usernameDisplay.textContent = truncateUsername(username);
+});
+
+
+
+
+
+                    
                 } else {
                     welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
                 }
