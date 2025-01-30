@@ -1363,31 +1363,39 @@
                     .adger-container {
                       display: flex;
                       align-items: center;
-                      cursor: pointer; /* Makes the entire container clickable */
                     }
                     
                     .adger-container svg {
                       margin-left: 5px; /* Space between text and arrow */
                       margin-right: 5px; /* Adjust for better visibility */
                       cursor: pointer; /* This makes the cursor change to a pointing hand */
-                      color: #2c3a44;
+                      color: #ff0505;
                     }
                     
-                    /* For mobile devices, increase the size of the arrow for better touch interaction */
+                    /* For mobile devices, adjust the arrow's margins */
                     @media (max-width: 1167px) {
                       .adger-container svg {
-                        margin-left: -1px; /* Space between text and arrow */
-                      margin-right: -17px;
-                      cursor: pointer; /* This makes the cursor change to a pointing hand */
+                        margin-left: 3px; /* Space between text and arrow */
+                        margin-right: -14px;
                       }
+                    }
+                    
+                    /* Set cursor for both SVG and text within the container */
+                    .adger-container svg, .adger-container h2 {
+                      cursor: pointer;
+                    }
+                    
+                    /* Differentiate click areas */
+                    .adger-container h2 {
+                      margin-left: 5px; /* To ensure space from the arrow */
                     }
                     </style>
                     
-                    <div class="adger-container" onclick="history.back()">
-                      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <div class="adger-container">
+                      <svg onclick="history.back()" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
                       </svg>                      
-                      <h2 class="adger">Adger</h2>
+                      <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
                     </div>
                     
                     <style>
