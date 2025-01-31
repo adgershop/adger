@@ -1,0 +1,255 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فئات المنتجات</title>
+    <style>
+        /* تنسيق عام للصفحة */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* تنسيق الحاوية الرئيسية */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* تنسيق كل عنصر (دائرة + مربع) */
+        .item {
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* تنسيق الدائرة */
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 10px;
+            border: 2px solid #ccc;
+        }
+
+        .circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* تنسيق المربع (اسم الفئة) */
+        .category-name {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Hover effect for the circle */
+        .item:hover .circle {
+            border: 2px solid red;
+        }
+
+        /* Media query for small screens (like mobile phones) */
+        @media (max-width: 767px) {
+            .container {
+                justify-content: space-around; /* Distribute items evenly */
+            }
+
+            .item {
+                width: calc(33.33% - 20px); /* Width for three items in a row, minus gap */
+                margin-bottom: 20px; /* Add space below each item for better touch interaction */
+            }
+
+            .circle {
+                width: 80px; /* Slightly decrease size on very small screens */
+                height: 80px;
+            }
+
+            .category-name {
+                font-size: 14px; /* Decrease size for mobile */
+                padding: 8px; /* Adjust padding for smaller screens */
+            }
+        }
+
+        /* Media query for larger screens */
+        @media (min-width: 768px) {
+            .container {
+                gap: 10px;
+                padding: 0 20px;
+            }
+
+            .item {
+                width: 200px;
+            }
+
+            .circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .category-name {
+                font-size: 18px;
+                padding: 15px;
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>فئات المنتجات</h1>
+
+    <div class="container">
+        <!-- العنصر 1 -->
+        <div class="item" data-name="إلكترونيات" onclick="redirectToSea('إلكترونيات')">
+            <div class="circle">
+                <img src="https://via.placeholder.com/100" alt="إلكترونيات">
+            </div>
+            <div class="category-name">إلكترونيات</div>
+        </div>
+
+        <!-- العنصر 2 -->
+        <div class="item" data-name="ملابس" onclick="redirectToSea('ملابس')">
+            <div class="circle">
+                <img src="https://via.placeholder.com/100" alt="ملابس">
+            </div>
+            <div class="category-name">ملابس</div>
+        </div>
+
+        <!-- العنصر 3 -->
+        <div class="item" data-name="أحذية" onclick="redirectToSea('أحذية')">
+            <div class="circle">
+                <img src="https://via.placeholder.com/100" alt="أحذية">
+            </div>
+            <div class="category-name">أحذية</div>
+        </div>
+
+        <!-- العنصر 4 -->
+        <div class="item" data-name="أثاث" onclick="redirectToSea('أثاث')">
+            <div class="circle">
+                <img src="https://via.placeholder.com/100" alt="أثاث">
+            </div>
+            <div class="category-name">أثاث</div>
+        </div>
+
+        <!-- العنصر 5 -->
+        <div class="item" data-name="كتب" onclick="redirectToSea('كتب')">
+            <div class="circle">
+                <img src="https://via.placeholder.com/100" alt="كتب">
+            </div>
+            <div class="category-name">كتب</div>
+        </div>
+
+        <!-- العنصر 6 -->
+        <div class="item" data-name="ألعاب" onclick="redirectToSea('ألعاب')">
+            <div class="circle">
+                <img src="https://via.placeholder.com/100" alt="ألعاب">
+            </div>
+            <div class="category-name">ألعاب</div>
+        </div>
+
+        <!-- العنصر 7 -->
+        <div class="item" data-name="جمال" onclick="redirectToSea('جمال')">
+            <div class="circle">
+                <img src="https://via.placeholder.com/100" alt="جمال">
+            </div>
+            <div class="category-name">جمال</div>
+        </div>
+
+        <!-- العنصر 8 -->
+        <div class="item" data-name="رياضة" onclick="redirectToSea('رياضة')">
+            <div class="circle">
+                <img src="https://via.placeholder.com/100" alt="رياضة">
+            </div>
+            <div class="category-name">رياضة</div>
+        </div>
+
+        <!-- العنصر 9 -->
+        <div class="item" data-name="أجهزة منزلية" onclick="redirectToSea('أجهزة منزلية')">
+            <div class="circle">
+                <img src="https://via.placeholder.com/100" alt="أجهزة منزلية">
+            </div>
+            <div class="category-name">أجهزة منزلية</div>
+        </div>
+
+        <!-- العنصر 10 -->
+        <div class="item" data-name="إكسسوارات" onclick="redirectToSea('إكسسوارات')">
+            <div class="circle">
+                <img src="https://via.placeholder.com/100" alt="إكسسوارات">
+            </div>
+            <div class="category-name">إكسسوارات</div>
+        </div>
+    </div>
+
+    <script>
+        function redirectToSea(category) {
+            alert(`سيتم توجيهك إلى قسم: ${category}`);
+            // يمكنك إضافة الرابط الذي تريد التوجيه إليه هنا
+            // window.location.href = `https://example.com/search?category=${category}`;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+    <script>
+        // دالة لتوجيه المستخدم إلى صفحة sea.html وإضافة الاسم إلى صندوق البحث
+        function redirectToSea(categoryName) {
+            // توجيه المستخدم إلى صفحة sea.html
+            window.location.href = `sea.html?search=${encodeURIComponent(categoryName)}`;
+        }
+
+        // دالة لتنفيذ البحث (يمكن استخدامها في صفحة sea.html)
+        function performSearch(searchTerm) {
+            const products = document.querySelectorAll('.product'); // جميع المنتجات
+
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
+                if (productName.includes(searchTerm.toLowerCase())) {
+                    product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
+                } else {
+                    product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
+                }
+            });
+        }
+
+        // عند تحميل الصفحة، تحقق من وجود معلمة بحث في الرابط
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchTerm = urlParams.get('search');
+
+            if (searchTerm) {
+                const searchBox = document.getElementById('search-box');
+                searchBox.value = searchTerm; // تعبئة صندوق البحث بالقيمة
+                performSearch(searchTerm); // تنفيذ البحث
+            }
+        };
+    </script>
+</body>
+</html>

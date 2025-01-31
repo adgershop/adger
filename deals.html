@@ -1,0 +1,224 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض المنتجات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 50px;
+        }
+        @media (max-width: 900px) {
+            body {
+                padding: 1px;
+            }
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .header-background {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 55px;
+            background-color: #ff5fcf;
+            z-index: -1;
+        }
+        .back-button {
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            margin-right: 15px;
+            margin-left: -6px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-left: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #d9d9d9;
+        }
+        .back-button svg {
+            width: 24px;
+            height: 24px;
+            stroke: #000000;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .header-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            margin-right: -19px;
+            font-family: Cairo, sans-serif;
+        }
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 75px;
+        }
+        .product {
+            width: calc(50% - 20px);
+            text-align: right;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .product-name {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #333;
+            font-family: Cairo, sans-serif;
+        }
+        .product-price {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #e67e22;
+        }
+        .product-description, .product-description2 {
+            font-size: 13px;
+            margin: 5px 0;
+            color: #777;
+            line-height: 1.4;
+            font-family: Cairo, sans-serif;
+        }
+
+           .product-description2 {
+            font-size: 12px;
+            margin: 5px 0;
+            color: #ff0000;
+            line-height: 1.4;
+            font-family: Cairo, sans-serif;
+        }
+
+
+        /* Adjust for tablet screens */
+        @media (min-width: 600px) {
+            .product {
+                width: calc(33.33% - 20px);
+            }
+        }
+
+        /* Adjust for desktop screens */
+        @media (min-width: 1024px) {
+            .product {
+                width: calc(25% - 20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر مع الزر والنص -->
+    <div class="header">
+        <div class="header-background"></div>
+        <div class="back-button" onclick="window.history.back()">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+            </svg>
+        </div>
+        <div class="header-text">منتجات بصفقة رابحة</div>
+    </div>
+
+    <!-- قائمة المنتجات -->
+    <div class="product-container">
+        <div class="product">
+            <a href="1.html"><img src="1.jpg" alt="صورة المنتج"></a>
+            <div class="product-name">اسم المنتج</div>
+            <div class="product-price">20.00 جنيه</div>
+            <div class="product-description">هذا نص إضافي يصف المنتج بشكل مختصر.</div>
+            <div class="product-description2">هذا نص إضافي آخر يصف المنتج بشكل مختصر.</div>
+        </div>
+        <div class="product">
+            <a href="1.html"><img src="1.jpg" alt="صورة المنتج"></a>
+            <div class="product-name">اسم المنتج</div>
+            <div class="product-price">20.00 جنيه</div>
+            <div class="product-description">هذا نص إضافي يصف المنتج بشكل مختصر.</div>
+            <div class="product-description2">هذا نص إضافي آخر يصف المنتج بشكل مختصر.</div>
+        </div>
+        <!-- Repeat this structure for all products -->
+        <div class="product">
+            <a href="1.html"><img src="1.jpg" alt="صورة المنتج"></a>
+            <div class="product-name">اسم المنتج</div>
+            <div class="product-price">20.00 جنيه</div>
+            <div class="product-description">هذا نص إضافي يصف المنتج بشكل مختصر.</div>
+            <div class="product-description2">هذا نص إضافي آخر يصف المنتج بشكل مختصر.</div>
+        </div>
+        <div class="product">
+            <a href="1.html"><img src="1.jpg" alt="صورة المنتج"></a>
+            <div class="product-name">اسم المنتج</div>
+            <div class="product-price">20.00 جنيه</div>
+            <div class="product-description">هذا نص إضافي يصف المنتج بشكل مختصر.</div>
+            <div class="product-description2">هذا نص إضافي آخر يصف المنتج بشكل مختصر.</div>
+        </div>
+        <div class="product">
+            <a href="1.html"><img src="1.jpg" alt="صورة المنتج"></a>
+            <div class="product-name">اسم المنتج</div>
+            <div class="product-price">20.00 جنيه</div>
+            <div class="product-description">هذا نص إضافي يصف المنتج بشكل مختصر.</div>
+            <div class="product-description2">هذا نص إضافي آخر يصف المنتج بشكل مختصر.</div>
+        </div>
+        <div class="product">
+            <a href="1.html"><img src="1.jpg" alt="صورة المنتج"></a>
+            <div class="product-name">اسم المنتج</div>
+            <div class="product-price">20.00 جنيه</div>
+            <div class="product-description">هذا نص إضافي يصف المنتج بشكل مختصر.</div>
+            <div class="product-description2">هذا نص إضافي آخر يصف المنتج بشكل مختصر.</div>
+        </div>
+        <div class="product">
+            <a href="1.html"><img src="1.jpg" alt="صورة المنتج"></a>
+            <div class="product-name">اسم المنتج</div>
+            <div class="product-price">20.00 جنيه</div>
+            <div class="product-description">هذا نص إضافي يصف المنتج بشكل مختصر.</div>
+            <div class="product-description2">هذا نص إضافي آخر يصف المنتج بشكل مختصر.</div>
+        </div>
+        <div class="product">
+            <a href="1.html"><img src="1.jpg" alt="صورة المنتج"></a>
+            <div class="product-name">اسم المنتج</div>
+            <div class="product-price">20.00 جنيه</div>
+            <div class="product-description">هذا نص إضافي يصف المنتج بشكل مختصر.</div>
+            <div class="product-description2">هذا نص إضافي آخر يصف المنتج بشكل مختصر.</div>
+        </div>
+        <div class="product">
+            <a href="1.html"><img src="1.jpg" alt="صورة المنتج"></a>
+            <div class="product-name">اسم المنتج</div>
+            <div class="product-price">20.00 جنيه</div>
+            <div class="product-description">هذا نص إضافي يصف المنتج بشكل مختصر.</div>
+            <div class="product-description2">هذا نص إضافي آخر يصف المنتج بشكل مختصر.</div>
+        </div>
+        <div class="product">
+            <a href="1.html"><img src="1.jpg" alt="صورة المنتج"></a>
+            <div class="product-name">اسم المنتج</div>
+            <div class="product-price">20.00 جنيه</div>
+            <div class="product-description">هذا نص إضافي يصف المنتج بشكل مختصر.</div>
+            <div class="product-description2">هذا نص إضافي آخر يصف المنتج بشكل مختصر.</div>
+        </div>
+    </div>
+</body>
+</html>
