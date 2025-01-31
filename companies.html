@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -27,15 +20,6 @@
             justify-content: center;
             gap: 20px;
         }
-        @media (max-width: 767px) {
-    .container {
-        justify-content: center;
-    }
-    
-    .item {
-        width: 45%; /* جعل العنصر يأخذ 45% من العرض ليتسع لعنصرين */
-    }
-}
 
         /* تنسيق كل عنصر (دائرة) */
         .item {
@@ -66,7 +50,20 @@
         }
 
         /* Media query for small screens (like mobile phones) */
-       
+        @media (max-width: 480px) {
+            .container {
+                gap: 10px;
+            }
+
+            .item {
+                width: calc(50% - 10px); /* عرض العنصر 50% مع مراعاة الفجوة */
+            }
+
+            .circle {
+                width: 80px;
+                height: 80px;
+            }
+        }
 
         /* Media query for larger screens */
         @media (min-width: 768px) {
@@ -139,10 +136,16 @@
                 <img src="logo.jpg" alt="شركة">
             </div>
         </div>
-
-        </div>
     </div>
 
+    <script>
+        function redirectToSea(category) {
+            // يمكنك تغيير الرابط حسب الحاجة
+            window.location.href = `https://example.com/search?q=${encodeURIComponent(category)}`;
+        }
+    </script>
+</body>
+</html>
 
 
 
