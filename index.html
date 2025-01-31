@@ -688,10 +688,10 @@
                 max-height: 100%;
                 border-radius: 33px;
             }
+        
             .write {
-                font-size: 14px; /* حجم الخط يعتمد على عرض الشاشة */
+                font-size: 3vw; /* حجم الخط يعتمد على عرض الشاشة */
                 font-family: Cairo, sans-serif;
-                color: rgb(32, 32, 32); /* تغيير لون النص إلى أبيض */
             }
     
             /* استعلام الوسائط للشاشات الكبيرة */
@@ -1983,10 +1983,6 @@ window.addEventListener('resize', () => {
 
 
 
-
-
-
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -2083,6 +2079,13 @@ window.addEventListener('resize', () => {
                 /* تصغير حجم المنتجات على الشاشات الصغيرة */
                 .promda {
                     flex: 1 1 30%; /* جعل كل منتج يشغل حوالي ثلث العرض */
+                }
+            }
+    
+            /* إخفاء المنتج الثالث في الشاشات الأقل من 500px */
+            @media (max-width: 500px) {
+                .products .promda:nth-child(3) {
+                    display: none;
                 }
             }
         </style>
