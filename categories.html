@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -6,91 +10,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شريط تفاعلي</title>
     <style>
-        /* CSS */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+    /* CSS */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
 
-        .sidebar {
-            width: 100px;
-            height: 100vh;
-            background-color: #333;
-            color: white;
-            text-align: center;
-            position: fixed;
-            top: 0;
-            right: 0;
-        }
+.sidebar {
+    width: 100px;
+    height: 100vh;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
 
-        .menu-item {
-            padding: 20px;
-            cursor: pointer;
-            position: relative;
-        }
+.menu-item {
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+}
 
-        .menu-item:hover {
-            background-color: #7474743b;
-        }
+.menu-item:hover {
+    background-color: #7474743b;
+}
 
-        .menu-item.active {
-            background-color: #f50000; /* خلفية النص المحدد */
-            border-radius: 1px; /* حواف مستديرة */
-        }
+.menu-item.active {
+    background-color: #f50000; /* خلفية النص المحدد */
+    border-radius: 1px; /* حواف مستديرة */
+}
 
-        .content {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 100px;
-            width: calc(100% - 100px);
-            height: 100vh;
-            background-color: #f4f4f4;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+.content {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 100px;
+    width: calc(100% - 100px);
+    height: 100vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* تمكين التمرير العمودي */
+}
 
-        .circle-container {
-            display: flex;
-            flex-wrap: wrap; /* العناصر تنتقل إلى سطر جديد عند الضرورة */
-            justify-content: flex-end; /* يبدأ العناصر من اليمين */
-            flex-direction: row-reverse; /* عكس اتجاه العناصر */
-            margin-top: 50px;
-        }
+.circle-container {
+    display: flex;
+    flex-wrap: wrap; /* العناصر تنتقل إلى سطر جديد عند الضرورة */
+    justify-content: flex-end; /* يبدأ العناصر من اليمين */
+    flex-direction: row-reverse; /* عكس اتجاه العناصر */
+    margin-top: 50px;
+}
 
-        .circle {
-            text-align: center;
-            margin: 10px; /* تباعد بين العناصر */
-        }
+.circle {
+    text-align: center;
+    margin: 10px; /* تباعد بين العناصر */
+}
 
-        .circle img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
+.circle img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
 
-        .circle img:hover {
-            transform: scale(1.05); /* Slightly enlarge on hover to give feedback */
-            /* Removed opacity change to avoid color tinting */
-        }
+.circle img:hover {
+    transform: scale(1.05); /* تكبير بسيط عند التحويم */
+}
 
-        .circle p {
-            margin: 0;
-            font-size: 16px;
-        }
+.circle p {
+    margin: 0;
+    font-size: 16px;
+}
 
-        .producte {
-            font-size: 11px;
-            color: #000;
-            font-family: Cairo, sans-serif;
-        }
+.producte {
+    font-size: 11px;
+    color: #000;
+    font-family: Cairo, sans-serif;
+}
 
-        img {
-            color: #000000; /* Gold color for text, this would ideally be the color of the alt text if visible */
-        }
+img {
+    color: #000000; /* لون النص الذهبي */
+}
+
+/* تعديل التصميم للشاشات الصغيرة */
+@media (max-width: 499px) {
+    .circle-container {
+        flex-direction: column; /* العناصر في عمود واحد */
+        align-items: center; /* توسيط العناصر */
+    }
+
+    .circle {
+        margin: 10px 0; /* تباعد عمودي بين العناصر */
+    }
+}
     </style>
 </head>
 <body>
