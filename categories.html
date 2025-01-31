@@ -99,12 +99,18 @@ img {
 /* تعديل التصميم للشاشات الصغيرة */
 @media (max-width: 499px) {
     .circle-container {
-        flex-direction: column; /* العناصر في عمود واحد */
-        align-items: center; /* توسيط العناصر */
+        flex-direction: row; /* العناصر في صفوف */
+        justify-content: space-around; /* توزيع العناصر بالتساوي */
     }
 
     .circle {
+        width: 45%; /* عرض العنصر ليكون عنصرين في الصف */
         margin: 10px 0; /* تباعد عمودي بين العناصر */
+    }
+
+    .circle img {
+        width: 80px; /* تصغير حجم الصورة في الشاشات الصغيرة */
+        height: 80px;
     }
 }
     </style>
