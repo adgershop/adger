@@ -625,8 +625,6 @@
 
 
 
-
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -634,6 +632,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>مربعات</title>
         <style>
+            /* تنسيق الخلفية السوداء */
+            .black-background {
+                margin-top: -36px;
+                width: 100%;
+                height: 200px;
+                background-color: rgba(0, 140, 255, 0.034); /* لون الخلفية */
+                display: flex;
+                justify-content: center; /* توسيط أفقي */
+                align-items: center; /* توسيط عمودي */
+            }
+
+            @media (max-width: 1569px) {
+                .black-background  {
+                background-color: transparent;
+                margin-top: -27px;
+                }
+            }
+
+    
             .container114 {
                 display: flex;
                 justify-content: space-around;
@@ -649,6 +666,13 @@
                 align-items: center;
                 text-align: center;
             }
+            @media (min-width: 1569px) {
+                .box {
+                    margin-top: 40px;
+                }
+            }
+    
+
             .image-box {
                 width: 20vw; /* حجم الصندوق يعتمد على عرض الشاشة */
                 height: 20vw;
@@ -667,6 +691,7 @@
             .write {
                 font-size: 3vw; /* حجم الخط يعتمد على عرض الشاشة */
                 font-family: Cairo, sans-serif;
+                color: rgb(32, 32, 32); /* تغيير لون النص إلى أبيض */
             }
     
             /* استعلام الوسائط للشاشات الكبيرة */
@@ -682,40 +707,42 @@
         </style>
     </head>
     <body>
-        <div class="container114">
-            <div class="box">
-                <a href="deals.html" class="image-box">
-                    <img src="e1.jpg" alt="عملات">
-                </a>
-                <h3 class="write">صفقة رابحة</h3>
-            </div>
-      
-            <div class="box">
-                <a href="wholesale.html" class="image-box">
-                    <img src="e3.jpg" alt="جوائز">
-                </a>
-                <h3 class="write">شراء بالجملة</h3>
-            </div>
-
-            <div class="box">
-                <a href="companies.html" class="image-box">
-                    <img src="e2.jpg" alt="عروض">
-                </a>
-                <h3 class="write">شركات عالمية</h3>
-            </div>
-            
-            <div class="box">
-                <a href="categories.html" class="image-box">
-                    <img src="e4.jpg" alt="الفئات">
-                </a>
-                <h3 class="write">الفئات</h3>
+        <div class="black-background">
+            <div class="container114">
+                <div class="box">
+                    <a href="deals.html" class="image-box">
+                        <img src="e1.jpg" alt="عملات">
+                    </a>
+                    <h3 class="write">صفقة رابحة</h3>
+                </div>
+          
+                <div class="box">
+                    <a href="wholesale.html" class="image-box">
+                        <img src="e3.jpg" alt="جوائز">
+                    </a>
+                    <h3 class="write">شراء بالجملة</h3>
+                </div>
+    
+                <div class="box">
+                    <a href="companies.html" class="image-box">
+                        <img src="e2.jpg" alt="عروض">
+                    </a>
+                    <h3 class="write">شركات عالمية</h3>
+                </div>
+                
+                <div class="box">
+                    <a href="categories.html" class="image-box">
+                        <img src="e4.jpg" alt="الفئات">
+                    </a>
+                    <h3 class="write">الفئات</h3>
+                </div>
             </div>
         </div>
     </body>
     </html>
 
+    <div class="line2"></div>
 
-    <div class="line" style="color: #f5f5f5; height: 12px;"></div>
 
 
 <style>
@@ -724,6 +751,20 @@
                 height: 8px;
                 background-color: #eeeeee;
             }
+
+            .line2 {
+    width: 100%;
+    height: 12px;
+    background: repeating-linear-gradient(90deg,
+        rgb(0, 183, 255) 0 15px,
+        white 15px 30px,
+        red 30px 45px,
+        rgb(0, 183, 255)  45px 60px,
+        white 60px 75px,
+        rgb(255, 0, 0) 75px 90px
+    );
+    background-size: 90px 100%; /* التأكد من تكرار النمط بشكل صحيح */
+}
 </style>
 
 
@@ -1769,8 +1810,12 @@
                         <path d="M19 12H5M12 19l-7-7 7-7"></path>
                     </svg>
                 </div>
-                <p onclick="window.location.href='account.html'">حسابي</p>
-                <p onclick="window.location.href='about.html'">سياسات وأحكام</p>
+                <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif;"  >حسابي</p>
+                <p onclick="window.location.href='about.html'"style="font-family: Cairo, sans-serif;"  >سياسات وأحكام</p>
+                <p onclick="window.location.href='deals.html'"style="font-family: Cairo, sans-serif;"  >صفقة رابحة</p>
+                <p onclick="window.location.href='wholesale.html'"style="font-family: Cairo, sans-serif;"  >شراء بالجملة</p>
+                <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif;" >شركات عالمية</p>
+                <p onclick="window.location.href='categories.html'"style="font-family: Cairo, sans-serif;"  >الفئات</p>
             </div>
         
             <script>
@@ -1928,6 +1973,23 @@ window.addEventListener('resize', () => {
     <br>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
     <h1  style=" font-family: 'Cairo', sans-serif; color: #464646; font-size: 16px; text-align: center;">*اَلـــمـــحـــتـــوى* </h1>
