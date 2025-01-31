@@ -634,10 +634,10 @@
         <style>
             /* تنسيق الخلفية السوداء */
             .black-background {
-                margin-top: -36px;
+                margin-top: -35px;
                 width: 100%;
                 height: 200px;
-                background-color: rgba(0, 140, 255, 0.034); /* لون الخلفية */
+                background-color: rgba(0, 140, 255, 0.116); /* لون الخلفية */
                 display: flex;
                 justify-content: center; /* توسيط أفقي */
                 align-items: center; /* توسيط عمودي */
@@ -689,7 +689,7 @@
                 border-radius: 33px;
             }
             .write {
-                font-size: 3vw; /* حجم الخط يعتمد على عرض الشاشة */
+                font-size: 14px; /* حجم الخط يعتمد على عرض الشاشة */
                 font-family: Cairo, sans-serif;
                 color: rgb(32, 32, 32); /* تغيير لون النص إلى أبيض */
             }
@@ -765,6 +765,13 @@
     );
     background-size: 90px 100%; /* التأكد من تكرار النمط بشكل صحيح */
 }
+@media (max-width: 767px) {
+              .line2 {
+                 margin-top: -18px;
+                }
+            }
+
+
 </style>
 
 
@@ -1980,10 +1987,170 @@ window.addEventListener('resize', () => {
 
 
 
-
-
-
-
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>تمرير الصور والنصوص</title>
+        <style>
+            /* CSS */
+            /* الخلفية الخضراء */
+            .green-background {
+                width: 100%;
+                padding: 20px;
+                background-color: rgba(0, 255, 13, 0.534);
+                box-sizing: border-box;
+            }
+    
+            /* توزيع المربعين جنبًا إلى جنب */
+            .groups-container {
+                display: flex;
+                gap: 20px; /* المسافة بين المربعين */
+            }
+    
+            /* مربع حول كل مجموعة */
+            .group {
+                border-radius: 10px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.596); /* خلفية شبه شفافة */
+                flex: 1; /* لجعل المربعين متساويين في العرض */
+            }
+    
+            /* عنوان المجموعة */
+            .group h2 {
+                color: rgb(0, 0, 0);
+                font-family: Cairo, sans-serif;
+                text-align: right;
+                margin-top: 0;
+                font-size: 24px;
+            }
+    
+            /* ترتيب المنتجات جنبًا إلى جنب */
+            .products {
+                display: flex;
+                gap: 15px; /* المسافة بين المنتجات */
+            }
+    
+            /* تصميم كل منتج */
+            .promda {
+                background-color: white;
+                border-radius: 10px;
+                padding: 15px;
+                text-align: center;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                flex: 1; /* لجعل المنتجات متساوية في العرض */
+            }
+    
+            .promda img {
+                width: 100%;
+                aspect-ratio: 1 / 1; /* نسبة العرض إلى الارتفاع 1:1 */
+                border-radius: 10px;
+                object-fit: cover; /* لجعل الصورة تملأ المساحة دون تشويه */
+                cursor: pointer; /* تغيير المؤشر إلى يد عند التمرير فوق الصورة */
+            }
+    
+            .promda p {
+                margin-top: 10px;
+                font-size: 15px;
+                color: rgb(36, 36, 36);
+                font-family: Cairo, sans-serif;
+                text-align: right; /* محاذاة النص إلى اليمين */
+                direction: rtl; /* جعل النص يبدأ من اليمين */
+            }
+    
+            /* التصميم المتجاوب */
+            @media (max-width: 968px) {
+                .groups-container {
+                    flex-direction: column; /* تغيير اتجاه المربعين إلى عمودي على الشاشات الصغيرة */
+                }
+    
+                /* إخفاء المربع الثاني على الشاشات الصغيرة */
+                #second-group {
+                    display: none;
+                }
+    
+                /* جعل المربع الأول يتقلص ليتناسب مع عرض الشاشة */
+                .group {
+                    flex: 1 1 auto;
+                }
+    
+                /* جعل المنتجات تظهر جنبًا إلى جنب حتى على الهواتف */
+                .products {
+                    flex-direction: row;
+                }
+    
+                /* تصغير حجم المنتجات على الشاشات الصغيرة */
+                .promda {
+                    flex: 1 1 30%; /* جعل كل منتج يشغل حوالي ثلث العرض */
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- الخلفية الخضراء -->
+        <div class="green-background">
+            <!-- حاوية المربعين -->
+            <div class="groups-container">
+                <!-- المربع الأول -->
+                <div class="group">
+                    <h2>موضة</h2>
+                    <div class="products">
+                        <!-- المنتج 1 -->
+                        <div class="promda">
+                            <a href="1.html">
+                                <img src="1.jpg" alt="صورة 1">
+                            </a>
+                            <p>666.00 جنيه</p>
+                        </div>
+                        <!-- المنتج 2 -->
+                        <div class="promda">
+                            <a href="1.html">
+                                <img src="1.jpg" alt="صورة 2">
+                            </a>
+                            <p>666.00 جنيه</p>
+                        </div>
+                        <!-- المنتج 3 -->
+                        <div class="promda">
+                            <a href="1.html">
+                                <img src="1.jpg" alt="صورة 3">
+                            </a>
+                            <p>666.00 جنيه</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- المربع الثاني -->
+                <div class="group" id="second-group">
+                    <h2>عنوان آخر</h2>
+                    <div class="products">
+                        <!-- المنتج 1 -->
+                        <div class="promda">
+                            <a href="1.html">
+                                <img src="1.jpg" alt="صورة 1">
+                            </a>
+                            <p>666.00 جنيه</p>
+                        </div>
+                        <!-- المنتج 2 -->
+                        <div class="promda">
+                            <a href="1.html">
+                                <img src="1.jpg" alt="صورة 2">
+                            </a>
+                            <p>666.00 جنيه</p>
+                        </div>
+                        <!-- المنتج 3 -->
+                        <div class="promda">
+                            <a href="1.html">
+                                <img src="1.jpg" alt="صورة 3">
+                            </a>
+                            <p>666.00 جنيه</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
 
 
 

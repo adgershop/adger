@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adger</title>
-    <link rel="icon" href="logo.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-
-
-    <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -40,17 +30,15 @@
             box-sizing: border-box;
             position: relative;
         }
-
+        
         .image-frame {
-            border: 2px solid #cfcfcf;
-            border-radius: 10px; /* تدوير الزوايا */
-            padding: 10px;
-            padding-bottom: 40px; /* تقليل الحشو السفلي */
-            text-align: center;
-            background-color: #f9f9f9;
-            position: relative;
-            overflow: hidden; /* لإخفاء أي محتوى يخرج عن الحدود */
-        }
+                border: 2px solid #cfcfcf;
+                border-radius: 32px;
+                padding: 10px;
+                text-align: center;
+                background-color: #ffffff;
+                position: relative;
+            }
 
         .image-frame img {
             max-width: 100%;
@@ -77,23 +65,36 @@
         }
 
         .remove-button {
-            background-color: #ff0000;
-            color: white;
+            background-color: transparent;
             border: none;
-            padding: 10px 0; /* تعديل الحشو ليكون مناسبًا للعرض الكامل */
-            width: 100%; /* جعل الزر يأخذ العرض الكامل */
-            border-radius: 0 0 10px 10px; /* تدوير الزوايا السفلية فقط */
             cursor: pointer;
-            font-family: Cairo, sans-serif;
-            font-size: 14px;
-            position: absolute; /* لجعل الزر في الأسفل */
-            bottom: 0;
-            left: 0;
-            margin-top: 5px; /* تقليل المسافة بين النص والزر */
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            flex-direction: row; /* النص على اليسار والأيقونة على اليمين */
+            gap: 5px; /* تباعد بين النص والأيقونة */
         }
 
-        .remove-button:hover {
-            background-color: #cc0000;
+        .remove-button svg {
+            width: 24px;
+            height: 24px;
+            fill: none; /* تعيين fill إلى none */
+            stroke: #ff0000; /* لون stroke */
+            stroke-width: 2; /* عرض stroke */
+        }
+
+        .remove-button span {
+            color: #ff0000; /* لون النص */
+            font-family: Cairo, sans-serif;
+            font-size: 14px;
+        }
+
+        .remove-button:hover svg,
+        .remove-button:hover span {
+            opacity: 0.8; /* تخفيف اللون عند التمرير */
         }
 
         .footer {
@@ -112,12 +113,6 @@
         }
 
         .total-price {
-            color: white;
-            font-family: Cairo, sans-serif;
-            font-size: 18px;
-        }
-
-        .item-count {
             color: white;
             font-family: Cairo, sans-serif;
             font-size: 18px;
@@ -219,7 +214,7 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align: center; font-family: Cairo, sans-serif;">عربة التسوق</h1>
+    <h1 style="text-align: center; font-family: Cairo, sans-serif;">عربة التسوق (<span id="itemCount">0</span>)</h1>
     <div class="gallery" id="cart-items"></div>
 
     <!-- رسالة العربة الفارغة -->
@@ -238,9 +233,6 @@
     <div class="footer">
         <div class="total-price">
             السعر الإجمالي: <span id="totalPrice">0</span> EGP
-        </div>
-        <div class="item-count">
-            عدد المنتجات: <span id="itemCount">0</span>
         </div>
         <button class="back-button" onclick="goBack()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -281,15 +273,33 @@
                             </a>
                             <div class="text-under">
                                 <h1>${product.name}</h1>
-                                <h2 style="font-family: Cairo, sans-serif; color: #ffc400; font-size: 13px; margin-top: -5px;">${product.sold}</h2>
+                                <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold}</h2>
                                 <div class="container" style="display: flex; align-items: right; gap: 5px; width: 100%;">
+                                    
+                                    <style>
+                              .container{
+                                    margin-top: -7px;
+                                     }
+                                  @media (max-width: 768px) {
+                                      .container {
+                                 margin-top: -11px;
+                                     }}
+                                          </style>
+                                          
                                     <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
                                     <div class="number" style="font-size: 28px;">${product.price}</div>
                                     <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
                                 </div>
                                <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">${product.discount}</h3>
                             </div>
-                            <button class="remove-button" onclick="removeFromCart(${index})">حذف</button>
+                            <button class="remove-button" onclick="removeFromCart(${index})">
+                                <span>حذف</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#ff0000" stroke-width="2" fill="none"/>
+                                    <path d="M10 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M14 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
                         </div>
                     `;
                     cartItemsElement.appendChild(productElement);

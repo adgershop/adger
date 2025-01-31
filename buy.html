@@ -754,7 +754,13 @@ updateTotalPrice();
                     left: -250px;
                 }
             }
-    
+            #usernameDisplay {
+            white-space: nowrap; /* منع النص من الانتقال إلى سطر جديد */
+            overflow: hidden; /* إخفاء النص الزائد */
+            text-overflow: ellipsis; /* إضافة نقاط (...) للنص الزائد */
+            max-width: 150px; /* تحديد عرض أقصى للعنصر (يمكن تعديله حسب الحاجة) */
+            display: inline-block; /* لجعل العنصر يتصرف كعنصر inline مع إمكانية تحديد عرض */
+        }
             /* تطبيق الأنيميشن على النافذة الأولى */
             .menu-popup-1.active {
                 animation: slideIn1 0.3s ease-in-out forwards;
@@ -959,8 +965,12 @@ updateTotalPrice();
                     <path d="M19 12H5M12 19l-7-7 7-7"></path>
                 </svg>
             </div>
-            <p onclick="window.location.href='account.html'">حسابي</p>
-            <p onclick="window.location.href='about.html'">سياسات وأحكام</p>
+            <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif;"  >حسابي</p>
+            <p onclick="window.location.href='about.html'"style="font-family: Cairo, sans-serif;"  >سياسات وأحكام</p>
+            <p onclick="window.location.href='deals.html'"style="font-family: Cairo, sans-serif;"  >صفقة رابحة</p>
+            <p onclick="window.location.href='wholesale.html'"style="font-family: Cairo, sans-serif;"  >شراء بالجملة</p>
+            <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif;" >شركات عالمية</p>
+            <p onclick="window.location.href='categories.html'"style="font-family: Cairo, sans-serif;"  >الفئات</p>
         </div>
     
         <!-- نافذة القائمة الجانبية الثانية -->
@@ -997,11 +1007,47 @@ updateTotalPrice();
             const welcomeMessage = document.getElementById('welcomeMessage');
             const usernameDisplay = document.getElementById('usernameDisplay');
     
+         
             if (username) {
-                usernameDisplay.textContent = username; // عرض اسم المستخدم
-            } else {
-                welcomeMessage.innerHTML = 'أهلاً، <span style="color: white; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
-            }
+                    usernameDisplay.textContent = username; // عرض اسم المستخدم
+               
+               
+
+
+
+             // Function to detect if the name contains Arabic characters
+function isArabic(text) {
+    return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
+}
+
+// Function to truncate the username based on language
+function truncateUsername(name) {
+    if (window.innerWidth < 966 && name.length > 7) {
+        const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
+        if (isArabic(name)) {
+            return name.substring(0, maxLength) + '..'; // Keep the ellipsis at the end for Arabic
+        } else {
+            return '..' + name.substring(0, maxLength); // Place the ellipsis at the beginning, truncate from the end for English
+        }
+    }
+    return name;
+}
+
+// Apply the modification on page load and screen resize
+usernameDisplay.textContent = truncateUsername(username);
+window.addEventListener('resize', () => {
+    usernameDisplay.textContent = truncateUsername(username);
+});
+
+
+
+
+
+                    
+                } else {
+                    welcomeMessage.innerHTML = 'أهلاً، <span style="color: white; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+                }
+        
         </script>
     </body>
     </html>
