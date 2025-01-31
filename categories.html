@@ -5,12 +5,6 @@
 
 
 
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -31,15 +25,15 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 10px; /* Reduced gap for all screens */
         }
 
         /* تنسيق كل عنصر (دائرة + مربع) */
         .item {
-            width: calc(50% - 10px); /* Ensure at least two items per row on small screens */
+            width: calc(50% - 5px); /* Ensure at least two items per row on small screens */
             text-align: center;
             cursor: pointer;
-            margin-bottom: 20px;
+            margin-bottom: 10px; /* Reduced margin for mobile */
         }
 
         /* تنسيق الدائرة */
@@ -60,7 +54,7 @@
 
         /* تنسيق المربع (اسم الفئة) */
         .category-name {
-            padding: 10px;
+            padding: 5px; /* Reduced padding for mobile */
             border: none;
             border-radius: 5px;
             font-size: 16px;
@@ -72,8 +66,29 @@
             border: 2px solid red;
         }
 
-        /* Media query for mobile devices - make items larger */
-        @media (max-width: 649px) {
+        /* Media query for screens less than 600px - reduce size and spacing */
+        @media (max-width: 599px) {
+            .container {
+                gap: 5px; /* Further reduced gap */
+            }
+
+            .item {
+                width: calc(50% - 2.5px); /* Adjust for smaller screens */
+            }
+
+            .circle {
+                width: 100px; /* Smaller circle */
+                height: 100px;
+            }
+
+            .category-name {
+                font-size: 16px; /* Keep font size readable but not too large */
+                padding: 5px; /* Reduced padding */
+            }
+        }
+
+        /* Media query for screens larger than 600px but less than 650px */
+        @media (min-width: 499px) and (max-width: 649px) {
             .item {
                 width: calc(50% - 10px);
             }
@@ -117,6 +132,7 @@
             }
         }
     </style>
+
 
     <h1>فئات المنتجات</h1>
 
