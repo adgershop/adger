@@ -11,7 +11,6 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -37,15 +36,16 @@
 
         /* تنسيق كل عنصر (دائرة + مربع) */
         .item {
-            width: 150px;
+            width: calc(50% - 10px); /* Ensure at least two items per row on small screens */
             text-align: center;
             cursor: pointer;
+            margin-bottom: 20px;
         }
 
         /* تنسيق الدائرة */
         .circle {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             overflow: hidden;
             margin: 0 auto 10px;
@@ -72,37 +72,31 @@
             border: 2px solid red;
         }
 
-        /* Media query for small screens (like mobile phones) */
-        @media (max-width: 767px) {
-            .container {
-                justify-content: space-around; /* Distribute items evenly */
-            }
-
+        /* Media query for mobile devices - make items larger */
+        @media (max-width: 649px) {
             .item {
-                width: calc(33.33% - 20px); /* Width for three items in a row, minus gap */
-                margin-bottom: 20px; /* Add space below each item for better touch interaction */
+                width: calc(50% - 10px);
             }
 
             .circle {
-                width: 80px; /* Slightly decrease size on very small screens */
-                height: 80px;
+                width: 150px;
+                height: 150px;
             }
 
             .category-name {
-                font-size: 14px; /* Decrease size for mobile */
-                padding: 8px; /* Adjust padding for smaller screens */
+                font-size: 20px;
             }
         }
 
-        /* Media query for larger screens */
-        @media (min-width: 768px) {
+        /* Media query for screens larger than 650px - 3 items per row */
+        @media (min-width: 650px) {
             .container {
                 gap: 10px;
                 padding: 0 20px;
             }
 
             .item {
-                width: 200px;
+                width: calc(33.33% - 13.33px); /* 3 items per row with gap accounting */
             }
 
             .circle {
@@ -113,12 +107,16 @@
             .category-name {
                 font-size: 18px;
                 padding: 15px;
-                border: none;
+            }
+        }
+
+        /* For even larger screens, adjust item size if needed */
+        @media (min-width: 768px) {
+            .item {
+                width: 200px; /* Fixed width for larger screens */
             }
         }
     </style>
-</head>
-<body>
 
     <h1>فئات المنتجات</h1>
 
@@ -126,7 +124,7 @@
         <!-- العنصر 1 -->
         <div class="item" data-name="إلكترونيات" onclick="redirectToSea('إلكترونيات')">
             <div class="circle">
-                <img src="https://via.placeholder.com/100" alt="إلكترونيات">
+                <img src="c1.jpg" alt="فئه">
             </div>
             <div class="category-name">إلكترونيات</div>
         </div>
@@ -134,7 +132,7 @@
         <!-- العنصر 2 -->
         <div class="item" data-name="ملابس" onclick="redirectToSea('ملابس')">
             <div class="circle">
-                <img src="https://via.placeholder.com/100" alt="ملابس">
+                <img src="c2.jpg" alt="فئه">
             </div>
             <div class="category-name">ملابس</div>
         </div>
@@ -142,7 +140,7 @@
         <!-- العنصر 3 -->
         <div class="item" data-name="أحذية" onclick="redirectToSea('أحذية')">
             <div class="circle">
-                <img src="https://via.placeholder.com/100" alt="أحذية">
+                <img src="c3.jpg" alt="فئه">
             </div>
             <div class="category-name">أحذية</div>
         </div>
@@ -150,7 +148,7 @@
         <!-- العنصر 4 -->
         <div class="item" data-name="أثاث" onclick="redirectToSea('أثاث')">
             <div class="circle">
-                <img src="https://via.placeholder.com/100" alt="أثاث">
+                <img src="c4.jpg" alt="فئه">
             </div>
             <div class="category-name">أثاث</div>
         </div>
@@ -158,7 +156,7 @@
         <!-- العنصر 5 -->
         <div class="item" data-name="كتب" onclick="redirectToSea('كتب')">
             <div class="circle">
-                <img src="https://via.placeholder.com/100" alt="كتب">
+                <img src="c5.jpg" alt="فئه">
             </div>
             <div class="category-name">كتب</div>
         </div>
