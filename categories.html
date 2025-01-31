@@ -1,269 +1,342 @@
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فئات المنتجات</title>
+    <title>شريط تفاعلي</title>
     <style>
-        /* تنسيق عام للصفحة */
+        /* CSS */
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        }
+
+        .sidebar {
+            width: 100px;
+            height: 100vh;
+            background-color: #333;
+            color: white;
             text-align: center;
+            position: fixed;
+            top: 0;
+            right: 0;
+        }
+
+        .menu-item {
             padding: 20px;
-        }
-
-        /* تنسيق الحاوية الرئيسية */
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px; /* Reduced gap for all screens */
-        }
-
-        /* تنسيق كل عنصر (دائرة + مربع) */
-        .item {
-            width: calc(50% - 5px); /* Ensure at least two items per row on small screens */
-            text-align: center;
             cursor: pointer;
-            margin-bottom: 10px; /* Reduced margin for mobile */
+            position: relative;
         }
 
-        /* تنسيق الدائرة */
+        .menu-item:hover {
+            background-color: #7474743b;
+        }
+
+        .menu-item.active {
+            background-color: #f50000; /* خلفية النص المحدد */
+            border-radius: 1px; /* حواف مستديرة */
+        }
+
+        .content {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 100px;
+            width: calc(100% - 100px);
+            height: 100vh;
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .circle-container {
+            display: flex;
+            flex-wrap: wrap; /* العناصر تنتقل إلى سطر جديد عند الضرورة */
+            justify-content: flex-end; /* يبدأ العناصر من اليمين */
+            flex-direction: row-reverse; /* عكس اتجاه العناصر */
+            margin-top: 50px;
+        }
+
         .circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 10px;
-            border: 2px solid #ccc;
+            text-align: center;
+            margin: 10px; /* تباعد بين العناصر */
         }
 
         .circle img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        /* تنسيق المربع (اسم الفئة) */
-        .category-name {
-            padding: 5px; /* Reduced padding for mobile */
-            border: none;
-            border-radius: 5px;
+        .circle img:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover to give feedback */
+            /* Removed opacity change to avoid color tinting */
+        }
+
+        .circle p {
+            margin: 0;
             font-size: 16px;
-            color: #333;
         }
 
-        /* Hover effect for the circle */
-        .item:hover .circle {
-            border: 2px solid red;
+        .producte {
+            font-size: 11px;
+            color: #000;
+            font-family: Cairo, sans-serif;
         }
 
-        /* Media query for screens less than 600px - reduce size and spacing */
-        @media (max-width: 599px) {
-            .container {
-                gap: 5px; /* Further reduced gap */
-            }
-
-            .item {
-                width: calc(50% - 2.5px); /* Adjust for smaller screens */
-            }
-
-            .circle {
-                width: 100px; /* Smaller circle */
-                height: 100px;
-            }
-
-            .category-name {
-                font-size: 16px; /* Keep font size readable but not too large */
-                padding: 5px; /* Reduced padding */
-            }
-        }
-
-        /* Media query for screens larger than 600px but less than 650px */
-        @media (min-width: 499px) and (max-width: 649px) {
-            .item {
-                width: calc(50% - 10px);
-            }
-
-            .circle {
-                width: 150px;
-                height: 150px;
-            }
-
-            .category-name {
-                font-size: 20px;
-            }
-        }
-
-        /* Media query for screens larger than 650px - 3 items per row */
-        @media (min-width: 650px) {
-            .container {
-                gap: 10px;
-                padding: 0 20px;
-            }
-
-            .item {
-                width: calc(33.33% - 13.33px); /* 3 items per row with gap accounting */
-            }
-
-            .circle {
-                width: 150px;
-                height: 150px;
-            }
-
-            .category-name {
-                font-size: 18px;
-                padding: 15px;
-            }
-        }
-
-        /* For even larger screens, adjust item size if needed */
-        @media (min-width: 768px) {
-            .item {
-                width: 200px; /* Fixed width for larger screens */
-            }
+        img {
+            color: #000000; /* Gold color for text, this would ideally be the color of the alt text if visible */
         }
     </style>
+</head>
+<body>
+   
+    <!-- HTML -->
+    <div class="sidebar">
+        <div class="menu">
+            <div class="menu-item active" onclick="showContent('tech')">التكنولوجيا</div>
+            <div class="menu-item" onclick="showContent('home')">البيت</div>
+            <div class="menu-item" onclick="showContent('fashion')">أزياء</div>
+            <div class="menu-item" onclick="showContent('books')">كتب</div>
+            <div class="menu-item" onclick="showContent('sports')">رياضة</div>
+        </div>
+        <div class="content" id="tech-content">
+            <div class="circle-container">
+                <div class="circle" onclick="redirectToSea('نص 1')">
+                    <img src="1.jpg" alt="Tech 1">
+                    <h1 class="producte">نص 1</h1>
+                </div>
+                
+                <div class="circle" onclick="redirectToSea('نص 2')">
+                    <img src="1.jpg" alt="Tech 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
+
+                <div class="circle" onclick="redirectToSea('نص 2')">
+                    <img src="1.jpg" alt="Tech 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
+
+                  <div class="circle" onclick="redirectToSea('نص 1')">
+                    <img src="1.jpg" alt="Tech 1">
+                    <h1 class="producte">نص 1</h1>
+                </div>
+                
+                <div class="circle" onclick="redirectToSea('نص 2')">
+                    <img src="1.jpg" alt="Tech 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
+
+                <div class="circle" onclick="redirectToSea('نص 2')">
+                    <img src="1.jpg" alt="Tech 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
+
+                <div class="circle" onclick="redirectToSea('نص 1')">
+                    <img src="1.jpg" alt="Tech 1">
+                    <h1 class="producte">نص 1</h1>
+                </div>
+                
+                <div class="circle" onclick="redirectToSea('نص 2')">
+                    <img src="1.jpg" alt="Tech 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
+
+                <div class="circle" onclick="redirectToSea('نص 2')">
+                    <img src="1.jpg" alt="Tech 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
+
+                <div class="circle" onclick="redirectToSea('نص 1')">
+                    <img src="1.jpg" alt="Tech 1">
+                    <h1 class="producte">نص 1</h1>
+                </div>
+                
+                <div class="circle" onclick="redirectToSea('نص 2')">
+                    <img src="1.jpg" alt="Tech 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
+
+                <div class="circle" onclick="redirectToSea('نص 2')">
+                    <img src="1.jpg" alt="Tech 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
 
 
-    <h1>فئات المنتجات</h1>
-
-    <div class="container">
-        <!-- العنصر 1 -->
-        <div class="item" data-name="إلكترونيات" onclick="redirectToSea('إلكترونيات')">
-            <div class="circle">
-                <img src="c1.jpg" alt="فئه">
             </div>
-            <div class="category-name">إلكترونيات</div>
         </div>
 
-        <!-- العنصر 2 -->
-        <div class="item" data-name="ملابس" onclick="redirectToSea('ملابس')">
-            <div class="circle">
-                <img src="c2.jpg" alt="فئه">
+
+        <div class="content" id="home-content">
+            <div class="circle-container">
+                <div class="circle" onclick="redirectToSea('نص 24')">
+                    <img src="home1.jpg" alt="Home 1">
+                    <h1 class="producte">نص 1</h1>
+                </div>
+
+                 <div class="circle" onclick="redirectToSea('نص 24')">
+                    <img src="home2.jpg" alt="Home 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
+
+               <div class="circle" onclick="redirectToSea('نص 24')">
+                    <img src="home3.jpg" alt="Home 3">
+                    <h1 class="producte">نص 3</h1>
+                </div>
+
+               <div class="circle" onclick="redirectToSea('نص 24')">
+                    <img src="home4.jpg" alt="Home 4">
+                    <h1 class="producte">نص 4</h1>
+                </div>
             </div>
-            <div class="category-name">ملابس</div>
         </div>
 
-        <!-- العنصر 3 -->
-        <div class="item" data-name="أحذية" onclick="redirectToSea('أحذية')">
-            <div class="circle">
-                <img src="c3.jpg" alt="فئه">
+
+        <div class="content" id="fashion-content">
+            <div class="circle-container">
+                <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="fashion1.jpg" alt="Fashion 1">
+                    <h1 class="producte">نص 1</h1>
+                </div>
+
+               <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="fashion2.jpg" alt="Fashion 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
+
+                <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="fashion3.jpg" alt="Fashion 3">
+                    <h1 class="producte">نص 3</h1>
+                </div>
+
+              <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="fashion4.jpg" alt="Fashion 4">
+                    <h1 class="producte">نص 4</h1>
+                </div>
             </div>
-            <div class="category-name">أحذية</div>
         </div>
 
-        <!-- العنصر 4 -->
-        <div class="item" data-name="أثاث" onclick="redirectToSea('أثاث')">
-            <div class="circle">
-                <img src="c4.jpg" alt="فئه">
+
+        <div class="content" id="books-content">
+            <div class="circle-container">
+             <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="books1.jpg" alt="Books 1">
+                    <h1 class="producte">نص 1</h1>
+                </div>
+                
+                <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="books2.jpg" alt="Books 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
+
+          <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="books3.jpg" alt="Books 3">
+                    <h1 class="producte">نص 3</h1>
+                </div>
+
+                <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="books4.jpg" alt="Books 4">
+                    <h1 class="producte">نص 4</h1>
+                </div>
             </div>
-            <div class="category-name">أثاث</div>
         </div>
 
-        <!-- العنصر 5 -->
-        <div class="item" data-name="كتب" onclick="redirectToSea('كتب')">
-            <div class="circle">
-                <img src="c5.jpg" alt="فئه">
-            </div>
-            <div class="category-name">كتب</div>
-        </div>
 
-        <!-- العنصر 6 -->
-        <div class="item" data-name="ألعاب" onclick="redirectToSea('ألعاب')">
-            <div class="circle">
-                <img src="https://via.placeholder.com/100" alt="ألعاب">
-            </div>
-            <div class="category-name">ألعاب</div>
-        </div>
+        <div class="content" id="sports-content">
+            <div class="circle-container">
+               <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="sports1.jpg" alt="Sports 1">
+                    <h1 class="producte">نص 1</h1>
+                </div>
 
-        <!-- العنصر 7 -->
-        <div class="item" data-name="جمال" onclick="redirectToSea('جمال')">
-            <div class="circle">
-                <img src="https://via.placeholder.com/100" alt="جمال">
-            </div>
-            <div class="category-name">جمال</div>
-        </div>
+            <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="sports2.jpg" alt="Sports 2">
+                    <h1 class="producte">نص 2</h1>
+                </div>
 
-        <!-- العنصر 8 -->
-        <div class="item" data-name="رياضة" onclick="redirectToSea('رياضة')">
-            <div class="circle">
-                <img src="https://via.placeholder.com/100" alt="رياضة">
-            </div>
-            <div class="category-name">رياضة</div>
-        </div>
+              <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="sports3.jpg" alt="Sports 3">
+                    <h1 class="producte">نص 3</h1>
+                </div>
 
-        <!-- العنصر 9 -->
-        <div class="item" data-name="أجهزة منزلية" onclick="redirectToSea('أجهزة منزلية')">
-            <div class="circle">
-                <img src="https://via.placeholder.com/100" alt="أجهزة منزلية">
+                <div class="circle"onclick="redirectToSea('نص 24')">
+                    <img src="sports4.jpg" alt="Sports 4">
+                    <h1 class="producte">نص 4</h1>
+                </div>
             </div>
-            <div class="category-name">أجهزة منزلية</div>
-        </div>
-
-        <!-- العنصر 10 -->
-        <div class="item" data-name="إكسسوارات" onclick="redirectToSea('إكسسوارات')">
-            <div class="circle">
-                <img src="https://via.placeholder.com/100" alt="إكسسوارات">
-            </div>
-            <div class="category-name">إكسسوارات</div>
         </div>
     </div>
 
-    <script>
-        function redirectToSea(category) {
-            alert(`سيتم توجيهك إلى قسم: ${category}`);
-            // يمكنك إضافة الرابط الذي تريد التوجيه إليه هنا
-            // window.location.href = `https://example.com/search?category=${category}`;
-        }
-    </script>
+
+<script>
+    // JavaScript
+    function showContent(contentId) {
+        // إخفاء جميع المحتويات
+        document.querySelectorAll('.content').forEach(content => {
+            content.style.display = 'none';
+        });
+
+        // إظهار المحتوى المحدد
+        document.getElementById(contentId + '-content').style.display = 'block';
+
+        // إزالة الخلفية من جميع العناصر
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // إضافة الخلفية إلى العنصر المحدد
+        document.querySelector(`[onclick="showContent('${contentId}')"]`).classList.add('active');
+    }
+
+    // عند تحميل الصفحة، يتم تحديد "التكنولوجيا" تلقائيًا
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.content').forEach(content => {
+            content.style.display = 'none';
+        });
+        document.getElementById('tech-content').style.display = 'block';
+    });
+
+    // دالة لتوجيه المستخدم إلى صفحة sea.html وإضافة الاسم إلى صندوق البحث
+    function redirectToSea(categoryName) {
+        window.location.href = `sea.html?search=${encodeURIComponent(categoryName)}`;
+    }
+</script>
 </body>
 </html>
 
 
 
-
-
     <script>
-        // دالة لتوجيه المستخدم إلى صفحة sea.html وإضافة الاسم إلى صندوق البحث
-        function redirectToSea(categoryName) {
-            // توجيه المستخدم إلى صفحة sea.html
-            window.location.href = `sea.html?search=${encodeURIComponent(categoryName)}`;
-        }
-
-        // دالة لتنفيذ البحث (يمكن استخدامها في صفحة sea.html)
-        function performSearch(searchTerm) {
-            const products = document.querySelectorAll('.product'); // جميع المنتجات
-
-            products.forEach(product => {
-                const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
-                if (productName.includes(searchTerm.toLowerCase())) {
-                    product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
-                } else {
-                    product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
-                }
+        // JavaScript
+        function showContent(contentId) {
+            // إخفاء جميع المحتويات
+            document.querySelectorAll('.content').forEach(content => {
+                content.style.display = 'none';
             });
+
+            // إظهار المحتوى المحدد
+            document.getElementById(contentId + '-content').style.display = 'block';
+
+            // إزالة الخلفية من جميع العناصر
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // إضافة الخلفية إلى العنصر المحدد
+            document.querySelector(`[onclick="showContent('${contentId}')"]`).classList.add('active');
         }
 
-        // عند تحميل الصفحة، تحقق من وجود معلمة بحث في الرابط
-        window.onload = function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const searchTerm = urlParams.get('search');
-
-            if (searchTerm) {
-                const searchBox = document.getElementById('search-box');
-                searchBox.value = searchTerm; // تعبئة صندوق البحث بالقيمة
-                performSearch(searchTerm); // تنفيذ البحث
-            }
-        };
+        // عند تحميل الصفحة، يتم تحديد "التكنولوجيا" تلقائيًا
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById('tech-content').style.display = 'block';
+        });
     </script>
 </body>
 </html>
