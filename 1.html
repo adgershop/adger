@@ -851,9 +851,10 @@
     
             .content h1 {
                 font-size: 17px;
+                color: #ff0077;
                 margin-bottom: 20px;
                 font-family: Cairo, sans-serif;
-                margin-right: 22px;
+                margin-right: 9px;
             }
     
             .content h2 {
@@ -883,6 +884,11 @@
                 position: relative; /* تمكين التحريك */
                 right: -22px; /* تحريك النص مع الخلفية لليمين بمسافة -22px */
             }
+            @media (max-width: 768px) {
+                .text-container p {
+               right: -27px;
+                }
+            }
     
             .text-container p + p {
                 margin-right: 0;
@@ -896,7 +902,7 @@
     </head>
     <body>
         <div class="content">
-            <h1>الأكثر طلب</h1>
+            <h1>الأكثرُ طلبًا</h1>
             <div class="text-container">
                 <p onclick="redirectToSea('ساعدنا فى بناء مجتمع أفضل')">ساعدنا فى بناء مجتمع أفضل</p>
                 <p onclick="redirectToSea('نص إضافي مثال 1')">نص إضافي مثال 1</p>
