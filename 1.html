@@ -825,12 +825,12 @@
     <div class="line3"></div>
 
     <!DOCTYPE html>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <html lang="ar" dir="rtl">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>عناوين ونصوص</title>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
         <style>
             body {
                 margin: 0;
@@ -880,6 +880,8 @@
                 cursor: pointer;
                 margin: 0 10px 0 0;
                 flex-shrink: 0;
+                position: relative; /* تمكين التحريك */
+                right: -22px; /* تحريك النص مع الخلفية لليمين بمسافة -22px */
             }
     
             .text-container p + p {
@@ -890,12 +892,9 @@
             .text-container p:nth-child(2n + 1) {
                 margin-right: 1px;
             }
-    
-        
         </style>
     </head>
     <body>
-    
         <div class="content">
             <h1>الأكثر طلب</h1>
             <div class="text-container">
@@ -914,14 +913,14 @@
             }
     
             function performSearch(searchTerm) {
-                const products = document.querySelectorAll('.product'); 
+                const products = document.querySelectorAll('.product');
     
                 products.forEach(product => {
-                    const productName = product.getAttribute('data-name').toLowerCase(); 
+                    const productName = product.getAttribute('data-name').toLowerCase();
                     if (productName.includes(searchTerm.toLowerCase())) {
-                        product.classList.remove('hidden'); 
+                        product.classList.remove('hidden');
                     } else {
-                        product.classList.add('hidden'); 
+                        product.classList.add('hidden');
                     }
                 });
             }
@@ -933,9 +932,9 @@
                 if (searchTerm) {
                     const searchBox = document.getElementById('search-box');
                     if (searchBox) {
-                        searchBox.value = searchTerm; 
+                        searchBox.value = searchTerm;
                     }
-                    performSearch(searchTerm); 
+                    performSearch(searchTerm);
                 }
             };
         </script>
