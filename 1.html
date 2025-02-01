@@ -825,7 +825,6 @@
     <div class="line3"></div>
 
    
-
     <!DOCTYPE html>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <html lang="ar" dir="rtl">
@@ -899,13 +898,17 @@
                 }
     
                 .text-container {
-                    flex-direction: column;
-                    align-items: flex-start;
+                    flex-direction: row; /* ترتيب العناصر في سطر واحد */
+                    flex-wrap: nowrap; /* لا تسمح بالتفاف الحاويات */
                 }
     
                 .text-container p {
-                    width: 100%;
-                    margin: 5px 0;
+                    width: auto; /* العرض يعتمد على المحتوى */
+                    white-space: nowrap; /* لا تسمح بالتفاف النصوص */
+                    overflow: hidden; /* إخفاء المحتوى الذي يتجاوز العرض */
+                    text-overflow: ellipsis; /* إضافة نقاط إذا تجاوز النص العرض */
+                    max-width: 100%; /* تأكد من أن العنصر لا يتجاوز العرض الكامل */
+                    margin: 5px 0; /* تعديل الهامش بين العناصر */
                 }
             }
         </style>
@@ -925,12 +928,10 @@
         </div>
     
         <script>
-            // دالة لتوجيه المستخدم إلى صفحة sea.html وإضافة الاسم إلى صندوق البحث
             function redirectToSea(categoryName) {
                 window.location.href = `sea.html?search=${encodeURIComponent(categoryName)}`;
             }
     
-            // دالة لتنفيذ البحث (يمكن استخدامها في صفحة sea.html)
             function performSearch(searchTerm) {
                 const products = document.querySelectorAll('.product'); 
     
@@ -944,7 +945,6 @@
                 });
             }
     
-            // عند تحميل الصفحة، تحقق من وجود معلمة بحث في الرابط
             window.onload = function () {
                 const urlParams = new URLSearchParams(window.location.search);
                 const searchTerm = urlParams.get('search');
@@ -960,6 +960,7 @@
         </script>
     </body>
     </html>
+
 
 
 
