@@ -768,7 +768,6 @@
 
 
 
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -789,17 +788,36 @@
                 object-fit: cover; /* لضمان تغطية كاملة داخل الإطار */
             }
             .image32::-webkit-media-controls {
-    display: none !important;
-}
-.image32::-webkit-media-controls-panel {
-    display: none !important;
-}
-
+                display: none !important;
+            }
+            .image32::-webkit-media-controls-panel {
+                display: none !important;
+            }
     
             /* استعلام الوسائط للشاشات الأكبر */
             @media (min-width: 768px) {
                 .container32 {
                     max-width: 1200px; /* زيادة العرض للشاشات الأكبر */
+                }
+            }
+    
+            /* تأثير النهاية المذهل */
+            .end-message {
+                text-align: center;
+                font-size: 18px;
+                color: #ff0000;
+                margin-top: 17px;
+                margin-bottom: 20px;
+                animation: glow 2s infinite alternate;
+                font-family: Cairo, sans-serif;
+            }
+    
+            @keyframes glow {
+                from {
+                    text-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61, 0 0 30px #ff6f61, 0 0 40px #ff6f61;
+                }
+                to {
+                    text-shadow: 0 0 20px #ff6f61, 0 0 30px #ff6f61, 0 0 40px #ff6f61, 0 0 50px #ff6f61, 0 0 60px #ff6f61;
                 }
             }
         </style>
@@ -816,12 +834,14 @@
                 <source src="3e.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            
+    
+            <!-- النهاية المذهلة -->
+            <div class="end-message">
+               *لقد وصلت إلى نهاية الصفحة*
+            </div>
         </div>
     </body>
     </html>
-
-
 
     
 
