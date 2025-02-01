@@ -768,6 +768,7 @@
 
 
 
+
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -788,36 +789,17 @@
                 object-fit: cover; /* لضمان تغطية كاملة داخل الإطار */
             }
             .image32::-webkit-media-controls {
-                display: none !important;
-            }
-            .image32::-webkit-media-controls-panel {
-                display: none !important;
-            }
+    display: none !important;
+}
+.image32::-webkit-media-controls-panel {
+    display: none !important;
+}
+
     
             /* استعلام الوسائط للشاشات الأكبر */
             @media (min-width: 768px) {
                 .container32 {
                     max-width: 1200px; /* زيادة العرض للشاشات الأكبر */
-                }
-            }
-    
-            /* تأثير النهاية المذهل */
-            .end-message {
-                text-align: center;
-                font-size: 18px;
-                color: #ff0000;
-                margin-top: 17px;
-                margin-bottom: 20px;
-                animation: glow 2s infinite alternate;
-                font-family: Cairo, sans-serif;
-            }
-    
-            @keyframes glow {
-                from {
-                    text-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61, 0 0 30px #ff6f61, 0 0 40px #ff6f61;
-                }
-                to {
-                    text-shadow: 0 0 20px #ff6f61, 0 0 30px #ff6f61, 0 0 40px #ff6f61, 0 0 50px #ff6f61, 0 0 60px #ff6f61;
                 }
             }
         </style>
@@ -834,24 +816,92 @@
                 <source src="3e.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-    
-            <!-- النهاية المذهلة -->
-            <div class="end-message">
-               *لقد وصلت إلى نهاية الصفحة*
-            </div>
+            
         </div>
     </body>
     </html>
 
+
+
     
 
 
-
-
-
-
-
-
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>خلفية مع عناوين ونصوص</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+            }
+    
+            .background {
+                width: 100%;
+                height: 222px;
+                background-color: #f1f1f1cb; /* يمكنك تغيير لون الخلفية */
+                display: flex;
+                flex-direction: column;
+                justify-content: right;
+                align-items: right;
+                text-align: right;
+            }
+    
+            .background h1 {
+                margin-top: 44px;
+                font-size: 19px;
+                margin-bottom: 20px;
+                font-family: Cairo, sans-serif;
+                padding-right: 18px; /* مسافة 5 بيكسل على اليمين */
+            }
+    
+            .background p {
+                font-size: 1.2em;
+                margin-top: -11px;
+                margin-bottom: 20px;
+                font-family: Cairo, sans-serif;
+                padding-right: 18px; /* مسافة 5 بيكسل على اليمين */
+            }
+    
+            .background h2 {
+                font-size: 19px;
+                margin-bottom: 20px;
+                font-family: Cairo, sans-serif;
+                padding-right: 18px; /* مسافة 5 بيكسل على اليمين */
+            }
+    
+            .footer {
+                width: 100%;
+                height: 42px;
+                background-color: #333; /* لون الخلفية السوداء */
+                color: #fff; /* لون النص الأبيض */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: Cairo, sans-serif;
+                font-size: 14px;
+                margin-bottom: -5.7px;
+            }
+        </style>
+    </head>
+    <body>
+    
+        <div class="background">
+            <h1>ساعدنا</h1>
+            <p>ساعدنا فى بناء مجتمع أفضل</p>
+            <h2>فريق أدجر</h2>
+            <p>يمكنك التواصل معنا +201028768495</p>
+        </div>
+    
+        <div class="footer">
+            © 2024 Adger. كل الحقوق محفوظة.
+        </div>
+    
+    </body>
+    </html>
 
 
 
