@@ -824,7 +824,6 @@
 
     <div class="line3"></div>
 
-   
     <!DOCTYPE html>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <html lang="ar" dir="rtl">
@@ -899,15 +898,12 @@
     
                 .text-container {
                     flex-direction: row; /* ترتيب العناصر في سطر واحد */
-                    flex-wrap: nowrap; /* لا تسمح بالتفاف الحاويات */
+                    flex-wrap: wrap; /* السماح بالتفاف العناصر إذا تجاوزت العرض */
                 }
     
                 .text-container p {
-                    width: auto; /* العرض يعتمد على المحتوى */
-                    white-space: nowrap; /* لا تسمح بالتفاف النصوص */
-                    overflow: hidden; /* إخفاء المحتوى الذي يتجاوز العرض */
-                    text-overflow: ellipsis; /* إضافة نقاط إذا تجاوز النص العرض */
-                    max-width: 100%; /* تأكد من أن العنصر لا يتجاوز العرض الكامل */
+                    width: 100%; /* العرض يتكيف مع الشاشة */
+                    white-space: normal; /* السماح بالتفاف النصوص */
                     margin: 5px 0; /* تعديل الهامش بين العناصر */
                 }
             }
@@ -960,6 +956,7 @@
         </script>
     </body>
     </html>
+
 
 
 
