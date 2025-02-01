@@ -825,6 +825,145 @@
     <div class="line3"></div>
 
    
+
+    <!DOCTYPE html>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>عناوين ونصوص</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+            }
+    
+            .content {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: right;
+                align-items: right;
+                text-align: right;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+    
+            .content h1 {
+                font-size: 17px;
+                margin-bottom: 20px;
+                font-family: Cairo, sans-serif;
+                margin-right: 22px;
+            }
+    
+            .content h2 {
+                font-size: 17px;
+                margin-bottom: 20px;
+                font-family: Cairo, sans-serif;
+            }
+    
+            .text-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 0 20px;
+                max-width: 100%;
+            }
+    
+            .text-container p {
+                font-size: 14px;
+                font-family: Cairo, sans-serif;
+                background-color: #f0f0f0;
+                padding: 10px;
+                border-radius: 5px;
+                display: inline-block;
+                cursor: pointer;
+                margin: 0 10px 0 0;
+                flex-shrink: 0;
+            }
+    
+            .text-container p + p {
+                margin-right: 0;
+            }
+    
+            .text-container p:first-child,
+            .text-container p:nth-child(2n + 1) {
+                margin-right: 1px;
+            }
+    
+            @media screen and (max-width: 499px) {
+                .content {
+                    padding: 10px;
+                }
+    
+                .text-container {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+    
+                .text-container p {
+                    width: 100%;
+                    margin: 5px 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+    
+        <div class="content">
+            <h1>الأكثر طلب</h1>
+            <div class="text-container">
+                <p onclick="redirectToSea('ساعدنا فى بناء مجتمع أفضل')">ساعدنا فى بناء مجتمع أفضل</p>
+                <p onclick="redirectToSea('نص إضافي مثال 1')">نص إضافي مثال 1</p>
+                <p onclick="redirectToSea('نص إضافي مثال 2')">نص إضافي مثال 2</p>
+                <p onclick="redirectToSea('نص إضافي مثال 3')">نص إضافي مثال 3</p>
+                <p onclick="redirectToSea('نص إضافي مثال 4')">نص إضافي مثال 4</p>
+                <p onclick="redirectToSea('نص إضافي مثال 5')">نص إضافي مثال 5</p>
+            </div>
+        </div>
+    
+        <script>
+            // دالة لتوجيه المستخدم إلى صفحة sea.html وإضافة الاسم إلى صندوق البحث
+            function redirectToSea(categoryName) {
+                window.location.href = `sea.html?search=${encodeURIComponent(categoryName)}`;
+            }
+    
+            // دالة لتنفيذ البحث (يمكن استخدامها في صفحة sea.html)
+            function performSearch(searchTerm) {
+                const products = document.querySelectorAll('.product'); 
+    
+                products.forEach(product => {
+                    const productName = product.getAttribute('data-name').toLowerCase(); 
+                    if (productName.includes(searchTerm.toLowerCase())) {
+                        product.classList.remove('hidden'); 
+                    } else {
+                        product.classList.add('hidden'); 
+                    }
+                });
+            }
+    
+            // عند تحميل الصفحة، تحقق من وجود معلمة بحث في الرابط
+            window.onload = function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const searchTerm = urlParams.get('search');
+    
+                if (searchTerm) {
+                    const searchBox = document.getElementById('search-box');
+                    if (searchBox) {
+                        searchBox.value = searchTerm; 
+                    }
+                    performSearch(searchTerm); 
+                }
+            };
+        </script>
+    </body>
+    </html>
+
+
+
+
     
     <div class="line2"></div>
      <style>
