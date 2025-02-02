@@ -8,514 +8,521 @@
     <link rel="stylesheet" href="style.css">
 
 
-
     <!DOCTYPE html>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link id="fontLink" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة البحث</title>
-    <style>
-        /* تصميم الصفحة */
-        body {
-    background: linear-gradient(to right, #f8f8f8, #f3f3f3);
-    margin: 0;
-    padding: 0;
-    font-family: "Tajawal", sans-serif; /* خط جديد للصفحة */
-}
-@media (max-width: 499px) {
-    body {
-        font-family: Arial, sans-serif !important; /* استخدام خط بديل */
-    }
-}
-
-
-        /* الخلفية البيضاء بارتفاع 65px */
-        .header-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 65px;
-            background: linear-gradient(to right, #ff8080, #ff038e);
-            z-index: 1;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        /* صندوق البحث */
-        .search-container {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            direction: rtl;
-            z-index: 2;
-            background-color: transparent;
-            width: 60%;
-            max-width: 600px;
-        }
-
-        /* حقل الإدخال */
-        .search-container input[type="text"] {
-            width: 100%;
-            padding: 10px 12px 10px 69px;
-            font-size: 16px;
-            border: 1px solid #000000;
-            border-radius: 51px;
-            outline: none;
-            box-sizing: border-box;
-            text-align: right;
-            direction: rtl;
-            transition: border-color 0.3s;
-        }
-
-        @media (max-width: 499px) {
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>صفحة البحث</title>
+        <style>
+            /* تصميم الصفحة */
+            body {
+                background: linear-gradient(to right, #f8f8f8, #f3f3f3);
+                margin: 0;
+                padding: 0;
+                font-family: "Tajawal", sans-serif;
+            }
+            @media (max-width: 499px) {
+                body {
+                    font-family: Arial, sans-serif !important;
+                }
+            }
+    
+            /* الخلفية البيضاء بارتفاع 65px */
+            .header-background {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 65px;
+                background: linear-gradient(to right, #ff8080, #ff038e);
+                z-index: 1;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+    
+            /* صندوق البحث */
+            .search-container {
+                position: fixed;
+                top: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                direction: rtl;
+                z-index: 2;
+                background-color: transparent;
+                width: 60%;
+                max-width: 600px;
+            }
+    
+            /* حقل الإدخال */
             .search-container input[type="text"] {
-                width: 128%;
-                margin-right: -22px;
+                width: 100%;
+                padding: 10px 12px 10px 69px;
+                font-size: 16px;
+                border: 1px solid #000000;
+                border-radius: 51px;
+                outline: none;
+                box-sizing: border-box;
+                text-align: right;
+                direction: rtl;
+                transition: border-color 0.3s;
             }
-        }
-
-        .search-container input[type="text"]:focus {
-            border-color: #000000;
-            box-shadow: 0 0 2px #000000;
-        }
-
-        /* زر البحث */
-        .search-container .search-button {
-            position: absolute;
-            left: 3px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: black;
-            color: white;
-            width: 40px;
-            height: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 33px;
-            border: none;
-            cursor: pointer;
-        }
-
-        @media (max-width: 499px) {
+            @media (max-width: 499px) {
+                .search-container input[type="text"] {
+                    width: 128%;
+                    margin-right: -22px;
+                }
+            }
+    
+            .search-container input[type="text"]:focus {
+                border-color: #000000;
+                box-shadow: 0 0 2px #000000;
+            }
+    
+            /* زر البحث */
             .search-container .search-button {
-                left: -35px;
+                position: absolute;
+                left: 3px;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: black;
+                color: white;
+                width: 40px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 33px;
+                border: none;
+                cursor: pointer;
             }
-        }
-
-        .search-container .search-button:hover {
-            background-color: #333;
-        }
-
-        .search-container .search-button svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
-
-        /* زر "X" لحذف النص */
-        .search-container .clear-button {
-            position: absolute;
-            left: 43px;
-            top: 54%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            display: none;
-            color: #000000;
-        }
-        @media (max-width: 499px) {
+            @media (max-width: 499px) {
+                .search-container .search-button {
+                    left: -35px;
+                }
+            }
+    
+            .search-container .search-button:hover {
+                background-color: #333;
+            }
+    
+            .search-container .search-button svg {
+                width: 20px;
+                height: 20px;
+                fill: white;
+            }
+    
+            /* زر "X" لحذف النص */
             .search-container .clear-button {
-                left: 2px;
-            }}
-
-        .search-container .clear-button:hover {
-            color: #000000;
-        }
-
-        .search-container .clear-button svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* زر الرجوع */
-        .back-button {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            background-color: transparent;
-            color: black;
-            border: none;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 3;
-        }
-        @media (max-width: 499px) {
+                position: absolute;
+                left: 43px;
+                top: 54%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 16px;
+                display: none;
+                color: #000000;
+            }
+            @media (max-width: 499px) {
+                .search-container .clear-button {
+                    left: 2px;
+                }
+            }
+    
+            .search-container .clear-button:hover {
+                color: #000000;
+            }
+    
+            .search-container .clear-button svg {
+                width: 20px;
+                height: 20px;
+            }
+    
+            /* زر الرجوع */
             .back-button {
-                right: 4px;
-            }}
-
-
-        .back-button svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* سجل البحث */
-        .search-history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            margin-top: 100px;
-        }
-
-        .search-history-header h2 {
-            margin: 0;
-            font-size: 18px;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .search-history-header .delete-all-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #ff0000;
-            font-size: 16px;
-            padding: 0;
-        }
-
-        .search-history-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            padding: 20px;
-        }
-
-        .search-item {
-            background-color: #e9e8e8;
-            border-radius: 16px;
-            padding: 10px 15px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-        @media (max-width: 555px) {
-            .search-item {
-                padding: 6px 11px;
+                position: fixed;
+                top: 10px;
+                right: 20px;
+                background-color: transparent;
+                color: black;
+                border: none;
+                padding: 10px;
+                border-radius: 50%;
+                cursor: pointer;
+                z-index: 3;
             }
-        }
-
-        .search-item:hover {
-            background-color: #f3f3f3;
-        }
-
-        .search-item span {
-            font-size: 16px;
-            flex-grow: 1;
-        }
-
-        .search-item small {
-            font-size: 12px;
-            color: #888;
-            margin-left: 10px;
-        }
-
-        .search-item .delete-button {
-            position: relative;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #585858;
-            font-size: 13px;
-            padding: 0;
-            margin-left: 1px;
-        }
-
-        .delete-button:hover {
-            color: #000000;
-        }
-
-        /* آخر نص كتبه المستخدم */
-        .last-search-item {
-            border: 1px solid #3f3f3f;
-            background-color: #e9e8e8;
-            border-radius: 16px;
-            padding: 9px 15px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin: 20px 20px 0 20px;
-        }
-        @media (max-width: 555px) {
-            .last-search-item {
-                padding: 5px 11px;
-                margin-top: 1px;
+            @media (max-width: 499px) {
+                .back-button {
+                    right: 4px;
+                }
             }
-        }
-
-
-        .last-search-item:hover {
-            background-color: #f3f3f3;
-        }
-
-        .last-search-item span {
-            font-size: 16px;
-            flex-grow: 1;
-        }
-
-        /* نتائج البحث (الصور) */
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            background-color: #8200fcc7;
-        }
-
-        .image-item {
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .image-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .image-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        /* تصميم متجاوب */
-        @media (max-width: 767px) {
+    
+            .back-button svg {
+                width: 24px;
+                height: 24px;
+            }
+    
+            /* سجل البحث */
+            .search-history-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                margin-top: 100px;
+            }
+    
+            .search-history-header h2 {
+                margin: 0;
+                font-size: 18px;
+                font-family: 'Cairo', sans-serif;
+            }
+    
+            .search-history-header .delete-all-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #ff0000;
+                font-size: 16px;
+                padding: 0;
+            }
+    
             .search-history-grid {
-                grid-template-columns: repeat(2, 1fr);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+                padding: 20px;
             }
-
+    
+            .search-item {
+                background-color: #e9e8e8;
+                border-radius: 16px;
+                padding: 10px 15px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            @media (max-width: 555px) {
+                .search-item {
+                    padding: 6px 11px;
+                }
+            }
+    
+            .search-item:hover {
+                background-color: #f3f3f3;
+            }
+    
+            .search-item span {
+                font-size: 16px;
+                flex-grow: 1;
+            }
+    
+            .search-item small {
+                font-size: 12px;
+                color: #888;
+                margin-left: 10px;
+            }
+    
+            .search-item .delete-button {
+                position: relative;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #585858;
+                font-size: 13px;
+                padding: 0;
+                margin-left: 1px;
+            }
+    
+            .delete-button:hover {
+                color: #000000;
+            }
+    
+            /* آخر نص كتبه المستخدم */
+            .last-search-item {
+                border: 1px solid #3f3f3f;
+                background-color: #e9e8e8;
+                border-radius: 16px;
+                padding: 9px 15px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                margin: 20px 20px 0 20px;
+            }
+            @media (max-width: 555px) {
+                .last-search-item {
+                    padding: 5px 11px;
+                    margin-top: 1px;
+                }
+            }
+    
+            .last-search-item:hover {
+                background-color: #f3f3f3;
+            }
+    
+            .last-search-item span {
+                font-size: 16px;
+                flex-grow: 1;
+            }
+    
+            /* نتائج البحث (الصور) */
             .image-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 10px;
+                padding: 20px;
+                margin-top: 20px;
+                background-color: #8200fcc7;
             }
-
+    
+            .image-item {
+                border-radius: 10px;
+                overflow: hidden;
+                cursor: pointer;
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+    
             .image-item img {
                 width: 100%;
-                height: auto;
-                max-width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
             }
-
-            .search-item small {
-                display: none;
-            }
-        }
-
-        @media (min-width: 768px) and (max-width: 1024px) {
-            .image-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .image-item img {
-                max-width: 90%;
-            }
-        }
-
-        @media (min-width: 1025px) {
-            .image-grid {
-                grid-template-columns: repeat(6, 1fr);
-            }
-        }
-
-
-        /* تصميم نافذة التأكيد */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.modal-buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#confirm-yes {
-    background-color: #ff0000;
-    color: white;
-}
-
-#confirm-no {
-    background-color: #ccc;
-    color: black;
-}
-/* Discover More Header */
-.discover-more-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-}
-
-.discover-more-header h2 {
-    margin: 0;
-    font-size: 18px;
-    font-family: 'Cairo', sans-serif;
-}
-
-
-/* Discover More Grid */
-.discover-more-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    padding: 20px;
-}
-
-.discover-item {
-    background-color: #e9e8e8;
-    border-radius: 16px;
-    padding: 10px 15px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-@media (max-width: 555px) {
-     .discover-item  {
-                padding: 6px 11px;
-                margin-top: -24px;
-            }
-        }
-
-.discover-item:hover {
-    background-color: #f3f3f3;
-}
-
-.discover-item span {
-    font-size: 16px;
-    flex-grow: 1;
-}
-
-    </style>
-</head>
-<body>
-    <!-- الخلفية البيضاء بارتفاع 65px -->
-    <div class="header-background"></div>
-
-    <!-- زر الرجوع -->
-    <button class="back-button" id="back-button">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-          </svg>          
-    </button>
-
-<!-- نافذة التأكيد -->
-<div id="confirmation-modal" class="modal">
-    <div class="modal-content">
-        <p>هل أنت متأكد أنك تريد حذف الكل؟</p>
-        <div class="modal-buttons">
-            <button id="confirm-yes">نعم</button>
-            <button id="confirm-no">لا</button>
-        </div>
-    </div>
-</div>
     
-
-    <!-- صندوق البحث -->
-    <div class="search-container">
-        <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
-        <button class="clear-button" id="clear-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
+            .image-item:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+    
+            /* تصميم متجاوب */
+            @media (max-width: 767px) {
+                .search-history-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+    
+                .image-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 8px;
+                }
+    
+                .image-item img {
+                    width: 100%;
+                    height: auto;
+                    max-width: 100%;
+                }
+    
+                .search-item small {
+                    display: none;
+                }
+            }
+    
+            @media (min-width: 768px) and (max-width: 1024px) {
+                .image-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+    
+                .image-item img {
+                    max-width: 90%;
+                }
+            }
+    
+            @media (min-width: 1025px) {
+                .image-grid {
+                    grid-template-columns: repeat(6, 1fr);
+                }
+            }
+    
+            /* تصميم نافذة التأكيد */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+    
+            .modal-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+    
+            .modal-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 20px;
+            }
+    
+            .modal-buttons button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+    
+            #confirm-yes {
+                background-color: #ff0000;
+                color: white;
+            }
+    
+            #confirm-no {
+                background-color: #ccc;
+                color: black;
+            }
+    
+            /* Discover More Header */
+            .discover-more-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                position: relative;
+            }
+    
+            .discover-more-header h2 {
+                margin: 0;
+                font-size: 18px;
+                font-family: 'Cairo', sans-serif;
+            }
+    
+            /* Line above "إستكشف المزيد" */
+            .discover-more-header::before {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 8px;
+                background-color: #e2e2e2e1;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+            }
+    
+            /* Discover More Grid */
+            .discover-more-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+                padding: 20px;
+            }
+    
+            .discover-item {
+                background-color: #e9e8e8;
+                border-radius: 16px;
+                padding: 10px 15px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            @media (max-width: 555px) {
+                .discover-item {
+                    padding: 6px 11px;
+                    margin-top: -24px;
+                }
+            }
+    
+            .discover-item:hover {
+                background-color: #f3f3f3;
+            }
+    
+            .discover-item span {
+                font-size: 16px;
+                flex-grow: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- الخلفية البيضاء بارتفاع 65px -->
+        <div class="header-background"></div>
+    
+        <!-- زر الرجوع -->
+        <button class="back-button" id="back-button">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+            </svg>          
         </button>
-        <button class="search-button" id="search-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <circle cx="10" cy="10" r="7" fill="none" stroke="white" stroke-width="2" />
-                <path d="M15 15l4 4" stroke="white" stroke-width="2" />
-            </svg>
-        </button>
-    </div>
-
-    <!-- عنوان سجل البحث -->
-    <div class="search-history-header">
-        <h2>بحث المحفوظات</h2>
-        <button class="delete-all-button" id="delete-all-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#ff0000" stroke-width="2" fill="none"/>
-                <path d="M10 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
-                <path d="M14 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-        </button>
-    </div>
-
-    <!-- آخر نص كتبه المستخدم -->
-    <div class="last-search-item" id="last-search-item">
-        <span id="last-search-term">آخر نص كتبه المستخدم</span>
-    </div>
-
-    <!-- سجل البحث -->
-    <div class="search-history-grid" id="search-history">
-        <!-- يتم ملء هذا الجزء بالبيانات من localStorage -->
-    </div>
-
-
-    <div class="discover-more-header">
-        <h2>اكتشف المزيد</h2>
-    </div>
-    <div class="discover-more-grid" id="discover-more">
-        <!-- Here you will fill this part with static or dynamic content -->
-        <div class="discover-item" onclick="redirectToSea('عنوان المحتوى 1')">
-            <span>عنوان المحتوى 1</span>
+    
+        <!-- نافذة التأكيد -->
+        <div id="confirmation-modal" class="modal">
+            <div class="modal-content">
+                <p>هل أنت متأكد أنك تريد حذف الكل؟</p>
+                <div class="modal-buttons">
+                    <button id="confirm-yes">نعم</button>
+                    <button id="confirm-no">لا</button>
+                </div>
+            </div>
         </div>
-        <div class="discover-item" onclick="redirectToSea('عنوان المحتوى 2')">
-            <span>عنوان المحتوى 2</span>
+    
+        <!-- صندوق البحث -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
+            <button class="clear-button" id="clear-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <button class="search-button" id="search-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="10" cy="10" r="7" fill="none" stroke="white" stroke-width="2" />
+                    <path d="M15 15l4 4" stroke="white" stroke-width="2" />
+                </svg>
+            </button>
         </div>
-        <!-- Add more items as needed -->
-    </div>
+    
+        <!-- عنوان سجل البحث -->
+        <div class="search-history-header">
+            <h2>بحث المحفوظات</h2>
+            <button class="delete-all-button" id="delete-all-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#ff0000" stroke-width="2" fill="none"/>
+                    <path d="M10 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M14 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+    
+        <!-- آخر نص كتبه المستخدم -->
+        <div class="last-search-item" id="last-search-item">
+            <span id="last-search-term">آخر نص كتبه المستخدم</span>
+        </div>
+    
+        <!-- سجل البحث -->
+        <div class="search-history-grid" id="search-history">
+            <!-- يتم ملء هذا الجزء بالبيانات من localStorage -->
+        </div>
+    
+        <div class="discover-more-header">
+            <h2>إستكشف المزيد</h2>
+        </div>
+        <div class="discover-more-grid" id="discover-more">
+            <div class="discover-item" onclick="redirectToSea('عنوان المحتوى 1')">
+                <span>عنوان المحتوى 1</span>
+            </div>
+            <div class="discover-item" onclick="redirectToSea('عنوان المحتوى 2')">
+                <span>عنوان المحتوى 2</span>
+            </div>
+            <!-- Add more items as needed -->
+        </div>
+    </body>
+    </html>
 
     <!-- نتائج البحث (الصور) -->
     <div class="image-grid" id="image-grid">
