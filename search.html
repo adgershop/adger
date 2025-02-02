@@ -36,17 +36,24 @@
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
     
-            /* صندوق البحث */
-            .search-container {
+            /* div يحتوي على صندوق البحث وزر الرجوع */
+            .search-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 position: fixed;
                 top: 10px;
                 left: 50%;
                 transform: translateX(-50%);
-                direction: rtl;
-                z-index: 2;
-                background-color: transparent;
                 width: 60%;
                 max-width: 600px;
+                z-index: 2;
+            }
+    
+            /* صندوق البحث */
+            .search-container {
+                position: relative;
+                width: 100%;
             }
     
             /* حقل الإدخال */
@@ -138,9 +145,7 @@
     
             /* زر الرجوع */
             .back-button {
-                position: fixed;
-                top: 10px;
-                right: 20px; /* تغيير من left إلى right */
+                position: relative; /* تغيير من fixed إلى relative */
                 background-color: transparent;
                 color: black;
                 border: none;
@@ -148,6 +153,7 @@
                 border-radius: 50%;
                 cursor: pointer;
                 z-index: 3;
+                margin-left: 10px; /* إضافة مسافة بين الزر وصندوق البحث */
             }
     
             .back-button svg {
@@ -410,40 +416,31 @@
         <!-- الخلفية البيضاء بارتفاع 65px -->
         <div class="header-background"></div>
     
-        <!-- زر الرجوع -->
-        <button class="back-button" id="back-button">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
-            </svg>
-        </button>
+        <!-- صندوق البحث وزر الرجوع -->
+        <div class="search-wrapper">
+            <!-- زر الرجوع -->
+            <button class="back-button" id="back-button">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
+                </svg>
+            </button>
     
-    <!-- نافذة التأكيد -->
-    <div id="confirmation-modal" class="modal">
-        <div class="modal-content">
-            <p>هل أنت متأكد أنك تريد حذف الكل؟</p>
-            <div class="modal-buttons">
-                <button id="confirm-yes">نعم</button>
-                <button id="confirm-no">لا</button>
+            <!-- صندوق البحث -->
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
+                <button class="clear-button" id="clear-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <button class="search-button" id="search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <circle cx="10" cy="10" r="7" fill="none" stroke="white" stroke-width="2" />
+                        <path d="M15 15l4 4" stroke="white" stroke-width="2" />
+                    </svg>
+                </button>
             </div>
-        </div>
-    </div>
-        
-    
-        <!-- صندوق البحث -->
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
-            <button class="clear-button" id="clear-button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-            <button class="search-button" id="search-button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <circle cx="10" cy="10" r="7" fill="none" stroke="white" stroke-width="2" />
-                    <path d="M15 15l4 4" stroke="white" stroke-width="2" />
-                </svg>
-            </button>
         </div>
     
         <!-- عنوان سجل البحث -->
@@ -468,7 +465,6 @@
             <!-- يتم ملء هذا الجزء بالبيانات من localStorage -->
         </div>
     
-    
         <div class="discover-more-header">
             <h2>اكتشف المزيد</h2>
         </div>
@@ -482,6 +478,8 @@
             </div>
             <!-- Add more items as needed -->
         </div>
+    </body>
+    </html>
     <!-- نتائج البحث (الصور) -->
     <div class="image-grid" id="image-grid">
         <div class="image-item" data-term="بحث 1">
