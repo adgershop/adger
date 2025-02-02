@@ -845,7 +845,7 @@
 <body>
     <div class="photo-slider-container" style="position: relative;">
         <div class="photo-slider">
-            <img src="a1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+            <img src="a1.jpg" alt="صورة 1" onclick="selectImage('أقل من 50 حنيه')">
             <img src="a2.jpg" alt="صورة 2" onclick="selectImage('نص الصورة 2')">
             <img src="a3.jpg" alt="صورة 3" onclick="selectImage('نص الصورة 3')">
             <img src="a4.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
@@ -1792,165 +1792,185 @@
           </head>
           <body>
               <!-- الشريط الأبيض الثابت أسفل الشريط العلوي -->
-              <div class="sub-header">
-                <nav>
-                    <!-- تعديل هنا: إضافة selectItem عند النقر على "الكل" -->
-                    <a href="index.html" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
-                    <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
-                    <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
-                    <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
-                    <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
-                    <div class="underline"></div>
-                </nav>
-            </div>
-        
-            <!-- نافذة القائمة الجانبية -->
-            <div class="menu-popup" id="menuPopup">
-                <div class="back-arrow" onclick="toggleMenu()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M19 12H5M12 19l-7-7 7-7"></path>
-                    </svg>
-                </div>
-                <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif;"  >حسابي</p>
-                <p onclick="window.location.href='about.html'"style="font-family: Cairo, sans-serif;"  >سياسات وأحكام</p>
-                <p onclick="window.location.href='deals.html'"style="font-family: Cairo, sans-serif;"  >صفقة رابحة</p>
-                <p onclick="window.location.href='wholesale.html'"style="font-family: Cairo, sans-serif;"  >شراء بالجملة</p>
-                <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif;" >شركات عالمية</p>
-                <p onclick="window.location.href='categories.html'"style="font-family: Cairo, sans-serif;"  >الفئات</p>
-            </div>
-        
-            <script>
-                // استرجاع بيانات المستخدم من localStorage
-                const username = localStorage.getItem('username');
-        
-                // عرض "أهلاً" مع اسم المستخدم أو نص بديل
-                const welcomeMessage = document.getElementById('welcomeMessage');
-                const usernameDisplay = document.getElementById('usernameDisplay');
-        
-                if (username) {
-                    usernameDisplay.textContent = username; // عرض اسم المستخدم
-               
-               
-
-
-
-             // Function to detect if the name contains Arabic characters
-function isArabic(text) {
-    return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
-}
-
-// Function to truncate the username based on language
-function truncateUsername(name) {
-    if (window.innerWidth < 966 && name.length > 7) {
-        const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
-        if (isArabic(name)) {
-            return name.substring(0, maxLength) + '..'; // Keep the ellipsis at the end for Arabic
-        } else {
-            return '..' + name.substring(0, maxLength); // Place the ellipsis at the beginning, truncate from the end for English
-        }
-    }
-    return name;
-}
-
-// Apply the modification on page load and screen resize
-usernameDisplay.textContent = truncateUsername(username);
-window.addEventListener('resize', () => {
-    usernameDisplay.textContent = truncateUsername(username);
-});
-
-
-
-
-
-                    
-                } else {
-                    welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
-                }
-        
-                // دالة لإظهار أو إخفاء القائمة الجانبية
-                function toggleMenu() {
-                    const menuPopup = document.getElementById('menuPopup');
-                    if (menuPopup.classList.contains('active')) {
-                        menuPopup.classList.remove('active');
-                        menuPopup.classList.add('closing');
-                        setTimeout(() => {
-                            menuPopup.classList.remove('closing');
-                            menuPopup.style.display = 'none';
-                        }, 300); // يتناسب مع مدة animation
-                    } else {
-                        menuPopup.style.display = 'block';
-                        menuPopup.classList.add('active');
-                    }
-                }
-        
-                // دالة لتنفيذ البحث
-                function performSearch(searchTerm) {
-                    const products = document.querySelectorAll('.product'); // جميع المنتجات
-        
-                    products.forEach(product => {
-                        const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
-                        if (productName.includes(searchTerm.toLowerCase())) {
-                            product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
-                        } else {
-                            product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
+              <!DOCTYPE html>
+              <html lang="ar">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Example Page</title>
+                  <style>
+                      /* Your CSS here */
+                  </style>
+              </head>
+              <body>
+                <!DOCTYPE html>
+                <html lang="ar">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Example Page</title>
+                    <style>
+                        /* Your CSS here */
+                        .sub-header nav {
+                            display: flex;
+                            position: relative;
                         }
-                    });
-                }
-        
-                // دالة لتحريك الخط ووضع الكلمة في صندوق البحث (إن وجدت)
-                function selectItem(item, element) {
-                    const searchBox = document.getElementById('search-box');
-        
-                    // إذا كان العنصر المحدد هو "الكل"، قم بإعادة تحميل الصفحة
-                    if (item === 'الكل') {
-                        window.location.href = 'index.html'; // إعادة تحميل الصفحة
-                        return; // إيقاف تنفيذ الدالة هنا
-                    }
-        
-                    // إذا لم يكن العنصر "الكل"، قم بتنفيذ البحث
-                    if (item) {
-                        searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كانت موجودة)
-                        performSearch(item); // تنفيذ البحث
-                    }
-        
-                    // إزالة الفئة النشطة من جميع العناصر
-                    const allItems = document.querySelectorAll('.sub-header nav a');
-                    allItems.forEach(item => item.classList.remove('active'));
-        
-                    // إضافة الفئة النشطة للعنصر المحدد
-                    element.classList.add('active');
-        
-                    // تحريك الخط
-                    const underline = document.querySelector('.underline');
-                    const itemRect = element.getBoundingClientRect();
-                    const navRect = element.parentElement.getBoundingClientRect();
-        
-                    underline.style.width = `${itemRect.width}px`;
-                    underline.style.left = `${itemRect.left - navRect.left}px`;
-                }
-        
-                // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
-                window.onload = function () {
-                    const defaultItem = document.querySelector('.sub-header nav a');
-                    const underline = document.querySelector('.underline');
-                    const itemRect = defaultItem.getBoundingClientRect();
-                    const navRect = defaultItem.parentElement.getBoundingClientRect();
-        
-                    // إضافة الفئة النشطة لعنصر "الكل" بشكل افتراضي
-                    defaultItem.classList.add('active');
-        
-                    // ضبط الخط تحت "الكل" بشكل افتراضي
-                    underline.style.width = `${itemRect.width}px`;
-                    underline.style.left = `${itemRect.left - navRect.left}px`;
-                };
-            </script>
-        </body>
-        </html>
-
-
-
-    
-
+                        .sub-header nav a {
+                            margin-right: 20px;
+                            cursor: pointer;
+                        }
+                        .underline {
+                            position: absolute;
+                            bottom: 0;
+                            height: 2px;
+                            background-color: black;
+                            transition: all 0.3s ease;
+                        }
+                        .hidden {
+                            display: none;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="sub-header">
+                        <nav>
+                            <a href="#" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
+                            <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
+                            <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
+                            <div class="underline"></div>
+                        </nav>
+                    </div>
+                
+                    <script>
+                        // استرجاع بيانات المستخدم من localStorage
+                        const username = localStorage.getItem('username');
+                
+                        // عرض "أهلاً" مع اسم المستخدم أو نص بديل
+                        const welcomeMessage = document.getElementById('welcomeMessage');
+                        const usernameDisplay = document.getElementById('usernameDisplay');
+                
+                        if (username) {
+                            usernameDisplay.textContent = username; // عرض اسم المستخدم
+                
+                            // Function to detect if the name contains Arabic characters
+                            function isArabic(text) {
+                                return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
+                            }
+                
+                            // Function to truncate the username based on language
+                            function truncateUsername(name) {
+                                if (window.innerWidth < 966 && name.length > 7) {
+                                    const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
+                                    if (isArabic(name)) {
+                                        return name.substring(0, maxLength) + '..'; // Keep the ellipsis at the end for Arabic
+                                    } else {
+                                        return '..' + name.substring(name.length - maxLength); // Place the ellipsis at the beginning, truncate from the end for English
+                                    }
+                                }
+                                return name;
+                            }
+                
+                            // Apply the modification on page load and screen resize
+                            usernameDisplay.textContent = truncateUsername(username);
+                            window.addEventListener('resize', () => {
+                                usernameDisplay.textContent = truncateUsername(username);
+                            });
+                        } else {
+                            welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+                        }
+                
+                        // دالة لإظهار أو إخفاء القائمة الجانبية
+                        function toggleMenu() {
+                            const menuPopup = document.getElementById('menuPopup');
+                            if (menuPopup.classList.contains('active')) {
+                                menuPopup.classList.remove('active');
+                                menuPopup.classList.add('closing');
+                                setTimeout(() => {
+                                    menuPopup.classList.remove('closing');
+                                    menuPopup.style.display = 'none';
+                                }, 300); // يتناسب مع مدة animation
+                            } else {
+                                menuPopup.style.display = 'block';
+                                menuPopup.classList.add('active');
+                            }
+                        }
+                
+                        // دالة لتنفيذ البحث
+                        function performSearch(searchTerm) {
+                            const products = document.querySelectorAll('.product'); // جميع المنتجات
+                
+                            products.forEach(product => {
+                                const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
+                                if (productName.includes(searchTerm.toLowerCase())) {
+                                    product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
+                                } else {
+                                    product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
+                                }
+                            });
+                        }
+                
+                        // دالة لتحريك الخط ووضع الكلمة في صندوق البحث (إن وجدت)
+                        function selectItem(item, element) {
+                            const searchBox = document.getElementById('search-box');
+                
+                            // إذا كان العنصر المحدد هو "الكل"، فقط قم بإفراغ صندوق البحث
+                            if (item === 'الكل') {
+                                searchBox.value = '';
+                                performSearch(''); // تنفيذ البحث مع سلسلة فارغة لإظهار كل المنتجات
+                            } else if (item) {
+                                searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كانت موجودة)
+                                performSearch(item); // تنفيذ البحث
+                            }
+                
+                            // إزالة الفئة النشطة من جميع العناصر
+                            const allItems = document.querySelectorAll('.sub-header nav a');
+                            allItems.forEach(item => item.classList.remove('active'));
+                
+                            // إضافة الفئة النشطة للعنصر المحدد
+                            element.classList.add('active');
+                
+                            // تحريك الخط
+                            const underline = document.querySelector('.underline');
+                            const itemRect = element.getBoundingClientRect();
+                            const navRect = element.parentElement.getBoundingClientRect();
+                
+                            underline.style.width = `${itemRect.width}px`;
+                            underline.style.left = `${itemRect.left - navRect.left}px`;
+                        }
+                
+                        // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
+                        window.onload = function () {
+                            const defaultItem = document.querySelector('.sub-header nav a');
+                            const underline = document.querySelector('.underline');
+                            const itemRect = defaultItem.getBoundingClientRect();
+                            const navRect = defaultItem.parentElement.getBoundingClientRect();
+                
+                            // إضافة الفئة النشطة لعنصر "الكل" بشكل افتراضي
+                            defaultItem.classList.add('active');
+                
+                            // ضبط الخط تحت "الكل" بشكل افتراضي
+                            underline.style.width = `${itemRect.width}px`;
+                            underline.style.left = `${itemRect.left - navRect.left}px`;
+                
+                            // إضافة إيماءات السحب
+                            const navElement = document.querySelector('.sub-header nav');
+                            const hammer = new Hammer(navElement);
+                
+                            hammer.on('swipeleft', function () {
+                                const activeItem = document.querySelector('.sub-header nav a.active');
+                                const nextItem = activeItem.nextElementSibling || document.querySelector('.sub-header nav a:first-child');
+                                selectItem(nextItem.textContent, nextItem);
+                            });
+                
+                            hammer.on('swiperight', function () {
+                                const activeItem = document.querySelector('.sub-header nav a.active');
+                                const prevItem = activeItem.previousElementSibling || document.querySelector('.sub-header nav a:last-child');
+                                selectItem(prevItem.textContent, prevItem);
+                            });
+                        };
+                    </script>
+                </body>
+                </html>
 
 
 
