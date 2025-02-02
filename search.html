@@ -40,7 +40,7 @@
             left: 0;
             width: 100%;
             height: 65px;
-            background: linear-gradient(to right, #fffb1c, #15b5ff);
+            background: linear-gradient(to right, #ea00ff, #ff024e);
             z-index: 1;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -476,99 +476,100 @@
     
 
     <!-- صندوق البحث -->
-<div class="search-container">
-    <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
-    <button class="clear-button" id="clear-button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-    </button>
-    <button class="search-button" id="search-button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <circle cx="10" cy="10" r="7" fill="none" stroke="white" stroke-width="2" />
-            <path d="M15 15l4 4" stroke="white" stroke-width="2" />
-        </svg>
-    </button>
-</div>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
+        <button class="clear-button" id="clear-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <button class="search-button" id="search-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <circle cx="10" cy="10" r="7" fill="none" stroke="white" stroke-width="2" />
+                <path d="M15 15l4 4" stroke="white" stroke-width="2" />
+            </svg>
+        </button>
+    </div>
 
-<!-- عنوان سجل البحث -->
-<div class="search-history-header">
-    <h2>بحث المحفوظات</h2>
-    <button class="delete-all-button" id="delete-all-button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#ff0000" stroke-width="2" fill="none"/>
-            <path d="M10 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
-            <path d="M14 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-    </button>
-</div>
+    <!-- عنوان سجل البحث -->
+    <div class="search-history-header">
+        <h2>بحث المحفوظات</h2>
+        <button class="delete-all-button" id="delete-all-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#ff0000" stroke-width="2" fill="none"/>
+                <path d="M10 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 11v6" stroke="#ff0000" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+    </div>
 
-<!-- آخر نص كتبه المستخدم -->
-<div class="last-search-item" id="last-search-item">
-    <span id="last-search-term">آخر نص كتبه المستخدم</span>
-</div>
+    <!-- آخر نص كتبه المستخدم -->
+    <div class="last-search-item" id="last-search-item">
+        <span id="last-search-term">آخر نص كتبه المستخدم</span>
+    </div>
 
-<!-- سجل البحث -->
-<div class="search-history-grid" id="search-history">
-    <!-- يتم ملء هذا الجزء بالبيانات من localStorage -->
-</div>
+    <!-- سجل البحث -->
+    <div class="search-history-grid" id="search-history">
+        <!-- يتم ملء هذا الجزء بالبيانات من localStorage -->
+    </div>
 
-<div class="discover-more-header">
-    <h2>إستكشف المزيد</h2>
-</div>
-<div class="discover-more-grid" id="discover-more">
-    <!-- Here you will fill this part with static or dynamic content -->
-    <div class="discover-item" onclick="redirectToSea('عنوان المحتوى 1')">
-        <span>عنوان المحتوى 1</span>
-    </div>
-    <div class="discover-item" onclick="redirectToSea('عنوان المحتوى 2')">
-        <span>عنوان المحتوى 2</span>
-    </div>
-    <!-- Add more items as needed -->
-</div>
 
-<!-- نتائج البحث (الصور) -->
-<div class="image-grid" id="image-grid">
-    <div class="image-item" data-term="بحث 1">
-        <img src="1.jpg" alt="بحث 1">
+    <div class="discover-more-header">
+        <h2>إستكشف المزيد</h2>
     </div>
-    <div class="image-item" data-term="بحث 2">
-        <img src="1.2.jpg" alt="بحث 2">
+    <div class="discover-more-grid" id="discover-more">
+        <!-- Here you will fill this part with static or dynamic content -->
+        <div class="discover-item" onclick="redirectToSea('عنوان المحتوى 1')">
+            <span>عنوان المحتوى 1</span>
+        </div>
+        <div class="discover-item" onclick="redirectToSea('عنوان المحتوى 2')">
+            <span>عنوان المحتوى 2</span>
+        </div>
+        <!-- Add more items as needed -->
     </div>
-    <div class="image-item" data-term="بحث 3">
-        <img src="1.3.jpg" alt="بحث 3">
-    </div>
-    <div class="image-item" data-term="بحث 4">
-        <img src="1.2.jpg" alt="بحث 4">
-    </div>
-    <div class="image-item" data-term="بحث 5">
-        <img src="1.jpg" alt="بحث 5">
-    </div>
-    <div class="image-item" data-term="بحث 6">
-        <img src="1.2.jpg" alt="بحث 6">
-    </div>
-    <div class="image-item" data-term="بحث 7">
-        <img src="1.3.jpg" alt="بحث 7">
-    </div>
-    <div class="image-item" data-term="بحث 8">
-        <img src="1.jpg" alt="بحث 8">
-    </div>
-    <div class="image-item" data-term="بحث 9">
-        <img src="1.2.jpg" alt="بحث 9">
-    </div>
-    <div class="image-item" data-term="بحث 10">
-        <img src="1.3.jpg" alt="بحث 10">
-    </div>
-    <div class="image-item" data-term="بحث 11">
-        <img src="1.jpg" alt="بحث 11">
-    </div>
-    <div class="image-item" data-term="بحث 12">
-        <img src="1.2.jpg" alt="بحث 12">
-    </div>
-</div>
 
-<script>
+    <!-- نتائج البحث (الصور) -->
+    <div class="image-grid" id="image-grid">
+        <div class="image-item" data-term="بحث 1">
+            <img src="1.jpg" alt="بحث 1">
+        </div>
+        <div class="image-item" data-term="بحث 2">
+            <img src="1.2.jpg" alt="بحث 2">
+        </div>
+        <div class="image-item" data-term="بحث 3">
+            <img src="1.3.jpg" alt="بحث 3">
+        </div>
+        <div class="image-item" data-term="بحث 4">
+            <img src="1.2.jpg" alt="بحث 4">
+        </div>
+        <div class="image-item" data-term="بحث 5">
+            <img src="1.jpg" alt="بحث 5">
+        </div>
+        <div class="image-item" data-term="بحث 6">
+            <img src="1.2.jpg" alt="بحث 6">
+        </div>
+        <div class="image-item" data-term="بحث 7">
+            <img src="1.3.jpg" alt="بحث 7">
+        </div>
+        <div class="image-item" data-term="بحث 8">
+            <img src="1.jpg" alt="بحث 8">
+        </div>
+        <div class="image-item" data-term="بحث 9">
+            <img src="1.2.jpg" alt="بحث 9">
+        </div>
+        <div class="image-item" data-term="بحث 10">
+            <img src="1.3.jpg" alt="بحث 10">
+        </div>
+        <div class="image-item" data-term="بحث 11">
+            <img src="1.jpg" alt="بحث 11">
+        </div>
+        <div class="image-item" data-term="بحث 12">
+            <img src="1.2.jpg" alt="بحث 12">
+        </div>
+    </div>
+
+    <script>
 // العناصر المطلوبة
 const deleteAllButton = document.getElementById('delete-all-button');
 const modal = document.getElementById('confirmation-modal');
@@ -749,16 +750,13 @@ displayLastSearchTerm();
 window.addEventListener('load', function () {
     setTimeout(() => {
         searchInput.focus();
-        // محاولة فتح لوحة المفاتيح على الأجهزة المحمولة
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            searchInput.click();
-            searchInput.setAttribute('autofocus', 'true');
-        }
-    }, 300);
+        searchInput.click();
+    }, 500);
 });
 
 // دالة لتوجيه المستخدم إلى صفحة sea.html وإضافة الاسم إلى صندوق البحث
 function redirectToSea(categoryName) {
+    // توجيه المستخدم إلى صفحة sea.html
     window.location.href = `sea.html?search=${encodeURIComponent(categoryName)}`;
 }
 
@@ -789,4 +787,4 @@ window.onload = function () {
         }
     }
 };
-</script>
+    </script>
