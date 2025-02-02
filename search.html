@@ -475,21 +475,9 @@
 </div>
     
 
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Page</title>
-    <style>
-        /* Add your CSS here for styling */
-    </style>
-</head>
-<body>
-
-<!-- Search Box -->
+    <!-- صندوق البحث -->
 <div class="search-container">
-    <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" inputmode="search">
+    <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
     <button class="clear-button" id="clear-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -504,7 +492,7 @@
     </button>
 </div>
 
-<!-- Search History Header -->
+<!-- عنوان سجل البحث -->
 <div class="search-history-header">
     <h2>بحث المحفوظات</h2>
     <button class="delete-all-button" id="delete-all-button">
@@ -516,21 +504,21 @@
     </button>
 </div>
 
-<!-- Last Search Term -->
+<!-- آخر نص كتبه المستخدم -->
 <div class="last-search-item" id="last-search-item">
     <span id="last-search-term">آخر نص كتبه المستخدم</span>
 </div>
 
-<!-- Search History -->
+<!-- سجل البحث -->
 <div class="search-history-grid" id="search-history">
-    <!-- This section will be filled with data from localStorage -->
+    <!-- يتم ملء هذا الجزء بالبيانات من localStorage -->
 </div>
 
-<!-- Discover More -->
 <div class="discover-more-header">
     <h2>إستكشف المزيد</h2>
 </div>
 <div class="discover-more-grid" id="discover-more">
+    <!-- Here you will fill this part with static or dynamic content -->
     <div class="discover-item" onclick="redirectToSea('عنوان المحتوى 1')">
         <span>عنوان المحتوى 1</span>
     </div>
@@ -540,7 +528,7 @@
     <!-- Add more items as needed -->
 </div>
 
-<!-- Search Results (Images) -->
+<!-- نتائج البحث (الصور) -->
 <div class="image-grid" id="image-grid">
     <div class="image-item" data-term="بحث 1">
         <img src="1.jpg" alt="بحث 1">
@@ -548,11 +536,75 @@
     <div class="image-item" data-term="بحث 2">
         <img src="1.2.jpg" alt="بحث 2">
     </div>
-    <!-- Add more image items as needed -->
+    <div class="image-item" data-term="بحث 3">
+        <img src="1.3.jpg" alt="بحث 3">
+    </div>
+    <div class="image-item" data-term="بحث 4">
+        <img src="1.2.jpg" alt="بحث 4">
+    </div>
+    <div class="image-item" data-term="بحث 5">
+        <img src="1.jpg" alt="بحث 5">
+    </div>
+    <div class="image-item" data-term="بحث 6">
+        <img src="1.2.jpg" alt="بحث 6">
+    </div>
+    <div class="image-item" data-term="بحث 7">
+        <img src="1.3.jpg" alt="بحث 7">
+    </div>
+    <div class="image-item" data-term="بحث 8">
+        <img src="1.jpg" alt="بحث 8">
+    </div>
+    <div class="image-item" data-term="بحث 9">
+        <img src="1.2.jpg" alt="بحث 9">
+    </div>
+    <div class="image-item" data-term="بحث 10">
+        <img src="1.3.jpg" alt="بحث 10">
+    </div>
+    <div class="image-item" data-term="بحث 11">
+        <img src="1.jpg" alt="بحث 11">
+    </div>
+    <div class="image-item" data-term="بحث 12">
+        <img src="1.2.jpg" alt="بحث 12">
+    </div>
 </div>
 
 <script>
-// Basic Elements
+// العناصر المطلوبة
+const deleteAllButton = document.getElementById('delete-all-button');
+const modal = document.getElementById('confirmation-modal');
+const confirmYes = document.getElementById('confirm-yes');
+const confirmNo = document.getElementById('confirm-no');
+
+// عند النقر على زر "حذف الكل"
+deleteAllButton.addEventListener('click', () => {
+    const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    
+    // التحقق مما إذا كان هناك نصوص محفوظة
+    if (searchHistory.length > 0) {
+        modal.style.display = 'flex'; // عرض النافذة
+    } 
+});
+
+// عند النقر على "نعم"
+confirmYes.addEventListener('click', () => {
+    localStorage.removeItem('searchHistory'); // حذف المحفوظات
+    displaySearchHistory();
+    modal.style.display = 'none'; // إخفاء النافذة
+});
+
+// عند النقر على "لا"
+confirmNo.addEventListener('click', () => {
+    modal.style.display = 'none'; // إخفاء النافذة
+});
+
+// إغلاق النافذة عند النقر خارجها
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+// العناصر الأساسية
 const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const backButton = document.getElementById('back-button');
@@ -561,51 +613,13 @@ const imageGrid = document.getElementById('image-grid');
 const clearButton = document.getElementById('clear-button');
 const lastSearchItem = document.getElementById('last-search-item');
 const lastSearchTerm = document.getElementById('last-search-term');
-const deleteAllButton = document.getElementById('delete-all-button');
 
-// Focus on search input on page load, ensuring keyboard shows on mobile devices
-window.addEventListener('load', function () {
-    setTimeout(() => {
-        searchInput.focus();
-
-        // For mobile devices, we need to ensure the keyboard shows
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            // Click the input to show the keyboard on some devices
-            searchInput.click();
-
-            // Additional trick for iOS devices where focus might not show keyboard directly
-            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                // Use a workaround for iOS where focus does not always trigger the keyboard
-                searchInput.setAttribute('readonly', 'readonly'); // Disable editing temporarily
-                searchInput.setAttribute('disabled', 'disabled');  // Disable the input
-                setTimeout(() => {
-                    searchInput.removeAttribute('readonly'); // Re-enable editing
-                    searchInput.removeAttribute('disabled');  // Re-enable the input
-                    searchInput.focus();
-                }, 100);  // Small delay to ensure keyboard shows
-
-                // Another iOS trick: sometimes, you need to blur and refocus
-                setTimeout(() => {
-                    searchInput.blur();
-                    searchInput.focus();
-                }, 200);
-            } else if (/Android/i.test(navigator.userAgent)) {
-                // For Android, sometimes you need to blur and refocus to ensure the keyboard appears
-                setTimeout(() => {
-                    searchInput.blur();
-                    searchInput.focus();
-                }, 200);
-            }
-        }
-    }, 500); // Increased delay to give more time for DOM to load and stabilize
-});
-
-// Back to previous page
+// الرجوع إلى الصفحة السابقة
 backButton.addEventListener('click', function () {
     window.history.back();
 });
 
-// Search button click
+// عند النقر على زر البحث
 searchButton.addEventListener('click', function () {
     const searchTerm = searchInput.value.trim();
     if (searchTerm) {
@@ -615,7 +629,7 @@ searchButton.addEventListener('click', function () {
     }
 });
 
-// Enter key press in search input
+// عند الضغط على Enter داخل صندوق البحث
 searchInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         const searchTerm = searchInput.value.trim();
@@ -627,19 +641,19 @@ searchInput.addEventListener('keydown', function (event) {
     }
 });
 
-// Show 'X' button when typing
+// إظهار زر "X" عند البدء بالكتابة
 searchInput.addEventListener('input', function () {
     clearButton.style.display = searchInput.value.trim() !== '' ? 'block' : 'none';
 });
 
-// Clear text on 'X' button click
+// حذف النص عند النقر على زر "X"
 clearButton.addEventListener('click', function () {
     searchInput.value = '';
     clearButton.style.display = 'none';
     searchInput.focus();
 });
 
-// Save search term to localStorage
+// حفظ مصطلح البحث في localStorage
 function saveSearchTerm(term) {
     const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
     const existingIndex = searchHistory.findIndex(entry => entry.term === term);
@@ -656,19 +670,19 @@ function saveSearchTerm(term) {
     displaySearchHistory();
 }
 
-// Save last search term to localStorage
+// حفظ آخر مصطلح بحث في localStorage
 function saveLastSearchTerm(term) {
     localStorage.setItem('lastSearchTerm', term);
     displayLastSearchTerm();
 }
 
-// Display last search term
+// عرض آخر مصطلح بحث مع إضافة مسافة بعد النص
 function displayLastSearchTerm() {
     const lastTerm = localStorage.getItem('lastSearchTerm') || 'آخر نص كتبه المستخدم';
-    lastSearchTerm.textContent = lastTerm + ' ';
+    lastSearchTerm.textContent = lastTerm + ' '; // إضافة مسافة بعد النص
 }
 
-// Display search history
+// عرض سجل البحث
 function displaySearchHistory() {
     const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
     searchHistoryGrid.innerHTML = '';
@@ -697,24 +711,24 @@ function displaySearchHistory() {
     });
 }
 
-// Remove a specific search term from history
+// حذف مصطلح بحث معين
 function removeSearchTermFromHistory(term) {
     const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
     const updatedHistory = searchHistory.filter(entry => entry.term !== term);
     localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
 }
 
-// Click on last search term
+// عرض آخر بحث عند النقر عليه
 lastSearchItem.addEventListener('click', function () {
     const lastTerm = localStorage.getItem('lastSearchTerm');
     if (lastTerm) {
-        searchInput.value = lastTerm + ' ';
+        searchInput.value = lastTerm + ' ';  // إضافة مسافة بعد النص
         searchInput.focus();
         clearButton.style.display = 'block';
     }
 });
 
-// Search when clicking images
+// البحث عند النقر على الصور
 imageGrid.addEventListener('click', function (event) {
     const imageItem = event.target.closest('.image-item');
     if (imageItem) {
@@ -727,30 +741,42 @@ imageGrid.addEventListener('click', function (event) {
     }
 });
 
-// Load data when page opens
+// تحميل البيانات عند فتح الصفحة
 displaySearchHistory();
 displayLastSearchTerm();
 
-// Redirect function for 'Discover More' items
+// تركيز المؤشر على صندوق البحث عند تحميل الصفحة
+window.addEventListener('load', function () {
+    setTimeout(() => {
+        searchInput.focus();
+        // محاولة فتح لوحة المفاتيح على الأجهزة المحمولة
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            searchInput.click();
+            searchInput.setAttribute('autofocus', 'true');
+        }
+    }, 300);
+});
+
+// دالة لتوجيه المستخدم إلى صفحة sea.html وإضافة الاسم إلى صندوق البحث
 function redirectToSea(categoryName) {
     window.location.href = `sea.html?search=${encodeURIComponent(categoryName)}`;
 }
 
-// Search function (for use in sea.html)
+// دالة لتنفيذ البحث (يمكن استخدامها في صفحة sea.html)
 function performSearch(searchTerm) {
-    const products = document.querySelectorAll('.product');
+    const products = document.querySelectorAll('.product'); // جميع المنتجات
 
     products.forEach(product => {
-        const productName = product.getAttribute('data-name').toLowerCase();
+        const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
         if (productName.includes(searchTerm.toLowerCase())) {
-            product.classList.remove('hidden');
+            product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
         } else {
-            product.classList.add('hidden');
+            product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
         }
     });
 }
 
-// Check for search param on page load
+// عند تحميل الصفحة، تحقق من وجود معلمة بحث في الرابط
 window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
     const searchTerm = urlParams.get('search');
@@ -758,12 +784,9 @@ window.onload = function () {
     if (searchTerm) {
         const searchBox = document.getElementById('search-box');
         if (searchBox) {
-            searchBox.value = searchTerm;
-            performSearch(searchTerm);
+            searchBox.value = searchTerm; // تعبئة صندوق البحث بالقيمة
+            performSearch(searchTerm); // تنفيذ البحث
         }
     }
 };
 </script>
-
-</body>
-</html>
