@@ -489,7 +489,7 @@
 
 <!-- Search Box -->
 <div class="search-container">
-    <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" autofocus inputmode="search">
+    <input type="text" id="search-input" placeholder="ابحث هنا" autocomplete="off" inputmode="search">
     <button class="clear-button" id="clear-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -694,16 +694,28 @@ imageGrid.addEventListener('click', function (event) {
 displaySearchHistory();
 displayLastSearchTerm();
 
-// Focus on search input on page load, with a slight delay for mobile keyboard to show
+// Focus on search input on page load, ensuring keyboard shows on mobile devices
 window.addEventListener('load', function () {
     setTimeout(() => {
         searchInput.focus();
-        // Show keyboard on mobile devices
+
+        // For mobile devices, we need to ensure the keyboard shows
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            document.activeElement.blur();
-            searchInput.click(); // Click again to ensure keyboard shows
+            // Click the input to show the keyboard on some devices
+            searchInput.click();
+            
+            // Additional trick for iOS devices where focus might not show keyboard directly
+            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                searchInput.setAttribute('readonly', 'readonly'); // Disable editing temporarily
+                searchInput.setAttribute('disabled', 'disabled');  // Disable the input
+                setTimeout(() => {
+                    searchInput.removeAttribute('readonly'); // Re-enable editing
+                    searchInput.removeAttribute('disabled');  // Re-enable the input
+                    searchInput.focus();
+                }, 100);  // Small delay to ensure keyboard shows
+            }
         }
-    }, 500);
+    }, 300);
 });
 
 // Redirect function for 'Discover More' items
