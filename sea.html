@@ -3228,6 +3228,11 @@
 
 
 
+
+
+
+
+
             
         </body>
         </html>
@@ -3422,6 +3427,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -3431,17 +3437,18 @@
     <style>
         /* تنسيق Skeleton Loading */
         .skeleton-container {
-            position: fixed;
-            top: 114px; /* بداية الخلفية من 116px من الأعلى */
-            left: 0;
-            width: 100%;
-            height: calc(100% - 114px); /* ارتفاع الخلفية ناقص 116px من الأعلى */
-            background: rgb(255, 255, 255); /* خلفية شبه شفافة */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
+    position: fixed;
+    top: 113px; /* بداية الخلفية من الأعلى */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 113px); /* تغطي بقية الشاشة بعد 113px */
+    background: rgb(255, 255, 255); /* خلفية بيضاء */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
 
         /* الدائرة المتحركة */
         .skeleton-circle {
@@ -3481,8 +3488,6 @@
     </script>
 </body>
 </html> 
-
-
 
 
 

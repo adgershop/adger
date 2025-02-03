@@ -4661,6 +4661,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -4670,17 +4671,18 @@
     <style>
         /* تنسيق Skeleton Loading */
         .skeleton-container {
-            position: fixed;
-            top: 113px; /* بداية الخلفية من 113px من الأعلى */
-            left: 0;
-            width: 100%;
-            height: calc(100% - 113px); /* ارتفاع الخلفية ناقص 113px من الأعلى */
-            background: rgb(255, 255, 255); /* خلفية شبه شفافة */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
+    position: fixed;
+    top: 113px; /* بداية الخلفية من الأعلى */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 113px); /* تغطي بقية الشاشة بعد 113px */
+    background: rgb(255, 255, 255); /* خلفية بيضاء */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
 
         /* الدائرة المتحركة */
         .skeleton-circle {
@@ -4701,11 +4703,6 @@
                 transform: rotate(360deg);
             }
         }
-
-        /* منع التمرير عند ظهور Skeleton */
-        body.no-scroll {
-            overflow: hidden;
-        }
     </style>
 </head>
 <body>
@@ -4717,20 +4714,14 @@
     <!-- محتوى الصفحة الفعلي (تمت إزالته) -->
 
     <script>
-        // منع التمرير عند ظهور Skeleton
-        document.body.classList.add('no-scroll');
-
-        // إخفاء Skeleton Loading بعد تحميل DOM
-        document.addEventListener('DOMContentLoaded', function() {
+        // إخفاء Skeleton Loading بعد تحميل الصفحة
+        window.addEventListener('load', function() {
             const skeletonContainer = document.querySelector('.skeleton-container');
             skeletonContainer.style.display = 'none';
-
-            // إعادة تمكين التمرير بعد إخفاء Skeleton
-            document.body.classList.remove('no-scroll');
         });
     </script>
 </body>
-</html>
+</html> 
 
 
 
