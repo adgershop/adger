@@ -832,38 +832,63 @@
             right: 10px;
         }
 
-
         .line {
-                width: 100%;
-                height: 8px;
-                background-color: #eeeeee;
-            }
-
-
+            width: 100%;
+            height: 8px;
+            background-color: #eeeeee;
+        }
     </style>
 </head>
 <body>
     <div class="photo-slider-container" style="position: relative;">
         <div class="photo-slider">
-            <img src="a1.jpg" alt="صورة 1" onclick="selectImage('أقل من 50 حنيه')">
-            <img src="a2.jpg" alt="صورة 2" onclick="selectImage('نص الصورة 2')">
-            <img src="a3.jpg" alt="صورة 3" onclick="selectImage('نص الصورة 3')">
-            <img src="a4.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
-            <img src="a5.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-            <img src="a6.jpg" alt="صورة 2" onclick="selectImage('نص الصورة 2')">
-            <img src="a7.jpg" alt="صورة 3" onclick="selectImage('نص الصورة 3')">
-            <img src="a8.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
-            <img src="a9.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
-            <img src="a10.jpg" alt="صورة 4" onclick="selectImage('نص الصورة 4')">
+            <img src="a1.jpg" alt="صورة 1" onclick="redirectToSea('أقل من 50 حنيه')">
+            <img src="a2.jpg" alt="صورة 2" onclick="redirectToSea('نص الصورة 2')">
+            <img src="a3.jpg" alt="صورة 3" onclick="redirectToSea('نص الصورة 3')">
+            <img src="a4.jpg" alt="صورة 4" onclick="redirectToSea('نص الصورة 4')">
+            <img src="a5.jpg" alt="صورة 1" onclick="redirectToSea('نص الصورة 1')">
+            <img src="a6.jpg" alt="صورة 2" onclick="redirectToSea('نص الصورة 2')">
+            <img src="a7.jpg" alt="صورة 3" onclick="redirectToSea('نص الصورة 3')">
+            <img src="a8.jpg" alt="صورة 4" onclick="redirectToSea('نص الصورة 4')">
+            <img src="a9.jpg" alt="صورة 4" onclick="redirectToSea('نص الصورة 4')">
+            <img src="a10.jpg" alt="صورة 4" onclick="redirectToSea('نص الصورة 4')">
         </div>
     </div>
 
     <script>
-        // دالة لتوجيه المستخدم إلى صفحة sea.html مع إدخال النص في localStorage
-        function selectImage(text) {
-            localStorage.setItem('searchText', text); // حفظ النص في localStorage
-            window.location.href = 'sea.html'; // التوجيه إلى صفحة sea.html
+        // دالة لتوجيه المستخدم إلى صفحة sea.html وإضافة الاسم إلى صندوق البحث
+        function redirectToSea(categoryName) {
+            // توجيه المستخدم إلى صفحة sea.html مع إضافة النص كمعلمة بحث
+            window.location.href = `sea.html?search=${encodeURIComponent(categoryName)}`;
         }
+
+        // دالة لتنفيذ البحث (يمكن استخدامها في صفحة sea.html)
+        function performSearch(searchTerm) {
+            const products = document.querySelectorAll('.product'); // جميع المنتجات
+
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
+                if (productName.includes(searchTerm.toLowerCase())) {
+                    product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
+                } else {
+                    product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
+                }
+            });
+        }
+
+        // عند تحميل الصفحة، تحقق من وجود معلمة بحث في الرابط
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchTerm = urlParams.get('search');
+
+            if (searchTerm) {
+                const searchBox = document.getElementById('search-box');
+                if (searchBox) {
+                    searchBox.value = searchTerm; // تعبئة صندوق البحث بالقيمة
+                }
+                performSearch(searchTerm); // تنفيذ البحث
+            }
+        };
 
         // دالة للكشف عن نوع الجهاز
         function isDesktop() {
@@ -1055,7 +1080,97 @@
     <div class="carousel-container" style="position: relative;">
         <div class="carousel">
             <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
+                <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
+                <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
+                    الخصم 2%
+                </h1>
+            </div>
+            <div class="carousel-item">
+                <img src="1.jpg" alt="صورة 1" onclick="selectImage('1.html')">
                 <h1 style="font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
                 <h1 style="font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
                 <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
@@ -1064,186 +1179,58 @@
                 </h1>
             </div>
             
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-    
-    
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-    
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-    
-    
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-    
-    
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-    
-    
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-            
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-    
-    
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-    
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-    
-    
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-    
-    
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-    
-    
-            <div class="carousel-item">
-                <img src="1.jpg" alt="صورة 1" onclick="selectImage('نص الصورة 1')">
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #363636; font-size: 16px;"> ساعه ذكيه تعمل باللمس</h1>
-               <h1  style=" font-family: 'Cairo', sans-serif; color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
-               <h1 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px;">
-                الخصم 2%
-                </h1>
-            </div>
-            <!-- تكرار العناصر الأخرى بنفس الطريقة -->
+            <!-- Repeat for other carousel items -->
         </div>
     </div>
-
+    
     <script>
-        // دالة لتوجيه المستخدم إلى صفحة sea.html مع إدخال النص في localStorage
-        function selectImage(text) {
-            localStorage.setItem('searchText', text); // حفظ النص في localStorage
-            window.location.href = 'sea.html'; // التوجيه إلى صفحة sea.html
+        // دالة لتوجيه المستخدم إلى صفحة محددة بدون إدخال نص
+        function selectImage(path) {
+            window.location.href = path; // التوجيه إلى الصفحة المحددة
         }
-
+    
         // دالة للكشف عن نوع الجهاز
         function isDesktop() {
             const userAgent = navigator.userAgent.toLowerCase();
             const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
             const isTablet = /(ipad|tablet|playbook|silk)|(android(?!.*mobile))/i.test(userAgent);
             const screenWidth = window.innerWidth;
-
+    
             // إذا كان الجهاز ليس هاتفًا أو جهازًا لوحيًا وكان عرض الشاشة أكبر من 768 بكسل
             return !isMobile && !isTablet && screenWidth > 768;
         }
-
+    
         // إنشاء الأسهم وإضافتها إلى الصفحة إذا كان الجهاز كمبيوتر
         function createArrows() {
             if (!isDesktop()) return; // إذا لم يكن الجهاز كمبيوتر، لا ننفذ الكود
-
+    
             const container = document.querySelector('.carousel-container');
             const carousel = document.querySelector('.carousel');
-
+    
             // إنشاء سهم اليسار
             const leftArrow = document.createElement('button');
-            leftArrow.innerHTML = '&#10094;'; // رمز السهم الأيسر
+            leftArrow.innerHTML = '❮'; // رمز السهم الأيسر
             leftArrow.classList.add('arrow-button', 'left-arrow');
             leftArrow.style.display = 'block'; // إظهار السهم الأيسر في البداية
             leftArrow.onclick = () => {
                 scrollCarousel(-200);
                 updateArrowsVisibility();
             };
-
+    
             // إنشاء سهم اليمين
             const rightArrow = document.createElement('button');
-            rightArrow.innerHTML = '&#10095;'; // رمز السهم الأيمن
+            rightArrow.innerHTML = '❯'; // رمز السهم الأيمن
             rightArrow.classList.add('arrow-button', 'right-arrow');
             rightArrow.style.display = 'none'; // إخفاء السهم الأيمن في البداية
             rightArrow.onclick = () => {
                 scrollCarousel(200);
                 updateArrowsVisibility();
             };
-
+    
             // إضافة الأسهم إلى الحاوية
             container.appendChild(leftArrow);
             container.appendChild(rightArrow);
-
+    
             // دالة لتحديث رؤية الأسهم بناءً على موقع التمرير
             function updateArrowsVisibility() {
                 if (carousel.scrollLeft === 0) {
@@ -1257,14 +1244,14 @@
                     rightArrow.style.display = 'block'; // إظهار السهم الأيمن
                 }
             }
-
+    
             // تحديث رؤية الأسهم عند التمرير
             carousel.addEventListener('scroll', updateArrowsVisibility);
-
+    
             // تحديث رؤية الأسهم عند تحميل الصفحة
             updateArrowsVisibility();
         }
-
+    
         // دالة للتمرير
         function scrollCarousel(scrollAmount) {
             const carousel = document.querySelector('.carousel');
@@ -1273,11 +1260,10 @@
                 behavior: 'smooth'
             });
         }
-
+    
         // إنشاء الأسهم عند تحميل الصفحة إذا كان الجهاز كمبيوتر
         createArrows();
     </script>
-</body>
 </html>
 
     <!-- الخط -->
@@ -4675,7 +4661,6 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -4686,10 +4671,10 @@
         /* تنسيق Skeleton Loading */
         .skeleton-container {
             position: fixed;
-            top: 114px; /* بداية الخلفية من 116px من الأعلى */
+            top: 113px; /* بداية الخلفية من 113px من الأعلى */
             left: 0;
             width: 100%;
-            height: calc(100% - 114px); /* ارتفاع الخلفية ناقص 116px من الأعلى */
+            height: calc(100% - 113px); /* ارتفاع الخلفية ناقص 113px من الأعلى */
             background: rgb(255, 255, 255); /* خلفية شبه شفافة */
             display: flex;
             align-items: center;
@@ -4716,6 +4701,11 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* منع التمرير عند ظهور Skeleton */
+        body.no-scroll {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -4727,14 +4717,20 @@
     <!-- محتوى الصفحة الفعلي (تمت إزالته) -->
 
     <script>
-        // إخفاء Skeleton Loading بعد تحميل الصفحة
-        window.addEventListener('load', function() {
+        // منع التمرير عند ظهور Skeleton
+        document.body.classList.add('no-scroll');
+
+        // إخفاء Skeleton Loading بعد تحميل DOM
+        document.addEventListener('DOMContentLoaded', function() {
             const skeletonContainer = document.querySelector('.skeleton-container');
             skeletonContainer.style.display = 'none';
+
+            // إعادة تمكين التمرير بعد إخفاء Skeleton
+            document.body.classList.remove('no-scroll');
         });
     </script>
 </body>
-</html> 
+</html>
 
 
 
