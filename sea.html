@@ -456,14 +456,14 @@
                     }
                     
                     .adger-container svg {
-                     margin-left: 15px; /* Space between text and arrow */
-                     margin-right: 5px; /* Adjust for better visibility */
-                     cursor: pointer; /* This makes the cursor change to a pointing hand */
-                     color: #1a1a1a;
-                     background-color: #f1f1f1; /* Black background */
-                     border-radius: 50%; /* Makes the background circular */
-                     padding: 4px; /* Adds some space around the SVG */
-                            }
+                      margin-left: 15px; /* Space between text and arrow */
+                      margin-right: 5px; /* Adjust for better visibility */
+                      cursor: pointer; /* This makes the cursor change to a pointing hand */
+                      color: #1a1a1a;
+                      background-color: #f1f1f1; /* Black background */
+                      border-radius: 50%; /* Makes the background circular */
+                      padding: 4px; /* Adds some space around the SVG */
+                    }
                     
                     /* For mobile devices, adjust the arrow's margins */
                     @media (max-width: 1167px) {
@@ -485,22 +485,29 @@
                     </style>
                     
                     <div class="adger-container">
-                        <svg onclick="goBackTwice();" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-                        </svg>
-                        
-                        <script>
-                        function goBackTwice() {
-                            if (window.history.length > 2) {
-                                setTimeout(() => {
-                                    history.go(-2);
-                                }, 100); // تأخير بسيط لضمان التنفيذ
-                            } else {
-                                history.back(); // الرجوع صفحة واحدة إذا لم يكن هناك سجل كافٍ
-                            }
+                      <svg onclick="goBackTwice();" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                      </svg>
+                    
+                      <script>
+                      function goBackTwice() {
+                        // تحقق من الصفحة الحالية
+                        if (window.location.pathname.endsWith('index.html')) {
+                          // إذا كنت في الصفحة index.html، قم بتوجيه المستخدم إلى صفحة محددة
+                          window.location.href = 'specific-page.html'; // استبدل specific-page.html بالصفحة التي تريد التوجيه إليها
+                        } else {
+                          // إذا لم تكن في الصفحة index.html، قم بالرجوع إلى الصفحة السابقة مرتين
+                          if (window.history.length > 2) {
+                            setTimeout(() => {
+                              history.go(-2);
+                            }, 100); // تأخير بسيط لضمان التنفيذ
+                          } else {
+                            history.back(); // الرجوع صفحة واحدة إذا لم يكن هناك سجل كافٍ
+                          }
                         }
-                        </script>
-                        
+                      }
+                      </script>
+                    
                       <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
                     </div>
                 <style>
