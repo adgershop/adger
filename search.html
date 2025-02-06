@@ -626,7 +626,7 @@ searchButton.addEventListener('click', function () {
     if (searchTerm) {
         saveSearchTerm(searchTerm);
         saveLastSearchTerm(searchTerm);
-        window.location.href = `sea.html?search=${encodeURIComponent(searchTerm)}`;
+        window.location.href = `adger.search.html?search=${encodeURIComponent(searchTerm)}`;
     }
 });
 
@@ -637,7 +637,7 @@ searchInput.addEventListener('keydown', function (event) {
         if (searchTerm) {
             saveSearchTerm(searchTerm);
             saveLastSearchTerm(searchTerm);
-            window.location.href = `sea.html?search=${encodeURIComponent(searchTerm)}`;
+            window.location.href = `adger.search.html?search=${encodeURIComponent(searchTerm)}`;
         }
     }
 });
@@ -699,7 +699,7 @@ function displaySearchHistory() {
         searchItem.addEventListener('click', function () {
             saveSearchTerm(entry.term);
             saveLastSearchTerm(entry.term);
-            window.location.href = `sea.html?search=${encodeURIComponent(entry.term)}`;
+            window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`;
         });
 
         searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
@@ -737,7 +737,7 @@ imageGrid.addEventListener('click', function (event) {
         if (searchTerm) {
             saveSearchTerm(searchTerm);
             saveLastSearchTerm(searchTerm);
-            window.location.href = `sea.html?search=${encodeURIComponent(searchTerm)}`;
+            window.location.href = `adger.search.html?search=${encodeURIComponent(searchTerm)}`;
         }
     }
 });
@@ -757,7 +757,7 @@ window.addEventListener('load', function () {
 // دالة لتوجيه المستخدم إلى صفحة sea.html وإضافة الاسم إلى صندوق البحث
 function redirectToSea(categoryName) {
     // توجيه المستخدم إلى صفحة sea.html
-    window.location.href = `sea.html?search=${encodeURIComponent(categoryName)}`;
+    window.location.href = `adger.search.html?search=${encodeURIComponent(categoryName)}`;
 }
 
 // دالة لتنفيذ البحث (يمكن استخدامها في صفحة sea.html)
