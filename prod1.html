@@ -18,30 +18,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>صفحة التحميل</title>
         <style>
-            /* CSS لصفحة التحميل */
-            .skeleton-loading {
-                position: fixed;
-                top: 67px;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: #fff;
-                z-index: 1000;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-    
-            /* دائرة التحميل */
-            .loading-circle {
-                border: 6px solid #e0e0e0; /* لون الحدود الرمادي الفاتح */
-                border-top: 6px solid #000000; /* لون الحدود العلوي (لون الدائرة) */
-                border-radius: 50%; /* يجعل الشكل دائريًا */
-                width: 60px;
-                height: 60px;
-                animation: spin 1.5s linear infinite; /* تدوير مستمر */
-                margin-top: -88px;
-            }
+      .skeleton-loading {
+       position: fixed;
+       top: 67px;
+       left: 0;
+       width: 100%;
+       height: calc(100% - 67px); /* اجعل الارتفاع يأخذ باقي الشاشة */
+       background-color: #fff;
+       z-index: 1000;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+        }
+
+       /* دائرة التحميل */
+     .loading-circle {
+       border: 6px solid #e0e0e0; /* لون الحدود الرمادي الفاتح */
+       border-top: 6px solid #000000; /* لون الحدود العلوي (لون الدائرة) */
+       border-radius: 50%; /* يجعل الشكل دائريًا */
+       width: 60px;
+       height: 60px;
+       animation: spin 1.5s linear infinite; /* تدوير مستمر */
+           }
+
     
             /* تأثير الدوران */
             @keyframes spin {
