@@ -301,7 +301,12 @@
                 flex: 1; /* لجعل النص يستخدم المساحة المتاحة */
                 margin-right: 22px;
             }
-        
+            @media only screen and (max-width: 767px) {
+                .total-price  {
+                 font-size: 14px;
+                }
+            }
+
             /* زر اتمام الشراء */
             .confirm-btn {
                 background-color: #0099ff;
@@ -319,6 +324,10 @@
             .confirm-btn:hover {
                 background-color: #006eff;
             }
+            @media (max-width: 499px) {
+    .confirm-btn::before {
+        content: "موافق";
+    }}
         </style>
         
         <!-- الحاوية الخارجية -->
