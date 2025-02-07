@@ -301,12 +301,27 @@
                 flex: 1; /* لجعل النص يستخدم المساحة المتاحة */
                 margin-right: 22px;
             }
+        
             @media only screen and (max-width: 767px) {
-                .total-price  {
-                 font-size: 14px;
+                .total-price {
+                    font-size: 14px;
+                }
+        
+                /* تعديل نص الزر على الهواتف */
+                .confirm-btn {
+                    font-size: 16px;
+                    padding: 10px 15px;
+                }
+        
+                .confirm-btn::after {
+                    content: "موافق";
+                }
+        
+                .confirm-btn span {
+                    display: none;
                 }
             }
-
+        
             /* زر اتمام الشراء */
             .confirm-btn {
                 background-color: #0099ff;
@@ -324,16 +339,14 @@
             .confirm-btn:hover {
                 background-color: #006eff;
             }
-            @media (max-width: 499px) {
-    .confirm-btn::before {
-        content: "موافق";
-    }}
         </style>
         
         <!-- الحاوية الخارجية -->
         <div class="footer-container">
-                  <!-- زر اتمام الشراء -->
-                  <button class="confirm-btn" onclick="confirmPurchase()">موافق / إتمام الشراء</button>
+            <!-- زر اتمام الشراء -->
+            <button class="confirm-btn" onclick="confirmPurchase()">
+                <span>موافق / إتمام الشراء</span>
+            </button>
             <!-- قسم السعر الإجمالي -->
             <div class="total-price" id="totalPriceDisplay">
                 السعر الإجمالي: <span id="totalPriceValue">0</span> جنيه
