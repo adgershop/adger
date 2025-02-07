@@ -149,50 +149,6 @@
                 font-family: Cairo, sans-serif;
             }
     
-            /* تنسيق السعر الإجمالي */
-            .total-price {
-                background-color: #cccccc85;
-                padding: 10px;
-                text-align: right;
-                font-size: 18px;
-                font-weight: bold;
-                margin-top: 20px;
-                width: 100%;
-                position: fixed;
-                bottom: 41px;
-                left: 0;
-                right: 0;
-                box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-                font-family: Cairo, sans-serif;
-            }
-            @media only screen and (max-width: 499px) {
-                .total-price {
-           bottom: 47px;
-            }
-        }
-
-            /* زر اتمام الشراء */
-            .confirm-btn {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
-                padding: 10px;
-                background-color: #0099ff;
-                color: white;
-                text-align: center;
-                font-size: 18px;
-                font-weight: bold;
-                cursor: pointer;
-                border: none;
-                transition: background-color 0.3s ease;
-            }
-    
-            .confirm-btn:hover {
-                background-color: #ff5100;
-            }
-    
             /* تنسيق السهم */
             .back-arrow {
                 display: inline-block;
@@ -315,13 +271,65 @@
             <p><strong>أقرب معلم:</strong> <span id="displayLandmark"></span></p>
         </div>
     
-        <!-- قسم السعر الإجمالي -->
-        <div class="total-price" id="totalPriceDisplay">
-            السعر الإجمالي: <span id="totalPriceValue">0</span> جنيه
+
+
+        <style>
+            /* تنسيق الحاوية الخارجية */
+            .footer-container {
+                width: 100%;
+                background-color: white;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+                box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                box-sizing: border-box;
+                font-family: Cairo, sans-serif;
+            }
+        
+            /* تنسيق السعر الإجمالي */
+            .total-price {
+                background-color: transparent; /* إزالة الخلفية الرمادية */
+                text-align: right;
+                font-size: 18px;
+                font-weight: bold;
+                margin: 0;
+                flex: 1; /* لجعل النص يستخدم المساحة المتاحة */
+                margin-right: 22px;
+            }
+        
+            /* زر اتمام الشراء */
+            .confirm-btn {
+                background-color: #0099ff;
+                color: white;
+                text-align: center;
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+                border: none;
+                transition: background-color 0.3s ease;
+                padding: 10px 20px;
+                border-radius: 5px; /* إضافة زوايا مستديرة */
+            }
+        
+            .confirm-btn:hover {
+                background-color: #006eff;
+            }
+        </style>
+        
+        <!-- الحاوية الخارجية -->
+        <div class="footer-container">
+                  <!-- زر اتمام الشراء -->
+                  <button class="confirm-btn" onclick="confirmPurchase()">موافق / إتمام الشراء</button>
+            <!-- قسم السعر الإجمالي -->
+            <div class="total-price" id="totalPriceDisplay">
+                السعر الإجمالي: <span id="totalPriceValue">0</span> جنيه
+            </div>
         </div>
-    
-        <!-- زر اتمام الشراء -->
-        <button class="confirm-btn" onclick="confirmPurchase()">موافق / إتمام الشراء</button>
     
         <script>
        // فتح النافذة
