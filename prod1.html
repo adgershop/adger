@@ -975,21 +975,9 @@
                 border-radius: 5px;
                 cursor: pointer;
                 font-size: 13px;
-                white-space: nowrap; /* منع النص من الانتقال لسطر جديد */
             }
             .button-left:hover {
                 background-color: #131313;
-            }
-    
-            /* وسائط الاستعلام للهواتف */
-            @media (max-width: 768px) {
-                .button-left {
-                    font-size: 12px; /* تصغير حجم الخط قليلاً */
-                    padding: 8px 10px; /* تقليل الحشوة */
-                }
-                .button-left::after {
-                    content: "أسأل"; /* تغيير النص إلى "أسأل" فقط */
-                }
             }
     
             /* الأنماط الخاصة بالنافذة الجديدة */
@@ -1048,30 +1036,49 @@
             .input-area button:hover {
                 background-color: #252525;
             }
+    
+            /* التعديلات للهواتف */
+            @media only screen and (max-width: 767px) {
+                .button-left {
+                    font-size: 12px;
+                    padding: 8px 10px;
+                }
+    
+                .button-left::after {
+                    content: "إسأل";
+                }
+    
+                .button-left span {
+                    display: none;
+                }
+            }
         </style>
     </head>
     <body>
-        <div class="containe">
-            <div class="text-right">
-                <p>أسئل و أعرف</p>
-                <p class="text-small">اسأل و أعرف تفاصيل أكثر عن المنتج</p>
-            </div>
-            <button class="button-left" id="openModalBtn">إسأل عن المنتج</button>
-        </div>
     
-        <!-- النافذة الجديدة -->
-        <div class="modal" id="myModal">
-            <div class="modal-content">
-                <h2>مرحبًا! اسأل هنا</h2>
-                <div class="message-area" id="messageArea"></div>
-                <div class="input-area">
-                    <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." />
-                    <button id="sendMessageBtn">إرسال</button>
-                </div>
+    <div class="containe">
+        <div class="text-right">
+            <p>أسئل و أعرف</p>
+            <p class="text-small">اسأل و أعرف تفاصيل أكثر عن المنتج</p>
+        </div>
+        <button class="button-left" id="openModalBtn">
+            <span>إسأل عن المنتج</span>
+        </button>
+    </div>
+    
+    <!-- النافذة الجديدة -->
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <h2>مرحبًا! اسأل هنا</h2>
+            <div class="message-area" id="messageArea"></div>
+            <div class="input-area">
+                <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." />
+                <button id="sendMessageBtn">إرسال</button>
             </div>
         </div>
+    </div>
     
-       
+  
     
     <script>
         // الحصول على العناصر
