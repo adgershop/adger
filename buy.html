@@ -159,48 +159,34 @@
                 margin-top: 20px;
                 width: 100%;
                 position: fixed;
-                bottom: 44px;
+                bottom: 50px;
                 left: 0;
                 right: 0;
                 box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
                 font-family: Cairo, sans-serif;
             }
     
- /* زر اتمام الشراء */
-.confirm-btn {
-    position: fixed; /* يجعل الزر ثابتًا في مكانه */
-    bottom: 0; /* يضع الزر أسفل الصفحة */
-    left: 0;
-    right: 0;
-    width: 100%; /* يجعل عرض الزر يغطي كامل عرض الشاشة */
-    height: 44px; /* قلل الارتفاع باستخدام height */
-    background-color: #ff8800; /* لون الخلفية البرتقالي */
-    color: white; /* لون النص أبيض */
-    font-size: 16px; /* حجم الخط المناسب للارتفاع الجديد */
-    font-weight: bold; /* جعل النص عريضًا */
-    cursor: pointer; /* تغيير شكل المؤشر إلى يد عند التفاعل */
-    border: none; /* إزالة الحدود حول الزر */
-    transition: background-color 0.3s ease; /* إضافة انتقال سلس عند تغيير اللون */
-    font-family: Cairo, sans-serif; /* نوع الخط المستخدم */
-
-    /* تأكد من إزالة الهوامش والوسادات */
-    margin: 0;
-    padding: 0;
-
-    /* طريقة بديلة باستخدام line-height للمركز العمودي */
-    line-height: 44px; /* نفس قيمة الارتفاع */
-    text-align: center; /* المركز الأفقي */
-
-    /* خيار إضافي باستخدام Flexbox (اختياري) */
-    /* display: flex; */
-    /* align-items: center; */
-    /* justify-content: center; */
-}
-
-/* تغيير لون الخلفية عند hover */
-.confirm-btn:hover {
-    background-color: #ff5100; /* لون برتقالي داكن عند الإشارة بالماوس */
-}
+            /* زر اتمام الشراء */
+            .confirm-btn {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                padding: 15px;
+                background-color: #ff8800;
+                color: white;
+                text-align: center;
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+                border: none;
+                transition: background-color 0.3s ease;
+            }
+    
+            .confirm-btn:hover {
+                background-color: #ff5100;
+            }
     
             /* تنسيق السهم */
             .back-arrow {
