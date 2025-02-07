@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -930,11 +931,198 @@
 
 
 
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نص وزر في نفس السطر</title>
+    <style>
+    /* الأنماط الأساسية */
+    .containe {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+    }
+    .text-right {
+        font-family: Cairo, sans-serif;
+        margin-right: 22px;
+        text-align: right;
+    }
+    .text-right p {
+        font-family: Cairo, sans-serif;
+        margin: 0;
+    }
+    .text-small {
+        font-family: Cairo, sans-serif;
+        margin-right: 22px;
+        font-size: 14px;
+        color: gray;
+    }
+    .button-left {
+        font-family: Cairo, sans-serif;
+        margin-left: 22px;
+        padding: 8px 15px;
+        background-color: #303030;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 13px;
+    }
+    .button-left:hover {
+        background-color: #131313;
+    }
+    /* الأنماط الخاصة بالنافذة الجديدة */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 600px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .message-area {
+        height: 200px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    .message-area p {
+        margin: 5px 0;
+        word-wrap: break-word;
+    }
+    .input-area {
+        display: flex;
+        gap: 10px;
+    }
+    .input-area input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .input-area button {
+        padding: 8px 15px;
+        background-color: #303030;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .input-area button:hover {
+        background-color: #252525;
+    }
+    </style>
+    </head>
+    <body>
+    
+    <div class="containe">
+        <div class="text-right">
+            <p>أسئل و أعرف</p>
+            <p class="text-small">اسأل و أعرف تفاصيل أكثر عن المنتج</p>
+        </div>
+        <button class="button-left" id="openModalBtn">أسأل عن المنتج</button>
+    </div>
+    
+    <!-- النافذة الجديدة -->
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <h2>مرحبًا! اسأل هنا</h2>
+            <div class="message-area" id="messageArea"></div>
+            <div class="input-area">
+                <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." />
+                <button id="sendMessageBtn">إرسال</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // الحصول على العناصر
+        const openModalBtn = document.getElementById('openModalBtn');
+        const modal = document.getElementById('myModal');
+        const sendMessageBtn = document.getElementById('sendMessageBtn');
+        const messageInput = document.getElementById('messageInput');
+        const messageArea = document.getElementById('messageArea');
+        
+        // فتح النافذة
+        openModalBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+        
+            // إضافة الرسالة تلقائيًا عند فتح النافذة (بدون تكرار)
+            addIncomingMessageIfNotExists('شكرًا على سؤالك! سنقوم بالرد عليك قريبًا.');
+        
+            // وضع التركيز على حقل النص
+            messageInput.focus();
+        });
+        
+        // إغلاق النافذة عند النقر خارجها
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // إرسال الرسالة
+        sendMessageBtn.addEventListener('click', () => {
+            const messageText = messageInput.value.trim();
+            if (messageText !== '') {
+                // إضافة الرسالة إلى منطقة العرض
+                const messageElement = document.createElement('p');
+                messageElement.textContent = `أنت: ${messageText}`;
+                messageArea.appendChild(messageElement);
+        
+                // بناء محتوى البريد الإلكتروني
+                const emailBody = `طلبي:\n${messageText}`;
+        
+                // فتح البريد الإلكتروني
+                const emailSubject = `اسأل عن منتج رقم|#1`;
+                const emailLink = `mailto:adger.shop@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+                window.open(emailLink, '_blank');
+        
+                // تنظيف حقل الإدخال
+                messageInput.value = '';
+            }
+        });
+        
+        // إضافة الرسائل الواردة (مع التحقق من التكرار)
+        function addIncomingMessageIfNotExists(text) {
+            const existingMessages = Array.from(messageArea.children).map(p => p.textContent);
+            const messageToCheck = `adger.shop: ${text}`;
+        
+            // التحقق مما إذا كانت الرسالة موجودة بالفعل
+            if (!existingMessages.includes(messageToCheck)) {
+                const messageElement = document.createElement('p');
+                messageElement.textContent = messageToCheck;
+                messageArea.appendChild(messageElement);
+            }
+        }
+        </script>
+    
 
 
 
-
-
+    
 
 
     <!DOCTYPE html>
@@ -970,63 +1158,113 @@
                     max-width: 1200px;
                 }
             }
+    
+            /* إخفاء العناصر غير المرئية */
+            .hidden {
+                display: none;
+            }
         </style>
     </head>
     <body>
         <div class="container32">
-            <!-- الصور مع بيانات مصدر مؤجل -->
-            <img class="image32 lazy" data-src="1.jpg" alt="صورة 1">
-            <img class="image32 lazy" data-src="1.2.jpg" alt="صورة 2">
-            <img class="image32 lazy" data-src="1.3.jpg" alt="صورة 3">
-            <img class="image32 lazy" data-src="1.4.jpg" alt="صورة 4">
-            <img class="image32 lazy" data-src="1.jpg" alt="صورة 5">
+            <!-- الصور والفيديو مقسمة إلى مجموعات -->
+            <div class="group visible">
+                <img class="image32 lazy" data-src="1.jpg" alt="صورة 1">
+                <img class="image32 lazy" data-src="1.2.jpg" alt="صورة 2">
+                <img class="image32 lazy" data-src="1.3.jpg" alt="صورة 3">
+                <img class="image32 lazy" data-src="1.4.jpg" alt="صورة 4">
+                <img class="image32 lazy" data-src="1.jpg" alt="صورة 5">
+            </div>
     
-            <!-- الفيديو مع بيانات مصدر مؤجل -->
-            <video class="image32 lazy" autoplay loop muted controls data-src="3e.mp4">
-                Your browser does not support the video tag.
-            </video>
+            <div class="group hidden">
+                <img class="image32 lazy" data-src="1.jpg" alt="صورة 1">
+                <img class="image32 lazy" data-src="1.2.jpg" alt="صورة 2">
+                <img class="image32 lazy" data-src="1.3.jpg" alt="صورة 3">
+                <img class="image32 lazy" data-src="1.4.jpg" alt="صورة 4">
+                <img class="image32 lazy" data-src="1.jpg" alt="صورة 5">
+            </div>
+    
+            <div class="group hidden">
+                <img class="image32 lazy" data-src="1.jpg" alt="صورة 1">
+                <img class="image32 lazy" data-src="1.2.jpg" alt="صورة 2">
+                <img class="image32 lazy" data-src="1.3.jpg" alt="صورة 3">
+                <img class="image32 lazy" data-src="1.4.jpg" alt="صورة 4">
+                <img class="image32 lazy" data-src="1.jpg" alt="صورة 5">
+                <video class="image32 lazy" autoplay loop muted controls data-src="3e.mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
     
         <script>
-            // دالة لتحميل العناصر عند ظهورها
             document.addEventListener("DOMContentLoaded", function () {
-                const lazyElements = document.querySelectorAll(".lazy");
+                const groups = document.querySelectorAll(".group");
+                let currentGroupIndex = 0;
     
-                const lazyLoad = (element) => {
+                // دالة لتحميل مجموعة جديدة
+                const loadNextGroup = () => {
+                    if (currentGroupIndex < groups.length - 1) {
+                        currentGroupIndex++;
+                        groups[currentGroupIndex].classList.remove("hidden");
+                        groups[currentGroupIndex].classList.add("visible");
+    
+                        // بدء Lazy Loading للعناصر الجديدة
+                        const lazyElements = groups[currentGroupIndex].querySelectorAll(".lazy");
+                        lazyElements.forEach((element) => {
+                            if (element.tagName === "IMG") {
+                                element.src = element.getAttribute("data-src");
+                            } else if (element.tagName === "VIDEO") {
+                                const source = document.createElement("source");
+                                source.src = element.getAttribute("data-src");
+                                source.type = "video/mp4";
+                                element.appendChild(source);
+                            }
+                            element.classList.remove("lazy");
+                        });
+                    }
+                };
+    
+                // مراقبة التمرير
+                window.addEventListener("scroll", () => {
+                    const currentGroup = groups[currentGroupIndex];
+                    if (!currentGroup) return;
+    
+                    const rect = currentGroup.getBoundingClientRect();
+                    if (rect.bottom <= window.innerHeight && currentGroupIndex < groups.length - 1) {
+                        loadNextGroup();
+                    }
+                });
+    
+                // تحميل المجموعة الأولى
+                const firstGroup = groups[0];
+                const lazyElements = firstGroup.querySelectorAll(".lazy");
+                lazyElements.forEach((element) => {
                     if (element.tagName === "IMG") {
-                        // تحميل الصور
                         element.src = element.getAttribute("data-src");
                     } else if (element.tagName === "VIDEO") {
-                        // تحميل الفيديو
                         const source = document.createElement("source");
                         source.src = element.getAttribute("data-src");
                         source.type = "video/mp4";
                         element.appendChild(source);
                     }
-                    element.classList.remove("lazy"); // إزالة الفئة بعد التحميل
-                };
-    
-                // إنشاء Intersection Observer
-                const observer = new IntersectionObserver((entries, observer) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            lazyLoad(entry.target);
-                            observer.unobserve(entry.target); // إيقاف المراقبة بعد التحميل
-                        }
-                    });
-                }, {
-                    rootMargin: "0px", // يمكن تعديلها لتحديد متى يبدأ التحميل
-                    threshold: 0.1, // نسبة الظهور المطلوبة لبدء التحميل
+                    element.classList.remove("lazy");
                 });
     
-                // بدء مراقبة العناصر
-                lazyElements.forEach((element) => {
-                    observer.observe(element);
-                });
+                // تحميل الفيديو بشكل سريع
+                const videoElement = document.querySelector("video.lazy");
+                if (videoElement) {
+                    const source = document.createElement("source");
+                    source.src = videoElement.getAttribute("data-src");
+                    source.type = "video/mp4";
+                    videoElement.appendChild(source);
+                    videoElement.load(); // تحميل الفيديو بشكل متزامن
+                    videoElement.play(); // بدء تشغيل الفيديو
+                }
             });
         </script>
     </body>
     </html>
+    
 
 
     <div class="line3"></div>
@@ -1449,7 +1687,7 @@
 }
 
 .buy-now-text:hover {
-    background-color: #ff0000;
+    background-color: #ff5100;
 }
         </style>
     </head>
