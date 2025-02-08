@@ -655,7 +655,7 @@
             border-radius: 0;
             box-sizing: border-box;
             margin: 0;
-            overflow: hidden; /* منع التجاوز */
+            overflow: hidden;
         }
         .text-right {
             font-family: Cairo, sans-serif;
@@ -697,7 +697,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1000;
-            overflow: visible; /* منع التداخل مع باقي المحتوى */
+            overflow: visible;
         }
         .modal-content {
             position: absolute;
@@ -710,6 +710,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            touch-action: pan-y; /* السماح بالتمرير العمودي فقط */
         }
         .message-area {
             height: 200px;
@@ -762,24 +763,24 @@
 
             /* تعديلات النافذة المنبثقة */
             .modal-content {
-                width: 90%; /* تقليل عرض النافذة */
-                max-width: none; /* إلغاء القيد الأقصى للعرض */
-                height: 300px; /* تحديد ارتفاع ثابت */
-                overflow-y: auto; /* تمكين التمرير داخل النافذة إذا لزم الأمر */
+                width: 85%; /* تصغير العرض أكثر */
+                max-width: none;
+                height: 250px; /* تقليل الارتفاع */
+                overflow-y: auto;
             }
 
             .message-area {
-                height: 150px; /* تقليل ارتفاع منطقة الرسائل */
+                height: 120px; /* تقليل ارتفاع منطقة الرسائل */
             }
 
             .input-area input[type="text"] {
-                font-size: 14px; /* تقليل حجم الخط */
-                padding: 6px; /* تقليل الوسادات */
+                font-size: 14px;
+                padding: 6px;
             }
 
             .input-area button {
-                font-size: 12px; /* تقليل حجم الخط */
-                padding: 6px 10px; /* تقليل الوسادات */
+                font-size: 12px;
+                padding: 6px 10px;
             }
         }
     </style>
@@ -823,10 +824,13 @@
         // إضافة الرسالة تلقائيًا عند فتح النافذة (بدون تكرار)
         addIncomingMessageIfNotExists('شكرًا على سؤالك! سنقوم بالرد عليك قريبًا.');
 
-        // تركيز على حقل النص بعد فتح النافذة
-        setTimeout(() => {
-            messageInput.focus();
-        }, 100); // تأخير بسيط لضمان فتح النافذة أولاً
+        // إزالة التركيز التلقائي على حقل الإدخال
+    });
+
+    // تعديل سلوك التركيز على حقل الإدخال
+    messageInput.addEventListener('focus', () => {
+        // ضبط موقع الحقل داخل النافذة دون رفع الصفحة بأكملها
+        messageInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 
     // إغلاق النافذة عند النقر خارجها
