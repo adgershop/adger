@@ -637,6 +637,7 @@
 
 
 <h2 style="color: #202020; font-size: 17px; font-family: Cairo, sans-serif;  margin-right: 11px;">تفاصيل المنتج</h2>
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -655,7 +656,7 @@
             border-radius: 0;
             box-sizing: border-box;
             margin: 0;
-            overflow: hidden;
+            overflow: hidden; /* منع التجاوز */
         }
         .text-right {
             font-family: Cairo, sans-serif;
@@ -697,7 +698,6 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1000;
-            overflow: visible;
         }
         .modal-content {
             position: absolute;
@@ -710,7 +710,6 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            touch-action: pan-y; /* السماح بالتمرير العمودي فقط */
         }
         .message-area {
             height: 200px;
@@ -760,28 +759,6 @@
             .button-left span {
                 display: none;
             }
-
-            /* تعديلات النافذة المنبثقة */
-            .modal-content {
-                width: 85%; /* تصغير العرض أكثر */
-                max-width: none;
-                height: 250px; /* تقليل الارتفاع */
-                overflow-y: auto;
-            }
-
-            .message-area {
-                height: 120px; /* تقليل ارتفاع منطقة الرسائل */
-            }
-
-            .input-area input[type="text"] {
-                font-size: 14px;
-                padding: 6px;
-            }
-
-            .input-area button {
-                font-size: 12px;
-                padding: 6px 10px;
-            }
         }
     </style>
 </head>
@@ -809,6 +786,8 @@
     </div>
 </div>
 
+
+
 <script>
     // الحصول على العناصر
     const openModalBtn = document.getElementById('openModalBtn');
@@ -816,31 +795,25 @@
     const sendMessageBtn = document.getElementById('sendMessageBtn');
     const messageInput = document.getElementById('messageInput');
     const messageArea = document.getElementById('messageArea');
-
+    
     // فتح النافذة
     openModalBtn.addEventListener('click', () => {
         modal.style.display = 'block';
-
+    
         // إضافة الرسالة تلقائيًا عند فتح النافذة (بدون تكرار)
         addIncomingMessageIfNotExists('شكرًا على سؤالك! سنقوم بالرد عليك قريبًا.');
-
-        // إزالة التركيز التلقائي على حقل الإدخال
+    
+        // وضع التركيز على حقل النص
+        messageInput.focus();
     });
-
-    // تعديل سلوك التركيز على حقل الإدخال
-    messageInput.addEventListener('focus', () => {
-        // ضبط موقع الحقل داخل النافذة دون رفع الصفحة بأكملها
-        messageInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-
+    
     // إغلاق النافذة عند النقر خارجها
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
-            messageArea.scrollTop = 0; // إعادة تمرير الرسائل إلى الأعلى
         }
     });
-
+    
     // إرسال الرسالة
     sendMessageBtn.addEventListener('click', () => {
         const messageText = messageInput.value.trim();
@@ -849,25 +822,25 @@
             const messageElement = document.createElement('p');
             messageElement.textContent = `أنت: ${messageText}`;
             messageArea.appendChild(messageElement);
-
+    
             // بناء محتوى البريد الإلكتروني
             const emailBody = `طلبي:\n${messageText}`;
-
+    
             // فتح البريد الإلكتروني
             const emailSubject = `اسأل عن منتج رقم|#1`;
             const emailLink = `mailto:adger.shop@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
             window.open(emailLink, '_blank');
-
+    
             // تنظيف حقل الإدخال
             messageInput.value = '';
         }
     });
-
+    
     // إضافة الرسائل الواردة (مع التحقق من التكرار)
     function addIncomingMessageIfNotExists(text) {
         const existingMessages = Array.from(messageArea.children).map(p => p.textContent);
         const messageToCheck = `adger.shop: ${text}`;
-
+    
         // التحقق مما إذا كانت الرسالة موجودة بالفعل
         if (!existingMessages.includes(messageToCheck)) {
             const messageElement = document.createElement('p');
@@ -875,10 +848,7 @@
             messageArea.appendChild(messageElement);
         }
     }
-</script>
-
-</body>
-</html>
+    </script>
 
 
 
