@@ -1763,6 +1763,11 @@
                         scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
                         -ms-overflow-style: none; /* إخفاء شريط التمرير في IE و Edge */
                     }
+                    @media (max-width: 769px) { /* الهواتف */
+                        .sub-header {
+                top: 62px;
+    }
+}
             
                     /* إخفاء شريط التمرير في WebKit (Chrome, Safari) */
                     .sub-header::-webkit-scrollbar {
@@ -1779,6 +1784,11 @@
                     @media (max-width: 499px) { /* الهواتف */
     .sub-header nav {
         gap: 22px;
+        margin-right: -9px;
+    }
+}
+@media (max-width: 769px) { /* الهواتف */
+    .sub-header nav {
         margin-right: -9px;
     }
 }
