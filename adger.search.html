@@ -402,6 +402,13 @@
 @media only screen and (max-width: 767px) {
     .cart-icon {
         margin-left: -10px;
+        margin-right: -8px;
+    }
+
+}
+@media only screen and (max-width: 767px) {
+    .cart-icon {
+        margin-left: -12px;
     }
 
 }
@@ -492,6 +499,11 @@
                 .adger {
                     font-size: 20px;
          
+                }
+            }
+            @media (max-width: 499px) {
+                .adger {
+                margin-right: -8px;       
                 }
             }
     
@@ -739,8 +751,6 @@
       
 
 
-
-            
             <!DOCTYPE html>
             <html lang="ar">
             <head>
@@ -771,7 +781,7 @@
                         right: 0;
                         height: 48px;
                         background-color: white;
-                        box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.1);
+                        box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
                         z-index: 999;
                         display: flex;
                         align-items: center;
@@ -780,6 +790,11 @@
                         scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
                         -ms-overflow-style: none; /* إخفاء شريط التمرير في IE و Edge */
                     }
+                    @media (max-width: 769px) { /* الهواتف */
+                        .sub-header {
+                top: 62px;
+    }
+}
             
                     /* إخفاء شريط التمرير في WebKit (Chrome, Safari) */
                     .sub-header::-webkit-scrollbar {
@@ -793,9 +808,14 @@
                         position: relative;
                         white-space: nowrap; /* منع النص من الانتقال لسطر جديد */
                     }
-                    @media (max-width: 768px) { /* الهواتف */
+                    @media (max-width: 499px) { /* الهواتف */
     .sub-header nav {
         gap: 22px;
+        margin-right: -9px;
+    }
+}
+@media (max-width: 769px) { /* الهواتف */
+    .sub-header nav {
         margin-right: -9px;
     }
 }
@@ -824,7 +844,6 @@
                         max-width: 600px;
                     }
                 </style>
-            </head>
             <body>
                 <div class="sub-header">
                     <nav>

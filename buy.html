@@ -737,13 +737,20 @@ updateTotalPrice();
                 border-radius: 50%;
             }
     
-            /* إخفاء العنصر على الهواتف */
-            @media only screen and (max-width: 767px) {
-                .cart-icon {
-                    margin-left: -10px;
-                }
-            }
-    
+          /* إخفاء العنصر على الهواتف */
+@media only screen and (max-width: 767px) {
+    .cart-icon {
+        margin-left: -10px;
+        margin-right: -8px;
+    }
+
+}
+@media only screen and (max-width: 767px) {
+    .cart-icon {
+        margin-left: -12px;
+    }
+
+}
             /* تعديلات النافذة الجانبية */
             .menu-popup {
                 display: none;
@@ -864,7 +871,12 @@ updateTotalPrice();
     
             @media (max-width: 767px) {
                 .adger {
-                    font-size: 20px;
+                    font-size: 20px;         
+                }
+            }
+            @media (max-width: 499px) {
+                .adger {
+                margin-right: -8px;       
                 }
             }
     
