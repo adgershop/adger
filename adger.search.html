@@ -793,6 +793,12 @@
                         position: relative;
                         white-space: nowrap; /* منع النص من الانتقال لسطر جديد */
                     }
+                    @media (max-width: 768px) { /* الهواتف */
+    .sub-header nav {
+        gap: 22px;
+        margin-right: -9px;
+    }
+}
             
                     .sub-header nav a {
                         text-decoration: none;
@@ -860,34 +866,44 @@
                     const usernameDisplay = document.getElementById('usernameDisplay');
             
                     if (username) {
-                        usernameDisplay.textContent = username; // عرض اسم المستخدم
-            
-                        // Function to detect if the name contains Arabic characters
-                        function isArabic(text) {
-                            return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
+                            usernameDisplay.textContent = username; // عرض اسم المستخدم
+                       
+                       
+        
+        
+        
+                     // Function to detect if the name contains Arabic characters
+        function isArabic(text) {
+            return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
+        }
+        
+        // Function to truncate the username based on language
+        function truncateUsername(name) {
+            if (window.innerWidth < 966 && name.length > 7) {
+                const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
+                if (isArabic(name)) {
+                    return name.substring(0, maxLength) + '..'; // Keep the ellipsis at the end for Arabic
+                } else {
+                    return '..' + name.substring(0, maxLength); // Place the ellipsis at the beginning, truncate from the end for English
+                }
+            }
+            return name;
+        }
+        
+        // Apply the modification on page load and screen resize
+        usernameDisplay.textContent = truncateUsername(username);
+        window.addEventListener('resize', () => {
+            usernameDisplay.textContent = truncateUsername(username);
+        });
+        
+        
+        
+        
+        
+                            
+                        } else {
+                            welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
                         }
-            
-                        // Function to truncate the username based on language
-                        function truncateUsername(name) {
-                            if (window.innerWidth < 966 && name.length > 7) {
-                                const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
-                                if (isArabic(name)) {
-                                    return name.substring(0, maxLength) + '..'; // Keep the ellipsis at the end for Arabic
-                                } else {
-                                    return '..' + name.substring(name.length - maxLength); // Place the ellipsis at the beginning, truncate from the end for English
-                                }
-                            }
-                            return name;
-                        }
-            
-                        // Apply the modification on page load and screen resize
-                        usernameDisplay.textContent = truncateUsername(username);
-                        window.addEventListener('resize', () => {
-                            usernameDisplay.textContent = truncateUsername(username);
-                        });
-                    } else {
-                        welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
-                    }
             
                     // دالة لإظهار أو إخفاء القائمة الجانبية
                     function toggleMenu() {
