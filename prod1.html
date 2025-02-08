@@ -637,7 +637,6 @@
 
 
 <h2 style="color: #202020; font-size: 17px; font-family: Cairo, sans-serif;  margin-right: 11px;">تفاصيل المنتج</h2>
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -698,6 +697,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1000;
+            overflow: visible; /* منع التداخل مع باقي المحتوى */
         }
         .modal-content {
             position: absolute;
@@ -759,6 +759,28 @@
             .button-left span {
                 display: none;
             }
+
+            /* تعديلات النافذة المنبثقة */
+            .modal-content {
+                width: 90%; /* تقليل عرض النافذة */
+                max-width: none; /* إلغاء القيد الأقصى للعرض */
+                height: 300px; /* تحديد ارتفاع ثابت */
+                overflow-y: auto; /* تمكين التمرير داخل النافذة إذا لزم الأمر */
+            }
+
+            .message-area {
+                height: 150px; /* تقليل ارتفاع منطقة الرسائل */
+            }
+
+            .input-area input[type="text"] {
+                font-size: 14px; /* تقليل حجم الخط */
+                padding: 6px; /* تقليل الوسادات */
+            }
+
+            .input-area button {
+                font-size: 12px; /* تقليل حجم الخط */
+                padding: 6px 10px; /* تقليل الوسادات */
+            }
         }
     </style>
 </head>
@@ -786,8 +808,6 @@
     </div>
 </div>
 
-
-
 <script>
     // الحصول على العناصر
     const openModalBtn = document.getElementById('openModalBtn');
@@ -795,25 +815,28 @@
     const sendMessageBtn = document.getElementById('sendMessageBtn');
     const messageInput = document.getElementById('messageInput');
     const messageArea = document.getElementById('messageArea');
-    
+
     // فتح النافذة
     openModalBtn.addEventListener('click', () => {
         modal.style.display = 'block';
-    
+
         // إضافة الرسالة تلقائيًا عند فتح النافذة (بدون تكرار)
         addIncomingMessageIfNotExists('شكرًا على سؤالك! سنقوم بالرد عليك قريبًا.');
-    
-        // وضع التركيز على حقل النص
-        messageInput.focus();
+
+        // تركيز على حقل النص بعد فتح النافذة
+        setTimeout(() => {
+            messageInput.focus();
+        }, 100); // تأخير بسيط لضمان فتح النافذة أولاً
     });
-    
+
     // إغلاق النافذة عند النقر خارجها
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
+            messageArea.scrollTop = 0; // إعادة تمرير الرسائل إلى الأعلى
         }
     });
-    
+
     // إرسال الرسالة
     sendMessageBtn.addEventListener('click', () => {
         const messageText = messageInput.value.trim();
@@ -822,25 +845,25 @@
             const messageElement = document.createElement('p');
             messageElement.textContent = `أنت: ${messageText}`;
             messageArea.appendChild(messageElement);
-    
+
             // بناء محتوى البريد الإلكتروني
             const emailBody = `طلبي:\n${messageText}`;
-    
+
             // فتح البريد الإلكتروني
             const emailSubject = `اسأل عن منتج رقم|#1`;
             const emailLink = `mailto:adger.shop@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
             window.open(emailLink, '_blank');
-    
+
             // تنظيف حقل الإدخال
             messageInput.value = '';
         }
     });
-    
+
     // إضافة الرسائل الواردة (مع التحقق من التكرار)
     function addIncomingMessageIfNotExists(text) {
         const existingMessages = Array.from(messageArea.children).map(p => p.textContent);
         const messageToCheck = `adger.shop: ${text}`;
-    
+
         // التحقق مما إذا كانت الرسالة موجودة بالفعل
         if (!existingMessages.includes(messageToCheck)) {
             const messageElement = document.createElement('p');
@@ -848,7 +871,10 @@
             messageArea.appendChild(messageElement);
         }
     }
-    </script>
+</script>
+
+</body>
+</html>
 
 
 
