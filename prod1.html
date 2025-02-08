@@ -1348,25 +1348,35 @@
             }
     
             .text-container p {
-                font-size: 14px;
-                font-family: Cairo, sans-serif;
-                background-color: #f0f0f0;
-                padding: 10px;
-                border-radius: 5px;
-                display: inline-block;
-                cursor: pointer;
-                margin: 0 10px 0 0;
-                flex-shrink: 0;
-                position: relative; /* تمكين التحريك */
-                right: -22px; /* تحريك النص مع الخلفية لليمين بمسافة -22px */
-                margin-bottom: 8px;
-            }
-            @media (max-width: 768px) {
-                .text-container p {
-               right: -29px;
-                }
-            }
-    
+    font-size: 14px;
+    font-family: Cairo, sans-serif;
+    background-color: #f0f0f0;
+    padding: 10px; /* يمكن تعديل هذه القيمة حسب الحاجة */
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0 10px 0 0;
+    flex-shrink: 0;
+    position: relative; /* تمكين التحريك */
+    right: -22px; /* تحريك النص مع الخلفية لليمين بمسافة -22px */
+    margin-bottom: 8px;
+    line-height: 1.5; /* تحسين تباعد الأسطر */
+    text-align: center; /* توسيط النص أفقيًا */
+    box-sizing: border-box; /* لجعل الـ padding جزء من العرض والارتفاع */
+}
+
+@media (max-width: 768px) {
+    .text-container p {
+        right: -29px;
+        padding: 8px; /* زيادة الـ padding لتحسين المساحة على الشاشات الصغيرة */
+    }
+}
+
+@media (max-width: 499px) {
+    .text-container p {
+        padding: 5px; /* يمكن تعديل هذه القيمة حسب الحاجة */
+    }
+}
             .text-container p + p {
                 margin-right: 0;
             }
