@@ -190,7 +190,7 @@
                 position: relative; /* لجعل العناصر الداخلية قابلة للتحديد بشكل نسبي */
                 display: flex;
                 align-items: center;
-                margin-bottom: -79px;
+                margin-bottom: -82px;
             }
     
             /* لتصغير الارتفاع على الهواتف المحمولة */
@@ -781,7 +781,20 @@
 
 
 
-<h1 style="font-family: 'Cairo', sans-serif; color: #ff4800; font-size: 25px;  text-align: right;  margin-right: 15px; ">قسم الأسعار</h1>
+<h1 class="prices" style="font-family: 'Cairo', sans-serif; color: #ff4800; font-size: 25px;  text-align: right;  margin-right: 15px; ">قسم الأسعار</h1>
+   <style>
+    @media (max-width: 768px) {
+   .prices{
+        font-size: 17px !important;
+    }
+}
+@media (min-width: 768px) {
+   .prices{
+      margin-top: 28px;
+    }
+}
+   </style>
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -978,7 +991,19 @@
 
 
 
-<h1 style="font-family: 'Cairo', sans-serif; color: #ff4800; font-size: 25px;  text-align: right;  margin-right: 15px; margin-top: 28px;">قسم الخصومات</h1>
+<h1 class="disco" style="font-family: 'Cairo', sans-serif; color: #ff4800; font-size: 25px;  text-align: right;  margin-right: 15px; ">قسم الخصومات</h1>
+ <style>
+    @media (max-width: 768px) {
+   .disco{
+        font-size: 17px !important;
+    }
+}
+@media (min-width: 768px) {
+   .disco{
+      margin-top: 28px;
+    }
+}
+ </style>
 
 <!DOCTYPE html>
 <html lang="ar">
