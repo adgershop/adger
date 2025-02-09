@@ -286,11 +286,31 @@
                 margin: 0;
                 font-family: Arial, sans-serif;
                 background-color: #ffffff;
-                padding-top: 132px; /* زيادة الحشو الأعلى لاستيعاب الشريطين */
+                padding-top: 66px; /* تعديل الحشو الأعلى بعد إزالة الشريط */
             }
     
-
-
+            /* الشريط العلوي الثابت */
+            .header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 66px;
+                background-color: white;
+                padding: 0 20px;
+                z-index: 1;
+                box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
+            }
+    
+            /* بقية التنسيقات كما هي */
+            .search-wrapper {
+                position: relative;
+                width: 60%;
+                max-width: 600px;
+            }
     
             #search-box {
                 width: 100%;
@@ -303,7 +323,7 @@
                 text-align: right;
                 direction: rtl;
             }
-
+    
             #search-button {
                 position: absolute;
                 left: 3px;
@@ -343,23 +363,23 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                margin-left: 20px; /* إضافة مسافة بين الأيقونة والعناصر على اليسار */
-                justify-content: center; /* تأكد من أن العناصر داخل user-icon متساوية */
+                margin-left: 20px;
+                justify-content: center;
             }
     
             .user-icon svg {
                 width: 24px;
                 height: 24px;
                 color: #333;
-                flex-shrink: 0; /* تمنع تصغير الأيقونة */
+                flex-shrink: 0;
             }
     
             .welcome-message {
                 font-size: 16px;
                 color: #007bff;
                 display: flex;
-                align-items: center; /* تأكد من أن النص والأيقونة في نفس المستوى العمودي */
-                gap: 5px; /* مسافة صغيرة بين النص والأيقونة */
+                align-items: center;
+                gap: 5px;
             }
     
             .welcome-message span {
@@ -384,21 +404,30 @@
             }
     
             .cart-icon {
-    position: relative;
-}
+                position: relative;
+            }
+    
+            .cart-count {
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background-color: red;
+                color: white;
+                font-size: 12px;
+                padding: 2px 6px;
+                border-radius: 50%;
+            }
 
-.cart-count {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: red;
-    color: white;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 50%;
-}
+            #usernameDisplay {
+            white-space: nowrap; /* منع النص من الانتقال إلى سطر جديد */
+            overflow: hidden; /* إخفاء النص الزائد */
+            text-overflow: ellipsis; /* إضافة نقاط (...) للنص الزائد */
+            max-width: 150px; /* تحديد عرض أقصى للعنصر (يمكن تعديله حسب الحاجة) */
+            display: inline-block; /* لجعل العنصر يتصرف كعنصر inline مع إمكانية تحديد عرض */
+        }
 
-/* إخفاء العنصر على الهواتف */
+    
+         /* إخفاء العنصر على الهواتف */
 @media only screen and (max-width: 767px) {
     .cart-icon {
         margin-left: -10px;
@@ -417,16 +446,16 @@
             .menu-popup {
                 display: none;
                 position: fixed;
-                top: 0; /* تبدأ من أعلى الشاشة */
+                top: 0;
                 left: -250px;
                 width: 250px;
-                height: 100vh; /* تمتد من أعلى الشاشة إلى أسفلها */
+                height: 100vh;
                 background-color: white;
                 box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
                 padding: 20px;
-                z-index: 1000000000000;
+                z-index: 1000;
                 transition: left 0.3s ease-in-out;
-                overflow-y: auto; /* إضافة شريط تمرير إذا كان المحتوى أطول من الشاشة */
+                overflow-y: auto;
             }
     
             @keyframes slideIn {
@@ -476,12 +505,13 @@
             .menu-icon {
                 margin-left: 10px;
             }
-                 /* إخفاء العنصر على الهواتف */
-                 @media only screen and (max-width: 767px) {
-                    .menu-icon  {
-                          margin-left: -6px;
-                        }
-                    }
+    
+            /* إخفاء العنصر على الهواتف */
+            @media only screen and (max-width: 767px) {
+                .menu-icon {
+                    margin-left: -6px;
+                }
+            }
     
             .adger {
                 font-family: Arial, sans-serif;
@@ -498,12 +528,6 @@
             @media (max-width: 767px) {
                 .adger {
                     font-size: 20px;
-         
-                }
-            }
-            @media (max-width: 499px) {
-                .adger {
-                margin-right: -8px;       
                 }
             }
     
@@ -546,7 +570,7 @@
                     
                     .adger-container svg {
                      margin-left: 15px; /* Space between text and arrow */
-                     margin-right: -12px; /* Adjust for better visibility */
+                     margin-right: 5px; /* Adjust for better visibility */
                      cursor: pointer; /* This makes the cursor change to a pointing hand */
                      color: #1a1a1a;
                      background-color: #f1f1f1; /* Black background */
@@ -558,6 +582,7 @@
                     @media (max-width: 1167px) {
                       .adger-container svg {
                         margin-left: 7px; /* Space between text and arrow */
+                        margin-right: -13px;
                       }
                     }
                     
@@ -573,25 +598,13 @@
                     </style>
                     
                     <div class="adger-container">
-                        <svg onclick="history.back();"class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-                        </svg>
-                        
-                        <script>
-                        function goBackTwice() {
-                            if (window.history.length > 2) {
-                                setTimeout(() => {
-                                    history.go(-2);
-                                }, 100); // تأخير بسيط لضمان التنفيذ
-                            } else {
-                                history.back(); // الرجوع صفحة واحدة إذا لم يكن هناك سجل كافٍ
-                            }
-                        }
-                        </script>
-                        
+                      <svg onclick="history.back()" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                      </svg>                      
                       <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
                     </div>
-                <style>
+                    
+                    <style>
                     /* إخفاء العنصر على الهواتف */
                     @media only screen and (max-width: 767px) {
                         .element-to-hide {
@@ -661,14 +674,14 @@
                     }
     
                     .flag {
-                        width: 20px; /* يمكنك تعديل حجم العلم حسب الحاجة */
+                        width: 20px;
                         height: auto;
-                        margin-left: 5px; /* مسافة بين النص والعلم */
+                        margin-left: 5px;
                     }
     
                     /* إضافة مسافة بين العنصر والزر */
                     .country-code {
-                        margin-right: 20px; /* يمكنك تعديل المسافة حسب الحاجة */
+                        margin-right: 20px;
                     }
                 </style>
                 <div class="container22">
