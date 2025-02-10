@@ -190,7 +190,7 @@
                 position: relative; /* لجعل العناصر الداخلية قابلة للتحديد بشكل نسبي */
                 display: flex;
                 align-items: center;
-                margin-bottom: -82px;
+                margin-bottom: -83px;
             }
     
             /* لتصغير الارتفاع على الهواتف المحمولة */
@@ -1865,17 +1865,33 @@
                     <nav>
                         <!-- تعديل هنا: إضافة selectItem عند النقر على "الكل" -->
                         <a href="#" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
-                        <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <a onclick="selectItem('هواتف', this)" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)" style="font-family: Cairo, sans-serif;">كتب</a>
+                        <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+                        <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+                        <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+                        <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+                        <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+                        <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+                        <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+                        <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
                         <div class="underline"></div>
                     </nav>
                 </div>
+<!-- JavaScript -->
+<script>
+    // اختيار جميع العناصر التي تحتوي على فئة menu-item
+    const menuItems = document.querySelectorAll('.menu-item');
+
+    // إضافة مستمع للحدث لكل عنصر
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            window.scrollTo(0, 0); // الانتقال فورًا إلى أعلى الصفحة بدون تأثير ملحوظ
+        });
+    });
+</script>
+
+
+
+
             
                 <!-- نافذة القائمة الجانبية -->
                 <div class="menu-popup" id="menuPopup">
@@ -2466,7 +2482,7 @@
             <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
                 <div class="image-frame">
                     <a href="1.html">
-                        <img src="1.jpg" alt="Image 1">
+                        <img src="a1.jpg" alt="Image 1">
                     </a>
                     <div class="text-under">
                         <h1>ساعة تاتش تعمل باللمس</h1>
@@ -2499,7 +2515,7 @@
 
             <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
                 <div class="image-frame">
-                    <a href="1.html">
+                    <a href="a11.html">
                         <img src="1.jpg" alt="Image 1">
                     </a>
                     <div class="text-under">
@@ -4728,66 +4744,6 @@
 
 
 
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skeleton Loading مع دائرة تحميل حقيقية</title>
-    <style>
-        /* تنسيق Skeleton Loading */
-        .skeleton-container {
-    position: fixed;
-    top: 113px; /* بداية الخلفية من الأعلى */
-    left: 0;
-    width: 100%;
-    height: calc(100% - 113px); /* تغطي بقية الشاشة بعد 113px */
-    background: rgb(255, 255, 255); /* خلفية بيضاء */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-
-        /* الدائرة المتحركة */
-        .skeleton-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 4px solid #f3f3f3; /* لون الخلفية للدائرة */
-            border-top: 4px solid #000000; /* لون الجزء المتحرك */
-            animation: spin 1s linear infinite; /* دوران مستمر */
-        }
-
-        /* رسوم متحركة للدائرة */
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Skeleton Loading -->
-    <div class="skeleton-container">
-        <div class="skeleton-circle"></div> <!-- الدائرة المتحركة -->
-    </div>
-
-    <!-- محتوى الصفحة الفعلي (تمت إزالته) -->
-
-    <script>
-        // إخفاء Skeleton Loading بعد تحميل الصفحة
-        window.addEventListener('load', function() {
-            const skeletonContainer = document.querySelector('.skeleton-container');
-            skeletonContainer.style.display = 'none';
-        });
-    </script>
-</body>
-</html> 
 
 
 
