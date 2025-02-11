@@ -91,11 +91,7 @@
 
     <div class="login-container" id="profileContainer" style="display: none;">
         <!-- سهم الرجوع إلى الصفحة الرئيسية -->
-        <div class="back-arrow" onclick="window.history.back()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"></path>
-            </svg>
-        </div>
+     
         <h2>حساب المستخدم</h2>
         <img src="https://via.placeholder.com/100" alt="صورة المستخدم" class="profile-picture" id="profilePictureDisplay">
         <p id="usernameDisplay"></p>
@@ -154,6 +150,221 @@
                 document.getElementById('profilePictureDisplay').src = profileImage;
             }
         };
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>عرض المنتجات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 50px;
+        }
+        @media (max-width: 900px) {
+            body {
+                padding: 1px;
+            }
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .header-background {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 59px;
+            z-index: -1;
+            background: #008cff; /* Base color */
+            background: linear-gradient(135deg, #ff00b3, #00b7ff); /* Gradient for depth */
+        }
+        .header-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.15);
+            transform: skewY(-2deg);
+            transform-origin: 0;
+            z-index: -1;
+        }
+        .header-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
+            z-index: -1;
+        }
+        .back-button {
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            margin-right: 15px;
+            margin-left: -6px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-left: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #d9d9d9;
+        }
+        .back-button svg {
+            width: 24px;
+            height: 24px;
+            stroke: #000000;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .header-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            margin-right: -19px;
+            font-family: Cairo, sans-serif;
+        }
+        @media (max-width: 769px) {
+            .header-text {
+              font-size: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر مع الزر والنص -->
+    <div class="header">
+        <div class="header-background"></div>
+        <div class="back-button" onclick="window.history.back()">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+            </svg>
+        </div>
+        <div class="header-text">حسابي فى أدجر</div>
+    </div>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة التحميل</title>
+    <style>
+  .skeleton-loading {
+   position: fixed;
+   top: 62px;
+   left: 0;
+   width: 100%;
+   height: calc(100% - 67px); /* اجعل الارتفاع يأخذ باقي الشاشة */
+   background-color: #fff;
+   z-index: 1000;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+    }
+
+   /* دائرة التحميل */
+ .loading-circle {
+   border: 6px solid #e0e0e0; /* لون الحدود الرمادي الفاتح */
+   border-top: 6px solid #000000; /* لون الحدود العلوي (لون الدائرة) */
+   border-radius: 50%; /* يجعل الشكل دائريًا */
+   width: 60px;
+   height: 60px;
+   animation: spin 1.5s linear infinite; /* تدوير مستمر */
+       }
+
+
+        /* تأثير الدوران */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* الصفحة الحالية */
+        #main-content {
+            display: none; /* مخفية حتى اكتمال التحميل */
+        }
+
+        /* منع التمرير */
+        body.loading {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="loading">
+    <!-- صفحة التحميل -->
+    <div class="skeleton-loading">
+        <div class="loading-circle"></div>
+    </div>
+
+    <!-- الصفحة الحالية -->
+    <div id="main-content">
+        <!-- الصفحة الحالية التي قمت بتصميمها -->
+        <!-- ... -->
+    </div>
+    <script>
+        // إخفاء صفحة التحميل وإظهار الصفحة الحالية بعد اكتمال التحميل
+        window.addEventListener('load', () => {
+            const skeletonLoading = document.querySelector('.skeleton-loading');
+            const mainContent = document.getElementById('main-content');
+            const body = document.body;
+
+            // إخفاء صفحة التحميل
+            skeletonLoading.style.display = 'none';
+
+            // إظهار الصفحة الحالية
+            mainContent.style.display = 'block';
+
+            // إعادة تمكين التمرير
+            body.classList.remove('loading');
+        });
+        window.addEventListener('load', function() {
+document.querySelector('.gallery').style.display = 'flex';
+});
     </script>
 </body>
 </html>
