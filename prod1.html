@@ -97,7 +97,6 @@
 
 
 
-
     
     <!DOCTYPE html>
     <html lang="ar">
@@ -117,12 +116,12 @@
             }
     
             .gallery {
-    display: none; /* إخفاء العنصر أثناء التحميل */
-    align-items: flex-start;
-    flex-direction: row-reverse;
-    margin-top: 20px;
-    position: relative;
-}
+                display: none; /* إخفاء العنصر أثناء التحميل */
+                align-items: flex-start;
+                flex-direction: row-reverse;
+                margin-top: 20px;
+                position: relative;
+            }
     
             .main-media {
                 margin-left: 20px;
@@ -222,8 +221,6 @@
                 width: 24px;
                 height: 24px;
             }
-    
-         
     
             @media (max-width: 555px) {
                 .gallery {
@@ -374,11 +371,11 @@
                     transition: opacity 0.5s ease-in-out; /* إضافة تأثير Fade-In */
                     }
                     
-            @media (max-width: 556px) {
-                .arrow {
-                    display: none; /* إظهار السهمين في الشاشات الكبيرة */
-                }
-            }
+                    @media (max-width: 556px) {
+                        .arrow {
+                            display: none; /* إظهار السهمين في الشاشات الكبيرة */
+                        }
+                    }
                     .arrow.visible {
                     opacity: 1; /* إظهار السهام */
                     }
@@ -399,23 +396,45 @@
                     width: 30px; /* عرض السهم */
                     height: 34px; /* ارتفاع السهم */
                     }
-                    </style>
-                    <!-- سهم اليسار -->
-                    <button class="arrow left" onclick="prevMedia()">
+                    .media-counter {
+                        position: absolute;
+                        bottom: 12px;
+                        right: 90px; /* لأن الاتجاه RTL */
+                        background-color: rgba(255, 255, 255, 0.9);
+                        padding: 5px 15px;
+                        border-radius: 15px;
+                        font-size: 14px;
+                        direction: rtl; /* للتأكد من أن النص بالعربية يظهر بشكل صحيح */
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 1px solid rgba(0, 0, 0, 0.2); /* خط رفيع بلون رمادي */
+                    }
+                    @media (max-width: 555px) {
+    .media-counter {
+        bottom: 93px;
+        right: 14px;
+    }
+}
+                </style>
+                <!-- سهم اليسار -->
+                <button class="arrow left" onclick="prevMedia()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
                     </svg>
-                    </button>
-                    
-                    <!-- سهم اليمين -->
-                    <button class="arrow right" onclick="nextMedia()">
+                </button>
+                
+                <!-- سهم اليمين -->
+                <button class="arrow right" onclick="nextMedia()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+                        <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
                     </svg>
-                    </button>
-            
+                </button>
             </div>
-    
+            <div class="media-counter">
+                منتج <span id="currentMedia">1</span>/<span id="totalMedia">5</span>
+            </div>
             <div class="thumbnails">
                 <div class="scroll-bar"></div>
                 <div class="thumbnail active" data-src="1.jpg" data-type="image">
@@ -450,6 +469,80 @@
                 </div>
             </div>
         </div>
+    
+    <script>
+        // دالة لحساب عدد الصور والفيديوهات
+        function calculateTotalMedia() {
+            const totalMedia = document.querySelectorAll('.thumbnail').length;
+            document.getElementById('totalMedia').textContent = totalMedia;
+        }
+    
+        // دالة لتحديث الرقم الحالي
+        function updateCurrentMedia() {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            let currentIndex = 0;
+    
+            thumbnails.forEach((thumb, index) => {
+                if (thumb.classList.contains('active')) {
+                    currentIndex = index + 1; // لأن الفهرس يبدأ من 0
+                }
+            });
+    
+            document.getElementById('currentMedia').textContent = currentIndex;
+        }
+    
+        // تحديث الأرقام عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateTotalMedia();
+            updateCurrentMedia();
+        });
+    
+        // تحديث الأرقام عند النقر على الصور المصغرة
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                setTimeout(updateCurrentMedia, 100); // تأخير بسيط للتأكد من تحديث الصورة
+            });
+        });
+    
+        // تحديث الأرقام عند استخدام الأسهم
+        function nextMedia() {
+            // الكود الحالي للسهم الأيمن...
+            setTimeout(updateCurrentMedia, 100); // تحديث الرقم بعد التمرير
+        }
+    
+        function prevMedia() {
+            // الكود الحالي للسهم الأيسر...
+            setTimeout(updateCurrentMedia, 100); // تحديث الرقم بعد التمرير
+        }
+    
+        // إخفاء media-counter عند تشغيل الفيديو الأخير وإظهاره عند العودة للصور
+        const lastVideoThumbnail = document.querySelector('.thumbnail[data-type="video"]:last-child');
+        const mediaCounter = document.querySelector('.media-counter');
+    
+        lastVideoThumbnail.addEventListener('click', () => {
+            mediaCounter.style.display = 'none';
+        });
+    
+        lastVideoThumbnail.querySelector('video').addEventListener('play', () => {
+            mediaCounter.style.display = 'none';
+        });
+    
+        lastVideoThumbnail.querySelector('video').addEventListener('pause', () => {
+            mediaCounter.style.display = 'flex';
+        });
+    
+        lastVideoThumbnail.querySelector('video').addEventListener('ended', () => {
+            mediaCounter.style.display = 'flex';
+        });
+    
+        document.querySelectorAll('.thumbnail:not([data-type="video"])').forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                mediaCounter.style.display = 'flex';
+            });
+        });
+    </script>
+    </body>
+    </html>
     
 
 
@@ -637,7 +730,6 @@
 
 
 <h2 style="color: #202020; font-size: 17px; font-family: Cairo, sans-serif;  margin-right: 11px;">تفاصيل المنتج</h2>
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -687,7 +779,6 @@
         .button-left:hover {
             background-color: #3b3b3b;
         }
-
         /* الأنماط الخاصة بالنافذة الجديدة */
         .modal {
             display: none;
@@ -744,18 +835,15 @@
         .input-area button:hover {
             background-color: #252525;
         }
-
         /* التعديلات للهواتف */
         @media only screen and (max-width: 767px) {
             .button-left {
                 font-size: 12px;
                 padding: 8px 10px;
             }
-
             .button-left::after {
                 content: "إسأل";
             }
-
             .button-left span {
                 display: none;
             }
@@ -763,7 +851,6 @@
     </style>
 </head>
 <body>
-
 <div class="containe">
     <div class="text-right">
         <p>أسئل و أعرف</p>
@@ -773,7 +860,6 @@
         <span>إسأل عن المنتج</span>
     </button>
 </div>
-
 <!-- النافذة الجديدة -->
 <div class="modal" id="myModal">
     <div class="modal-content">
@@ -786,8 +872,6 @@
     </div>
 </div>
 
-
-
 <script>
     // الحصول على العناصر
     const openModalBtn = document.getElementById('openModalBtn');
@@ -795,25 +879,24 @@
     const sendMessageBtn = document.getElementById('sendMessageBtn');
     const messageInput = document.getElementById('messageInput');
     const messageArea = document.getElementById('messageArea');
-    
+
     // فتح النافذة
     openModalBtn.addEventListener('click', () => {
         modal.style.display = 'block';
-    
+
         // إضافة الرسالة تلقائيًا عند فتح النافذة (بدون تكرار)
         addIncomingMessageIfNotExists('شكرًا على سؤالك! سنقوم بالرد عليك قريبًا.');
-    
-        // وضع التركيز على حقل النص
-        messageInput.focus();
+
+        // **تم إزالة التركيز التلقائي على حقل النص**
     });
-    
+
     // إغلاق النافذة عند النقر خارجها
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
         }
     });
-    
+
     // إرسال الرسالة
     sendMessageBtn.addEventListener('click', () => {
         const messageText = messageInput.value.trim();
@@ -822,25 +905,25 @@
             const messageElement = document.createElement('p');
             messageElement.textContent = `أنت: ${messageText}`;
             messageArea.appendChild(messageElement);
-    
+
             // بناء محتوى البريد الإلكتروني
             const emailBody = `طلبي:\n${messageText}`;
-    
+
             // فتح البريد الإلكتروني
             const emailSubject = `اسأل عن منتج رقم|#1`;
             const emailLink = `mailto:adger.shop@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
             window.open(emailLink, '_blank');
-    
+
             // تنظيف حقل الإدخال
             messageInput.value = '';
         }
     });
-    
+
     // إضافة الرسائل الواردة (مع التحقق من التكرار)
     function addIncomingMessageIfNotExists(text) {
         const existingMessages = Array.from(messageArea.children).map(p => p.textContent);
         const messageToCheck = `adger.shop: ${text}`;
-    
+
         // التحقق مما إذا كانت الرسالة موجودة بالفعل
         if (!existingMessages.includes(messageToCheck)) {
             const messageElement = document.createElement('p');
@@ -848,7 +931,9 @@
             messageArea.appendChild(messageElement);
         }
     }
-    </script>
+</script>
+</body>
+</html>
 
 
 
