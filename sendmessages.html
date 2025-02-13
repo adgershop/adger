@@ -5,8 +5,18 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <style>
-        /* إضافة نمط للنص العلوي مع الخلفية الزرقاء */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        
+        /* Base styles */
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: relative;
+        }
         #topMessageContainer {
             background-color: hsl(0, 100%, 50%);
             color: white;
@@ -16,7 +26,6 @@
             font-weight: bold;
             width: 100%;
             box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
             display: flex;
             justify-content: flex-end;
             align-items: center;
@@ -46,15 +55,7 @@
             stroke-linecap: round;
             stroke-linejoin: round;
         }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            position: relative; /* Added for centering elements */
-        }
+        
         #messages {
             flex: 1;
             padding: 10px;
@@ -65,21 +66,21 @@
             border-bottom: 1px solid #ccc;
             padding-bottom: 10px;
         }
-        .message-text {
+        .message-text, .reply-text {
             display: block;
             padding: 10px;
             border-radius: 5px;
-            background-color: #f1f1f1;
         }
-        .message-author {
-            font-weight: bold;
+        .message-text {
+            background-color: #f1f1f1;
         }
         .reply-text {
             margin-left: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 12px;
             background-color: #e1e1e1;
+            margin-top: 12px;
+        }
+        .message-author {
+            font-weight: bold;
         }
         #inputContainer {
             display: flex;
@@ -107,11 +108,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-family: 'Cairo', sans-serif;
             text-align: center;
         }
         #emptyState span {
-            font-size: 48px; /* Increased size for better visibility */
+            font-size: 48px;
         }
         #emptyState p {
             font-size: 24px;
@@ -123,7 +123,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            display: none; /* Initially hidden */
+            display: none;
             justify-content: center;
             align-items: center;
         }
@@ -139,13 +139,40 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            #topMessageContainer {
+                font-size: 13px; /* أصغر حجم خط للشاشات الصغيرة */
+            }
+            #backArrow svg {
+                width: 20px;
+                height: 20px;
+            }
+            #messages {
+                padding: 5px; /* تقليل البادئات للمساحة */
+            }
+            .message-container, .message-text, .reply-text {
+                font-size: 14px; /* حجم خط أصغر للمحتوى */
+            }
+            #inputContainer {
+                flex-direction: column; /* لترتيب العناصر عموديًا على الشاشات الصغيرة */
+            }
+            #textInput {
+                margin-right: 0; /* إزالة المسافة الجانبية */
+                margin-bottom: 10px; /* مسافة بين الإدخال والزر */
+            }
+            #submitButton {
+                width: 100%; /* لجعل الزر يمتلئ العرض بالكامل */
+            }
+        }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <!-- إضافة عنصر جديد لعرض النص العلوي -->
     <div id="topMessageContainer">
         <span id="topMessage"></span>
-        <div id="backArrow" onclick="window.history.back();" style="margin-left: 12px; margin-right: 2px;">
+        <div id="backArrow" onclick="window.history.back();">
             <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
             </svg>            
@@ -167,18 +194,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // قراءة المتغير من URL
             const urlParams = new URLSearchParams(window.location.search);
             const message = urlParams.get('message');
             if (message) {
-                // عرض النص المخصص في أعلى الصفحة
                 document.getElementById('topMessage').textContent = ` ${decodeURIComponent(message)}`;
             } else {
-                // إذا لم يكن هناك نص مخصص، اجعل العنصر غير مرئي
                 document.getElementById('topMessageContainer').style.display = 'none';
             }
 
-            // تهيئة Firebase
             var firebaseConfig = {
                 apiKey: "AIzaSyA8a5iw8Sbu_RiPMJBpa0tm83KZpI7Tg-o",
                 authDomain: "project-536517259111.firebaseapp.com",
@@ -191,56 +214,49 @@
             firebase.initializeApp(firebaseConfig);
             var database = firebase.database();
 
-            // Show loading spinner
             document.getElementById('loadingSpinner').style.display = 'block';
 
-            // تحميل الرسائل الحالية عند تحميل الصفحة
             database.ref('messages').once('value').then(function(snapshot) {
-                document.getElementById('loadingSpinner').style.display = 'none'; // Hide spinner after loading
+                document.getElementById('loadingSpinner').style.display = 'none';
                 document.getElementById('messages').innerHTML = '';
                 if (snapshot.exists()) {
                     snapshot.forEach(function(childSnapshot) {
                         var message = childSnapshot.val();
                         displayMessage(childSnapshot.key, message);
                     });
-                    document.getElementById('emptyState').style.display = 'none'; // إخفاء العنصر إذا كانت هناك رسائل
+                    document.getElementById('emptyState').style.display = 'none';
                 } else {
-                    document.getElementById('emptyState').style.display = 'block'; // عرض العنصر إذا لم تكن هناك رسائل
+                    document.getElementById('emptyState').style.display = 'block';
                 }
             }).catch(function(error) {
                 console.error('Error loading messages:', error);
-                document.getElementById('loadingSpinner').style.display = 'none'; // Ensure spinner is hidden on error
-                // Optionally, show an error message to the user here
+                document.getElementById('loadingSpinner').style.display = 'none';
             });
 
-            // الاستماع للرسائل الجديدة
             database.ref('messages').on('child_added', function(snapshot) {
                 var message = snapshot.val();
                 displayMessage(snapshot.key, message);
-                document.getElementById('emptyState').style.display = 'none'; // إخفاء العنصر عند إضافة رسالة جديدة
+                document.getElementById('emptyState').style.display = 'none';
             });
 
-            // الاستماع لحذف الرسائل
             database.ref('messages').on('child_removed', function(snapshot) {
                 var messageId = snapshot.key;
                 var messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
                 if (messageElement) {
                     messageElement.remove();
                 }
-                // التحقق مما إذا كانت هناك رسائل أخرى
                 database.ref('messages').once('value').then(function(snapshot) {
                     if (!snapshot.exists()) {
-                        document.getElementById('emptyState').style.display = 'block'; // عرض العنصر إذا لم تكن هناك رسائل
+                        document.getElementById('emptyState').style.display = 'block';
                     }
                 });
             });
 
-            // إرسال رسالة جديدة
             document.getElementById('submitButton').addEventListener('click', function(event) {
                 event.preventDefault();
                 var textInput = document.getElementById('textInput').value;
-                var username = localStorage.getItem('username'); // استرداد اسم المستخدم من localStorage
-                var topMessageText = document.getElementById('topMessage').textContent; // قراءة النص العلوي
+                var username = localStorage.getItem('username');
+                var topMessageText = document.getElementById('topMessage').textContent;
                 if (!username) {
                     alert('يرجى تسجيل الدخول أولاً!');
                     window.location.href = 'account.html';
@@ -260,7 +276,6 @@
                 }
             });
 
-            // عرض الرسائل
             function displayMessage(messageId, message) {
                 var messageContainer = document.createElement('div');
                 messageContainer.className = 'message-container';
@@ -276,7 +291,6 @@
                 document.getElementById('messages').appendChild(messageContainer);
                 messageContainer.scrollIntoView();
 
-                // تحميل الردود الحالية
                 if (message.replies) {
                     Object.keys(message.replies).forEach(function(replyId) {
                         var reply = message.replies[replyId];
@@ -284,14 +298,12 @@
                     });
                 }
 
-                // الاستماع للردود الجديدة
                 database.ref('messages/' + messageId + '/replies').on('child_added', function(snapshot) {
                     var reply = snapshot.val();
                     displayReply(messageContainer, reply, snapshot.key);
                 });
             }
 
-            // عرض الردود
             function displayReply(messageContainer, reply, replyId) {
                 var existingReply = messageContainer.querySelector(`[data-reply-id="${replyId}"]`);
                 if (existingReply) {
@@ -311,7 +323,6 @@
                 messageContainer.appendChild(replyElement);
             }
 
-            // إضافة رد
             function addReply(messageId, replyText, replyAuthor, originalAuthor) {
                 var newReply = {
                     text: replyText,
