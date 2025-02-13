@@ -9,13 +9,13 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
             height: 100vh;
+            position: relative;
         }
 
+        /* زر الرجوع للخلف */
         .back-button {
-            position: absolute;
+            position: fixed; /* جعل الزر ثابت */
             top: 20px;
             right: 20px;
             width: 40px;
@@ -29,25 +29,35 @@
             cursor: pointer;
             font-size: 20px;
             text-decoration: none;
+            z-index: 1000; /* للتأكد من ظهوره فوق العناصر الأخرى */
         }
 
+        /* حاوية الرسالة وزر الإرسال */
         .message-container {
-            margin-top: auto;
-            padding: 20px;
+            position: fixed; /* جعل الحاوية ثابتة */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
             background-color: #f1f1f1;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل */
+            z-index: 999; /* للتأكد من ظهورها فوق العناصر الأخرى */
         }
 
+        /* حقل إدخال الرسالة */
         .message-input {
-            width: calc(100% - 80px);
+            width: calc(100% - 90px); /* عرض الحقل مع ترك مساحة لزر الإرسال */
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+            margin-right: 10px; /* مسافة بين الحقل وزر الإرسال */
         }
 
+        /* زر الإرسال */
         .send-button {
             padding: 10px 20px;
             background-color: #4CAF50; /* لون أخضر */
@@ -56,6 +66,10 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            height: 40px; /* ارتفاع زر الإرسال يساوي ارتفاع الحقل */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
