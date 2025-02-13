@@ -52,7 +52,6 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            height: 100vh;
             position: relative; /* Added for centering elements */
         }
         #messages {
@@ -135,10 +134,7 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+      
     </style>
 </head>
 <body>
@@ -165,4 +161,151 @@
         <button id="submitButton">Send</button>
     </div>
 
-    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // تهيئة Firebase
+            var firebaseConfig = {
+                apiKey: "AIzaSyA8a5iw8Sbu_RiPMJBpa0tm83KZpI7Tg-o",
+                authDomain: "project-536517259111.firebaseapp.com",
+                databaseURL: "https://adger-12f9b-default-rtdb.firebaseio.com",
+                projectId: "adger-12f9b",
+                storageBucket: "adger-12f9b.appspot.com",
+                messagingSenderId: "536517259111",
+                appId: "1:536517259111:web:abcdef123456"
+            };
+            firebase.initializeApp(firebaseConfig);
+            var database = firebase.database();
+
+            // Show loading spinner
+            document.getElementById('loadingSpinner').style.display = 'block';
+
+            // تحميل الرسائل الحالية عند تحميل الصفحة
+            database.ref('messages').once('value').then(function(snapshot) {
+                document.getElementById('loadingSpinner').style.display = 'none'; // Hide spinner after loading
+                document.getElementById('messages').innerHTML = '';
+                if (snapshot.exists()) {
+                    snapshot.forEach(function(childSnapshot) {
+                        var message = childSnapshot.val();
+                        displayMessage(childSnapshot.key, message);
+                    });
+                    document.getElementById('emptyState').style.display = 'none'; // إخفاء العنصر إذا كانت هناك رسائل
+                } else {
+                    document.getElementById('emptyState').style.display = 'block'; // عرض العنصر إذا لم تكن هناك رسائل
+                }
+            }).catch(function(error) {
+                console.error('Error loading messages:', error);
+                document.getElementById('loadingSpinner').style.display = 'none'; // Ensure spinner is hidden on error
+                // Optionally, show an error message to the user here
+            });
+
+            // الاستماع للرسائل الجديدة
+            database.ref('messages').on('child_added', function(snapshot) {
+                var message = snapshot.val();
+                displayMessage(snapshot.key, message);
+                document.getElementById('emptyState').style.display = 'none'; // إخفاء العنصر عند إضافة رسالة جديدة
+            });
+
+            // الاستماع لحذف الرسائل
+            database.ref('messages').on('child_removed', function(snapshot) {
+                var messageId = snapshot.key;
+                var messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
+                if (messageElement) {
+                    messageElement.remove();
+                }
+                // التحقق مما إذا كانت هناك رسائل أخرى
+                database.ref('messages').once('value').then(function(snapshot) {
+                    if (!snapshot.exists()) {
+                        document.getElementById('emptyState').style.display = 'block'; // عرض العنصر إذا لم تكن هناك رسائل
+                    }
+                });
+            });
+
+            // إرسال رسالة جديدة
+            document.getElementById('submitButton').addEventListener('click', function(event) {
+                event.preventDefault();
+                var textInput = document.getElementById('textInput').value;
+                var username = localStorage.getItem('username'); // استرداد اسم المستخدم من localStorage
+                if (!username) {
+                    alert('يرجى تسجيل الدخول أولاً!');
+                    window.location.href = 'account.html';
+                    return;
+                }
+                if (textInput.trim() !== "") {
+                    database.ref('messages').push().set({
+                        text: textInput,
+                        author: username,
+                        replies: []
+                    }).then(function() {
+                        document.getElementById('textInput').value = '';
+                    }).catch(function(error) {
+                        console.error('Error sending message: ', error);
+                    });
+                }
+            });
+
+            // عرض الرسائل
+            function displayMessage(messageId, message) {
+                var messageContainer = document.createElement('div');
+                messageContainer.className = 'message-container';
+                messageContainer.setAttribute('data-message-id', messageId);
+                var messageAuthor = document.createElement('span');
+                messageAuthor.className = 'message-author';
+                messageAuthor.textContent = message.author + ': ';
+                var messageText = document.createElement('span');
+                messageText.className = 'message-text';
+                messageText.textContent = message.text;
+                messageContainer.appendChild(messageAuthor);
+                messageContainer.appendChild(messageText);
+                document.getElementById('messages').appendChild(messageContainer);
+                messageContainer.scrollIntoView();
+
+                // تحميل الردود الحالية
+                if (message.replies) {
+                    Object.keys(message.replies).forEach(function(replyId) {
+                        var reply = message.replies[replyId];
+                        displayReply(messageContainer, reply, replyId);
+                    });
+                }
+
+                // الاستماع للردود الجديدة
+                database.ref('messages/' + messageId + '/replies').on('child_added', function(snapshot) {
+                    var reply = snapshot.val();
+                    displayReply(messageContainer, reply, snapshot.key);
+                });
+            }
+
+            // عرض الردود
+            function displayReply(messageContainer, reply, replyId) {
+                var existingReply = messageContainer.querySelector(`[data-reply-id="${replyId}"]`);
+                if (existingReply) {
+                    return;
+                }
+                var replyElement = document.createElement('div');
+                replyElement.className = 'reply-text';
+                replyElement.setAttribute('data-reply-id', replyId);
+                var replyAuthor = document.createElement('span');
+                replyAuthor.className = 'message-author';
+                replyAuthor.textContent = reply.author + ': ';
+                var replyText = document.createElement('span');
+                replyText.className = 'message-text';
+                replyText.textContent = reply.text;
+                replyElement.appendChild(replyAuthor);
+                replyElement.appendChild(replyText);
+                messageContainer.appendChild(replyElement);
+            }
+
+            // إضافة رد
+            function addReply(messageId, replyText, replyAuthor, originalAuthor) {
+                var newReply = {
+                    text: replyText,
+                    author: replyAuthor,
+                    originalAuthor: originalAuthor
+                };
+                database.ref('messages/' + messageId + '/replies').push(newReply).catch(function(error) {
+                    console.error('Error sending reply: ', error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
