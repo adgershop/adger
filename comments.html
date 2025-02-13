@@ -1,79 +1,74 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة بسيطة</title>
+    <title>صفحة مع زر الرجوع وحقل الرسالة</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
             height: 100vh;
-            position: relative;
         }
 
-        /* الخلفية الدائرية الرمادية في الزاوية العلوية اليمنى */
-        .background-circle {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            background-color: #808080; /* رمادي */
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        /* زر X */
-        .close-button {
+        .back-button {
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 30px;
-            color: #FFFFFF; /* أبيض */
-            background-color: transparent;
-            border: none;
-            z-index: 2;
-            cursor: pointer;
-        }
-
-        /* حقل الإدخال وزر الإرسال */
-        .input-area {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
+            width: 40px;
+            height: 40px;
+            background-color: #808080; /* لون رصاصي */
+            border-radius: 50%; /* يجعل الزر دائريًا */
+            color: white;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 0 20px;
-            box-sizing: border-box;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            text-decoration: none;
         }
 
-        #textInput {
-            flex: 1;
+        .message-container {
+            margin-top: auto;
+            padding: 20px;
+            background-color: #f1f1f1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .message-input {
+            width: calc(100% - 80px);
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-right: 10px;
+            font-size: 16px;
         }
 
-        #submitButton {
+        .send-button {
             padding: 10px 20px;
-            background-color: #000;
+            background-color: #4CAF50; /* لون أخضر */
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <div class="background-circle"></div>
-    <button class="close-button">&times;</button>
-    
-    <div class="input-area">
-        <input type="text" id="textInput" placeholder="أدخل النص هنا">
-        <button id="submitButton">إرسال</button>
+
+    <!-- زر الرجوع للخلف -->
+    <a href="#" class="back-button" onclick="history.back()">X</a>
+
+    <!-- حقل الرسالة وزر الإرسال -->
+    <div class="message-container">
+        <input type="text" class="message-input" placeholder="اكتب رسالتك هنا...">
+        <button class="send-button">إرسال</button>
     </div>
+
 </body>
 </html>
