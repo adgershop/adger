@@ -1,88 +1,300 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة مع زر الرجوع وحقل الرسالة</title>
+    <title>Firebase Chat</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             height: 100vh;
-            position: relative;
-        }
-
-        /* زر الرجوع للخلف */
-        .back-button {
-            position: fixed; /* جعل الزر ثابت */
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background-color: #808080; /* لون رصاصي */
-            border-radius: 50%; /* يجعل الزر دائريًا */
-            color: white;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 20px;
-            text-decoration: none;
-            z-index: 1000; /* للتأكد من ظهوره فوق العناصر الأخرى */
+            flex-direction: column;
         }
-
-        /* حاوية الرسالة وزر الإرسال */
-        .message-container {
-            position: fixed; /* جعل الحاوية ثابتة */
-            bottom: 0;
-            left: 0;
-            right: 0;
+        
+        #messages {
+            flex: 1;
             padding: 10px;
-            background-color: #f1f1f1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل */
-            z-index: 999; /* للتأكد من ظهورها فوق العناصر الأخرى */
+            overflow-y: auto;
         }
-
-        /* حقل إدخال الرسالة */
-        .message-input {
-            width: calc(100% - 90px); /* عرض الحقل مع ترك مساحة لزر الإرسال */
+        
+        .message-container {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        
+        .message-text, .reply-text {
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+        
+        .message-author {
+            font-weight: bold;
+        }
+        
+        .reply-text {
+            margin-left: 20px;
+            margin-top: 12px;
+            background-color: #e1e1e1;
+        }
+        
+        #inputContainer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        #textInput {
+            flex: 1;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 16px;
-            margin-right: 10px; /* مسافة بين الحقل وزر الإرسال */
+            margin-right: 10px;
         }
-
-        /* زر الإرسال */
-        .send-button {
+        
+        #submitButton {
             padding: 10px 20px;
-            background-color: #4CAF50; /* لون أخضر */
-            color: white;
             border: none;
+            background-color: #000000;
+            color: white;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            height: 40px; /* ارتفاع زر الإرسال يساوي ارتفاع الحقل */
-            display: flex;
-            align-items: center;
+            margin-right: 17px;
+        }
+        
+        #emptyState {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cairo', sans-serif;
+            text-align: center;
+        }
+        
+        #emptyState span {
+            font-size: 48px;
+        }
+        
+        #emptyState p {
+            font-size: 24px;
+            color: #666;
+            margin: 0;
+        }
+        
+        #loadingSpinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
             justify-content: center;
+            align-items: center;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* New styles for the close button */
+        #closeButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 33px;
+            height: 33px;
+            background-color: #dbdbdb; /* Gray background */
+            border-radius: 50%; /* Circular shape */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000; /* Ensure it's above other elements */
+        }
+
+        #closeButton svg {
+            width: 19px;
+            height: 19px;
+            stroke: rgba(0, 0, 0, 0.521);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
     </style>
 </head>
 <body>
-
-    <!-- زر الرجوع للخلف -->
-    <a href="#" class="back-button" onclick="history.back()">X</a>
-
-    <!-- حقل الرسالة وزر الإرسال -->
-    <div class="message-container">
-        <input type="text" class="message-input" placeholder="اكتب رسالتك هنا...">
-        <button class="send-button">إرسال</button>
+    <div id="messages"></div>
+    <div id="emptyState">
+        <span>📭</span>
+        <p>لا توجد رسائل</p>
+    </div>
+    <div id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+    <div id="inputContainer">
+        <input type="text" id="textInput" placeholder="Enter message" required>
+        <button id="submitButton">Send</button>
+    </div>
+    <!-- Close button -->
+    <div id="closeButton" onclick="window.history.back();">
+        <svg viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
+        </svg>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyA8a5iw8Sbu_RiPMJBpa0tm83KZpI7Tg-o",
+                authDomain: "project-536517259111.firebaseapp.com",
+                databaseURL: "https://adger-12f9b-default-rtdb.firebaseio.com",
+                projectId: "adger-12f9b",
+                storageBucket: "adger-12f9b.appspot.com",
+                messagingSenderId: "536517259111",
+                appId: "1:536517259111:web:abcdef123456"
+            };
+            firebase.initializeApp(firebaseConfig);
+            var database = firebase.database();
+
+            // Show loading spinner
+            document.getElementById('loadingSpinner').style.display = 'block';
+
+            // Load current messages when the page loads
+            database.ref('messages').once('value').then(function(snapshot) {
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('messages').innerHTML = '';
+                if (snapshot.exists()) {
+                    snapshot.forEach(function(childSnapshot) {
+                        var message = childSnapshot.val();
+                        displayMessage(childSnapshot.key, message);
+                    });
+                    document.getElementById('emptyState').style.display = 'none';
+                } else {
+                    document.getElementById('emptyState').style.display = 'block';
+                }
+            }).catch(function(error) {
+                console.error('Error loading messages:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
+            });
+
+            // Listen for new messages
+            database.ref('messages').on('child_added', function(snapshot) {
+                var message = snapshot.val();
+                displayMessage(snapshot.key, message);
+                document.getElementById('emptyState').style.display = 'none';
+            });
+
+            // Listen for messages being deleted
+            database.ref('messages').on('child_removed', function(snapshot) {
+                var messageId = snapshot.key;
+                var messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
+                if (messageElement) {
+                    messageElement.remove();
+                }
+                database.ref('messages').once('value').then(function(snapshot) {
+                    if (!snapshot.exists()) {
+                        document.getElementById('emptyState').style.display = 'block';
+                    }
+                });
+            });
+
+            // Send a new message
+            document.getElementById('submitButton').addEventListener('click', function(event) {
+                event.preventDefault();
+                var textInput = document.getElementById('textInput').value;
+                var username = localStorage.getItem('username');
+                if (!username) {
+                    alert('يرجى تسجيل الدخول أولاً!');
+                    window.location.href = 'account.html';
+                    return;
+                }
+                if (textInput.trim() !== "") {
+                    database.ref('messages').push().set({
+                        text: textInput,
+                        author: username,
+                        replies: []
+                    }).then(function() {
+                        document.getElementById('textInput').value = '';
+                    }).catch(function(error) {
+                        console.error('Error sending message: ', error);
+                    });
+                }
+            });
+
+            // Display messages
+            function displayMessage(messageId, message) {
+                var messageContainer = document.createElement('div');
+                messageContainer.className = 'message-container';
+                messageContainer.setAttribute('data-message-id', messageId);
+                var messageAuthor = document.createElement('span');
+                messageAuthor.className = 'message-author';
+                messageAuthor.textContent = message.author + ': ';
+                var messageText = document.createElement('span');
+                messageText.className = 'message-text';
+                messageText.textContent = message.text;
+                messageContainer.appendChild(messageAuthor);
+                messageContainer.appendChild(messageText);
+                document.getElementById('messages').appendChild(messageContainer);
+                messageContainer.scrollIntoView();
+
+                // Load current replies
+                if (message.replies) {
+                    Object.keys(message.replies).forEach(function(replyId) {
+                        var reply = message.replies[replyId];
+                        displayReply(messageContainer, reply, replyId);
+                    });
+                }
+
+                // Listen for new replies
+                database.ref('messages/' + messageId + '/replies').on('child_added', function(snapshot) {
+                    var reply = snapshot.val();
+                    displayReply(messageContainer, reply, snapshot.key);
+                });
+            }
+
+            // Display replies
+            function displayReply(messageContainer, reply, replyId) {
+                var existingReply = messageContainer.querySelector(`[data-reply-id="${replyId}"]`);
+                if (existingReply) {
+                    return;
+                }
+                var replyElement = document.createElement('div');
+                replyElement.className = 'reply-text';
+                replyElement.setAttribute('data-reply-id', replyId);
+                var replyAuthor = document.createElement('span');
+                replyAuthor.className = 'message-author';
+                replyAuthor.textContent = reply.author + ': ';
+                var replyText = document.createElement('span');
+                replyText.className = 'message-text';
+                replyText.textContent = reply.text;
+                replyElement.appendChild(replyAuthor);
+                replyElement.appendChild(replyText);
+                messageContainer.appendChild(replyElement);
+            }
+        });
+    </script>
 </body>
 </html>
