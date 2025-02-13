@@ -396,12 +396,13 @@
                     }
                     .media-counter {
                         position: absolute;
+                        font-family: 'Cairo', sans-serif;
                         bottom: 12px;
                         right: 90px; /* لأن الاتجاه RTL */
-                        background-color: rgba(255, 255, 255, 0.9);
-                        padding: 5px 15px;
+                        background-color: rgba(255, 255, 255, 0.767);
+                        padding: 2px 12px;
                         border-radius: 15px;
-                        font-size: 14px;
+                        font-size: 13px;
                         direction: rtl; /* للتأكد من أن النص بالعربية يظهر بشكل صحيح */
                         cursor: pointer;
                         display: flex;
@@ -416,7 +417,6 @@
         right: 15px;
         font-size: 11px;
         padding: 3px 13px;
-        font-family: 'Cairo', sans-serif;
     }
 }
                 </style>
@@ -781,29 +781,7 @@
         .button-left:hover {
             background-color: #3b3b3b;
         }
-        /* الأنماط الخاصة بالنافذة الجديدة */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 600px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+        
         .message-area {
             height: 200px;
             overflow-y: auto;
@@ -852,90 +830,29 @@
         }
     </style>
 </head>
-<body>
-<div class="containe">
-    <div class="text-right">
-        <p>أسئل و أعرف</p>
-        <p class="text-small">اسأل و أعرف تفاصيل أكثر عن المنتج</p>
-    </div>
-    <button class="button-left" id="openModalBtn">
-        <span>إسأل عن المنتج</span>
-    </button>
-</div>
-<!-- النافذة الجديدة -->
-<div class="modal" id="myModal">
-    <div class="modal-content">
-        <h2>مرحبًا! إسأل هنا</h2>
-        <div class="message-area" id="messageArea"></div>
-        <div class="input-area">
-            <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." />
-            <button id="sendMessageBtn">إرسال</button>
+    </head>
+    <body>
+        <div class="containe">
+            <div class="text-right">
+                <p>أسئل و أعرف</p>
+                <p class="text-small">اسأل و أعرف تفاصيل أكثر عن المنتج</p>
+            </div>
+            <button class="button-left" id="openModalBtn">
+                <span>إسأل عن المنتج</span>
+            </button>
         </div>
-    </div>
-</div>
+    
+        <script>
+            document.getElementById('openModalBtn').addEventListener('click', function() {
+                // إعادة التوجيه إلى صفحة sendmessages.html مع إضافة متغير استعلام
+                const message = "مرحبًا أريد معرفة تفاصيل أكثر عن المنتج";
+       const encodedMessage = encodeURIComponent(message);
+   window.location.href = `sendmessages.html?message=${encodedMessage}`;
+            });
+        </script>
+    </body>
+    </html>
 
-<script>
-    // الحصول على العناصر
-    const openModalBtn = document.getElementById('openModalBtn');
-    const modal = document.getElementById('myModal');
-    const sendMessageBtn = document.getElementById('sendMessageBtn');
-    const messageInput = document.getElementById('messageInput');
-    const messageArea = document.getElementById('messageArea');
-
-    // فتح النافذة
-    openModalBtn.addEventListener('click', () => {
-        modal.style.display = 'block';
-
-        // إضافة الرسالة تلقائيًا عند فتح النافذة (بدون تكرار)
-        addIncomingMessageIfNotExists('شكرًا على سؤالك! سنقوم بالرد عليك قريبًا.');
-
-        // **تم إزالة التركيز التلقائي على حقل النص**
-    });
-
-    // إغلاق النافذة عند النقر خارجها
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // إرسال الرسالة
-    sendMessageBtn.addEventListener('click', () => {
-        const messageText = messageInput.value.trim();
-        if (messageText !== '') {
-            // إضافة الرسالة إلى منطقة العرض
-            const messageElement = document.createElement('p');
-            messageElement.textContent = `أنت: ${messageText}`;
-            messageArea.appendChild(messageElement);
-
-            // بناء محتوى البريد الإلكتروني
-            const emailBody = `طلبي:\n${messageText}`;
-
-            // فتح البريد الإلكتروني
-            const emailSubject = `اسأل عن منتج رقم|#1`;
-            const emailLink = `mailto:adger.shop@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-            window.open(emailLink, '_blank');
-
-            // تنظيف حقل الإدخال
-            messageInput.value = '';
-        }
-    });
-
-    // إضافة الرسائل الواردة (مع التحقق من التكرار)
-    function addIncomingMessageIfNotExists(text) {
-        const existingMessages = Array.from(messageArea.children).map(p => p.textContent);
-        const messageToCheck = `adger.shop: ${text}`;
-
-        // التحقق مما إذا كانت الرسالة موجودة بالفعل
-        if (!existingMessages.includes(messageToCheck)) {
-            const messageElement = document.createElement('p');
-            messageElement.textContent = messageToCheck;
-            messageArea.appendChild(messageElement);
-        }
-    }
-</script>
-</body>
-</html>
 
 
 
