@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Firebase Chat</title>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
@@ -18,14 +19,16 @@
         
         #messages {
             flex: 1;
-            padding: 10px;
+            padding: 10px 5px 100px;
             overflow-y: auto;
         }
         
         .message-container {
             margin-bottom: 10px;
+            padding: 10px;
+            max-width: 100%;
+            word-wrap: break-word;
             border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
         }
         
         .message-text, .reply-text {
@@ -33,10 +36,13 @@
             padding: 10px;
             border-radius: 5px;
             background-color: #f1f1f1;
+            margin-top: 5px;
         }
         
         .message-author {
             font-weight: bold;
+            font-size: 0.9em;
+            color: #666;
         }
         
         .reply-text {
@@ -62,6 +68,8 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-right: 10px;
+            min-height: 50px;
+            font-size: 14px;
         }
         
         #submitButton {
@@ -118,20 +126,19 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* New styles for the close button */
         #closeButton {
             position: fixed;
             top: 20px;
             right: 20px;
             width: 33px;
             height: 33px;
-            background-color: #dbdbdb; /* Gray background */
-            border-radius: 50%; /* Circular shape */
+            background-color: #dbdbdb;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            z-index: 1000; /* Ensure it's above other elements */
+            z-index: 1000;
         }
 
         #closeButton svg {
@@ -141,6 +148,49 @@
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 600px) {
+            body {
+                font-size: 16px;
+            }
+            
+            #textInput {
+                padding: 15px;
+                font-size: 16px;
+                min-height: 60px;
+            }
+            
+            #submitButton {
+                padding: 15px 25px;
+                font-size: 16px;
+            }
+            
+            .message-text, .reply-text {
+                font-size: 15px;
+                max-width: 85%;
+                word-break: break-word;
+            }
+            
+            #closeButton {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            #inputContainer {
+                padding: 15px;
+            }
+            
+            #messages {
+                padding-bottom: 100px;
+            }
+            
+            .message-author {
+                font-size: 0.8em;
+            }
         }
     </style>
 </head>
@@ -157,7 +207,6 @@
         <input type="text" id="textInput" placeholder="Enter message" required>
         <button id="submitButton">Send</button>
     </div>
-    <!-- Close button -->
     <div id="closeButton" onclick="window.history.back();">
         <svg viewBox="0 0 24 24">
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
@@ -166,7 +215,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Firebase configuration
             var firebaseConfig = {
                 apiKey: "AIzaSyA8a5iw8Sbu_RiPMJBpa0tm83KZpI7Tg-o",
                 authDomain: "project-536517259111.firebaseapp.com",
@@ -179,10 +227,8 @@
             firebase.initializeApp(firebaseConfig);
             var database = firebase.database();
 
-            // Show loading spinner
             document.getElementById('loadingSpinner').style.display = 'block';
 
-            // Load current messages when the page loads
             database.ref('messages').once('value').then(function(snapshot) {
                 document.getElementById('loadingSpinner').style.display = 'none';
                 document.getElementById('messages').innerHTML = '';
@@ -200,14 +246,12 @@
                 document.getElementById('loadingSpinner').style.display = 'none';
             });
 
-            // Listen for new messages
             database.ref('messages').on('child_added', function(snapshot) {
                 var message = snapshot.val();
                 displayMessage(snapshot.key, message);
                 document.getElementById('emptyState').style.display = 'none';
             });
 
-            // Listen for messages being deleted
             database.ref('messages').on('child_removed', function(snapshot) {
                 var messageId = snapshot.key;
                 var messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
@@ -221,7 +265,6 @@
                 });
             });
 
-            // Send a new message
             document.getElementById('submitButton').addEventListener('click', function(event) {
                 event.preventDefault();
                 var textInput = document.getElementById('textInput').value;
@@ -244,7 +287,6 @@
                 }
             });
 
-            // Display messages
             function displayMessage(messageId, message) {
                 var messageContainer = document.createElement('div');
                 messageContainer.className = 'message-container';
@@ -260,7 +302,6 @@
                 document.getElementById('messages').appendChild(messageContainer);
                 messageContainer.scrollIntoView();
 
-                // Load current replies
                 if (message.replies) {
                     Object.keys(message.replies).forEach(function(replyId) {
                         var reply = message.replies[replyId];
@@ -268,14 +309,12 @@
                     });
                 }
 
-                // Listen for new replies
                 database.ref('messages/' + messageId + '/replies').on('child_added', function(snapshot) {
                     var reply = snapshot.val();
                     displayReply(messageContainer, reply, snapshot.key);
                 });
             }
 
-            // Display replies
             function displayReply(messageContainer, reply, replyId) {
                 var existingReply = messageContainer.querySelector(`[data-reply-id="${replyId}"]`);
                 if (existingReply) {
