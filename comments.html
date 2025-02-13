@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Firebase Chat</title>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
@@ -17,46 +17,45 @@
         body {
             font-family: Arial, sans-serif;
             height: 100vh;
-            overflow: hidden;
             background: #f5f5f5;
+            position: relative;
         }
         
         #messages {
-            height: calc(100vh - 80px);
-            padding: 10px 5px;
+            height: 500px; /* ارتفاع ثابت */
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            padding: 15px;
+            margin: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .message-container {
-            margin: 8px;
-            padding: 12px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            max-width: 90%;
-            word-break: break-word;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
         }
         
         .message-text, .reply-text {
             display: block;
-            padding: 8px;
-            border-radius: 4px;
+            padding: 10px 15px;
+            border-radius: 20px;
             background-color: #f1f1f1;
-            margin-top: 6px;
-            font-size: 14px;
+            margin-top: 8px;
+            max-width: 80%;
+            word-break: break-word;
         }
         
         .message-author {
             font-weight: 600;
-            font-size: 0.8em;
+            font-size: 0.85em;
             color: #444;
         }
         
         .reply-text {
-            margin-left: 15px;
+            margin-left: 30px;
             background-color: #e8e8e8;
-            font-size: 13px;
         }
         
         #inputContainer {
@@ -65,30 +64,28 @@
             width: 100%;
             background: white;
             display: flex;
-            padding: 10px;
+            padding: 15px;
             border-top: 1px solid #ddd;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
         }
         
         #textInput {
             flex: 1;
-            padding: 12px;
+            padding: 12px 20px;
             border: 1px solid #ccc;
-            border-radius: 20px;
+            border-radius: 25px;
             margin-right: 10px;
-            min-height: 45px;
             font-size: 14px;
             outline: none;
         }
         
         #submitButton {
-            padding: 12px 20px;
+            padding: 12px 30px;
             border: none;
             background-color: #000;
             color: white;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
-            font-weight: 500;
             transition: opacity 0.2s;
         }
 
@@ -140,10 +137,10 @@
         
         #closeButton {
             position: fixed;
-            top: 12px;
-            right: 12px;
-            width: 35px;
-            height: 35px;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
             background-color: rgba(219, 219, 219, 0.9);
             border-radius: 50%;
             display: flex;
@@ -155,59 +152,10 @@
         }
 
         #closeButton svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             stroke: rgba(0, 0, 0, 0.7);
             stroke-width: 2;
-        }
-
-        @media (max-width: 600px) {
-            #messages {
-                height: calc(100vh - 70px);
-                padding: 5px;
-            }
-            
-            .message-container {
-                max-width: 95%;
-                margin: 6px;
-                padding: 10px;
-            }
-            
-            #textInput {
-                padding: 10px 15px;
-                font-size: 15px;
-                min-height: 50px;
-            }
-            
-            #submitButton {
-                padding: 14px 22px;
-                font-size: 15px;
-            }
-            
-            .message-text, .reply-text {
-                font-size: 13px;
-            }
-            
-            #closeButton {
-                width: 30px;
-                height: 30px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            #messages {
-                height: calc(100vh - 65px);
-            }
-            
-            #textInput {
-                min-height: 45px;
-                padding: 10px;
-                font-size: 14px;
-            }
-            
-            #submitButton {
-                padding: 12px 18px;
-            }
         }
     </style>
 </head>
@@ -249,7 +197,6 @@
             const loadingSpinner = document.getElementById('loadingSpinner');
             loadingSpinner.style.display = 'block';
 
-            // تحميل الرسائل الأولية
             messagesRef.once('value').then(snapshot => {
                 loadingSpinner.style.display = 'none';
                 document.getElementById('messages').innerHTML = '';
@@ -267,7 +214,6 @@
                 loadingSpinner.style.display = 'none';
             });
 
-            // إرسال الرسائل
             document.getElementById('submitButton').addEventListener('click', e => {
                 e.preventDefault();
                 const textInput = document.getElementById('textInput');
@@ -295,13 +241,11 @@
                 }
             });
 
-            // عرض الرسائل الجديدة
             messagesRef.on('child_added', snapshot => {
                 createMessageElement(snapshot.key, snapshot.val());
                 document.getElementById('emptyState').style.display = 'none';
             });
 
-            // حذف الرسائل
             messagesRef.on('child_removed', snapshot => {
                 const messageElement = document.querySelector(`[data-message-id="${snapshot.key}"]`);
                 if (messageElement) messageElement.remove();
@@ -327,7 +271,6 @@
                 document.getElementById('messages').appendChild(container);
                 container.scrollIntoView({ behavior: 'smooth' });
 
-                // متابعة الردود الجديدة
                 database.ref(`messages/${id}/replies`).on('child_added', snapshot => {
                     addReply(container, snapshot.key, snapshot.val());
                 });
@@ -353,13 +296,6 @@
                         snapshot.exists() ? 'none' : 'block';
                 });
             }
-
-            // إدارة الكيبورد
-            window.addEventListener('resize', () => {
-                if (document.activeElement.tagName === 'INPUT') {
-                    window.scrollTo(0, document.body.scrollHeight);
-                }
-            });
         });
     </script>
 </body>
