@@ -819,7 +819,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نص وزر في نفس السطر</title>
     <style>
-        /* الأنماط الأساسية */
         .containe {
             display: flex;
             justify-content: space-between;
@@ -861,7 +860,21 @@
         .button-left:hover {
             background-color: #3b3b3b;
         }
+        /* التعديلات للهواتف */
+        @media only screen and (max-width: 767px) {
+            .button-left {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+            .button-left::after {
+                content: "إسأل";
+            }
+            .button-left span {
+                display: none;
+            }
+        }
     </style>
+
 </head>
 <body>
 <div class="containe">

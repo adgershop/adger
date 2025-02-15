@@ -84,14 +84,40 @@
         
         .hidden-message {
             width: 100%;
-            background-color: rgba(0, 89, 255, 0.1); /* Light blue background */
-            text-align: right;
-            padding: 10px 12px 10px 0; /* أضف 12px على اليمين */
+            background-color: #f5f5f5; /* Light gray background */
+            color: #000000;
+            padding: 10px 12px;
             font-size: 15px;
             position: fixed;
-            bottom: 65px; /* Adjust based on the height of #inputContainer */
+            top: -1px; /* Adjust based on the height of #inputContainer */
             left: 0;
             z-index: 1;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            gap: 2px;
+            box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
+        }
+
+        .back-arrow {
+            width: 24px; /* Match the size from previous examples */
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .back-arrow svg {
+            width: 16px; /* Inner SVG size reduced to match previous arrow */
+            height: 16px;
+            margin-top: 5px; /* Added to match previous example */
+            fill: none; /* Use stroke instead for better visibility */
+            stroke: rgb(0, 0, 0);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        #hiddenMessageText {
+            margin-right: 10px; /* Adjusted to match the spacing in your example */
         }
 
         #inputContainer {
@@ -114,14 +140,14 @@
             font-size: 14px;
             outline: none;
             direction: rtl; /* اتجاه النص من اليمين لليسار */
-    text-align: right; /* محاذاة النص إلى اليمين */
-    padding: 12px 20px 12px 14px; /* تعديل padding لإعطاء مساحة على اليسار */
-}
+            text-align: right; /* محاذاة النص إلى اليمين */
+            padding: 12px 20px 12px 14px; /* تعديل padding لإعطاء مساحة على اليسار */
+        }
 
-#textInput::placeholder {
-    direction: rtl; /* اتجاه النص في placeholder */
-    text-align: right; /* محاذاة النص في placeholder */
-}
+        #textInput::placeholder {
+            direction: rtl; /* اتجاه النص في placeholder */
+            text-align: right; /* محاذاة النص في placeholder */
+        }
         
         #submitButton {
             padding: 12px 30px;
@@ -179,29 +205,6 @@
             100% { transform: rotate(360deg); }
         }
         
-        #closeButton {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(219, 219, 219, 0.9);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1000;
-            backdrop-filter: blur(2px);
-        }
-
-        #closeButton svg {
-            width: 20px;
-            height: 20px;
-            stroke: rgba(0, 0, 0, 0.7);
-            stroke-width: 2;
-        }
-
         /* Specific styling for admin messages */
         .message-container .message-content[data-author="admin"] {
             background-color: rgba(0, 89, 255, 0.1);
@@ -209,11 +212,13 @@
     </style>
 </head>
 <body>
+    <div style="padding-bottom: 12px; color: #ffffff;">النص الأول</div>
+
     <div id="messages"></div>
     <div id="emptyState">
         <span>📭</span>
         <p>لا توجد رسائل</p>
-    </div><br><br><br>
+    </div><br><br>
     <div id="loadingSpinner">
         <div class="spinner"></div>
     </div>
@@ -221,12 +226,16 @@
         <input type="text" id="textInput" placeholder="اكتب رسالتك..." required>
         <button id="submitButton">إرسال</button>
     </div>
-    <div id="hiddenMessage" class="hidden-message"></div> <!-- New div here -->
-    <div id="closeButton" onclick="window.history.back();">
-        <svg viewBox="0 0 24 24">
-            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
-        </svg>
+    <div id="hiddenMessage" class="hidden-message">
+        <div class="back-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+            </svg>
+        </div>
+        <span id="hiddenMessageText">النص المخفي</span>
     </div>
+</body>
+</html>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -269,7 +278,7 @@
                 const textInput = document.getElementById('textInput');
                 const message = textInput.value.trim();
                 const username = localStorage.getItem('username');
-                const hiddenMessage = document.getElementById('hiddenMessage').textContent;
+                const hiddenMessage = document.getElementById('hiddenMessageText').textContent;
 
                 if (!username) {
                     alert('الرجاء تسجيل الدخول أولاً');
@@ -401,9 +410,14 @@
             const urlParams = new URLSearchParams(window.location.search);
             const message = urlParams.get('message');
             if (message) {
-                const hiddenMessageDiv = document.getElementById('hiddenMessage');
+                const hiddenMessageDiv = document.getElementById('hiddenMessageText');
                 hiddenMessageDiv.textContent = message;
             }
+
+            // Add event listener for the back arrow
+            document.querySelector('.back-arrow').addEventListener('click', function() {
+                window.history.back();
+            });
         });
     </script>
 </body>
