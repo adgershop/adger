@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Chat</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            height: 100vh;
+            background: #f5f5f5;
+            position: relative;
+            overflow-y: auto;
+            padding-bottom: 80px; /* To ensure the input container doesn't overlap messages */
+        }
+        
+        #messages {
+            padding: 15px;
+        }
+        
+        .message-container {
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+        
+        .message-content {
+            position: relative;
+            padding: 12px 15px;
+            border-radius: 20px;
+            background-color: #f1f1f1;
+            margin-top: 0; /* Remove top margin since the author name is now above */
+            max-width: 85%;
+            word-break: break-word;
+            display: inline-block; /* This allows the background to fit the content width */
+            width: fit-content; /* Adjusts width to content */
+        }
+
+        .message-text {
+            padding-right: 70px;
+            line-height: 1.4;
+            word-wrap: break-word; /* Ensures long words can break */
+            white-space: pre-wrap; /* Preserves spaces and line breaks */
+            max-width: 300px; /* Assuming a character width of roughly 5-6 pixels, this will roughly fit 55 characters in one line */
+        }
+
+        .message-meta {
+            position: absolute;
+            bottom: 6px;
+            right: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .message-author {
+            font-weight: 600;
+            font-size: 0.85em;
+            color: #444;
+            display: block; /* Make sure the author name is on its own line */
+            margin-bottom: 4px; /* Small gap between name and message */
+        }
+
+        .message-timestamp {
+            font-size: 0.65em;
+            color: #252525;
+            opacity: 0.8;
+            direction: ltr;
+            white-space: nowrap;
+        }
+
+        .reply-text .message-content {
+            background-color: #31313111;
+            margin-left: 4px;
+        }
+        
+        .hidden-message {
+            width: 100%;
+            background-color: rgba(0, 89, 255, 0.1); /* Light blue background */
+            text-align: right;
+            padding: 10px 12px 10px 0; /* أضف 12px على اليمين */
+            font-size: 15px;
+            position: fixed;
+            bottom: 65px; /* Adjust based on the height of #inputContainer */
+            left: 0;
+            z-index: 1;
+        }
+
+        #inputContainer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        
+        #textInput {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            margin-right: 10px;
+            font-size: 14px;
+            outline: none;
+            direction: rtl; /* اتجاه النص من اليمين لليسار */
+    text-align: right; /* محاذاة النص إلى اليمين */
+    padding: 12px 20px 12px 14px; /* تعديل padding لإعطاء مساحة على اليسار */
+}
+
+#textInput::placeholder {
+    direction: rtl; /* اتجاه النص في placeholder */
+    text-align: right; /* محاذاة النص في placeholder */
+}
+        
+        #submitButton {
+            padding: 12px 30px;
+            border: none;
+            background-color: #000;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        #submitButton:active {
+            opacity: 0.8;
+        }
+        
+        #emptyState {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        #emptyState span {
+            font-size: 48px;
+            opacity: 0.6;
+        }
+        
+        #emptyState p {
+            font-size: 16px;
+            color: #666;
+            margin-top: 8px;
+        }
+        
+        #loadingSpinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+        
+        .spinner {
+            width: 35px;
+            height: 35px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #closeButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(219, 219, 219, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            backdrop-filter: blur(2px);
+        }
+
+        #closeButton svg {
+            width: 20px;
+            height: 20px;
+            stroke: rgba(0, 0, 0, 0.7);
+            stroke-width: 2;
+        }
+
+        /* Specific styling for admin messages */
+        .message-container .message-content[data-author="admin"] {
+            background-color: rgba(0, 89, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="messages"></div>
+    <div id="emptyState">
+        <span>📭</span>
+        <p>لا توجد رسائل</p>
+    </div><br><br><br>
+    <div id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+    <div id="inputContainer">
+        <input type="text" id="textInput" placeholder="اكتب رسالتك..." required>
+        <button id="submitButton">إرسال</button>
+    </div>
+    <div id="hiddenMessage" class="hidden-message"></div> <!-- New div here -->
+    <div id="closeButton" onclick="window.history.back();">
+        <svg viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
+        </svg>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const firebaseConfig = {
+                apiKey: "AIzaSyA8a5iw8Sbu_RiPMJBpa0tm83KZpI7Tg-o",
+                authDomain: "project-536517259111.firebaseapp.com",
+                databaseURL: "https://adger-12f9b-default-rtdb.firebaseio.com",
+                projectId: "adger-12f9b",
+                storageBucket: "adger-12f9b.appspot.com",
+                messagingSenderId: "536517259111",
+                appId: "1:536517259111:web:abcdef123456"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            const database = firebase.database();
+            const messagesRef = database.ref('messages');
+
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            loadingSpinner.style.display = 'block';
+
+            messagesRef.once('value').then(snapshot => {
+                loadingSpinner.style.display = 'none';
+                document.getElementById('messages').innerHTML = '';
+
+                if (snapshot.exists()) {
+                    snapshot.forEach(child => {
+                        createMessageElement(child.key, child.val());
+                    });
+                    document.getElementById('emptyState').style.display = 'none';
+                } else {
+                    document.getElementById('emptyState').style.display = 'block';
+                }
+            }).catch(error => {
+                console.error('خطأ في التحميل:', error);
+                loadingSpinner.style.display = 'none';
+            });
+
+            document.getElementById('submitButton').addEventListener('click', e => {
+                e.preventDefault();
+                const textInput = document.getElementById('textInput');
+                const message = textInput.value.trim();
+                const username = localStorage.getItem('username');
+                const hiddenMessage = document.getElementById('hiddenMessage').textContent;
+
+                if (!username) {
+                    alert('الرجاء تسجيل الدخول أولاً');
+                    window.location.href = 'account.html';
+                    return;
+                }
+
+                if (message) {
+                    messagesRef.push({
+                        text: message,
+                        author: username,
+                        replies: [],
+                        timestamp: firebase.database.ServerValue.TIMESTAMP,
+                        hiddenMessage: hiddenMessage || ''
+                    }).then(() => {
+                        textInput.value = '';
+                        textInput.focus();
+                    }).catch(error => {
+                        console.error('خطأ في الإرسال:', error);
+                    });
+                }
+            });
+
+            messagesRef.on('child_added', snapshot => {
+                createMessageElement(snapshot.key, snapshot.val());
+                document.getElementById('emptyState').style.display = 'none';
+            });
+
+            messagesRef.on('child_removed', snapshot => {
+                const messageElement = document.querySelector(`[data-message-id="${snapshot.key}"]`);
+                if (messageElement) messageElement.remove();
+                checkEmptyState();
+            });
+
+            function createMessageElement(id, {text, author, replies, timestamp, hiddenMessage}) {
+                const container = document.createElement('div');
+                container.className = 'message-container';
+                container.dataset.messageId = id;
+
+                const formattedTime = formatTimestamp(timestamp);
+
+                let hiddenMsg = hiddenMessage ? `<div style="font-size: 12px; margin-bottom: 5px;">${hiddenMessage}</div><hr style="margin: 5px 0;">` : '';
+
+                container.innerHTML = `
+                    <span class="message-author">${author}</span>
+                    <div class="message-content" data-author="${author}">
+                        ${hiddenMsg}
+                        <div class="message-text">${text}</div>
+                        <div class="message-meta">
+                            <span class="message-timestamp">${formattedTime}</span>
+                        </div>
+                    </div>
+                `;
+
+                if (replies) {
+                    Object.entries(replies).forEach(([replyId, reply]) => {
+                        addReply(container, replyId, reply);
+                    });
+                }
+
+                document.getElementById('messages').appendChild(container);
+                container.scrollIntoView({ behavior: 'smooth' });
+
+                database.ref(`messages/${id}/replies`).on('child_added', snapshot => {
+                    addReply(container, snapshot.key, snapshot.val());
+                });
+            }
+
+            function addReply(container, replyId, {author, text, timestamp}) {
+                if (!container.querySelector(`[data-reply-id="${replyId}"]`)) {
+                    const replyDiv = document.createElement('div');
+                    replyDiv.className = 'reply-text';
+                    replyDiv.dataset.replyId = replyId;
+
+                    const formattedTime = formatTimestamp(timestamp);
+
+                    replyDiv.innerHTML = `
+                        <span class="message-author">${author}</span>
+                        <div class="message-content">
+                            <div class="message-text">${text}</div>
+                            <div class="message-meta">
+                                <span class="message-timestamp">${formattedTime}</span>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(replyDiv);
+                    replyDiv.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            function formatTimestamp(timestamp) {
+                if (!timestamp) return '';
+
+                const messageDate = new Date(timestamp);
+                const currentDate = new Date();
+
+                // تحقق إذا كان التاريخ في نفس اليوم
+                if (
+                    messageDate.getDate() === currentDate.getDate() &&
+                    messageDate.getMonth() === currentDate.getMonth() &&
+                    messageDate.getFullYear() === currentDate.getFullYear()
+                ) {
+                    // إذا كان في نفس اليوم، نعرض الوقت مع تحديد صباحًا أو مساءً
+                    const hours = messageDate.getHours();
+                    const minutes = messageDate.getMinutes().toString().padStart(2, '0');
+                    const period = hours >= 12 ? 'مساءً' : 'صباحًا';
+                    const formattedHours = hours % 12 || 12; // تحويل إلى تنسيق 12 ساعة
+
+                    return `${formattedHours}:${minutes} ${period}`;
+                } else {
+                    // إذا مر يوم أو أكثر، نعرض التاريخ فقط
+                    const options = {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    };
+                    return messageDate.toLocaleDateString('ar-EG', options);
+                }
+            }
+
+            function checkEmptyState() {
+                messagesRef.once('value').then(snapshot => {
+                    document.getElementById('emptyState').style.display =
+                        snapshot.exists() ? 'none' : 'block';
+                });
+            }
+
+            // Get the message from the URL parameters and set it in the hiddenMessage div
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            if (message) {
+                const hiddenMessageDiv = document.getElementById('hiddenMessage');
+                hiddenMessageDiv.textContent = message;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -728,8 +728,88 @@
 <br>
     <div class="line"></div>
 
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>الصفحة الرئيسية</title>
+        <style>
+            .comment-button {
+                font-family: 'Cairo', sans-serif;
+                padding: 5px 20px;
+                font-size: 15px;
+                background-color: #ececec;
+                color: rgb(22, 22, 22);
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: 0.3s ease-in-out;
+                margin-top: 5px;
+                margin-right: 12px;
+            }
+    
+            .comment-button:hover {
+                background-color: #f0f0f0;
+            }
+        </style>
+    </head>
+    <body>
+        <button class="comment-button" onclick="window.location.href='comments.html?commentId=1'">
+            التعليقات 1 (<span id="commentCount1">0</span>)
+        </button>
+        <button class="comment-button" onclick="window.location.href='comments.html?commentId=2'">
+            التعليقات 2 (<span id="commentCount2">0</span>)
+        </button>
+        <button class="comment-button" onclick="window.location.href='comments.html?commentId=3'">
+            التعليقات 3 (<span id="commentCount3">0</span>)
+        </button>
+    
+        <!-- أضف Firebase SDK -->
+        <script type="module">
+            // استيراد الوظائف المطلوبة من Firebase
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+            import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+    
+            // تهيئة Firebase
+            const firebaseConfig = {
+                apiKey: "AIzaSyBHJkJA0d6h27iLnO0s3e37OpfMNUxC3qQ",
+                authDomain: "adger-ddb84.firebaseapp.com",
+                databaseURL: "https://adger-ddb84-default-rtdb.firebaseio.com",
+                projectId: "adger-ddb84",
+                storageBucket: "adger-ddb84.firebasestorage.app",
+                messagingSenderId: "767665511626",
+                appId: "1:767665511626:web:0ed485898001cdf4a02833"
+            };
+    
+            const app = initializeApp(firebaseConfig);
+            const database = getDatabase(app);
+            const commentsRef = ref(database, 'comments');
+    
+            // عرض عدد التعليقات
+            const updateCommentCount = (commentId, elementId) => {
+                const commentCountElement = document.getElementById(elementId);
+                let count = 0;
+                onValue(commentsRef, (snapshot) => {
+                    snapshot.forEach((childSnapshot) => {
+                        const comment = childSnapshot.val();
+                        if (comment.commentId === commentId) {
+                            count++;
+                        }
+                    });
+                    commentCountElement.textContent = count;
+                });
+            };
+    
+            updateCommentCount(1, 'commentCount1');
+            updateCommentCount(2, 'commentCount2');
+            updateCommentCount(3, 'commentCount3');
+        </script>
+    </body>
+    </html>
 
-
+    
+    
 
 <h2 style="color: #202020; font-size: 17px; font-family: Cairo, sans-serif;  margin-right: 11px;">تفاصيل المنتج</h2>
 <!DOCTYPE html>
@@ -781,77 +861,27 @@
         .button-left:hover {
             background-color: #3b3b3b;
         }
-        
-        .message-area {
-            height: 200px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-        .message-area p {
-            margin: 5px 0;
-            word-wrap: break-word;
-        }
-        .input-area {
-            display: flex;
-            gap: 10px;
-        }
-        .input-area input[type="text"] {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .input-area button {
-            padding: 8px 15px;
-            background-color: #303030;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .input-area button:hover {
-            background-color: #252525;
-        }
-        /* التعديلات للهواتف */
-        @media only screen and (max-width: 767px) {
-            .button-left {
-                font-size: 12px;
-                padding: 8px 10px;
-            }
-            .button-left::after {
-                content: "إسأل";
-            }
-            .button-left span {
-                display: none;
-            }
-        }
     </style>
 </head>
-    </head>
-    <body>
-        <div class="containe">
-            <div class="text-right">
-                <p>أسئل و أعرف</p>
-                <p class="text-small">اسأل و أعرف تفاصيل أكثر عن المنتج</p>
-            </div>
-            <button class="button-left" id="openModalBtn">
-                <span>إسأل عن المنتج</span>
-            </button>
-        </div>
-    
-        <script>
-            document.getElementById('openModalBtn').addEventListener('click', function() {
-                // إعادة التوجيه إلى صفحة sendmessages.html مع إضافة متغير استعلام
-                const message = "مرحبًا أريد معرفة تفاصيل أكثر عن المنتج";
-       const encodedMessage = encodeURIComponent(message);
-   window.location.href = `sendmessages.html?message=${encodedMessage}`;
-            });
-        </script>
-    </body>
-    </html>
+<body>
+<div class="containe">
+    <div class="text-right">
+        <p>أسئل و أعرف</p>
+        <p class="text-small">اسأل و أعرف تفاصيل أكثر عن المنتج</p>
+    </div>
+    <button class="button-left" id="askProductBtn">
+        <span>إسأل عن المنتج</span>
+    </button>
+</div>
+
+<script>
+    document.getElementById('askProductBtn').onclick = function() {
+        const hiddenText = "رقم المنتج 1#";
+        window.location.href = `ask.html?message=${encodeURIComponent(hiddenText)}`;
+    };
+</script>
+</body>
+</html>
 
 
 
