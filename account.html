@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #e6f2fffa, #ffffffd2); /* Gradient for depth */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,6 +24,8 @@
             position: relative;
         }
         .login-container h2 {
+            font-family: Cairo, sans-serif;
+            font-size: 18px;
             margin-bottom: 20px;
             color: #333;
         }
@@ -51,7 +53,7 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             object-fit: cover;
         }
         .logout-button {
@@ -61,27 +63,16 @@
         .logout-button:hover {
             background-color: #c82333;
         }
-        .back-arrow {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            cursor: pointer;
-        }
-        .back-arrow svg {
-            width: 24px;
-            height: 24px;
+        #usernameDisplay {
+            font-family: Cairo, sans-serif;
+            font-size: 16px;
+            margin-top: -3px;
             color: #333;
         }
     </style>
 </head>
 <body>
     <div class="login-container" id="loginContainer">
-        <!-- سهم الرجوع إلى الصفحة الرئيسية -->
-        <div class="back-arrow" onclick="window.history.back()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"></path>
-            </svg>
-        </div>
         <h2>تسجيل الدخول</h2>
         <img src="https://via.placeholder.com/100" alt="صورة المستخدم" class="profile-picture" id="profilePicture">
         <input type="text" id="username" placeholder="اسم المستخدم">
@@ -90,8 +81,6 @@
     </div>
 
     <div class="login-container" id="profileContainer" style="display: none;">
-        <!-- سهم الرجوع إلى الصفحة الرئيسية -->
-     
         <h2>حساب المستخدم</h2>
         <img src="https://via.placeholder.com/100" alt="صورة المستخدم" class="profile-picture" id="profilePictureDisplay">
         <p id="usernameDisplay"></p>
@@ -99,7 +88,6 @@
     </div>
 
     <script>
-        // عرض الصورة المختارة
         function previewImage(event) {
             const file = event.target.files[0];
             if (file) {
@@ -111,24 +99,23 @@
             }
         }
 
-        // حفظ بيانات المستخدم
         function saveUserData() {
             const username = document.getElementById('username').value;
             const profileImage = document.getElementById('profilePicture').src;
 
             if (username) {
-                // حفظ البيانات في localStorage
                 localStorage.setItem('username', username);
                 localStorage.setItem('profileImage', profileImage);
-                localStorage.setItem('isLoggedIn', true); // حفظ حالة تسجيل الدخول
+                localStorage.setItem('isLoggedIn', true);
                 alert('تم تسجيل الدخول بنجاح!');
-                window.location.href = 'index.html'; // العودة إلى الصفحة الرئيسية
+
+                // Use history.back() to go back to the previous page
+                window.history.back();
             } else {
                 alert('يرجى إدخال اسم المستخدم!');
             }
         }
 
-        // تسجيل الخروج
         function logout() {
             localStorage.removeItem('username');
             localStorage.removeItem('profileImage');
@@ -136,7 +123,6 @@
             window.location.href = 'account.html'; // العودة إلى صفحة تسجيل الدخول
         }
 
-        // التحقق من حالة تسجيل الدخول
         window.onload = function() {
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             if (isLoggedIn) {
@@ -208,7 +194,7 @@
             height: 59px;
             z-index: -1;
             background: #008cff; /* Base color */
-            background: linear-gradient(135deg, #ff00b3, #00b7ff); /* Gradient for depth */
+            background: linear-gradient(135deg, #ff0000, #ff4800); /* Gradient for depth */
         }
         .header-background::before {
             content: '';
@@ -296,10 +282,10 @@
     <style>
   .skeleton-loading {
    position: fixed;
-   top: 62px;
+   top: 59px;
    left: 0;
    width: 100%;
-   height: calc(100% - 67px); /* اجعل الارتفاع يأخذ باقي الشاشة */
+   height: calc(100% - 58px); /* اجعل الارتفاع يأخذ باقي الشاشة */
    background-color: #fff;
    z-index: 1000;
    display: flex;
