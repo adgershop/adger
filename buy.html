@@ -301,9 +301,9 @@
             }
             
  .line2 {
-    margin-top: 20px;
+    margin-top: 17px;
     width: 100%;
-    height: 12px;
+    height: 8px;
     background: repeating-linear-gradient(90deg,
         rgb(0, 183, 255) 0 15px,
         white 15px 30px,
@@ -314,6 +314,21 @@
     );
     background-size: 90px 100%; /* التأكد من تكرار النمط بشكل صحيح */
 }
+@media (max-width: 768px) {
+   .line2 {
+      margin-top: 13px;
+    }
+}
+
+.buytext9 {
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .buytext9 {
+        font-size: 17px;
+    }
+}
 
         </style>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -322,7 +337,7 @@
     <body>
     
         <!-- العنوان مع سهم العودة -->
-        <h1 style="font-size: 22px; color: #000; font-family: Cairo, sans-serif; margin-right: 15px;">
+        <h1 class="buytext9" style="color: #000; font-family: Cairo, sans-serif; margin-right: 15px;">
             شراء المنتج
         </h1>
     
