@@ -183,6 +183,11 @@
                 opacity: 0; /* بداية غير مرئي */
                 transition: opacity 0.3s ease; /* تأثير ظهور سلس */
             }
+            @media (max-width: 768px) {
+    .purchase-success {
+        height: calc(100% - 75px);
+    }
+      }
     
             .purchase-success.visible {
                 display: flex; /* إظهار العنصر */
