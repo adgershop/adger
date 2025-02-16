@@ -252,30 +252,23 @@
                 margin-right: 22px;
             }
     
+            /* تعديلات لمشكلة الزر على الهواتف */
             @media only screen and (max-width: 499px) {
                 .total-price {
                     font-size: 14.6px;
                     margin-right: 16px;
                 }
     
-                /* تعديل نص الزر على الهواتف */
                 .confirm-btn {
                     font-size: 16px;
                     padding: 10px 15px;
                 }
-    
-                .confirm-btn::after {
-                    content: "إتمام الشراء";
-                }
-    
-                .confirm-btn span {
-                    display: none;
-                }
             }
     
             @media only screen and (max-width: 355px) {
-                .confirm-btn::after {
-                    content: "موافق";
+                .confirm-btn {
+                    font-size: 14px;
+                    padding: 8px 10px;
                 }
             }
     
@@ -288,7 +281,7 @@
                 font-weight: bold;
                 cursor: pointer;
                 border: none;
-                transition: background-color 0.3s ease;
+                transition: all 0.3s ease;
                 padding: 10px 20px;
                 border-radius: 5px; /* إضافة زوايا مستديرة */
             }
@@ -437,7 +430,7 @@
         <div class="footer-container">
             <!-- زر اتمام الشراء -->
             <button class="confirm-btn" onclick="confirmPurchase()" id="confirmButton">
-                <span>موافق / إتمام الشراء</span>
+                <span id="confirmButtonText">موافق / إتمام الشراء</span>
             </button>
             <!-- قسم السعر الإجمالي -->
             <div class="total-price" id="totalPriceDisplay">
@@ -610,7 +603,10 @@
                     successText.style.display = 'block';
                     
                     // تغيير نص زر "إتمام الشراء" إلى "تم الشراء"
-                    document.getElementById('confirmButton').innerHTML = '<span>تم الشراء</span>';
+                    document.getElementById('confirmButtonText').textContent = 'تم الشراء';
+    
+                    // Disable the button to prevent multiple clicks
+                    document.getElementById('confirmButton').disabled = true;
                 })
                 .catch((error) => {
                     console.error("Error writing to Firebase:", error);
