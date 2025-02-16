@@ -167,22 +167,22 @@
                 margin: 10px 0;
             }
     
-           /* تنسيق علامة الصح ونص تم الشراء */
-.purchase-success {
-    display: none; /* مخفي بشكل افتراضي */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100% - 80px); /* تغطية كاملة للصفحة ناقص 80 بكسل في الاسفل */
-    background-color: rgb(255, 255, 255); /* خلفية شبه شفافة */
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 1001; /* التأكد من ظهوره فوق كل العناصر */
-    opacity: 0; /* بداية غير مرئي */
-    transition: opacity 0.3s ease; /* تأثير ظهور سلس */
-}
+            /* تنسيق علامة الصح ونص تم الشراء */
+            .purchase-success {
+                display: none; /* مخفي بشكل افتراضي */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: calc(100% - 80px); /* تغطية كاملة للصفحة ناقص 80 بكسل في الاسفل */
+                background-color: rgb(255, 255, 255); /* خلفية شبه شفافة */
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                z-index: 1001; /* التأكد من ظهوره فوق كل العناصر */
+                opacity: 0; /* بداية غير مرئي */
+                transition: opacity 0.3s ease; /* تأثير ظهور سلس */
+            }
     
             .purchase-success.visible {
                 display: flex; /* إظهار العنصر */
