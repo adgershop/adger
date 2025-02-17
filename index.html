@@ -1339,7 +1339,6 @@
 
 
 
-
     <!DOCTYPE html>
     <html lang="ar" dir="rtl">
     <head>
@@ -1352,11 +1351,80 @@
                 margin: 0;
                 font-family: Arial, sans-serif;
                 background-color: #ffffff;
-                padding-top: 132px; /* زيادة الحشو الأعلى لاستيعاب الشريطين */
+                padding-top: 114px; /* تعديل الحشو الأعلى ليشمل الرأس والشريط الفرعي */
             }
     
-
-
+            /* الشريط العلوي الثابت */
+            .header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 66px;
+                background-color: white;
+                padding: 0 20px;
+                z-index: 1;
+                box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
+            }
+    
+            /* الشريط الأبيض الثابت أسفل الشريط العلوي */
+            .sub-header {
+                position: fixed;
+                top: 66px;
+                left: 0;
+                right: 0;
+                height: 48px;
+                background-color: white;
+                box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
+                text-shadow: none;
+                z-index: 999;
+                display: flex;
+                align-items: center;
+                padding: 0 20px;
+                overflow-x: auto; /* التمرير الأفقي */
+                scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
+                -ms-overflow-style: none; /* إخفاء شريط التمرير في IE و Edge */
+            }
+    
+            /* إخفاء شريط التمرير في WebKit (Chrome, Safari) */
+            .sub-header::-webkit-scrollbar {
+                display: none;
+            }
+    
+            /* قائمة العناصر في الشريط الأبيض */
+            .sub-header nav {
+                display: flex;
+                gap: 30px;
+                position: relative;
+                white-space: nowrap; /* منع النص من الانتقال لسطر جديد */
+            }
+    
+            .sub-header nav a {
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                cursor: pointer;
+                padding: 10px 0; /* إضافة حشو لتحسين المظهر */
+            }
+    
+            /* الخط الرصاصي الرفيع تحت العنصر المحدد */
+            .underline {
+                position: absolute;
+                bottom: 0; /* التأكد من أن الخط أسفل النص تمامًا */
+                height: 3px;
+                background-color: #000000; /* لون الخط */
+                transition: all 0.3s ease;
+            }
+    
+            /* بقية التنسيقات كما هي */
+            .search-wrapper {
+                flex-grow: 1;
+                margin: 0 10px;
+                position: relative;
+            }
     
             #search-box {
                 width: 100%;
@@ -1369,7 +1437,7 @@
                 text-align: right;
                 direction: rtl;
             }
-
+    
             #search-button {
                 position: absolute;
                 left: 3px;
@@ -1409,23 +1477,23 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                margin-left: 20px; /* إضافة مسافة بين الأيقونة والعناصر على اليسار */
-                justify-content: center; /* تأكد من أن العناصر داخل user-icon متساوية */
+                margin-left: 20px;
+                justify-content: center;
             }
     
             .user-icon svg {
                 width: 24px;
                 height: 24px;
                 color: #333;
-                flex-shrink: 0; /* تمنع تصغير الأيقونة */
+                flex-shrink: 0;
             }
     
             .welcome-message {
                 font-size: 16px;
                 color: #007bff;
                 display: flex;
-                align-items: center; /* تأكد من أن النص والأيقونة في نفس المستوى العمودي */
-                gap: 5px; /* مسافة صغيرة بين النص والأيقونة */
+                align-items: center;
+                gap: 5px;
             }
     
             .welcome-message span {
@@ -1450,49 +1518,47 @@
             }
     
             .cart-icon {
-    position: relative;
-}
-
-.cart-count {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: red;
-    color: white;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 50%;
-}
-
-/* إخفاء العنصر على الهواتف */
-@media only screen and (max-width: 767px) {
-    .cart-icon {
-        margin-left: -10px;
-        margin-right: -8px;
-    }
-
-}
-@media only screen and (max-width: 767px) {
-    .cart-icon {
-        margin-left: -12px;
-    }
-
-}
+                position: relative;
+            }
+    
+            .cart-count {
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background-color: red;
+                color: white;
+                font-size: 12px;
+                padding: 2px 6px;
+                border-radius: 50%;
+            }
+    
+            /* إخفاء العنصر على الهواتف */
+            @media only screen and (max-width: 767px) {
+                .cart-icon {
+                    margin-left: -10px;
+                    margin-right: -8px;
+                }
+            }
+            @media only screen and (max-width: 767px) {
+                .cart-icon {
+                    margin-left: -12px;
+                }
+            }
     
             /* تعديلات النافذة الجانبية */
             .menu-popup {
                 display: none;
                 position: fixed;
-                top: 0; /* تبدأ من أعلى الشاشة */
+                top: 0;
                 left: -250px;
                 width: 250px;
-                height: 100vh; /* تمتد من أعلى الشاشة إلى أسفلها */
+                height: 100vh;
                 background-color: white;
                 box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
                 padding: 20px;
-                z-index: 1000000000000;
+                z-index: 1000;
                 transition: left 0.3s ease-in-out;
-                overflow-y: auto; /* إضافة شريط تمرير إذا كان المحتوى أطول من الشاشة */
+                overflow-y: auto;
             }
     
             @keyframes slideIn {
@@ -1542,12 +1608,13 @@
             .menu-icon {
                 margin-left: 10px;
             }
-                 /* إخفاء العنصر على الهواتف */
-                 @media only screen and (max-width: 767px) {
-                    .menu-icon  {
-                          margin-left: -6px;
-                        }
-                    }
+    
+            /* إخفاء العنصر على الهواتف */
+            @media only screen and (max-width: 767px) {
+                .menu-icon {
+                    margin-left: -6px;
+                }
+            }
     
             .adger {
                 font-family: Arial, sans-serif;
@@ -1563,12 +1630,7 @@
     
             @media (max-width: 767px) {
                 .adger {
-                    font-size: 20px;         
-                }
-            }
-            @media (max-width: 499px) {
-                .adger {
-                margin-right: -8px;       
+                    font-size: 20px;
                 }
             }
     
@@ -1596,6 +1658,25 @@
                 height: 16px;
                 margin-left: 8px;
             }
+    
+            /* تعديلات للهواتف */
+            @media only screen and (max-width: 767px) {
+                .search-wrapper {
+                    width: 100%; /* Let the search bar take full width on mobile */
+                    max-width: none;
+                    margin: 0; /* Reset margin for mobile */
+                }
+    
+                #search-box {
+                    padding: 10px 12px 10px 45px; /* Adjust padding for mobile, if needed */
+                    font-size: 14px; /* Smaller font size for mobile */
+                }
+    
+                #search-button {
+                    width: 39px; /* Smaller button for mobile */
+                    height: 32px;
+                }
+            }
         </style>
     </head>
     <body>
@@ -1603,7 +1684,41 @@
         <div class="header">
             <!-- العناصر على اليمين -->
             <div class="right-elements">
-                <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
+                <style>
+                    .adger-container {
+                      display: flex;
+                      align-items: center;
+                    }
+                
+                    /* For mobile devices, adjust the arrow's margins */
+                    @media (max-width: 1167px) {
+                      .adger-container svg {
+                        margin-left: 7px; /* Space between text and arrow */
+                        margin-right: -13px;
+                      }
+                    }
+                    
+                    /* Set cursor for both SVG and text within the container */
+                    .adger-container svg, .adger-container h2 {
+                      cursor: pointer;
+                    }
+                    
+                    /* Differentiate click areas */
+                    .adger-container h2 {
+                      margin-left: 5px; /* To ensure space from the arrow */
+                    }
+
+                    @media only screen and (max-width: 767px) {
+                        .adger-container h2 {
+                          margin-left: 19px;
+                        }
+                    }
+                </style>
+                
+                <div class="adger-container">
+                    <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
+                </div>
+                
                 <style>
                     /* إخفاء العنصر على الهواتف */
                     @media only screen and (max-width: 767px) {
@@ -1633,6 +1748,7 @@
                     </svg>
                 </div>
             </div>
+            
             <!-- صندوق البحث -->
             <div class="search-wrapper">
                 <input 
@@ -1649,6 +1765,7 @@
                     </svg>
                 </button>
             </div>
+            
             <script>
                 function redirectToSearch(event) {
                     // منع التركيز على صندوق الإدخال
@@ -1658,6 +1775,7 @@
                     window.location.href = "search.html";
                 }
             </script>
+            
             <!-- العناصر على اليسار -->
             <div class="left-elements">
                 <style>
@@ -1674,14 +1792,14 @@
                     }
     
                     .flag {
-                        width: 20px; /* يمكنك تعديل حجم العلم حسب الحاجة */
+                        width: 20px;
                         height: auto;
-                        margin-left: 5px; /* مسافة بين النص والعلم */
+                        margin-left: 5px;
                     }
     
                     /* إضافة مسافة بين العنصر والزر */
                     .country-code {
-                        margin-right: 20px; /* يمكنك تعديل المسافة حسب الحاجة */
+                        margin-right: 20px;
                     }
                 </style>
                 <div class="container22">
@@ -1691,7 +1809,7 @@
                         <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
                     </div>
                 </div>
-                <!-- زر المراسلة -->
+                
                 <style>
                     /* إخفاء زر المراسلة على الهواتف */
                     @media only screen and (max-width: 767px) {
@@ -1706,7 +1824,7 @@
                     </svg>
                     <span style="font-family: Cairo, sans-serif;">مراسلة</span>
                 </div>
-                <!-- أيقونة السلة -->
+                
                 <div class="cart-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
@@ -1715,7 +1833,7 @@
                     </svg>
                     <span class="cart-count">0</span>
                 </div>
-                <!-- أيقونة القائمة -->
+                
                 <div class="menu-icon" onclick="toggleMenu()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -1851,63 +1969,78 @@
                         background-color: #000000; /* لون الخط */
                         transition: all 0.3s ease;
                     }
-            
-                    /* بقية التنسيقات كما هي */
-                    .search-wrapper {
-                        position: relative;
-                        width: 60%;
-                        max-width: 600px;
-                    }
                 </style>
-            </head>
-            <body>
-                <div class="sub-header">
-                    <nav>
-                        <!-- تعديل هنا: إضافة selectItem عند النقر على "الكل" -->
-                        <a href="#" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
-                        <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <div class="underline"></div>
-                    </nav>
-                </div>
-<!-- JavaScript -->
-<script>
-    // اختيار جميع العناصر التي تحتوي على فئة menu-item
-    const menuItems = document.querySelectorAll('.menu-item');
-
-    // إضافة مستمع للحدث لكل عنصر
-    menuItems.forEach(item => {
-        item.addEventListener('click', () => {
-            window.scrollTo(0, 0); // الانتقال فورًا إلى أعلى الصفحة بدون تأثير ملحوظ
-        });
-    });
-</script>
-
-
-
-
-            
-                <!-- نافذة القائمة الجانبية -->
-                <div class="menu-popup" id="menuPopup">
-                    <div class="back-arrow" onclick="toggleMenu()">
-                        <svg xmlns="http://www.w3.org/2000/svg&#34;  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 12H5M12 19l-7-7 7-7"></path>
-                        </svg>
-                    </div>
-                    <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif;">حسابي</p>
-                    <p onclick="window.location.href='about.html'" style="font-family: Cairo, sans-serif;">سياسات وأحكام</p>
-                    <p onclick="window.location.href='deals.html'" style="font-family: Cairo, sans-serif;">صفقة رابحة</p>
-                    <p onclick="window.location.href='wholesale.html'" style="font-family: Cairo, sans-serif;">شراء بالجملة</p>
-                    <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif;">شركات عالمية</p>
-                    <p onclick="window.location.href='categories.html'" style="font-family: Cairo, sans-serif;">الفئات</p>
-                </div>
-            
+        <!-- Sub Header -->
+        <div class="sub-header">
+            <nav>
+                <a href="#" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
+                <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+                <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+                <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+                <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+                <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+                <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+                <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+                <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+                <div class="underline"></div>
+            </nav>
+        </div>
+    
+        <!-- نافذة القائمة الجانبية -->
+        <div class="menu-popup" id="menuPopup">
+            <div class="back-arrow" onclick="toggleMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                </svg>
+            </div>
+            <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif;">حسابي</p>
+            <p onclick="window.location.href='about.html'" style="font-family: Cairo, sans-serif;">سياسات وأحكام</p>
+            <p onclick="window.location.href='deals.html'" style="font-family: Cairo, sans-serif;">صفقة رابحة</p>
+            <p onclick="window.location.href='wholesale.html'" style="font-family: Cairo, sans-serif;">شراء بالجملة</p>
+            <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif;">شركات عالمية</p>
+            <p onclick="window.location.href='categories.html'" style="font-family: Cairo, sans-serif;">الفئات</p>
+        </div>
+    
+        <script>
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    window.scrollTo(0, 0);
+                });
+            });
+    
+            function selectItem(itemName, element) {
+                const underline = document.querySelector('.underline');
+                const navItems = document.querySelectorAll('.sub-header nav a');
+    
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                });
+    
+                element.classList.add('active');
+                underline.style.width = element.offsetWidth + 'px';
+                underline.style.left = element.offsetLeft + 'px';
+            }
+    
+            function toggleMenu() {
+                const menuPopup = document.getElementById('menuPopup');
+                if (menuPopup.classList.contains('active')) {
+                    menuPopup.classList.remove('active');
+                    menuPopup.classList.add('closing');
+                    setTimeout(() => {
+                        menuPopup.classList.remove('closing');
+                        menuPopup.style.display = 'none';
+                    }, 300); // Match the animation duration
+                } else {
+                    menuPopup.style.display = 'block';
+                    setTimeout(() => {
+                        menuPopup.classList.add('active');
+                    }, 10); // Small delay to ensure the display property change takes effect before animation
+                }
+            }
+        </script>
+    </body>
+    </html>
                 <script>
                     // استرجاع بيانات المستخدم من localStorage
                     const username = localStorage.getItem('username');
@@ -2482,7 +2615,7 @@
             <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
                 <div class="image-frame">
                     <a href="1.html">
-                        <img src="a1.jpg" alt="Image 1">
+                        <img src="1.jpg" alt="Image 1">
                     </a>
                     <div class="text-under">
                         <h1>ساعة تاتش تعمل باللمس</h1>
@@ -2515,7 +2648,7 @@
 
             <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
                 <div class="image-frame">
-                    <a href="a11.html">
+                    <a href="1.html">
                         <img src="1.jpg" alt="Image 1">
                     </a>
                     <div class="text-under">
