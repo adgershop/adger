@@ -42,47 +42,50 @@
             height: 65px;
             background: linear-gradient(to right, #f8f8f8, #f3f3f3);
             z-index: 1;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
+            text-shadow: none;
         }
 
-        /* صندوق البحث */
-        .search-container {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            direction: rtl;
-            z-index: 2;
-            background-color: transparent;
-            width: 60%;
-            max-width: 600px;
-        }
+      /* صندوق البحث */
+.search-container {
+    position: fixed;
+    top: 10px;
+    left: 20px; /* مسافة 20px من اليسار */
+    right: 60px; /* مسافة كافية لسهم الرجوع على اليمين */
+    width: calc(100% - 80px); /* العرض الكلي مطروح منه المسافات */
+    direction: rtl;
+    z-index: 2;
+    background-color: transparent;
+    max-width: none; /* إزالة الحد الأقصى للعرض */
+}
 
-        /* حقل الإدخال */
-        .search-container input[type="text"] {
-            width: 100%;
-            padding: 10px 12px 10px 69px;
-            font-size: 16px;
-            border: 1px solid #000000;
-            border-radius: 51px;
-            outline: none;
-            box-sizing: border-box;
-            text-align: right;
-            direction: rtl;
-            transition: border-color 0.3s;
-        }
+/* حقل الإدخال */
+.search-container input[type="text"] {
+    width: 100%; /* يأخذ كامل عرض الحاوية */
+    padding: 10px 12px 10px 69px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    border-radius: 51px;
+    outline: none;
+    box-sizing: border-box;
+    text-align: right;
+    direction: rtl;
+    transition: border-color 0.3s;
+}
 
-        @media (max-width: 499px) {
-            .search-container input[type="text"] {
-                width: 128%;
-                margin-right: -22px;
-            }
-        }
+/* تعديل للشاشات الصغيرة */
+@media (max-width: 499px) {
+    .search-container {
+        right: 40px; /* تقليل المسافة قليلاً للشاشات الصغيرة */
+        width: calc(100% - 60px); /* ضبط العرض بناءً على المسافة الجديدة */
+    }
 
-        .search-container input[type="text"]:focus {
-            border-color: #000000;
-            box-shadow: 0 0 2px #000000;
-        }
+    .search-container input[type="text"] {
+        width: 100%; /* الحفاظ على العرض الكامل */
+        margin-right: 0; /* إزالة الإزاحة السابقة */
+    }
+}
+
 
         /* زر البحث */
         .search-container .search-button {
@@ -92,7 +95,7 @@
             transform: translateY(-50%);
             background-color: black;
             color: white;
-            width: 40px;
+            width: 53px;
             height: 34px;
             display: flex;
             align-items: center;
@@ -149,7 +152,7 @@
         .back-button {
             position: fixed;
             top: 10px;
-            right: 20px;
+            right: 10px;
             background-color: transparent;
             color: black;
             border: none;
@@ -165,8 +168,8 @@
 
 
         .back-button svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
         }
 
         /* سجل البحث */
