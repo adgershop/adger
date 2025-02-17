@@ -1835,7 +1835,6 @@
 
 
 
-    
     <!DOCTYPE html>
     <html lang="ar" dir="rtl">
     <head>
@@ -1869,9 +1868,9 @@
     
             /* بقية التنسيقات كما هي */
             .search-wrapper {
+                flex-grow: 1;
+                margin: 0 10px;
                 position: relative;
-                width: 60%;
-                max-width: 600px;
             }
     
             #search-box {
@@ -1893,7 +1892,7 @@
                 transform: translateY(-50%);
                 background-color: black;
                 color: white;
-                width: 40px;
+                width: 53px;
                 height: 34px;
                 display: flex;
                 align-items: center;
@@ -1979,30 +1978,19 @@
                 padding: 2px 6px;
                 border-radius: 50%;
             }
-
-            #usernameDisplay {
-            white-space: nowrap; /* منع النص من الانتقال إلى سطر جديد */
-            overflow: hidden; /* إخفاء النص الزائد */
-            text-overflow: ellipsis; /* إضافة نقاط (...) للنص الزائد */
-            max-width: 150px; /* تحديد عرض أقصى للعنصر (يمكن تعديله حسب الحاجة) */
-            display: inline-block; /* لجعل العنصر يتصرف كعنصر inline مع إمكانية تحديد عرض */
-        }
-
     
-         /* إخفاء العنصر على الهواتف */
-@media only screen and (max-width: 767px) {
-    .cart-icon {
-        margin-left: -10px;
-        margin-right: -8px;
-    }
-
-}
-@media only screen and (max-width: 767px) {
-    .cart-icon {
-        margin-left: -12px;
-    }
-
-}
+            /* إخفاء العنصر على الهواتف */
+            @media only screen and (max-width: 767px) {
+                .cart-icon {
+                    margin-left: -10px;
+                    margin-right: -8px;
+                }
+            }
+            @media only screen and (max-width: 767px) {
+                .cart-icon {
+                    margin-left: -12px;
+                }
+            }
     
             /* تعديلات النافذة الجانبية */
             .menu-popup {
@@ -2117,6 +2105,26 @@
                 height: 16px;
                 margin-left: 8px;
             }
+    
+            /* تعديلات للهواتف */
+            @media only screen and (max-width: 767px) {
+                .search-wrapper {
+                    width: 100%; /* Let the search bar take full width on mobile */
+                    max-width: none;
+                    margin: 0; /* Reset margin for mobile */
+                }
+    
+                #search-box {
+                    padding: 10px 12px 10px 45px; /* Adjust padding for mobile, if needed */
+                    font-size: 14px; /* Smaller font size for mobile */
+                }
+    
+                #search-button {
+                    left: 3px;
+                    width: 45px; /* Smaller button for mobile */
+                    height: 32px;
+                }
+            }
         </style>
     </head>
     <body>
@@ -2157,16 +2165,16 @@
                     .adger-container h2 {
                       margin-left: 5px; /* To ensure space from the arrow */
                     }
-                    </style>
-                    
-                    <div class="adger-container">
-                      <svg onclick="history.back()" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                </style>
+                
+                <div class="adger-container">
+                    <svg onclick="history.back()" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-                      </svg>                      
-                      <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
-                    </div>
-                    
-                    <style>
+                    </svg>                      
+                    <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
+                </div>
+                
+                <style>
                     /* إخفاء العنصر على الهواتف */
                     @media only screen and (max-width: 767px) {
                         .element-to-hide {
@@ -2195,6 +2203,7 @@
                     </svg>
                 </div>
             </div>
+            
             <!-- صندوق البحث -->
             <div class="search-wrapper">
                 <input 
@@ -2211,6 +2220,7 @@
                     </svg>
                 </button>
             </div>
+            
             <script>
                 function redirectToSearch(event) {
                     // منع التركيز على صندوق الإدخال
@@ -2220,6 +2230,7 @@
                     window.location.href = "search.html";
                 }
             </script>
+            
             <!-- العناصر على اليسار -->
             <div class="left-elements">
                 <style>
@@ -2253,7 +2264,7 @@
                         <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
                     </div>
                 </div>
-                <!-- زر المراسلة -->
+                
                 <style>
                     /* إخفاء زر المراسلة على الهواتف */
                     @media only screen and (max-width: 767px) {
@@ -2268,7 +2279,7 @@
                     </svg>
                     <span style="font-family: Cairo, sans-serif;">مراسلة</span>
                 </div>
-                <!-- أيقونة السلة -->
+                
                 <div class="cart-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
@@ -2277,7 +2288,7 @@
                     </svg>
                     <span class="cart-count">0</span>
                 </div>
-                <!-- أيقونة القائمة -->
+                
                 <div class="menu-icon" onclick="toggleMenu()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -2296,12 +2307,28 @@
                 </svg>
             </div>
             <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif;"  >حسابي</p>
-            <p onclick="window.location.href='about.html'"style="font-family: Cairo, sans-serif;"  >سياسات وأحكام</p>
-            <p onclick="window.location.href='deals.html'"style="font-family: Cairo, sans-serif;"  >صفقة رابحة</p>
-            <p onclick="window.location.href='wholesale.html'"style="font-family: Cairo, sans-serif;"  >شراء بالجملة</p>
+            <p onclick="window.location.href='about.html'" style="font-family: Cairo, sans-serif;"  >سياسات وأحكام</p>
+            <p onclick="window.location.href='deals.html'" style="font-family: Cairo, sans-serif;"  >صفقة رابحة</p>
+            <p onclick="window.location.href='wholesale.html'" style="font-family: Cairo, sans-serif;"  >شراء بالجملة</p>
             <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif;" >شركات عالمية</p>
-            <p onclick="window.location.href='categories.html'"style="font-family: Cairo, sans-serif;"  >الفئات</p>
+            <p onclick="window.location.href='categories.html'" style="font-family: Cairo, sans-serif;"  >الفئات</p>
         </div>
+    
+        <script>
+            function toggleMenu() {
+                const menuPopup = document.getElementById('menuPopup');
+                if (menuPopup.classList.contains('active')) {
+                    menuPopup.classList.add('closing');
+                    setTimeout(() => {
+                        menuPopup.classList.remove('active', 'closing');
+                    }, 300);  // Match the animation duration
+                } else {
+                    menuPopup.classList.add('active');
+                }
+            }
+        </script>
+    </body>
+    </html>
     
         <script>
             // استرجاع بيانات المستخدم من localStorage
