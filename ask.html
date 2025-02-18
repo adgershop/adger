@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Firebase Chat</title>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
@@ -129,6 +129,7 @@
             padding: 15px;
             border-top: 1px solid #ddd;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 1001; /* Ensure it's above other elements */
         }
         
         #textInput {
@@ -234,6 +235,32 @@
         </div>
         <span id="hiddenMessageText">النص المخفي</span>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textInput = document.getElementById('textInput');
+            const body = document.body;
+
+            textInput.addEventListener('focus', adjustForKeyboard);
+            textInput.addEventListener('blur', resetForKeyboard);
+
+            function adjustForKeyboard() {
+                const viewportHeight = window.innerHeight;
+                const originalBodyHeight = document.body.clientHeight;
+                const keyboardHeight = originalBodyHeight - viewportHeight;
+                
+                if (keyboardHeight > 0) {
+                    // Adjust the body padding to accommodate the keyboard
+                    body.style.paddingBottom = `${keyboardHeight + 80}px`; // +80 for input container
+                }
+            }
+
+            function resetForKeyboard() {
+                // Reset to original padding when keyboard is hidden
+                body.style.paddingBottom = '80px';
+            }
+        });
+    </script>
 </body>
 </html>
 
