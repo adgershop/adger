@@ -120,7 +120,8 @@
             margin-right: 10px; /* Adjusted to match the spacing in your example */
         }
 
-        #inputContainer {
+        /* حقل 2 */
+        #field2 {
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -131,7 +132,7 @@
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
         }
         
-        #textInput {
+        #field2 textarea {
             flex: 1;
             padding: 12px 20px;
             border: 1px solid #ccc;
@@ -142,14 +143,15 @@
             direction: rtl; /* اتجاه النص من اليمين لليسار */
             text-align: right; /* محاذاة النص إلى اليمين */
             padding: 12px 20px 12px 14px; /* تعديل padding لإعطاء مساحة على اليسار */
+            resize: none; /* منع تغيير حجم الحقل */
         }
 
-        #textInput::placeholder {
+        #field2 textarea::placeholder {
             direction: rtl; /* اتجاه النص في placeholder */
             text-align: right; /* محاذاة النص في placeholder */
         }
         
-        #submitButton {
+        #field2 button {
             padding: 12px 30px;
             border: none;
             background-color: #000;
@@ -159,7 +161,7 @@
             transition: opacity 0.2s;
         }
 
-        #submitButton:active {
+        #field2 button:active {
             opacity: 0.8;
         }
         
@@ -222,10 +224,13 @@
     <div id="loadingSpinner">
         <div class="spinner"></div>
     </div>
-    <div id="inputContainer">
-        <input type="text" id="textInput" placeholder="اكتب رسالتك..." required>
+
+    <!-- حقل 2 -->
+    <div id="field2">
+        <textarea id="commentText" placeholder="اكتب تعليقك هنا..." required></textarea>
         <button id="submitButton">إرسال</button>
     </div>
+
     <div id="hiddenMessage" class="hidden-message">
         <div class="back-arrow">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
