@@ -133,23 +133,20 @@
         
         #textInput {
             flex: 1;
-            padding: 12px 20px; /* لا تغيير هنا */
+            padding: 12px 20px;
             border: 1px solid #ccc;
             border-radius: 25px;
             margin-right: 10px;
             font-size: 14px;
             outline: none;
-            direction: rtl;
-            text-align: right;
-            height: 48px; /* لا تغيير هنا */
-            box-sizing: border-box;
+            direction: rtl; /* اتجاه النص من اليمين لليسار */
+            text-align: right; /* محاذاة النص إلى اليمين */
+            padding: 12px 20px 12px 14px; /* تعديل padding لإعطاء مساحة على اليسار */
         }
 
         #textInput::placeholder {
-            direction: rtl;
-            text-align: right;
-            line-height: 24px; /* ضبط line-height لتوسيط النص النائب */
-            opacity: 0.7; /* جعل النص النائب شفافًا قليلًا */
+            direction: rtl; /* اتجاه النص في placeholder */
+            text-align: right; /* محاذاة النص في placeholder */
         }
         
         #submitButton {
@@ -226,7 +223,7 @@
         <div class="spinner"></div>
     </div>
     <div id="inputContainer">
-        <input type="text" id="textInput" placeholder="اكتب رسالتك..." required>
+        <input type="commentText" id="textInput" placeholder="اكتب رسالتك..." required>
         <button id="submitButton">إرسال</button>
     </div>
     <div id="hiddenMessage" class="hidden-message">
