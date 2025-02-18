@@ -284,18 +284,28 @@
                             <a href="${product.link}"> <!-- استخدام الرابط المحفوظ -->
                                 <img src="${product.image}" alt="${product.name}">
                             </a>
+                            <style>
+    @media (max-width: 768px) {
+        .zero {
+            font-size: 12px !important; /* حجم أصغر لـ 00 */
+            margin-top: 13px !important; /* تعديل المسافة العلوية */
+            margin-left: -4px; /* تعديل المسافة الجانبية */
+        }
+        .number {
+            font-size: 20px !important; /* حجم أصغر للرقم 4443 */
+        }
+        .letter {
+            font-size: 14px !important; /* حجم أصغر لكلمة "جنيه" */
+            margin-top: 9px !important; /* تعديل المسافة العلوية */
+            margin-right: -3px !important; /* تعديل المسافة الجانبية */
+        }
+    }
+</style>
+
                             <div class="text-under">
                                 <h1>${product.name}</h1>
                                 <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold}</h2>
-                           <div class="container" style="display: flex; align-items: flex-end; gap: 5px; width: 100%; margin-top: -9px;">
-                            <style>
-                       @media (max-width: 768px) {
-                         .container {
-                               margin-top: -14px;
-                            }
-                              }
-                                </style>
-
+                           <div class="container" style="display: flex; align-items: flex-end; gap: 5px; width: 100%; margin-top: -10px;">
                                     <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
                                     <div class="number" style="font-size: 28px;">${product.price}</div>
                                     <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
