@@ -139,12 +139,15 @@
             margin-right: 10px;
             font-size: 14px;
             outline: none;
-            min-height: 25px;
+            height: 30px; /* Height adjusted for one line of text */
             direction: rtl;
             text-align: right;
-            white-space: nowrap; /* Prevent text from wrapping */
-            overflow-x: auto; /* Allow horizontal scrolling */
+            overflow: hidden; /* Hides scroll bar */
             resize: none; /* Prevent resizing */
+        }
+
+        #commentText::placeholder {
+            text-align: center; /* Center the placeholder text */
         }
 
         #submitButton {
