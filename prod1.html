@@ -12,542 +12,458 @@
 
 
 
+
+
     <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>صفحة التحميل</title>
-        <style>
-      .skeleton-loading {
-       position: fixed;
-       top: 67px;
-       left: 0;
-       width: 100%;
-       height: calc(100% - 67px); /* اجعل الارتفاع يأخذ باقي الشاشة */
-       background-color: #fff;
-       z-index: 1000;
-       display: flex;
-       justify-content: center;
-       align-items: center;
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الصور</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            background-color: #f4f4f4;
         }
 
-       /* دائرة التحميل */
-     .loading-circle {
-       border: 6px solid #e0e0e0; /* لون الحدود الرمادي الفاتح */
-       border-top: 6px solid #000000; /* لون الحدود العلوي (لون الدائرة) */
-       border-radius: 50%; /* يجعل الشكل دائريًا */
-       width: 60px;
-       height: 60px;
-       animation: spin 1.5s linear infinite; /* تدوير مستمر */
-           }
+        .gallery {
+            display: flex; /* إظهار العنصر مباشرة */
+            align-items: flex-start;
+            flex-direction: row-reverse;
+            margin-top: 20px;
+            position: relative;
+        }
 
-    
-            /* تأثير الدوران */
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-    
-            /* الصفحة الحالية */
-            #main-content {
-                display: none; /* مخفية حتى اكتمال التحميل */
-            }
-    
-            /* منع التمرير */
-            body.loading {
-                overflow: hidden;
-            }
-        </style>
-    </head>
-    <body class="loading">
-        <!-- صفحة التحميل -->
-        <div class="skeleton-loading">
-            <div class="loading-circle"></div>
-        </div>
-    
-        <!-- الصفحة الحالية -->
-        <div id="main-content">
-            <!-- الصفحة الحالية التي قمت بتصميمها -->
-            <!-- ... -->
-        </div>
-        <script>
-            // إخفاء صفحة التحميل وإظهار الصفحة الحالية بعد اكتمال التحميل
-            window.addEventListener('load', () => {
-                const skeletonLoading = document.querySelector('.skeleton-loading');
-                const mainContent = document.getElementById('main-content');
-                const body = document.body;
-    
-                // إخفاء صفحة التحميل
-                skeletonLoading.style.display = 'none';
-    
-                // إظهار الصفحة الحالية
-                mainContent.style.display = 'block';
-    
-                // إعادة تمكين التمرير
-                body.classList.remove('loading');
-            });
-            window.addEventListener('load', function() {
-    document.querySelector('.gallery').style.display = 'flex';
-});
-        </script>
-    </body>
-    </html>
+        .main-media {
+            margin-left: 20px;
+            position: relative;
+        }
 
+        .main-media img, .main-media video {
+            width: 400px;
+            height: 400px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            display: block;
+        }
 
-    
-    <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>معرض الصور</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                direction: rtl;
-                display: flex;
+        .thumbnails {
+            display: flex;
+            flex-direction: column;
+            max-height: 400px;
+            overflow-y: scroll;
+            padding-left: 10px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .thumbnails::-webkit-scrollbar {
+            display: none;
+        }
+
+        .thumbnail {
+            margin: 10px 0;
+            cursor: pointer;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            position: relative;
+            width: 50px;
+            height: 50px;
+        }
+
+        .thumbnail img, .thumbnail video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .thumbnail.active {
+            border-color: #007BFF;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .play-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: white;
+        }
+
+        .share-button {
+            position: absolute;
+            left: 11px;
+            background-color: rgba(121, 121, 121, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .share-button.bottom {
+            bottom: 11px;
+        }
+
+        .share-button.top {
+            top: 10px;
+            display: none;
+        }
+
+        .share-button svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (max-width: 555px) {
+            .gallery {
                 flex-direction: column;
                 align-items: center;
-                margin: 0;
-                background-color: #f4f4f4;
+                margin-top: 22px;
+                margin-right: 1px;
             }
-    
-            .gallery {
-                display: none; /* إخفاء العنصر أثناء التحميل */
-                align-items: flex-start;
-                flex-direction: row-reverse;
-                margin-top: 20px;
-                position: relative;
-            }
-    
+
             .main-media {
-                margin-left: 20px;
-                position: relative;
+                margin-left: 0;
+                margin-bottom: 20px;
             }
-    
+
             .main-media img, .main-media video {
-                width: 400px;
-                height: 400px;
-                border: 2px solid #ccc;
-                border-radius: 10px;
-                display: block;
+                width: 311px;
+                height: 311px;
             }
-    
+
             .thumbnails {
-                display: flex;
-                flex-direction: column;
-                max-height: 400px;
-                overflow-y: scroll;
-                padding-left: 10px;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
+                flex-direction: row;
+                max-height: none;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding-left: 0;
+                width: 311px;
+                gap: 10px;
             }
-    
-            .thumbnails::-webkit-scrollbar {
-                display: none;
-            }
-    
+
             .thumbnail {
-                margin: 10px 0;
-                cursor: pointer;
-                border: 2px solid #ccc;
-                border-radius: 5px;
-                padding: 5px;
-                position: relative;
+                margin: 0;
+                flex: 0 0 auto;
                 width: 50px;
                 height: 50px;
             }
-    
+
             .thumbnail img, .thumbnail video {
                 width: 100%;
                 height: 100%;
-                display: block;
-                object-fit: cover;
             }
-    
-            .thumbnail.active {
-                border-color: #007BFF;
+        }
+
+        .all-media {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .all-media img, .all-media video {
+            width: 66%;
+            height: auto;
+            max-height: 444px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 555px) {
+            .all-media img, .all-media video {
+                margin-bottom: 15px;
+                width: 100%;
             }
-    
-            .play-icon {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 24px;
-                height: 24px;
-                background-color: rgba(0, 0, 0, 0.5);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                pointer-events: none;
-            }
-    
-            .play-icon svg {
-                width: 16px;
-                height: 16px;
-                fill: white;
-            }
-    
-            .share-button {
-                position: absolute;
-                left: 11px;
-                background-color: rgba(121, 121, 121, 0.8);
-                border: none;
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            }
-    
-            .share-button.bottom {
-                bottom: 11px;
-            }
-    
-            .share-button.top {
-                top: 10px;
+        }
+
+        .content-below-main {
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .additional-content {
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .line {
+            width: 100%;
+            height: 8px;
+            background-color: #eeeeee;
+        }
+
+        .scroll-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #ccc;
+            border-radius: 4px;
+            position: relative;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .scroll-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 20%;
+            background-color: #007BFF;
+            border-radius: 4px;
+            transition: width 0.2s ease;
+        }
+
+        .scroll-bar:hover::before {
+            background-color: #0056b3;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(24, 24, 24, 0.336);
+            border: none;
+            border-radius: 1px;
+            width: 41px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            z-index: 1;
+            opacity: 1; /* إظهار السهام مباشرة */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        @media (max-width: 556px) {
+            .arrow {
                 display: none;
             }
-    
-            .share-button svg {
-                width: 24px;
-                height: 24px;
+        }
+
+        .arrow.visible {
+            opacity: 1;
+        }
+
+        .arrow.left {
+            left: 2px;
+            transform: translateY(-50%);
+        }
+
+        .arrow.right {
+            right: 2px;
+            transform: translateY(-50%);
+        }
+
+        .arrow svg {
+            fill: white;
+            width: 30px;
+            height: 34px;
+        }
+
+        .media-counter {
+            position: absolute;
+            font-family: 'Cairo', sans-serif;
+            bottom: 12px;
+            right: 90px;
+            background-color: rgba(255, 255, 255, 0.767);
+            padding: 2px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            direction: rtl;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 555px) {
+            .media-counter {
+                background-color: rgba(255, 255, 255, 0.616);
+                bottom: 95px;
+                right: 15px;
+                font-size: 11px;
+                padding: 3px 13px;
             }
-    
-            @media (max-width: 555px) {
-                .gallery {
-                    flex-direction: column;
-                    align-items: center;
-                    margin-top: 22px;
-                    margin-right: 1px;
-                }
-    
-                .main-media {
-                    margin-left: 0;
-                    margin-bottom: 20px;
-                }
-    
-                .main-media img, .main-media video {
-                    width: 311px;
-                    height: 311px;
-                }
-    
-                .thumbnails {
-                    flex-direction: row;
-                    max-height: none;
-                    overflow-x: auto;
-                    overflow-y: hidden;
-                    padding-left: 0;
-                    width: 311px;
-                    gap: 10px;
-                }
-    
-                .thumbnail {
-                    margin: 0;
-                    flex: 0 0 auto;
-                    width: 50px;
-                    height: 50px;
-                }
-    
-                .thumbnail img, .thumbnail video {
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-    
-            .all-media {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin-top: 20px;
-                width: 100%;
-            }
-    
-            .all-media img, .all-media video {
-                width: 66%;
-                height: auto;
-                max-height: 444px;
-                margin-bottom: 20px;
-                border-radius: 10px;
-            }
-    
-            @media (max-width: 555px) {
-                .all-media img, .all-media video {
-                    margin-bottom: 15px;
-                    width: 100%;
-                }
-            }
-    
-            .content-below-main {
-                margin-top: 20px;
-                text-align: center;
-                width: 100%;
-                max-width: 600px;
-            }
-    
-            .additional-content {
-                margin-top: 20px;
-                text-align: center;
-                width: 100%;
-                max-width: 600px;
-                padding: 20px;
-                background-color: #fff;
-                border: 1px solid #ccc;
-                border-radius: 10px;
-            }
-    
-            .line {
-                width: 100%;
-                height: 8px;
-                background-color: #eeeeee;
-            }
-    
-            .scroll-bar {
-                width: 100%;
-                height: 8px;
-                background-color: #ccc;
-                border-radius: 4px;
-                position: relative;
-                margin-bottom: 10px;
-                cursor: pointer;
-            }
-    
-            .scroll-bar::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 20%;
-                background-color: #007BFF;
-                border-radius: 4px;
-                transition: width 0.2s ease;
-            }
-    
-            .scroll-bar:hover::before {
-                background-color: #0056b3;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="gallery">
-            <div class="main-media">
-                <img id="mainMedia" src="" alt="الصورة الرئيسية" style="display: none;">
-                <video id="mainVideo" controls style="display: none;">
-                    <source src="" type="video/mp4">
-                </video>
-                <button class="share-button bottom" id="shareButton" onclick="sharePage()" style="color: #ffffff;">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
-                    </svg>
-                </button>
-                <style>
-                    .arrow {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%; /* تمركز أفقي */
-                    transform: translate(-50%, -50%); /* تعديل التحويل لتجميع السهم في المنتصف */
-                    background-color: rgba(24, 24, 24, 0.336);
-                    border: none;
-                    border-radius: 1px; /* زوايا مستديرة قليلاً */
-                    width: 41px; /* عرض الزر */
-                    height: 45px; /* ارتفاع الزر */
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: white;
-                    font-size: 24px; /* زيادة حجم السهم */
-                    z-index: 1;
-                    opacity: 0; /* إخفاء السهام في البداية */
-                    transition: opacity 0.5s ease-in-out; /* إضافة تأثير Fade-In */
-                    }
-                    
-                    @media (max-width: 556px) {
-                        .arrow {
-                            display: none; /* إظهار السهمين في الشاشات الكبيرة */
-                        }
-                    }
-                    .arrow.visible {
-                    opacity: 1; /* إظهار السهام */
-                    }
-                    
-                    .arrow.left {
-                    left: 2px; /* إعادة ضبط موقع السهم الأيسر */
-                    transform: translateY(-50%); /* تمركز عمودي فقط */
-                    }
-                    
-                    .arrow.right {
-                    right: 2px; /* إعادة ضبط موقع السهم الأيمن */
-                    transform: translateY(-50%); /* تمركز عمودي فقط */
-                    }
-                    
-                    /* تخصيص رموز SVG */
-                    .arrow svg {
-                    fill: white; /* تغيير لون الرسم البياني إلى أبيض */
-                    width: 30px; /* عرض السهم */
-                    height: 34px; /* ارتفاع السهم */
-                    }
-                    .media-counter {
-                        position: absolute;
-                        font-family: 'Cairo', sans-serif;
-                        bottom: 12px;
-                        right: 90px; /* لأن الاتجاه RTL */
-                        background-color: rgba(255, 255, 255, 0.767);
-                        padding: 2px 12px;
-                        border-radius: 15px;
-                        font-size: 13px;
-                        direction: rtl; /* للتأكد من أن النص بالعربية يظهر بشكل صحيح */
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                    }
-                    @media (max-width: 555px) {
-    .media-counter {
-        background-color: rgba(255, 255, 255, 0.616);
-        bottom: 95px;
-        right: 15px;
-        font-size: 11px;
-        padding: 3px 13px;
-    }
-}
-                </style>
-                <!-- سهم اليسار -->
-                <button class="arrow left" onclick="prevMedia()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-                    </svg>
-                </button>
-                
-                <!-- سهم اليمين -->
-                <button class="arrow right" onclick="nextMedia()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
-                    </svg>
-                </button>
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <div class="main-media">
+            <img id="mainMedia" src="1.jpg" alt="الصورة الرئيسية">
+            <video id="mainVideo" controls style="display: none;">
+                <source src="3e.mp4" type="video/mp4">
+            </video>
+            <button class="share-button bottom" id="shareButton" onclick="sharePage()" style="color: #ffffff;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                </svg>
+            </button>
+            <!-- سهم اليسار -->
+            <button class="arrow left" onclick="prevMedia()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                </svg>
+            </button>
+            
+            <!-- سهم اليمين -->
+            <button class="arrow right" onclick="nextMedia()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+                </svg>
+            </button>
+        </div>
+        <div class="media-counter">
+            منتج <span id="currentMedia">1</span>/<span id="totalMedia">5</span>
+        </div>
+        <div class="thumbnails">
+            <div class="scroll-bar"></div>
+            <div class="thumbnail active" data-src="1.jpg" data-type="image">
+                <img src="1.jpg" alt="الصورة 1">
             </div>
-            <div class="media-counter">
-                منتج <span id="currentMedia">1</span>/<span id="totalMedia">5</span>
+            <div class="thumbnail" data-src="a2.jpg" data-type="image">
+                <img src="a2.jpg" alt="الصورة 2">
             </div>
-            <div class="thumbnails">
-                <div class="scroll-bar"></div>
-                <div class="thumbnail active" data-src="1.jpg" data-type="image">
-                    <img src="" alt="الصورة 1">
-                </div>
-                <div class="thumbnail" data-src="a2.jpg" data-type="image">
-                    <img src="" alt="الصورة 2">
-                </div>
-                <div class="thumbnail" data-src="a3.jpg" data-type="image">
-                    <img src="" alt="الصورة 3">
-                </div>
-                <div class="thumbnail" data-src="a4.jpg" data-type="image">
-                    <img src="" alt="الصورة 4">
-                </div>
-                <div class="thumbnail" data-src="a5.jpg" data-type="image">
-                    <img src="" alt="الصورة 5">
-                </div>
-                <div class="thumbnail" data-src="a6.jpg" data-type="image">
-                    <img src="" alt="الصورة 6">
-                </div>
-                <div class="thumbnail" data-src="a7.jpg" data-type="image">
-                    <img src="" alt="الصورة 7">
-                </div>
-                <div class="thumbnail" data-src="3e.mp4" data-type="video">
-                    <video src=""></video>
-                    <div class="play-icon">
-                        <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                            <path class="play-icon-path" d="M8 5v14l11-7z"/>
-                            <path class="pause-icon-path" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
-                        </svg>
-                    </div>
+            <div class="thumbnail" data-src="a3.jpg" data-type="image">
+                <img src="a3.jpg" alt="الصورة 3">
+            </div>
+            <div class="thumbnail" data-src="a4.jpg" data-type="image">
+                <img src="a4.jpg" alt="الصورة 4">
+            </div>
+            <div class="thumbnail" data-src="a5.jpg" data-type="image">
+                <img src="a5.jpg" alt="الصورة 5">
+            </div>
+            <div class="thumbnail" data-src="a6.jpg" data-type="image">
+                <img src="a6.jpg" alt="الصورة 6">
+            </div>
+            <div class="thumbnail" data-src="a7.jpg" data-type="image">
+                <img src="a7.jpg" alt="الصورة 7">
+            </div>
+            <div class="thumbnail" data-src="3e.mp4" data-type="video">
+                <video src="3e.mp4"></video>
+                <div class="play-icon">
+                    <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path class="play-icon-path" d="M8 5v14l11-7z"/>
+                        <path class="pause-icon-path" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
+                    </svg>
                 </div>
             </div>
         </div>
-    
+    </div>
+
     <script>
         // دالة لحساب عدد الصور والفيديوهات
         function calculateTotalMedia() {
             const totalMedia = document.querySelectorAll('.thumbnail').length;
             document.getElementById('totalMedia').textContent = totalMedia;
         }
-    
+
         // دالة لتحديث الرقم الحالي
         function updateCurrentMedia() {
             const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = 0;
-    
+
             thumbnails.forEach((thumb, index) => {
                 if (thumb.classList.contains('active')) {
                     currentIndex = index + 1; // لأن الفهرس يبدأ من 0
                 }
             });
-    
+
             document.getElementById('currentMedia').textContent = currentIndex;
         }
-    
+
         // تحديث الأرقام عند التحميل
         document.addEventListener('DOMContentLoaded', function() {
             calculateTotalMedia();
             updateCurrentMedia();
         });
-    
+
         // تحديث الأرقام عند النقر على الصور المصغرة
         document.querySelectorAll('.thumbnail').forEach(thumb => {
             thumb.addEventListener('click', () => {
                 setTimeout(updateCurrentMedia, 100); // تأخير بسيط للتأكد من تحديث الصورة
             });
         });
-    
+
         // تحديث الأرقام عند استخدام الأسهم
         function nextMedia() {
             // الكود الحالي للسهم الأيمن...
             setTimeout(updateCurrentMedia, 100); // تحديث الرقم بعد التمرير
         }
-    
+
         function prevMedia() {
             // الكود الحالي للسهم الأيسر...
             setTimeout(updateCurrentMedia, 100); // تحديث الرقم بعد التمرير
         }
-    
+
         // إخفاء media-counter عند تشغيل الفيديو الأخير وإظهاره عند العودة للصور
         const lastVideoThumbnail = document.querySelector('.thumbnail[data-type="video"]:last-child');
         const mediaCounter = document.querySelector('.media-counter');
-    
+
         lastVideoThumbnail.addEventListener('click', () => {
             mediaCounter.style.display = 'none';
         });
-    
+
         lastVideoThumbnail.querySelector('video').addEventListener('play', () => {
             mediaCounter.style.display = 'none';
         });
-    
+
         lastVideoThumbnail.querySelector('video').addEventListener('pause', () => {
             mediaCounter.style.display = 'flex';
         });
-    
+
         lastVideoThumbnail.querySelector('video').addEventListener('ended', () => {
             mediaCounter.style.display = 'flex';
         });
-    
+
         document.querySelectorAll('.thumbnail:not([data-type="video"])').forEach(thumb => {
             thumb.addEventListener('click', () => {
                 mediaCounter.style.display = 'flex';
             });
         });
     </script>
-    </body>
-    </html>
-    
-
-
+</body>
+</html>
 
 
 
