@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عربة التسوق</title>
     <style>
-        /* تنسيقات عامة */
+        /* General styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -13,7 +13,7 @@
             box-sizing: border-box;
             position: relative;
             min-height: 100vh;
-            margin-bottom: 65px;
+            margin-bottom: 5px;
         }
 
         .gallery {
@@ -22,7 +22,7 @@
             gap: 10px;
             justify-content: center;
             padding: 20px;
-            margin-bottom: 75px; /* ترك مساحة للفوتر */
+            margin-bottom: 75px; /* Space for footer */
             flex-direction: row-reverse; /* Reverse the order of items */
         }
 
@@ -53,7 +53,7 @@
             margin-top: 10px;
             font-size: 14px;
             line-height: 1.5;
-            text-align: right; /* جعل النص يبدأ من اليمين */
+            text-align: right; /* Align text to the right */
         }
 
         .text-under h1 {
@@ -73,29 +73,32 @@
             padding: 0;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 5px; /* تباعد بين النص والأيقونة */
+            justify-content: flex-start; /* Align items to the start */
+            gap: 5px; /* Space between text and icon */
             margin-top: 10px;
             margin-right: 7px;
+            position: absolute;
+            bottom: 14px;
+            left: 14px;
         }
 
         .remove-button svg {
             width: 24px;
             height: 24px;
-            fill: none; /* تعيين fill إلى none */
-            stroke: #000000; /* لون stroke */
-            stroke-width: 2; /* عرض stroke */
+            fill: none; /* Set fill to none */
+            stroke: #000000; /* Stroke color */
+            stroke-width: 2; /* Stroke width */
         }
 
         .remove-button span {
-            color: #000000; /* لون النص */
+            color: #000000; /* Text color */
             font-family: Cairo, sans-serif;
             font-size: 14px;
         }
 
         .remove-button:hover svg,
         .remove-button:hover span {
-            opacity: 0.8; /* تخفيف اللون عند التمرير */
+            opacity: 0.8; /* Fade effect on hover */
         }
 
         .footer {
@@ -172,9 +175,9 @@
             }
         }
 
-        /* رسالة العربة الفارغة */
+        /* Empty cart message */
         #empty-cart-message {
-            display: none; /* مخفي بشكل افتراضي */
+            display: none; /* Hidden by default */
             text-align: center;
             position: absolute;
             top: 50%;
@@ -195,23 +198,29 @@
             margin-top: 10px;
         }
 
-        /* إزالة التحديد الأزرق عند النقر على الروابط والصور */
+        /* Remove blue highlight on tap/click */
         a, img {
             outline: none;
-            -webkit-tap-highlight-color: transparent; /* لإزالة اللون الأزرق على الهواتف */
-            user-select: none; /* لمنع تحديد النص عند النقر بشكل متكرر */
+            -webkit-tap-highlight-color: transparent; /* Remove blue highlight on mobile */
+            user-select: none; /* Prevent text selection on repeated clicks */
         }
 
-        /* إزالة التحديد الأزرق عند النقر على الروابط في متصفحات محددة */
+        /* Remove blue highlight on focus for specific browsers */
         a:focus, img:focus {
             outline: none;
         }
 
-        /* إزالة التحديد الأزرق عند النقر على العناصر الأخرى */
+        /* Remove blue highlight on other elements */
         .add-to-cart, .image-container, .image-frame {
             outline: none;
             -webkit-tap-highlight-color: transparent;
         }
+        @media (max-width: 1499px) { 
+            .remove-button span {
+                display: none; /* Hide text on mobile */
+            }
+        }
+      
     </style>
 </head>
 <body>
@@ -226,7 +235,7 @@
 
     <div class="gallery" id="cart-items"></div>
 
-    <!-- رسالة العربة الفارغة -->
+    <!-- Empty cart message -->
     <div id="empty-cart-message">
         <div style="width: 150px; height: 150px; background-color: #e0e0e0; border-radius: 10px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 80px; height: 80px; color: #888;">
@@ -238,7 +247,7 @@
         <p>عربة التسوق فارغة</p>
     </div>
 
-    <!-- خلفية زرقاء في الأسفل -->
+    <!-- Blue footer background -->
     <div class="footer">
         <div class="total-price">
             السعر الإجمالي: <span id="totalPrice">0</span> EGP
@@ -252,32 +261,32 @@
     </div>
 
     <script>
-        // استرجاع العربة من localStorage
+        // Retrieve cart from localStorage
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         const cartItemsElement = document.getElementById('cart-items');
         const emptyCartMessage = document.getElementById('empty-cart-message');
 
-        // دالة لتحديث عرض العربة
+        // Function to update cart display
         function updateCartDisplay() {
-            // تحديث عدد المنتجات
+            // Update item count
             document.getElementById('itemCount').textContent = cart.length;
 
-            // إذا كانت العربة فارغة
+            // If the cart is empty
             if (cart.length === 0) {
-                emptyCartMessage.style.display = 'block'; // إظهار الرسالة
-                cartItemsElement.style.display = 'none'; // إخفاء قائمة المنتجات
+                emptyCartMessage.style.display = 'block'; // Show empty cart message
+                cartItemsElement.style.display = 'none'; // Hide product list
             } else {
-                emptyCartMessage.style.display = 'none'; // إخفاء الرسالة
-                cartItemsElement.style.display = 'flex'; // إظهار قائمة المنتجات
-                cartItemsElement.innerHTML = ''; // مسح المحتوى الحالي
+                emptyCartMessage.style.display = 'none'; // Hide empty cart message
+                cartItemsElement.style.display = 'flex'; // Show product list
+                cartItemsElement.innerHTML = ''; // Clear current content
 
-                // عكس ترتيب المنتجات قبل العرض
+                // Reverse product order before display
                 cart.reverse().forEach((product, index) => {
                     const productElement = document.createElement('div');
                     productElement.className = 'image-container';
                     productElement.innerHTML = `
                         <div class="image-frame">
-                            <a href="${product.link}"> <!-- استخدام الرابط المحفوظ -->
+                            <a href="${product.link}"> <!-- Use saved link -->
                                 <img src="${product.image}" alt="${product.name}">
                             </a>
                             <div class="text-under">
@@ -290,52 +299,48 @@
                                 </div>
                                 <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">${product.discount}</h3>
                             </div>
-                            <!-- خط فوق زر الحذف -->
-                            <hr style="border: 0; border-top: 1px solid #cfcfcf; margin: 10px 0;">
-                            <!-- زر الحذف مع النص -->
-                            <div style="text-align: center; margin-top: 10px;">
-                                <button class="remove-button" onclick="removeFromCart(${index})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke-width="2" fill="none"/>
-                                        <path d="M10 11v6" stroke-width="2" stroke-linecap="round"/>
-                                        <path d="M14 11v6" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                    <span>حذف</span>
-                                </button>
-                            </div>
+                            <!-- Delete button with text -->
+                            <button class="remove-button" onclick="removeFromCart(${index})">
+                                <span>حذف</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke-width="2" fill="none"/>
+                                    <path d="M10 11v6" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M14 11v6" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
                         </div> 
                     `;
                     cartItemsElement.appendChild(productElement);
                 });
             }
 
-            // حساب السعر الإجمالي
+            // Calculate total price
             calculateTotalPrice();
         }
 
-        // دالة لحذف المنتج من العربة
+        // Function to remove product from cart
         function removeFromCart(index) {
-            cart.splice(index, 1); // حذف المنتج من العربة
-            localStorage.setItem('cart', JSON.stringify(cart)); // حفظ العربة المحدثة
-            updateCartDisplay(); // تحديث عرض العربة
+            cart.splice(index, 1); // Remove product from cart
+            localStorage.setItem('cart', JSON.stringify(cart)); // Save updated cart
+            updateCartDisplay(); // Update cart display
         }
 
-        // دالة لحساب السعر الإجمالي
+        // Function to calculate total price
         function calculateTotalPrice() {
             let totalPrice = 0;
             cart.forEach(product => {
-                const price = parseFloat(product.price.replace(/,/g, '')); // تحويل السعر إلى رقم
+                const price = parseFloat(product.price.replace(/,/g, '')); // Convert price to number
                 totalPrice += price;
             });
-            document.getElementById('totalPrice').textContent = totalPrice.toLocaleString(); // عرض السعر الإجمالي
+            document.getElementById('totalPrice').textContent = totalPrice.toLocaleString(); // Display total price
         }
 
-        // دالة للرجوع إلى الصفحة السابقة
+        // Function to go back to the previous page
         function goBack() {
-            history.back(); // يعيد المستخدم إلى الصفحة السابقة في سجل التصفح
+            history.back(); // Return to the previous page in the browser history
         }
 
-        // تحديث عرض العربة عند تحميل الصفحة
+        // Update cart display on page load
         updateCartDisplay();
     </script>
 </body>
