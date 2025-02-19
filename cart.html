@@ -285,6 +285,11 @@
                                 <img src="${product.image}" alt="${product.name}">
                             </a>
                             <style>
+ @media (max-width: 768px) {
+                .container {
+               margin-top: -10px;
+                }}
+
     @media (max-width: 768px) {
         .zero {
             font-size: 12px !important; /* حجم أصغر لـ 00 */
@@ -299,6 +304,10 @@
             margin-top: 9px !important; /* تعديل المسافة العلوية */
             margin-right: -3px !important; /* تعديل المسافة الجانبية */
         }
+
+             .container {
+               margin-top: -19px;
+                }}
     }
 </style>
 
@@ -307,7 +316,7 @@
                                 <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold}</h2>
                            <div class="container" style="display: flex; align-items: flex-end; gap: 5px; width: 100%; margin-top: -10px;">
                                     <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                                    <div class="number" style="font-size: 28px;">${product.price}</div>
+                                    <div class="number" style="font-size: 24px;">${product.price}</div>
                                     <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
                                 </div>
                                 <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">${product.discount}</h3>
@@ -325,7 +334,8 @@
                                     <span>حذف</span>
                                 </button>
                             </div>
-                        </div>
+                        </div> <br> 
+
                     `;
                     cartItemsElement.appendChild(productElement);
                 });
