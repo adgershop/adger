@@ -134,7 +134,7 @@
         
         #field2 textarea {
             flex: 1;
-            padding: 12px 20px;
+            padding: 0 15px; /* تعديل الـ padding لإزالة المساحة العلوية والسفلية */
             border: 1px solid #ccc;
             border-radius: 25px;
             margin-right: 10px;
@@ -142,17 +142,22 @@
             outline: none;
             direction: rtl; /* اتجاه النص من اليمين لليسار */
             text-align: right; /* محاذاة النص إلى اليمين */
-            padding: 12px 20px 12px 14px; /* تعديل padding لإعطاء مساحة على اليسار */
             resize: none; /* منع تغيير حجم الحقل */
+            height: 40px; /* ارتفاع الحقل */
+            line-height: 40px; /* جعل النص في المنتصف عموديًا */
+            overflow: hidden; /* إخفاء أي نص يتجاوز السطر الواحد */
+            white-space: nowrap; /* منع التفاف النص */
         }
 
         #field2 textarea::placeholder {
             direction: rtl; /* اتجاه النص في placeholder */
             text-align: right; /* محاذاة النص في placeholder */
+            line-height: 40px; /* جعل النص في المنتصف عموديًا */
         }
         
         #field2 button {
             padding: 12px 30px;
+            margin-right: -3px;
             border: none;
             background-color: #000;
             color: white;
@@ -227,7 +232,7 @@
 
     <!-- حقل 2 -->
     <div id="field2">
-        <textarea id="commentText" placeholder="اكتب تعليقك هنا..." required></textarea>
+        <textarea id="commentText" placeholder="اكتب رسالتك هنا..." required></textarea>
         <button id="submitButton">إرسال</button>
     </div>
 
