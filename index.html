@@ -4627,8 +4627,6 @@
 
 
 
-
-
         <script>
             function addToCart(element) {
                 // Add to cart logic here
@@ -4650,11 +4648,15 @@
                 // تنفيذ خلط المنتجات
                 shuffle(products);
         
+                // تحديد عدد المنتجات المراد إظهارها بناءً على حجم الشاشة
+                const isMobile = window.innerWidth <= 768; // افتراض أن الهواتف لها شاشة بعرض 768 بكسل أو أقل
+                const initialDisplayCount = isMobile ? 6 : 5; // 6 للهواتف، 5 لغيرها
+        
                 // تفريغ المعرض وإعادة إدخال المنتجات بالترتيب الجديد
                 gallery.innerHTML = '';
                 products.forEach((product, index) => {
-                    if (index < 5) {
-                        product.classList.remove('hidden'); // إظهار أول 5 منتجات
+                    if (index < initialDisplayCount) {
+                        product.classList.remove('hidden'); // إظهار العدد المحدد من المنتجات
                     } else {
                         product.classList.add('hidden'); // إخفاء الباقي
                     }
@@ -4672,7 +4674,7 @@
                 if (window.innerHeight + window.scrollY >= document.body.offsetHeight / 2) {
                     let count = 0;
                     hiddenElements.forEach(element => {
-                        if (count < 10) { // إظهار 10 عناصر في كل مرة بدلاً من 5
+                        if (count < 10) { // إظهار 10 عناصر في كل مرة
                             element.classList.remove('hidden');
                             count++;
                         }
@@ -4684,7 +4686,6 @@
                 alert('Product added to cart!');
             }
         </script>
-
 
 
 
