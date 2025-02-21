@@ -783,6 +783,20 @@
 
 
 <h1 class="prices" style="font-family: 'Cairo', sans-serif; color: #ff4800; font-size: 25px;  text-align: right;  margin-right: 15px; ">قسم الأسعار</h1>
+   <style>
+    @media (max-width: 768px) {
+   .prices{
+        font-size: 19px !important;
+        margin-top: 12px;
+    }
+}
+@media (min-width: 768px) {
+   .prices{
+      margin-top: 28px;
+    }
+}
+   </style>
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -790,17 +804,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Slider</title>
     <style>
-        .photo-slider-container {
-            position: relative;
-            overflow: hidden; /* منع التمرير الأفقي في الحاوية */
-        }
-
         .photo-slider {
             display: flex;
             overflow-x: auto;
             scroll-behavior: smooth;
             scrollbar-width: none; /* إخفاء شريط التمرير في المتصفحات الحديثة */
-            width: 100%;
         }
 
         .photo-slider::-webkit-scrollbar {
@@ -813,7 +821,6 @@
             margin: 0 10px;
             cursor: pointer;
             transition: transform 0.3s;
-            flex-shrink: 0; /* منع الصور من الانكماش */
         }
 
         @media only screen and (max-width: 767px) {
@@ -850,14 +857,10 @@
             height: 8px;
             background-color: #eeeeee;
         }
-
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
-    <div class="photo-slider-container">
+    <div class="photo-slider-container" style="position: relative;">
         <div class="photo-slider">
             <img src="a1.jpg" alt="صورة 1" onclick="redirectToSea('أقل من 50 حنيه')">
             <img src="a2.jpg" alt="صورة 2" onclick="redirectToSea('نص الصورة 2')">
@@ -984,6 +987,7 @@
     </script>
 </body>
 </html>
+
  <!-- الخط -->
  <div class="line" style="margin-top: 25px;"></div>
 
