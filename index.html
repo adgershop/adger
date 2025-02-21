@@ -458,6 +458,11 @@
             <title>Slideshow</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
                 .white-bar {
                     height: 86px;
                     background-color: white;
@@ -487,19 +492,19 @@
                 .slideshow-container {
                     position: relative;
                     overflow: hidden;
-                    height: 199px; /* Fixing the height of the container */
+                    height: 199px;
                 }
         
                 .slides {
                     width: 100%;
-                    height: 100%; /* Ensure slides take full height of the container */
+                    height: 100%;
                     display: none;
                     border-radius: 9px;
                 }
         
                 @media (max-width: 768px) {
                     .slideshow-container {
-                        height: 150px; /* Fixing the height for mobile view */
+                        height: 150px;
                     }
                 }
         
