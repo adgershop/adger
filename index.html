@@ -543,10 +543,14 @@
                 let slides = document.getElementsByClassName("slides");
                 let slideshowContainer = document.getElementById("slideshow-container");
         
-                // إخفاء السلايدشو أثناء التحميل
-                slideshowContainer.style.visibility = "hidden";
+                // تحديد ارتفاع افتراضي مطابق للصور أثناء التحميل
+                if (window.innerWidth <= 768) {
+                    slideshowContainer.style.height = "150px"; // للشاشات الصغيرة
+                } else {
+                    slideshowContainer.style.height = "199px"; // للشاشات الكبيرة
+                }
         
-                // وظيفة للتحقق من تحميل الصور
+                // وظيفة للتحقق من تحميل الصور وإزالة الارتفاع الثابت
                 function checkImagesLoaded() {
                     let images = slideshowContainer.getElementsByTagName("img");
                     let loadedCount = 0;
@@ -559,13 +563,13 @@
                             images[i].addEventListener("load", () => {
                                 loadedCount++;
                                 if (loadedCount === totalImages) {
-                                    slideshowContainer.style.visibility = "visible";
+                                    slideshowContainer.style.height = ""; // إزالة الارتفاع الثابت
                                 }
                             });
                             images[i].addEventListener("error", () => {
                                 loadedCount++; // تجاهل الأخطاء ومتابعة العد
                                 if (loadedCount === totalImages) {
-                                    slideshowContainer.style.visibility = "visible";
+                                    slideshowContainer.style.height = ""; // إزالة الارتفاع الثابت
                                 }
                             });
                         }
@@ -573,7 +577,7 @@
         
                     // إذا كانت جميع الصور محملة بالفعل
                     if (loadedCount === totalImages) {
-                        slideshowContainer.style.visibility = "visible";
+                        slideshowContainer.style.height = ""; // إزالة الارتفاع الثابت
                     }
                 }
         
