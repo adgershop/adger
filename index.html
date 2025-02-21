@@ -450,180 +450,200 @@
 
 
 
-
-    <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-    <meta charset="UTF-8">
-    <title>Slideshow</title>
-    <style>
-        
-
-        .content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;   
-            top: -6px;   
-            margin-bottom: -22px;
-        }
-        @media (min-width: 1569px) {
-            .content {
-            display: none;
-        }
-    }
-
-        .slideshow-container {
-            position: relative;
-            overflow: hidden; /* لإخفاء الصور أثناء السحب */
-            
-        }
-    
-        .slides {
-        width: 100%;
-        height: 199px;
-        display: none;
-        border-radius: 9px;
-    }
-    
-    /* لتصغير الارتفاع على الهواتف المحمولة */
-    @media (max-width: 768px) {
-        .slides {
-            height: 150px; /* تعديل الارتفاع حسب احتياجك */
-        }
-    }
-    
-        .slides.active {
-            display: block;
-        }
-    
-        .close-btn {
-            position: absolute;
-            top: -2px;
-            right: 1px;
-            background-color: rgb(238, 1, 1);
-            color: rgb(255, 255, 255);
-            border: none;
-            padding: 3px 7px;
-            cursor: pointer;
-            z-index: 1;
-            font-size: 10px;
-        }
-    
-        .spacing {
-            height: 2em;
-        }
-    </style>
-    </head>
-    <body>
-        <div class="white-bar"></div>
         <!DOCTYPE html>
         <html lang="ar">
         <head>
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
+            <title>Slideshow</title>
             <style>
-                .search-links {
-                    display: flex;
+                .white-bar {
+                    height: 86px;
+                    background-color: white;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                @media (max-width: 769px) {
+                    .white-bar {
+                        height: 78px;
+                    }
+                }
+        
+                .content {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    position: relative;   
+                    top: -6px;   
+                    margin-bottom: -22px;
+                }
+                @media (min-width: 1569px) {
+                    .content {
+                        display: none;
+                    }
+                }
+        
+                .slideshow-container {
+                    position: relative;
+                    overflow: hidden; /* لإخفاء الصور أثناء السحب */
                 }
             
-                .highlight {
-                    background-color: rgb(255, 255, 255) !important;
-                    color: rgb(0, 0, 0) !important;
-                } 
-    
+                .slides {
+                    width: 100%;
+                    height: 199px;
+                    display: none;
+                    border-radius: 9px;
+                }
+            
+                /* لتصغير الارتفاع على الهواتف المحمولة */
+                @media (max-width: 768px) {
+                    .slides {
+                        height: 150px; /* تعديل الارتفاع حسب احتياجك */
+                    }
+                }
+            
+                .slides.active {
+                    display: block;
+                }
+            
+                .close-btn {
+                    position: absolute;
+                    top: -2px;
+                    right: 1px;
+                    background-color: rgb(238, 1, 1);
+                    color: rgb(255, 255, 255);
+                    border: none;
+                    padding: 3px 7px;
+                    cursor: pointer;
+                    z-index: 1;
+                    font-size: 10px;
+                }
+            
+                .spacing {
+                    height: 2em;
+                }
             </style>
-            
-        </script>
-        <div class="content" id="content">
-            <!-- عرض الصور -->
-            <div class="slideshow-container" id="slideshow-container">
-                <img class="slides active" src="i1.jpg">
-                <img class="slides" src="i2.jpg">
-                <img class="slides" src="i3.jpg">
-                <a href="https://median.co/share/wjpxwm#apk">
-                    <img class="slides" src="i4.jpg" alt="تطبيق أدجر">
-                </a>
-                
+        </head>
+        <body>
+            <div class="white-bar"></div>
+            <div class="content" id="content">
+                <!-- عرض الصور -->
+                <div class="slideshow-container" id="slideshow-container">
+                    <img class="slides active" src="i1.jpg">
+                    <img class="slides" src="i2.jpg">
+                    <img class="slides" src="i3.jpg">
+                    <a href="https://median.co/share/wjpxwm#apk">
+                        <img class="slides" src="i4.jpg" alt="تطبيق أدجر">
+                    </a>
+                </div>
             </div>
-        </div>
-    
-        <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
-        <script>
-            let slideIndex = 0;
-            let slides = document.getElementsByClassName("slides");
-            let slideshowContainer = document.getElementById("slideshow-container");
-    
-            // وظيفة لتغيير الشريحة
-            function changeSlide(n) {
-                slides[slideIndex].style.display = "none";
-                slideIndex = (slideIndex + n + slides.length) % slides.length;
-                slides[slideIndex].style.display = "block";
-            }
-    
-            // تشغيل عرض الصور تلقائيا
-            setInterval(() => changeSlide(1), 7000); // تغيير الصورة كل 5 ثواني
-    
-            // وظيفة إزالة الخلفية الزرقاء بكل محتوياتها
-            function removeContent() {
-                let content = document.getElementById("content");
-                if (content) {
-                    content.style.display = "none";
+        
+            <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+            <script>
+                let slideIndex = 0;
+                let slides = document.getElementsByClassName("slides");
+                let slideshowContainer = document.getElementById("slideshow-container");
+        
+                // إخفاء السلايدشو أثناء التحميل
+                slideshowContainer.style.visibility = "hidden";
+        
+                // وظيفة للتحقق من تحميل الصور
+                function checkImagesLoaded() {
+                    let images = slideshowContainer.getElementsByTagName("img");
+                    let loadedCount = 0;
+                    let totalImages = images.length;
+        
+                    for (let i = 0; i < totalImages; i++) {
+                        if (images[i].complete) {
+                            loadedCount++;
+                        } else {
+                            images[i].addEventListener("load", () => {
+                                loadedCount++;
+                                if (loadedCount === totalImages) {
+                                    slideshowContainer.style.visibility = "visible";
+                                }
+                            });
+                            images[i].addEventListener("error", () => {
+                                loadedCount++; // تجاهل الأخطاء ومتابعة العد
+                                if (loadedCount === totalImages) {
+                                    slideshowContainer.style.visibility = "visible";
+                                }
+                            });
+                        }
+                    }
+        
+                    // إذا كانت جميع الصور محملة بالفعل
+                    if (loadedCount === totalImages) {
+                        slideshowContainer.style.visibility = "visible";
+                    }
                 }
-    
-                // إضافة مسافة تعادل 2 <br> عند إخفاء المحتوى
-                let spacing = document.getElementById('spacing');
-    if (!spacing) {
-        spacing = document.createElement('div');
-        spacing.className = 'spacing';
-        spacing.id = 'spacing';
-        spacing.style.marginBottom = '-2em'; // إضافة مسافة تعادل سطر فارغ
-        document.body.insertBefore(spacing, document.querySelector('.white-bar').nextSibling);
-    }
-    
-            }
-    
-            // وظيفة لعرض المحتوى مرة أخرى وإزالة المسافة
-            function showContent() {
-                let content = document.getElementById("content");
-                if (content) {
-                    content.style.display = "block";
+        
+                // استدعاء الوظيفة عند تحميل الصفحة
+                window.addEventListener("load", checkImagesLoaded);
+        
+                // وظيفة لتغيير الشريحة
+                function changeSlide(n) {
+                    slides[slideIndex].style.display = "none";
+                    slideIndex = (slideIndex + n + slides.length) % slides.length;
+                    slides[slideIndex].style.display = "block";
                 }
-    
-                // إزالة المسافة المضافة
-                let spacing = document.getElementById('spacing');
-                if (spacing) {
-                    spacing.remove();
+        
+                // تشغيل عرض الصور تلقائيا
+                setInterval(() => changeSlide(1), 7000); // تغيير الصورة كل 7 ثواني
+        
+                // وظيفة إزالة الخلفية الزرقاء بكل محتوياتها
+                function removeContent() {
+                    let content = document.getElementById("content");
+                    if (content) {
+                        content.style.display = "none";
+                    }
+        
+                    let spacing = document.getElementById('spacing');
+                    if (!spacing) {
+                        spacing = document.createElement('div');
+                        spacing.className = 'spacing';
+                        spacing.id = 'spacing';
+                        spacing.style.marginBottom = '-2em';
+                        document.body.insertBefore(spacing, document.querySelector('.white-bar').nextSibling);
+                    }
                 }
-            }
-    
-            // وظيفة لإخفاء المحتوى عند الكتابة وإظهاره عند حذف الكتابة
-            function handleInput(event) {
-                if (event.target.value.trim() === "") {
-                    showContent();
-                } else {
-                    removeContent();
+        
+                // وظيفة لعرض المحتوى مرة أخرى وإزالة المسافة
+                function showContent() {
+                    let content = document.getElementById("content");
+                    if (content) {
+                        content.style.display = "block";
+                    }
+        
+                    let spacing = document.getElementById('spacing');
+                    if (spacing) {
+                        spacing.remove();
+                    }
                 }
-            }
-    
-            // إضافة مستمع الحدث لصندوق البحث
-            window.addEventListener('load', () => {
-                const searchBox = document.querySelector('input[type="text"]'); // تعديل هذا لاختيار صندوق البحث الخاص بك
-                if (searchBox) {
-                    searchBox.addEventListener('input', handleInput);
+        
+                // وظيفة لإخفاء المحتوى عند الكتابة وإظهاره عند حذف الكتابة
+                function handleInput(event) {
+                    if (event.target.value.trim() === "") {
+                        showContent();
+                    } else {
+                        removeContent();
+                    }
                 }
-            });
-    
-            // استخدام Hammer.js للاستماع إلى أحداث السحب
-            const hammertime = new Hammer(slideshowContainer);
-            hammertime.on('swipeleft', () => changeSlide(1));
-            hammertime.on('swiperight', () => changeSlide(-1));
-        </script>
-    </body>
-    </html>
-    
-    
+        
+                // إضافة مستمع الحدث لصندوق البحث
+                window.addEventListener('load', () => {
+                    const searchBox = document.querySelector('input[type="text"]');
+                    if (searchBox) {
+                        searchBox.addEventListener('input', handleInput);
+                    }
+                });
+        
+                // استخدام Hammer.js للاستماع إلى أحداث السحب
+                const hammertime = new Hammer(slideshowContainer);
+                hammertime.on('swipeleft', () => changeSlide(1));
+                hammertime.on('swiperight', () => changeSlide(-1));
+            </script>
+        </body>
+        </html>
     
 
 
