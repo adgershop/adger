@@ -456,6 +456,7 @@
         <head>
             <meta charset="UTF-8">
             <title>Slideshow</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
                 .white-bar {
                     height: 86px;
@@ -473,8 +474,8 @@
                     max-width: 800px;
                     margin: 0 auto;
                     padding: 20px;
-                    position: relative;   
-                    top: -6px;   
+                    position: relative;
+                    top: -6px;
                     margin-bottom: -22px;
                 }
                 @media (min-width: 1569px) {
@@ -485,7 +486,7 @@
         
                 .slideshow-container {
                     position: relative;
-                    overflow: hidden; /* لإخفاء الصور أثناء السحب */
+                    overflow: hidden;
                 }
         
                 .slides {
@@ -495,28 +496,14 @@
                     border-radius: 9px;
                 }
         
-                /* لتصغير الارتفاع على الهواتف المحمولة */
                 @media (max-width: 768px) {
                     .slides {
-                        height: 150px; /* تعديل الارتفاع حسب احتياجك */
+                        height: 150px;
                     }
                 }
         
                 .slides.active {
                     display: block;
-                }
-        
-                .close-btn {
-                    position: absolute;
-                    top: -2px;
-                    right: 1px;
-                    background-color: rgb(238, 1, 1);
-                    color: rgb(255, 255, 255);
-                    border: none;
-                    padding: 3px 7px;
-                    cursor: pointer;
-                    z-index: 1;
-                    font-size: 10px;
                 }
         
                 .spacing {
@@ -527,7 +514,6 @@
         <body>
             <div class="white-bar"></div>
             <div class="content" id="content">
-                <!-- عرض الصور -->
                 <div class="slideshow-container" id="slideshow-container">
                     <img class="slides active" src="i1.jpg">
                     <img class="slides" src="i2.jpg">
@@ -544,49 +530,42 @@
                 let slides = document.getElementsByClassName("slides");
                 let slideshowContainer = document.getElementById("slideshow-container");
         
-                // وظيفة لتغيير الشريحة
                 function changeSlide(n) {
                     slides[slideIndex].classList.remove("active");
                     slideIndex = (slideIndex + n + slides.length) % slides.length;
                     slides[slideIndex].classList.add("active");
                 }
         
-                // تشغيل عرض الصور تلقائيا
-                setInterval(() => changeSlide(1), 7000); // تغيير الصورة كل 7 ثواني
+                setInterval(() => changeSlide(1), 7000);
         
-                // وظيفة إزالة الخلفية الزرقاء بكل محتوياتها
                 function removeContent() {
                     let content = document.getElementById("content");
                     if (content) {
                         content.style.display = "none";
                     }
         
-                    // إضافة مسافة تعادل 2 <br> عند إخفاء المحتوى
                     let spacing = document.getElementById('spacing');
                     if (!spacing) {
                         spacing = document.createElement('div');
                         spacing.className = 'spacing';
                         spacing.id = 'spacing';
-                        spacing.style.marginBottom = '-2em'; // إضافة مسافة تعادل سطر فارغ
+                        spacing.style.marginBottom = '-2em';
                         document.body.insertBefore(spacing, document.querySelector('.white-bar').nextSibling);
                     }
                 }
         
-                // وظيفة لعرض المحتوى مرة أخرى وإزالة المسافة
                 function showContent() {
                     let content = document.getElementById("content");
                     if (content) {
                         content.style.display = "block";
                     }
         
-                    // إزالة المسافة المضافة
                     let spacing = document.getElementById('spacing');
                     if (spacing) {
                         spacing.remove();
                     }
                 }
         
-                // وظيفة لإخفاء المحتوى عند الكتابة وإظهاره عند حذف الكتابة
                 function handleInput(event) {
                     if (event.target.value.trim() === "") {
                         showContent();
@@ -595,15 +574,13 @@
                     }
                 }
         
-                // إضافة مستمع الحدث لصندوق البحث
                 window.addEventListener('load', () => {
-                    const searchBox = document.querySelector('input[type="text"]'); // تعديل هذا لاختيار صندوق البحث الخاص بك
+                    const searchBox = document.querySelector('input[type="text"]');
                     if (searchBox) {
                         searchBox.addEventListener('input', handleInput);
                     }
                 });
         
-                // استخدام Hammer.js للاستماع إلى أحداث السحب
                 const hammertime = new Hammer(slideshowContainer);
                 hammertime.on('swipeleft', () => changeSlide(1));
                 hammertime.on('swiperight', () => changeSlide(-1));
