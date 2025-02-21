@@ -4645,31 +4645,27 @@
                 const products = Array.from(gallery.getElementsByClassName('image-container'));
         
                 // دالة خلط العناصر
-                  
                 function shuffle(array) {
                     for (let i = array.length - 1; i > 0; i--) {
                         const j = Math.floor(Math.random() * (i + 1));
                         [array[i], array[j]] = [array[j], array[i]];
                     }
                 }
-    
+        
+                // تنفيذ خلط المنتجات
                 shuffle(products);
-                const isMobile = window.innerWidth <= 768;
-                const initialDisplayCount = isMobile ? 16 : 5;
-    
+        
+                // تفريغ المعرض وإعادة إدخال المنتجات بالترتيب الجديد
                 gallery.innerHTML = '';
                 products.forEach((product, index) => {
-                    if (index < initialDisplayCount) {
-                        product.classList.remove('hidden');
+                    if (index < 5) {
+                        product.classList.remove('hidden'); // إظهار أول 5 منتجات
                     } else {
-                        product.classList.add('hidden');
+                        product.classList.add('hidden'); // إخفاء الباقي
                     }
                     gallery.appendChild(product);
                 });
-    
-                startRotatingText(".rotating-text1212");
             });
-
         
             // إظهار المنتجات المخفية تدريجياً عند التمرير
             document.addEventListener('scroll', function () {
@@ -4909,7 +4905,7 @@
 
 
 <br><br>
-<html lang="ar">
+   <html lang="ar">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
