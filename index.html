@@ -2398,7 +2398,7 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
-                direction: rtl; /* جعل اتجاه النص من اليمين إلى اليسار */
+                direction: rtl;
             }
     
             .gallery {
@@ -2414,6 +2414,8 @@
                 max-width: calc(16.666% - 20px);
                 box-sizing: border-box;
                 position: relative;
+                opacity: 1;
+                transition: opacity 0.3s ease-in-out; /* Smooth transition for visibility */
             }
     
             .image-frame {
@@ -2436,7 +2438,7 @@
                 margin-top: 10px;
                 font-size: 14px;
                 line-height: 1.5;
-                text-align: right; /* جعل النص يبدأ من اليمين */
+                text-align: right;
             }
     
             .text-under h1 {
@@ -2502,6 +2504,7 @@
     
             .hidden {
                 display: none;
+                opacity: 0; /* Start hidden with zero opacity */
             }
     
             .container {
@@ -2516,17 +2519,17 @@
     
             @media (max-width: 768px) {
                 .zero {
-                    font-size: 12px !important; /* حجم أصغر لـ 00 */
-                    margin-top: 13px !important; /* تعديل المسافة العلوية */
-                    margin-left: -4px; /* تعديل المسافة الجانبية */
+                    font-size: 12px !important;
+                    margin-top: 13px !important;
+                    margin-left: -4px;
                 }
                 .number {
-                    font-size: 20px !important; /* حجم أصغر للرقم 4443 */
+                    font-size: 20px !important;
                 }
                 .letter {
-                    font-size: 14px !important; /* حجم أصغر لكلمة "جنيه" */
-                    margin-top: 9px !important; /* تعديل المسافة العلوية */
-                    margin-right: -3px !important; /* تعديل المسافة الجانبية */
+                    font-size: 14px !important;
+                    margin-top: 9px !important;
+                    margin-right: -3px !important;
                 }
             }
     
@@ -2535,10 +2538,11 @@
                 margin: 20px auto;
                 border: 4px solid #f3f3f3;
                 border-radius: 50%;
-                border-top: 4px solid #3498db;
+                border-top: 4px solid #ff0000;
                 width: 40px;
                 height: 40px;
                 animation: spin 2s linear infinite;
+                position: relative; /* Ensure it doesn’t disrupt layout */
             }
     
             @keyframes spin {
@@ -2546,12 +2550,9 @@
                 100% { transform: rotate(360deg); }
             }
         </style>
+        <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
     </head>
     <body>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&display=swap');
-        </style>
-    
         <!-- HTML -->
         <div id="gallery" class="gallery">
             <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
@@ -2568,7 +2569,6 @@
                             <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
                         </div>
                         <style>
-                            /* تنسيق النص */
                             .rotating-text1212 {
                                 font-family: 'Cairo', sans-serif;
                                 color: #ff0000;
@@ -2577,34 +2577,13 @@
                                 margin-right: 8.6px;
                                 text-transform: uppercase;
                                 transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-                                opacity: 1; /* النص يبدأ ظاهرًا */
-                                transform: translateY(0); /* النص يبدأ في مكانه */
+                                opacity: 1;
+                                transform: translateY(0);
                             }
                         </style>
-                        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
                         <div class="product1212">
                             <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
                         </div>
-                        <script>
-                            function startRotatingText(s) {
-                                document.querySelectorAll(s).forEach(e => {
-                                    const texts = JSON.parse(e.getAttribute("data-texts"));
-                                    let i = 0, n = 1;
-                                    setInterval(() => {
-                                        e.style.opacity = "0";
-                                        e.style.transform = "translateY(20px)";
-                                        setTimeout(() => {
-                                            e.textContent = texts[i];
-                                            e.style.opacity = "1";
-                                            e.style.transform = "translateY(0)";
-                                            i = n;
-                                            n = (n === 0) ? 1 : 0;
-                                        }, 500);
-                                    }, 5000);
-                                });
-                            }
-                            startRotatingText(".rotating-text1212");
-                        </script>
                     </div>
                     <div class="add-to-cart" onclick="addToCart(this)">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -3799,15 +3778,40 @@
     
         <script>
             function addToCart(element) {
-                // Add to cart logic here
                 alert("تمت إضافة المنتج إلى سلة التسوق");
+            }
+    
+            function startRotatingText(s) {
+                document.querySelectorAll(s).forEach(e => {
+                    const texts = JSON.parse(e.getAttribute("data-texts"));
+                    let i = 0, n = 1;
+                    setInterval(() => {
+                        e.style.opacity = "0";
+                        e.style.transform = "translateY(20px)";
+                        setTimeout(() => {
+                            e.textContent = texts[i];
+                            e.style.opacity = "1";
+                            e.style.transform = "translateY(0)";
+                            i = n;
+                            n = (n === 0) ? 1 : 0;
+                        }, 500);
+                    }, 5000);
+                });
+            }
+    
+            // Debounce function to limit scroll event frequency
+            function debounce(func, wait) {
+                let timeout;
+                return function (...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
             }
     
             document.addEventListener("DOMContentLoaded", function () {
                 const gallery = document.getElementById('gallery');
                 const products = Array.from(gallery.getElementsByClassName('image-container'));
     
-                // دالة خلط العناصر
                 function shuffle(array) {
                     for (let i = array.length - 1; i > 0; i--) {
                         const j = Math.floor(Math.random() * (i + 1));
@@ -3815,50 +3819,50 @@
                     }
                 }
     
-                // تنفيذ خلط المنتجات
                 shuffle(products);
+                const isMobile = window.innerWidth <= 768;
+                const initialDisplayCount = isMobile ? 16 : 5;
     
-                // تحديد عدد المنتجات المراد إظهارها بناءً على حجم الشاشة
-                const isMobile = window.innerWidth <= 768; // افتراض أن الهواتف لها شاشة بعرض 768 بكسل أو أقل
-                const initialDisplayCount = isMobile ? 16 : 5; // 6 للهواتف، 5 لغيرها
-    
-                // تفريغ المعرض وإعادة إدخال المنتجات بالترتيب الجديد
                 gallery.innerHTML = '';
                 products.forEach((product, index) => {
                     if (index < initialDisplayCount) {
-                        product.classList.remove('hidden'); // إظهار العدد المحدد من المنتجات
+                        product.classList.remove('hidden');
                     } else {
-                        product.classList.add('hidden'); // إخفاء الباقي
+                        product.classList.add('hidden');
                     }
                     gallery.appendChild(product);
                 });
+    
+                startRotatingText(".rotating-text1212");
             });
     
-            // إظهار المنتجات المخفية تدريجياً عند التمرير
-            document.addEventListener('scroll', function () {
+            // Scroll event with debounce
+            document.addEventListener('scroll', debounce(function () {
                 const hiddenElements = document.querySelectorAll('.hidden');
                 const loadingSpinner = document.getElementById('loading-spinner');
     
                 if (hiddenElements.length === 0) {
-                    loadingSpinner.style.display = 'none'; // إخفاء دائرة التحميل إذا لم يكن هناك عناصر مخفية
-                    return; // لا يوجد عناصر مخفية
+                    loadingSpinner.style.display = 'none';
+                    return;
                 }
     
-                // التحقق مما إذا كان المستخدم قد وصل إلى منتصف الصفحة
                 if (window.innerHeight + window.scrollY >= document.body.offsetHeight / 2) {
-                    loadingSpinner.style.display = 'block'; // إظهار دائرة التحميل
+                    loadingSpinner.style.display = 'block';
                     let count = 0;
                     setTimeout(() => {
                         hiddenElements.forEach(element => {
-                            if (count < 10) { // إظهار 10 عناصر في كل مرة
+                            if (count < 10) {
                                 element.classList.remove('hidden');
+                                // Force reflow for smooth transition
+                                void element.offsetWidth;
+                                element.style.opacity = '1'; // Fade in effect
                                 count++;
                             }
                         });
-                        loadingSpinner.style.display = 'none'; // إخفاء دائرة التحميل بعد إظهار العناصر
-                    }, 800); // تأخير بسيط لمحاكاة التحميل
+                        loadingSpinner.style.display = 'none';
+                    }, 800);
                 }
-            });
+            }, 200)); // 200ms debounce delay
         </script>
     </body>
     </html>
