@@ -457,13 +457,25 @@
     <meta charset="UTF-8">
     <title>Slideshow</title>
     <style>
+        .white-bar {
+            height: 86px;
+            background-color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 769px) {
+            .white-bar {
+           height: 78px;
+        }
+    }
+
         .content {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             position: relative;   
-            top: 98px;   
-            margin-bottom: 72px;
+            top: -6px;   
+            margin-bottom: -22px;
         }
         @media (min-width: 1569px) {
             .content {
@@ -514,6 +526,7 @@
     </style>
     </head>
     <body>
+        <div class="white-bar"></div>
         <!DOCTYPE html>
         <html lang="ar">
         <head>
