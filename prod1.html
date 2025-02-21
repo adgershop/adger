@@ -1117,7 +1117,6 @@
 
     
 
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -1129,6 +1128,7 @@
                 width: 100%;
                 max-width: 900px;
                 margin: 0 auto;
+                padding-bottom: 50px; /* لضمان وجود مساحة للتمرير */
             }
     
             .image32 {
@@ -1136,10 +1136,17 @@
                 height: auto;
                 margin-bottom: 10px;
                 object-fit: cover;
+                background-color: #ccc; /* خلفية رصاصية كلون عادي */
+                opacity: 0; /* تبدأ شفافة */
+                transition: opacity 0.5s ease-in-out; /* تأثير تدريجي */
+            }
+    
+            .image32.loaded {
+                opacity: 1; /* تصبح مرئية بعد التحميل */
             }
     
             .image32::-webkit-media-controls {
-                display: none !important;
+                display: none !important; /* إخفاء أدوات التحكم الافتراضية للفيديو */
             }
     
             .image32::-webkit-media-controls-panel {
@@ -1152,7 +1159,7 @@
                 }
             }
     
-            /* إخفاء العناصر غير المرئية */
+            /* إخفاء المجموعات غير المرئية */
             .hidden {
                 display: none;
             }
@@ -1160,7 +1167,7 @@
     </head>
     <body>
         <div class="container32">
-            <!-- الصور والفيديو مقسمة إلى مجموعات -->
+            <!-- المجموعة الأولى -->
             <div class="group visible">
                 <img class="image32 lazy" data-src="1.jpg" alt="صورة 1">
                 <img class="image32 lazy" data-src="1.2.jpg" alt="صورة 2">
@@ -1169,6 +1176,7 @@
                 <img class="image32 lazy" data-src="1.jpg" alt="صورة 5">
             </div>
     
+            <!-- المجموعة الثانية -->
             <div class="group hidden">
                 <img class="image32 lazy" data-src="1.jpg" alt="صورة 1">
                 <img class="image32 lazy" data-src="1.2.jpg" alt="صورة 2">
@@ -1177,6 +1185,7 @@
                 <img class="image32 lazy" data-src="1.jpg" alt="صورة 5">
             </div>
     
+            <!-- المجموعة الثالثة مع فيديو -->
             <div class="group hidden">
                 <img class="image32 lazy" data-src="1.jpg" alt="صورة 1">
                 <img class="image32 lazy" data-src="1.2.jpg" alt="صورة 2">
@@ -1194,70 +1203,59 @@
                 const groups = document.querySelectorAll(".group");
                 let currentGroupIndex = 0;
     
-                // دالة لتحميل مجموعة جديدة
-                const loadNextGroup = () => {
-                    if (currentGroupIndex < groups.length - 1) {
-                        currentGroupIndex++;
-                        groups[currentGroupIndex].classList.remove("hidden");
-                        groups[currentGroupIndex].classList.add("visible");
-    
-                        // بدء Lazy Loading للعناصر الجديدة
-                        const lazyElements = groups[currentGroupIndex].querySelectorAll(".lazy");
-                        lazyElements.forEach((element) => {
-                            if (element.tagName === "IMG") {
-                                element.src = element.getAttribute("data-src");
-                            } else if (element.tagName === "VIDEO") {
-                                const source = document.createElement("source");
-                                source.src = element.getAttribute("data-src");
-                                source.type = "video/mp4";
-                                element.appendChild(source);
+                // إعداد IntersectionObserver لتحميل العناصر الكسولة
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const element = entry.target;
+                            if (element.classList.contains("lazy")) {
+                                if (element.tagName === "IMG") {
+                                    element.src = element.dataset.src; // تعيين مصدر الصورة
+                                    element.classList.add("loaded"); // تفعيل التأثير التدريجي
+                                } else if (element.tagName === "VIDEO") {
+                                    const source = document.createElement("source");
+                                    source.src = element.dataset.src; // تعيين مصدر الفيديو
+                                    source.type = "video/mp4";
+                                    element.appendChild(source);
+                                    element.load(); // تحميل الفيديو
+                                    element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error)); // تشغيل الفيديو
+                                    element.classList.add("loaded"); // تفعيل التأثير التدريجي
+                                }
+                                element.classList.remove("lazy"); // إزالة كلاس الكسل
+                                observer.unobserve(element); // إيقاف المراقبة بعد التحميل
                             }
-                            element.classList.remove("lazy");
-                        });
-                    }
-                };
+                        }
+                    });
+                }, {
+                    rootMargin: "0px 0px 200px 0px" // تحميل العناصر قبل ظهورها بـ 200 بكسل
+                });
     
-                // مراقبة التمرير
+                // مراقبة التمرير لإظهار المجموعات
                 window.addEventListener("scroll", () => {
                     const currentGroup = groups[currentGroupIndex];
                     if (!currentGroup) return;
     
                     const rect = currentGroup.getBoundingClientRect();
                     if (rect.bottom <= window.innerHeight && currentGroupIndex < groups.length - 1) {
-                        loadNextGroup();
+                        currentGroupIndex++;
+                        const nextGroup = groups[currentGroupIndex];
+                        nextGroup.classList.remove("hidden");
+                        nextGroup.classList.add("visible");
+    
+                        // مراقبة العناصر الكسولة في المجموعة الجديدة
+                        const lazyElements = nextGroup.querySelectorAll(".lazy");
+                        lazyElements.forEach(element => observer.observe(element));
                     }
                 });
     
-                // تحميل المجموعة الأولى
+                // تحميل العناصر في المجموعة الأولى عند تحميل الصفحة
                 const firstGroup = groups[0];
                 const lazyElements = firstGroup.querySelectorAll(".lazy");
-                lazyElements.forEach((element) => {
-                    if (element.tagName === "IMG") {
-                        element.src = element.getAttribute("data-src");
-                    } else if (element.tagName === "VIDEO") {
-                        const source = document.createElement("source");
-                        source.src = element.getAttribute("data-src");
-                        source.type = "video/mp4";
-                        element.appendChild(source);
-                    }
-                    element.classList.remove("lazy");
-                });
-    
-                // تحميل الفيديو بشكل سريع
-                const videoElement = document.querySelector("video.lazy");
-                if (videoElement) {
-                    const source = document.createElement("source");
-                    source.src = videoElement.getAttribute("data-src");
-                    source.type = "video/mp4";
-                    videoElement.appendChild(source);
-                    videoElement.load(); // تحميل الفيديو بشكل متزامن
-                    videoElement.play(); // بدء تشغيل الفيديو
-                }
+                lazyElements.forEach(element => observer.observe(element));
             });
         </script>
     </body>
     </html>
-    
 
 
     <div class="line3"></div>
@@ -1782,12 +1780,18 @@
                 box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
             }
     
-            /* بقية التنسيقات كما هي */
-            .search-wrapper {
+             /* بقية التنسيقات كما هي */
+             .search-wrapper {
                 flex-grow: 1;
                 margin: 0 10px;
                 position: relative;
             }
+            @media (min-width: 768px) { /* تعديل المارغن فقط للشاشات الأكبر من الهواتف */
+    .search-wrapper {
+        margin-right: 7px;
+        margin-left: 11px;
+    }
+}
     
             #search-box {
                 width: 100%;
