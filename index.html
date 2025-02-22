@@ -492,7 +492,6 @@
                     height: 199px;
                     display: none;
                     border-radius: 9px;
-                    clip-path: inset(0 0 100% 0); /* في البداية، تظهر الصورة من الأعلى فقط */
                 }
         
                 @media (max-width: 768px) {
@@ -503,10 +502,6 @@
         
                 .slides.active {
                     display: block;
-                }
-        
-                .slides.loaded {
-                    clip-path: inset(0 0 0 0); /* الصورة كاملة بعد التحميل */
                 }
             </style>
         </head>
@@ -529,11 +524,6 @@
                 let slideIndex = 0;
                 let slides = document.getElementsByClassName("slides");
                 let slideshowContainer = document.getElementById("slideshow-container");
-        
-                // إظهار الصورة الأولى كاملة فور اكتمال تحميل الصفحة
-                window.onload = () => {
-                    slides[slideIndex].classList.add("loaded"); // إظهار الصورة كاملة
-                };
         
                 // تفعيل الصورة الأولى أثناء التحميل
                 slides[slideIndex].style.display = "block";
