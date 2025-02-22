@@ -3,6 +3,9 @@
 
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -65,7 +68,7 @@
             max-width: 400px;
             text-align: center;
             display: none; /* إخفاء النموذج حتى اكتمال التحميل */
-            margin-top: -60px;
+            margin-top: -77px;
             transition: transform 0.3s ease; /* إضافة انتقال سلس */
         }
         @media (max-width: 768px) {
@@ -74,12 +77,15 @@
             }}
           
 
-        .title-header {
-            color: #2c3e50;
-            font-size: 28px;
-            margin-bottom: 30px;
-            font-weight: bold;
-        }
+            @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+.title-header {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-family: 'Cairo', sans-serif;
+}
 
         .input-group {
             margin-bottom: 20px;
@@ -209,7 +215,7 @@
 
     <!-- النموذج -->
     <div class="return-container" id="returnContainer">
-        <h1 class="title-header">طلب استرجاع</h1>
+        <h1 class="title-header"> طلب استرجاع منتج </h1>
         <form id="returnForm" class="form-content">
             <div class="input-group">
                 <label for="name" class="field-label">ادخل اسمك:</label>
@@ -316,11 +322,7 @@
 
         inputFields.forEach(input => {
             input.addEventListener('focus', () => {
-                if (input.id === 'productNumber') {
-                    returnContainer.style.transform = 'translateY(-50px)'; // تحريك النموذج لأعلى بمقدار بسيط
-                } else {
-                    returnContainer.style.transform = 'translateY(-100px)'; // تحريك النموذج لأعلى
-                }
+                returnContainer.style.transform = 'translateY(-100px)'; // تحريك النموذج لأعلى
             });
 
             input.addEventListener('blur', () => {
