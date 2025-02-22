@@ -492,8 +492,7 @@
                     height: 199px;
                     display: none;
                     border-radius: 9px;
-                    clip-path: inset(0 0 100% 0); /* في البداية، الجزء العلوي ظاهر فقط */
-                    transition: clip-path 0.1s ease-out; /* تأثير انتقال سلس */
+                    clip-path: inset(0 0 100% 0); /* في البداية، الصورة مختفية من الأسفل */
                 }
         
                 @media (max-width: 768px) {
@@ -504,24 +503,6 @@
         
                 .slides.active {
                     display: block;
-                    clip-path: inset(0 0 0 0); /* الصورة تظهر كاملة عندما تكون نشطة */
-                }
-        
-                .close-btn {
-                    position: absolute;
-                    top: -2px;
-                    right: 1px;
-                    background-color: rgb(238, 1, 1);
-                    color: rgb(255, 255, 255);
-                    border: none;
-                    padding: 3px 7px;
-                    cursor: pointer;
-                    z-index: 1;
-                    font-size: 10px;
-                }
-        
-                .spacing {
-                    height: 2em;
                 }
             </style>
         </head>
@@ -530,11 +511,11 @@
             <div class="content" id="content">
                 <!-- عرض الصور -->
                 <div class="slideshow-container" id="slideshow-container">
-                    <img class="slides active" src="i1.jpg" alt="صورة 1">
-                    <img class="slides" src="i2.jpg" alt="صورة 2">
-                    <img class="slides" src="i3.jpg" alt="صورة 3">
+                    <img class="slides active" id="slide1" alt="صورة 1">
+                    <img class="slides" id="slide2" alt="صورة 2">
+                    <img class="slides" id="slide3" alt="صورة 3">
                     <a href="https://median.co/share/wjpxwm#apk">
-                        <img class="slides" src="i4.jpg" alt="تطبيق أدجر">
+                        <img class="slides" id="slide4" alt="تطبيق أدجر">
                     </a>
                 </div>
             </div>
@@ -544,83 +525,43 @@
                 let slideIndex = 0;
                 let slides = document.getElementsByClassName("slides");
                 let slideshowContainer = document.getElementById("slideshow-container");
+                const imageUrls = ["i1.jpg", "i2.jpg", "i3.jpg", "i4.jpg"]; // استبدل بمسارات الصور الحقيقية
         
-                // وظيفة لتغيير الشريحة مع التأثير التدريجي
+                // دالة لتطبيق تأثير التحميل التدريجي
+                function applyLoadingEffect(slide) {
+                    slide.src = imageUrls[slideIndex]; // تعيين مصدر الصورة
+                    let progress = 100; // النسبة المئوية للتحميل (تبدأ من 100% مختفية)
+                    slide.style.clipPath = `inset(0 0 ${progress}% 0)`;
+        
+                    const interval = setInterval(() => {
+                        progress -= 2; // تقليل النسبة بمقدار 2% كل 40 مللي ثانية
+                        if (progress <= 0) {
+                            progress = 0; // التأكد من عدم التجاوز
+                            clearInterval(interval); // إيقاف المؤقت
+                        }
+                        slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // تحديث التأثير
+                    }, 40); // التحديث كل 40 مللي ثانية (يستغرق حوالي 2 ثانية للاكتمال)
+                }
+        
+                // تحميل الصورة الأولى عند تحميل الصفحة
+                document.addEventListener("DOMContentLoaded", () => {
+                    slides[slideIndex].style.display = "block";
+                    slides[slideIndex].classList.add("active");
+                    applyLoadingEffect(slides[slideIndex]);
+                });
+        
+                // دالة لتغيير الشريحة مع التأثير
                 function changeSlide(n) {
                     slides[slideIndex].style.display = "none";
                     slides[slideIndex].classList.remove("active");
                     slideIndex = (slideIndex + n + slides.length) % slides.length;
                     slides[slideIndex].style.display = "block";
                     slides[slideIndex].classList.add("active");
-                    animateSlide(slides[slideIndex]); // تشغيل التأثير التدريجي
+                    applyLoadingEffect(slides[slideIndex]);
                 }
         
-                // وظيفة لتطبيق التأثير التدريجي من الأعلى إلى الأسفل
-                function animateSlide(slide) {
-                    let progress = 100; // النسبة المئوية للجزء المخفي من الأسفل
-                    slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // البداية من الجزء العلوي فقط
-        
-                    const duration = 2000; // مدة التأثير بالمللي ثانية (2 ثانية)
-                    const interval = 20; // تحديث كل 20 مللي ثانية
-                    const step = (100 / (duration / interval)); // مقدار التقليل في كل خطوة
-        
-                    const animation = setInterval(() => {
-                        progress -= step; // تقليل النسبة تدريجيًا
-                        if (progress <= 0) {
-                            progress = 0;
-                            clearInterval(animation); // إيقاف الحركة عند الاكتمال
-                        }
-                        slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // تحديث الجزء المرئي
-                    }, interval);
-                }
-        
-                // تشغيل التأثير فور تحميل هيكل الصفحة
-                document.addEventListener("DOMContentLoaded", () => {
-                    slides[slideIndex].style.display = "block";
-                    slides[slideIndex].classList.add("active");
-                    animateSlide(slides[slideIndex]); // تشغيل التأثير أثناء التحميل
-                });
-        
-                // تشغيل عرض الصور تلقائيًا
+                // تشغيل عرض الصور تلقائيًا كل 7 ثوانٍ
                 setInterval(() => changeSlide(1), 7000);
-        
-                // إزالة المحتوى عند الكتابة
-                function removeContent() {
-                    let content = document.getElementById("content");
-                    if (content) content.style.display = "none";
-        
-                    let spacing = document.getElementById("spacing");
-                    if (!spacing) {
-                        spacing = document.createElement("div");
-                        spacing.className = "spacing";
-                        spacing.id = "spacing";
-                        spacing.style.marginBottom = "-2em";
-                        document.body.insertBefore(spacing, document.querySelector(".white-bar").nextSibling);
-                    }
-                }
-        
-                // إظهار المحتوى مرة أخرى
-                function showContent() {
-                    let content = document.getElementById("content");
-                    if (content) content.style.display = "block";
-        
-                    let spacing = document.getElementById("spacing");
-                    if (spacing) spacing.remove();
-                }
-        
-                // التعامل مع إدخال المستخدم
-                function handleInput(event) {
-                    if (event.target.value.trim() === "") {
-                        showContent();
-                    } else {
-                        removeContent();
-                    }
-                }
-        
-                window.addEventListener("load", () => {
-                    const searchBox = document.querySelector('input[type="text"]');
-                    if (searchBox) searchBox.addEventListener("input", handleInput);
-                });
         
                 // استخدام Hammer.js للسحب
                 const hammertime = new Hammer(slideshowContainer);
