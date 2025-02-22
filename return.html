@@ -6,9 +6,6 @@
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -316,20 +313,13 @@
             window.location.href = mailtoLink;
         }
 
-        // تحريك النموذج بشكل ديناميكي عند التركيز على أي حقل إدخال
+        // تحريك النموذج لأعلى عند التركيز على أي حقل إدخال
         const returnContainer = document.getElementById('returnContainer');
         const inputFields = document.querySelectorAll('.input-field');
 
         inputFields.forEach(input => {
             input.addEventListener('focus', () => {
-                const inputRect = input.getBoundingClientRect();
-                const screenHeight = window.innerHeight;
-
-                // إذا كان الحقل في النصف السفلي من الشاشة
-                if (inputRect.bottom > screenHeight / 2) {
-                    const offset = inputRect.bottom - (screenHeight / 2);
-                    returnContainer.style.transform = `translateY(-${offset}px)`;
-                }
+                returnContainer.style.transform = 'translateY(-100px)'; // تحريك النموذج لأعلى
             });
 
             input.addEventListener('blur', () => {
