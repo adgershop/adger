@@ -72,12 +72,12 @@
             text-align: center;
             display: none; /* إخفاء النموذج حتى اكتمال التحميل */
             margin-top: -60px;
+            transition: margin-top 0.3s ease;
         }
         @media (max-width: 768px) {
             .return-container {
              margin-top: -111px;
             }}
-          
 
         .title-header {
             color: #2c3e50;
@@ -315,17 +315,15 @@
             window.location.href = mailtoLink;
         }
 
-        // تحريك النافذة لأعلى عند التركيز على حقل الإدخال
-        document.getElementById('name').addEventListener('focus', function() {
-            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-
-        document.getElementById('phone').addEventListener('focus', function() {
-            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-
-        document.getElementById('productNumber').addEventListener('focus', function() {
-            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // رفع النافذة عند ظهور الكيبورد
+        const inputs = document.querySelectorAll('.input-field');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                document.getElementById('returnContainer').style.marginTop = '-20px';
+            });
+            input.addEventListener('blur', () => {
+                document.getElementById('returnContainer').style.marginTop = '-60px';
+            });
         });
     </script>
 </body>
