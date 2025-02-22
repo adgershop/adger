@@ -484,74 +484,61 @@
                 <div class="number" style="font-size: 28px;">44</div>
                 <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
                 <s style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s> <!-- النص المشطوب -->
+                <s style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم اكثر من 80%</s> <!-- النص المشطوب -->
             </div>
+            
+
             <!DOCTYPE html>
-            <html lang="ar">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>نص متغير مع خلفية مصغرة</title>
-                <style>
-                    /* تصميم النص مع الخلفية */
-                    .text-style {
-                        display: inline-block; /* لجعل الخلفية بحجم النص */
-                        font-size: 11px; /* حجم النص مصغر */
-                        font-weight: bold;
-                        color: #fff; /* لون النص أبيض */
-                        background-color: #b3b3b3; /* لون الخلفية داكن */
-                        padding: 4px 14px; /* إضافة بعض المساحة حول النص */
-                        border-radius: 555px; /* زوايا مدورة */
-                        margin-top: 7px;
-                        margin-right: 25px;
-                        font-family: Cairo, sans-serif;
-                    }
-            
-                    /* نص الخصم */
-                    .discount-text {
-                        display: inline-block; /* ليكون على نفس السطر */
-                        font-size: 13px;
-                        color: #fc0000;
-                        font-family: Cairo, sans-serif;
-                        margin-top: -2px;
-                        margin-right: 5px; /* مسافة صغيرة بين النصين */
-                    }
-            
-                    /* حاوية لتجميع العنصرين */
-                    .container {
-                        direction: rtl; /* لجعل النص المتحرك على اليمين */
-                        text-align: right; /* محاذاة لليمين */
-                        margin-right: 44px;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="discount-text">خصم أكثر من 80%</div>
-                    <div id="text-container" class="text-style">النص الأول</div>
-                </div>
-            
-                <script>
-                    // النصوص التي ستتغير
-                    const texts = [
-                        "النص الأول",
-                        "النص الثاني",
-                        "النص الثالث"
-                    ];
-            
-                    let index = 0;
-                    const textElement = document.getElementById('text-container');
-            
-                    // دالة لتغيير النص كل 5 ثوانٍ
-                    function changeText() {
-                        textElement.textContent = texts[index];
-                        index = (index + 1) % texts.length; // الانتقال للنص التالي
-                    }
-            
-                    // بدء التغيير كل 5 ثوانٍ
-                    setInterval(changeText, 5000);
-                </script>
-            </body>
-            </html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نص متغير مع خلفية مصغرة</title>
+    <style>
+    
+        /* تصميم النص مع الخلفية */
+        .text-style {
+            display: inline-block; /* لجعل الخلفية بحجم النص */
+            font-size: 11px; /* حجم النص مصغر */
+            font-weight: bold;
+            color: #fff; /* لون النص أبيض */
+            background-color: #b3b3b3; /* لون الخلفية داكن */
+            padding: 4px 14px; /* إضافة بعض المساحة حول النص */
+            border-radius: 555px; /* زوايا مدورة */
+            margin-top: 7px;
+            margin-right: 25px;
+            font-family: Cairo, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="text-container" class="text-style">
+        النص الأول
+    </div>
+
+    <script>
+        // النصوص التي ستتغير
+        const texts = [
+            "النص الأول",
+            "النص الثاني",
+            "النص الثالث"
+        ];
+
+        let index = 0;
+        const textElement = document.getElementById('text-container');
+
+        // دالة لتغيير النص كل 5 ثوانٍ
+        function changeText() {
+            textElement.textContent = texts[index];
+            index = (index + 1) % texts.length; // الانتقال للنص التالي
+        }
+
+        // بدء التغيير كل 5 ثوانٍ
+        setInterval(changeText, 5000);
+    </script>
+</body>
+</html>
 
 
             <div class="second-text" style="margin-top: 10px; font-size: 18px; font-family: Cairo, sans-serif; margin-right: 22px;">
