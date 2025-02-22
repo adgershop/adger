@@ -560,21 +560,25 @@
                     let progress = 100; // النسبة المئوية للجزء المخفي من الأسفل
                     slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // البداية من الجزء العلوي فقط
         
+                    const duration = 2000; // مدة التأثير بالمللي ثانية (2 ثانية)
+                    const interval = 20; // تحديث كل 20 مللي ثانية
+                    const step = (100 / (duration / interval)); // مقدار التقليل في كل خطوة
+        
                     const animation = setInterval(() => {
-                        progress -= 2; // تقليل النسبة تدريجيًا (يمكنك تعديل السرعة)
+                        progress -= step; // تقليل النسبة تدريجيًا
                         if (progress <= 0) {
                             progress = 0;
                             clearInterval(animation); // إيقاف الحركة عند الاكتمال
                         }
                         slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // تحديث الجزء المرئي
-                    }, 20); // تحديث كل 20 مللي ثانية (يمكنك تعديل السرعة)
+                    }, interval);
                 }
         
-                // تشغيل التأثير على الشريحة الأولى عند تحميل الصفحة
-                window.addEventListener("load", () => {
+                // تشغيل التأثير فور تحميل هيكل الصفحة
+                document.addEventListener("DOMContentLoaded", () => {
                     slides[slideIndex].style.display = "block";
                     slides[slideIndex].classList.add("active");
-                    animateSlide(slides[slideIndex]);
+                    animateSlide(slides[slideIndex]); // تشغيل التأثير أثناء التحميل
                 });
         
                 // تشغيل عرض الصور تلقائيًا
