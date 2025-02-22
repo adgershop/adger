@@ -753,7 +753,7 @@
                 border-radius: 8px;
                 cursor: pointer;
                 transition: 0.3s ease-in-out;
-                margin-top: 5px;
+                margin-top: 11px;
                 margin-right: 12px;
             }
     
@@ -765,12 +765,6 @@
     <body>
         <button class="comment-button" onclick="window.location.href='comments.html?commentId=1'">
             التعليقات 1 (<span id="commentCount1">0</span>)
-        </button>
-        <button class="comment-button" onclick="window.location.href='comments.html?commentId=2'">
-            التعليقات 2 (<span id="commentCount2">0</span>)
-        </button>
-        <button class="comment-button" onclick="window.location.href='comments.html?commentId=3'">
-            التعليقات 3 (<span id="commentCount3">0</span>)
         </button>
     
         <!-- أضف Firebase SDK -->
@@ -810,8 +804,6 @@
             };
     
             updateCommentCount(1, 'commentCount1');
-            updateCommentCount(2, 'commentCount2');
-            updateCommentCount(3, 'commentCount3');
         </script>
     </body>
     </html>
