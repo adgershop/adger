@@ -526,7 +526,7 @@
                 let slides = document.getElementsByClassName("slides");
                 let slideshowContainer = document.getElementById("slideshow-container");
         
-                // دالة لتطبيق التأثير التدريجي السريع أثناء تحميل الصورة الأولى
+                // دالة لتطبيق التأثير التدريجي السريع جدًا أثناء تحميل الصورة الأولى
                 function applyLoadingEffect(slide) {
                     let progress = 100; // النسبة المئوية للتحميل
                     slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // البداية من الأعلى
@@ -534,7 +534,7 @@
                     // بدء التأثير التدريجي السريع عند تحميل الصورة
                     slide.onload = () => {
                         const interval = setInterval(() => {
-                            progress -= 10; // تقليل النسبة بمقدار 10% (سريع)
+                            progress -= 50; // تقليل النسبة بمقدار 50% (سريع جدًا)
                             if (progress <= 0) {
                                 progress = 0;
                                 clearInterval(interval); // إيقاف المؤقت
@@ -542,7 +542,7 @@
                             } else {
                                 slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // تحديث التأثير
                             }
-                        }, 10); // التحديث كل 10 مللي ثانية (سريع جدًا)
+                        }, 1); // التحديث كل 1 مللي ثانية (سريع جدًا)
                     };
         
                     // إذا كانت الصورة محملة بالفعل من الذاكرة المؤقتة، نشغل التأثير فورًا
