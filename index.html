@@ -472,8 +472,8 @@
                     max-width: 800px;
                     margin: 0 auto;
                     padding: 20px;
-                    position: relative;
-                    top: -6px;
+                    position: relative;   
+                    top: -6px;   
                     margin-bottom: -22px;
                 }
                 @media (min-width: 1569px) {
@@ -492,26 +492,19 @@
                     height: 199px;
                     display: none;
                     border-radius: 9px;
-                    animation: slideIn 1.5s ease-in-out forwards; /* تأثير ظهور تدريجي */
-                }
-        
-                .slides.active {
-                    display: block;
-                }
-        
-                @keyframes slideIn {
-                    from {
-                        clip-path: inset(100% 0 0 0); /* تبدأ مخفية من الأعلى */
-                    }
-                    to {
-                        clip-path: inset(0 0 0 0); /* تظهر بالكامل */
-                    }
+                    clip-path: inset(0 0 100% 0); /* في البداية، الجزء العلوي ظاهر فقط */
+                    transition: clip-path 0.1s ease-out; /* تأثير انتقال سلس */
                 }
         
                 @media (max-width: 768px) {
                     .slides {
                         height: 150px;
                     }
+                }
+        
+                .slides.active {
+                    display: block;
+                    clip-path: inset(0 0 0 0); /* الصورة تظهر كاملة عندما تكون نشطة */
                 }
         
                 .close-btn {
@@ -535,12 +528,13 @@
         <body>
             <div class="white-bar"></div>
             <div class="content" id="content">
+                <!-- عرض الصور -->
                 <div class="slideshow-container" id="slideshow-container">
-                    <img class="slides" src="i1.jpg" loading="eager">
-                    <img class="slides" src="i2.jpg" loading="eager">
-                    <img class="slides" src="i3.jpg" loading="eager">
+                    <img class="slides active" src="i1.jpg" alt="صورة 1">
+                    <img class="slides" src="i2.jpg" alt="صورة 2">
+                    <img class="slides" src="i3.jpg" alt="صورة 3">
                     <a href="https://median.co/share/wjpxwm#apk">
-                        <img class="slides" src="i4.jpg" alt="تطبيق أدجر" loading="eager">
+                        <img class="slides" src="i4.jpg" alt="تطبيق أدجر">
                     </a>
                 </div>
             </div>
@@ -551,23 +545,46 @@
                 let slides = document.getElementsByClassName("slides");
                 let slideshowContainer = document.getElementById("slideshow-container");
         
+                // وظيفة لتغيير الشريحة مع التأثير التدريجي
                 function changeSlide(n) {
+                    slides[slideIndex].style.display = "none";
                     slides[slideIndex].classList.remove("active");
                     slideIndex = (slideIndex + n + slides.length) % slides.length;
+                    slides[slideIndex].style.display = "block";
                     slides[slideIndex].classList.add("active");
+                    animateSlide(slides[slideIndex]); // تشغيل التأثير التدريجي
                 }
         
-                setInterval(() => changeSlide(1), 7000);
+                // وظيفة لتطبيق التأثير التدريجي من الأعلى إلى الأسفل
+                function animateSlide(slide) {
+                    let progress = 100; // النسبة المئوية للجزء المخفي من الأسفل
+                    slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // البداية من الجزء العلوي فقط
         
+                    const animation = setInterval(() => {
+                        progress -= 2; // تقليل النسبة تدريجيًا (يمكنك تعديل السرعة)
+                        if (progress <= 0) {
+                            progress = 0;
+                            clearInterval(animation); // إيقاف الحركة عند الاكتمال
+                        }
+                        slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // تحديث الجزء المرئي
+                    }, 20); // تحديث كل 20 مللي ثانية (يمكنك تعديل السرعة)
+                }
+        
+                // تشغيل التأثير على الشريحة الأولى عند تحميل الصفحة
                 window.addEventListener("load", () => {
-                    slides[0].classList.add("active");
+                    slides[slideIndex].style.display = "block";
+                    slides[slideIndex].classList.add("active");
+                    animateSlide(slides[slideIndex]);
                 });
         
+                // تشغيل عرض الصور تلقائيًا
+                setInterval(() => changeSlide(1), 7000);
+        
+                // إزالة المحتوى عند الكتابة
                 function removeContent() {
                     let content = document.getElementById("content");
-                    if (content) {
-                        content.style.display = "none";
-                    }
+                    if (content) content.style.display = "none";
+        
                     let spacing = document.getElementById("spacing");
                     if (!spacing) {
                         spacing = document.createElement("div");
@@ -578,17 +595,16 @@
                     }
                 }
         
+                // إظهار المحتوى مرة أخرى
                 function showContent() {
                     let content = document.getElementById("content");
-                    if (content) {
-                        content.style.display = "block";
-                    }
+                    if (content) content.style.display = "block";
+        
                     let spacing = document.getElementById("spacing");
-                    if (spacing) {
-                        spacing.remove();
-                    }
+                    if (spacing) spacing.remove();
                 }
         
+                // التعامل مع إدخال المستخدم
                 function handleInput(event) {
                     if (event.target.value.trim() === "") {
                         showContent();
@@ -599,11 +615,10 @@
         
                 window.addEventListener("load", () => {
                     const searchBox = document.querySelector('input[type="text"]');
-                    if (searchBox) {
-                        searchBox.addEventListener("input", handleInput);
-                    }
+                    if (searchBox) searchBox.addEventListener("input", handleInput);
                 });
         
+                // استخدام Hammer.js للسحب
                 const hammertime = new Hammer(slideshowContainer);
                 hammertime.on("swipeleft", () => changeSlide(1));
                 hammertime.on("swiperight", () => changeSlide(-1));
