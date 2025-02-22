@@ -9,8 +9,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -316,6 +314,19 @@
 
             window.location.href = mailtoLink;
         }
+
+        // تحريك النافذة لأعلى عند التركيز على حقل الإدخال
+        document.getElementById('name').addEventListener('focus', function() {
+            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        document.getElementById('phone').addEventListener('focus', function() {
+            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        document.getElementById('productNumber').addEventListener('focus', function() {
+            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
     </script>
 </body>
 </html>
