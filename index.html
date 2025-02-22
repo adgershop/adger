@@ -492,6 +492,7 @@
                     height: 199px;
                     display: none;
                     border-radius: 9px;
+                    clip-path: inset(0 0 100% 0); /* في البداية، تظهر الصورة من الأعلى فقط */
                 }
         
                 @media (max-width: 768px) {
@@ -510,11 +511,11 @@
             <div class="content" id="content">
                 <!-- عرض الصور -->
                 <div class="slideshow-container" id="slideshow-container">
-                    <img class="slides active" id="slide1" alt="صورة 1">
-                    <img class="slides" id="slide2" alt="صورة 2">
-                    <img class="slides" id="slide3" alt="صورة 3">
+                    <img class="slides active" id="slide1" src="i1.jpg" alt="صورة 1">
+                    <img class="slides" id="slide2" src="i2.jpg" alt="صورة 2">
+                    <img class="slides" id="slide3" src="i3.jpg" alt="صورة 3">
                     <a href="https://median.co/share/wjpxwm#apk">
-                        <img class="slides" id="slide4" alt="تطبيق أدجر">
+                        <img class="slides" id="slide4" src="i4.jpg" alt="تطبيق أدجر">
                     </a>
                 </div>
             </div>
@@ -524,38 +525,41 @@
                 let slideIndex = 0;
                 let slides = document.getElementsByClassName("slides");
                 let slideshowContainer = document.getElementById("slideshow-container");
-                const imageUrls = ["i1.jpg", "i2.jpg", "i3.jpg", "i4.jpg"]; // استبدل بمسارات الصور الحقيقية
         
-                // دالة لتطبيق تأثير التحميل التدريجي (للصورة الأولى فقط)
+                // دالة لتطبيق التأثير التدريجي أثناء تحميل الصورة الأولى
                 function applyLoadingEffect(slide) {
-                    slide.src = imageUrls[slideIndex]; // تعيين مصدر الصورة
-                    let progress = 100; // النسبة المئوية للتحميل (تبدأ من 100% مختفية)
-                    slide.style.clipPath = `inset(0 0 ${progress}% 0)`;
+                    let progress = 100; // النسبة المئوية للتحميل
+                    slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // البداية من الأعلى
         
-                    const interval = setInterval(() => {
-                        progress -= 2; // تقليل النسبة بمقدار 2% كل 40 مللي ثانية
-                        if (progress <= 0) {
-                            progress = 0; // التأكد من عدم التجاوز
-                            clearInterval(interval); // إيقاف المؤقت
-                            slide.style.clipPath = `inset(0 0 0 0)`; // التأكد من إظهار الصورة بالكامل
-                        } else {
-                            slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // تحديث التأثير
-                        }
-                    }, 40); // التحديث كل 40 مللي ثانية (يستغرق حوالي 2 ثانية للاكتمال)
+                    // بدء التأثير التدريجي عند تحميل الصورة
+                    slide.onload = () => {
+                        const interval = setInterval(() => {
+                            progress -= 2; // تقليل النسبة بمقدار 2%
+                            if (progress <= 0) {
+                                progress = 0;
+                                clearInterval(interval); // إيقاف المؤقت
+                                slide.style.clipPath = `inset(0 0 0 0)`; // الصورة كاملة
+                            } else {
+                                slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // تحديث التأثير
+                            }
+                        }, 40); // التحديث كل 40 مللي ثانية (حوالي 2 ثانية)
+                    };
+        
+                    // إذا كانت الصورة محملة بالفعل من الذاكرة المؤقتة، نشغل التأثير فورًا
+                    if (slide.complete) {
+                        slide.onload();
+                    }
                 }
         
                 // دالة لإظهار الصورة بشكل كامل (للشرائح الأخرى)
                 function showFullImage(slide) {
-                    slide.src = imageUrls[slideIndex]; // تعيين مصدر الصورة
                     slide.style.clipPath = `inset(0 0 0 0)`; // إظهار الصورة بالكامل فورًا
                 }
         
-                // تحميل الصورة الأولى مع التأثير التدريجي عند تحميل الصفحة
-                document.addEventListener("DOMContentLoaded", () => {
-                    slides[slideIndex].style.display = "block";
-                    slides[slideIndex].classList.add("active");
-                    applyLoadingEffect(slides[slideIndex]); // تطبيق التأثير التدريجي على الصورة الأولى
-                });
+                // تطبيق التأثير على الصورة الأولى أثناء تحميل الصفحة
+                slides[slideIndex].style.display = "block";
+                slides[slideIndex].classList.add("active");
+                applyLoadingEffect(slides[slideIndex]);
         
                 // دالة لتغيير الشريحة دون التأثير التدريجي
                 function changeSlide(n) {
