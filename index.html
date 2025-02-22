@@ -492,6 +492,7 @@
                     height: 199px;
                     display: none;
                     border-radius: 9px;
+                    clip-path: inset(0 0 100% 0); /* في البداية، تظهر الصورة من الأعلى فقط */
                 }
         
                 @media (max-width: 768px) {
@@ -525,16 +526,42 @@
                 let slides = document.getElementsByClassName("slides");
                 let slideshowContainer = document.getElementById("slideshow-container");
         
-                // تفعيل الصورة الأولى أثناء التحميل
-                slides[slideIndex].style.display = "block";
-                slides[slideIndex].classList.add("active");
+                // دالة لتطبيق التأثير التدريجي السريع أثناء تحميل الصورة الأولى
+                function applyLoadingEffect(slide) {
+                    let progress = 100; // النسبة المئوية للتحميل
+                    slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // البداية من الأعلى
+        
+                    // بدء التأثير التدريجي السريع عند تحميل الصورة
+                    slide.onload = () => {
+                        const interval = setInterval(() => {
+                            progress -= 10; // تقليل النسبة بمقدار 10% (سريع)
+                            if (progress <= 0) {
+                                progress = 0;
+                                clearInterval(interval); // إيقاف المؤقت
+                                slide.style.clipPath = `inset(0 0 0 0)`; // الصورة كاملة
+                            } else {
+                                slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // تحديث التأثير
+                            }
+                        }, 10); // التحديث كل 10 مللي ثانية (سريع جدًا)
+                    };
+        
+                    // إذا كانت الصورة محملة بالفعل من الذاكرة المؤقتة، نشغل التأثير فورًا
+                    if (slide.complete) {
+                        slide.onload();
+                    }
+                }
         
                 // دالة لإظهار الصورة بشكل كامل (للشرائح الأخرى)
                 function showFullImage(slide) {
                     slide.style.clipPath = `inset(0 0 0 0)`; // إظهار الصورة بالكامل فورًا
                 }
         
-                // دالة لتغيير الشريحة دون تأثير تدريجي
+                // تطبيق التأثير على الصورة الأولى أثناء تحميل الصفحة
+                slides[slideIndex].style.display = "block";
+                slides[slideIndex].classList.add("active");
+                applyLoadingEffect(slides[slideIndex]);
+        
+                // دالة لتغيير الشريحة دون التأثير التدريجي
                 function changeSlide(n) {
                     slides[slideIndex].style.display = "none";
                     slides[slideIndex].classList.remove("active");
