@@ -163,48 +163,293 @@
     </html>
 
 
-    <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة محسّنة</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 100%;
-            min-height: 350px;
-            background-color: #00c3ff;
-            position: relative;
-            opacity: 0;
-            transition: opacity 0.5s ease-in;
-        }
-        .image {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 80%;
-            aspect-ratio: 16/9;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <img class="image" src="example.jpg" alt="صورة" loading="eager">
-    </div>
-
-    <script>
-        window.addEventListener('load', () => {
-            document.querySelector('.container').style.opacity = 1;
-        });
-    </script>
-</body>
-</html>
     
+
+
+
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>خلفية بعرض الشاشة وارتفاع 350 بكسل</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+            }
+            .main-container {
+                margin-top: 97px;
+                width: 100%; /* عرض الشاشة بالكامل */
+                height: 350px; /* ارتفاع 350 بكسل */
+                background-color: rgb(0, 195, 255); /* لون الخلفية */
+                background-image: url('your-image-url.jpg'); /* رابط الصورة الخلفية */
+                background-size: cover; /* تغطية الخلفية بالكامل */
+                background-position: center; /* تمركز الخلفية */
+                background-repeat: no-repeat; /* عدم تكرار الخلفية */
+                position: relative; /* لجعل العناصر الداخلية قابلة للتحديد بشكل نسبي */
+                display: flex;
+                align-items: center;
+                margin-bottom: -83px;
+            }
+    
+            /* لتصغير الارتفاع على الهواتف المحمولة */
+            @media (max-width: 1568px) {
+                .main-container {
+                    display: none;
+                }
+            }
+    
+            .main-container .left-image {
+                position: absolute;
+                left: 11vw; /* زيادة النسبة لجعل left يتناقص بشكل أسرع */
+                top: 50%;
+                transform: translateY(-50%);
+                height: 80%;
+                width: auto;
+                z-index: 1;
+                border-radius: 45px;
+            }
+    
+            .right-content {
+                position: absolute;
+                right: 20px; /* المسافة من الجانب الأيمن */
+                top: 50%;
+                transform: translateY(-50%);
+                width: 60%; /* عرض المستطيل الكبير */
+                height: 80%; /* ارتفاع المستطيل الكبير */
+                background-color: rgba(255, 255, 255, 0.8); /* لون خلفية المستطيل */
+                padding: 20px;
+                box-sizing: border-box;
+                display: flex;
+                justify-content: space-between; /* توزيع المساحة بين العناصر */
+                align-items: center; /* توسيط العناصر عموديًا */
+            }
+    
+            .content-section {
+                display: flex;
+                flex-direction: column; /* تغيير الاتجاه إلى عمودي */
+                align-items: flex-start; /* توسيط العناصر إلى اليمين */
+                width: 30%; /* عرض القسم النصي */
+            }
+    
+            .text-wrapper {
+                margin-bottom: 20px; /* المسافة بين النصوص */
+            }
+    
+            .text-wrapper h3 {
+                margin: 0 0 10px 0;
+                font-size: 18px;
+                color: #333;
+            }
+    
+            .text-wrapper p {
+                margin: 0;
+                font-size: 14px;
+                color: #666;
+            }
+    
+            .middle-text {
+                font-size: 16px;
+                color: #444;
+                text-align: center; /* توسيط النص */
+                flex: 1; /* يأخذ المساحة المتبقية */
+                margin: 0 50px; /* زيادة المسافة الجانبية إلى 50px */
+            }
+    
+            .changing-text {
+                font-size: 14px;
+                color: #555;
+                text-align: center; /* توسيط النص */
+                margin-top: 10px; /* مسافة بين النص الثابت والمتغير */
+            }
+    
+            .image-section {
+                display: flex;
+                flex-direction: row; /* عرض الصور في صف واحد */
+                gap: 10px; /* المسافة بين الصور */
+                width: 30%; /* عرض قسم الصور */
+            }
+    
+            .image-wrapper {
+                display: flex;
+                flex-direction: column; /* تغيير الاتجاه إلى عمودي */
+                align-items: center; /* توسيط العناصر عموديًا */
+                width: 100px; /* عرض المستطيل الصغير */
+                height: auto; /* جعل الارتفاع يتكيف مع المحتوى */
+                background-color: #000000; /* لون خلفية المستطيل الصغير */
+                padding: 10px;
+                box-sizing: border-box;
+            }
+    
+            .image-wrapper img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+    
+            .image-wrapper p {
+                margin: 10px 0 0 0; /* مسافة بين الصورة والنص */
+                font-size: 12px;
+                color: #333;
+                text-align: center;
+            }
+    
+            /* قسم الصور المصغرة */
+            .thumbnail-section {
+                display: flex;
+                justify-content: center;
+                gap: 5px; /* مسافة صغيرة بين الصور */
+                margin-top: 10px; /* مسافة بين النص المتحرك والصورة */
+            }
+    
+            .thumbnail-section img {
+                margin-bottom: -22px;
+                width: 50px; /* حجم الصورة المصغرة */
+                height: 50px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main-container">
+            <img class="left-image" src="th.jpg" alt="صورة داخلية">
+            <div class="right-content">
+                <div class="content-section">
+                    <div class="text-wrapper">
+                        <h3>الخصوصية و الأمان</h3>
+                        <h2 style="font-family: 'Cairo', sans-serif;  color: #555555;  font-size: 14px;">لا تصل معلومات حسابك الى الشركه ابد</h2>
+                    </div>
+                    <div class="text-wrapper">
+                        <h3>الشروط و الأحكام</h3>
+                        <h2 style="font-family: 'Cairo', sans-serif;  color: #555555;  font-size: 14px;">يرجى قراءة الشروط والأحكام بعناية قبل استخدام الموقع.</h2>
+                    </div>
+                </div>
+                <!-- النص الأكبر (الثابت) -->
+                <div class="middle-text">
+                    <h2 style="font-family: 'Cairo', sans-serif;  color: #000000;  font-size: 14px;">ها قد اشرقت الشمس و صنع سيف الدين أجر</h2>
+                    <!-- النص المتغير -->
+                    <h2 id="changing-text" class="changing-text" style="font-family: 'Cairo', sans-serif; margin-bottom: 22px; color: #ff0000; font-size: 14px; text-shadow: 1px 1px 0 #ccc, 2px 2px 0 #bbb, 2px 2px 0 #aaa, 3px 3px 0 #999, 2px 2px 0 #888, 3px 3px 0 #777;">
+                        أكثر من 50 منتج
+                        </h2>
+                    <!-- قسم الصور المصغرة -->
+                    <div class="thumbnail-section">
+                        <img src="e1.jpg" alt="صورة مصغرة 1" onclick="window.location.href='deals.html';">
+                        <img src="e3.jpg" alt="صورة مصغرة 3" onclick="window.location.href='wholesale.html';">
+                        <img src="e2.jpg" alt="صورة مصغرة 2" onclick="window.location.href='companies.html';">
+                        <img src="e4.jpg" alt="صورة مصغرة 4" onclick="window.location.href='categories.html';">
+                    </div>
+                </div>
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="1.jpg" alt="صورة 1" style="cursor: pointer;" onclick="window.location.href='prod1.html';">
+                        <h2 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 11px;">ساعه ذكيه تعمل باللمس</h2>
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="1.2.jpg" alt="صورة 2" style="cursor: pointer;" onclick="window.location.href='prod1.html';">
+                        <h2 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 11px;">ساعه ذكيه تعمل باللمس</h2>
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="1.3.jpg" alt="صورة 3" style="cursor: pointer;" onclick="window.location.href='prod1.html';">
+                        <h2 style="font-family: 'Cairo', sans-serif; color: #ffffff; font-size: 11px;">ساعه ذكيه تعمل باللمس</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+    
+ 
+            <style>
+                #text-container {
+                    overflow: hidden; /* لإخفاء النص الذي يتحرك خارج الإطار */
+                    height: 40px; /* ارتفاع الحاوية لتحديد المساحة */
+                }
+        
+                #changing-text {
+                    display: inline-block; /* لجعل النص يتحرك عموديًا */
+                    font-size: 24px;
+                    font-weight: bold;
+                    transition: transform 1.5s ease-in-out; /* زيادة مدة الانتقال لجعل الحركة أبطأ */
+                }
+            </style>
+        </head>
+        <body>
+         
+            <script>
+                // النصوص التي سيتم تغييرها
+                const texts = [
+                    "خصومات تصل الى 50%",
+                    "أنشأ حسابك",
+                    "تصفح المنتجات ",
+                    "و قم بالشراء"
+                ];
+        
+                let currentIndex = 0; // الفهرس الحالي للنص
+                const textElement = document.getElementById("changing-text"); // العنصر الذي يعرض النص
+        
+                // دالة لتحديث النص كل 7 ثوانٍ
+                function changeText() {
+                    // تحريك النص الحالي إلى الأسفل أولاً
+        
+                    setTimeout(() => {
+                        // تحريك النص الحالي إلى الأعلى
+                        textElement.style.transform = "translateY(-20%)";
+        
+                        setTimeout(() => {
+                            // إعادة النص إلى مكانه الطبيعي وتغيير النص
+                            textElement.style.transform = "translateY(0)";
+                            textElement.textContent = texts[currentIndex];
+                            currentIndex = (currentIndex + 1) % texts.length; // الانتقال إلى النص التالي
+                        }, 1500); // الانتظار لمدة 1.5 ثانية قبل العودة إلى المكان الطبيعي
+                    }, 1500); // الانتظار لمدة 1.5 ثانية قبل التحرك إلى الأعلى
+                }
+        
+                // تغيير النص كل 7 ثوانٍ
+                setInterval(changeText, 7000); // 7000 مللي ثانية = 7 ثوانٍ
+            </script>
+        </body>
+        </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
 
