@@ -11,9 +11,6 @@
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -142,6 +139,68 @@
             font-size: 14px;
             margin-top: 8px;
             display: none;
+        }
+
+        /* استعلامات إعلامية للهواتف */
+        @media (max-width: 600px) {
+            .return-container {
+                padding: 20px; /* تقليل الحشو */
+                max-width: 90%; /* جعل النموذج يأخذ عرضًا أقل */
+            }
+
+            .title-header {
+                font-size: 24px; /* تصغير حجم العنوان */
+                margin-bottom: 20px;
+            }
+
+            .input-field {
+                padding: 10px 12px; /* تصغير حجم الحقول */
+                font-size: 14px;
+            }
+
+            .submit-button {
+                padding: 10px 20px; /* تصغير حجم الزر */
+                font-size: 14px;
+            }
+
+            .field-label {
+                font-size: 14px; /* تصغير حجم النصوص */
+            }
+
+            .error-message {
+                font-size: 12px; /* تصغير حجم رسائل الخطأ */
+            }
+        }
+
+        /* استعلامات إعلامية للشاشات الصغيرة جدًا (أقل من 400px) */
+        @media (max-width: 400px) {
+            .return-container {
+                padding: 15px; /* تقليل الحشو أكثر */
+                max-width: 95%; /* جعل النموذج يأخذ عرضًا أكبر */
+            }
+
+            .title-header {
+                font-size: 20px; /* تصغير حجم العنوان أكثر */
+                margin-bottom: 15px;
+            }
+
+            .input-field {
+                padding: 8px 10px; /* تصغير حجم الحقول أكثر */
+                font-size: 12px;
+            }
+
+            .submit-button {
+                padding: 8px 15px; /* تصغير حجم الزر أكثر */
+                font-size: 12px;
+            }
+
+            .field-label {
+                font-size: 12px; /* تصغير حجم النصوص أكثر */
+            }
+
+            .error-message {
+                font-size: 10px; /* تصغير حجم رسائل الخطأ أكثر */
+            }
         }
     </style>
 </head>
