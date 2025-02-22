@@ -3,9 +3,6 @@
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -319,7 +316,11 @@
 
         inputFields.forEach(input => {
             input.addEventListener('focus', () => {
-                returnContainer.style.transform = 'translateY(-100px)'; // تحريك النموذج لأعلى
+                if (input.id === 'productNumber') {
+                    returnContainer.style.transform = 'translateY(-50px)'; // تحريك النموذج لأعلى بمقدار بسيط
+                } else {
+                    returnContainer.style.transform = 'translateY(-100px)'; // تحريك النموذج لأعلى
+                }
             });
 
             input.addEventListener('blur', () => {
