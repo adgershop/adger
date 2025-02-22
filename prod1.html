@@ -541,9 +541,103 @@
 </html>
 
 
-            <div class="second-text" style="margin-top: 10px; font-size: 18px; font-family: Cairo, sans-serif; margin-right: 22px;">
-                هذا نص آخر تحت النص الإضافي.
-            </div>
+
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        #hop {
+            color: #414141;
+            margin-top: 10px;
+            font-size: 18px;
+            font-family: 'Open Sans', sans-serif;
+            margin-right: 22px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* تنسيق خاص بالهواتف */
+        @media only screen and (max-width: 768px) {
+            #hop {
+                position: relative;
+            }
+            #hop .short-text {
+                display: inline;
+            }
+            #hop .full-text {
+                display: none;
+            }
+            #hop .more-btn {
+                color: #007bff;
+                cursor: pointer;
+                margin-right: 5px;
+                display: inline;
+                font-weight: 600;
+            }
+            #hop.expanded .short-text {
+                display: none;
+            }
+            #hop.expanded .full-text {
+                display: inline;
+            }
+            #hop.expanded .more-btn {
+                display: none;
+            }
+        }
+
+        /* للشاشات الكبيرة، يظهر النص كاملاً */
+        @media only screen and (min-width: 769px) {
+            #hop .short-text, #hop .more-btn {
+                display: none;
+            }
+            #hop .full-text {
+                display: inline;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2 id="hop" class="text-container">
+        هذا نص آخر تحت النص الإضافي.
+    </h2>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('hop');
+            const originalText = container.textContent.trim();
+            const charLimit = 20;
+
+            if (originalText.length > charLimit) {
+                const shortText = document.createElement('span');
+                shortText.className = 'short-text';
+                shortText.textContent = originalText.substring(0, charLimit);
+
+                const fullText = document.createElement('span');
+                fullText.className = 'full-text';
+                fullText.textContent = originalText;
+
+                const moreBtn = document.createElement('span');
+                moreBtn.className = 'more-btn';
+                moreBtn.textContent = 'المزيد';
+
+                container.textContent = '';
+                container.appendChild(shortText);
+                container.appendChild(fullText);
+                container.appendChild(moreBtn);
+
+                moreBtn.addEventListener('click', () => {
+                    container.classList.toggle('expanded');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
 
             <div class="second-text" style="margin-top: 1px; font-size: 14px; font-family: Cairo, sans-serif; color: #000; margin-right: 27px; margin-bottom: 8px;">
             5 مباع
