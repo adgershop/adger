@@ -492,7 +492,6 @@
                     height: 199px;
                     display: none;
                     border-radius: 9px;
-                    clip-path: inset(0 0 100% 0); /* في البداية، الصورة مختفية من الأسفل */
                 }
         
                 @media (max-width: 768px) {
@@ -527,7 +526,7 @@
                 let slideshowContainer = document.getElementById("slideshow-container");
                 const imageUrls = ["i1.jpg", "i2.jpg", "i3.jpg", "i4.jpg"]; // استبدل بمسارات الصور الحقيقية
         
-                // دالة لتطبيق تأثير التحميل التدريجي
+                // دالة لتطبيق تأثير التحميل التدريجي (للصورة الأولى فقط)
                 function applyLoadingEffect(slide) {
                     slide.src = imageUrls[slideIndex]; // تعيين مصدر الصورة
                     let progress = 100; // النسبة المئوية للتحميل (تبدأ من 100% مختفية)
@@ -538,26 +537,34 @@
                         if (progress <= 0) {
                             progress = 0; // التأكد من عدم التجاوز
                             clearInterval(interval); // إيقاف المؤقت
+                            slide.style.clipPath = `inset(0 0 0 0)`; // التأكد من إظهار الصورة بالكامل
+                        } else {
+                            slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // تحديث التأثير
                         }
-                        slide.style.clipPath = `inset(0 0 ${progress}% 0)`; // تحديث التأثير
                     }, 40); // التحديث كل 40 مللي ثانية (يستغرق حوالي 2 ثانية للاكتمال)
                 }
         
-                // تحميل الصورة الأولى عند تحميل الصفحة
+                // دالة لإظهار الصورة بشكل كامل (للشرائح الأخرى)
+                function showFullImage(slide) {
+                    slide.src = imageUrls[slideIndex]; // تعيين مصدر الصورة
+                    slide.style.clipPath = `inset(0 0 0 0)`; // إظهار الصورة بالكامل فورًا
+                }
+        
+                // تحميل الصورة الأولى مع التأثير التدريجي عند تحميل الصفحة
                 document.addEventListener("DOMContentLoaded", () => {
                     slides[slideIndex].style.display = "block";
                     slides[slideIndex].classList.add("active");
-                    applyLoadingEffect(slides[slideIndex]);
+                    applyLoadingEffect(slides[slideIndex]); // تطبيق التأثير التدريجي على الصورة الأولى
                 });
         
-                // دالة لتغيير الشريحة مع التأثير
+                // دالة لتغيير الشريحة دون التأثير التدريجي
                 function changeSlide(n) {
                     slides[slideIndex].style.display = "none";
                     slides[slideIndex].classList.remove("active");
                     slideIndex = (slideIndex + n + slides.length) % slides.length;
                     slides[slideIndex].style.display = "block";
                     slides[slideIndex].classList.add("active");
-                    applyLoadingEffect(slides[slideIndex]);
+                    showFullImage(slides[slideIndex]); // إظهار الصورة الجديدة بالكامل فورًا
                 }
         
                 // تشغيل عرض الصور تلقائيًا كل 7 ثوانٍ
