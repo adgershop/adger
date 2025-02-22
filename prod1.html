@@ -492,23 +492,6 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>نص متغير مع خلفية مصغرة</title>
                 <style>
-                    /* حاوية لتجميع العنصرين على نفس السطر */
-                    .container {
-                        display: flex;
-                        justify-content: flex-end; /* محاذاة العناصر لليمين */
-                        align-items: center; /* محاذاة عمودية في المنتصف */
-                        direction: rtl; /* اتجاه النص من اليمين لليسار */
-                        margin-right: 44px;
-                    }
-            
-                    /* تصميم نص الخصم */
-                    .discount-text {
-                        font-size: 13px;
-                        color: #fc0000;
-                        font-family: Cairo, sans-serif;
-                        margin-left: 10px; /* مسافة بين نص الخصم والنص المتحرك */
-                    }
-            
                     /* تصميم النص مع الخلفية */
                     .text-style {
                         display: inline-block; /* لجعل الخلفية بحجم النص */
@@ -518,15 +501,33 @@
                         background-color: #b3b3b3; /* لون الخلفية داكن */
                         padding: 4px 14px; /* إضافة بعض المساحة حول النص */
                         border-radius: 555px; /* زوايا مدورة */
+                        margin-top: 7px;
+                        margin-right: 25px;
                         font-family: Cairo, sans-serif;
+                    }
+            
+                    /* نص الخصم */
+                    .discount-text {
+                        display: inline-block; /* ليكون على نفس السطر */
+                        font-size: 13px;
+                        color: #fc0000;
+                        font-family: Cairo, sans-serif;
+                        margin-top: -2px;
+                        margin-right: 5px; /* مسافة صغيرة بين النصين */
+                    }
+            
+                    /* حاوية لتجميع العنصرين */
+                    .container {
+                        direction: rtl; /* لجعل النص المتحرك على اليمين */
+                        text-align: right; /* محاذاة لليمين */
+                        margin-right: 44px;
                     }
                 </style>
             </head>
             <body>
                 <div class="container">
-                    <div id="text-container" class="text-style">النص الأول</div>
                     <div class="discount-text">خصم أكثر من 80%</div>
-               
+                    <div id="text-container" class="text-style">النص الأول</div>
                 </div>
             
                 <script>
