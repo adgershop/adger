@@ -72,12 +72,13 @@
             text-align: center;
             display: none; /* إخفاء النموذج حتى اكتمال التحميل */
             margin-top: -60px;
-            transition: margin-top 0.3s ease;
+            transition: transform 0.3s ease; /* إضافة انتقال سلس */
         }
         @media (max-width: 768px) {
             .return-container {
              margin-top: -111px;
             }}
+          
 
         .title-header {
             color: #2c3e50;
@@ -315,14 +316,17 @@
             window.location.href = mailtoLink;
         }
 
-        // رفع النافذة عند ظهور الكيبورد
-        const inputs = document.querySelectorAll('.input-field');
-        inputs.forEach(input => {
+        // تحريك النموذج لأعلى عند التركيز على أي حقل إدخال
+        const returnContainer = document.getElementById('returnContainer');
+        const inputFields = document.querySelectorAll('.input-field');
+
+        inputFields.forEach(input => {
             input.addEventListener('focus', () => {
-                document.getElementById('returnContainer').style.marginTop = '-20px';
+                returnContainer.style.transform = 'translateY(-100px)'; // تحريك النموذج لأعلى
             });
+
             input.addEventListener('blur', () => {
-                document.getElementById('returnContainer').style.marginTop = '-60px';
+                returnContainer.style.transform = 'translateY(0)'; // إعادة النموذج إلى وضعه الأصلي
             });
         });
     </script>
