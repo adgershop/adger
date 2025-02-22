@@ -552,11 +552,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         #hop {
-            color: #414141;
+            color: #353535;
             margin-top: 10px;
-            font-size: 18px;
+            font-size: 17px;
             font-family: 'Open Sans', sans-serif;
-            margin-right: 22px;
+            margin-right: 2px;
             direction: rtl;
             text-align: right;
         }
@@ -575,9 +575,9 @@
             #hop .more-btn {
                 color: #007bff;
                 cursor: pointer;
-                margin-right: 5px;
+                margin-right: -4px;
                 display: inline;
-                font-weight: 600;
+                font-weight: 599;
             }
             #hop.expanded .short-text {
                 display: none;
@@ -615,7 +615,7 @@
             if (originalText.length > charLimit) {
                 const shortText = document.createElement('span');
                 shortText.className = 'short-text';
-                shortText.textContent = originalText.substring(0, charLimit);
+                shortText.textContent = originalText.substring(0, charLimit) + '...';
 
                 const fullText = document.createElement('span');
                 fullText.className = 'full-text';
@@ -627,8 +627,8 @@
 
                 container.textContent = '';
                 container.appendChild(shortText);
-                container.appendChild(fullText);
                 container.appendChild(moreBtn);
+                container.appendChild(fullText);
 
                 moreBtn.addEventListener('click', () => {
                     container.classList.toggle('expanded');
@@ -639,7 +639,7 @@
 </body>
 </html>
 
-            <div class="second-text" style="margin-top: 1px; font-size: 14px; font-family: Cairo, sans-serif; color: #000; margin-right: 27px; margin-bottom: 8px;">
+            <div class="second-text" style="margin-top: -11px;  font-size: 14px; font-family: Cairo, sans-serif; color: #000; margin-right: 27px; margin-bottom: 11px;">
             5 مباع
             </div>
            
