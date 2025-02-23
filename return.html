@@ -12,347 +12,380 @@
 
 
 
-
-
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طلب استرجاع</title>
-    <style>
-        /* تنسيقات عامة */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        /* شاشة التحميل */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .loader::after {
-            content: "";
-            width: 50px;
-            height: 50px;
-            border: 5px solid #0051ff;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>طلب استرجاع</title>
+        <style>
+            /* تنسيقات عامة */
+            body {
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                position: relative;
+                overflow: hidden;
+                background: linear-gradient(45deg, #0d1b2a, #1b263b);
             }
-            100% {
-                transform: rotate(360deg);
+    
+            /* تأثير الخلفية ثلاثية الأبعاد */
+            .background-3d {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                perspective: 1000px;
             }
-        }
-
-        /* تنسيقات النموذج */
-        .return-container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            display: none; /* إخفاء النموذج حتى اكتمال التحميل */
-            margin-top: -77px;
-            transition: transform 0.3s ease; /* إضافة انتقال سلس */
-        }
-        @media (max-width: 768px) {
+    
+            .cube {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                transform-style: preserve-3d;
+                animation: rotate 10s infinite linear;
+            }
+    
+            .cube div {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 81, 255, 0.5);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+    
+            .cube .front  { transform: translateZ(25px); }
+            .cube .back   { transform: translateZ(-25px); }
+            .cube .right  { transform: rotateY(90deg) translateZ(25px); }
+            .cube .left   { transform: rotateY(-90deg) translateZ(25px); }
+            .cube .top    { transform: rotateX(90deg) translateZ(25px); }
+            .cube .bottom { transform: rotateX(-90deg) translateZ(25px); }
+    
+            .cube:nth-child(1) { top: 10%; left: 10%; animation-duration: 8s; }
+            .cube:nth-child(2) { top: 20%; left: 70%; animation-duration: 12s; }
+            .cube:nth-child(3) { top: 60%; left: 20%; animation-duration: 10s; }
+            .cube:nth-child(4) { top: 80%; left: 80%; animation-duration: 15s; }
+            .cube:nth-child(5) { top: 40%; left: 50%; animation-duration: 9s; }
+    
+            @keyframes rotate {
+                0% { transform: rotateX(0deg) rotateY(0deg); }
+                100% { transform: rotateX(360deg) rotateY(360deg); }
+            }
+    
+            /* شاشة التحميل */
+            .loader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                background: rgba(0, 0, 0, 0.3);
+            }
+    
+            .loader::after {
+                content: "";
+                width: 50px;
+                height: 50px;
+                border: 5px solid #0051ff;
+                border-top-color: transparent;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+    
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+    
+            /* تنسيقات النموذج */
             .return-container {
-             margin-top: -111px;
-            }}
-          
-
-            @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-
-.title-header {
-    color: #2c3e50;
-    font-size: 24px;
-    margin-bottom: 30px;
-    font-weight: bold;
-    font-family: 'Cairo', sans-serif;
-}
-
-        .input-group {
-            margin-bottom: 20px;
-            text-align: right;
-        }
-
-        .field-label {
-            display: block;
-            margin-bottom: 8px;
-            color: #34495e;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px 15px;
-            margin: 0 auto;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-            text-align: right;
-        }
-
-        .input-field:focus {
-            border-color: #0004ff;
-            outline: none;
-            box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
-        }
-
-        .submit-button {
-            background-color: #0051ff;
-            color: white;
-            padding: 12px 15px; /* تعديل padding ليتناسب مع الحقول */
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-button:hover {
-            background-color: #003bb3;
-        }
-
-        .form-content {
-            padding: 0 10px;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-top: 8px;
-            display: none;
-        }
-
-        /* استعلامات إعلامية للهواتف */
-        @media (max-width: 600px) {
-            .return-container {
-                padding: 20px; /* تقليل الحشو */
-                max-width: 90%; /* جعل النموذج يأخذ عرضًا أقل */
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                width: 100%;
+                max-width: 400px;
+                text-align: center;
+                display: none;
+                margin-top: 77px;
+                transition: transform 0.3s ease;
+                position: relative;
+                z-index: 10;
             }
-
+    
+         
+    
             .title-header {
-                font-size: 24px; /* تصغير حجم العنوان */
+                color: #2c3e50;
+                font-size: 24px;
+                margin-bottom: 30px;
+                font-weight: bold;
+                font-family: 'Cairo', sans-serif;
+            }
+    
+            .input-group {
                 margin-bottom: 20px;
+                text-align: right;
             }
-
-            .input-field {
-                padding: 12px 15px; /* ارتفاع الحقول */
-                font-size: 14px;
-            }
-
-            .submit-button {
-                padding: 12px 15px; /* ارتفاع الزر مثل الحقول */
-                font-size: 14px;
-            }
-
+    
             .field-label {
-                font-size: 14px; /* تصغير حجم النصوص */
+                display: block;
+                margin-bottom: 8px;
+                color: #34495e;
+                font-weight: bold;
+                font-size: 16px;
             }
-
-            .error-message {
-                font-size: 12px; /* تصغير حجم رسائل الخطأ */
-            }
-        }
-
-        /* استعلامات إعلامية للشاشات الصغيرة جدًا (أقل من 400px) */
-        @media (max-width: 400px) {
-            .return-container {
-                padding: 15px; /* تقليل الحشو أكثر */
-                max-width: 95%; /* جعل النموذج يأخذ عرضًا أكبر */
-            }
-
-            .title-header {
-                font-size: 20px; /* تصغير حجم العنوان أكثر */
-                margin-bottom: 15px;
-            }
-
+    
             .input-field {
-                padding: 10px 12px; /* ارتفاع الحقول */
-                font-size: 12px;
+                width: 100%;
+                padding: 12px 15px;
+                margin: 0 auto;
+                border: 2px solid #ddd;
+                border-radius: 6px;
+                box-sizing: border-box;
+                font-size: 16px;
+                transition: border-color 0.3s ease;
+                text-align: right;
             }
-
+    
+            .input-field:focus {
+                border-color: #0004ff;
+                outline: none;
+                box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+            }
+    
             .submit-button {
-                padding: 10px 12px; /* ارتفاع الزر مثل الحقول */
-                font-size: 12px;
+                background-color: #0051ff;
+                color: white;
+                padding: 12px 15px;
+                border: none;
+                border-radius: 6px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                width: 100%;
+                transition: background-color 0.3s ease;
             }
-
-            .field-label {
-                font-size: 12px; /* تصغير حجم النصوص أكثر */
+    
+            .submit-button:hover {
+                background-color: #003bb3;
             }
-
+    
+            .form-content {
+                padding: 0 10px;
+            }
+    
             .error-message {
-                font-size: 10px; /* تصغير حجم رسائل الخطأ أكثر */
+                color: red;
+                font-size: 14px;
+                margin-top: 8px;
+                display: none;
             }
-        }
-    </style>
-</head>
-<body>
-    <!-- شاشة التحميل -->
-    <div class="loader" id="loader"></div>
-
-    <!-- النموذج -->
-    <div class="return-container" id="returnContainer">
-        <h1 class="title-header">طلب استرجاع</h1>
-        <form id="returnForm" class="form-content">
-            <div class="input-group">
-                <label for="name" class="field-label">ادخل اسمك:</label>
-                <input type="text" id="name" name="name" class="input-field" placeholder="الاسم" required>
-                <p id="name-error" class="error-message">يرجى ملء الحقل</p>
-            </div>
-
-            <div class="input-group">
-                <label for="phone" class="field-label">ادخل رقم الهاتف:</label>
-                <input type="tel" id="phone" name="phone" class="input-field" placeholder="رقم الهاتف" required>
-                <p id="phone-error" class="error-message">يرجى ملء الحقل</p>
-            </div>
-
-            <div class="input-group">
-                <label for="productNumber" class="field-label">ادخل رقم المنتج:</label>
-                <input type="text" id="productNumber" name="productNumber" class="input-field" placeholder="رقم المنتج" required>
-                <p id="productNumber-error" class="error-message">يرجى ملء الحقل</p>
-            </div>
-
-            <button type="button" class="submit-button" onclick="validateForm()">موافق</button>
-        </form>
-    </div>
-
-    <script>
-        // إخفاء شاشة التحميل وإظهار النموذج بعد تحميل الصفحة
-        window.onload = function() {
-            const loader = document.getElementById('loader');
+    
+            @media (max-width: 600px) {
+                .return-container {
+                    padding: 20px;
+                    max-width: 90%;
+                }
+    
+                .title-header {
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                }
+    
+                .input-field {
+                    padding: 12px 15px;
+                    font-size: 14px;
+                }
+    
+                .submit-button {
+                    padding: 12px 15px;
+                    font-size: 14px;
+                }
+    
+                .field-label {
+                    font-size: 14px;
+                }
+    
+                .error-message {
+                    font-size: 12px;
+                }
+            }
+    
+            @media (max-width: 400px) {
+                .return-container {
+                    padding: 15px;
+                    max-width: 95%;
+                }
+    
+                .title-header {
+                    font-size: 20px;
+                    margin-bottom: 15px;
+                }
+    
+                .input-field {
+                    padding: 10px 12px;
+                    font-size: 12px;
+                }
+    
+                .submit-button {
+                    padding: 10px 12px;
+                    font-size: 12px;
+                }
+    
+                .field-label {
+                    font-size: 12px;
+                }
+    
+                .error-message {
+                    font-size: 10px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- الخلفية ثلاثية الأبعاد -->
+        <div class="background-3d">
+            <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
+            <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
+            <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
+            <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
+            <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
+        </div>
+    
+        <!-- شاشة التحميل -->
+        <div class="loader" id="loader"></div>
+    
+        <!-- النموذج -->
+        <div class="return-container" id="returnContainer">
+            <h1 class="title-header">طلب استرجاع</h1>
+            <form id="returnForm" class="form-content">
+                <div class="input-group">
+                    <label for="name" class="field-label">ادخل اسمك:</label>
+                    <input type="text" id="name" name="name" class="input-field" placeholder="الاسم" required>
+                    <p id="name-error" class="error-message">يرجى ملء الحقل</p>
+                </div>
+    
+                <div class="input-group">
+                    <label for="phone" class="field-label">ادخل رقم الهاتف:</label>
+                    <input type="tel" id="phone" name="phone" class="input-field" placeholder="رقم الهاتف" required>
+                    <p id="phone-error" class="error-message">يرجى ملء الحقل</p>
+                </div>
+    
+                <div class="input-group">
+                    <label for="productNumber" class="field-label">ادخل رقم المنتج:</label>
+                    <input type="text" id="productNumber" name="productNumber" class="input-field" placeholder="رقم المنتج" required>
+                    <p id="productNumber-error" class="error-message">يرجى ملء الحقل</p>
+                </div>
+    
+                <button type="button" class="submit-button" onclick="validateForm()">موافق</button>
+            </form>
+        </div>
+    
+        <script>
+            // إخفاء شاشة التحميل وإظهار النموذج بعد اكتمال تحميل الصفحة
+            document.addEventListener('DOMContentLoaded', function() {
+                const loader = document.getElementById('loader');
+                const returnContainer = document.getElementById('returnContainer');
+    
+                // إخفاء شاشة التحميل وإظهار النموذج بعد تأخير بسيط
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    returnContainer.style.display = 'block';
+                }, 1000); // يمكنك تغيير المدة أو إزالتها
+    
+                // تحميل البيانات المحفوظة
+                const savedName = localStorage.getItem('name');
+                const savedPhone = localStorage.getItem('phone');
+                if (savedName) document.getElementById('name').value = savedName;
+                if (savedPhone) document.getElementById('phone').value = savedPhone;
+            });
+    
+            // إخفاء رسائل الخطأ عند البدء بالكتابة
+            document.getElementById('name').addEventListener('input', function() {
+                document.getElementById('name-error').style.display = 'none';
+            });
+    
+            document.getElementById('phone').addEventListener('input', function() {
+                document.getElementById('phone-error').style.display = 'none';
+            });
+    
+            document.getElementById('productNumber').addEventListener('input', function() {
+                document.getElementById('productNumber-error').style.display = 'none';
+            });
+    
+            // التحقق من النموذج
+            function validateForm() {
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const productNumber = document.getElementById('productNumber').value;
+    
+                let isValid = true;
+    
+                if (!name) {
+                    document.getElementById('name-error').style.display = 'block';
+                    isValid = false;
+                }
+    
+                if (!phone) {
+                    document.getElementById('phone-error').style.display = 'block';
+                    isValid = false;
+                }
+    
+                if (!productNumber) {
+                    document.getElementById('productNumber-error').style.display = 'block';
+                    isValid = false;
+                }
+    
+                if (isValid) {
+                    sendEmail();
+                }
+            }
+    
+            // إرسال البريد الإلكتروني
+            function sendEmail() {
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const productNumber = document.getElementById('productNumber').value;
+    
+                localStorage.setItem('name', name);
+                localStorage.setItem('phone', phone);
+    
+                const email = "adger.shop@gmail.com";
+                const subject = "طلب استرجاع منتج";
+                const body = `الاسم: ${name}%0D%0Aرقم الهاتف: ${phone}%0D%0Aرقم المنتج: ${productNumber}`;
+                const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+    
+                window.location.href = mailtoLink;
+            }
+    
+            // تحريك النموذج لأعلى عند التركيز على أي حقل إدخال
             const returnContainer = document.getElementById('returnContainer');
-
-            // إخفاء شاشة التحميل بعد تأخير بسيط (يمكن تعديله)
-            setTimeout(() => {
-                loader.style.display = 'none';
-                returnContainer.style.display = 'block';
-            }, 1000); // تأخير لمدة ثانية واحدة (1000 مللي ثانية)
-
-            // تحميل البيانات المحفوظة
-            const savedName = localStorage.getItem('name');
-            const savedPhone = localStorage.getItem('phone');
-            if (savedName) document.getElementById('name').value = savedName;
-            if (savedPhone) document.getElementById('phone').value = savedPhone;
-        };
-
-        // إخفاء رسائل الخطأ عند البدء بالكتابة
-        document.getElementById('name').addEventListener('input', function() {
-            document.getElementById('name-error').style.display = 'none';
-        });
-
-        document.getElementById('phone').addEventListener('input', function() {
-            document.getElementById('phone-error').style.display = 'none';
-        });
-
-        document.getElementById('productNumber').addEventListener('input', function() {
-            document.getElementById('productNumber-error').style.display = 'none';
-        });
-
-        // التحقق من النموذج
-        function validateForm() {
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const productNumber = document.getElementById('productNumber').value;
-
-            let isValid = true;
-
-            if (!name) {
-                document.getElementById('name-error').style.display = 'block';
-                isValid = false;
-            }
-
-            if (!phone) {
-                document.getElementById('phone-error').style.display = 'block';
-                isValid = false;
-            }
-
-            if (!productNumber) {
-                document.getElementById('productNumber-error').style.display = 'block';
-                isValid = false;
-            }
-
-            if (isValid) {
-                sendEmail();
-            }
-        }
-
-        // إرسال البريد الإلكتروني
-        function sendEmail() {
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const productNumber = document.getElementById('productNumber').value;
-
-            localStorage.setItem('name', name);
-            localStorage.setItem('phone', phone);
-
-            const email = "adger.shop@gmail.com";
-            const subject = "طلب استرجاع منتج";
-            const body = `الاسم: ${name}%0D%0Aرقم الهاتف: ${phone}%0D%0Aرقم المنتج: ${productNumber}`;
-            const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
-
-            window.location.href = mailtoLink;
-        }
-
-        // تحريك النموذج لأعلى عند التركيز على أي حقل إدخال
-        const returnContainer = document.getElementById('returnContainer');
-        const inputFields = document.querySelectorAll('.input-field');
-
-        inputFields.forEach(input => {
-            input.addEventListener('focus', () => {
-                returnContainer.style.transform = 'translateY(-100px)'; // تحريك النموذج لأعلى
+            const inputFields = document.querySelectorAll('.input-field');
+    
+            inputFields.forEach(input => {
+                input.addEventListener('focus', () => {
+                    returnContainer.style.transform = 'translateY(-100px)';
+                });
+    
+                input.addEventListener('blur', () => {
+                    returnContainer.style.transform = 'translateY(0)';
+                });
             });
-
-            input.addEventListener('blur', () => {
-                returnContainer.style.transform = 'translateY(0)'; // إعادة النموذج إلى وضعه الأصلي
-            });
-        });
-    </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
+        </script>
+    </body>
+    </html>
 
 
 
