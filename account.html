@@ -15,14 +15,22 @@
             margin: 0;
         }
         .login-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
-            position: relative;
-        }
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    position: relative;
+    margin-top: -42px;
+}
+
+/* تعديل margin-top للهواتف */
+@media (max-width: 767px) {
+    .login-container {
+        margin-top: -84px;
+    }
+}
         .login-container h2 {
             font-family: Cairo, sans-serif;
             font-size: 18px;
@@ -631,6 +639,7 @@
         </div>
         <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif;"  >حسابي</p>
         <p onclick="window.location.href='about.html'" style="font-family: Cairo, sans-serif;"  >سياسات وأحكام</p>
+        <p onclick="window.location.href='return.html'" style="font-family: Cairo, sans-serif;">طلب استرجاع</p>
         <p onclick="window.location.href='deals.html'" style="font-family: Cairo, sans-serif;"  >صفقة رابحة</p>
         <p onclick="window.location.href='wholesale.html'" style="font-family: Cairo, sans-serif;"  >شراء بالجملة</p>
         <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif;" >شركات عالمية</p>
