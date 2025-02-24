@@ -2357,7 +2357,6 @@
         <title>معرض الصور</title>
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
         <style>
-            /* CSS الأصلي */
             body {
                 font-family: Arial, sans-serif;
                 margin: 0;
@@ -2390,16 +2389,14 @@
                 position: relative;
             }
     
-            /* حاوية الصورة مع أبعاد ثابتة */
             .image-wrapper {
                 position: relative;
                 width: 100%;
-                padding-top: 100%; /* نسبة 1:1 للحفاظ على الأبعاد */
-                background-color: #e0e0e0; /* خلفية رمادية أثناء التحميل */
+                padding-top: 100%;
+                background-color: #e0e0e0;
                 border-radius: 4%;
             }
     
-            /* الصورة داخل الحاوية */
             .image-frame img {
                 position: absolute;
                 top: 0;
@@ -2754,9 +2751,6 @@
                     </div>
                 </div>
             </div>
-
-
-            
         </div>
     
         <script>
@@ -2768,29 +2762,28 @@
             // التحميل الكسول باستخدام IntersectionObserver
             document.addEventListener("DOMContentLoaded", function () {
                 const lazyImages = document.querySelectorAll("img[data-src]");
+                const gallery = document.getElementById('gallery');
+                const products = Array.from(gallery.getElementsByClassName('image-container'));
     
                 const observer = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             const img = entry.target;
-                            img.src = img.dataset.src; // تحميل الصورة الأصلية
+                            img.src = img.dataset.src;
                             img.onload = () => {
-                                img.classList.add("loaded"); // إضافة كلاس عند التحميل
+                                img.classList.add("loaded");
                             };
                             img.removeAttribute("data-src");
                             observer.unobserve(img);
                         }
                     });
                 }, {
-                    rootMargin: "0px 0px 200px 0px" // تحميل الصور قبل ظهورها بـ 200 بكسل
+                    rootMargin: "0px 0px 200px 0px"
                 });
     
                 lazyImages.forEach(img => observer.observe(img));
     
-                // خلط المنتجات وعرض أول 5
-                const gallery = document.getElementById('gallery');
-                const products = Array.from(gallery.getElementsByClassName('image-container'));
-    
+                // خلط المنتجات وعرض أول 5 فقط في البداية
                 function shuffle(array) {
                     for (let i = array.length - 1; i > 0; i--) {
                         const j = Math.floor(Math.random() * (i + 1));
@@ -2808,22 +2801,52 @@
                     }
                     gallery.appendChild(product);
                 });
-            });
     
-            // إظهار المنتجات المخفية عند التمرير
-            document.addEventListener('scroll', function () {
-                const hiddenElements = document.querySelectorAll('.hidden');
-                if (hiddenElements.length === 0) return;
-    
-                if (window.innerHeight + window.scrollY >= document.body.offsetHeight / 2) {
-                    let count = 0;
-                    hiddenElements.forEach(element => {
-                        if (count < 10) {
-                            element.classList.remove('hidden');
-                            count++;
-                        }
-                    });
+                // دالة لحساب عدد العناصر في الصف بناءً على حجم الشاشة
+                function getItemsPerRow() {
+                    const width = window.innerWidth;
+                    if (width <= 768) return 2; // 50% لكل عنصر
+                    if (width <= 1024) return 4; // 25% لكل عنصر
+                    if (width <= 1280) return 5; // 20% لكل عنصر
+                    return 6; // 16.666% لكل عنصر
                 }
+    
+                // دالة لإظهار المنتجات المخفية بعد كل صفين
+                function revealHiddenProducts() {
+                    const itemsPerRow = getItemsPerRow();
+                    const visibleProducts = document.querySelectorAll('.image-container:not(.hidden)').length;
+                    const rowsDisplayed = Math.ceil(visibleProducts / itemsPerRow); // عدد الصفوف المعروضة
+    
+                    const hiddenProducts = document.querySelectorAll('.image-container.hidden');
+                    if (hiddenProducts.length === 0) return;
+    
+                    // إذا وصل المستخدم إلى منتصف الصفحة أو أكثر، أظهر صفين إضافيين
+                    if (window.innerHeight + window.scrollY >= document.body.offsetHeight * 0.5) {
+                        const itemsToShow = itemsPerRow * 2; // عدد العناصر في صفين
+                        let count = 0;
+    
+                        hiddenProducts.forEach(product => {
+                            if (count < itemsToShow) {
+                                product.classList.remove('hidden');
+                                count++;
+                            }
+                        });
+                    }
+                }
+    
+                // استماع لحدث التمرير
+                let throttleTimeout;
+                document.addEventListener('scroll', function () {
+                    if (!throttleTimeout) {
+                        throttleTimeout = setTimeout(() => {
+                            revealHiddenProducts();
+                            throttleTimeout = null;
+                        }, 200); // تأخير بسيط لتحسين الأداء
+                    }
+                });
+    
+                // تحديث عند تغيير حجم الشاشة
+                window.addEventListener('resize', revealHiddenProducts);
             });
     
             // النص المتحرك
