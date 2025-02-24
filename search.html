@@ -593,9 +593,8 @@
 
         function displayLastSearchTerm() {
             const lastTerm = localStorage.getItem('lastSearchTerm') || 'آخر نص كتبه المستخدم';
-            // قص النص بصريًا فقط في شاشات الهواتف
-            if (window.innerWidth <= 767 && lastTerm.length > 12) {
-                lastSearchTerm.textContent = lastTerm.slice(0, 12) + '...';
+            if (window.innerWidth <= 767 && lastTerm.length > 26) {
+                lastSearchTerm.textContent = lastTerm.slice(0, 26) + '...';
             } else {
                 lastSearchTerm.textContent = lastTerm;
             }
@@ -607,9 +606,9 @@
             searchHistory.forEach((entry) => {
                 const searchItem = document.createElement('div');
                 searchItem.className = 'search-item';
-                // قص النص بصريًا فقط في شاشات الهواتف
-                const displayTerm = (window.innerWidth <= 767 && entry.term.length > 12) 
-                    ? entry.term.slice(0, 12) + '...' 
+                // قص النص بصريًا فقط في شاشات الهواتف إلى 26 حرفًا
+                const displayTerm = (window.innerWidth <= 767 && entry.term.length > 26) 
+                    ? entry.term.slice(0, 26) + '...' 
                     : entry.term;
                 searchItem.innerHTML = `
                     <span>${displayTerm}</span>
@@ -617,17 +616,16 @@
                     <button class="delete-button">✖</button>
                 `;
 
-                // استخدام النص الكامل في العمليات
                 searchItem.addEventListener('click', function () {
-                    saveSearchTerm(entry.term); // النص الكامل
-                    saveLastSearchTerm(entry.term); // النص الكامل
-                    window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`; // النص الكامل
+                    saveSearchTerm(entry.term);
+                    saveLastSearchTerm(entry.term);
+                    window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`;
                 });
 
                 searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
                     event.stopPropagation();
                     searchItem.remove();
-                    removeSearchTermFromHistory(entry.term); // النص الكامل
+                    removeSearchTermFromHistory(entry.term);
                 });
 
                 searchHistoryGrid.appendChild(searchItem);
@@ -643,7 +641,6 @@
         lastSearchItem.addEventListener('click', function () {
             const lastTerm = localStorage.getItem('lastSearchTerm');
             if (lastTerm) {
-                // استخدام النص الكامل مع إضافة مسافة
                 searchInput.value = lastTerm + ' ';
                 searchInput.focus();
                 clearButton.style.display = 'block';
@@ -672,7 +669,6 @@
             }, 500);
         });
 
-        // تحديث النصوص عند تغيير حجم الشاشة
         window.addEventListener('resize', function () {
             displaySearchHistory();
             displayLastSearchTerm();
