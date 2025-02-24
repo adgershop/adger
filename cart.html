@@ -42,11 +42,39 @@
             position: relative;
         }
 
+        .image-frame .image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* لضمان نسبة العرض إلى الارتفاع ثابتة */
+        }
+
+        .image-frame .placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #e0e0e0; /* لون رمادي كبديل */
+            opacity: 0.8;
+            border-radius: 22px; /* لتتناسب مع الإطار */
+        }
+
         .image-frame img {
+            position: absolute;
+            top: 0;
+            left: 0;
             max-width: 100%;
-            height: auto;
+            height: 100%;
+            width: 100%;
+            object-fit: cover; /* لضمان ملء المساحة */
             display: block;
             cursor: pointer;
+            opacity: 0; /* مخفية في البداية */
+            transition: opacity 0.3s ease; /* تأثير انتقال سلس */
+        }
+
+        .image-frame img.loaded {
+            opacity: 1; /* تظهر عند التحميل */
         }
 
         .text-under {
@@ -220,7 +248,6 @@
                 display: none; /* Hide text on mobile */
             }
         }
-      
     </style>
 </head>
 <body>
@@ -268,26 +295,26 @@
 
         // Function to update cart display
         function updateCartDisplay() {
-            // Update item count
             document.getElementById('itemCount').textContent = cart.length;
 
-            // If the cart is empty
             if (cart.length === 0) {
-                emptyCartMessage.style.display = 'block'; // Show empty cart message
-                cartItemsElement.style.display = 'none'; // Hide product list
+                emptyCartMessage.style.display = 'block';
+                cartItemsElement.style.display = 'none';
             } else {
-                emptyCartMessage.style.display = 'none'; // Hide empty cart message
-                cartItemsElement.style.display = 'flex'; // Show product list
-                cartItemsElement.innerHTML = ''; // Clear current content
+                emptyCartMessage.style.display = 'none';
+                cartItemsElement.style.display = 'flex';
+                cartItemsElement.innerHTML = '';
 
-                // Reverse product order before display
                 cart.reverse().forEach((product, index) => {
                     const productElement = document.createElement('div');
                     productElement.className = 'image-container';
                     productElement.innerHTML = `
                         <div class="image-frame">
-                            <a href="${product.link}"> <!-- Use saved link -->
-                                <img src="${product.image}" alt="${product.name}">
+                            <a href="${product.link}">
+                                <div class="image-wrapper">
+                                    <div class="placeholder"></div>
+                                    <img src="${product.image}" alt="${product.name}" loading="lazy" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';">
+                                </div>
                             </a>
                             <div class="text-under">
                                 <h1>${product.name}</h1>
@@ -299,7 +326,6 @@
                                 </div>
                                 <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">${product.discount}</h3>
                             </div>
-                            <!-- Delete button with text -->
                             <button class="remove-button" onclick="removeFromCart(${index})">
                                 <span>حذف</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -308,40 +334,39 @@
                                     <path d="M14 11v6" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
                             </button>
-                        </div> 
+                        </div>
                     `;
                     cartItemsElement.appendChild(productElement);
                 });
             }
 
-            // Calculate total price
             calculateTotalPrice();
         }
 
         // Function to remove product from cart
         function removeFromCart(index) {
-            cart.splice(index, 1); // Remove product from cart
-            localStorage.setItem('cart', JSON.stringify(cart)); // Save updated cart
-            updateCartDisplay(); // Update cart display
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
         }
 
         // Function to calculate total price
         function calculateTotalPrice() {
             let totalPrice = 0;
             cart.forEach(product => {
-                const price = parseFloat(product.price.replace(/,/g, '')); // Convert price to number
+                const price = parseFloat(product.price.replace(/,/g, ''));
                 totalPrice += price;
             });
-            document.getElementById('totalPrice').textContent = totalPrice.toLocaleString(); // Display total price
+            document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
         }
 
         // Function to go back to the previous page
         function goBack() {
-            history.back(); // Return to the previous page in the browser history
+            history.back();
         }
 
         // Update cart display on page load
         updateCartDisplay();
     </script>
 </body>
-</html>
+</html
