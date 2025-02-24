@@ -2783,25 +2783,6 @@
     
                 lazyImages.forEach(img => observer.observe(img));
     
-                // خلط المنتجات وعرض أول 5 فقط في البداية
-                function shuffle(array) {
-                    for (let i = array.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [array[i], array[j]] = [array[j], array[i]];
-                    }
-                }
-    
-                shuffle(products);
-                gallery.innerHTML = '';
-                products.forEach((product, index) => {
-                    if (index < 5) {
-                        product.classList.remove('hidden');
-                    } else {
-                        product.classList.add('hidden');
-                    }
-                    gallery.appendChild(product);
-                });
-    
                 // دالة لحساب عدد العناصر في الصف بناءً على حجم الشاشة
                 function getItemsPerRow() {
                     const width = window.innerWidth;
@@ -2811,7 +2792,27 @@
                     return 6; // 16.666% لكل عنصر
                 }
     
-                // دالة لإظهار المنتجات المخفية بعد كل صفين
+                // خلط المنتجات وعرض عدد يساوي عدد العناصر في الصف الأول
+                function shuffle(array) {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
+                }
+    
+                shuffle(products);
+                const itemsPerRow = getItemsPerRow();
+                gallery.innerHTML = '';
+                products.forEach((product, index) => {
+                    if (index < itemsPerRow) {
+                        product.classList.remove('hidden');
+                    } else {
+                        product.classList.add('hidden');
+                    }
+                    gallery.appendChild(product);
+                });
+    
+                // دالة لإظهار المنتجات المخفية سطرًا كاملاً
                 function revealHiddenProducts() {
                     const itemsPerRow = getItemsPerRow();
                     const visibleProducts = document.querySelectorAll('.image-container:not(.hidden)').length;
@@ -2820,9 +2821,9 @@
                     const hiddenProducts = document.querySelectorAll('.image-container.hidden');
                     if (hiddenProducts.length === 0) return;
     
-                    // إذا وصل المستخدم إلى منتصف الصفحة أو أكثر، أظهر صفين إضافيين
+                    // إذا وصل المستخدم إلى منتصف الصفحة أو أكثر، أظهر سطرًا كاملاً
                     if (window.innerHeight + window.scrollY >= document.body.offsetHeight * 0.5) {
-                        const itemsToShow = itemsPerRow * 2; // عدد العناصر في صفين
+                        const itemsToShow = itemsPerRow; // عدد العناصر في سطر واحد
                         let count = 0;
     
                         hiddenProducts.forEach(product => {
@@ -2846,7 +2847,21 @@
                 });
     
                 // تحديث عند تغيير حجم الشاشة
-                window.addEventListener('resize', revealHiddenProducts);
+                window.addEventListener('resize', function () {
+                    const itemsPerRow = getItemsPerRow();
+                    const visibleProducts = document.querySelectorAll('.image-container:not(.hidden)').length;
+                    if (visibleProducts < itemsPerRow) {
+                        const hiddenProducts = document.querySelectorAll('.image-container.hidden');
+                        let count = 0;
+                        hiddenProducts.forEach(product => {
+                            if (count < itemsPerRow - visibleProducts) {
+                                product.classList.remove('hidden');
+                                count++;
+                            }
+                        });
+                    }
+                    revealHiddenProducts();
+                });
             });
     
             // النص المتحرك
