@@ -593,11 +593,11 @@
 
         function displayLastSearchTerm() {
             const lastTerm = localStorage.getItem('lastSearchTerm') || 'آخر نص كتبه المستخدم';
-            if (window.innerWidth <= 767 && lastTerm.length > 26) {
-                lastSearchTerm.textContent = lastTerm.slice(0, 26) + '...';
-            } else {
-                lastSearchTerm.textContent = lastTerm;
-            }
+            // قص النص بصريًا إلى 26 حرفًا في كل الحالات
+            const displayTerm = (lastTerm.length > 26) 
+                ? lastTerm.slice(0, 26) + '...' 
+                : lastTerm;
+            lastSearchTerm.textContent = displayTerm;
         }
 
         function displaySearchHistory() {
@@ -606,8 +606,8 @@
             searchHistory.forEach((entry) => {
                 const searchItem = document.createElement('div');
                 searchItem.className = 'search-item';
-                // قص النص بصريًا فقط في شاشات الهواتف إلى 26 حرفًا
-                const displayTerm = (window.innerWidth <= 767 && entry.term.length > 26) 
+                // قص النص بصريًا إلى 26 حرفًا في كل الحالات
+                const displayTerm = (entry.term.length > 26) 
                     ? entry.term.slice(0, 26) + '...' 
                     : entry.term;
                 searchItem.innerHTML = `
