@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adger</title>
-    <link rel="icon" href="logo.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-
-
-
-    <!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <link id="fontLink" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
 <html lang="ar" dir="rtl">
@@ -604,7 +593,12 @@
 
         function displayLastSearchTerm() {
             const lastTerm = localStorage.getItem('lastSearchTerm') || 'آخر نص كتبه المستخدم';
-            lastSearchTerm.textContent = lastTerm;
+            // قص النص بصريًا فقط في شاشات الهواتف
+            if (window.innerWidth <= 767 && lastTerm.length > 12) {
+                lastSearchTerm.textContent = lastTerm.slice(0, 12) + '...';
+            } else {
+                lastSearchTerm.textContent = lastTerm;
+            }
         }
 
         function displaySearchHistory() {
@@ -613,22 +607,27 @@
             searchHistory.forEach((entry) => {
                 const searchItem = document.createElement('div');
                 searchItem.className = 'search-item';
+                // قص النص بصريًا فقط في شاشات الهواتف
+                const displayTerm = (window.innerWidth <= 767 && entry.term.length > 12) 
+                    ? entry.term.slice(0, 12) + '...' 
+                    : entry.term;
                 searchItem.innerHTML = `
-                    <span>${entry.term}</span>
+                    <span>${displayTerm}</span>
                     <small>${entry.date}</small>
                     <button class="delete-button">✖</button>
                 `;
 
+                // استخدام النص الكامل في العمليات
                 searchItem.addEventListener('click', function () {
-                    saveSearchTerm(entry.term);
-                    saveLastSearchTerm(entry.term);
-                    window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`;
+                    saveSearchTerm(entry.term); // النص الكامل
+                    saveLastSearchTerm(entry.term); // النص الكامل
+                    window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`; // النص الكامل
                 });
 
                 searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
                     event.stopPropagation();
                     searchItem.remove();
-                    removeSearchTermFromHistory(entry.term);
+                    removeSearchTermFromHistory(entry.term); // النص الكامل
                 });
 
                 searchHistoryGrid.appendChild(searchItem);
@@ -644,7 +643,8 @@
         lastSearchItem.addEventListener('click', function () {
             const lastTerm = localStorage.getItem('lastSearchTerm');
             if (lastTerm) {
-                searchInput.value = lastTerm + ' '; // إضافة مسافة بعد النص
+                // استخدام النص الكامل مع إضافة مسافة
+                searchInput.value = lastTerm + ' ';
                 searchInput.focus();
                 clearButton.style.display = 'block';
             }
@@ -670,6 +670,12 @@
                 searchInput.focus();
                 searchInput.click();
             }, 500);
+        });
+
+        // تحديث النصوص عند تغيير حجم الشاشة
+        window.addEventListener('resize', function () {
+            displaySearchHistory();
+            displayLastSearchTerm();
         });
 
         function redirectToSea(categoryName) {
