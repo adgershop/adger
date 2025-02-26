@@ -10,11 +10,15 @@
             font-family: 'Cairo', sans-serif;
             margin: 0;
             padding: 0;
+            overflow-x: hidden; /* منع التمرير الأفقي غير المرغوب */
         }
     
         .comments-container {
             margin-top: 20px;
             text-align: right;
+            padding-bottom: 80px; /* هامش سفلي لتجنب التداخل مع #field2 */
+            max-height: calc(100vh - 64px); /* ارتفاع الحاوية بناءً على الشاشة مطروحًا الهيدر */
+            overflow-y: auto; /* السماح بالتمرير العمودي إذا لزم الأمر */
         }
         
         .comments-header {
@@ -109,6 +113,7 @@
             padding: 15px;
             border-top: 1px solid #ddd;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 1000; /* تأكد أنه فوق المحتوى */
         }
         
         #field2 textarea {
