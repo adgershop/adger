@@ -24,10 +24,11 @@
             body {
                 margin: 0;
                 font-family: Arial, sans-serif;
-                padding-top: 86px; /* مسافة أكبر قليلاً للشريط العلوي */
+                padding-top: 66px; /* ارتفاع الشريط العلوي */
                 min-height: 100vh;
                 background: linear-gradient(45deg, #0d1b2a, #1b263b);
                 overflow-y: auto; /* السماح بالتمرير العمودي */
+                position: relative;
             }
     
             /* الشريط العلوي الثابت (من الكود الثاني) */
@@ -430,10 +431,11 @@
     
             /* تنسيقات النافذة البيضاء */
             .return-container {
-                position: absolute; /* تغيير إلى absolute لتكون نسبية للـ body */
-                top: calc(66px + 40px); /* ارتفاع الشريط + مسافة ثابتة */
+                position: fixed;
+                top: 50%;
                 left: 50%;
-                transform: translateX(-50%); /* توسيط أفقي فقط */
+                transform: translate(-50%, -50%);
+                margin-top: 33px; /* نصف ارتفاع الشريط العلوي لضمان التوسيط بعد الشريط */
                 background-color: rgba(255, 255, 255, 0.95);
                 padding: 30px;
                 border-radius: 12px;
@@ -443,13 +445,12 @@
                 text-align: center;
                 display: none;
                 z-index: 10;
-                margin-bottom: 20px; /* مسافة سفلية للتأكد من عدم التداخل */
             }
     
             @media (max-width: 499px) {
                 .return-container {
                     max-width: 90%;
-                    top: calc(66px + 20px); /* تقليل المسافة على الهواتف */
+                    margin-top: 33px; /* نفس القيمة للحفاظ على التناسق */
                 }
             }
     
