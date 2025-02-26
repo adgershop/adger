@@ -193,6 +193,25 @@
         #emptyContent {
             display: none;
         }
+
+        /* Amazing "No more comments" message */
+        .no-more-comments {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #ff6f61; /* لون برتقالي-أحمر جذاب */
+            background: linear-gradient(90deg, #ff6f61, #6b48ff); /* تدرج لوني مذهل */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* ظل ناعم */
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -222,8 +241,6 @@
     <div id="loadingSpinner" style="display: block;">
         <div class="spinner"></div>
     </div>
-</body>
-</html>
 
     <script type="module">
         // Import necessary Firebase functions
@@ -322,6 +339,14 @@
                     commentsList.appendChild(document.createElement('div')).className = 'separator';
                 }
             });
+
+            // إذا كانت هناك تعليقات، أضف رسالة "لا توجد تعليقات أخرى" بتصميم مذهل
+            if (hasComments) {
+                const noMoreCommentsElement = document.createElement('div');
+                noMoreCommentsElement.className = 'no-more-comments';
+                noMoreCommentsElement.textContent = 'لا توجد تعليقات أخرى';
+                commentsList.appendChild(noMoreCommentsElement);
+            }
 
             // Show or hide the empty content message based on if there are comments
             document.getElementById('emptyContent').style.display = hasComments ? 'none' : 'flex';
