@@ -204,7 +204,9 @@
         }
 
         /* Amazing "No more comments" message */
-        .no-more-comments {
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+.no-more-comments {
     text-align: center;
     font-size: 15px;
     font-weight: 700;
@@ -212,13 +214,7 @@
     margin: 20px 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* ظل ناعم */
     animation: fadeIn 1s ease-in-out;
-}
-
-/* تصغير حجم الخط على الشاشات الصغيرة مثل التابلت والموبايل */
-@media (max-width: 1024px) { 
-    .no-more-comments {
-        font-size: 13px;
-    }
+    font-family: 'Tajawal', sans-serif; /* تعيين الخط */
 }
 
 
