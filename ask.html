@@ -156,14 +156,18 @@
         }
         
         #field2 button {
-            padding: 12px 30px;
-            margin-right: -3px;
+            padding: 0 30px; /* تعديل الـ padding ليكون أفقيًا فقط */
+            height: 40px; /* جعل الارتفاع مطابقًا لحقل النص */
+            margin-right: -6px; /* تعديل المسافة لتكون متناسقة */
             border: none;
             background-color: #000;
             color: white;
             border-radius: 25px;
             cursor: pointer;
             transition: opacity 0.2s;
+            display: flex; /* للمحاذاة العمودية */
+            align-items: center; /* محاذاة النص عموديًا */
+            justify-content: center; /* محاذاة النص أفقيًا */
         }
 
         #field2 button:active {
@@ -247,188 +251,188 @@
 </body>
 </html>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const firebaseConfig = {
-                apiKey: "AIzaSyA8a5iw8Sbu_RiPMJBpa0tm83KZpI7Tg-o",
-                authDomain: "project-536517259111.firebaseapp.com",
-                databaseURL: "https://adger-12f9b-default-rtdb.firebaseio.com",
-                projectId: "adger-12f9b",
-                storageBucket: "adger-12f9b.appspot.com",
-                messagingSenderId: "536517259111",
-                appId: "1:536517259111:web:abcdef123456"
-            };
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const firebaseConfig = {
+            apiKey: "AIzaSyA8a5iw8Sbu_RiPMJBpa0tm83KZpI7Tg-o",
+            authDomain: "project-536517259111.firebaseapp.com",
+            databaseURL: "https://adger-12f9b-default-rtdb.firebaseio.com",
+            projectId: "adger-12f9b",
+            storageBucket: "adger-12f9b.appspot.com",
+            messagingSenderId: "536517259111",
+            appId: "1:536517259111:web:abcdef123456"
+        };
 
-            firebase.initializeApp(firebaseConfig);
-            const database = firebase.database();
-            const messagesRef = database.ref('messages');
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const messagesRef = database.ref('messages');
 
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            loadingSpinner.style.display = 'block';
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        loadingSpinner.style.display = 'block';
 
-            messagesRef.once('value').then(snapshot => {
-                loadingSpinner.style.display = 'none';
-                document.getElementById('messages').innerHTML = '';
+        messagesRef.once('value').then(snapshot => {
+            loadingSpinner.style.display = 'none';
+            document.getElementById('messages').innerHTML = '';
 
-                if (snapshot.exists()) {
-                    snapshot.forEach(child => {
-                        createMessageElement(child.key, child.val());
-                    });
-                    document.getElementById('emptyState').style.display = 'none';
-                } else {
-                    document.getElementById('emptyState').style.display = 'block';
-                }
-            }).catch(error => {
-                console.error('خطأ في التحميل:', error);
-                loadingSpinner.style.display = 'none';
-            });
-
-            document.getElementById('submitButton').addEventListener('click', e => {
-                e.preventDefault();
-                const textInput = document.getElementById('textInput');
-                const message = textInput.value.trim();
-                const username = localStorage.getItem('username');
-                const hiddenMessage = document.getElementById('hiddenMessageText').textContent;
-
-                if (!username) {
-                    alert('الرجاء تسجيل الدخول أولاً');
-                    window.location.href = 'account.html';
-                    return;
-                }
-
-                if (message) {
-                    messagesRef.push({
-                        text: message,
-                        author: username,
-                        replies: [],
-                        timestamp: firebase.database.ServerValue.TIMESTAMP,
-                        hiddenMessage: hiddenMessage || ''
-                    }).then(() => {
-                        textInput.value = '';
-                        textInput.focus();
-                    }).catch(error => {
-                        console.error('خطأ في الإرسال:', error);
-                    });
-                }
-            });
-
-            messagesRef.on('child_added', snapshot => {
-                createMessageElement(snapshot.key, snapshot.val());
+            if (snapshot.exists()) {
+                snapshot.forEach(child => {
+                    createMessageElement(child.key, child.val());
+                });
                 document.getElementById('emptyState').style.display = 'none';
-            });
+            } else {
+                document.getElementById('emptyState').style.display = 'block';
+            }
+        }).catch(error => {
+            console.error('خطأ في التحميل:', error);
+            loadingSpinner.style.display = 'none';
+        });
 
-            messagesRef.on('child_removed', snapshot => {
-                const messageElement = document.querySelector(`[data-message-id="${snapshot.key}"]`);
-                if (messageElement) messageElement.remove();
-                checkEmptyState();
-            });
+        document.getElementById('submitButton').addEventListener('click', e => {
+            e.preventDefault();
+            const textInput = document.getElementById('commentText'); // تعديل ليطابق الـ ID الصحيح
+            const message = textInput.value.trim();
+            const username = localStorage.getItem('username');
+            const hiddenMessage = document.getElementById('hiddenMessageText').textContent;
 
-            function createMessageElement(id, {text, author, replies, timestamp, hiddenMessage}) {
-                const container = document.createElement('div');
-                container.className = 'message-container';
-                container.dataset.messageId = id;
+            if (!username) {
+                alert('الرجاء تسجيل الدخول أولاً');
+                window.location.href = 'account.html';
+                return;
+            }
+
+            if (message) {
+                messagesRef.push({
+                    text: message,
+                    author: username,
+                    replies: [],
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    hiddenMessage: hiddenMessage || ''
+                }).then(() => {
+                    textInput.value = '';
+                    textInput.focus();
+                }).catch(error => {
+                    console.error('خطأ في الإرسال:', error);
+                });
+            }
+        });
+
+        messagesRef.on('child_added', snapshot => {
+            createMessageElement(snapshot.key, snapshot.val());
+            document.getElementById('emptyState').style.display = 'none';
+        });
+
+        messagesRef.on('child_removed', snapshot => {
+            const messageElement = document.querySelector(`[data-message-id="${snapshot.key}"]`);
+            if (messageElement) messageElement.remove();
+            checkEmptyState();
+        });
+
+        function createMessageElement(id, {text, author, replies, timestamp, hiddenMessage}) {
+            const container = document.createElement('div');
+            container.className = 'message-container';
+            container.dataset.messageId = id;
+
+            const formattedTime = formatTimestamp(timestamp);
+
+            let hiddenMsg = hiddenMessage ? `<div style="font-size: 12px; margin-bottom: 5px;">${hiddenMessage}</div><hr style="margin: 5px 0;">` : '';
+
+            container.innerHTML = `
+                <span class="message-author">${author}</span>
+                <div class="message-content" data-author="${author}">
+                    ${hiddenMsg}
+                    <div class="message-text">${text}</div>
+                    <div class="message-meta">
+                        <span class="message-timestamp">${formattedTime}</span>
+                    </div>
+                </div>
+            `;
+
+            if (replies) {
+                Object.entries(replies).forEach(([replyId, reply]) => {
+                    addReply(container, replyId, reply);
+                });
+            }
+
+            document.getElementById('messages').appendChild(container);
+            container.scrollIntoView({ behavior: 'smooth' });
+
+            database.ref(`messages/${id}/replies`).on('child_added', snapshot => {
+                addReply(container, snapshot.key, snapshot.val());
+            });
+        }
+
+        function addReply(container, replyId, {author, text, timestamp}) {
+            if (!container.querySelector(`[data-reply-id="${replyId}"]`)) {
+                const replyDiv = document.createElement('div');
+                replyDiv.className = 'reply-text';
+                replyDiv.dataset.replyId = replyId;
 
                 const formattedTime = formatTimestamp(timestamp);
 
-                let hiddenMsg = hiddenMessage ? `<div style="font-size: 12px; margin-bottom: 5px;">${hiddenMessage}</div><hr style="margin: 5px 0;">` : '';
-
-                container.innerHTML = `
+                replyDiv.innerHTML = `
                     <span class="message-author">${author}</span>
-                    <div class="message-content" data-author="${author}">
-                        ${hiddenMsg}
+                    <div class="message-content">
                         <div class="message-text">${text}</div>
                         <div class="message-meta">
                             <span class="message-timestamp">${formattedTime}</span>
                         </div>
                     </div>
                 `;
-
-                if (replies) {
-                    Object.entries(replies).forEach(([replyId, reply]) => {
-                        addReply(container, replyId, reply);
-                    });
-                }
-
-                document.getElementById('messages').appendChild(container);
-                container.scrollIntoView({ behavior: 'smooth' });
-
-                database.ref(`messages/${id}/replies`).on('child_added', snapshot => {
-                    addReply(container, snapshot.key, snapshot.val());
-                });
+                container.appendChild(replyDiv);
+                replyDiv.scrollIntoView({ behavior: 'smooth' });
             }
+        }
 
-            function addReply(container, replyId, {author, text, timestamp}) {
-                if (!container.querySelector(`[data-reply-id="${replyId}"]`)) {
-                    const replyDiv = document.createElement('div');
-                    replyDiv.className = 'reply-text';
-                    replyDiv.dataset.replyId = replyId;
+        function formatTimestamp(timestamp) {
+            if (!timestamp) return '';
 
-                    const formattedTime = formatTimestamp(timestamp);
+            const messageDate = new Date(timestamp);
+            const currentDate = new Date();
 
-                    replyDiv.innerHTML = `
-                        <span class="message-author">${author}</span>
-                        <div class="message-content">
-                            <div class="message-text">${text}</div>
-                            <div class="message-meta">
-                                <span class="message-timestamp">${formattedTime}</span>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(replyDiv);
-                    replyDiv.scrollIntoView({ behavior: 'smooth' });
-                }
+            // تحقق إذا كان التاريخ في نفس اليوم
+            if (
+                messageDate.getDate() === currentDate.getDate() &&
+                messageDate.getMonth() === currentDate.getMonth() &&
+                messageDate.getFullYear() === currentDate.getFullYear()
+            ) {
+                // إذا كان في نفس اليوم، نعرض الوقت مع تحديد صباحًا أو مساءً
+                const hours = messageDate.getHours();
+                const minutes = messageDate.getMinutes().toString().padStart(2, '0');
+                const period = hours >= 12 ? 'مساءً' : 'صباحًا';
+                const formattedHours = hours % 12 || 12; // تحويل إلى تنسيق 12 ساعة
+
+                return `${formattedHours}:${minutes} ${period}`;
+            } else {
+                // إذا مر يوم أو أكثر، نعرض التاريخ فقط
+                const options = {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                };
+                return messageDate.toLocaleDateString('ar-EG', options);
             }
+        }
 
-            function formatTimestamp(timestamp) {
-                if (!timestamp) return '';
-
-                const messageDate = new Date(timestamp);
-                const currentDate = new Date();
-
-                // تحقق إذا كان التاريخ في نفس اليوم
-                if (
-                    messageDate.getDate() === currentDate.getDate() &&
-                    messageDate.getMonth() === currentDate.getMonth() &&
-                    messageDate.getFullYear() === currentDate.getFullYear()
-                ) {
-                    // إذا كان في نفس اليوم، نعرض الوقت مع تحديد صباحًا أو مساءً
-                    const hours = messageDate.getHours();
-                    const minutes = messageDate.getMinutes().toString().padStart(2, '0');
-                    const period = hours >= 12 ? 'مساءً' : 'صباحًا';
-                    const formattedHours = hours % 12 || 12; // تحويل إلى تنسيق 12 ساعة
-
-                    return `${formattedHours}:${minutes} ${period}`;
-                } else {
-                    // إذا مر يوم أو أكثر، نعرض التاريخ فقط
-                    const options = {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric'
-                    };
-                    return messageDate.toLocaleDateString('ar-EG', options);
-                }
-            }
-
-            function checkEmptyState() {
-                messagesRef.once('value').then(snapshot => {
-                    document.getElementById('emptyState').style.display =
-                        snapshot.exists() ? 'none' : 'block';
-                });
-            }
-
-            // Get the message from the URL parameters and set it in the hiddenMessage div
-            const urlParams = new URLSearchParams(window.location.search);
-            const message = urlParams.get('message');
-            if (message) {
-                const hiddenMessageDiv = document.getElementById('hiddenMessageText');
-                hiddenMessageDiv.textContent = message;
-            }
-
-            // Add event listener for the back arrow
-            document.querySelector('.back-arrow').addEventListener('click', function() {
-                window.history.back();
+        function checkEmptyState() {
+            messagesRef.once('value').then(snapshot => {
+                document.getElementById('emptyState').style.display =
+                    snapshot.exists() ? 'none' : 'block';
             });
+        }
+
+        // Get the message from the URL parameters and set it in the hiddenMessage div
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        if (message) {
+            const hiddenMessageDiv = document.getElementById('hiddenMessageText');
+            hiddenMessageDiv.textContent = message;
+        }
+
+        // Add event listener for the back arrow
+        document.querySelector('.back-arrow').addEventListener('click', function() {
+            window.history.back();
         });
-    </script>
+    });
+</script>
 </body>
 </html>
