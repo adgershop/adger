@@ -12,358 +12,822 @@
 
 
 
-   <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طلب استرجاع</title>
-    <style>
-        /* تنسيقات عامة */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            background: linear-gradient(45deg, #0d1b2a, #1b263b);
-            overflow-y: auto; /* السماح بالتمرير العمودي */
-        }
-
-        /* تأثير الخلفية ثلاثية الأبعاد */
-        .background-3d {
-            position: fixed; /* جعل الخلفية ثابتة */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            perspective: 1000px;
-        }
-
-        .cube {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            transform-style: preserve-3d;
-            animation: rotate 10s infinite linear;
-        }
-
-        .cube div {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 81, 255, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .cube .front  { transform: translateZ(25px); }
-        .cube .back   { transform: translateZ(-25px); }
-        .cube .right  { transform: rotateY(90deg) translateZ(25px); }
-        .cube .left   { transform: rotateY(-90deg) translateZ(25px); }
-        .cube .top    { transform: rotateX(90deg) translateZ(25px); }
-        .cube .bottom { transform: rotateX(-90deg) translateZ(25px); }
-
-        .cube:nth-child(1) { top: 10%; left: 10%; animation-duration: 8s; }
-        .cube:nth-child(2) { top: 20%; left: 70%; animation-duration: 12s; }
-        .cube:nth-child(3) { top: 60%; left: 20%; animation-duration: 10s; }
-        .cube:nth-child(4) { top: 80%; left: 80%; animation-duration: 15s; }
-        .cube:nth-child(5) { top: 40%; left: 50%; animation-duration: 9s; }
-
-        @keyframes rotate {
-            0% { transform: rotateX(0deg) rotateY(0deg); }
-            100% { transform: rotateX(360deg) rotateY(360deg); }
-        }
-
-        /* شاشة التحميل */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .loader::after {
-            content: "";
-            width: 50px;
-            height: 50px;
-            border: 5px solid #0051ff;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* تنسيقات النموذج */
-        .return-container {
-            position: fixed; /* جعل النافذة ثابتة في المنتصف */
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* توسيط النافذة */
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            display: none;
-            z-index: 10;
-        }
-
-        @media (max-width: 499px) {
-            .return-container {
-                max-width: 90%; /* تقليل العرض على الشاشات الصغيرة */
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>طلب استرجاع</title>
+        <style>
+            /* تنسيقات عامة */
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+                padding-top: 66px; /* لإفساح المجال للشريط العلوي */
+                min-height: 100vh;
+                background: linear-gradient(45deg, #0d1b2a, #1b263b);
+                overflow-y: auto; /* السماح بالتمرير العمودي */
             }
-        }
-
-        .title-header {
-            color: #2c3e50;
-            font-size: 24px;
-            margin-bottom: 30px;
-            font-weight: bold;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            text-align: right;
-        }
-
-        .field-label {
-            display: block;
-            margin-bottom: 8px;
-            color: #34495e;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px 15px;
-            margin: 0 auto;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-            text-align: right;
-        }
-
-        .input-field:focus {
-            border-color: #0004ff;
-            outline: none;
-            box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
-        }
-
-        .submit-button {
-            background-color: #0051ff;
-            color: white;
-            margin-top: 11px;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-button:hover {
-            background-color: #003bb3;
-        }
-
-        .form-content {
-            padding: 0 10px;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-top: 8px;
-            display: none;
-        }
-
-        @media (max-width: 600px) {
-            .return-container {
+    
+            /* الشريط العلوي الثابت (من الكود الثاني) */
+            .header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 66px;
+                background-color: white;
+                padding: 0 20px;
+                z-index: 1000;
+                box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
+            }
+    
+            .search-wrapper {
+                flex-grow: 1;
+                margin: 0 10px;
+                position: relative;
+            }
+    
+            @media (min-width: 768px) {
+                .search-wrapper {
+                    margin-right: 4px;
+                    margin-left: 11px;
+                }
+            }
+    
+            #search-box {
+                width: 100%;
+                padding: 10px 12px 10px 53px;
+                font-size: 16px;
+                border: 1px solid #000000;
+                border-radius: 51px;
+                outline: none;
+                box-sizing: border-box;
+                text-align: right;
+                direction: rtl;
+            }
+    
+            #search-button {
+                position: absolute;
+                left: 3px;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: black;
+                color: white;
+                width: 70px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 33px;
+                border: none;
+                cursor: pointer;
+            }
+    
+            @media (max-width: 1066px) {
+                #search-button {
+                    width: 46px;
+                }
+            }
+    
+            #search-button svg {
+                width: 20px;
+                height: 20px;
+                color: white;
+            }
+    
+            .right-elements {
+                display: flex;
+                align-items: center;
+                gap: 30px;
+            }
+    
+            .right-elements span {
+                font-size: 16px;
+                color: #333;
+            }
+    
+            .user-icon {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-left: 20px;
+                justify-content: center;
+            }
+    
+            .user-icon svg {
+                width: 24px;
+                height: 24px;
+                color: #333;
+                flex-shrink: 0;
+            }
+    
+            .welcome-message {
+                font-size: 16px;
+                color: #007bff;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+    
+            .welcome-message span {
+                font-weight: bold;
+                color: #333;
+            }
+    
+            .left-elements {
+                display: flex;
+                align-items: center;
+                gap: 30px;
+            }
+    
+            .menu-icon, .cart-icon, .message-button {
+                cursor: pointer;
+            }
+    
+            .menu-icon svg, .cart-icon svg, .message-button svg {
+                width: 24px;
+                height: 24px;
+                color: #333;
+            }
+    
+            .cart-icon {
+                position: relative;
+            }
+    
+            .cart-count {
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background-color: red;
+                color: white;
+                font-size: 12px;
+                padding: 2px 6px;
+                border-radius: 50%;
+            }
+    
+            @media only screen and (max-width: 767px) {
+                .cart-icon {
+                    margin-left: -10px;
+                    margin-right: -8px;
+                }
+            }
+    
+            @media only screen and (max-width: 767px) {
+                .cart-icon {
+                    margin-left: -12px;
+                }
+            }
+    
+            .menu-popup {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: -250px;
+                width: 250px;
+                height: 100vh;
+                background-color: white;
+                box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
                 padding: 20px;
+                z-index: 1000;
+                transition: left 0.3s ease-in-out;
+                overflow-y: auto;
             }
-
-            .title-header {
-                font-size: 24px;
+    
+            @keyframes slideIn {
+                from { left: -250px; }
+                to { left: 0; }
+            }
+    
+            @keyframes slideOut {
+                from { left: 0; }
+                to { left: -250px; }
+            }
+    
+            .menu-popup.active {
+                display: block;
+                animation: slideIn 0.3s ease-in-out forwards;
+            }
+    
+            .menu-popup.closing {
+                animation: slideOut 0.3s ease-in-out forwards;
+            }
+    
+            .menu-popup .back-arrow {
+                cursor: pointer;
                 margin-bottom: 20px;
             }
-
-            .input-field {
-                padding: 12px 15px;
-                font-size: 14px;
+    
+            .menu-popup .back-arrow svg {
+                width: 24px;
+                height: 24px;
+                color: #333;
             }
-
-            .submit-button {
-                padding: 12px 15px;
-                font-size: 14px;
+    
+            .menu-popup p {
+                font-size: 18px;
+                color: #333;
+                cursor: pointer;
             }
-
-            .field-label {
-                font-size: 14px;
+    
+            .menu-icon {
+                margin-left: 10px;
             }
-
-            .error-message {
-                font-size: 12px;
+    
+            @media only screen and (max-width: 767px) {
+                .menu-icon {
+                    margin-left: -6px;
+                }
             }
-        }
-
-        @media (max-width: 400px) {
+    
+            .adger {
+                font-family: Arial, sans-serif;
+                font-size: 27px;
+                margin-left: 10px;
+                font-weight: bold;
+                background: linear-gradient(to right, #f37420, #ffc4c4);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                cursor: pointer;
+                user-select: none;
+            }
+    
+            @media (max-width: 767px) {
+                .adger {
+                    font-size: 20px;
+                }
+            }
+    
+            @media (min-width: 767px) {
+                .adger {
+                    margin-left: 10px;
+                }
+            }
+    
+            .container22 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+    
+            .country-code {
+                display: inline-flex;
+                align-items: center;
+                font-size: 18px;
+            }
+    
+            .flag {
+                width: 24px;
+                height: 16px;
+                margin-left: 8px;
+            }
+    
+            @media only screen and (max-width: 767px) {
+                .search-wrapper {
+                    width: 100%;
+                    max-width: none;
+                    margin: 0;
+                }
+    
+                #search-box {
+                    padding: 10px 12px 10px 45px;
+                    font-size: 14px;
+                }
+    
+                #search-button {
+                    left: 3px;
+                    width: 45px;
+                    height: 32px;
+                }
+            }
+    
+            /* تنسيقات إضافية للأيقونة في .adger-container */
+            .adger-container {
+                display: flex;
+                align-items: center;
+            }
+    
+            .adger-container svg {
+                margin-left: 15px;
+                margin-right: 5px;
+                cursor: pointer;
+                color: #1a1a1a;
+                background-color: #f1f1f1;
+                border-radius: 50%;
+                padding: 4px;
+            }
+    
+            @media (max-width: 1167px) {
+                .adger-container svg {
+                    margin-left: 7px;
+                    margin-right: -13px;
+                }
+            }
+    
+            .adger-container svg, .adger-container h2 {
+                cursor: pointer;
+            }
+    
+            .adger-container h2 {
+                margin-left: 5px;
+            }
+    
+            @media only screen and (max-width: 767px) {
+                .element-to-hide, .user-icon, .hide-on-mobile, .message-button {
+                    display: none;
+                }
+            }
+    
+            .country-code {
+                white-space: nowrap;
+                margin-right: 20px;
+            }
+    
+            .flag {
+                width: 20px;
+                height: auto;
+                margin-left: 5px;
+            }
+    
+            /* تأثير الخلفية ثلاثية الأبعاد */
+            .background-3d {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                perspective: 1000px;
+            }
+    
+            .cube {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                transform-style: preserve-3d;
+                animation: rotate 10s infinite linear;
+            }
+    
+            .cube div {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 81, 255, 0.5);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+    
+            .cube .front  { transform: translateZ(25px); }
+            .cube .back   { transform: translateZ(-25px); }
+            .cube .right  { transform: rotateY(90deg) translateZ(25px); }
+            .cube .left   { transform: rotateY(-90deg) translateZ(25px); }
+            .cube .top    { transform: rotateX(90deg) translateZ(25px); }
+            .cube .bottom { transform: rotateX(-90deg) translateZ(25px); }
+    
+            .cube:nth-child(1) { top: 10%; left: 10%; animation-duration: 8s; }
+            .cube:nth-child(2) { top: 20%; left: 70%; animation-duration: 12s; }
+            .cube:nth-child(3) { top: 60%; left: 20%; animation-duration: 10s; }
+            .cube:nth-child(4) { top: 80%; left: 80%; animation-duration: 15s; }
+            .cube:nth-child(5) { top: 40%; left: 50%; animation-duration: 9s; }
+    
+            @keyframes rotate {
+                0% { transform: rotateX(0deg) rotateY(0deg); }
+                100% { transform: rotateX(360deg) rotateY(360deg); }
+            }
+    
+            /* شاشة التحميل */
+            .loader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1001;
+                background: rgba(0, 0, 0, 0.3);
+            }
+    
+            .loader::after {
+                content: "";
+                width: 50px;
+                height: 50px;
+                border: 5px solid #0051ff;
+                border-top-color: transparent;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+    
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+    
+            /* تنسيقات النموذج */
             .return-container {
-                padding: 15px;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                width: 100%;
+                max-width: 400px;
+                text-align: center;
+                display: none;
+                z-index: 10;
             }
-
+    
+            @media (max-width: 499px) {
+                .return-container {
+                    max-width: 90%;
+                }
+            }
+    
             .title-header {
-                font-size: 20px;
-                margin-bottom: 15px;
+                color: #2c3e50;
+                font-size: 24px;
+                margin-bottom: 30px;
+                font-weight: bold;
+                font-family: 'Cairo', sans-serif;
             }
-
-            .input-field {
-                padding: 10px 12px;
-                font-size: 12px;
+    
+            .input-group {
+                margin-bottom: 20px;
+                text-align: right;
             }
-
-            .submit-button {
-                padding: 10px 12px;
-                font-size: 12px;
-            }
-
+    
             .field-label {
-                font-size: 12px;
+                display: block;
+                margin-bottom: 8px;
+                color: #34495e;
+                font-weight: bold;
+                font-size: 16px;
             }
-
+    
+            .input-field {
+                width: 100%;
+                padding: 12px 15px;
+                margin: 0 auto;
+                border: 2px solid #ddd;
+                border-radius: 6px;
+                box-sizing: border-box;
+                font-size: 16px;
+                transition: border-color 0.3s ease;
+                text-align: right;
+            }
+    
+            .input-field:focus {
+                border-color: #0004ff;
+                outline: none;
+                box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+            }
+    
+            .submit-button {
+                background-color: #0051ff;
+                color: white;
+                margin-top: 11px;
+                padding: 12px 15px;
+                border: none;
+                border-radius: 6px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                width: 100%;
+                transition: background-color 0.3s ease;
+            }
+    
+            .submit-button:hover {
+                background-color: #003bb3;
+            }
+    
+            .form-content {
+                padding: 0 10px;
+            }
+    
             .error-message {
-                font-size: 10px;
+                color: red;
+                font-size: 14px;
+                margin-top: 8px;
+                display: none;
             }
-        }
-    </style>
-</head>
-<body>
-    <!-- الخلفية ثلاثية الأبعاد -->
-    <div class="background-3d">
-        <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
-        <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
-        <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
-        <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
-        <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
-    </div>
-
-    <!-- شاشة التحميل -->
-    <div class="loader" id="loader"></div>
-
-    <!-- النموذج -->
-    <div class="return-container" id="returnContainer">
-        <h1 class="title-header">طلب استرجاع</h1>
-        <form id="returnForm" class="form-content">
-            <div class="input-group">
-                <label for="name" class="field-label">ادخل اسمك:</label>
-                <input type="text" id="name" name="name" class="input-field" placeholder="الاسم" required>
-                <p id="name-error" class="error-message">يرجى ملء الحقل</p>
+    
+            @media (max-width: 600px) {
+                .return-container {
+                    padding: 20px;
+                }
+    
+                .title-header {
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                }
+    
+                .input-field {
+                    padding: 12px 15px;
+                    font-size: 14px;
+                }
+    
+                .submit-button {
+                    padding: 12px 15px;
+                    font-size: 14px;
+                }
+    
+                .field-label {
+                    font-size: 14px;
+                }
+    
+                .error-message {
+                    font-size: 12px;
+                }
+            }
+    
+            @media (max-width: 400px) {
+                .return-container {
+                    padding: 15px;
+                }
+    
+                .title-header {
+                    font-size: 20px;
+                    margin-bottom: 15px;
+                }
+    
+                .input-field {
+                    padding: 10px 12px;
+                    font-size: 12px;
+                }
+    
+                .submit-button {
+                    padding: 10px 12px;
+                    font-size: 12px;
+                }
+    
+                .field-label {
+                    font-size: 12px;
+                }
+    
+                .error-message {
+                    font-size: 10px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- الشريط العلوي (من الكود الثاني) -->
+        <div class="header">
+            <div class="right-elements">
+                <div class="adger-container">
+                    <svg onclick="history.back()" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                    </svg>
+                    <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
+                </div>
+                <div class="element-to-hide" style="font-family: Cairo, sans-serif;">
+                    اللغه / <span style="color: red;">ar</span>
+                </div>
+                <div class="user-icon" onclick="window.location.href='account.html'">
+                    <div class="welcome-message" id="welcomeMessage">
+                        أهلاً <span id="usernameDisplay"></span>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
             </div>
-
-            <div class="input-group">
-                <label for="phone" class="field-label">ادخل رقم الهاتف:</label>
-                <input type="tel" id="phone" name="phone" class="input-field" placeholder="رقم الهاتف" required>
-                <p id="phone-error" class="error-message">يرجى ملء الحقل</p>
+            <div class="search-wrapper">
+                <input type="text" id="search-box" placeholder="ابحث فى أدجر" autocomplete="off" readonly onclick="redirectToSearch(event)">
+                <button id="search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
             </div>
-
-            <div class="input-group">
-                <label for="productNumber" class="field-label">ادخل رقم المنتج:</label>
-                <input type="text" id="productNumber" name="productNumber" class="input-field" placeholder="رقم المنتج" required>
-                <p id="productNumber-error" class="error-message">يرجى ملء الحقل</p>
+            <div class="left-elements">
+                <div class="container22">
+                    <div class="country-code hide-on-mobile">
+                        <span>البلد / </span>
+                        <span style="color: #000000; width: 44px;">EGP</span>
+                        <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
+                    </div>
+                </div>
+                <div class="message-button" onclick="window.open('https://wa.me/201152366798', '_blank')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                    <span style="font-family: Cairo, sans-serif;">مراسلة</span>
+                </div>
+                <div class="cart-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </div>
+                <div class="menu-icon" onclick="toggleMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </div>
             </div>
-
-            <button type="button" class="submit-button" onclick="validateForm()">موافق</button>
-        </form>
-    </div>
-
-    <script>
-        // إخفاء شاشة التحميل وإظهار النموذج بعد اكتمال تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            const loader = document.getElementById('loader');
-            const returnContainer = document.getElementById('returnContainer');
-
-            setTimeout(() => {
-                loader.style.display = 'none';
-                returnContainer.style.display = 'block';
-            }, 1000);
-
-            const savedName = localStorage.getItem('name');
-            const savedPhone = localStorage.getItem('phone');
-            if (savedName) document.getElementById('name').value = savedName;
-            if (savedPhone) document.getElementById('phone').value = savedPhone;
-        });
-
-        document.getElementById('name').addEventListener('input', function() {
-            document.getElementById('name-error').style.display = 'none';
-        });
-
-        document.getElementById('phone').addEventListener('input', function() {
-            document.getElementById('phone-error').style.display = 'none';
-        });
-
-        document.getElementById('productNumber').addEventListener('input', function() {
-            document.getElementById('productNumber-error').style.display = 'none';
-        });
-
-        function validateForm() {
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const productNumber = document.getElementById('productNumber').value;
-
-            let isValid = true;
-
-            if (!name) {
-                document.getElementById('name-error').style.display = 'block';
-                isValid = false;
+        </div>
+    
+        <!-- نافذة القائمة الجانبية -->
+        <div class="menu-popup" id="menuPopup">
+            <div class="back-arrow" onclick="toggleMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                </svg>
+            </div>
+            <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif;">حسابي</p>
+            <p onclick="window.location.href='about.html'" style="font-family: Cairo, sans-serif;">سياسات وأحكام</p>
+            <p onclick="window.location.href='return.html'" style="font-family: Cairo, sans-serif;">طلب استرجاع</p>
+            <p onclick="window.location.href='deals.html'" style="font-family: Cairo, sans-serif;">صفقة رابحة</p>
+            <p onclick="window.location.href='wholesale.html'" style="font-family: Cairo, sans-serif;">شراء بالجملة</p>
+            <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif;">شركات عالمية</p>
+            <p onclick="window.location.href='categories.html'" style="font-family: Cairo, sans-serif;">الفئات</p>
+        </div>
+    
+        <!-- الخلفية ثلاثية الأبعاد -->
+        <div class="background-3d">
+            <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
+            <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
+            <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
+            <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
+            <div class="cube"><div class="front"></div><div class="back"></div><div class="right"></div><div class="left"></div><div class="top"></div><div class="bottom"></div></div>
+        </div>
+    
+        <!-- شاشة التحميل -->
+        <div class="loader" id="loader"></div>
+    
+        <!-- النموذج -->
+        <div class="return-container" id="returnContainer">
+            <h1 class="title-header">طلب استرجاع</h1>
+            <form id="returnForm" class="form-content">
+                <div class="input-group">
+                    <label for="name" class="field-label">ادخل اسمك:</label>
+                    <input type="text" id="name" name="name" class="input-field" placeholder="الاسم" required>
+                    <p id="name-error" class="error-message">يرجى ملء الحقل</p>
+                </div>
+    
+                <div class="input-group">
+                    <label for="phone" class="field-label">ادخل رقم الهاتف:</label>
+                    <input type="tel" id="phone" name="phone" class="input-field" placeholder="رقم الهاتف" required>
+                    <p id="phone-error" class="error-message">يرجى ملء الحقل</p>
+                </div>
+    
+                <div class="input-group">
+                    <label for="productNumber" class="field-label">ادخل رقم المنتج:</label>
+                    <input type="text" id="productNumber" name="productNumber" class="input-field" placeholder="رقم المنتج" required>
+                    <p id="productNumber-error" class="error-message">يرجى ملء الحقل</p>
+                </div>
+    
+                <button type="button" class="submit-button" onclick="validateForm()">موافق</button>
+            </form>
+        </div>
+    
+        <script>
+            // إخفاء شاشة التحميل وإظهار النموذج
+            document.addEventListener('DOMContentLoaded', function() {
+                const loader = document.getElementById('loader');
+                const returnContainer = document.getElementById('returnContainer');
+    
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    returnContainer.style.display = 'block';
+                }, 1000);
+    
+                const savedName = localStorage.getItem('name');
+                const savedPhone = localStorage.getItem('phone');
+                if (savedName) document.getElementById('name').value = savedName;
+                if (savedPhone) document.getElementById('phone').value = savedPhone;
+            });
+    
+            document.getElementById('name').addEventListener('input', function() {
+                document.getElementById('name-error').style.display = 'none';
+            });
+    
+            document.getElementById('phone').addEventListener('input', function() {
+                document.getElementById('phone-error').style.display = 'none';
+            });
+    
+            document.getElementById('productNumber').addEventListener('input', function() {
+                document.getElementById('productNumber-error').style.display = 'none';
+            });
+    
+            function validateForm() {
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const productNumber = document.getElementById('productNumber').value;
+    
+                let isValid = true;
+    
+                if (!name) {
+                    document.getElementById('name-error').style.display = 'block';
+                    isValid = false;
+                }
+    
+                if (!phone) {
+                    document.getElementById('phone-error').style.display = 'block';
+                    isValid = false;
+                }
+    
+                if (!productNumber) {
+                    document.getElementById('productNumber-error').style.display = 'block';
+                    isValid = false;
+                }
+    
+                if (isValid) {
+                    sendEmail();
+                }
             }
-
-            if (!phone) {
-                document.getElementById('phone-error').style.display = 'block';
-                isValid = false;
+    
+            function sendEmail() {
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const productNumber = document.getElementById('productNumber').value;
+    
+                localStorage.setItem('name', name);
+                localStorage.setItem('phone', phone);
+    
+                const email = "adger.shop@gmail.com";
+                const subject = "طلب استرجاع منتج";
+                const body = `الاسم: ${name}%0D%0Aرقم الهاتف: ${phone}%0D%0Aرقم المنتج: ${productNumber}`;
+                const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+    
+                window.location.href = mailtoLink;
             }
-
-            if (!productNumber) {
-                document.getElementById('productNumber-error').style.display = 'block';
-                isValid = false;
+    
+            // إدارة الشريط العلوي
+            function redirectToSearch(event) {
+                event.preventDefault();
+                window.location.href = "search.html";
             }
-
-            if (isValid) {
-                sendEmail();
+    
+            function toggleMenu() {
+                const menuPopup = document.getElementById('menuPopup');
+                if (menuPopup.classList.contains('active')) {
+                    menuPopup.classList.add('closing');
+                    setTimeout(() => {
+                        menuPopup.classList.remove('active', 'closing');
+                    }, 300);
+                } else {
+                    menuPopup.classList.add('active');
+                }
             }
-        }
-
-        function sendEmail() {
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const productNumber = document.getElementById('productNumber').value;
-
-            localStorage.setItem('name', name);
-            localStorage.setItem('phone', phone);
-
-            const email = "adger.shop@gmail.com";
-            const subject = "طلب استرجاع منتج";
-            const body = `الاسم: ${name}%0D%0Aرقم الهاتف: ${phone}%0D%0Aرقم المنتج: ${productNumber}`;
-            const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
-
-            window.location.href = mailtoLink;
-        }
-    </script>
-</body>
-</html>
+    
+            const username = localStorage.getItem('username');
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            const usernameDisplay = document.getElementById('usernameDisplay');
+    
+            if (username) {
+                usernameDisplay.textContent = truncateUsername(username);
+                window.addEventListener('resize', () => {
+                    usernameDisplay.textContent = truncateUsername(username);
+                });
+            } else {
+                welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+            }
+    
+            function isArabic(text) {
+                return /[\u0600-\u06FF]/.test(text);
+            }
+    
+            function truncateUsername(name) {
+                if (window.innerWidth < 966 && name.length > 7) {
+                    const maxLength = isArabic(name) ? 12 : 7;
+                    if (isArabic(name)) {
+                        return name.substring(0, maxLength) + '..';
+                    } else {
+                        return '..' + name.substring(0, maxLength);
+                    }
+                }
+                return name;
+            }
+    
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartCount = cart.length;
+    
+            function updateCartCount() {
+                const cartCountElement = document.querySelector('.cart-count');
+                cartCountElement.textContent = cartCount;
+            }
+    
+            updateCartCount();
+            document.querySelector('.cart-icon').addEventListener('click', () => {
+                window.location.href = 'cart.html';
+            });
+        </script>
+    </body>
+    </html>
