@@ -11,7 +11,6 @@
  
 
 
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -28,7 +27,7 @@
                 margin: 0;
                 background-color: #f4f4f4;
             }
-    
+        
             .gallery {
                 display: flex;
                 align-items: flex-start;
@@ -36,12 +35,12 @@
                 margin-top: 20px;
                 position: relative;
             }
-    
+        
             .main-media {
                 margin-left: 20px;
                 position: relative;
             }
-    
+        
             .main-media img, .main-media video {
                 width: 400px;
                 height: 400px;
@@ -49,11 +48,11 @@
                 border-radius: 10px;
                 display: block;
             }
-    
+        
             .main-media video:fullscreen {
                 border: none;
             }
-    
+        
             .thumbnails {
                 display: flex;
                 flex-direction: column;
@@ -63,11 +62,11 @@
                 scrollbar-width: none;
                 -ms-overflow-style: none;
             }
-    
+        
             .thumbnails::-webkit-scrollbar {
                 display: none;
             }
-    
+        
             .thumbnail {
                 margin: 10px 0;
                 cursor: pointer;
@@ -79,7 +78,7 @@
                 height: 66px;
                 box-sizing: border-box;
             }
-    
+        
             .thumbnail img, .thumbnail video {
                 width: 100%;
                 height: 100%;
@@ -88,11 +87,11 @@
                 margin: 0;
                 padding: 0;
             }
-    
+        
             .thumbnail.active {
                 border-color: #ff0000;
             }
-    
+        
             .play-icon {
                 position: absolute;
                 top: 50%;
@@ -107,13 +106,13 @@
                 justify-content: center;
                 pointer-events: none;
             }
-    
+        
             .play-icon svg {
                 width: 16px;
                 height: 16px;
                 fill: white;
             }
-    
+        
             .share-button {
                 position: absolute;
                 left: 11px;
@@ -128,21 +127,21 @@
                 justify-content: center;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             }
-    
+        
             .share-button.bottom {
                 bottom: 11px;
             }
-    
+        
             .share-button.top {
                 top: 10px;
                 display: none;
             }
-    
+        
             .share-button svg {
                 width: 24px;
                 height: 24px;
             }
-    
+        
             .fullscreen-button {
                 position: absolute;
                 top: 10px;
@@ -159,7 +158,7 @@
                 color: white;
                 z-index: 2;
             }
-    
+        
             @media (max-width: 555px) {
                 .gallery {
                     flex-direction: column;
@@ -167,17 +166,17 @@
                     margin-top: 22px;
                     margin-right: 1px;
                 }
-    
+        
                 .main-media {
                     margin-left: 0;
                     margin-bottom: 20px;
                 }
-    
+        
                 .main-media img, .main-media video {
                     width: 311px;
                     height: 311px;
                 }
-    
+        
                 .thumbnails {
                     flex-direction: row;
                     max-height: none;
@@ -187,140 +186,20 @@
                     width: 311px;
                     gap: 10px;
                 }
-    
+        
                 .thumbnail {
                     margin: 0;
                     flex: 0 0 auto;
                     width: 65px;
                     height: 65px;
                 }
-    
+        
                 .thumbnail img, .thumbnail video {
                     width: 100%;
                     height: 100%;
                 }
             }
-    
-            .all-media {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin-top: 20px;
-                width: 100%;
-            }
-    
-            .all-media img, .all-media video {
-                width: 66%;
-                height: auto;
-                max-height: 444px;
-                margin-bottom: 20px;
-                border-radius: 10px;
-            }
-    
-            @media (max-width: 555px) {
-                .all-media img, .all-media video {
-                    margin-bottom: 15px;
-                    width: 100%;
-                }
-            }
-    
-            .content-below-main {
-                margin-top: 20px;
-                text-align: center;
-                width: 100%;
-                max-width: 600px;
-            }
-    
-            .additional-content {
-                margin-top: 20px;
-                text-align: center;
-                width: 100%;
-                max-width: 600px;
-                padding: 20px;
-                background-color: #fff;
-                border: 1px solid #ccc;
-                border-radius: 10px;
-            }
-    
-            .line {
-                width: 100%;
-                height: 8px;
-                background-color: #eeeeee;
-            }
-    
-            .scroll-bar {
-                width: 100%;
-                height: 8px;
-                background-color: #ccc;
-                border-radius: 4px;
-                position: relative;
-                margin-bottom: 10px;
-                cursor: pointer;
-            }
-    
-            .scroll-bar::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 20%;
-                background-color: #007BFF;
-                border-radius: 4px;
-                transition: width 0.2s ease;
-            }
-    
-            .scroll-bar:hover::before {
-                background-color: #0056b3;
-            }
-    
-            .arrow {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: rgba(24, 24, 24, 0.336);
-                border: none;
-                border-radius: 1px;
-                width: 41px;
-                height: 45px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                font-size: 24px;
-                z-index: 1;
-                opacity: 1;
-                transition: opacity 0.5s ease-in-out;
-            }
-    
-            @media (max-width: 556px) {
-                .arrow {
-                    display: none;
-                }
-            }
-    
-            .arrow.visible {
-                opacity: 1;
-            }
-    
-            .arrow.left {
-                left: 2px;
-                transform: translateY(-50%);
-            }
-    
-            .arrow.right {
-                right: 2px;
-                transform: translateY(-50%);
-            }
-    
-            .arrow svg {
-                fill: white;
-                width: 30px;
-                height: 34px;
-            }
-    
+        
             .media-counter {
                 position: absolute;
                 font-family: 'Cairo', sans-serif;
@@ -337,7 +216,7 @@
                 justify-content: center;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             }
-    
+        
             @media (max-width: 555px) {
                 .media-counter {
                     background-color: rgba(255, 255, 255, 0.616);
@@ -345,6 +224,46 @@
                     right: 15px;
                     font-size: 11px;
                     padding: 3px 13px;
+                }
+            }
+        
+            .arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: rgba(24, 24, 24, 0.336);
+                border: none;
+                border-radius: 1px;
+                width: 41px;
+                height: 45px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 24px;
+                z-index: 1;
+                opacity: 1;
+                transition: opacity 0.5s ease-in-out;
+            }
+        
+            .arrow.left {
+                left: 2px;
+            }
+        
+            .arrow.right {
+                right: 2px;
+            }
+        
+            .arrow svg {
+                fill: white;
+                width: 30px;
+                height: 34px;
+            }
+        
+            @media (max-width: 556px) {
+                .arrow {
+                    display: none;
                 }
             }
         </style>
@@ -356,7 +275,6 @@
                 <video id="mainVideo" controls style="display: none;">
                     <source src="3e.mp4" type="video/mp4">
                 </video>
-          
                 <button class="share-button bottom" id="shareButton" onclick="sharePage()" style="color: #ffffff;">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
@@ -374,10 +292,9 @@
                 </button>
             </div>
             <div class="media-counter">
-                منتج <span id="currentMedia">1</span>/<span id="totalMedia">5</span>
+                منتج <span id="currentMedia">1</span>/<span id="totalMedia">8</span>
             </div>
             <div class="thumbnails">
-                <div class="scroll-bar"></div>
                 <div class="thumbnail active" data-src="1.jpg" data-type="image">
                     <img src="1.jpg" alt="الصورة 1">
                 </div>
@@ -402,7 +319,7 @@
                 <div class="thumbnail" data-src="3e.mp4" data-type="video">
                     <video src="3e.mp4"></video>
                     <div class="play-icon">
-                        <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                             <path class="play-icon-path" d="M8 5v14l11-7z"/>
                             <path class="pause-icon-path" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
                         </svg>
@@ -412,11 +329,13 @@
         </div>
     
         <script>
+            // حساب العدد الإجمالي للصور والفيديو
             function calculateTotalMedia() {
                 const totalMedia = document.querySelectorAll('.thumbnail').length;
                 document.getElementById('totalMedia').textContent = totalMedia;
             }
     
+            // تحديث رقم المنتج الحالي
             function updateCurrentMedia() {
                 const thumbnails = document.querySelectorAll('.thumbnail');
                 let currentIndex = 0;
@@ -430,10 +349,10 @@
                 document.getElementById('currentMedia').textContent = currentIndex;
             }
     
+            // تحديث الوسيطة الرئيسية (صورة أو فيديو)
             function updateMainMedia(thumbnail) {
                 const mainImage = document.getElementById('mainMedia');
                 const mainVideo = document.getElementById('mainVideo');
-                const fullscreenButton = document.getElementById('fullscreenButton');
                 const src = thumbnail.getAttribute('data-src');
                 const type = thumbnail.getAttribute('data-type');
     
@@ -442,16 +361,15 @@
                     mainImage.style.display = 'block';
                     mainVideo.style.display = 'none';
                     mainVideo.pause();
-                    fullscreenButton.style.display = 'none';
                 } else if (type === 'video') {
                     mainVideo.querySelector('source').src = src;
                     mainVideo.load();
                     mainVideo.style.display = 'block';
                     mainImage.style.display = 'none';
-                    fullscreenButton.style.display = 'block';
                 }
             }
     
+            // تهيئة المعرض عند تحميل الصفحة
             document.addEventListener('DOMContentLoaded', function() {
                 calculateTotalMedia();
                 updateCurrentMedia();
@@ -459,6 +377,7 @@
                 updateMainMedia(initialThumbnail);
             });
     
+            // التعامل مع النقر على المصغرات
             document.querySelectorAll('.thumbnail').forEach(thumb => {
                 thumb.addEventListener('click', () => {
                     document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
@@ -468,6 +387,7 @@
                 });
             });
     
+            // الانتقال إلى الوسيطة التالية
             function nextMedia() {
                 const thumbnails = document.querySelectorAll('.thumbnail');
                 let currentIndex = -1;
@@ -480,10 +400,11 @@
                     thumbnails[currentIndex].classList.remove('active');
                     thumbnails[currentIndex + 1].classList.add('active');
                     updateMainMedia(thumbnails[currentIndex + 1]);
+                    setTimeout(updateCurrentMedia, 100);
                 }
-                setTimeout(updateCurrentMedia, 100);
             }
     
+            // الانتقال إلى الوسيطة السابقة
             function prevMedia() {
                 const thumbnails = document.querySelectorAll('.thumbnail');
                 let currentIndex = -1;
@@ -496,10 +417,11 @@
                     thumbnails[currentIndex].classList.remove('active');
                     thumbnails[currentIndex - 1].classList.add('active');
                     updateMainMedia(thumbnails[currentIndex - 1]);
+                    setTimeout(updateCurrentMedia, 100);
                 }
-                setTimeout(updateCurrentMedia, 100);
             }
     
+            // إخفاء/إظهار عداد الوسائط عند تشغيل الفيديو
             const lastVideoThumbnail = document.querySelector('.thumbnail[data-type="video"]:last-child');
             const mediaCounter = document.querySelector('.media-counter');
     
@@ -525,13 +447,7 @@
                 });
             });
     
-            document.getElementById('fullscreenButton').addEventListener('click', () => {
-                const mainVideo = document.getElementById('mainVideo');
-                if (mainVideo.requestFullscreen) {
-                    mainVideo.requestFullscreen();
-                }
-            });
-    
+            // مشاركة الصفحة
             function sharePage() {
                 if (navigator.share) {
                     navigator.share({
@@ -622,18 +538,19 @@
 </html>
 
 
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         #hop {
-            color: #535353;
+            color: #353535;
             margin-top: 10px;
             font-size: 17px;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             margin-right: 2px;
             direction: rtl;
             text-align: right;
@@ -659,8 +576,8 @@
                 padding: 0;
             }
             #hop .last-word-wrapper {
-                display: inline-block;
-                white-space: nowrap;
+                display: inline-block; /* جعل الكلمة الأخيرة والنقاط والسهم ككتلة واحدة */
+                white-space: nowrap; /* منع التقسيم بين الكلمة والنقاط والسهم */
             }
             #hop.expanded .short-text {
                 display: none;
@@ -686,10 +603,8 @@
 </head>
 <body>
     <h2 id="hop" class="text-container">
-        اسفل النص الاصلى ساعه تعمل باللمس تقوم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+       اسفل النص الاصلى ساعه تعمل باللمس تقوم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
     </h2>
-</body>
-</html>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
