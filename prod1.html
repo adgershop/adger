@@ -654,9 +654,14 @@
             #hop .more-btn {
                 color: #007bff;
                 cursor: pointer;
-                margin-right: 2px; /* تعديل المسافة بجوار النقاط */
                 display: inline;
                 vertical-align: middle;
+                margin-right: 0;
+                padding: 0;
+            }
+            #hop .last-word-wrapper {
+                display: inline-block; /* جعل الكلمة الأخيرة والنقاط والسهم ككتلة واحدة */
+                white-space: nowrap; /* منع التقسيم بين الكلمة والنقاط والسهم */
             }
             #hop.expanded .short-text {
                 display: none;
@@ -692,9 +697,26 @@
             const charLimit = 50;
 
             if (originalText.length > charLimit) {
+                const truncatedText = originalText.substring(0, charLimit);
+                const lastSpaceIndex = truncatedText.lastIndexOf(' ');
+                let shortTextContent = truncatedText;
+                let lastWord = '';
+
+                // إذا كان هناك مسافة، افصل الكلمة الأخيرة
+                if (lastSpaceIndex !== -1) {
+                    shortTextContent = truncatedText.substring(0, lastSpaceIndex);
+                    lastWord = truncatedText.substring(lastSpaceIndex + 1);
+                }
+
                 const shortText = document.createElement('span');
                 shortText.className = 'short-text';
-                shortText.textContent = originalText.substring(0, charLimit) + '...';
+                
+                const initialText = document.createElement('span');
+                initialText.textContent = shortTextContent;
+
+                const lastWordWrapper = document.createElement('span');
+                lastWordWrapper.className = 'last-word-wrapper';
+                lastWordWrapper.textContent = (lastWord ? ' ' + lastWord : '') + '...';
 
                 const fullText = document.createElement('span');
                 fullText.className = 'full-text';
@@ -703,14 +725,16 @@
                 const moreBtn = document.createElement('span');
                 moreBtn.className = 'more-btn';
                 moreBtn.innerHTML = `
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 `;
 
                 container.textContent = '';
+                shortText.appendChild(initialText);
+                lastWordWrapper.appendChild(moreBtn);
+                shortText.appendChild(lastWordWrapper);
                 container.appendChild(shortText);
-                container.appendChild(moreBtn);
                 container.appendChild(fullText);
 
                 moreBtn.addEventListener('click', () => {
