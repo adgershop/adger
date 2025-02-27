@@ -623,7 +623,6 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -655,9 +654,9 @@
             #hop .more-btn {
                 color: #007bff;
                 cursor: pointer;
-                margin-right: -4px;
+                margin-right: 2px; /* تعديل المسافة بجوار النقاط */
                 display: inline;
-                font-weight: 599;
+                vertical-align: middle;
             }
             #hop.expanded .short-text {
                 display: none;
@@ -703,7 +702,11 @@
 
                 const moreBtn = document.createElement('span');
                 moreBtn.className = 'more-btn';
-                moreBtn.textContent = 'المزيد';
+                moreBtn.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                `;
 
                 container.textContent = '';
                 container.appendChild(shortText);
