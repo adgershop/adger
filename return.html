@@ -222,18 +222,28 @@
             .menu-popup .back-arrow {
     cursor: pointer;
     margin-bottom: 20px;
-    -webkit-tap-highlight-color: transparent; /* إزالة تأثير التظليل */
+    -webkit-tap-highlight-color: transparent; /* إزالة التأثير الأزرق */
+    transition: transform 0.2s ease, background-color 0.2s ease; /* تأثير سلس */
+    display: inline-flex; /* لضبط الحجم بناءً على المحتوى */
+    align-items: center;
+    justify-content: center;
+    padding: 8px; /* إضافة حشوة حول السهم */
+    border-radius: 50%; /* جعل الخلفية دائرية */
 }
 
-.menu-popup .back-arrow:focus {
-    outline: none; /* منع ظهور التحديد عند التركيز */
+.menu-popup .back-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* خلفية رمادية عند التمرير */
+}
+
+.menu-popup .back-arrow:active {
+    transform: scale(0.9); /* تصغير السهم عند النقر */
+    opacity: 0.6; /* تأثير رمادي عند النقر فقط */
 }
 
 .menu-popup .back-arrow svg {
     width: 24px;
     height: 24px;
     color: #333;
-    pointer-events: none; /* يمنع التأثير على الـ SVG */
 }
 
     
