@@ -231,17 +231,21 @@
     border: none;
     cursor: pointer;
     color: #585858;
-    font-size: 12px; /* تصغير الحجم قليلاً */
-    font-weight: 30 !important; /* تقليل سماكة الخط */
+    font-size: 13px;
     padding: 0;
     flex: 0 0 auto;
-    margin-left: 3px; /* تقليل المسافة */
+    margin-left: 5px;
 }
 
+.delete-button:hover {
+    color: #000000;
+}
 
-        .delete-button:hover {
-            color: #000000;
-        }
+@media (max-width: 768px) {
+    .search-item .delete-button {
+        display: none !important;
+    }
+}
 
         .last-search-item {
             background-color: #0077ff1c;
