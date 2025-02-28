@@ -84,6 +84,11 @@
             border: none;
             cursor: pointer;
         }
+        @media (max-width: 768px) {
+            .search-container .search-button {
+                width: 50px;
+            }
+        }
 
         .search-container .search-button:hover {
             background-color: #333;
@@ -417,6 +422,44 @@
             font-size: 16px;
             flex-grow: 1;
         }
+
+        .search-item-with-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #show-more-arrow {
+            background-color: #e9e8e8;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            padding: 4px 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        @media (max-width: 555px) {
+            #show-more-arrow  {
+                padding: 3px 4px;
+                margin-top: -4px;
+            }
+        }
+
+        #show-more-arrow:hover {
+            background-color: #d0d0d0;
+        }
+
+        #show-more-arrow svg {
+            width: 24px;
+            height: 24px;
+        }
+        @media (max-width: 555px) {
+            #show-more-arrow svg  {
+                width: 21px;
+                height: 21px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -470,14 +513,9 @@
     </div>
 
     <div class="search-history-grid" id="search-history"></div>
-    <div id="show-more-arrow" style="display: none; cursor: pointer; margin-top: 10px; text-align: center; color: #ff0055;">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9l6 6 6-6" />
-        </svg>
-    </div>
 
     <div class="discover-more-header">
-        <h2>إستكشف المزيد</h2>
+        <h2>استكشف المزيد</h2>
     </div>
     <div class="discover-more-grid" id="discover-more">
         <div class="discover-item" onclick="redirectToSea('عنوان المحتوى 1')">
@@ -540,14 +578,30 @@
         const clearButton = document.getElementById('clear-button');
         const lastSearchItem = document.getElementById('last-search-item');
         const lastSearchTerm = document.getElementById('last-search-term');
-        const showMoreArrow = document.getElementById('show-more-arrow');
 
         backButton.addEventListener('click', function () {
             window.history.back();
         });
 
+        const searchTexts = [
+            "ابحث عن المنتجات",
+            "اكتشف العروض الجديدة",
+            "تصفح الفئات",
+            "ابحث عن العلامات التجارية",
+            "ابحث عن الكلمات الرئيسية"
+        ];
+        let currentTextIndex = 0;
+        let currentSearchText = searchTexts[currentTextIndex];
+
+        function changeSearchText() {
+            currentTextIndex = (currentTextIndex + 1) % searchTexts.length;
+            currentSearchText = searchTexts[currentTextIndex];
+            searchInput.placeholder = currentSearchText;
+        }
+        setInterval(changeSearchText, 5000);
+
         searchButton.addEventListener('click', function () {
-            const searchTerm = searchInput.value.trim();
+            const searchTerm = searchInput.value.trim() || currentSearchText;
             if (searchTerm) {
                 saveSearchTerm(searchTerm);
                 saveLastSearchTerm(searchTerm);
@@ -609,14 +663,8 @@
             const isMobile = window.matchMedia("(max-width: 1522px)").matches;
             const maxItems = isMobile ? 12 : 33;
 
-            if (searchHistory.length > maxItems) {
-                showMoreArrow.style.display = 'block';
-            } else {
-                showMoreArrow.style.display = 'none';
-            }
-
             searchHistory.forEach((entry, index) => {
-                if (index < maxItems || showMoreArrow.style.display === 'none') {
+                if (index < maxItems || searchHistory.length <= maxItems) {
                     const searchItem = document.createElement('div');
                     searchItem.className = 'search-item';
                     const displayTerm = (entry.term.length > 26) ? entry.term.slice(0, 26) + '...' : entry.term;
@@ -638,45 +686,61 @@
                         removeSearchTermFromHistory(entry.term);
                     });
 
-                    searchHistoryGrid.appendChild(searchItem);
+                    if (index === maxItems - 1 && searchHistory.length > maxItems) {
+                        const itemWithArrow = document.createElement('div');
+                        itemWithArrow.className = 'search-item-with-arrow';
+                        itemWithArrow.appendChild(searchItem);
+
+                        const arrow = document.createElement('div');
+                        arrow.id = 'show-more-arrow';
+                        arrow.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        `;
+
+                        arrow.addEventListener('click', function () {
+                            searchHistoryGrid.innerHTML = '';
+                            searchHistory.forEach((entry) => {
+                                const searchItem = document.createElement('div');
+                                searchItem.className = 'search-item';
+                                const displayTerm = (entry.term.length > 26) ? entry.term.slice(0, 26) + '...' : entry.term;
+                                searchItem.innerHTML = `
+                                    <span>${displayTerm}</span>
+                                    <small>${entry.date}</small>
+                                    <button class="delete-button">✖</button>
+                                `;
+
+                                searchItem.addEventListener('click', function () {
+                                    saveSearchTerm(entry.term);
+                                    saveLastSearchTerm(entry.term);
+                                    window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`;
+                                });
+
+                                searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
+                                    event.stopPropagation();
+                                    searchItem.remove();
+                                    removeSearchTermFromHistory(entry.term);
+                                });
+
+                                searchHistoryGrid.appendChild(searchItem);
+                            });
+                        });
+
+                        itemWithArrow.appendChild(arrow);
+                        searchHistoryGrid.appendChild(itemWithArrow);
+                    } else {
+                        searchHistoryGrid.appendChild(searchItem);
+                    }
                 }
             });
         }
-
-        showMoreArrow.addEventListener('click', function () {
-            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-            searchHistoryGrid.innerHTML = '';
-            searchHistory.forEach((entry) => {
-                const searchItem = document.createElement('div');
-                searchItem.className = 'search-item';
-                const displayTerm = (entry.term.length > 26) ? entry.term.slice(0, 26) + '...' : entry.term;
-                searchItem.innerHTML = `
-                    <span>${displayTerm}</span>
-                    <small>${entry.date}</small>
-                    <button class="delete-button">✖</button>
-                `;
-
-                searchItem.addEventListener('click', function () {
-                    saveSearchTerm(entry.term);
-                    saveLastSearchTerm(entry.term);
-                    window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`;
-                });
-
-                searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    searchItem.remove();
-                    removeSearchTermFromHistory(entry.term);
-                });
-
-                searchHistoryGrid.appendChild(searchItem);
-            });
-            showMoreArrow.style.display = 'none';
-        });
 
         function removeSearchTermFromHistory(term) {
             const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
             const updatedHistory = searchHistory.filter(entry => entry.term !== term);
             localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+            displaySearchHistory();
         }
 
         lastSearchItem.addEventListener('click', function () {
@@ -741,6 +805,7 @@
                     performSearch(searchTerm);
                 }
             }
+            displaySearchHistory();
         };
     </script>
 </body>
