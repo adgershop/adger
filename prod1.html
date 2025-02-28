@@ -557,7 +557,7 @@
             margin-top: 10px;
             font-size: 17px;
             font-family: 'Cairo', sans-serif;
-            font-weight: 300; /* سمك رفيع */
+            font-weight: 500; /* سمك رفيع */
             margin-right: 16px;
             direction: rtl;
             text-align: right;
@@ -719,7 +719,7 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 4H17V14H3V4ZM3 14H1V16H3V18H5V16H7V18H9V16H11V18H13V16H15V18H17V16H19V14H17V11L20 8H23V14H21V16H23V18H21V20H19V18H17V20H15V18H13V20H11V18H9V20H7V18H5V20H3V18H1V16H3V14ZM17 6H19V9H17V6ZM5 6H7V9H5V6ZM9 6H11V9H9V6ZM13 6H15V9H13V6Z" fill="#000000"/>
                     </svg>
-                    <span> الشحن</span>
+                    <span> الشحن , لكل المحافظات</span>
                 </div>
                 <!-- النص الإضافي تحته -->
                 <div class="additional-text" style="margin-top: 5px; font-size: 14px; color: #555;">
@@ -2007,15 +2007,22 @@
             }
     
             .menu-popup .back-arrow {
-                cursor: pointer;
-                margin-bottom: 20px;
-            }
-    
-            .menu-popup .back-arrow svg {
-                width: 24px;
-                height: 24px;
-                color: #333;
-            }
+    cursor: pointer;
+    margin-bottom: 20px;
+    -webkit-tap-highlight-color: transparent; /* إزالة تأثير التظليل */
+}
+
+.menu-popup .back-arrow:focus {
+    outline: none; /* منع ظهور التحديد عند التركيز */
+}
+
+.menu-popup .back-arrow svg {
+    width: 24px;
+    height: 24px;
+    color: #333;
+    pointer-events: none; /* يمنع التأثير على الـ SVG */
+}
+
     
             .menu-popup p {
                 font-size: 18px;
