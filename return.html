@@ -659,13 +659,38 @@
                     <path d="M19 12H5M12 19l-7-7 7-7"></path>
                 </svg>
             </div>
-            <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif; -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">حسابي</p>
-            <p onclick="window.location.href='about.html'" style="font-family: Cairo, sans-serif; -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">سياسات وأحكام</p>
-            <p onclick="window.location.href='return.html'" style="font-family: Cairo, sans-serif; -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">طلب استرجاع</p>
-            <p onclick="window.location.href='deals.html'" style="font-family: Cairo, sans-serif; -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">صفقة رابحة</p>
-            <p onclick="window.location.href='wholesale.html'" style="font-family: Cairo, sans-serif; -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">شراء بالجملة</p>
-            <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif; -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">شركات عالمية</p>
-            <p onclick="window.location.href='categories.html'" style="font-family: Cairo, sans-serif; -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">الفئات</p>
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <style>
+                .no-select {
+                  font-family: Cairo, sans-serif;
+                  cursor: pointer;
+                  -webkit-tap-highlight-color: transparent; /* لمنع التظليل على الأجهزة المحمولة */
+                  -webkit-user-select: none; /* لمتصفح Chrome/Safari */
+                  -moz-user-select: none; /* لمتصفح Firefox */
+                  -ms-user-select: none; /* لمتصفح Edge */
+                  user-select: none; /* القيمة القياسية */
+                }
+                /* للتأكد من إلغاء أي تظليل تحديد إضافي */
+                .no-select::selection {
+                  background: transparent;
+                }
+                .no-select::-moz-selection {
+                  background: transparent;
+                }
+              </style>
+            </head>
+            <body>
+              <p class="no-select" onclick="window.location.href='account.html'">حسابي</p>
+              <p class="no-select" onclick="window.location.href='about.html'">سياسات وأحكام</p>
+              <p class="no-select" onclick="window.location.href='return.html'">طلب استرجاع</p>
+              <p class="no-select" onclick="window.location.href='deals.html'">صفقة رابحة</p>
+              <p class="no-select" onclick="window.location.href='wholesale.html'">شراء بالجملة</p>
+              <p class="no-select" onclick="window.location.href='companies.html'">شركات عالمية</p>
+              <p class="no-select" onclick="window.location.href='categories.html'">الفئات</p>
+            </body>
+            </html>
         </div>
     
         <!-- الخلفية ثلاثية الأبعاد -->
