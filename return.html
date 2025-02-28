@@ -660,19 +660,24 @@
                 </svg>
             </div>
             <!DOCTYPE html>
-            <html>
+            <html lang="ar">
             <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <style>
                 .no-select {
-                  font-family: Cairo, sans-serif;
+                  font-family: Cairo, sans-serif; /* اختياري: لتحسين المظهر */
                   cursor: pointer;
-                  -webkit-tap-highlight-color: transparent; /* لمنع التظليل على الأجهزة المحمولة */
-                  -webkit-user-select: none; /* لمتصفح Chrome/Safari */
-                  -moz-user-select: none; /* لمتصفح Firefox */
-                  -ms-user-select: none; /* لمتصفح Edge */
-                  user-select: none; /* القيمة القياسية */
+                  /* منع التحديد */
+                  -webkit-user-select: none; /* لـ Safari على iOS */
+                  -moz-user-select: none;    /* لـ Firefox */
+                  -ms-user-select: none;     /* لـ Edge */
+                  user-select: none;         /* القيمة القياسية */
+                  /* منع التظليل والقوائم على الهواتف */
+                  -webkit-tap-highlight-color: transparent; /* إزالة التظليل عند الضغط */
+                  -webkit-touch-callout: none; /* منع القائمة المنبثقة على iOS */
                 }
-                /* للتأكد من إلغاء أي تظليل تحديد إضافي */
+                /* إلغاء تظليل التحديد إذا ظهر */
                 .no-select::selection {
                   background: transparent;
                 }
@@ -685,10 +690,6 @@
               <p class="no-select" onclick="window.location.href='account.html'">حسابي</p>
               <p class="no-select" onclick="window.location.href='about.html'">سياسات وأحكام</p>
               <p class="no-select" onclick="window.location.href='return.html'">طلب استرجاع</p>
-              <p class="no-select" onclick="window.location.href='deals.html'">صفقة رابحة</p>
-              <p class="no-select" onclick="window.location.href='wholesale.html'">شراء بالجملة</p>
-              <p class="no-select" onclick="window.location.href='companies.html'">شركات عالمية</p>
-              <p class="no-select" onclick="window.location.href='categories.html'">الفئات</p>
             </body>
             </html>
         </div>
