@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-<link id="fontLink" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحة البحث</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link id="fontLink" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: white;
@@ -470,6 +470,11 @@
     </div>
 
     <div class="search-history-grid" id="search-history"></div>
+    <div id="show-more-arrow" style="display: none; cursor: pointer; margin-top: 10px; text-align: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6" />
+        </svg>
+    </div>
 
     <div class="discover-more-header">
         <h2>إستكشف المزيد</h2>
@@ -535,6 +540,7 @@
         const clearButton = document.getElementById('clear-button');
         const lastSearchItem = document.getElementById('last-search-item');
         const lastSearchTerm = document.getElementById('last-search-term');
+        const showMoreArrow = document.getElementById('show-more-arrow');
 
         backButton.addEventListener('click', function () {
             window.history.back();
@@ -593,23 +599,57 @@
 
         function displayLastSearchTerm() {
             const lastTerm = localStorage.getItem('lastSearchTerm') || 'آخر نص كتبه المستخدم';
-            // قص النص بصريًا إلى 26 حرفًا في كل الحالات
-            const displayTerm = (lastTerm.length > 26) 
-                ? lastTerm.slice(0, 26) + '...' 
-                : lastTerm;
+            const displayTerm = (lastTerm.length > 26) ? lastTerm.slice(0, 26) + '...' : lastTerm;
             lastSearchTerm.textContent = displayTerm;
         }
 
         function displaySearchHistory() {
             const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
             searchHistoryGrid.innerHTML = '';
+            const isMobile = window.matchMedia("(max-width: 767px)").matches;
+            const maxItems = isMobile ? 20 : 40;
+
+            if (searchHistory.length > maxItems) {
+                showMoreArrow.style.display = 'block';
+            } else {
+                showMoreArrow.style.display = 'none';
+            }
+
+            searchHistory.forEach((entry, index) => {
+                if (index < maxItems || showMoreArrow.style.display === 'none') {
+                    const searchItem = document.createElement('div');
+                    searchItem.className = 'search-item';
+                    const displayTerm = (entry.term.length > 26) ? entry.term.slice(0, 26) + '...' : entry.term;
+                    searchItem.innerHTML = `
+                        <span>${displayTerm}</span>
+                        <small>${entry.date}</small>
+                        <button class="delete-button">✖</button>
+                    `;
+
+                    searchItem.addEventListener('click', function () {
+                        saveSearchTerm(entry.term);
+                        saveLastSearchTerm(entry.term);
+                        window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`;
+                    });
+
+                    searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
+                        event.stopPropagation();
+                        searchItem.remove();
+                        removeSearchTermFromHistory(entry.term);
+                    });
+
+                    searchHistoryGrid.appendChild(searchItem);
+                }
+            });
+        }
+
+        showMoreArrow.addEventListener('click', function () {
+            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            searchHistoryGrid.innerHTML = '';
             searchHistory.forEach((entry) => {
                 const searchItem = document.createElement('div');
                 searchItem.className = 'search-item';
-                // قص النص بصريًا إلى 26 حرفًا في كل الحالات
-                const displayTerm = (entry.term.length > 26) 
-                    ? entry.term.slice(0, 26) + '...' 
-                    : entry.term;
+                const displayTerm = (entry.term.length > 26) ? entry.term.slice(0, 26) + '...' : entry.term;
                 searchItem.innerHTML = `
                     <span>${displayTerm}</span>
                     <small>${entry.date}</small>
@@ -630,7 +670,8 @@
 
                 searchHistoryGrid.appendChild(searchItem);
             });
-        }
+            showMoreArrow.style.display = 'none';
+        });
 
         function removeSearchTermFromHistory(term) {
             const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
