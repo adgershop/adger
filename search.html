@@ -101,17 +101,25 @@
         }
 
         .search-container .clear-button {
-            position: absolute;
-            left: 80px;
-            top: 54%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            display: none;
-            color: #000000;
-        }
+    position: absolute;
+    left: 80px;
+    top: 54%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: none;
+    color: #000000;
+}
+
+/* تطبيق left: 15px على الشاشات الصغيرة (الهواتف) */
+@media (max-width: 768px) {
+    .search-container .clear-button {
+        left: 53px;
+    }
+}
+
 
         .search-container .clear-button:hover {
             color: #000000;
@@ -219,15 +227,17 @@
         }
 
         .search-item .delete-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #585858;
-            font-size: 13px;
-            padding: 0;
-            flex: 0 0 auto;
-            margin-left: 5px;
-        }
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #585858;
+    font-size: 12px; /* تصغير الحجم قليلاً */
+    font-weight: 300; /* تقليل سماكة الخط */
+    padding: 0;
+    flex: 0 0 auto;
+    margin-left: 3px; /* تقليل المسافة */
+}
+
 
         .delete-button:hover {
             color: #000000;
