@@ -606,8 +606,8 @@
         function displaySearchHistory() {
             const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
             searchHistoryGrid.innerHTML = '';
-            const isMobile = window.matchMedia("(max-width: 767px)").matches;
-            const maxItems = isMobile ? 20 : 40;
+            const isMobile = window.matchMedia("(max-width: 1522px)").matches;
+            const maxItems = isMobile ? 12 : 33;
 
             if (searchHistory.length > maxItems) {
                 showMoreArrow.style.display = 'block';
