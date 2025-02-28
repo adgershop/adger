@@ -563,274 +563,252 @@
     </div>
 
     <script>
-   document.addEventListener('DOMContentLoaded', function () {
-    const deleteAllButton = document.getElementById('delete-all-button');
-    const modal = document.getElementById('confirmation-modal');
-    const confirmYes = document.getElementById('confirm-yes');
-    const confirmNo = document.getElementById('confirm-no');
-
-    deleteAllButton.addEventListener('click', () => {
-        const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-        if (searchHistory.length > 0) {
-            modal.style.display = 'flex';
-        }
-    });
-
-    confirmYes.addEventListener('click', () => {
-        localStorage.removeItem('searchHistory');
-        displaySearchHistory();
-        modal.style.display = 'none';
-    });
-
-    confirmNo.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
+        const deleteAllButton = document.getElementById('delete-all-button');
+        const modal = document.getElementById('confirmation-modal');
+        const confirmYes = document.getElementById('confirm-yes');
+        const confirmNo = document.getElementById('confirm-no');
+        
+        let isAllHistoryShown = false; // متغير لتتبع ما إذا تم عرض جميع العناصر
+        
+        deleteAllButton.addEventListener('click', () => {
+            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            if (searchHistory.length > 0) {
+                modal.style.display = 'flex';
+            }
+        });
+        
+        confirmYes.addEventListener('click', () => {
+            localStorage.removeItem('searchHistory');
+            isAllHistoryShown = false; // إعادة تعيين الحالة عند الحذف الكلي
+            displaySearchHistory();
             modal.style.display = 'none';
+        });
+        
+        confirmNo.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const backButton = document.getElementById('back-button');
+        const searchHistoryGrid = document.getElementById('search-history');
+        const imageGrid = document.getElementById('image-grid');
+        const clearButton = document.getElementById('clear-button');
+        const lastSearchItem = document.getElementById('last-search-item');
+        const lastSearchTerm = document.getElementById('last-search-term');
+        
+        backButton.addEventListener('click', function () {
+            window.history.back();
+        });
+        
+        const searchTexts = [
+            "ابحث هنا",
+            "اكتشف العروض الجديدة",
+            "تصفح الفئات",
+            "ابحث عن العلامات التجارية",
+            "ابحث عن الكلمات الرئيسية"
+        ];
+        let currentTextIndex = 0;
+        let currentSearchText = searchTexts[currentTextIndex];
+        
+        function changeSearchText() {
+            currentTextIndex = (currentTextIndex + 1) % searchTexts.length;
+            currentSearchText = searchTexts[currentTextIndex];
+            searchInput.placeholder = currentSearchText;
         }
-    });
-
-    const searchInput = document.getElementById('search-input');
-    const searchButton = document.getElementById('search-button');
-    const backButton = document.getElementById('back-button');
-    const searchHistoryGrid = document.getElementById('search-history');
-    const imageGrid = document.getElementById('image-grid');
-    const clearButton = document.getElementById('clear-button');
-    const lastSearchItem = document.getElementById('last-search-item');
-    const lastSearchTerm = document.getElementById('last-search-term');
-
-    backButton.addEventListener('click', function () {
-        window.history.back();
-    });
-
-    const searchTexts = [
-        "ابحث عن المنتجات",
-        "اكتشف العروض الجديدة",
-        "تصفح الفئات",
-        "ابحث عن العلامات التجارية",
-        "ابحث عن الكلمات الرئيسية"
-    ];
-    let currentTextIndex = 0;
-    let currentSearchText = searchTexts[currentTextIndex];
-
-    function changeSearchText() {
-        currentTextIndex = (currentTextIndex + 1) % searchTexts.length;
-        currentSearchText = searchTexts[currentTextIndex];
-        searchInput.placeholder = currentSearchText;
-    }
-    setInterval(changeSearchText, 5000);
-
-    function isDefaultSearchText(searchTerm) {
-        return searchTerm === "ابحث عن المنتجات";
-    }
-
-    searchButton.addEventListener('click', function () {
-        const searchTerm = searchInput.value.trim() || currentSearchText;
-        if (searchTerm && !isDefaultSearchText(searchTerm)) {
-            saveSearchTerm(searchTerm);
-            saveLastSearchTerm(searchTerm);
-            window.location.href = `adger.search.html?search=${encodeURIComponent(searchTerm)}`;
+        setInterval(changeSearchText, 5000);
+        
+        function isDefaultSearchText(searchTerm) {
+            return searchTerm === "ابحث هنا";
         }
-    });
-
-    searchInput.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            const searchTerm = searchInput.value.trim();
+        
+        searchButton.addEventListener('click', function () {
+            const searchTerm = searchInput.value.trim() || currentSearchText;
             if (searchTerm && !isDefaultSearchText(searchTerm)) {
                 saveSearchTerm(searchTerm);
                 saveLastSearchTerm(searchTerm);
                 window.location.href = `adger.search.html?search=${encodeURIComponent(searchTerm)}`;
             }
-        }
-    });
-
-    searchInput.addEventListener('input', function () {
-        clearButton.style.display = searchInput.value.trim() !== '' ? 'block' : 'none';
-    });
-
-    clearButton.addEventListener('click', function () {
-        searchInput.value = '';
-        clearButton.style.display = 'none';
-        searchInput.focus();
-    });
-
-    function saveSearchTerm(term) {
-        const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-        const existingIndex = searchHistory.findIndex(entry => entry.term === term);
-
-        if (existingIndex !== -1) {
-            searchHistory.splice(existingIndex, 1);
-        }
-
-        const today = new Date();
-        const date = today.toLocaleDateString('ar-EG');
-        searchHistory.unshift({ term, date });
-
-        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-        displaySearchHistory();
-    }
-
-    function saveLastSearchTerm(term) {
-        localStorage.setItem('lastSearchTerm', term);
-        displayLastSearchTerm();
-    }
-
-    function displayLastSearchTerm() {
-        const lastTerm = localStorage.getItem('lastSearchTerm') || 'آخر نص كتبه المستخدم';
-        const displayTerm = (lastTerm.length > 26) ? lastTerm.slice(0, 26) + '...' : lastTerm;
-        lastSearchTerm.textContent = displayTerm;
-    }
-
-    function displaySearchHistory() {
-        const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-        searchHistoryGrid.innerHTML = '';
-        const isMobile = window.matchMedia("(max-width: 1522px)").matches;
-        const maxItems = isMobile ? 12 : 22;
-
-        searchHistory.forEach((entry, index) => {
-            if (index < maxItems || searchHistory.length <= maxItems) {
-                const searchItem = document.createElement('div');
-                searchItem.className = 'search-item';
-                const displayTerm = (entry.term.length > 26) ? entry.term.slice(0, 26) + '...' : entry.term;
-                searchItem.innerHTML = 
-                    `<span>${displayTerm}</span>
-                    <small>${entry.date}</small>
-                    <button class="delete-button">✖</button>`;
-
-                searchItem.addEventListener('click', function () {
-                    saveSearchTerm(entry.term);
-                    saveLastSearchTerm(entry.term);
-                    window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`;
-                });
-
-                searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    searchItem.remove();
-                    removeSearchTermFromHistory(entry.term);
-                });
-
-                if (index === maxItems - 1 && searchHistory.length > maxItems) {
-                    const itemWithArrow = document.createElement('div');
-                    itemWithArrow.className = 'search-item-with-arrow';
-                    itemWithArrow.appendChild(searchItem);
-
-                    const arrow = document.createElement('div');
-                    arrow.id = 'show-more-arrow';
-                    arrow.innerHTML = 
-                        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M6 9l6 6 6-6" />
-                        </svg>`;
-
-                    arrow.addEventListener('click', function () {
-                        searchHistoryGrid.innerHTML = '';
-                        searchHistory.forEach((entry) => {
-                            const searchItem = document.createElement('div');
-                            searchItem.className = 'search-item';
-                            const displayTerm = (entry.term.length > 26) ? entry.term.slice(0, 26) + '...' : entry.term;
-                            searchItem.innerHTML = 
-                                `<span>${displayTerm}</span>
-                                <small>${entry.date}</small>
-                                <button class="delete-button">✖</button>`;
-
-                            searchItem.addEventListener('click', function () {
-                                saveSearchTerm(entry.term);
-                                saveLastSearchTerm(entry.term);
-                                window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`;
-                            });
-
-                            searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
-                                event.stopPropagation();
-                                searchItem.remove();
-                                removeSearchTermFromHistory(entry.term);
-                            });
-
-                            searchHistoryGrid.appendChild(searchItem);
-                        });
-                        // Prevent hiding the items again
-                        arrow.remove();
-                    });
-
-                    itemWithArrow.appendChild(arrow);
-                    searchHistoryGrid.appendChild(itemWithArrow);
-                } else {
-                    searchHistoryGrid.appendChild(searchItem);
+        });
+        
+        searchInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                const searchTerm = searchInput.value.trim();
+                if (searchTerm && !isDefaultSearchText(searchTerm)) {
+                    saveSearchTerm(searchTerm);
+                    saveLastSearchTerm(searchTerm);
+                    window.location.href = `adger.search.html?search=${encodeURIComponent(searchTerm)}`;
                 }
             }
         });
-    }
-
-    function removeSearchTermFromHistory(term) {
-        const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-        const updatedHistory = searchHistory.filter(entry => entry.term !== term);
-        localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
-        displaySearchHistory();
-    }
-
-    lastSearchItem.addEventListener('click', function () {
-        const lastTerm = localStorage.getItem('lastSearchTerm');
-        if (lastTerm) {
-            searchInput.value = lastTerm + ' ';
+        
+        searchInput.addEventListener('input', function () {
+            clearButton.style.display = searchInput.value.trim() !== '' ? 'block' : 'none';
+        });
+        
+        clearButton.addEventListener('click', function () {
+            searchInput.value = '';
+            clearButton.style.display = 'none';
             searchInput.focus();
-            clearButton.style.display = 'block';
-        }
-    });
-
-    imageGrid.addEventListener('click', function (event) {
-        const imageItem = event.target.closest('.image-item');
-        if (imageItem) {
-            const searchTerm = imageItem.getAttribute('data-term');
-            if (searchTerm) {
-                saveSearchTerm(searchTerm);
-                saveLastSearchTerm(searchTerm);
-                window.location.href = `adger.search.html?search=${encodeURIComponent(searchTerm)}`;
+        });
+        
+        function saveSearchTerm(term) {
+            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            const existingIndex = searchHistory.findIndex(entry => entry.term === term);
+        
+            if (existingIndex !== -1) {
+                searchHistory.splice(existingIndex, 1);
             }
+        
+            const today = new Date();
+            const date = today.toLocaleDateString('ar-EG');
+            searchHistory.unshift({ term, date });
+        
+            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+            displaySearchHistory();
         }
-    });
-
-    displaySearchHistory();
-    displayLastSearchTerm();
-
-    window.addEventListener('load', function () {
-        setTimeout(() => {
-            searchInput.focus();
-            searchInput.click();
-        }, 500);
-    });
-
-    window.addEventListener('resize', function () {
-        displaySearchHistory();
-        displayLastSearchTerm();
-    });
-
-    function redirectToSea(categoryName) {
-        window.location.href = `adger.search.html?search=${encodeURIComponent(categoryName)}`;
-    }
-
-    function performSearch(searchTerm) {
-        const products = document.querySelectorAll('.product');
-        products.forEach(product => {
-            const productName = product.getAttribute('data-name').toLowerCase();
-            if (productName.includes(searchTerm.toLowerCase())) {
-                product.classList.remove('hidden');
-            } else {
-                product.classList.add('hidden');
+        
+        function saveLastSearchTerm(term) {
+            localStorage.setItem('lastSearchTerm', term);
+            displayLastSearchTerm();
+        }
+        
+        function displayLastSearchTerm() {
+            const lastTerm = localStorage.getItem('lastSearchTerm') || 'آخر نص كتبه المستخدم';
+            const displayTerm = (lastTerm.length > 26) ? lastTerm.slice(0, 26) + '...' : lastTerm;
+            lastSearchTerm.textContent = displayTerm;
+        }
+        
+        function displaySearchHistory() {
+            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            searchHistoryGrid.innerHTML = '';
+            const isMobile = window.matchMedia("(max-width: 1522px)").matches;
+            const maxItems = isMobile ? 12 : 22;
+        
+            searchHistory.forEach((entry, index) => {
+                if (isAllHistoryShown || index < maxItems || searchHistory.length <= maxItems) {
+                    const searchItem = document.createElement('div');
+                    searchItem.className = 'search-item';
+                    const displayTerm = (entry.term.length > 26) ? entry.term.slice(0, 26) + '...' : entry.term;
+                    searchItem.innerHTML = 
+                        `<span>${displayTerm}</span>
+                        <small>${entry.date}</small>
+                        <button class="delete-button"></button>`;
+        
+                    searchItem.addEventListener('click', function () {
+                        saveSearchTerm(entry.term);
+                        saveLastSearchTerm(entry.term);
+                        window.location.href = `adger.search.html?search=${encodeURIComponent(entry.term)}`;
+                    });
+        
+                    searchItem.querySelector('.delete-button').addEventListener('click', function (event) {
+                        event.stopPropagation();
+                        searchItem.remove();
+                        removeSearchTermFromHistory(entry.term);
+                    });
+        
+                    searchHistoryGrid.appendChild(searchItem);
+        
+                    if (!isAllHistoryShown && index === maxItems - 1 && searchHistory.length > maxItems) {
+                        const itemWithArrow = document.createElement('div');
+                        itemWithArrow.className = 'search-item-with-arrow';
+                        itemWithArrow.appendChild(searchItem.cloneNode(true));
+        
+                        const arrow = document.createElement('div');
+                        arrow.id = 'show-more-arrow';
+                        arrow.innerHTML = 
+                            `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>`;
+        
+                        arrow.addEventListener('click', function (event) {
+                            event.stopPropagation();
+                            isAllHistoryShown = true;
+                            displaySearchHistory();
+                        });
+        
+                        itemWithArrow.appendChild(arrow);
+                        searchHistoryGrid.appendChild(itemWithArrow);
+                    }
+                }
+            });
+        }
+        
+        function removeSearchTermFromHistory(term) {
+            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            const updatedHistory = searchHistory.filter(entry => entry.term !== term);
+            localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+            displaySearchHistory();
+        }
+        
+        lastSearchItem.addEventListener('click', function () {
+            const lastTerm = localStorage.getItem('lastSearchTerm');
+            if (lastTerm) {
+                searchInput.value = lastTerm + ' ';
+                searchInput.focus();
+                clearButton.style.display = 'block';
             }
         });
-    }
-
-    window.onload = function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const searchTerm = urlParams.get('search');
-        if (searchTerm) {
-            const searchBox = document.getElementById('search-box');
-            if (searchBox) {
-                searchBox.value = searchTerm;
-                performSearch(searchTerm);
+        
+        imageGrid.addEventListener('click', function (event) {
+            const imageItem = event.target.closest('.image-item');
+            if (imageItem) {
+                const searchTerm = imageItem.getAttribute('data-term');
+                if (searchTerm) {
+                    saveSearchTerm(searchTerm);
+                    saveLastSearchTerm(searchTerm);
+                    window.location.href = `adger.search.html?search=${encodeURIComponent(searchTerm)}`;
+                }
             }
-        }
+        });
+        
         displaySearchHistory();
-    };
-});
-    </script>
+        displayLastSearchTerm();
+        
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+                searchInput.focus();
+                searchInput.click();
+            }, 500);
+        });
+        
+        window.addEventListener('resize', function () {
+            displaySearchHistory();
+            displayLastSearchTerm();
+        });
+        
+        function redirectToSea(categoryName) {
+            window.location.href = `adger.search.html?search=${encodeURIComponent(categoryName)}`;
+        }
+        
+        function performSearch(searchTerm) {
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name').toLowerCase();
+                if (productName.includes(searchTerm.toLowerCase())) {
+                    product.classList.remove('hidden');
+                } else {
+                    product.classList.add('hidden');
+                }
+            });
+        }
+        
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchTerm = urlParams.get('search');
+            if (searchTerm) {
+                const searchBox = document.getElementById('search-box');
+                if (searchBox) {
+                    searchBox.value = searchTerm;
+                    performSearch(searchTerm);
+                }
+            }
+            displaySearchHistory();
+        };
+        </script>
