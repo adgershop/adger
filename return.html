@@ -220,15 +220,22 @@
             }
     
             .menu-popup .back-arrow {
-                cursor: pointer;
-                margin-bottom: 20px;
-            }
-    
-            .menu-popup .back-arrow svg {
-                width: 24px;
-                height: 24px;
-                color: #333;
-            }
+    cursor: pointer;
+    margin-bottom: 20px;
+    -webkit-tap-highlight-color: transparent; /* إزالة تأثير التظليل */
+}
+
+.menu-popup .back-arrow:focus {
+    outline: none; /* منع ظهور التحديد عند التركيز */
+}
+
+.menu-popup .back-arrow svg {
+    width: 24px;
+    height: 24px;
+    color: #333;
+    pointer-events: none; /* يمنع التأثير على الـ SVG */
+}
+
     
             .menu-popup p {
                 font-size: 18px;
