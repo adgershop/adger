@@ -116,7 +116,7 @@
 /* تطبيق left: 15px على الشاشات الصغيرة (الهواتف) */
 @media (max-width: 768px) {
     .search-container .clear-button {
-        left: 53px;
+        left: 55px;
     }
 }
 
@@ -231,20 +231,11 @@
     border: none;
     cursor: pointer;
     color: #585858;
-    font-size: 13px;
-    font-weight: 400;
+    font-size: 12px; /* تصغير الحجم قليلاً */
+    font-weight: 300 !important; /* تقليل سماكة الخط */
     padding: 0;
     flex: 0 0 auto;
-    margin-left: 5px;
-}
-
-/* تصغير الزر وجعله أنحف على الهواتف */
-@media (max-width: 768px) {
-    .search-item .delete-button {
-        font-size: 11px; /* تصغير الحجم */
-        font-weight: 300; /* تخفيف سماكة الخط */
-        margin-left: 2px; /* تقليل المسافة */
-    }
+    margin-left: 3px; /* تقليل المسافة */
 }
 
 
