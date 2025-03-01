@@ -659,7 +659,45 @@
                     <path d="M19 12H5M12 19l-7-7 7-7"></path>
                 </svg>
             </div>
-       
+            <!DOCTYPE html>
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>صفحتي</title>
+                <style>
+                    /* منع تحديد النص */
+                    p {
+                        user-select: none;
+                        -webkit-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                    }
+            
+                    /* تغيير لون التحديد إلى الأزرق الجوجلي */
+                    ::selection {
+                        background: #4285f4; /* اللون الأزرق الجوجلي */
+                        color: white; /* لون النص عند التحديد */
+                    }
+            
+                    /* إخفاء المحتوى على الشاشات الصغيرة (الهاتف) */
+                    @media only screen and (max-width: 600px) {
+                        body {
+                            display: none; /* إخفاء كل المحتوى */
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif;">حسابي</p>
+                <p onclick="window.location.href='about.html'" style="font-family: Cairo, sans-serif;">سياسات وأحكام</p>
+                <p onclick="window.location.href='return.html'" style="font-family: Cairo, sans-serif;">طلب استرجاع</p>
+                <p onclick="window.location.href='deals.html'" style="font-family: Cairo, sans-serif;">صفقة رابحة</p>
+                <p onclick="window.location.href='wholesale.html'" style="font-family: Cairo, sans-serif;">شراء بالجملة</p>
+                <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif;">شركات عالمية</p>
+                <p onclick="window.location.href='categories.html'" style="font-family: Cairo, sans-serif;">الفئات</p>
+            </body>
+            </html>
         </div>
     
         <!-- الخلفية ثلاثية الأبعاد -->
