@@ -38,7 +38,6 @@
             .main-media {
                 margin-left: 20px;
                 position: relative;
-                touch-action: pan-y;
             }
         
             .main-media img, .main-media video {
@@ -92,11 +91,12 @@
                 border-color: #ff0000;
             }
     
-            .line {
-                width: 100%;
-                height: 8px;
-                background-color: #eeeeee;
-            }
+            
+        .line {
+            width: 100%;
+            height: 8px;
+            background-color: #eeeeee;
+        }
         
             .play-icon {
                 position: absolute;
@@ -191,7 +191,6 @@
                     padding-left: 0;
                     width: 311px;
                     gap: 10px;
-                    touch-action: pan-x;
                 }
         
                 .thumbnail {
@@ -199,6 +198,11 @@
                     flex: 0 0 auto;
                     width: 65px;
                     height: 65px;
+                }
+        
+                .thumbnail img, .thumbnail video {
+                    width: 100%;
+                    height: 100%;
                 }
             }
         
@@ -331,109 +335,176 @@
         </div>
     
         <script>
-            let touchStartX = 0;
-            let touchStartY = 0;
-            const SWIPE_THRESHOLD = 30;
-            let isSwiping = false;
-    
-            // إدارة أحداث اللمس
-            document.querySelector('.main-media').addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
-                isSwiping = true;
-            }, { passive: true });
-    
-            document.querySelector('.main-media').addEventListener('touchmove', (e) => {
-                if (!isSwiping) return;
-                
-                const touchEndX = e.touches[0].clientX;
-                const touchEndY = e.touches[0].clientY;
-                
-                const deltaX = touchEndX - touchStartX;
-                const deltaY = touchEndY - touchStartY;
-                
-                if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    e.preventDefault();
-                    
-                    if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
-                        if (deltaX > 0) prevMedia();
-                        else nextMedia();
-                        isSwiping = false;
-                        touchStartX = touchEndX;
-                    }
-                }
-            }, { passive: false });
-    
-            document.querySelector('.main-media').addEventListener('touchend', () => {
-                isSwiping = false;
-            });
-    
+            // حساب العدد الإجمالي للصور والفيديو
             function calculateTotalMedia() {
                 const totalMedia = document.querySelectorAll('.thumbnail').length;
                 document.getElementById('totalMedia').textContent = totalMedia;
             }
     
+            // تحديث رقم المنتج الحالي
             function updateCurrentMedia() {
-                const currentIndex = Array.from(document.querySelectorAll('.thumbnail'))
-                    .findIndex(thumb => thumb.classList.contains('active')) + 1;
+                const thumbnails = document.querySelectorAll('.thumbnail');
+                let currentIndex = 0;
+    
+                thumbnails.forEach((thumb, index) => {
+                    if (thumb.classList.contains('active')) {
+                        currentIndex = index + 1;
+                    }
+                });
+    
                 document.getElementById('currentMedia').textContent = currentIndex;
             }
     
+            // تحديث الوسيطة الرئيسية (صورة أو فيديو)
             function updateMainMedia(thumbnail) {
                 const mainImage = document.getElementById('mainMedia');
                 const mainVideo = document.getElementById('mainVideo');
-                const type = thumbnail.dataset.type;
-                
-                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                thumbnail.classList.add('active');
-                
+                const src = thumbnail.getAttribute('data-src');
+                const type = thumbnail.getAttribute('data-type');
+    
                 if (type === 'image') {
-                    mainImage.src = thumbnail.dataset.src;
+                    mainImage.src = src;
                     mainImage.style.display = 'block';
                     mainVideo.style.display = 'none';
                     mainVideo.pause();
-                    document.querySelector('.media-counter').style.display = 'flex';
-                } else {
-                    mainVideo.querySelector('source').src = thumbnail.dataset.src;
+                } else if (type === 'video') {
+                    mainVideo.querySelector('source').src = src;
                     mainVideo.load();
                     mainVideo.style.display = 'block';
                     mainImage.style.display = 'none';
-                    document.querySelector('.media-counter').style.display = 'none';
                 }
-                
-                updateCurrentMedia();
             }
     
-            function nextMedia() {
-                const thumbs = document.querySelectorAll('.thumbnail');
-                const currentIndex = Array.from(thumbs).findIndex(t => t.classList.contains('active'));
-                if (currentIndex < thumbs.length - 1) updateMainMedia(thumbs[currentIndex + 1]);
-            }
-    
-            function prevMedia() {
-                const thumbs = document.querySelectorAll('.thumbnail');
-                const currentIndex = Array.from(thumbs).findIndex(t => t.classList.contains('active'));
-                if (currentIndex > 0) updateMainMedia(thumbs[currentIndex - 1]);
-            }
-    
-            document.addEventListener('DOMContentLoaded', () => {
-                document.querySelectorAll('.thumbnail').forEach(thumb => {
-                    thumb.addEventListener('click', () => updateMainMedia(thumb));
-                    
-                    if (thumb.dataset.type === 'video') {
-                        thumb.querySelector('video').addEventListener('play', () => {
-                            document.querySelector('.media-counter').style.display = 'none';
-                        });
-                        thumb.querySelector('video').addEventListener('pause', () => {
-                            document.querySelector('.media-counter').style.display = 'flex';
-                        });
-                    }
-                });
-                
+            // تهيئة المعرض عند تحميل الصفحة
+            document.addEventListener('DOMContentLoaded', function() {
                 calculateTotalMedia();
                 updateCurrentMedia();
+                const initialThumbnail = document.querySelector('.thumbnail.active');
+                updateMainMedia(initialThumbnail);
+                
+                // التعديل الجديد: معالجة أحداث اللمس للتمييز بين التمرير والتنقل
+                const mainMedia = document.querySelector('.main-media');
+                let startY = 0;
+                let startX = 0;
+                let threshold = 50; // الحد الأدنى للمسافة للكشف عن السحب
+                let isScrolling = false;
+                
+                // تتبع موضع بداية اللمس
+                mainMedia.addEventListener('touchstart', function(e) {
+                    startY = e.touches[0].clientY;
+                    startX = e.touches[0].clientX;
+                    isScrolling = false;
+                }, {passive: true});
+                
+                // تحديد اتجاه السحب
+                mainMedia.addEventListener('touchmove', function(e) {
+                    if (!e.touches || e.touches.length === 0) return;
+                    
+                    const deltaY = e.touches[0].clientY - startY;
+                    const deltaX = e.touches[0].clientX - startX;
+                    
+                    // إذا كانت الحركة الرأسية أكبر من الأفقية، فمن المحتمل أن تكون محاولة تمرير
+                    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
+                        isScrolling = true;
+                        // السماح بسلوك تمرير الصفحة الافتراضي
+                        // لا حاجة للقيام بأي شيء آخر
+                    }
+                }, {passive: true});
+                
+                // معالجة نهاية اللمس
+                mainMedia.addEventListener('touchend', function(e) {
+                    if (isScrolling) {
+                        // إذا اكتشفنا نية التمرير، فلا نقوم بتشغيل وظيفة التنقل
+                        return;
+                    }
+                    
+                    // معالجة السحب يمينًا/يسارًا فقط إذا لم يكن هناك تمرير
+                    const endX = e.changedTouches[0].clientX;
+                    const deltaX = endX - startX;
+                    
+                    if (Math.abs(deltaX) > threshold) {
+                        if (deltaX > 0) {
+                            // سحب لليمين، انتقل إلى السابق
+                            prevMedia();
+                        } else {
+                            // سحب لليسار، انتقل إلى التالي
+                            nextMedia();
+                        }
+                    }
+                });
             });
     
+            // التعامل مع النقر على المصغرات
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                    updateMainMedia(thumb);
+                    setTimeout(updateCurrentMedia, 100);
+                });
+            });
+    
+            // الانتقال إلى الوسيطة التالية
+            function nextMedia() {
+                const thumbnails = document.querySelectorAll('.thumbnail');
+                let currentIndex = -1;
+                thumbnails.forEach((thumb, index) => {
+                    if (thumb.classList.contains('active')) {
+                        currentIndex = index;
+                    }
+                });
+                if (currentIndex < thumbnails.length - 1) {
+                    thumbnails[currentIndex].classList.remove('active');
+                    thumbnails[currentIndex + 1].classList.add('active');
+                    updateMainMedia(thumbnails[currentIndex + 1]);
+                    setTimeout(updateCurrentMedia, 100);
+                }
+            }
+    
+            // الانتقال إلى الوسيطة السابقة
+            function prevMedia() {
+                const thumbnails = document.querySelectorAll('.thumbnail');
+                let currentIndex = -1;
+                thumbnails.forEach((thumb, index) => {
+                    if (thumb.classList.contains('active')) {
+                        currentIndex = index;
+                    }
+                });
+                if (currentIndex > 0) {
+                    thumbnails[currentIndex].classList.remove('active');
+                    thumbnails[currentIndex - 1].classList.add('active');
+                    updateMainMedia(thumbnails[currentIndex - 1]);
+                    setTimeout(updateCurrentMedia, 100);
+                }
+            }
+    
+            // إخفاء/إظهار عداد الوسائط عند تشغيل الفيديو
+            const lastVideoThumbnail = document.querySelector('.thumbnail[data-type="video"]:last-child');
+            const mediaCounter = document.querySelector('.media-counter');
+    
+            lastVideoThumbnail.addEventListener('click', () => {
+                mediaCounter.style.display = 'none';
+            });
+    
+            lastVideoThumbnail.querySelector('video').addEventListener('play', () => {
+                mediaCounter.style.display = 'none';
+            });
+    
+            lastVideoThumbnail.querySelector('video').addEventListener('pause', () => {
+                mediaCounter.style.display = 'flex';
+            });
+    
+            lastVideoThumbnail.querySelector('video').addEventListener('ended', () => {
+                mediaCounter.style.display = 'flex';
+            });
+    
+            document.querySelectorAll('.thumbnail:not([data-type="video"])').forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    mediaCounter.style.display = 'flex';
+                });
+            });
+    
+            // مشاركة الصفحة
             function sharePage() {
                 if (navigator.share) {
                     navigator.share({
@@ -441,7 +512,7 @@
                         url: window.location.href
                     }).catch(err => console.log('Error sharing:', err));
                 } else {
-                    alert('المشاركة غير مدعومة في هذا المتصفح');
+                    console.log('Web Share API not supported');
                 }
             }
         </script>
