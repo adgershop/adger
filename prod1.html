@@ -549,13 +549,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <style>
         #hop {
             color: #000000;
             margin-top: 10px;
             font-size: 17.5px;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Tajawal', sans-serif;
             font-weight: 400;
             margin-right: 16px;
             margin-left: 16px;
@@ -566,9 +566,6 @@
         
         /* تنسيق خاص بالهواتف */
         @media only screen and (max-width: 768px) {
-            #hop {
-                position: relative;
-            }
             #hop .short-text {
                 display: inline;
             }
@@ -613,6 +610,68 @@
     <h2 id="hop">
         اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
     </h2>
+    <script>
+        // تعيين النص كاملاً في البداية
+        const container = document.getElementById('hop');
+        const originalText = container.textContent.trim();
+        container.textContent = originalText;
+
+        // الانتظار حتى اكتمال تحميل الصفحة بالكامل
+        window.onload = () => {
+            const charLimit = 50; // الحد الأقصى لعدد الأحرف قبل القص
+
+            if (originalText.length > charLimit) {
+                const truncatedText = originalText.substring(0, charLimit);
+                const lastSpaceIndex = truncatedText.lastIndexOf(' ');
+                let shortTextContent = truncatedText;
+                let lastWord = '';
+
+                // تقسيم النص لضمان القص عند كلمة كاملة
+                if (lastSpaceIndex !== -1) {
+                    shortTextContent = truncatedText.substring(0, lastSpaceIndex);
+                    lastWord = truncatedText.substring(lastSpaceIndex + 1);
+                }
+
+                // إنشاء عناصر النص المقصوص
+                const shortText = document.createElement('span');
+                shortText.className = 'short-text';
+                
+                const initialText = document.createElement('span');
+                initialText.textContent = shortTextContent;
+
+                const lastWordWrapper = document.createElement('span');
+                lastWordWrapper.className = 'last-word-wrapper';
+                lastWordWrapper.textContent = (lastWord ? ' ' + lastWord : '') + '...';
+
+                // إنشاء النص الكامل
+                const fullText = document.createElement('span');
+                fullText.className = 'full-text';
+                fullText.textContent = originalText;
+
+                // إنشاء زر "المزيد" مع السهم
+                const moreBtn = document.createElement('span');
+                moreBtn.className = 'more-btn';
+                moreBtn.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                `;
+
+                // تجميع العناصر
+                container.textContent = '';
+                shortText.appendChild(initialText);
+                lastWordWrapper.appendChild(moreBtn);
+                shortText.appendChild(lastWordWrapper);
+                container.appendChild(shortText);
+                container.appendChild(fullText);
+
+                // إضافة حدث النقر على زر "المزيد"
+                moreBtn.addEventListener('click', () => {
+                    container.classList.toggle('expanded');
+                });
+            }
+        };
+    </script>
 </body>
 </html>
 
