@@ -381,57 +381,6 @@
                 updateCurrentMedia();
                 const initialThumbnail = document.querySelector('.thumbnail.active');
                 updateMainMedia(initialThumbnail);
-                
-                // التعديل الجديد: معالجة أحداث اللمس للتمييز بين التمرير والتنقل
-                const mainMedia = document.querySelector('.main-media');
-                let startY = 0;
-                let startX = 0;
-                let threshold = 50; // الحد الأدنى للمسافة للكشف عن السحب
-                let isScrolling = false;
-                
-                // تتبع موضع بداية اللمس
-                mainMedia.addEventListener('touchstart', function(e) {
-                    startY = e.touches[0].clientY;
-                    startX = e.touches[0].clientX;
-                    isScrolling = false;
-                }, {passive: true});
-                
-                // تحديد اتجاه السحب
-                mainMedia.addEventListener('touchmove', function(e) {
-                    if (!e.touches || e.touches.length === 0) return;
-                    
-                    const deltaY = e.touches[0].clientY - startY;
-                    const deltaX = e.touches[0].clientX - startX;
-                    
-                    // إذا كانت الحركة الرأسية أكبر من الأفقية، فمن المحتمل أن تكون محاولة تمرير
-                    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
-                        isScrolling = true;
-                        // السماح بسلوك تمرير الصفحة الافتراضي
-                        // لا حاجة للقيام بأي شيء آخر
-                    }
-                }, {passive: true});
-                
-                // معالجة نهاية اللمس
-                mainMedia.addEventListener('touchend', function(e) {
-                    if (isScrolling) {
-                        // إذا اكتشفنا نية التمرير، فلا نقوم بتشغيل وظيفة التنقل
-                        return;
-                    }
-                    
-                    // معالجة السحب يمينًا/يسارًا فقط إذا لم يكن هناك تمرير
-                    const endX = e.changedTouches[0].clientX;
-                    const deltaX = endX - startX;
-                    
-                    if (Math.abs(deltaX) > threshold) {
-                        if (deltaX > 0) {
-                            // سحب لليمين، انتقل إلى السابق
-                            prevMedia();
-                        } else {
-                            // سحب لليسار، انتقل إلى التالي
-                            nextMedia();
-                        }
-                    }
-                });
             });
     
             // التعامل مع النقر على المصغرات
@@ -515,6 +464,18 @@
                     console.log('Web Share API not supported');
                 }
             }
+    
+            // السماح بتمرير الصفحة عموديًا عند لمس الصور والفيديوهات
+            document.querySelectorAll('.main-media img, .main-media video').forEach(media => {
+                media.addEventListener('touchstart', (event) => {
+                    event.stopPropagation();
+                });
+    
+                media.addEventListener('touchmove', (event) => {
+                    event.stopPropagation();
+                });
+            });
+    
         </script>
     </body>
     </html>
