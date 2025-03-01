@@ -544,7 +544,77 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;500&display=swap" rel="stylesheet">
+    <style>
+        #hop {
+            color: #000000;
+            margin-top: 10px;
+            font-size: 17px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 500; /* سمك متوسط */
+            margin-right: 16px;
+            margin-left: 16px; /* إضافة مسافة على اليسار */
+            direction: rtl;
+            text-align: right;
+            line-height: 1.2; /* تقليل المسافة بين السطور */
+        }
+   
+        /* تنسيق خاص بالهواتف */
+        @media only screen and (max-width: 768px) {
+            #hop {
+                position: relative;
+            }
+            #hop .short-text {
+                display: inline;
+            }
+            #hop .full-text {
+                display: none;
+            }
+            #hop .more-btn {
+                color: #007bff;
+                cursor: pointer;
+                display: inline;
+                vertical-align: middle;
+                margin-right: 0;
+                padding: 0;
+            }
+            #hop .last-word-wrapper {
+                display: inline-block;
+                white-space: nowrap;
+            }
+            #hop.expanded .short-text {
+                display: none;
+            }
+            #hop.expanded .full-text {
+                display: inline;
+            }
+            #hop.expanded .more-btn {
+                display: none;
+            }
+        }
 
+        /* للشاشات الكبيرة، يظهر النص كاملاً */
+        @media only screen and (min-width: 769px) {
+            #hop .short-text, #hop .more-btn {
+                display: none;
+            }
+            #hop .full-text {
+                display: inline;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2 id="hop">
+        اسفل النص الاصلى ساعه تعمل باللمس تقوم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+    </h2>
+</body>
+</html>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
