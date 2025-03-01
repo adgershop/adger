@@ -17,7 +17,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>معرض الصور</title>
         <style>
-            /* جميع أنماط CSS الأصلية تبقى كما هي */
             body {
                 font-family: Arial, sans-serif;
                 direction: rtl;
@@ -39,7 +38,7 @@
             .main-media {
                 margin-left: 20px;
                 position: relative;
-                touch-action: pan-y; /* إضافة مهمة */
+                touch-action: pan-y;
             }
         
             .main-media img, .main-media video {
@@ -192,7 +191,7 @@
                     padding-left: 0;
                     width: 311px;
                     gap: 10px;
-                    touch-action: pan-x; /* إضافة مهمة */
+                    touch-action: pan-x;
                 }
         
                 .thumbnail {
@@ -200,11 +199,6 @@
                     flex: 0 0 auto;
                     width: 65px;
                     height: 65px;
-                }
-        
-                .thumbnail img, .thumbnail video {
-                    width: 100%;
-                    height: 100%;
                 }
             }
         
@@ -277,7 +271,6 @@
         </style>
     </head>
     <body>
-        <!-- نفس الهيكل HTML الأصلي -->
         <div class="gallery">
             <div class="main-media">
                 <img id="mainMedia" src="1.jpg" alt="الصورة الرئيسية">
@@ -338,36 +331,43 @@
         </div>
     
         <script>
-            // إعدادات التمرير المحسنة
             let touchStartX = 0;
             let touchStartY = 0;
-            const SWIPE_THRESHOLD = 30; // حساسية السحب الأفقي
-            
+            const SWIPE_THRESHOLD = 30;
+            let isSwiping = false;
+    
             // إدارة أحداث اللمس
-            document.querySelector('.main-media').addEventListener('touchstart', function(e) {
+            document.querySelector('.main-media').addEventListener('touchstart', (e) => {
                 touchStartX = e.touches[0].clientX;
                 touchStartY = e.touches[0].clientY;
+                isSwiping = true;
             }, { passive: true });
     
-            document.querySelector('.main-media').addEventListener('touchmove', function(e) {
+            document.querySelector('.main-media').addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                
                 const touchEndX = e.touches[0].clientX;
                 const touchEndY = e.touches[0].clientY;
                 
                 const deltaX = touchEndX - touchStartX;
                 const deltaY = touchEndY - touchStartY;
                 
-                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > SWIPE_THRESHOLD) {
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
                     e.preventDefault();
-                    if (deltaX > 0) {
-                        prevMedia();
-                    } else {
-                        nextMedia();
+                    
+                    if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
+                        if (deltaX > 0) prevMedia();
+                        else nextMedia();
+                        isSwiping = false;
+                        touchStartX = touchEndX;
                     }
-                    touchStartX = touchEndX; // Reset start position
                 }
             }, { passive: false });
     
-            // باقي الدوال الأصلية مع تحسينات طفيفة
+            document.querySelector('.main-media').addEventListener('touchend', () => {
+                isSwiping = false;
+            });
+    
             function calculateTotalMedia() {
                 const totalMedia = document.querySelectorAll('.thumbnail').length;
                 document.getElementById('totalMedia').textContent = totalMedia;
@@ -384,62 +384,54 @@
                 const mainVideo = document.getElementById('mainVideo');
                 const type = thumbnail.dataset.type;
                 
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                thumbnail.classList.add('active');
+                
                 if (type === 'image') {
                     mainImage.src = thumbnail.dataset.src;
                     mainImage.style.display = 'block';
                     mainVideo.style.display = 'none';
                     mainVideo.pause();
+                    document.querySelector('.media-counter').style.display = 'flex';
                 } else {
                     mainVideo.querySelector('source').src = thumbnail.dataset.src;
                     mainVideo.load();
                     mainVideo.style.display = 'block';
                     mainImage.style.display = 'none';
+                    document.querySelector('.media-counter').style.display = 'none';
                 }
-            }
-    
-            function handleThumbnailClick(thumb) {
-                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                thumb.classList.add('active');
-                updateMainMedia(thumb);
+                
                 updateCurrentMedia();
             }
     
             function nextMedia() {
                 const thumbs = document.querySelectorAll('.thumbnail');
                 const currentIndex = Array.from(thumbs).findIndex(t => t.classList.contains('active'));
-                
-                if (currentIndex < thumbs.length - 1) {
-                    handleThumbnailClick(thumbs[currentIndex + 1]);
-                }
+                if (currentIndex < thumbs.length - 1) updateMainMedia(thumbs[currentIndex + 1]);
             }
     
             function prevMedia() {
                 const thumbs = document.querySelectorAll('.thumbnail');
                 const currentIndex = Array.from(thumbs).findIndex(t => t.classList.contains('active'));
-                
-                if (currentIndex > 0) {
-                    handleThumbnailClick(thumbs[currentIndex - 1]);
-                }
+                if (currentIndex > 0) updateMainMedia(thumbs[currentIndex - 1]);
             }
     
-            // التهيئة
             document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.thumbnail').forEach(thumb => {
+                    thumb.addEventListener('click', () => updateMainMedia(thumb));
+                    
+                    if (thumb.dataset.type === 'video') {
+                        thumb.querySelector('video').addEventListener('play', () => {
+                            document.querySelector('.media-counter').style.display = 'none';
+                        });
+                        thumb.querySelector('video').addEventListener('pause', () => {
+                            document.querySelector('.media-counter').style.display = 'flex';
+                        });
+                    }
+                });
+                
                 calculateTotalMedia();
                 updateCurrentMedia();
-                
-                document.querySelectorAll('.thumbnail').forEach(thumb => {
-                    thumb.addEventListener('click', () => handleThumbnailClick(thumb));
-                });
-    
-                // إدارة حالة الفيديو
-                document.querySelectorAll('.thumbnail[data-type="video"] video').forEach(video => {
-                    video.addEventListener('play', () => {
-                        document.querySelector('.media-counter').style.display = 'none';
-                    });
-                    video.addEventListener('pause', () => {
-                        document.querySelector('.media-counter').style.display = 'flex';
-                    });
-                });
             });
     
             function sharePage() {
@@ -447,9 +439,9 @@
                     navigator.share({
                         title: document.title,
                         url: window.location.href
-                    }).catch(console.error);
+                    }).catch(err => console.log('Error sharing:', err));
                 } else {
-                    alert('ميزة المشاركة غير مدعومة في هذا المتصفح');
+                    alert('المشاركة غير مدعومة في هذا المتصفح');
                 }
             }
         </script>
