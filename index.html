@@ -70,6 +70,9 @@
                 cursor: pointer;
                 text-align: center; /* محاذاة الأيقونة في الوسط */
                 margin-top: -4px;
+                outline: none;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
             }
     
             .scroll-to-top svg {
@@ -1560,15 +1563,22 @@
             }
     
             .menu-popup .back-arrow {
-                cursor: pointer;
-                margin-bottom: 20px;
-            }
-    
-            .menu-popup .back-arrow svg {
-                width: 24px;
-                height: 24px;
-                color: #333;
-            }
+    cursor: pointer;
+    margin-bottom: 20px;
+    -webkit-tap-highlight-color: transparent; /* إزالة تأثير التظليل */
+}
+
+.menu-popup .back-arrow:focus {
+    outline: none; /* منع ظهور التحديد عند التركيز */
+}
+
+.menu-popup .back-arrow svg {
+    width: 24px;
+    height: 24px;
+    color: #333;
+    pointer-events: none; /* يمنع التأثير على الـ SVG */
+}
+
     
             .menu-popup p {
                 font-size: 18px;
@@ -1959,13 +1969,54 @@
                     <path d="M19 12H5M12 19l-7-7 7-7"></path>
                 </svg>
             </div>
-            <p onclick="window.location.href='account.html'" style="font-family: Cairo, sans-serif;">حسابي</p>
-            <p onclick="window.location.href='about.html'" style="font-family: Cairo, sans-serif;">سياسات وأحكام</p>
-            <p onclick="window.location.href='return.html'" style="font-family: Cairo, sans-serif;">طلب استرجاع</p>
-            <p onclick="window.location.href='deals.html'" style="font-family: Cairo, sans-serif;">صفقة رابحة</p>
-            <p onclick="window.location.href='wholesale.html'" style="font-family: Cairo, sans-serif;">شراء بالجملة</p>
-            <p onclick="window.location.href='companies.html'" style="font-family: Cairo, sans-serif;">شركات عالمية</p>
-            <p onclick="window.location.href='categories.html'" style="font-family: Cairo, sans-serif;">الفئات</p>
+            <p onclick="window.location.href='account.html'" 
+            style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+            onmouseover="this.style.color='#444'" 
+            onmouseout="this.style.color='black'">
+             <span style="pointer-events: none;">حسابي</span>
+         </p>
+         
+         <p onclick="window.location.href='about.html'" 
+            style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+            onmouseover="this.style.color='#444'" 
+            onmouseout="this.style.color='black'">
+             <span style="pointer-events: none;">سياسات وأحكام</span>
+         </p>
+         
+         <p onclick="window.location.href='return.html'" 
+            style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+            onmouseover="this.style.color='#444'" 
+            onmouseout="this.style.color='black'">
+             <span style="pointer-events: none;">طلب استرجاع</span>
+         </p>
+         
+         <p onclick="window.location.href='deals.html'" 
+            style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+            onmouseover="this.style.color='#444'" 
+            onmouseout="this.style.color='black'">
+             <span style="pointer-events: none;">صفقة رابحة</span>
+         </p>
+         
+         <p onclick="window.location.href='wholesale.html'" 
+            style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+            onmouseover="this.style.color='#444'" 
+            onmouseout="this.style.color='black'">
+             <span style="pointer-events: none;">شراء بالجملة</span>
+         </p>
+         
+         <p onclick="window.location.href='companies.html'" 
+            style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+            onmouseover="this.style.color='#444'" 
+            onmouseout="this.style.color='black'">
+             <span style="pointer-events: none;">شركات عالمية</span>
+         </p>
+         
+         <p onclick="window.location.href='categories.html'" 
+            style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+            onmouseover="this.style.color='#444'" 
+            onmouseout="this.style.color='black'">
+             <span style="pointer-events: none;">الفئات</span>
+         </p>
         </div>
     
         <script>
@@ -2350,855 +2401,327 @@
     <h1  style=" font-family: 'Cairo', sans-serif; color: #464646; font-size: 16px; text-align: center;">*اَلـــمـــحـــتـــوى* </h1>
 
     <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>معرض الصور</title>
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                direction: rtl;
-            }
-    
-            .gallery {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                justify-content: center;
-                padding: 20px;
-            }
-    
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الصور</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            direction: rtl;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .image-container {
+            flex: 1 1 calc(16.666% - 20px);
+            max-width: calc(16.666% - 20px);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .image-frame {
+            border: 2px solid #cfcfcf;
+            border-radius: 32px;
+            padding: 10px;
+            text-align: center;
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+            background-color: #e0e0e0;
+            border-radius: 4%;
+        }
+
+        .image-frame img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 4%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .image-frame img.loaded {
+            opacity: 1;
+        }
+
+        .text-under {
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: right;
+        }
+
+        .text-under h1 {
+            font-family: Cairo, sans-serif;
+            color: #333;
+            font-size: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .add-to-cart {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #242424;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .add-to-cart svg {
+            width: 24px;
+            height: 24px;
+            color: #ffffff;
+        }
+
+        @media (max-width: 1024px) and (min-width: 769px) {
             .image-container {
-                flex: 1 1 calc(16.666% - 20px);
-                max-width: calc(16.666% - 20px);
-                box-sizing: border-box;
-                position: relative;
+                flex: 1 1 calc(25% - 10px);
+                max-width: calc(25% - 10px);
             }
-    
-            .image-frame {
-                border: 2px solid #cfcfcf;
-                border-radius: 32px;
-                padding: 10px;
-                text-align: center;
-                background-color: #ffffff;
-                position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                padding-left: 5px;
+                padding-right: 5px;
             }
-    
-            .image-wrapper {
-                position: relative;
-                width: 100%;
-                padding-top: 100%;
-                background-color: #e0e0e0;
-                border-radius: 4%;
+
+            .image-container {
+                flex: 1 1 calc(50% - 5px);
+                max-width: calc(50% - 5px);
             }
-    
-            .image-frame img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                display: block;
-                border-radius: 4%;
-                opacity: 0;
-                transition: opacity 0.5s ease-in-out;
+        }
+
+        @media (min-width: 1025px) {
+            .image-container {
+                flex: 1 1 calc(20% - 20px);
+                max-width: calc(20% - 20px);
             }
-    
-            .image-frame img.loaded {
-                opacity: 1;
-            }
-    
-            .text-under {
-                margin-top: 10px;
-                font-size: 14px;
-                line-height: 1.5;
-                text-align: right;
-            }
-    
+
             .text-under h1 {
-                font-family: Cairo, sans-serif;
-                color: #333;
-                font-size: 15px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                width: 100%;
+                font-size: 18px;
             }
-    
-            .add-to-cart {
-                position: absolute;
-                bottom: 10px;
-                left: 10px;
-                background-color: #242424;
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            }
-    
-            .add-to-cart svg {
-                width: 24px;
-                height: 24px;
-                color: #ffffff;
-            }
-    
-            @media (max-width: 1024px) and (min-width: 769px) {
-                .image-container {
-                    flex: 1 1 calc(25% - 10px);
-                    max-width: calc(25% - 10px);
-                }
-            }
-    
-            @media (max-width: 768px) {
-                .gallery {
-                    padding-left: 5px;
-                    padding-right: 5px;
-                }
-    
-                .image-container {
-                    flex: 1 1 calc(50% - 5px);
-                    max-width: calc(50% - 5px);
-                }
-            }
-    
-            @media (min-width: 1025px) {
-                .image-container {
-                    flex: 1 1 calc(20% - 20px);
-                    max-width: calc(20% - 20px);
-                }
-    
-                .text-under h1 {
-                    font-size: 18px;
-                }
-            }
-    
-            .hidden {
-                display: none;
-            }
-    
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .container {
+            margin-top: -7px;
+            display: flex;
+            align-items: right;
+            gap: 5px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
             .container {
                 margin-top: -7px;
-                display: flex;
-                align-items: right;
-                gap: 5px;
-                width: 100%;
             }
-    
-            @media (max-width: 768px) {
-                .container {
-                    margin-top: -7px;
-                }
-                .zero {
-                    font-size: 12px !important;
-                    margin-top: 13px !important;
-                    margin-left: -4px;
-                }
-                .number {
-                    font-size: 20px !important;
-                }
-                .letter {
-                    font-size: 14px !important;
-                    margin-top: 9px !important;
-                    margin-right: -3px !important;
-                }
+            .zero {
+                font-size: 12px !important;
+                margin-top: 13px !important;
+                margin-left: -4px;
             }
-    
-            .rotating-text1212 {
-                font-family: 'Cairo', sans-serif;
-                color: #ff0000;
-                font-size: 12px;
-                margin-top: 2px;
-                margin-right: 8.6px;
-                text-transform: uppercase;
-                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-                opacity: 1;
-                transform: translateY(0);
+            .number {
+                font-size: 20px !important;
             }
-        </style>
-    </head>
-    <body>
-        <div id="gallery" class="gallery">
-            <!-- المنتج الأول -->
-            <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الثاني -->
-            <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.3.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 28px;">464</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الثالث -->
-            <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 28px;">44</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الرابع -->
-            <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 28px;">44</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الخامس -->
-            <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج السادس (مخفي) -->
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج السابع (مخفي) -->
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الثامن (مخفي) -->
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الثامن (مخفي) -->
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الثامن (مخفي) -->
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الثامن (مخفي) -->
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الثامن (مخفي) -->
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الثامن (مخفي) -->
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- المنتج الثامن (مخفي) -->
-            <div class="image-container product hidden" data-name="ساعة تاتتش تعمل باللمس">
-                <div class="image-frame">
-                    <a href="prod1.html">
-                        <div class="image-wrapper">
-                            <img data-src="1.2.jpg" alt="Image 1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                        </div>
-                    </a>
-                    <div class="text-under">
-                        <h1>ساعة تاتش تعمل باللمس</h1>
-                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">22 مباعه - adger</h2>
-                        <div class="container">
-                            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
-                            <div class="number" style="font-size: 24px;">4443</div>
-                            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-                        </div>
-                        <div class="product1212">
-                            <h3 class="rotating-text1212" data-texts='["كان ب 00 جنيه", "خصم32%"]'>خصم32%</h3>
-                        </div>
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(this)">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
+            .letter {
+                font-size: 14px !important;
+                margin-top: 9px !important;
+            }
+        }
 
-        </div>
-    
-        <script>
-            // دالة إضافة المنتج إلى السلة
-            function addToCart(element) {
-                alert("تمت إضافة المنتج إلى سلة التسوق");
+        .rotating-text1212 {
+            font-family: 'Cairo', sans-serif;
+            color: #ff0000;
+            font-size: 12px;
+            margin-top: 2px;
+            margin-right: 8.6px;
+            text-transform: uppercase;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div id="gallery" class="gallery"></div>
+
+    <script>
+        // دالة إضافة المنتج إلى السلة
+        function addToCart(element) {
+            alert("تمت إضافة المنتج إلى سلة التسوق");
+        }
+
+        // مصفوفة المنتجات (يمكن إضافة 5000 منتج أو أكثر)
+        const products = [
+            { name: "ساعة تاتش سوداء", dataName: "تصميم عصري وأنيق", price: 1500, image: "images/black_watch.jpg", sold: 25, discountTexts: '["كان ب 2000 جنيه", "خصم25%"]', link: "product1.html" },
+            { name: "ساعة ذكية رياضية", dataName: "مقاومة للماء ومتعددة الوظائف", price: 2200, image: "images/sport_watch.jpg", sold: 50, discountTexts: '["كان ب 3000 جنيه", "خصم27%"]', link: "product2.html" },
+            { name: "ساعة كلاسيك باللمس", dataName: "أناقة مع تقنية اللمس", price: 1800, image: "images/classic_touch.jpg", sold: 15, discountTexts: '["كان ب 2500 جنيه", "خصم28%"]', link: "product3.html" },
+            { name: "ساعة أنيقة فضية", dataName: "تصميم فضي أنيق", price: 3000, image: "images/silver_elegant.jpg", sold: 30, discountTexts: '["كان ب 4000 جنيه", "خصم32%"]', link: "product4.html" },
+            { name: "ساعة ذهبية فاخرة", dataName: "فخامة بتصميم ذهبي", price: 5000, image: "images/gold_luxury.jpg", sold: 10, discountTexts: '["كان ب 6000 جنيه", "خصم16%"]', link: "product5.html" },
+            { name: "ساعة ذكية للأطفال", dataName: "مصممة خصيصًا للأطفال", price: 1200, image: "images/kids_smart.jpg", sold: 40, discountTexts: '["كان ب 1500 جنيه", "خصم20%"]', link: "product6.html" },
+            { name: "ساعة تاتش بيضاء", dataName: "تصميم أبيض أنيق", price: 1600, image: "images/white_touch.jpg", sold: 20, discountTexts: '["كان ب 2100 جنيه", "خصم24%"]', link: "product7.html" },
+            { name: "ساعة رياضية ضد الماء", dataName: "مقاومة للماء للأنشطة الرياضية", price: 2500, image: "images/waterproof_sport.jpg", sold: 35, discountTexts: '["كان ب 3200 جنيه", "خصم22%"]', link: "product8.html" },
+            { name: "ساعة كلاسيك جلد", dataName: "أسوارة جلدية كلاسيكية", price: 2000, image: "images/leather_classic.jpg", sold: 18, discountTexts: '["كان ب 2700 جنيه", "خصم26%"]', link: "product9.html" },
+            { name: "ساعة ذكية بتقنية NFC", dataName: "تدعم تقنية NFC للدفع", price: 2800, image: "images/nfc_smart.jpg", sold: 28, discountTexts: '["كان ب 3500 جنيه", "خصم20%"]', link: "product10.html" }
+            // يمكن إضافة المزيد من المنتجات هنا
+        ];
+
+        // دالة لترتيب المنتجات بشكل عشوائي
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-    
-            // التحميل الكسول باستخدام IntersectionObserver
-            document.addEventListener("DOMContentLoaded", function () {
-                const lazyImages = document.querySelectorAll("img[data-src]");
-                const gallery = document.getElementById('gallery');
-                const products = Array.from(gallery.getElementsByClassName('image-container'));
-    
-                const observer = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            img.src = img.dataset.src;
-                            img.onload = () => {
-                                img.classList.add("loaded");
-                            };
-                            img.removeAttribute("data-src");
-                            observer.unobserve(img);
-                        }
-                    });
-                }, {
-                    rootMargin: "0px 0px 200px 0px"
-                });
-    
+            return array;
+        }
+
+        // التوليد الديناميكي مع التمرير اللانهائي
+        document.addEventListener("DOMContentLoaded", function () {
+            const gallery = document.getElementById('gallery');
+            const itemsPerLoad = 20; // عدد العناصر التي يتم تحميلها في كل مرة
+            let loadedItems = 0;
+
+            // ترتيب المنتجات بشكل عشوائي
+            const shuffledProducts = shuffleArray(products);
+
+            // دالة لإضافة المنتجات
+            function loadProducts(startIndex, count) {
+                const endIndex = Math.min(startIndex + count, shuffledProducts.length);
+                for (let i = startIndex; i < endIndex; i++) {
+                    const product = shuffledProducts[i];
+                    // تحويل السعر إلى نص للتحقق من أول رقم
+                    const priceStr = product.price.toString();
+                    const firstDigit = priceStr.charAt(0);
+                    // الأرقام التي ستحصل على margin-right: -1px
+                    const specialDigits = ['2', '3', '5', '6', '8', '9'];
+                    // تعيين margin-right بناءً على أول رقم
+                    const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
+
+                    const productDiv = document.createElement('div');
+                    productDiv.className = 'image-container product';
+                    productDiv.setAttribute('data-name', product.dataName); // إضافة data-name هنا
+                    productDiv.innerHTML = `
+                        <div class="image-frame">
+                            <a href="${product.link}">
+                                <div class="image-wrapper">
+                                    <img data-src="${product.image}" alt="${product.name}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
+                                </div>
+                            </a>
+                            <div class="text-under">
+                                <h1>${product.name}</h1>
+                                <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
+                                <div class="container">
+                                    <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;">00.</div>
+                                    <div class="number" style="font-size: 24px;">${product.price}</div>
+                                    <div class="letter" style="margin-top: 15px; margin-right: ${letterMargin}; font-size: 16px;">جنيه</div>
+                                </div>
+                                <div class="product1212">
+                                    <h3 class="rotating-text1212" data-texts='${product.discountTexts}'>${JSON.parse(product.discountTexts)[0]}</h3>
+                                </div>
+                            </div>
+                            <div class="add-to-cart" onclick="addToCart(this)">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                                </svg>
+                            </div>
+                        </div>
+                    `;
+                    gallery.appendChild(productDiv);
+                }
+                loadedItems = endIndex;
+
+                // التحميل الكسول للصور الجديدة
+                const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                 lazyImages.forEach(img => observer.observe(img));
-    
-                // دالة لحساب عدد العناصر في الصف بناءً على حجم الشاشة
-                function getItemsPerRow() {
-                    const width = window.innerWidth;
-                    if (width <= 768) return 2; // 50% لكل عنصر
-                    if (width <= 1024) return 4; // 25% لكل عنصر
-                    if (width <= 1280) return 5; // 20% لكل عنصر
-                    return 6; // 16.666% لكل عنصر
-                }
-    
-                // خلط المنتجات وعرض عدد يساوي عدد العناصر في الصف الأول
-                function shuffle(array) {
-                    for (let i = array.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [array[i], array[j]] = [array[j], array[i]];
-                    }
-                }
-    
-                shuffle(products);
-                const itemsPerRow = getItemsPerRow();
-                gallery.innerHTML = '';
-                products.forEach((product, index) => {
-                    if (index < itemsPerRow) {
-                        product.classList.remove('hidden');
-                    } else {
-                        product.classList.add('hidden');
-                    }
-                    gallery.appendChild(product);
-                });
-    
-                // دالة لإظهار المنتجات المخفية بسرعة فائقة
-                function revealHiddenProducts() {
-                    const itemsPerRow = getItemsPerRow();
-                    const hiddenProducts = document.querySelectorAll('.image-container.hidden');
-    
-                    // إذا لم يكن هناك منتجات مخفية، نخرج من الدالة
-                    if (hiddenProducts.length === 0) return;
-    
-                    // إظهار المنتجات فورًا عند التمرير إلى منتصف الصفحة
-                    if (window.innerHeight + window.scrollY >= document.body.offsetHeight * 0.5) {
-                        const itemsToShow = Math.min(itemsPerRow, hiddenProducts.length); // عدد العناصر المطلوب إظهارها
-                        for (let i = 0; i < itemsToShow; i++) {
-                            hiddenProducts[i].classList.remove('hidden'); // إزالة الكلاس فورًا
-                        }
-                    }
-                }
-    
-                // استماع لحدث التمرير بدون تأخير
-                document.addEventListener('scroll', function () {
-                    revealHiddenProducts(); // استدعاء الدالة فورًا بدون تأخير
-                });
-    
-                // تحديث عند تغيير حجم الشاشة
-                window.addEventListener('resize', function () {
-                    const itemsPerRow = getItemsPerRow();
-                    const visibleProducts = document.querySelectorAll('.image-container:not(.hidden)').length;
-                    const hiddenProducts = document.querySelectorAll('.image-container.hidden');
-                    
-                    if (visibleProducts < itemsPerRow && hiddenProducts.length > 0) {
-                        const itemsToShow = Math.min(itemsPerRow - visibleProducts, hiddenProducts.length);
-                        for (let i = 0; i < itemsToShow; i++) {
-                            hiddenProducts[i].classList.remove('hidden'); // إظهار فوري
-                        }
-                    }
-                    revealHiddenProducts(); // تحديث فوري
-                });
-            });
-    
-            // النص المتحرك
-            function startRotatingText(selector) {
-                document.querySelectorAll(selector).forEach(element => {
-                    const texts = JSON.parse(element.getAttribute("data-texts"));
-                    let currentIndex = 0;
-                    let nextIndex = 1;
-                    setInterval(() => {
-                        element.style.opacity = "0";
-                        element.style.transform = "translateY(20px)";
-                        setTimeout(() => {
-                            element.textContent = texts[currentIndex];
-                            element.style.opacity = "1";
-                            element.style.transform = "translateY(0)";
-                            currentIndex = nextIndex;
-                            nextIndex = nextIndex === 0 ? 1 : 0;
-                        }, 500);
-                    }, 5000);
-                });
             }
-            startRotatingText(".rotating-text1212");
-        </script>
-    </body>
-    </html>
 
+            // التحميل الكسول باستخدام IntersectionObserver
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.onload = () => img.classList.add("loaded");
+                        observer.unobserve(img);
+                    }
+                });
+            }, { rootMargin: "0px 0px 200px 0px" });
+
+            // تحميل الدفعة الأولى
+            loadProducts(0, itemsPerLoad);
+
+            // التمرير اللانهائي
+            document.addEventListener('scroll', function () {
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && loadedItems < shuffledProducts.length) {
+                    loadProducts(loadedItems, itemsPerLoad);
+                }
+            });
+
+            // إعادة تحميل عند تغيير حجم الشاشة (اختياري)
+            window.addEventListener('resize', function () {
+                const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+                lazyImages.forEach(img => observer.observe(img));
+            });
+
+            // تشغيل النص المتحرك بعد إضافة المنتجات
+            startRotatingText(".rotating-text1212");
+        });
+
+        // دالة النص المتحرك
+        function startRotatingText(selector) {
+            document.querySelectorAll(selector).forEach(element => {
+                const texts = JSON.parse(element.getAttribute("data-texts"));
+                let currentIndex = 0;
+                setInterval(() => {
+                    element.style.transition = "opacity 0.5s, transform 0.5s";
+                    element.style.opacity = "0";
+                    element.style.transform = "translateY(20px)";
+                    setTimeout(() => {
+                        currentIndex = (currentIndex + 1) % texts.length;
+                        element.textContent = texts[currentIndex];
+                        element.style.opacity = "1";
+                        element.style.transform = "translateY(0)";
+                    }, 500);
+                }, 5000);
+            });
+        }
+    </script>
+</body>
+</html>
 
 
 
