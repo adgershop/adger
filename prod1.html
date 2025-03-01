@@ -10,7 +10,6 @@
 
  
 
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -27,7 +26,7 @@
                 margin: 0;
                 background-color: #f4f4f4;
             }
-        
+    
             .gallery {
                 display: flex;
                 align-items: flex-start;
@@ -35,12 +34,12 @@
                 margin-top: 20px;
                 position: relative;
             }
-        
+    
             .main-media {
                 margin-left: 20px;
                 position: relative;
             }
-        
+    
             .main-media img, .main-media video {
                 width: 400px;
                 height: 400px;
@@ -48,11 +47,11 @@
                 border-radius: 10px;
                 display: block;
             }
-        
+    
             .main-media video:fullscreen {
                 border: none;
             }
-        
+    
             .thumbnails {
                 display: flex;
                 flex-direction: column;
@@ -62,11 +61,11 @@
                 scrollbar-width: none;
                 -ms-overflow-style: none;
             }
-        
+    
             .thumbnails::-webkit-scrollbar {
                 display: none;
             }
-        
+    
             .thumbnail {
                 margin: 10px 0;
                 cursor: pointer;
@@ -78,7 +77,7 @@
                 height: 66px;
                 box-sizing: border-box;
             }
-        
+    
             .thumbnail img, .thumbnail video {
                 width: 100%;
                 height: 100%;
@@ -87,18 +86,11 @@
                 margin: 0;
                 padding: 0;
             }
-        
+    
             .thumbnail.active {
                 border-color: #ff0000;
             }
-
-            
-        .line {
-            width: 100%;
-            height: 8px;
-            background-color: #eeeeee;
-        }
-        
+    
             .play-icon {
                 position: absolute;
                 top: 50%;
@@ -113,13 +105,13 @@
                 justify-content: center;
                 pointer-events: none;
             }
-        
+    
             .play-icon svg {
                 width: 16px;
                 height: 16px;
                 fill: white;
             }
-        
+    
             .share-button {
                 position: absolute;
                 left: 11px;
@@ -134,21 +126,21 @@
                 justify-content: center;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             }
-        
+    
             .share-button.bottom {
                 bottom: 11px;
             }
-        
+    
             .share-button.top {
                 top: 10px;
                 display: none;
             }
-        
+    
             .share-button svg {
                 width: 24px;
                 height: 24px;
             }
-        
+    
             .fullscreen-button {
                 position: absolute;
                 top: 10px;
@@ -165,7 +157,7 @@
                 color: white;
                 z-index: 2;
             }
-        
+    
             @media (max-width: 555px) {
                 .gallery {
                     flex-direction: column;
@@ -173,17 +165,17 @@
                     margin-top: 22px;
                     margin-right: 1px;
                 }
-        
+    
                 .main-media {
                     margin-left: 0;
                     margin-bottom: 20px;
                 }
-        
+    
                 .main-media img, .main-media video {
                     width: 311px;
                     height: 311px;
                 }
-        
+    
                 .thumbnails {
                     flex-direction: row;
                     max-height: none;
@@ -193,20 +185,20 @@
                     width: 311px;
                     gap: 10px;
                 }
-        
+    
                 .thumbnail {
                     margin: 0;
                     flex: 0 0 auto;
                     width: 65px;
                     height: 65px;
                 }
-        
+    
                 .thumbnail img, .thumbnail video {
                     width: 100%;
                     height: 100%;
                 }
             }
-        
+    
             .media-counter {
                 position: absolute;
                 font-family: 'Cairo', sans-serif;
@@ -223,7 +215,7 @@
                 justify-content: center;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             }
-        
+    
             @media (max-width: 555px) {
                 .media-counter {
                     background-color: rgba(255, 255, 255, 0.616);
@@ -233,7 +225,7 @@
                     padding: 3px 13px;
                 }
             }
-        
+    
             .arrow {
                 position: absolute;
                 top: 50%;
@@ -253,21 +245,21 @@
                 opacity: 1;
                 transition: opacity 0.5s ease-in-out;
             }
-        
+    
             .arrow.left {
                 left: 2px;
             }
-        
+    
             .arrow.right {
                 right: 2px;
             }
-        
+    
             .arrow svg {
                 fill: white;
                 width: 30px;
                 height: 34px;
             }
-        
+    
             @media (max-width: 556px) {
                 .arrow {
                     display: none;
@@ -481,7 +473,6 @@
 
 
 
-
         <div class="container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; margin-top: 22px;">
             <div class="price" style="display: flex; align-items: center; gap: 5px;">
                 <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px; margin-right: 22px;">00.</div>
@@ -543,6 +534,9 @@
     </script>
 </body>
 </html>
+
+
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -561,47 +555,64 @@
             direction: rtl;
             text-align: right;
             line-height: 1.3;
+            display: none; /* إخفاء النص الأصلي مؤقتًا */
         }
-        
+
+        #hop .short-text, #hop .full-text {
+            display: inline;
+        }
+
+        #hop .full-text {
+            display: none;
+        }
+
+        #hop.expanded .full-text {
+            display: inline;
+        }
+
+        #hop.expanded .short-text {
+            display: none;
+        }
+
+        #hop .more-btn {
+            cursor: pointer;
+            display: inline-block;
+            color: #007bff;
+            vertical-align: middle;
+            margin-right: 0;
+            padding: 0;
+        }
+
+        #hop .last-word-wrapper {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
         /* تنسيق خاص بالهواتف */
         @media only screen and (max-width: 768px) {
             #hop {
                 position: relative;
             }
-            #hop .short-text {
-                display: inline;
-            }
-            #hop .full-text {
-                display: none;
-            }
-            #hop .more-btn {
-                color: #007bff;
-                cursor: pointer;
-                display: inline;
-                vertical-align: middle;
-                margin-right: 0;
-                padding: 0;
-            }
-            #hop .last-word-wrapper {
-                display: inline-block;
-                white-space: nowrap;
-            }
-            #hop.expanded .short-text {
-                display: none;
-            }
-            #hop.expanded .full-text {
-                display: inline;
-            }
-            #hop.expanded .more-btn {
-                display: none;
+        }
+
+        /* للشاشات المتوسطة */
+        @media only screen and (min-width: 769px) and (max-width: 1199px) {
+            #hop {
+                font-size: 17px;
             }
         }
 
-        /* للشاشات الكبيرة، يظهر النص كاملاً ويستخدم خط مختلف */
-        @media only screen and (min-width: 769px) {
+        /* للشاشات الكبيرة */
+        @media only screen and (min-width: 1200px) and (max-width: 1999px) {
             #hop {
-                font-family: 'Tajawal', sans-serif; /* تغيير الخط للشاشات الكبيرة */
-                font-size: 18px;
+                font-size: 16px;
+            }
+        }
+
+        /* للشاشات الأكبر من 2000 */
+        @media only screen and (min-width: 2000px) {
+            #hop {
+                font-size: 16px;
             }
             #hop .short-text, #hop .more-btn {
                 display: none;
@@ -615,61 +626,87 @@
 <body>
     <h2 id="hop">
         اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+        اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+        اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+        اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
     </h2>
-</body>
-</html>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('hop');
             const originalText = container.textContent.trim();
-            const charLimit = 50;
+            const charLimitMobile = 50;
+            const charLimitTablet = 122;
+            const charLimitLarge = 132;
 
-            if (originalText.length > charLimit) {
-                const truncatedText = originalText.substring(0, charLimit);
-                const lastSpaceIndex = truncatedText.lastIndexOf(' ');
-                let shortTextContent = truncatedText;
-                let lastWord = '';
+            const truncateText = (text, charLimit) => {
+                if (text.length > charLimit) {
+                    const truncatedText = text.substring(0, charLimit);
+                    const lastSpaceIndex = truncatedText.lastIndexOf(' ');
+                    let shortTextContent = truncatedText;
+                    let lastWord = '';
 
-                // إذا كان هناك مسافة، افصل الكلمة الأخيرة
-                if (lastSpaceIndex !== -1) {
-                    shortTextContent = truncatedText.substring(0, lastSpaceIndex);
-                    lastWord = truncatedText.substring(lastSpaceIndex + 1);
+                    // إذا كان هناك مسافة، افصل الكلمة الأخيرة
+                    if (lastSpaceIndex !== -1) {
+                        shortTextContent = truncatedText.substring(0, lastSpaceIndex);
+                        lastWord = truncatedText.substring(lastSpaceIndex + 1);
+                    }
+
+                    const shortText = document.createElement('span');
+                    shortText.className = 'short-text';
+                    
+                    const initialText = document.createElement('span');
+                    initialText.textContent = shortTextContent;
+
+                    const lastWordWrapper = document.createElement('span');
+                    lastWordWrapper.className = 'last-word-wrapper';
+                    lastWordWrapper.textContent = (lastWord ? ' ' + lastWord : '') + '...';
+
+                    const fullText = document.createElement('span');
+                    fullText.className = 'full-text';
+                    fullText.textContent = text;
+
+                    const moreBtn = document.createElement('span');
+                    moreBtn.className = 'more-btn';
+                    moreBtn.innerHTML = `
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    `;
+
+                    container.textContent = '';
+                    shortText.appendChild(initialText);
+                    lastWordWrapper.appendChild(moreBtn);
+                    shortText.appendChild(lastWordWrapper);
+                    container.appendChild(shortText);
+                    container.appendChild(fullText);
+
+                    moreBtn.addEventListener('click', () => {
+                        container.classList.toggle('expanded');
+                    });
+
+                    container.style.display = 'block'; // إظهار النص بعد الاقتطاع
+                } else {
+                    container.style.display = 'block'; // إظهار النص كما هو إذا لم يتم اقتطاعه
                 }
+            };
 
-                const shortText = document.createElement('span');
-                shortText.className = 'short-text';
-                
-                const initialText = document.createElement('span');
-                initialText.textContent = shortTextContent;
+            const updateTextBasedOnScreenSize = () => {
+                const screenWidth = window.innerWidth;
+                if (screenWidth <= 768) {
+                    truncateText(originalText, charLimitMobile);
+                } else if (screenWidth >= 769 && screenWidth <= 1199) {
+                    truncateText(originalText, charLimitTablet);
+                } else if (screenWidth >= 1200 && screenWidth <= 1999) {
+                    truncateText(originalText, charLimitLarge);
+                } else {
+                    container.textContent = originalText;
+                    container.style.display = 'block'; // إظهار النص كاملاً إذا كانت الشاشة كبيرة
+                }
+            };
 
-                const lastWordWrapper = document.createElement('span');
-                lastWordWrapper.className = 'last-word-wrapper';
-                lastWordWrapper.textContent = (lastWord ? ' ' + lastWord : '') + '...';
-
-                const fullText = document.createElement('span');
-                fullText.className = 'full-text';
-                fullText.textContent = originalText;
-
-                const moreBtn = document.createElement('span');
-                moreBtn.className = 'more-btn';
-                moreBtn.innerHTML = `
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                `;
-
-                container.textContent = '';
-                shortText.appendChild(initialText);
-                lastWordWrapper.appendChild(moreBtn);
-                shortText.appendChild(lastWordWrapper);
-                container.appendChild(shortText);
-                container.appendChild(fullText);
-
-                moreBtn.addEventListener('click', () => {
-                    container.classList.toggle('expanded');
-                });
-            }
+            updateTextBasedOnScreenSize();
+            window.addEventListener('resize', updateTextBasedOnScreenSize);
         });
     </script>
 </body>
