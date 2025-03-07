@@ -183,7 +183,7 @@
                 font-family: Arial, sans-serif;
             }
             .main-container {
-                margin-top: 97px;
+                margin-top: 93px;
                 width: 100%; /* عرض الشاشة بالكامل */
                 height: 350px; /* ارتفاع 350 بكسل */
                 background-color: rgb(0, 195, 255); /* لون الخلفية */
@@ -332,7 +332,7 @@
                 <div class="middle-text">
                     <h2 style="font-family: 'Cairo', sans-serif;  color: #000000;  font-size: 14px;">ها قد اشرقت الشمس و صنع سيف الدين أجر</h2>
                     <!-- النص المتغير -->
-                    <h2 id="changing-text" class="changing-text" style="font-family: 'Cairo', sans-serif; margin-bottom: 22px; color: #ff0000; font-size: 14px; text-shadow: 1px 1px 0 #ccc, 2px 2px 0 #bbb, 2px 2px 0 #aaa, 3px 3px 0 #999, 2px 2px 0 #888, 3px 3px 0 #777;">
+                    <h2 id="changing-text" class="changing-text" style="font-family: 'Cairo', sans-serif; margin-bottom: 22px; color: #a200ff; font-size: 14px; text-shadow: 1px 1px 0 #ccc, 2px 2px 0 #bbb, 2px 2px 0 #aaa, 3px 3px 0 #999, 2px 2px 0 #888, 3px 3px 0 #777;">
                         أكثر من 50 منتج
                         </h2>
                     <!-- قسم الصور المصغرة -->
@@ -460,14 +460,14 @@
             <title>Slideshow</title>
             <style>
                 .white-bar {
-                    height: 86px;
+                    height: 83px;
                     background-color: white;
                     text-align: center;
                     margin-bottom: 20px;
                 }
                 @media (max-width: 769px) {
                     .white-bar {
-                        height: 78px;
+                        height: 73px;
                     }
                 }
         
@@ -1884,10 +1884,10 @@
                     /* الشريط الأبيض الثابت أسفل الشريط العلوي */
                     .sub-header {
                         position: fixed;
-                        top: 66px;
+                        top: 62px;
                         left: 0;
                         right: 0;
-                        height: 48px;
+                        height: 51px;
                         background-color: white;
                         box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
                         text-shadow: none;
@@ -1901,7 +1901,7 @@
                     }
                     @media (max-width: 769px) { /* الهواتف */
                         .sub-header {
-                top: 62px;
+                top: 55px;
     }
 }
             
@@ -1941,7 +1941,7 @@
                     .underline {
                         position: absolute;
                         bottom: 0; /* التأكد من أن الخط أسفل النص تمامًا */
-                        height: 3px;
+                        height: 2px;
                         background-color: #000000; /* لون الخط */
                         transition: all 0.3s ease;
                     }
@@ -1971,225 +1971,267 @@
             </div>
             <p onclick="window.location.href='account.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#777'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#777'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">حسابي</span>
          </p>
          
          <p onclick="window.location.href='about.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#777'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#777'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">سياسات وأحكام</span>
          </p>
          
          <p onclick="window.location.href='return.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#777'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#777'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">طلب استرجاع</span>
          </p>
          
          <p onclick="window.location.href='deals.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#777'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#777'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">صفقة رابحة</span>
          </p>
          
          <p onclick="window.location.href='wholesale.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#777'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#777'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">شراء بالجملة</span>
          </p>
          
          <p onclick="window.location.href='companies.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#777'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#777'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">شركات عالمية</span>
          </p>
          
          <p onclick="window.location.href='categories.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#777'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#777'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">الفئات</span>
          </p>
+         
         </div>
     
-        <script>
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    window.scrollTo(0, 0);
-                });
-            });
-    
-            function selectItem(itemName, element) {
-                const underline = document.querySelector('.underline');
-                const navItems = document.querySelectorAll('.sub-header nav a');
-    
-                navItems.forEach(item => {
-                    item.classList.remove('active');
-                });
-    
-                element.classList.add('active');
-                underline.style.width = element.offsetWidth + 'px';
-                underline.style.left = element.offsetLeft + 'px';
+       
+    <script>
+        // استرجاع بيانات المستخدم من localStorage
+        const username = localStorage.getItem('username');
+
+        // عرض "أهلاً" مع اسم المستخدم أو نص بديل
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const usernameDisplay = document.getElementById('usernameDisplay');
+
+        if (username) {
+            // Function to detect if the name contains Arabic characters
+            function isArabic(text) {
+                return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
             }
-    
-            function toggleMenu() {
-                const menuPopup = document.getElementById('menuPopup');
-                if (menuPopup.classList.contains('active')) {
-                    menuPopup.classList.remove('active');
-                    menuPopup.classList.add('closing');
-                    setTimeout(() => {
-                        menuPopup.classList.remove('closing');
-                        menuPopup.style.display = 'none';
-                    }, 300); // Match the animation duration
-                } else {
-                    menuPopup.style.display = 'block';
-                    setTimeout(() => {
-                        menuPopup.classList.add('active');
-                    }, 10); // Small delay to ensure the display property change takes effect before animation
-                }
-            }
-        </script>
-    </body>
-    </html>
-                <script>
-                    // استرجاع بيانات المستخدم من localStorage
-                    const username = localStorage.getItem('username');
-            
-                    // عرض "أهلاً" مع اسم المستخدم أو نص بديل
-                    const welcomeMessage = document.getElementById('welcomeMessage');
-                    const usernameDisplay = document.getElementById('usernameDisplay');
-            
-                    if (username) {
-                            usernameDisplay.textContent = username; // عرض اسم المستخدم
-                       
-                       
-        
-        
-        
-                     // Function to detect if the name contains Arabic characters
-        function isArabic(text) {
-            return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
-        }
-        
-        // Function to truncate the username based on language
-        function truncateUsername(name) {
-            if (window.innerWidth < 966 && name.length > 7) {
+
+            // Function to truncate the username based on language
+            function truncateUsername(name) {
                 const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
-                if (isArabic(name)) {
-                    return name.substring(0, maxLength) + '..'; // Keep the ellipsis at the end for Arabic
-                } else {
-                    return '..' + name.substring(0, maxLength); // Place the ellipsis at the beginning, truncate from the end for English
+                
+                // Check if the screen width is less than 966px and name length exceeds maxLength
+                if (window.innerWidth < 966 && name.length > maxLength) {
+                    if (isArabic(name)) {
+                        return name.substring(0, maxLength) + '..'; // Truncate and add ".." at the end for Arabic
+                    } else {
+                        return '..' + name.substring(0, maxLength); // Truncate and add ".." at the beginning for English
+                    }
                 }
+                return name; // Return the name unchanged if no truncation is needed
             }
-            return name;
-        }
-        
-        // Apply the modification on page load and screen resize
-        usernameDisplay.textContent = truncateUsername(username);
-        window.addEventListener('resize', () => {
+
+            // Apply the modification on page load and screen resize
             usernameDisplay.textContent = truncateUsername(username);
+            window.addEventListener('resize', () => {
+                usernameDisplay.textContent = truncateUsername(username);
+            });
+        } else {
+            welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+        }
+
+        // دالة لتحريك الخط عند النقر على عناصر القائمة
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                window.scrollTo(0, 0);
+            });
         });
-        
-        
-        
-        
-        
-                            
-                        } else {
-                            welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
-                        }
-            
-                    // دالة لإظهار أو إخفاء القائمة الجانبية
-                    function toggleMenu() {
-                        const menuPopup = document.getElementById('menuPopup');
-                        if (menuPopup.classList.contains('active')) {
-                            menuPopup.classList.remove('active');
-                            menuPopup.classList.add('closing');
-                            setTimeout(() => {
-                                menuPopup.classList.remove('closing');
-                                menuPopup.style.display = 'none';
-                            }, 300); // يتناسب مع مدة animation
-                        } else {
-                            menuPopup.style.display = 'block';
-                            menuPopup.classList.add('active');
-                        }
-                    }
-            
-                    // دالة لتنفيذ البحث
-                    function performSearch(searchTerm) {
-                        const products = document.querySelectorAll('.product'); // جميع المنتجات
-            
-                        products.forEach(product => {
-                            const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
-                            if (productName.includes(searchTerm.toLowerCase())) {
-                                product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
-                            } else {
-                                product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
-                            }
-                        });
-                    }
-            
-                    // دالة لتحريك الخط ووضع الكلمة في صندوق البحث (إن وجدت)
-                    function selectItem(item, element) {
-                        const searchBox = document.getElementById('search-box');
-            
-                        // إذا كان العنصر المحدد هو "الكل"، فقط قم بإفراغ صندوق البحث
-                        if (item === 'الكل') {
-                            searchBox.value = '';
-                            performSearch(''); // تنفيذ البحث مع سلسلة فارغة لإظهار كل المنتجات
-                        } else if (item) {
-                            searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كانت موجودة)
-                            performSearch(item); // تنفيذ البحث
-                        }
-            
-                        // إزالة الفئة النشطة من جميع العناصر
-                        const allItems = document.querySelectorAll('.sub-header nav a');
-                        allItems.forEach(item => item.classList.remove('active'));
-            
-                        // إضافة الفئة النشطة للعنصر المحدد
-                        element.classList.add('active');
-            
-                        // تحريك الخط
-                        const underline = document.querySelector('.underline');
-                        const itemRect = element.getBoundingClientRect();
-                        const navRect = element.parentElement.getBoundingClientRect();
-            
-                        underline.style.width = `${itemRect.width}px`;
-                        underline.style.left = `${itemRect.left - navRect.left}px`;
-            
-                        // تمرير العنصر إلى منتصف الشاشة إذا كان خارج العرض
-                        element.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center',
-                            inline: 'center'
-                        });
-                    }
-            
-                    // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
-                    window.onload = function () {
-                        const defaultItem = document.querySelector('.sub-header nav a');
-                        const underline = document.querySelector('.underline');
-                        const itemRect = defaultItem.getBoundingClientRect();
-                        const navRect = defaultItem.parentElement.getBoundingClientRect();
-            
-                        // إضافة الفئة النشطة لعنصر "الكل" بشكل افتراضي
-                        defaultItem.classList.add('active');
-            
-                        // ضبط الخط تحت "الكل" بشكل افتراضي
-                        underline.style.width = `${itemRect.width}px`;
-                        underline.style.left = `${itemRect.left - navRect.left}px`;
-                    };
-                </script>
-            </body>
-            </html>
+
+        function selectItem(itemName, element) {
+            const underline = document.querySelector('.underline');
+            const navItems = document.querySelectorAll('.sub-header nav a');
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            element.classList.add('active');
+            underline.style.width = element.offsetWidth + 'px';
+            underline.style.left = element.offsetLeft + 'px';
+        }
+
+        // دالة لإظهار أو إخفاء القائمة الجانبية
+        function toggleMenu() {
+            const menuPopup = document.getElementById('menuPopup');
+            if (menuPopup.classList.contains('active')) {
+                menuPopup.classList.remove('active');
+                menuPopup.classList.add('closing');
+                setTimeout(() => {
+                    menuPopup.classList.remove('closing');
+                    menuPopup.style.display = 'none';
+                }, 300); // يتناسب مع مدة animation
+            } else {
+                menuPopup.style.display = 'block';
+                setTimeout(() => {
+                    menuPopup.classList.add('active');
+                }, 10); // تأخير بسيط لضمان تطبيق خاصية display قبل الـ animation
+            }
+        }
+
+        // دالة لتنفيذ البحث
+        function performSearch(searchTerm) {
+            const products = document.querySelectorAll('.product'); // جميع المنتجات
+
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
+                if (productName.includes(searchTerm.toLowerCase())) {
+                    product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
+                } else {
+                    product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
+                }
+            });
+        }
+
+        // دالة لتحريك الخط ووضع الكلمة في صندوق البحث (إن وجدت)
+        function selectItem(item, element) {
+            const searchBox = document.getElementById('search-box');
+
+            // إذا كان العنصر المحدد هو "الكل"، فقط قم بإفراغ صندوق البحث
+            if (item === 'الكل') {
+                searchBox.value = '';
+                performSearch(''); // تنفيذ البحث مع سلسلة فارغة لإظهار كل المنتجات
+            } else if (item) {
+                searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كانت موجودة)
+                performSearch(item); // تنفيذ البحث
+            }
+
+            // إزالة الفئة النشطة من جميع العناصر
+            const allItems = document.querySelectorAll('.sub-header nav a');
+            allItems.forEach(item => item.classList.remove('active'));
+
+            // إضافة الفئة النشطة للعنصر المحدد
+            element.classList.add('active');
+
+            // تحريك الخط
+            const underline = document.querySelector('.underline');
+            const itemRect = element.getBoundingClientRect();
+            const navRect = element.parentElement.getBoundingClientRect();
+
+            underline.style.width = `${itemRect.width}px`;
+            underline.style.left = `${itemRect.left - navRect.left}px`;
+
+            // تمرير العنصر إلى منتصف الشاشة إذا كان خارج العرض
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'center'
+            });
+        }
+
+        // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
+        window.onload = function () {
+            const defaultItem = document.querySelector('.sub-header nav a');
+            const underline = document.querySelector('.underline');
+            if (defaultItem && underline) {
+                const itemRect = defaultItem.getBoundingClientRect();
+                const navRect = defaultItem.parentElement.getBoundingClientRect();
+
+                // إضافة الفئة النشطة لعنصر "الكل" بشكل افتراضي
+                defaultItem.classList.add('active');
+
+                // ضبط الخط تحت "الكل" بشكل افتراضي
+                underline.style.width = `${itemRect.width}px`;
+                underline.style.left = `${itemRect.left - navRect.left}px`;
+            }
+        };
+
+       // متغيرات لتتبع السحب
+let startX = 0;
+let currentX = 0;
+let isDragging = false;
+
+const menuPopup = document.getElementById('menuPopup');
+
+// دالة لبدء تتبع السحب
+function startDrag(event) {
+    if (menuPopup.classList.contains('active') && menuPopup.contains(event.target)) {
+        startX = event.touches[0].clientX;
+        isDragging = true;
+    }
+}
+
+// دالة لتتبع حركة السحب
+function drag(event) {
+    if (!isDragging) return;
+    currentX = event.touches[0].clientX;
+    const diff = currentX - startX;
+    if (diff < -50) { // إذا تم السحب إلى اليسار بمقدار 50 بكسل
+        toggleMenu();
+        isDragging = false;
+    }
+}
+
+// دالة لإنهاء تتبع السحب
+function endDrag() {
+    isDragging = false;
+}
+
+// دالة للتحقق من النقر خارج النافذة
+function handleClickOutside(event) {
+    if (menuPopup.classList.contains('active') && !menuPopup.contains(event.target)) {
+        toggleMenu();
+    }
+}
+
+// إضافة مستمعات الأحداث
+document.addEventListener('touchstart', startDrag);
+document.addEventListener('touchmove', drag);
+document.addEventListener('touchend', endDrag);
+document.addEventListener('click', handleClickOutside);
+
+// منع التمرير أثناء فتح النافذة
+menuPopup.addEventListener('touchmove', function(event) {
+    if (menuPopup.classList.contains('active')) {
+        event.preventDefault();
+    }
+}, { passive: false });
+    </script>
+</body>
+</html>
 
 
 
