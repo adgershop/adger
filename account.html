@@ -5,33 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تسجيل الدخول</title>
     <style>
+        @font-face {
+    font-family: 'Cairo';
+    src: url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+    font-display: swap;
+}
+        /* أنماط الخلفية الشفافة */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999; /* للتأكد من ظهورها فوق كل المحتوى */
+        }
+
+        /* أنماط دائرة التحميل */
+        .loader {
+            content: "";
+                width: 50px;
+                height: 50px;
+                border: 5px solid #0051ff;
+                border-top-color: transparent;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+        }
+
+        /* مفتاح الرسوم المتحركة للدوران */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #ffffff, #d8eeffd3); /* Gradient for depth */
+            background: linear-gradient(135deg, #ffffff, #d8eeffd3);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
-        .login-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 300px;
-    position: relative;
-    margin-top: -84px;}
 
-@media (max-width: 499px) {
-    .login-container {
-        margin-top: -122px;
-    }
-}
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+            position: relative;
+            margin-top: -84px;
+        }
+
+        @media (max-width: 499px) {
+            .login-container {
+                margin-top: -122px;
+            }
+        }
+
         .login-container h2 {
             font-family: Cairo, sans-serif;
-            font-size: 18px;
+            font-size: 17px;
             margin-bottom: 20px;
             color: #333;
         }
@@ -78,7 +117,13 @@
     </style>
 </head>
 <body>
-    <div class="login-container" id="loginContainer">
+    <!-- حاوية الخلفية الشفافة مع دائرة التحميل -->
+    <div class="loader-overlay" id="loaderOverlay">
+        <div class="loader" id="loader"></div>
+    </div>
+
+    <!-- حاويات المحتوى مخفية مباشرة في HTML -->
+    <div class="login-container" id="loginContainer" style="display: none;">
         <h2>تسجيل الدخول</h2>
         <img src="https://via.placeholder.com/100" alt="صورة المستخدم" class="profile-picture" id="profilePicture">
         <input type="text" id="username" placeholder="اسم المستخدم">
@@ -94,6 +139,25 @@
     </div>
 
     <script>
+        window.addEventListener('load', () => {
+            // إخفاء الخلفية الشفافة مع دائرة التحميل بعد التحميل
+            document.getElementById('loaderOverlay').style.display = 'none';
+            
+            // التحقق من حالة تسجيل الدخول
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn) {
+                document.getElementById('profileContainer').style.display = 'block';
+                
+                const username = localStorage.getItem('username');
+                const profileImage = localStorage.getItem('profileImage');
+                
+                document.getElementById('usernameDisplay').textContent = username;
+                document.getElementById('profilePictureDisplay').src = profileImage;
+            } else {
+                document.getElementById('loginContainer').style.display = 'block';
+            }
+        });
+
         function previewImage(event) {
             const file = event.target.files[0];
             if (file) {
@@ -114,8 +178,6 @@
                 localStorage.setItem('profileImage', profileImage);
                 localStorage.setItem('isLoggedIn', true);
                 alert('تم تسجيل الدخول بنجاح!');
-
-                // Use history.back() to go back to the previous page
                 window.history.back();
             } else {
                 alert('يرجى إدخال اسم المستخدم!');
@@ -126,22 +188,8 @@
             localStorage.removeItem('username');
             localStorage.removeItem('profileImage');
             localStorage.removeItem('isLoggedIn');
-            window.location.href = 'account.html'; // العودة إلى صفحة تسجيل الدخول
+            window.location.href = 'account.html';
         }
-
-        window.onload = function() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            if (isLoggedIn) {
-                document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('profileContainer').style.display = 'block';
-
-                const username = localStorage.getItem('username');
-                const profileImage = localStorage.getItem('profileImage');
-
-                document.getElementById('usernameDisplay').textContent = username;
-                document.getElementById('profilePictureDisplay').src = profileImage;
-            }
-        };
     </script>
 </body>
 </html>
@@ -161,6 +209,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الصفحة الرئيسية</title>
@@ -649,53 +698,66 @@
         </div>
         <p onclick="window.location.href='account.html'" 
         style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-        onmouseover="this.style.color='#444'" 
-        onmouseout="this.style.color='black'">
+        onmouseover="this.style.color='#888'" 
+        onmouseout="this.style.color='black'"
+        ontouchstart="this.style.color='#888'" 
+        ontouchend="setTimeout(() => this.style.color='black', 300)">
          <span style="pointer-events: none;">حسابي</span>
      </p>
      
      <p onclick="window.location.href='about.html'" 
         style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-        onmouseover="this.style.color='#444'" 
-        onmouseout="this.style.color='black'">
+        onmouseover="this.style.color='#888'" 
+        onmouseout="this.style.color='black'"
+        ontouchstart="this.style.color='#888'" 
+        ontouchend="setTimeout(() => this.style.color='black', 300)">
          <span style="pointer-events: none;">سياسات وأحكام</span>
      </p>
      
      <p onclick="window.location.href='return.html'" 
         style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-        onmouseover="this.style.color='#444'" 
-        onmouseout="this.style.color='black'">
+        onmouseover="this.style.color='#888'" 
+        onmouseout="this.style.color='black'"
+        ontouchstart="this.style.color='#888'" 
+        ontouchend="setTimeout(() => this.style.color='black', 300)">
          <span style="pointer-events: none;">طلب استرجاع</span>
      </p>
      
      <p onclick="window.location.href='deals.html'" 
         style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-        onmouseover="this.style.color='#444'" 
-        onmouseout="this.style.color='black'">
+        onmouseover="this.style.color='#888'" 
+        onmouseout="this.style.color='black'"
+        ontouchstart="this.style.color='#888'" 
+        ontouchend="setTimeout(() => this.style.color='black', 300)">
          <span style="pointer-events: none;">صفقة رابحة</span>
      </p>
      
      <p onclick="window.location.href='wholesale.html'" 
         style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-        onmouseover="this.style.color='#444'" 
-        onmouseout="this.style.color='black'">
+        onmouseover="this.style.color='#888'" 
+        onmouseout="this.style.color='black'"
+        ontouchstart="this.style.color='#888'" 
+        ontouchend="setTimeout(() => this.style.color='black', 300)">
          <span style="pointer-events: none;">شراء بالجملة</span>
      </p>
      
      <p onclick="window.location.href='companies.html'" 
         style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-        onmouseover="this.style.color='#444'" 
-        onmouseout="this.style.color='black'">
+        onmouseover="this.style.color='#888'" 
+        onmouseout="this.style.color='black'"
+        ontouchstart="this.style.color='#888'" 
+        ontouchend="setTimeout(() => this.style.color='black', 300)">
          <span style="pointer-events: none;">شركات عالمية</span>
      </p>
      
      <p onclick="window.location.href='categories.html'" 
         style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-        onmouseover="this.style.color='#444'" 
-        onmouseout="this.style.color='black'">
+        onmouseover="this.style.color='#888'" 
+        onmouseout="this.style.color='black'"
+        ontouchstart="this.style.color='#888'" 
+        ontouchend="setTimeout(() => this.style.color='black', 300)">
          <span style="pointer-events: none;">الفئات</span>
      </p>
-     
     </div>
 
     <script>
@@ -710,6 +772,71 @@
                 menuPopup.classList.add('active');
             }
         }
+
+      // متغيرات لتتبع السحب
+let startX = 0;
+let currentX = 0;
+let isDragging = false;
+const menuPopup = document.getElementById('menuPopup');
+
+// دالة لبدء تتبع السحب
+function startDrag(event) {
+    if (menuPopup.classList.contains('active') && menuPopup.contains(event.target)) {
+        startX = event.touches[0].clientX;
+        isDragging = true;
+    }
+}
+
+// دالة لتتبع حركة السحب
+function drag(event) {
+    if (!isDragging) return;
+    currentX = event.touches[0].clientX;
+    const diff = currentX - startX;
+    if (diff < -50) { // إذا تم السحب إلى اليسار بمقدار 50 بكسل
+        toggleMenu();
+        isDragging = false;
+    }
+}
+
+// دالة لإنهاء تتبع السحب
+function endDrag() {
+    isDragging = false;
+}
+
+// دالة للتحقق من النقر خارج النافذة
+function handleClickOutside(event) {
+    // التأكد من أن النقر ليس على أي عنصر فعال
+    if (menuPopup.classList.contains('active') && 
+        !menuPopup.contains(event.target) && 
+        !event.target.closest('.active')) {
+        toggleMenu();
+    }
+}
+
+// إضافة مستمعات الأحداث
+document.addEventListener('touchstart', startDrag);
+document.addEventListener('touchmove', drag);
+document.addEventListener('touchend', endDrag);
+document.body.addEventListener('click', handleClickOutside, true);
+
+// منع التمرير أثناء فتح النافذة
+menuPopup.addEventListener('touchmove', function(event) {
+    if (menuPopup.classList.contains('active')) {
+        event.preventDefault();
+    }
+}, { passive: false });
+
+// دالة فتح وإغلاق القائمة
+function toggleMenu() {
+    if (menuPopup.classList.contains('active')) {
+        menuPopup.classList.add('closing');
+        setTimeout(() => {
+            menuPopup.classList.remove('active', 'closing');
+        }, 300);
+    } else {
+        menuPopup.classList.add('active');
+    }
+}
     </script>
 </body>
 </html>
@@ -797,85 +924,3 @@
 
 
 
-
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة التحميل</title>
-    <style>
-  .skeleton-loading {
-   position: fixed;
-   top: 59px;
-   left: 0;
-   width: 100%;
-   height: calc(100% - 58px); /* اجعل الارتفاع يأخذ باقي الشاشة */
-   background-color: #fff;
-   z-index: 1000;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-    }
-
-   /* دائرة التحميل */
- .loading-circle {
-   border: 6px solid #e0e0e0; /* لون الحدود الرمادي الفاتح */
-   border-top: 6px solid #000000; /* لون الحدود العلوي (لون الدائرة) */
-   border-radius: 50%; /* يجعل الشكل دائريًا */
-   width: 60px;
-   height: 60px;
-   animation: spin 1.5s linear infinite; /* تدوير مستمر */
-       }
-
-
-        /* تأثير الدوران */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* الصفحة الحالية */
-        #main-content {
-            display: none; /* مخفية حتى اكتمال التحميل */
-        }
-
-        /* منع التمرير */
-        body.loading {
-            overflow: hidden;
-        }
-    </style>
-</head>
-<body class="loading">
-    <!-- صفحة التحميل -->
-    <div class="skeleton-loading">
-        <div class="loading-circle"></div>
-    </div>
-
-    <!-- الصفحة الحالية -->
-    <div id="main-content">
-        <!-- الصفحة الحالية التي قمت بتصميمها -->
-        <!-- ... -->
-    </div>
-    <script>
-        // إخفاء صفحة التحميل وإظهار الصفحة الحالية بعد اكتمال التحميل
-        window.addEventListener('load', () => {
-            const skeletonLoading = document.querySelector('.skeleton-loading');
-            const mainContent = document.getElementById('main-content');
-            const body = document.body;
-
-            // إخفاء صفحة التحميل
-            skeletonLoading.style.display = 'none';
-
-            // إظهار الصفحة الحالية
-            mainContent.style.display = 'block';
-
-            // إعادة تمكين التمرير
-            body.classList.remove('loading');
-        });
-        window.addEventListener('load', function() {
-document.querySelector('.gallery').style.display = 'flex';
-});
-    </script>
-</body>
-</html>
