@@ -157,21 +157,27 @@
             margin-top: 18px;
         }
 
+        /* نافذة تم الشراء مع التعديلات */
         .purchase-success {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            /* height: سيتم ضبطه بواسطة JavaScript */
-            background-color: rgb(255, 255, 255);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* إضافة box-shadow */
+            height: calc(100% - 62px); /* الارتفاع يصل إلى الـ footer */
+            background-color: rgb(255, 255, 255); /* خلفية غير شفافة */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* إضافة box shadow */
             justify-content: center;
             align-items: center;
             flex-direction: column;
             z-index: 1001;
             opacity: 0;
             transition: opacity 0.3s ease;
+        }
+        @media (max-width: 499px) {
+            .purchase-success {
+                height: calc(100% - 73px); /* تعديل الارتفاع للشاشات الصغيرة */
+            }
         }
 
         .purchase-success.visible {
@@ -597,15 +603,6 @@
             return;
         }
 
-        // حساب ارتفاع الفوتر وضبط ارتفاع النافذة
-        const footerHeight = document.querySelector('.footer-container').offsetHeight;
-        purchaseSuccess.style.height = `calc(100vh - ${footerHeight}px)`;
-
-        purchaseSuccess.classList.add('visible');
-        loadingSpinner.style.display = 'block';
-
-        document.body.classList.add('no-scroll');
-
         const productName = document.getElementById('productNameText').textContent;
         const productId = document.getElementById('productIdText').textContent;
         const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
@@ -625,6 +622,11 @@
 
         if (colorFieldVisible) purchaseData.color = selectedColor;
         if (sizeFieldVisible) purchaseData.size = selectedSize;
+
+        purchaseSuccess.classList.add('visible');
+        loadingSpinner.style.display = 'block';
+
+        document.body.classList.add('no-scroll');
 
         database.ref('purchases').push(purchaseData)
             .then(() => {
