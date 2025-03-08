@@ -153,9 +153,8 @@
             margin: 10px 0;
         }
 
-        /* مسافة ثابتة لسعر المنتج */
         .product-price {
-            margin-top: 18px; /* تعديل المسافة إلى 17px */
+            margin-top: 18px;
         }
 
         .purchase-success {
@@ -164,20 +163,15 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: calc(100% - 62px);
+            /* height: سيتم ضبطه بواسطة JavaScript */
             background-color: rgb(255, 255, 255);
-            box-shadow: 0 -2px 0 rgba(131, 131, 131, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* إضافة box-shadow */
             justify-content: center;
             align-items: center;
             flex-direction: column;
             z-index: 1001;
             opacity: 0;
             transition: opacity 0.3s ease;
-        }
-        @media (max-width: 499px) {
-            .purchase-success {
-                height: calc(100% - 73px);
-            }
         }
 
         .purchase-success.visible {
@@ -321,7 +315,6 @@
             overflow: hidden;
         }
 
-        /* تنسيق الألوان والمقاسات */
         .color-options, .size-options {
             display: flex;
             flex-wrap: wrap;
@@ -487,7 +480,7 @@
             const deliveryInfo = JSON.parse(savedDeliveryInfo);
             document.getElementById('name').value = deliveryInfo.name;
             document.getElementById('phone').value = deliveryInfo.phone;
-            document.getElementById('email').value = deliveryInfo.email || ''; // تحميل الإيميل إذا كان موجودًا
+            document.getElementById('email').value = deliveryInfo.email || '';
             document.getElementById('governorate').value = deliveryInfo.governorate;
             document.getElementById('city').value = deliveryInfo.city;
             document.getElementById('street').value = deliveryInfo.street;
@@ -604,6 +597,15 @@
             return;
         }
 
+        // حساب ارتفاع الفوتر وضبط ارتفاع النافذة
+        const footerHeight = document.querySelector('.footer-container').offsetHeight;
+        purchaseSuccess.style.height = `calc(100vh - ${footerHeight}px)`;
+
+        purchaseSuccess.classList.add('visible');
+        loadingSpinner.style.display = 'block';
+
+        document.body.classList.add('no-scroll');
+
         const productName = document.getElementById('productNameText').textContent;
         const productId = document.getElementById('productIdText').textContent;
         const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
@@ -623,11 +625,6 @@
 
         if (colorFieldVisible) purchaseData.color = selectedColor;
         if (sizeFieldVisible) purchaseData.size = selectedSize;
-
-        purchaseSuccess.classList.add('visible');
-        loadingSpinner.style.display = 'block';
-
-        document.body.classList.add('no-scroll');
 
         database.ref('purchases').push(purchaseData)
             .then(() => {
@@ -677,7 +674,7 @@
         const colorField = document.getElementById('colorField');
         colorField.style.display = 'block';
         const colorOptionsContainer = document.getElementById('colorOptions');
-        let firstColorSpan = null; // لتتبع أول لون
+        let firstColorSpan = null;
         colors.forEach((color, index) => {
             const colorSpan = document.createElement('span');
             colorSpan.className = 'color-option';
@@ -688,12 +685,10 @@
                 colorSpan.classList.add('selected');
             };
             colorOptionsContainer.appendChild(colorSpan);
-            // تعيين أول لون كمحدد افتراضي
             if (index === 0) {
                 firstColorSpan = colorSpan;
             }
         });
-        // تحديد اللون الأول تلقائيًا إذا كان موجودًا
         if (firstColorSpan) {
             firstColorSpan.classList.add('selected');
         }
