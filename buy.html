@@ -174,7 +174,11 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        
+        @media (max-width: 499px) {
+            .purchase-success {
+                height: calc(100% - 77px);
+            }
+        }
 
         .purchase-success.visible {
             display: flex;
