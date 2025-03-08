@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="style.css">
 
  
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -26,7 +25,7 @@
                 margin: 0;
                 background-color: #f4f4f4;
             }
-        
+    
             .gallery {
                 display: flex;
                 align-items: flex-start;
@@ -34,12 +33,12 @@
                 margin-top: 20px;
                 position: relative;
             }
-        
+    
             .main-media {
                 margin-left: 20px;
                 position: relative;
             }
-        
+    
             .main-media img, .main-media video {
                 width: 400px;
                 height: 400px;
@@ -47,11 +46,11 @@
                 border-radius: 10px;
                 display: block;
             }
-        
+    
             .main-media video:fullscreen {
                 border: none;
             }
-        
+    
             .thumbnails {
                 display: flex;
                 flex-direction: column;
@@ -61,11 +60,11 @@
                 scrollbar-width: none;
                 -ms-overflow-style: none;
             }
-        
+    
             .thumbnails::-webkit-scrollbar {
                 display: none;
             }
-        
+    
             .thumbnail {
                 margin: 10px 0;
                 cursor: pointer;
@@ -77,7 +76,7 @@
                 height: 66px;
                 box-sizing: border-box;
             }
-        
+    
             .thumbnail img, .thumbnail video {
                 width: 100%;
                 height: 100%;
@@ -86,18 +85,17 @@
                 margin: 0;
                 padding: 0;
             }
-        
+    
             .thumbnail.active {
                 border-color: #ff0000;
             }
     
-            
-        .line {
-            width: 100%;
-            height: 8px;
-            background-color: #eeeeee;
-        }
-        
+            .line {
+                width: 100%;
+                height: 8px;
+                background-color: #eeeeee;
+            }
+    
             .play-icon {
                 position: absolute;
                 top: 50%;
@@ -112,13 +110,13 @@
                 justify-content: center;
                 pointer-events: none;
             }
-        
+    
             .play-icon svg {
                 width: 16px;
                 height: 16px;
                 fill: white;
             }
-        
+    
             .share-button {
                 position: absolute;
                 left: 11px;
@@ -133,21 +131,21 @@
                 justify-content: center;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             }
-        
+    
             .share-button.bottom {
                 bottom: 11px;
             }
-        
+    
             .share-button.top {
                 top: 10px;
                 display: none;
             }
-        
+    
             .share-button svg {
                 width: 24px;
                 height: 24px;
             }
-        
+    
             .fullscreen-button {
                 position: absolute;
                 top: 10px;
@@ -164,7 +162,7 @@
                 color: white;
                 z-index: 2;
             }
-        
+    
             @media (max-width: 555px) {
                 .gallery {
                     flex-direction: column;
@@ -172,17 +170,17 @@
                     margin-top: 22px;
                     margin-right: 1px;
                 }
-        
+    
                 .main-media {
                     margin-left: 0;
                     margin-bottom: 20px;
                 }
-        
+    
                 .main-media img, .main-media video {
                     width: 311px;
                     height: 311px;
                 }
-        
+    
                 .thumbnails {
                     flex-direction: row;
                     max-height: none;
@@ -192,20 +190,20 @@
                     width: 311px;
                     gap: 10px;
                 }
-        
+    
                 .thumbnail {
                     margin: 0;
                     flex: 0 0 auto;
                     width: 65px;
                     height: 65px;
                 }
-        
+    
                 .thumbnail img, .thumbnail video {
                     width: 100%;
                     height: 100%;
                 }
             }
-        
+    
             .media-counter {
                 position: absolute;
                 font-family: 'Cairo', sans-serif;
@@ -222,7 +220,7 @@
                 justify-content: center;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             }
-        
+    
             @media (max-width: 555px) {
                 .media-counter {
                     background-color: rgba(255, 255, 255, 0.616);
@@ -232,7 +230,7 @@
                     padding: 3px 13px;
                 }
             }
-        
+    
             .arrow {
                 position: absolute;
                 top: 50%;
@@ -252,27 +250,33 @@
                 opacity: 1;
                 transition: opacity 0.5s ease-in-out;
             }
-        
+    
             .arrow.left {
                 left: 2px;
             }
-        
+    
             .arrow.right {
                 right: 2px;
             }
-        
+    
             .arrow svg {
                 fill: white;
                 width: 30px;
                 height: 34px;
             }
-        
+    
+            .arrow.disabled {
+                background-color: rgba(66, 66, 66, 0.253);
+                cursor: not-allowed;
+            }
+    
             @media (max-width: 556px) {
                 .arrow {
                     display: none;
                 }
             }
         </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     </head>
     <body>
         <div class="gallery">
@@ -353,6 +357,7 @@
                 });
     
                 document.getElementById('currentMedia').textContent = currentIndex;
+                updateArrowState(currentIndex, thumbnails.length);
             }
     
             // تحديث الوسيطة الرئيسية (صورة أو فيديو)
@@ -381,6 +386,18 @@
                 updateCurrentMedia();
                 const initialThumbnail = document.querySelector('.thumbnail.active');
                 updateMainMedia(initialThumbnail);
+    
+                // إضافة إيماءات اللمس
+                const mainMediaContainer = document.querySelector('.main-media');
+                const hammer = new Hammer(mainMediaContainer);
+    
+                hammer.on('swipeleft', function() {
+                    nextMedia();
+                });
+    
+                hammer.on('swiperight', function() {
+                    prevMedia();
+                });
             });
     
             // التعامل مع النقر على المصغرات
@@ -476,6 +493,23 @@
                 });
             });
     
+            // تحديث حالة السهام
+            function updateArrowState(currentIndex, totalMedia) {
+                const leftArrow = document.querySelector('.arrow.left');
+                const rightArrow = document.querySelector('.arrow.right');
+    
+                if (currentIndex === 1) {
+                    leftArrow.classList.add('disabled');
+                } else {
+                    leftArrow.classList.remove('disabled');
+                }
+    
+                if (currentIndex === totalMedia) {
+                    rightArrow.classList.add('disabled');
+                } else {
+                    rightArrow.classList.remove('disabled');
+                }
+            }
         </script>
     </body>
     </html>
@@ -775,48 +809,270 @@
             </html>
 
 
-            <div style="margin-top: 10px; font-family: Cairo, sans-serif; margin-right: 15px; margin-bottom: 8px; margin-left: 15px;">
-                <!-- النص مع رمز الشحن -->
-                <div class="second-text" style="display: flex; align-items: center; gap: 8px; font-size: 18px;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 4H17V14H3V4ZM3 14H1V16H3V18H5V16H7V18H9V16H11V18H13V16H15V18H17V16H19V14H17V11L20 8H23V14H21V16H23V18H21V20H19V18H17V20H15V18H13V20H11V18H9V20H7V18H5V20H3V18H1V16H3V14ZM17 6H19V9H17V6ZM5 6H7V9H5V6ZM9 6H11V9H9V6ZM13 6H15V9H13V6Z" fill="#000000"/>
-                    </svg>
-                    <span> الشحن , لكل المحافظات</span>
-                </div>
-                <!-- النص الإضافي تحته -->
-                <div class="additional-text" style="margin-top: 5px; font-size: 14px; color: #555;">
-                       يتم التوصيل خلال 3-5 أيام عمل. 
-                </div>
-            </div>
+            <!DOCTYPE html>
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>نافذة منبثقة عند النقر</title>
+                <style>
+                    /* تنسيق السطر القابل للنقر */
+                    .clickable-row {
+                        width: 100%;
+                        cursor: pointer;
+                        padding: 1px 0;
+                        transition: background-color 0.2s ease;
+                    }
+                    
+                    .clickable-row:hover,
+                    .clickable-row.active {
+                        background-color: #f0f0f0;
+                    }
+                    
+                    .second-text-container-7896 {
+                        font-family: Cairo, sans-serif;
+                        margin-right: 15px;
+                        margin-left: 15px;
+                        position: relative;
+                    }
+                    
+                    .second-text {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        font-size: 18px;
+                        margin-bottom: 5px; /* مسافة صغيرة ومتساوية */
+                    }
+                    .additional-text {
+                        margin-top: 5px; /* مسافة علوية متساوية */
+                        font-size: 14px;
+                        color: #555;
+                    }
+                    
+                    #popup-7896 {
+                        width: 100%;
+                        text-align: right;
+                        position: fixed;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        min-height: 200px;
+                        max-height: 40vh;
+                        overflow-y: auto;
+                        overflow-x: hidden;
+                        transition: transform 0.3s ease-out;
+                        transform: translateY(100%);
+                        z-index: 1000;
+                        background-color: white;
+                        box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+                        font-family: Cairo, sans-serif;
+                        padding: 0;
+                        box-sizing: border-box;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: flex-start;
+                        border-radius: 20px 20px 0 0;
+                    }
+                    #popup-7896.show {
+                        transform: translateY(0);
+                    }
+                    
+                    .popup-content-7896 {
+                        display: none;
+                    }
+                    
+                    .overlay-7896 {
+                        display: none;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: rgba(0, 0, 0, 0.5);
+                        z-index: 999;
+                    }
+                    
+                    #popup-content-7896 {
+                        font-size: 16px;
+                        color: #333;
+                        width: 90%;
+                        max-width: 600px;
+                        margin: 0 auto;
+                        padding: 20px;
+                        box-sizing: border-box;
+                        text-align: right;
+                        margin-right: 1px;
+                    }
+                    #popup-content-7896 h3 {
+                        font-size: 1.5rem;
+                        margin-bottom: 1rem;
+                        text-align: right;
+                    }
+                    #popup-content-7896 p {
+                        font-size: 1rem;
+                        margin-bottom: 0.75rem;
+                        text-align: right;
+                    }
+                    
+                    @media (max-width: 768px) {
+                        #popup-7896 {
+                            padding: 0;
+                        }
+                        #popup-content-7896 {
+                            width: 100%;
+                            padding: 15px;
+                        }
+                        #popup-content-7896 h3 {
+                            font-size: 1.25rem;
+                        }
+                        #popup-content-7896 p {
+                            font-size: 0.9rem;
+                        }
+                    }
             
-            <div style="margin-top: 10px; font-family: Cairo, sans-serif; margin-right: 15px; margin-left: 15px;">
-                <!-- النص مع رمز الأمان -->
-                <div class="second-text" style="display: flex; align-items: center; gap: 8px; font-size: 18px;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 7C13.1 7 14 7.9 14 9C14 10.1 13.1 11 12 11C10.9 11 10 10.1 10 9C10 7.9 10.9 7 12 7ZM16 15.86C15.14 16.94 13.77 17.6 12.2 17.6C10.63 17.6 9.26 16.94 8.4 15.86V13.5C8.4 12.67 9.07 12 9.9 12H14.5C15.33 12 16 12.67 16 13.5V15.86Z" fill="#000000"/>
-                    </svg>
-                    <span>الأمان والخصوصية</span>
+                    /* Added handle styling */
+                    .popup-handle {
+                        width: 90px;  /* Increased width */
+                        height: 5px;
+                        background-color: #ccc;
+                        border-radius: 3px;
+                        margin: 0 auto 15px auto;
+                        margin-top: 14px;  /* Changed to 14px as requested */
+                    }
+                </style>
+            </head>
+            <body dir="rtl">
+                <!-- البقية من الكود كما هو دون تغيير -->
+                     
+                <div class="clickable-row" data-popup-id="shipping-popup-7896" style="margin-top: 10px;">
+                    <div class="second-text-container-7896">
+                        <div class="second-text">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 4H17V14H3V4ZM3 14H1V16H3V18H5V16H7V18H9V16H11V18H13V16H15V18H17V16H19V14H17V11L20 8H23V14H21V16H23V18H21V20H19V18H17V20H15V18H13V20H11V18H9V20H7V18H5V20H3V18H1V16H3V14ZM17 6H19V9H17V6ZM5 6H7V9H5V6ZM9 6H11V9H9V6ZM13 6H15V9H13V6Z" fill="#000000"/>
+                            </svg>
+                            <span>الشحن , لكل المحافظات</span>
+                        </div>
+                        <div class="additional-text">
+                            يتم التوصيل خلال 3-5 أيام عمل.
+                        </div>
+                        <div id="shipping-popup-7896" class="popup-content-7896">
+                            <h3>معلومات الشحن</h3>
+                            <p>نقدم خدمة الشحن لجميع محافظات الجمهورية.</p>
+                            <p>يتم تسليم المنتجات خلال 3-5 أيام عمل من تاريخ الطلب.</p>
+                            <p>رسوم الشحن: 30 جنيهًا للمحافظات الرئيسية، و50 جنيهًا للمناطق النائية.</p>
+                        </div>
+                    </div>
                 </div>
-                <!-- النصوص الإضافية تحته -->
-                <div class="additional-text" style="margin-top: 5px; font-size: 14px; color: #555;">
-                    <p>إننا نحمي خصوصيتك ونحافظ على تفاصيلك الشخصية آمنة</p>
+                
+                <div class="clickable-row" data-popup-id="security-popup-7896" style="margin-top: 10px;">
+                    <div class="second-text-container-7896">
+                        <div class="second-text">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 7C13.1 7 14 7.9 14 9C14 10.1 13.1 11 12 11C10.9 11 10 10.1 10 9C10 7.9 10.9 7 12 7ZM16 15.86C15.14 16.94 13.77 17.6 12.2 17.6C10.63 17.6 9.26 16.94 8.4 15.86V13.5C8.4 12.67 9.07 12 9.9 12H14.5C15.33 12 16 12.67 16 13.5V15.86Z" fill="#000000"/>
+                            </svg>
+                            <span>الأمان والخصوصية</span>
+                        </div>
+                        <div class="additional-text">
+                            إننا نحمي خصوصيتك ونحافظ على تفاصيلك الشخصية آمنة
+                        </div>
+                        <div id="security-popup-7896" class="popup-content-7896">
+                            <h3>سياسة الأمان والخصوصية</h3>
+                            <p>نلتزم بحماية بياناتك الشخصية والحفاظ على سريتها.</p>
+                            <p>نستخدم تقنيات تشفير متقدمة لحماية معلومات بطاقات الائتمان والبيانات الشخصية.</p>
+                            <p>لن نشارك معلوماتك مع أي طرف ثالث دون موافقتك.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div style="margin-top: -1px; font-family: Cairo, sans-serif; margin-right: 15px; margin-left: 15px;">
-                <!-- النص مع رمز الإرجاع المجاني -->
-                <div class="second-text" style="display: flex; align-items: center; gap: 8px; font-size: 18px;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 5V2L8 6L12 10V7C15.31 7 18 9.69 18 13C18 16.31 15.31 19 12 19C8.69 19 6 16.31 6 13H4C4 17.42 7.58 21 12 21C16.42 21 20 17.42 20 13C20 8.58 16.42 5 12 5Z" fill="#000000"/>
-                    </svg>
-                    <span>إرجاع مجاني</span>
+                
+                <div class="clickable-row" data-popup-id="return-popup-7896" style="margin-top: 10px;">
+                    <div class="second-text-container-7896">
+                        <div class="second-text">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 5V2L8 6L12 10V7C15.31 7 18 9.69 18 13C18 16.31 15.31 19 12 19C8.69 19 6 16.31 6 13H4C4 17.42 7.58 21 12 21C16.42 21 20 17.42 20 13C20 8.58 16.42 5 12 5Z" fill="#000000"/>
+                            </svg>
+                            <span>إرجاع مجاني</span>
+                        </div>
+                        <div class="additional-text">
+                            يمكنك إرجاع المنتجات مجانًا خلال 14 يومًا من استلامها.
+                        </div>
+                        <div id="return-popup-7896" class="popup-content-7896">
+                            <h3>سياسة الإرجاع</h3>
+                            <p>يمكنك إرجاع أي منتج خلال 14 يومًا من تاريخ الاستلام.</p>
+                            <p>يجب أن تكون المنتجات في حالتها الأصلية وغير مستخدمة.</p>
+                            <p>سيتم استرداد المبلغ كاملاً خلال 3-5 أيام عمل.</p>
+                            <p>الشحن مجاني للمنتجات المرتجعة.</p>
+                        </div>
+                    </div>
                 </div>
-                <!-- النص الإضافي تحته -->
-                <div class="additional-text" style="margin-top: 5px; font-size: 14px; color: #555;">
-                    يمكنك إرجاع المنتجات مجانًا خلال 14 يومًا من استلامها.
+                
+                <div class="overlay-7896" id="overlay-7896"></div>
+                
+                <div id="popup-7896">
+                    <div class="popup-handle"></div>
+                    <div id="popup-content-7896"></div>
                 </div>
-            </div>
-    
+                
+                
+                <script>
+                    document.querySelectorAll('.clickable-row').forEach(item => {
+                        item.addEventListener('click', function() {
+                            document.querySelectorAll('.clickable-row').forEach(row => row.classList.remove('active'));
+                
+                            const popupId = this.getAttribute('data-popup-id');
+                            if (popupId && document.getElementById(popupId)) {
+                                document.getElementById('popup-content-7896').innerHTML = document.getElementById(popupId).innerHTML;
+                                document.getElementById('popup-7896').style.display = 'block';
+                                document.getElementById('overlay-7896').style.display = 'block';
+                                setTimeout(() => {
+                                    document.getElementById('popup-7896').classList.add('show');
+                                    item.classList.add('active');
+                                }, 10);
+                            }
+                        });
+                    });
+                
+                    function closePopup() {
+                        document.querySelectorAll('.clickable-row').forEach(row => row.classList.remove('active'));
+                        document.getElementById('popup-7896').classList.remove('show');
+                        setTimeout(() => {
+                            document.getElementById('popup-7896').style.display = 'none';
+                            document.getElementById('overlay-7896').style.display = 'none';
+                        }, 300);
+                    }
+                
+                    document.getElementById('overlay-7896').addEventListener('click', closePopup);
+                
+                    // Touch event handling for swipe down to close
+                    let startY = 0;
+                    const popup = document.getElementById('popup-7896');
+                
+                    popup.addEventListener('touchstart', (e) => {
+                        startY = e.touches[0].clientY;
+                        // منع التمرير الافتراضي
+                        e.preventDefault();
+                    }, { passive: false });
+                
+                    popup.addEventListener('touchmove', (e) => {
+                        const currentY = e.touches[0].clientY;
+                        // منع التمرير الافتراضي
+                        e.preventDefault();
+                        
+                        if (currentY > startY + 50) {  // Swipe down more than 50 pixels
+                            closePopup();
+                        }
+                    }, { passive: false });
+                
+                    // إضافة هذا للتأكد من عدم التمرير
+                    document.body.addEventListener('touchmove', (e) => {
+                        if (document.getElementById('popup-7896').classList.contains('show')) {
+                            e.preventDefault();
+                        }
+                    }, { passive: false });
+                </script>
+                
+            </body>
+            </html>
 
 
 <br>
@@ -1433,6 +1689,12 @@
     text-align: center; /* توسيط النص أفقيًا */
     box-sizing: border-box; /* لجعل الـ padding جزء من العرض والارتفاع */
 }
+/* تأثير hover */
+.text-container p:hover {
+    background-color: #e4e4e4; /* تغيير لون الخلفية عند تمرير الماوس */
+    transform: scale(1.02); /* تكبير العنصر بنسبة 5% */
+}
+
 
 @media (max-width: 768px) {
     .text-container p {
@@ -1517,7 +1779,7 @@
  .line2 {
     margin-top: -8px;
     width: 100%;
-    height: 12px;
+    height: 6px;
     background: repeating-linear-gradient(90deg,
         rgb(0, 183, 255) 0 15px,
         white 15px 30px,
@@ -1797,49 +2059,47 @@
         </style>
     </head>
     <body>
-    
-    <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-        <div class="image-frame" style="display: none;">
-            <a href="1.html">
-                <img src="1.jpg" alt="ساعة تاتتش تعمل باللمس">
-            </a>
-            <div class="text-under">
-                <h1>ساعة تاتش تعمل باللمس</h1>
-                <h2>22 مباعه - adger</h2>
-                <div class="container">
-                    <div class="zero">00.</div>
-                    <div class="number">44</div>
-                    <div class="letter">جنيه</div>
+        <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
+            <div class="image-frame" style="display: none;">
+                <a href="1.html">
+                    <img src="1.jpg" alt="ساعة تاتتش تعمل باللمس">
+                </a>
+                <div class="text-under">
+                    <h1>ساعة تاتش تعمل باللمس</h1>
+                    <h2>22 مباعه - adger</h2>
+                    <div class="container">
+                        <div class="zero">00.</div>
+                        <div class="number">44</div>
+                        <div class="letter">جنيه</div>
+                    </div>
+                    <h3>خصم 323%</h3>
                 </div>
-                <h3>خصم 323%</h3>
+            </div>
+            <div class="bottom-buttons">
+                <div class="buy-now-text" onclick="buyNow('ساعة تاتتش تعمل باللمس', '#1', '200', '100', ['أسود', 'أبيض', 'أحمر', 'أزرق'], ['S', 'M', 'L', 'XL', 'XXL'])">شراء الآن</div>
+                <div class="add-to-cart-text" onclick="addToCart()">إضافة إلى العربة</div>
             </div>
         </div>
-        <div class="bottom-buttons">
-            <div class="buy-now-text" onclick="buyNow('اسم المنتج', '#1', ' 200', ' 100')">شراء الآن</div>
-
-            <script>
-            function buyNow(productName, productId, productPrice, shippingPrice) {
-                // توجيه المستخدم إلى صفحة buy.html مع إضافة المعلمات إلى عنوان URL
-                window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}`;
+        
+        <script>
+            function buyNow(productName, productId, productPrice, shippingPrice, colors = [], sizes = []) {
+                // Convert arrays to URL-safe strings only if they exist and are non-empty
+                const colorsParam = colors.length > 0 ? encodeURIComponent(colors.join(',')) : '';
+                const sizesParam = sizes.length > 0 ? encodeURIComponent(sizes.join(',')) : '';
+        
+                // Build the URL dynamically, only including colors and sizes if they are provided
+                let url = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}`;
+                if (colorsParam) url += `&colors=${colorsParam}`;
+                if (sizesParam) url += `&sizes=${sizesParam}`;
+        
+                // Redirect to buy.html
+                window.location.href = url;
             }
-            </script>
-           <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
-        </div>
-    </div>
-    
-    <script>
-        function addToCart() {
-            alert("تمت إضافة المنتج إلى العربة!");
-        }
-    
-    </script>
-    
-    </body>
-
-
-
-
-
+        
+            function addToCart() {
+                alert("تمت إضافة المنتج إلى العربة!");
+            }
+        </script>
 
 
 
@@ -1888,18 +2148,18 @@
                 box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
             }
     
-             /* بقية التنسيقات كما هي */
-             .search-wrapper {
+            /* بقية التنسيقات كما هي */
+            .search-wrapper {
                 flex-grow: 1;
                 margin: 0 10px;
                 position: relative;
             }
             @media (min-width: 768px) { /* تعديل المارغن فقط للشاشات الأكبر من الهواتف */
-    .search-wrapper {
-        margin-right: 4px;
-        margin-left: 11px;
-    }
-}
+                .search-wrapper {
+                    margin-right: 4px;
+                    margin-left: 11px;
+                }
+            }
     
             #search-box {
                 width: 100%;
@@ -1931,7 +2191,7 @@
             }
             @media (max-width: 1066px) {
                 #search-button {
-                  width: 46px;
+                    width: 46px;
                 }
             }
     
@@ -2069,22 +2329,21 @@
             }
     
             .menu-popup .back-arrow {
-    cursor: pointer;
-    margin-bottom: 20px;
-    -webkit-tap-highlight-color: transparent; /* إزالة تأثير التظليل */
-}
-
-.menu-popup .back-arrow:focus {
-    outline: none; /* منع ظهور التحديد عند التركيز */
-}
-
-.menu-popup .back-arrow svg {
-    width: 24px;
-    height: 24px;
-    color: #333;
-    pointer-events: none; /* يمنع التأثير على الـ SVG */
-}
-
+                cursor: pointer;
+                margin-bottom: 20px;
+                -webkit-tap-highlight-color: transparent; /* إزالة تأثير التظليل */
+            }
+    
+            .menu-popup .back-arrow:focus {
+                outline: none; /* منع ظهور التحديد عند التركيز */
+            }
+    
+            .menu-popup .back-arrow svg {
+                width: 24px;
+                height: 24px;
+                color: #333;
+                pointer-events: none; /* يمنع التأثير على الـ SVG */
+            }
     
             .menu-popup p {
                 font-size: 18px;
@@ -2174,46 +2433,46 @@
             <div class="right-elements">
                 <style>
                     .adger-container {
-                      display: flex;
-                      align-items: center;
+                        display: flex;
+                        align-items: center;
                     }
-                    
+    
                     .adger-container svg {
-                     margin-left: 15px; /* Space between text and arrow */
-                     margin-right: 5px; /* Adjust for better visibility */
-                     cursor: pointer; /* This makes the cursor change to a pointing hand */
-                     color: #1a1a1a;
-                     background-color: #f1f1f1; /* Black background */
-                     border-radius: 50%; /* Makes the background circular */
-                     padding: 4px; /* Adds some space around the SVG */
-                            }
-                    
+                        margin-left: 15px; /* Space between text and arrow */
+                        margin-right: 5px; /* Adjust for better visibility */
+                        cursor: pointer; /* This makes the cursor change to a pointing hand */
+                        color: #1a1a1a;
+                        background-color: #f1f1f1; /* Black background */
+                        border-radius: 50%; /* Makes the background circular */
+                        padding: 4px; /* Adds some space around the SVG */
+                    }
+    
                     /* For mobile devices, adjust the arrow's margins */
                     @media (max-width: 1167px) {
-                      .adger-container svg {
-                        margin-left: 7px; /* Space between text and arrow */
-                        margin-right: -13px;
-                      }
+                        .adger-container svg {
+                            margin-left: 7px; /* Space between text and arrow */
+                            margin-right: -13px;
+                        }
                     }
-                    
+    
                     /* Set cursor for both SVG and text within the container */
                     .adger-container svg, .adger-container h2 {
-                      cursor: pointer;
+                        cursor: pointer;
                     }
-                    
+    
                     /* Differentiate click areas */
                     .adger-container h2 {
-                      margin-left: 5px; /* To ensure space from the arrow */
+                        margin-left: 5px; /* To ensure space from the arrow */
                     }
                 </style>
-                
+    
                 <div class="adger-container">
                     <svg onclick="history.back()" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-                    </svg>                      
+                    </svg>
                     <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
                 </div>
-                
+    
                 <style>
                     /* إخفاء العنصر على الهواتف */
                     @media only screen and (max-width: 767px) {
@@ -2243,15 +2502,15 @@
                     </svg>
                 </div>
             </div>
-            
+    
             <!-- صندوق البحث -->
             <div class="search-wrapper">
-                <input 
-                    type="text" 
-                    id="search-box" 
-                    placeholder="ابحث فى أدجر" 
-                    autocomplete="off" 
-                    readonly 
+                <input
+                    type="text"
+                    id="search-box"
+                    placeholder="ابحث فى أدجر"
+                    autocomplete="off"
+                    readonly
                     onclick="redirectToSearch(event)">
                 <button id="search-button">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2260,17 +2519,17 @@
                     </svg>
                 </button>
             </div>
-            
+    
             <script>
                 function redirectToSearch(event) {
                     // منع التركيز على صندوق الإدخال
                     event.preventDefault();
-                    
+    
                     // تنفيذ إعادة التوجيه إلى صفحة البحث
                     window.location.href = "search.html";
                 }
             </script>
-            
+    
             <!-- العناصر على اليسار -->
             <div class="left-elements">
                 <style>
@@ -2304,7 +2563,7 @@
                         <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر">
                     </div>
                 </div>
-                
+    
                 <style>
                     /* إخفاء زر المراسلة على الهواتف */
                     @media only screen and (max-width: 767px) {
@@ -2319,7 +2578,7 @@
                     </svg>
                     <span style="font-family: Cairo, sans-serif;">مراسلة</span>
                 </div>
-                
+    
                 <div class="cart-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
@@ -2328,7 +2587,7 @@
                     </svg>
                     <span class="cart-count">0</span>
                 </div>
-                
+    
                 <div class="menu-icon" onclick="toggleMenu()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -2348,144 +2607,158 @@
             </div>
             <p onclick="window.location.href='account.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#888'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#888'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">حسابي</span>
          </p>
          
          <p onclick="window.location.href='about.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#888'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#888'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">سياسات وأحكام</span>
          </p>
          
          <p onclick="window.location.href='return.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#888'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#888'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">طلب استرجاع</span>
          </p>
          
          <p onclick="window.location.href='deals.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#888'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#888'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">صفقة رابحة</span>
          </p>
          
          <p onclick="window.location.href='wholesale.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#888'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#888'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">شراء بالجملة</span>
          </p>
          
          <p onclick="window.location.href='companies.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#888'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#888'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">شركات عالمية</span>
          </p>
          
          <p onclick="window.location.href='categories.html'" 
             style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-            onmouseover="this.style.color='#444'" 
-            onmouseout="this.style.color='black'">
+            onmouseover="this.style.color='#888'" 
+            onmouseout="this.style.color='black'"
+            ontouchstart="this.style.color='#888'" 
+            ontouchend="setTimeout(() => this.style.color='black', 300)">
              <span style="pointer-events: none;">الفئات</span>
          </p>
-         
         </div>
     
         <script>
+            // استرجاع بيانات المستخدم من localStorage
+            const username = localStorage.getItem('username');
+    
+            // عرض "أهلاً" مع اسم المستخدم أو نص بديل
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            const usernameDisplay = document.getElementById('usernameDisplay');
+    
+            if (username) {
+                usernameDisplay.textContent = truncateUsername(username);
+                window.addEventListener('resize', () => {
+                    usernameDisplay.textContent = truncateUsername(username);
+                });
+            } else {
+                welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+            }
+    
+            // دالة للتحقق من النصوص العربية
+            function isArabic(text) {
+                return /[\u0600-\u06FF]/.test(text);
+            }
+    
+            // دالة لتقصير اسم المستخدم
+            function truncateUsername(name) {
+                const maxLength = isArabic(name) ? 12 : 7;
+                if (window.innerWidth < 966 && name.length > maxLength) {
+                    if (isArabic(name)) {
+                        return name.substring(0, maxLength) + '..';
+                    } else {
+                        return '..' + name.substring(0, maxLength);
+                    }
+                }
+                return name;
+            }
+    
+            // دالة لإظهار أو إخفاء القائمة الجانبية
             function toggleMenu() {
                 const menuPopup = document.getElementById('menuPopup');
                 if (menuPopup.classList.contains('active')) {
                     menuPopup.classList.add('closing');
                     setTimeout(() => {
                         menuPopup.classList.remove('active', 'closing');
-                    }, 300);  // Match the animation duration
+                        menuPopup.style.display = 'none';
+                    }, 300); // يتناسب مع مدة animation
                 } else {
+                    menuPopup.style.display = 'block';
                     menuPopup.classList.add('active');
                 }
             }
+    
+            // إغلاق النافذة بالنقر على الشاشة خارج النافذة
+            document.body.addEventListener('click', function(event) {
+                const menuPopup = document.getElementById('menuPopup');
+                if (menuPopup.classList.contains('active') && 
+                    !menuPopup.contains(event.target) && 
+                    !event.target.closest('.menu-icon')) {
+                    toggleMenu();
+                }
+            });
+    
+            // إغلاق النافذة أثناء التمرير من اليمين إلى اليسار
+            let touchStartX = 0;
+            let touchCurrentX = 0;
+            let isSwiping = false;
+    
+            document.addEventListener('touchstart', function(event) {
+                const menuPopup = document.getElementById('menuPopup');
+                if (menuPopup.classList.contains('active')) {
+                    touchStartX = event.touches[0].screenX;
+                    isSwiping = true;
+                }
+            });
+    
+            document.addEventListener('touchmove', function(event) {
+                if (isSwiping) {
+                    touchCurrentX = event.touches[0].screenX;
+                    const swipeDistance = touchStartX - touchCurrentX;
+                    if (swipeDistance > 50) {
+                        toggleMenu();
+                        isSwiping = false;
+                    }
+                }
+            });
+    
+            document.addEventListener('touchend', function() {
+                isSwiping = false;
+            });
         </script>
     </body>
     </html>
-    
-    <!DOCTYPE html>
-    <html>
-    <body>
-        <script>
-                // استرجاع بيانات المستخدم من localStorage
-                const username = localStorage.getItem('username');
-        
-                // عرض "أهلاً" مع اسم المستخدم أو نص بديل
-                const welcomeMessage = document.getElementById('welcomeMessage');
-                const usernameDisplay = document.getElementById('usernameDisplay');
-        
-                if (username) {
-                        usernameDisplay.textContent = username; // عرض اسم المستخدم
-                   
-                   
-    
-    
-    
-                 // Function to detect if the name contains Arabic characters
-    function isArabic(text) {
-        return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
-    }
-    
-  // Function to truncate the username based on language
-  function truncateUsername(name) {
-                const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
-                
-                // Check if the screen width is less than 966px and name length exceeds maxLength
-                if (window.innerWidth < 966 && name.length > maxLength) {
-                    if (isArabic(name)) {
-                        return name.substring(0, maxLength) + '..'; // Truncate and add ".." at the end for Arabic
-                    } else {
-                        return '..' + name.substring(0, maxLength); // Truncate and add ".." at the beginning for English
-                    }
-                }
-                return name; // Return the name unchanged if no truncation is needed
-            }
-    
-    
-    // Apply the modification on page load and screen resize
-    usernameDisplay.textContent = truncateUsername(username);
-    window.addEventListener('resize', () => {
-        usernameDisplay.textContent = truncateUsername(username);
-    });
-    
-    
-    
-    
-    
-                        
-                    } else {
-                        welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
-                    }
-        
-                // دالة لإظهار أو إخفاء القائمة الجانبية
-                function toggleMenu() {
-                    const menuPopup = document.getElementById('menuPopup');
-                    if (menuPopup.classList.contains('active')) {
-                        menuPopup.classList.remove('active');
-                        menuPopup.classList.add('closing');
-                        setTimeout(() => {
-                            menuPopup.classList.remove('closing');
-                            menuPopup.style.display = 'none';
-                        }, 300); // يتناسب مع مدة animation
-                    } else {
-                        menuPopup.style.display = 'block';
-                        menuPopup.classList.add('active');
-                    }
-                }
-            </script>
-        </body>
-        </html>
-
     
 
 
