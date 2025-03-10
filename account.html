@@ -136,7 +136,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             z-index: 1000;
         }
         .purchases-modal-content {
@@ -144,14 +144,19 @@
             width: 400px;
             position: fixed;
             top: 100px;
-            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
+            max-height: calc(100vh - 100px);
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             direction: rtl;
-            height: calc(100vh - 100px);
+        }
+        @media (max-width: 499px) {
+            .purchases-modal-content {
+                width: 90%;
+                top: 100px;
+            }
         }
         .purchases-header {
             position: sticky;
@@ -175,8 +180,8 @@
             font-family: Cairo, sans-serif;
             font-size: 14px;
             text-align: right;
-            overflow-y: auto;
             max-height: calc(100% - 60px);
+            overflow-y: auto;
         }
         .purchase-item {
             margin-bottom: 15px;
@@ -194,7 +199,6 @@
             font-size: 16px;
             color: #666;
         }
-        /* أنماط نافذة التأكيد */
         .modal {
             display: none;
             position: fixed;
@@ -265,7 +269,6 @@
         <button class="logout-button" onclick="logout()">تسجيل الخروج</button>
     </div>
 
-    <!-- نافذة المشتريات -->
     <div id="purchasesModal" class="purchases-modal">
         <div class="purchases-modal-content">
             <div class="purchases-header">
@@ -278,7 +281,6 @@
         </div>
     </div>
 
-    <!-- نافذة التأكيد لتسجيل الخروج -->
     <div id="logoutModal" class="modal">
         <div class="modal-content">
             <p style="font-family: Cairo, sans-serif;">ستفقد كل معلومات حسابك. أأنت متأكد من الإستكمال؟</p>
@@ -390,23 +392,20 @@
             }
         }
 
-        // دالة تُظهر النافذة المنبثقة عند النقر على "تسجيل الخروج"
         function logout() {
             const modal = document.getElementById('logoutModal');
             modal.style.display = 'flex';
         }
 
-        // عند النقر على "نعم"
         document.getElementById('confirmLogout').addEventListener('click', () => {
-            localStorage.removeItem('username'); // إزالة بيانات المستخدم
+            localStorage.removeItem('username');
             localStorage.removeItem('profileImage');
             localStorage.removeItem('isLoggedIn');
-            window.location.href = 'account.html'; // إعادة توجيه إلى صفحة تسجيل الدخول
+            window.location.href = 'account.html';
         });
 
-        // عند النقر على "لا"
         document.getElementById('cancelLogout').addEventListener('click', () => {
-            document.getElementById('logoutModal').style.display = 'none'; // إغلاق النافذة
+            document.getElementById('logoutModal').style.display = 'none';
         });
 
         function showPurchases() {
