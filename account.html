@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول</title>
+    <title>حساب المستخدم</title>
     <style>
         @font-face {
-    font-family: 'Cairo';
-    src: url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-    font-display: swap;
-}
-        /* أنماط الخلفية الشفافة */
+            font-family: 'Cairo';
+            src: url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+            font-display: swap;
+        }
         .loader-overlay {
             position: fixed;
             top: 0;
@@ -21,26 +20,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 999; /* للتأكد من ظهورها فوق كل المحتوى */
+            z-index: 999;
         }
-
-        /* أنماط دائرة التحميل */
         .loader {
-            content: "";
-                width: 50px;
-                height: 50px;
-                border: 5px solid #0051ff;
-                border-top-color: transparent;
-                border-radius: 50%;
-                animation: spin 1s linear infinite;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #0051ff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
-
-        /* مفتاح الرسوم المتحركة للدوران */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #ffffff, #d8eeffd3);
@@ -49,25 +42,24 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            direction: rtl;
         }
-
+        body.no-scroll {
+            overflow: hidden;
+        }
         .login-container {
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 300px;
+            width: 350px;
             position: relative;
             margin-top: -84px;
         }
-
         @media (max-width: 499px) {
-            .login-container {
-                margin-top: -122px;
-            }
+            .login-container { margin-top: -122px; width: 300px; }
         }
-
         .login-container h2 {
             font-family: Cairo, sans-serif;
             font-size: 17px;
@@ -102,11 +94,26 @@
             object-fit: cover;
         }
         .logout-button {
-            background-color: #dc3545;
+            background-color: #e6e6e63d !important;
             margin-top: 10px;
+            color: #000 !important;
+            border: 1px solid #000000 !important;
         }
         .logout-button:hover {
-            background-color: #c82333;
+            background-color: #9b9b9b1e !important;
+        }
+        .purchases-btn {
+            background-color: #ff006a !important;
+            color: white !important;
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .purchases-btn:hover {
+            background-color: #ff006a !important;
         }
         #usernameDisplay {
             font-family: Cairo, sans-serif;
@@ -114,15 +121,128 @@
             margin-top: -3px;
             color: #333;
         }
+        .purchase-details {
+            font-family: Cairo, sans-serif;
+            font-size: 14px;
+            text-align: right;
+            margin-top: 20px;
+        }
+        .purchases-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .purchases-modal-content {
+            background-color: #fff;
+            width: 400px;
+            max-height: 80vh;
+            min-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            direction: rtl;
+        }
+        .purchases-header {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1;
+        }
+        .purchases-header h3 {
+            font-family: Cairo, sans-serif;
+            font-size: 18px;
+            margin: 0;
+            color: #333;
+        }
+        .purchases-list {
+            padding: 15px;
+            font-family: Cairo, sans-serif;
+            font-size: 14px;
+            text-align: right;
+            min-height: calc(300px - 60px);
+        }
+        .purchase-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .purchase-item:last-child {
+            border-bottom: none;
+        }
+        .loading-text {
+            text-align: center;
+            margin-top: 70px;
+            padding: 20px;
+            font-family: Cairo, sans-serif;
+            font-size: 16px;
+            color: #666;
+        }
+        /* أنماط نافذة التأكيد */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        .modal-buttons {
+            margin-top: 20px;
+        }
+        .modal-buttons button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #confirmLogout {
+            background-color: #ff0000;
+            color: white;
+        }
+        #confirmLogout:hover {
+            background-color: #cc0000;
+        }
+        #cancelLogout {
+            background-color: #e4e4e4;
+            color: #333;
+        }
+        #cancelLogout:hover {
+            background-color: #d8d8d8;
+        }
     </style>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-    <!-- حاوية الخلفية الشفافة مع دائرة التحميل -->
     <div class="loader-overlay" id="loaderOverlay">
         <div class="loader" id="loader"></div>
     </div>
 
-    <!-- حاويات المحتوى مخفية مباشرة في HTML -->
     <div class="login-container" id="loginContainer" style="display: none;">
         <h2>تسجيل الدخول</h2>
         <img src="https://via.placeholder.com/100" alt="صورة المستخدم" class="profile-picture" id="profilePicture">
@@ -135,15 +255,51 @@
         <h2>حساب المستخدم</h2>
         <img src="https://via.placeholder.com/100" alt="صورة المستخدم" class="profile-picture" id="profilePictureDisplay">
         <p id="usernameDisplay"></p>
+        <div class="purchase-details" id="purchaseDetails" style="display: none;"></div>
+        <button class="purchases-btn" onclick="showPurchases()">مشترياتي (<span id="purchasesCount">0</span>)</button>
         <button class="logout-button" onclick="logout()">تسجيل الخروج</button>
     </div>
 
+    <!-- نافذة المشتريات -->
+    <div id="purchasesModal" class="purchases-modal">
+        <div class="purchases-modal-content">
+            <div class="purchases-header">
+                <h3>المشتريات (<span id="modalPurchasesCount">0</span>)</h3>
+                <svg onclick="closePurchasesModal()" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </div>
+            <div class="purchases-list" id="purchasesList"></div>
+        </div>
+    </div>
+
+    <!-- نافذة التأكيد لتسجيل الخروج -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <p style="font-family: Cairo, sans-serif;">ستفقد كل معلومات حسابك. أأنت متأكد من الإستكمال؟</p>
+            <div class="modal-buttons">
+                <button id="confirmLogout">نعم</button>
+                <button id="cancelLogout">لا</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        firebase.initializeApp({
+            apiKey: "AIzaSyBkEIs1GP17POkhQd378yl0_2ZcPqYNiDM",
+            authDomain: "buy-from-adger.firebaseapp.com",
+            databaseURL: "https://buy-from-adger-default-rtdb.firebaseio.com",
+            projectId: "buy-from-adger",
+            storageBucket: "buy-from-adger.appspot.com",
+            messagingSenderId: "396020785601",
+            appId: "1:396020785601:web:yourWebAppID" // استبدل بـ appId الخاص بك
+        });
+
+        const database = firebase.database();
+
         window.addEventListener('load', () => {
-            // إخفاء الخلفية الشفافة مع دائرة التحميل بعد التحميل
             document.getElementById('loaderOverlay').style.display = 'none';
             
-            // التحقق من حالة تسجيل الدخول
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             if (isLoggedIn) {
                 document.getElementById('profileContainer').style.display = 'block';
@@ -153,6 +309,44 @@
                 
                 document.getElementById('usernameDisplay').textContent = username;
                 document.getElementById('profilePictureDisplay').src = profileImage;
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const productName = urlParams.get('productName');
+                if (productName) {
+                    const productId = urlParams.get('productId');
+                    const productPrice = urlParams.get('productPrice');
+                    const shippingPrice = urlParams.get('shippingPrice');
+                    const totalPrice = urlParams.get('totalPrice');
+                    const quantity = urlParams.get('quantity');
+                    const timestamp = urlParams.get('timestamp');
+
+                    const purchaseDetails = document.getElementById('purchaseDetails');
+                    let purchaseDate = 'غير محدد';
+                    let purchaseTime = 'غير محدد';
+                    if (timestamp) {
+                        const dateObj = new Date(parseInt(timestamp));
+                        purchaseDate = dateObj.toLocaleDateString('ar-EG');
+                        purchaseTime = dateObj.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+                    }
+                    purchaseDetails.innerHTML = `
+                        <p><strong>آخر عملية شراء:</strong></p>
+                        <p>اسم المنتج: ${decodeURIComponent(productName)}</p>
+                        <p>رقم المنتج: ${decodeURIComponent(productId)}</p>
+                        <p>الكمية: ${quantity}</p>
+                        <p>سعر المنتج: ${productPrice} جنيه</p>
+                        <p>سعر الشحن: ${shippingPrice} جنيه</p>
+                        <p>السعر الإجمالي: ${totalPrice} جنيه</p>
+                        <p>التاريخ: ${purchaseDate} الساعة: ${purchaseTime}</p>
+                    `;
+                    purchaseDetails.style.display = 'block';
+                }
+
+                database.ref('purchases').orderByChild('username').equalTo(username).once('value', (snapshot) => {
+                    const purchases = snapshot.val();
+                    const purchasesCount = purchases ? Object.keys(purchases).length : 0;
+                    document.getElementById('purchasesCount').textContent = purchasesCount;
+                    document.getElementById('modalPurchasesCount').textContent = purchasesCount;
+                });
             } else {
                 document.getElementById('loginContainer').style.display = 'block';
             }
@@ -174,21 +368,90 @@
             const profileImage = document.getElementById('profilePicture').src;
 
             if (username) {
-                localStorage.setItem('username', username);
-                localStorage.setItem('profileImage', profileImage);
-                localStorage.setItem('isLoggedIn', true);
-                alert('تم تسجيل الدخول بنجاح!');
-                window.history.back();
+                database.ref('users/' + username).once('value', (snapshot) => {
+                    if (snapshot.exists()) {
+                        alert('اسم المستخدم موجود بالفعل! يرجى اختيار اسم آخر.');
+                    } else {
+                        database.ref('users/' + username).set(true);
+                        localStorage.setItem('username', username);
+                        localStorage.setItem('profileImage', profileImage);
+                        localStorage.setItem('isLoggedIn', true);
+                        alert('تم تسجيل الدخول بنجاح!');
+                        window.location.reload();
+                    }
+                });
             } else {
                 alert('يرجى إدخال اسم المستخدم!');
             }
         }
 
+        // دالة تُظهر النافذة المنبثقة عند النقر على "تسجيل الخروج"
         function logout() {
-            localStorage.removeItem('username');
+            const modal = document.getElementById('logoutModal');
+            modal.style.display = 'flex';
+        }
+
+        // عند النقر على "نعم"
+        document.getElementById('confirmLogout').addEventListener('click', () => {
+            localStorage.removeItem('username'); // إزالة بيانات المستخدم
             localStorage.removeItem('profileImage');
             localStorage.removeItem('isLoggedIn');
-            window.location.href = 'account.html';
+            window.location.href = 'account.html'; // إعادة توجيه إلى صفحة تسجيل الدخول
+        });
+
+        // عند النقر على "لا"
+        document.getElementById('cancelLogout').addEventListener('click', () => {
+            document.getElementById('logoutModal').style.display = 'none'; // إغلاق النافذة
+        });
+
+        function showPurchases() {
+            const modal = document.getElementById('purchasesModal');
+            const purchasesList = document.getElementById('purchasesList');
+            purchasesList.innerHTML = '<p class="loading-text">جاري التحميل...</p>';
+
+            document.body.classList.add('no-scroll');
+            modal.style.display = 'flex';
+
+            const username = localStorage.getItem('username');
+
+            database.ref('purchases').orderByChild('username').equalTo(username).once('value', (snapshot) => {
+                purchasesList.innerHTML = '';
+                const purchases = snapshot.val();
+
+                if (purchases) {
+                    const purchasesArray = Object.values(purchases);
+                    purchasesArray.forEach(purchase => {
+                        const purchaseItem = document.createElement('div');
+                        purchaseItem.className = 'purchase-item';
+                        let purchaseDate = 'غير محدد';
+                        let purchaseTime = 'غير محدد';
+                        if (purchase.timestamp) {
+                            const dateObj = new Date(purchase.timestamp);
+                            purchaseDate = dateObj.toLocaleDateString('ar-EG');
+                            purchaseTime = dateObj.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+                        }
+                        purchaseItem.innerHTML = `
+                            <p>اسم المنتج: ${purchase.productName}</p>
+                            <p>رقم المنتج: ${purchase.productId}</p>
+                            <p>الكمية: ${purchase.quantity}</p>
+                            <p>سعر المنتج: ${purchase.productPrice} جنيه</p>
+                            <p>سعر الشحن: ${purchase.shippingPrice} جنيه</p>
+                            <p>السعر الإجمالي: ${purchase.totalPrice} جنيه</p>
+                            ${purchase.color ? `<p>اللون: ${purchase.color}</p>` : ''}
+                            ${purchase.size ? `<p>المقاس: ${purchase.size}</p>` : ''}
+                            <p>التاريخ: ${purchaseDate} الساعة: ${purchaseTime}</p>
+                        `;
+                        purchasesList.appendChild(purchaseItem);
+                    });
+                } else {
+                    purchasesList.innerHTML = '<p>لا توجد مشتريات بعد.</p>';
+                }
+            });
+        }
+
+        function closePurchasesModal() {
+            document.getElementById('purchasesModal').style.display = 'none';
+            document.body.classList.remove('no-scroll');
         }
     </script>
 </body>
