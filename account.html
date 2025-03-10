@@ -142,12 +142,16 @@
         .purchases-modal-content {
             background-color: #fff;
             width: 400px;
-            max-height: 80vh;
-            min-height: 300px;
+            position: fixed;
+            top: 100px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             direction: rtl;
+            height: calc(100vh - 100px);
         }
         .purchases-header {
             position: sticky;
@@ -171,7 +175,8 @@
             font-family: Cairo, sans-serif;
             font-size: 14px;
             text-align: right;
-            min-height: calc(300px - 60px);
+            overflow-y: auto;
+            max-height: calc(100% - 60px);
         }
         .purchase-item {
             margin-bottom: 15px;
