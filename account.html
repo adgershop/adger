@@ -227,9 +227,8 @@
         #cancelLogout:hover {
             background-color: #d8d8d8;
         }
-        /* أنماط إضافية لتمييز آخر منتج والخط الملون */
         .latest-purchase {
-            border: 1px solid #1111116c; /* حدود مميزة */
+            border: 1px solid #1111116c;
             padding: 14px;
             border-radius: 25px;
             margin-bottom: 22px;
@@ -248,11 +247,37 @@
             );
             background-size: 90px 100%;
         }
+
+        /* التعديلات الجديدة */
+        .purchases-header svg:hover {
+            background: #f1f1f1;
+            border-radius: 50%;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+        button:focus,
+        input[type="file"]:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        *:focus {
+            outline: none;
+        }
+        .purchases-header svg {
+            transition: all 0.3s ease;
+            padding: 5px;
+            border-radius: 50%;
+        }
+        .purchases-header svg:hover {
+            background: #e0e0e0;
+            transform: scale(1.1);
+        }
     </style>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
+    <!-- باقي الكود كما هو -->
     <div class="loader-overlay" id="loaderOverlay">
         <div class="loader" id="loader"></div>
     </div>
@@ -273,7 +298,6 @@
         <button class="logout-button" onclick="logout()">تسجيل الخروج</button>
     </div>
 
-    <!-- نافذة المشتريات -->
     <div id="purchasesModal" class="purchases-modal">
         <div class="purchases-modal-content">
             <div class="purchases-header">
@@ -286,7 +310,6 @@
         </div>
     </div>
 
-    <!-- نافذة التأكيد لتسجيل الخروج -->
     <div id="logoutModal" class="modal">
         <div class="modal-content">
             <p style="font-family: Cairo, sans-serif;">ستفقد كل معلومات حسابك. أأنت متأكد من الإستكمال؟</p>
@@ -297,6 +320,12 @@
         </div>
     </div>
 
+    <script>
+        // كود الجافاسكريبت الأصلي يبقى كما هو
+        // ... (يُفضل إضافة كود Firebase والتوابع هنا)
+    </script>
+</body>
+</html>
     <script>
         firebase.initializeApp({
             apiKey: "AIzaSyBkEIs1GP17POkhQd378yl0_2ZcPqYNiDM",
