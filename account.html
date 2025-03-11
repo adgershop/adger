@@ -121,12 +121,6 @@
             margin-top: -3px;
             color: #333;
         }
-        .purchase-details {
-            font-family: Cairo, sans-serif;
-            font-size: 14px;
-            text-align: right;
-            margin-top: 20px;
-        }
         .purchases-modal {
             display: none;
             position: fixed;
@@ -136,27 +130,18 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             z-index: 1000;
         }
         .purchases-modal-content {
             background-color: #fff;
             width: 400px;
-            position: fixed;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            max-height: calc(100vh - 100px);
+            max-height: 80vh;
+            min-height: 300px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             direction: rtl;
-        }
-        @media (max-width: 499px) {
-            .purchases-modal-content {
-                width: 90%;
-                top: 100px;
-            }
         }
         .purchases-header {
             position: sticky;
@@ -180,8 +165,7 @@
             font-family: Cairo, sans-serif;
             font-size: 14px;
             text-align: right;
-            max-height: calc(100% - 60px);
-            overflow-y: auto;
+            min-height: calc(300px - 60px);
         }
         .purchase-item {
             margin-bottom: 15px;
@@ -243,6 +227,27 @@
         #cancelLogout:hover {
             background-color: #d8d8d8;
         }
+        /* أنماط إضافية لتمييز آخر منتج والخط الملون */
+        .latest-purchase {
+            border: 1px solid #1111116c; /* حدود مميزة */
+            padding: 19px;
+            border-radius: 53px;
+            margin-bottom: 22px;
+        }
+        .colorful-divider {
+            margin-top: 17px;
+            width: 100%;
+            height: 5px;
+            background: repeating-linear-gradient(90deg,
+                rgb(0, 183, 255) 0 15px,
+                white 15px 30px,
+                red 30px 45px,
+                rgb(0, 183, 255) 45px 60px,
+                white 60px 75px,
+                rgb(255, 0, 0) 75px 90px
+            );
+            background-size: 90px 100%;
+        }
     </style>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
@@ -264,11 +269,11 @@
         <h2>حساب المستخدم</h2>
         <img src="https://via.placeholder.com/100" alt="صورة المستخدم" class="profile-picture" id="profilePictureDisplay">
         <p id="usernameDisplay"></p>
-        <div class="purchase-details" id="purchaseDetails" style="display: none;"></div>
         <button class="purchases-btn" onclick="showPurchases()">مشترياتي (<span id="purchasesCount">0</span>)</button>
         <button class="logout-button" onclick="logout()">تسجيل الخروج</button>
     </div>
 
+    <!-- نافذة المشتريات -->
     <div id="purchasesModal" class="purchases-modal">
         <div class="purchases-modal-content">
             <div class="purchases-header">
@@ -281,6 +286,7 @@
         </div>
     </div>
 
+    <!-- نافذة التأكيد لتسجيل الخروج -->
     <div id="logoutModal" class="modal">
         <div class="modal-content">
             <p style="font-family: Cairo, sans-serif;">ستفقد كل معلومات حسابك. أأنت متأكد من الإستكمال؟</p>
@@ -316,37 +322,6 @@
                 
                 document.getElementById('usernameDisplay').textContent = username;
                 document.getElementById('profilePictureDisplay').src = profileImage;
-
-                const urlParams = new URLSearchParams(window.location.search);
-                const productName = urlParams.get('productName');
-                if (productName) {
-                    const productId = urlParams.get('productId');
-                    const productPrice = urlParams.get('productPrice');
-                    const shippingPrice = urlParams.get('shippingPrice');
-                    const totalPrice = urlParams.get('totalPrice');
-                    const quantity = urlParams.get('quantity');
-                    const timestamp = urlParams.get('timestamp');
-
-                    const purchaseDetails = document.getElementById('purchaseDetails');
-                    let purchaseDate = 'غير محدد';
-                    let purchaseTime = 'غير محدد';
-                    if (timestamp) {
-                        const dateObj = new Date(parseInt(timestamp));
-                        purchaseDate = dateObj.toLocaleDateString('ar-EG');
-                        purchaseTime = dateObj.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
-                    }
-                    purchaseDetails.innerHTML = `
-                        <p><strong>آخر عملية شراء:</strong></p>
-                        <p>اسم المنتج: ${decodeURIComponent(productName)}</p>
-                        <p>رقم المنتج: ${decodeURIComponent(productId)}</p>
-                        <p>الكمية: ${quantity}</p>
-                        <p>سعر المنتج: ${productPrice} جنيه</p>
-                        <p>سعر الشحن: ${shippingPrice} جنيه</p>
-                        <p>السعر الإجمالي: ${totalPrice} جنيه</p>
-                        <p>التاريخ: ${purchaseDate} الساعة: ${purchaseTime}</p>
-                    `;
-                    purchaseDetails.style.display = 'block';
-                }
 
                 database.ref('purchases').orderByChild('username').equalTo(username).once('value', (snapshot) => {
                     const purchases = snapshot.val();
@@ -424,33 +399,61 @@
 
                 if (purchases) {
                     const purchasesArray = Object.values(purchases);
-                    purchasesArray.forEach(purchase => {
-                        const purchaseItem = document.createElement('div');
-                        purchaseItem.className = 'purchase-item';
-                        let purchaseDate = 'غير محدد';
-                        let purchaseTime = 'غير محدد';
-                        if (purchase.timestamp) {
-                            const dateObj = new Date(purchase.timestamp);
-                            purchaseDate = dateObj.toLocaleDateString('ar-EG');
-                            purchaseTime = dateObj.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+                    // ترتيب المشتريات حسب الطابع الزمني بترتيب تنازلي
+                    purchasesArray.sort((a, b) => b.timestamp - a.timestamp);
+
+                    if (purchasesArray.length > 0) {
+                        // عرض آخر منتج تم شراؤه
+                        const latestPurchase = purchasesArray[0];
+                        const latestPurchaseItem = createPurchaseItem(latestPurchase, true);
+                        purchasesList.innerHTML += '<h4>تفاصيل آخر منتج تم شراؤه</h4>';
+                        purchasesList.appendChild(latestPurchaseItem);
+
+                        // إضافة الخط الملون
+                        const divider = document.createElement('div');
+                        divider.className = 'colorful-divider';
+                        purchasesList.appendChild(divider);
+
+                        // عرض المنتجات السابقة
+                        if (purchasesArray.length > 1) {
+                            purchasesList.innerHTML += '<h4>المنتجات القديمة</h4>';
+                            for (let i = 1; i < purchasesArray.length; i++) {
+                                const purchaseItem = createPurchaseItem(purchasesArray[i], false);
+                                purchasesList.appendChild(purchaseItem);
+                            }
                         }
-                        purchaseItem.innerHTML = `
-                            <p>اسم المنتج: ${purchase.productName}</p>
-                            <p>رقم المنتج: ${purchase.productId}</p>
-                            <p>الكمية: ${purchase.quantity}</p>
-                            <p>سعر المنتج: ${purchase.productPrice} جنيه</p>
-                            <p>سعر الشحن: ${purchase.shippingPrice} جنيه</p>
-                            <p>السعر الإجمالي: ${purchase.totalPrice} جنيه</p>
-                            ${purchase.color ? `<p>اللون: ${purchase.color}</p>` : ''}
-                            ${purchase.size ? `<p>المقاس: ${purchase.size}</p>` : ''}
-                            <p>التاريخ: ${purchaseDate} الساعة: ${purchaseTime}</p>
-                        `;
-                        purchasesList.appendChild(purchaseItem);
-                    });
+                    }
                 } else {
                     purchasesList.innerHTML = '<p>لا توجد مشتريات بعد.</p>';
                 }
             });
+        }
+
+        function createPurchaseItem(purchase, isLatest) {
+            const purchaseItem = document.createElement('div');
+            purchaseItem.className = 'purchase-item';
+            if (isLatest) {
+                purchaseItem.classList.add('latest-purchase');
+            }
+            let purchaseDate = 'غير محدد';
+            let purchaseTime = 'غير محدد';
+            if (purchase.timestamp) {
+                const dateObj = new Date(purchase.timestamp);
+                purchaseDate = dateObj.toLocaleDateString('ar-EG');
+                purchaseTime = dateObj.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+            }
+            purchaseItem.innerHTML = `
+                <p>اسم المنتج: ${purchase.productName}</p>
+                <p>رقم المنتج: ${purchase.productId}</p>
+                <p>الكمية: ${purchase.quantity}</p>
+                <p>سعر المنتج: ${purchase.productPrice} جنيه</p>
+                <p>سعر الشحن: ${purchase.shippingPrice} جنيه</p>
+                <p>السعر الإجمالي: ${purchase.totalPrice} جنيه</p>
+                ${purchase.color ? `<p>اللون: ${purchase.color}</p>` : ''}
+                ${purchase.size ? `<p>المقاس: ${purchase.size}</p>` : ''}
+                <p>التاريخ: ${purchaseDate} الساعة: ${purchaseTime}</p>
+            `;
+            return purchaseItem;
         }
 
         function closePurchasesModal() {
