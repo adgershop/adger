@@ -1947,159 +1947,170 @@
 
 
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كود هام لزر الشراء و الاضافه الى العربة</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
 
-    <!DOCTYPE html>
-    <html lang="ar" dir="rtl">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>كود هام لزر الشراء و الاضافه الى العربة</title>
-        <style>
-            body {
-                font-family: 'Cairo', sans-serif;
-                margin: 0;
-                padding: 0;
-            }
-    
-            .image-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin: 20px;
-            }
-    
-            .image-frame {
-                position: relative;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-    
-            .image-frame img {
-                max-width: 100%;
-                height: auto;
-                border-radius: 8px;
-            }
-    
-            .text-under {
-                text-align: center;
-                margin-top: 10px;
-            }
-    
-            .text-under h1 {
-                font-size: 18px;
-                margin: 5px 0;
-            }
-    
-            .text-under h2 {
-                font-size: 13px;
-                color: #ffc400;
-                margin-top: -5px;
-            }
-    
-            .container {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                margin-top: 10px;
-            }
-    
-            .container .zero, .container .number, .container .letter {
-                font-size: 16px;
-            }
-    
-            .container .number {
-                font-size: 28px;
-            }
-    
-            h3 {
-                font-size: 12px;
-                color: #ff0000;
-                text-transform: uppercase;
-                margin: 5px 0 0 8px;
-            }
-    
-            .bottom-buttons {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 52px;
-                display: flex;
-                z-index: 0;
-                box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-            }
-    
-            .add-to-cart-text, .buy-now-text {
-                flex: 1;
-                color: #ffffff;
-                font-size: 20px;
-                text-align: center;
-                line-height: 55px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-    
-            .add-to-cart-text {
-                background-color: #ffc400;
-                user-select: none; /* يجعل النص غير قابل للتحديد */
-            }
-    
-            .add-to-cart-text:hover {
-                background-color: #ffae00;
-            }
-            .buy-now-text {
-    background-color: #ff6600;
-    user-select: none; /* يجعل النص غير قابل للتحديد */
+        .image-frame {
+            position: relative;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .text-under {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .text-under h1 {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .text-under h2 {
+            font-size: 13px;
+            color: #ffc400;
+            margin-top: -5px;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .container .zero, .container .number, .container .letter {
+            font-size: 16px;
+        }
+
+        .container .number {
+            font-size: 28px;
+        }
+
+        h3 {
+            font-size: 12px;
+            color: #ff0000;
+            text-transform: uppercase;
+            margin: 5px 0 0 8px;
+        }
+
+      .bottom-buttons {
+    position: fixed;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1;
+    border-top: 2px solid rgba(0, 0, 0, 0.1); /* لون أفتح */
+    margin-bottom: 3px; /* رفع الخط قليلاً */
 }
 
-.buy-now-text:hover {
-    background-color: #ff5100;
-}
-        </style>
-    </head>
-    <body>
-        <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-            <div class="image-frame" style="display: none;">
-                <a href="1.html">
-                    <img src="1.jpg" alt="ساعة تاتتش تعمل باللمس">
-                </a>
-                <div class="text-under">
-                    <h1>ساعة تاتش تعمل باللمس</h1>
-                    <h2>22 مباعه - adger</h2>
-                    <div class="container">
-                        <div class="zero">00.</div>
-                        <div class="number">44</div>
-                        <div class="letter">جنيه</div>
-                    </div>
-                    <h3>خصم 323%</h3>
+
+        .buttons-wrapper {
+            display: flex;
+            padding: 8px;
+            gap: 10px;
+        }
+
+        .add-to-cart-text, .buy-now-text {
+            flex: 1;
+            color: #ffffff;
+            font-size: 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 45px;
+            user-select: none;
+            box-sizing: border-box; /* يضمن احتساب الحدود ضمن الارتفاع */
+        }
+
+        .add-to-cart-text {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            border: 1px solid black; /* سمك الخط تم تقليله إلى 1px */
+        }
+
+        .add-to-cart-text:hover {
+            background-color: #ffae0028;
+        }
+
+        .buy-now-text {
+            background-color: #ff6600;
+        }
+
+        .buy-now-text:hover {
+            background-color: #ff5100;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
+        <div class="image-frame" style="display: none;">
+            <a href="1.html">
+                <img src="1.jpg" alt="ساعة تاتتش تعمل باللمس">
+            </a>
+            <div class="text-under">
+                <h1>ساعة تاتش تعمل باللمس</h1>
+                <h2>22 مباعه - adger</h2>
+                <div class="container">
+                    <div class="zero">00.</div>
+                    <div class="number">44</div>
+                    <div class="letter">جنيه</div>
                 </div>
+                <h3>خصم 323%</h3>
             </div>
-            <div class="bottom-buttons">
+        </div>
+        <div class="bottom-buttons">
+            <div class="buttons-wrapper">
                 <div class="buy-now-text" onclick="buyNow('ساعة تاتتش تعمل باللمس', '#1', '200', '100', ['أسود', 'أبيض', 'أحمر', 'أزرق'], ['S', 'M', 'L', 'XL', 'XXL'])">شراء الآن</div>
                 <div class="add-to-cart-text" onclick="addToCart()">إضافة إلى العربة</div>
             </div>
         </div>
-        
-        <script>
-            function buyNow(productName, productId, productPrice, shippingPrice, colors = [], sizes = []) {
-                // Convert arrays to URL-safe strings only if they exist and are non-empty
-                const colorsParam = colors.length > 0 ? encodeURIComponent(colors.join(',')) : '';
-                const sizesParam = sizes.length > 0 ? encodeURIComponent(sizes.join(',')) : '';
-        
-                // Build the URL dynamically, only including colors and sizes if they are provided
-                let url = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}`;
-                if (colorsParam) url += `&colors=${colorsParam}`;
-                if (sizesParam) url += `&sizes=${sizesParam}`;
-        
-                // Redirect to buy.html
-                window.location.href = url;
-            }
-        
-            function addToCart() {
-                alert("تمت إضافة المنتج إلى العربة!");
-            }
-        </script>
+    </div>
+    
+    <script>
+        function buyNow(productName, productId, productPrice, shippingPrice, colors = [], sizes = []) {
+            const colorsParam = colors.length > 0 ? encodeURIComponent(colors.join(',')) : '';
+            const sizesParam = sizes.length > 0 ? encodeURIComponent(sizes.join(',')) : '';
+            let url = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}`;
+            if (colorsParam) url += `&colors=${colorsParam}`;
+            if (sizesParam) url += `&sizes=${sizesParam}`;
+            window.location.href = url;
+        }
+    
+        function addToCart() {
+            alert("تمت إضافة المنتج إلى العربة!");
+        }
+    </script>
+</body>
+</html>
 
 
 
@@ -2156,7 +2167,7 @@
             }
             @media (min-width: 768px) { /* تعديل المارغن فقط للشاشات الأكبر من الهواتف */
                 .search-wrapper {
-                    margin-right: 4px;
+                    margin-right: 6px;
                     margin-left: 11px;
                 }
             }
