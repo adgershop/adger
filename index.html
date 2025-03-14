@@ -2549,12 +2549,17 @@ menuPopup.addEventListener('touchmove', function(event) {
                 transition: background-color 0.3s;
             }
     
-            @media (max-width: 1268px) { /* تنطبق على الأجهزة الصغيرة */
+            @media (max-width: 1268px) { /* تعديل للهواتف */
                 .add-to-cart {
                     left: 6px;
                     bottom: 7px;
-                    width: 36px;
-                    height: 36px;
+                    width: 25px; /* تصغير الزر أكثر */
+                    height: 25px; /* تصغير الزر أكثر */
+                    padding: 5px; /* الحفاظ على الحشوة */
+                }
+                .add-to-cart svg {
+                    width: 15px; /* تصغير الأيقونة أكثر */
+                    height: 15px; /* تصغير الأيقونة أكثر */
                 }
             }
     
