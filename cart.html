@@ -21,8 +21,8 @@
             text-align: center;
             font-family: Cairo, sans-serif;
             margin-bottom: 11px;
-            font-size: 23px; /* حجم أصغر قليلاً لعربة التسوق */
-            font-weight: 400; /* النص بحالته العادية غير سميك */
+            font-size: 23px;
+            font-weight: 400;
         }
 
         .gallery {
@@ -31,7 +31,7 @@
             gap: 10px;
             justify-content: center;
             padding: 20px;
-            margin-bottom: 75px; /* مساحة للتذييل */
+            margin-bottom: 75px;
             flex-direction: row-reverse;
         }
 
@@ -55,7 +55,7 @@
             position: relative;
             width: 100%;
             padding-top: 100%;
-            background-color: #f0f0f088; /* لون رمادي فاتح */
+            background-color: #f0f0f088;
             border-radius: 22px;
         }
 
@@ -98,13 +98,13 @@
         .text-under h1 {
             font-family: Cairo, sans-serif;
             color: #333;
-            font-size: 17px; /* حجم اسم المنتج العادي */
-            font-weight: 500; /* النص بحالته العادية غير سميك */
+            font-size: 17px;
+            font-weight: 500;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
-            margin: 0 0 5px 0; /* هامش سفلي موحد */
+            margin: 0 0 5px 0;
         }
 
         .text-under h2 {
@@ -112,17 +112,17 @@
             color: #ffa600;
             font-size: 13px;
             margin: 0 0 5px 0;
-            font-weight: 400; /* النص بحالته العادية */
+            font-weight: 400;
         }
 
         .text-under h3 {
             font-family: 'Cairo', sans-serif;
             color: #ff0000;
-            font-size: 14px; /* الحجم الأساسي لنص الخصم */
+            font-size: 14px;
             margin-top: -1px;
             margin-right: 8.6px;
             text-transform: uppercase;
-            font-weight: 400; /* النص بحالته العادية لتقليل السماكة */
+            font-weight: 400;
         }
 
         .remove-button {
@@ -153,7 +153,7 @@
             color: #000000;
             font-family: Cairo, sans-serif;
             font-size: 14px;
-            font-weight: 400; /* النص بحالته العادية */
+            font-weight: 400;
         }
 
         .remove-button:hover svg,
@@ -171,7 +171,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px; /* الخلفية الزرقاء كما كانت بدون حشوة إضافية */
+            padding: 0 20px;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
@@ -180,7 +180,7 @@
             color: white;
             font-family: Cairo, sans-serif;
             font-size: 18px;
-            font-weight: 400; /* النص بحالته العادية */
+            font-weight: 400;
         }
 
         .back-button {
@@ -192,7 +192,7 @@
             cursor: pointer;
             font-family: Cairo, sans-serif;
             font-size: 16px;
-            font-weight: 400; /* النص بحالته العادية */
+            font-weight: 400;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -214,6 +214,16 @@
 
         .letter {
             font-size: 18px;
+        }
+
+        @media (max-width: 1499px) { 
+            .remove-button span {
+                display: none;
+            }
+            .remove-button svg {
+                width: 20px;
+                height: 20px;
+            }
         }
 
         @media (max-width: 1168px) {
@@ -242,27 +252,27 @@
             }
 
             .carttext {
-                font-size: 20px; /* تصغير حجم النص لعربة التسوق */
+                font-size: 20px;
             }
 
             .text-under h1 {
-                font-size: 15px; /* تصغير حجم اسم المنتج */
+                font-size: 15px;
             }
 
             .text-under h2 {
-                font-size: 12px; /* تصغير حجم النص للعناصر الأخرى */
+                font-size: 12px;
             }
 
             .remove-button span {
-                font-size: 12px; /* تصغير حجم نص زر الحذف */
+                font-size: 12px;
             }
 
             .total-price {
-                font-size: 16px; /* تصغير حجم نص السعر الإجمالي */
+                font-size: 16px;
             }
 
             .back-button {
-                font-size: 14px; /* تصغير حجم نص زر الرجوع */
+                font-size: 14px;
             }
         }
 
@@ -275,10 +285,15 @@
 
         @media (max-width: 1168px) {
             .text-under h3 {
-                font-size: 12px !important; /* تصغير حجم نص الخصم لشاشات الهاتف مع إعطاء أولوية */
+                font-size: 13px !important;
             }
         }
 
+        @media (max-width: 499px) { 
+            .carttext {
+                margin-bottom: -1px !important;
+            }
+        }
 
         #empty-cart-message {
             display: none;
@@ -299,7 +314,7 @@
             font-family: Cairo, sans-serif;
             font-size: 18px;
             color: #333;
-            font-weight: 400; /* النص بحالته العادية */
+            font-weight: 400;
             margin-top: 10px;
         }
 
@@ -316,18 +331,6 @@
         .add-to-cart, .image-container, .image-frame {
             outline: none;
             -webkit-tap-highlight-color: transparent;
-        }
-
-        @media (max-width: 1499px) { 
-            .remove-button span {
-                display: none;
-            }
-        }
-
-        @media (max-width: 499px) { 
-            .carttext {
-                margin-bottom: -1px !important;
-            }
         }
     </style>
 </head>
