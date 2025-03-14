@@ -2489,11 +2489,11 @@ menuPopup.addEventListener('touchmove', function(event) {
                 background-color: #f1f1f1af;
                 border-radius: 4%;
             }
-            @media (max-width: 768px) { /* تنطبق على الأجهزة الصغيرة */
+            @media (max-width: 499px) { /* تنطبق على الأجهزة الصغيرة */
                 .image-wrapper{
                     background-color: #f1f1f170;
-    }
-}
+                }
+            }
     
             .image-frame img {
                 position: absolute;
@@ -2548,16 +2548,16 @@ menuPopup.addEventListener('touchmove', function(event) {
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                 transition: background-color 0.3s;
             }
-
-    @media (max-width: 1268px) { /* تنطبق على الأجهزة الصغيرة */
-    .add-to-cart {
-      left: 6px;
-        bottom: 7px;
-        width: 36px;
-        height: 36px;
-    }
-}
-
+    
+            @media (max-width: 1268px) { /* تنطبق على الأجهزة الصغيرة */
+                .add-to-cart {
+                    left: 6px;
+                    bottom: 7px;
+                    width: 36px;
+                    height: 36px;
+                }
+            }
+    
             .add-to-cart svg {
                 width: 24px;
                 height: 24px;
@@ -2645,6 +2645,15 @@ menuPopup.addEventListener('touchmove', function(event) {
                 opacity: 1;
                 transform: translateY(0);
             }
+    
+            /* إزالة التحديد الأزرق عند النقر على الرابط */
+            .image-frame a {
+                outline: none; /* إزالة الخط الأزرق */
+            }
+    
+            .image-frame a:focus {
+                outline: none; /* إزالة الخط الأزرق عند التركيز */
+            }
         </style>
     </head>
     <body>
@@ -2653,7 +2662,6 @@ menuPopup.addEventListener('touchmove', function(event) {
         <script>
             // دالة إضافة المنتج إلى السلة
             function addToCart(element) {
-                // إيقاف انتشار الحدث لمنع تفعيل الرابط
                 event.stopPropagation();
                 event.preventDefault();
                 
@@ -2837,7 +2845,6 @@ menuPopup.addEventListener('touchmove', function(event) {
         </script>
     </body>
     </html>
-
 
 
 
