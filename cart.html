@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عربة التسوق</title>
     <style>
@@ -14,6 +15,13 @@
             position: relative;
             min-height: 100vh;
             margin-bottom: 5px;
+        }
+
+        .carttext {
+            text-align: center;
+            font-family: Cairo, sans-serif;
+            margin-bottom: 11px;
+            font-size: 22px; /* حجم أصغر قليلاً لعربة التسوق */
         }
 
         .gallery {
@@ -46,6 +54,8 @@
             position: relative;
             width: 100%;
             padding-top: 100%;
+            background-color: #f0f0f088; /* لون رمادي فاتح */
+            border-radius: 22px;
         }
 
         .image-frame .placeholder {
@@ -87,7 +97,7 @@
         .text-under h1 {
             font-family: Cairo, sans-serif;
             color: #333;
-            font-size: 15px;
+            font-size: 14px; /* حجم أكبر قليلاً لاسم المنتج */
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -182,6 +192,7 @@
         .letter {
             font-size: 18px;
         }
+
         @media (max-width: 1168px) {
             .number,
             .letter {
@@ -206,16 +217,20 @@
                 flex: 1 1 calc(50% - 5px);
                 max-width: calc(50% - 5px);
             }
+
+            .carttext {
+                font-size: 20px; /* حجم أصغر لعربة التسوق على الهواتف */
+            }
+
+            .text-under h1 {
+                font-size: 14px; /* حجم أصغر لاسم المنتج على الهواتف ولكن ليس كثيراً */
+            }
         }
 
         @media (min-width: 1025px) {
             .image-container {
                 flex: 1 1 calc(20% - 20px);
                 max-width: calc(20% - 20px);
-            }
-
-            .text-under h1 {
-                font-size: 18px;
             }
         }
 
@@ -270,7 +285,7 @@
     </style>
 </head>
 <body>
-    <h1 class="carttext" style="text-align: center; font-family: Cairo, sans-serif; margin-bottom: 11px;">عربة التسوق (<span id="itemCount">0</span>)</h1>
+    <h1 class="carttext">عربة التسوق (<span id="itemCount">0</span>)</h1>
 
     <div class="gallery" id="cart-items"></div>
 
