@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عربة التسوق</title>
     <style>
@@ -122,7 +122,7 @@
             margin-top: -1px;
             margin-right: 8.6px;
             text-transform: uppercase;
-            font-weight: 400;
+            font-weight: 600; /* تم تعديله إلى 600 لجعل النص سميكًا قليلاً */
         }
 
         .remove-button {
@@ -285,7 +285,7 @@
 
         @media (max-width: 1168px) {
             .text-under h3 {
-                font-size: 13px !important;
+                font-size: 12px !important;
                 margin-top: -4px !important;
             }
         }
@@ -403,7 +403,7 @@
                                     <div class="number">${product.price}</div>
                                     <div class="letter" style="margin-right: ${letterMargin};">EGP</div>
                                 </div>
-                                <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; margin-top: -1px; margin-right: 6px; text-transform: uppercase; font-weight: 400;">${product.discount}</h3>
+                                <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; margin-top: -1px; margin-right: 6px; text-transform: uppercase; font-weight: 600;">${product.discount}</h3>
                             </div>
                             <button class="remove-button" onclick="removeFromCart(${index})">
                                 <span>حذف</span>
