@@ -2646,13 +2646,20 @@ menuPopup.addEventListener('touchmove', function(event) {
                 transform: translateY(0);
             }
     
-            /* إزالة التحديد الأزرق عند النقر على الرابط */
-            .image-frame a {
-                outline: none; /* إزالة الخط الأزرق */
+            /* إزالة التحديد الأزرق عند النقر على الرابط والصورة */
+            .image-frame a,
+            .image-frame a *,
+            .image-frame a *:focus,
+            .image-frame a img {
+                outline: none !important;
+                border: none !important;
+                -webkit-tap-highlight-color: transparent !important; /* للأجهزة المحمولة */
             }
     
-            .image-frame a:focus {
-                outline: none; /* إزالة الخط الأزرق عند التركيز */
+            /* إزالة التحديد الأزرق عند التركيز */
+            .image-frame a:focus,
+            .image-frame a img:focus {
+                outline: none !important;
             }
         </style>
     </head>
@@ -2671,7 +2678,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 return false; // منع السلوك الافتراضي
             }
         
-            // مصفوفة المنتجات (يمكن إضافة 5000 منتج أو أكثر)
+            // مصفوفة المنتجات
             const products = [
                 { name: "ساعة تاتش سوداء", dataName: "كتب عصري وأنيق", price: "1,500.00", image: "55.png", sold: 25, discountTexts: '["كان ب 200,000 جنيه", "خصم224245%"]', link: "prod1.html" },
                 { name: "ساعة ذكية رياضية", dataName: "مقاومة للماء ومتعددة الوظائف", price: "2,200.00", image: "images/sport_watch.png", sold: 50, discountTexts: '["كان ب 3,000 جنيه", "خصم27%"]', link: "product2.html" },
@@ -2683,7 +2690,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 { name: "ساعة رياضية ضد الماء", dataName: "مقاومة للماء للأنشطة الرياضية", price: "2,500.00", image: "images/waterproof_sport.png", sold: 35, discountTexts: '["كان ب 3,200 جنيه", "خصم22%"]', link: "product8.html" },
                 { name: "ساعة كلاسيك جلد", dataName: "أسوارة جلدية كلاسيكية", price: "2,000.00", image: "images/leather_classic.png", sold: 18, discountTexts: '["كان ب 2,700 جنيه", "خصم26%"]', link: "product9.html" },
                 { name: "ساعة ذكية بتقنية NFC", dataName: "تدعم تقنية NFC للدفع", price: "2,800.00", image: "images/nfc_smart.png", sold: 28, discountTexts: '["كان ب 3,500 جنيه", "خصم20%"]', link: "product10.html" }
-                // يمكن إضافة المزيد من المنتجات هنا
             ];
         
             // دالة لترتيب المنتجات بشكل عشوائي
@@ -2698,28 +2704,23 @@ menuPopup.addEventListener('touchmove', function(event) {
             // التوليد الديناميكي مع التمرير اللانهائي
             document.addEventListener("DOMContentLoaded", function () {
                 const gallery = document.getElementById('gallery');
-                const itemsPerLoad = 20; // عدد العناصر التي يتم تحميلها في كل مرة
+                const itemsPerLoad = 20;
                 let loadedItems = 0;
         
-                // ترتيب المنتجات بشكل عشوائي
                 const shuffledProducts = shuffleArray(products);
         
-                // دالة لإضافة المنتجات
                 function loadProducts(startIndex, count) {
                     const endIndex = Math.min(startIndex + count, shuffledProducts.length);
                     for (let i = startIndex; i < endIndex; i++) {
                         const product = shuffledProducts[i];
-                        // تحويل السعر إلى نص للتحقق من أول رقم
                         const priceStr = product.price.toString();
                         const firstDigit = priceStr.charAt(0);
-                        // الأرقام التي ستحصل على margin-right: -1px
                         const specialDigits = ['2', '3', '5', '6', '8', '9'];
-                        // تعيين margin-right بناءً على أول رقم
                         const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
         
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        productDiv.setAttribute('data-name', product.dataName); // إضافة data-name هنا
+                        productDiv.setAttribute('data-name', product.dataName);
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -2750,11 +2751,9 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                     loadedItems = endIndex;
         
-                    // التحميل الكسول للصور الجديدة
                     const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                     lazyImages.forEach(img => observer.observe(img));
                     
-                    // إضافة مستمعي الأحداث لأزرار الإضافة إلى السلة
                     document.querySelectorAll('.add-to-cart').forEach(button => {
                         button.addEventListener('click', function(e) {
                             e.preventDefault();
@@ -2765,7 +2764,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
                 }
         
-                // التحميل الكسول باستخدام IntersectionObserver
                 const observer = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -2773,7 +2771,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                             img.src = img.dataset.src;
                             img.onload = () => {
                                 img.classList.add("loaded");
-                                // التحقق من خلفية الصورة
                                 if (isWhiteBackground(img)) {
                                     img.classList.add("white-bg");
                                 }
@@ -2783,27 +2780,22 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
                 }, { rootMargin: "0px 0px 200px 0px" });
         
-                // تحميل الدفعة الأولى
                 loadProducts(0, itemsPerLoad);
         
-                // التمرير اللانهائي
                 document.addEventListener('scroll', function () {
                     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && loadedItems < shuffledProducts.length) {
                         loadProducts(loadedItems, itemsPerLoad);
                     }
                 });
         
-                // إعادة تحميل عند تغيير حجم الشاشة (اختياري)
                 window.addEventListener('resize', function () {
                     const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                     lazyImages.forEach(img => observer.observe(img));
                 });
         
-                // تشغيل النص المتحرك بعد إضافة المنتجات
                 startRotatingText(".rotating-text1212");
             });
         
-            // دالة النص المتحرك
             function startRotatingText(selector) {
                 document.querySelectorAll(selector).forEach(element => {
                     const texts = JSON.parse(element.getAttribute("data-texts"));
@@ -2822,7 +2814,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 });
             }
     
-            // دالة للتحقق مما إذا كانت خلفية الصورة بيضاء
             function isWhiteBackground(img) {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
@@ -2840,7 +2831,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 }
     
-                return (whitePixelCount / totalPixelCount) > 0.9; // إذا كانت أكثر من 90% من الصورة بيضاء
+                return (whitePixelCount / totalPixelCount) > 0.9;
             }
         </script>
     </body>
