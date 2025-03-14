@@ -107,6 +107,24 @@
             margin: 0 0 5px 0; /* هامش سفلي موحد */
         }
 
+        .text-under h2 {
+            font-family: Cairo, sans-serif;
+            color: #ffa600;
+            font-size: 13px;
+            margin: 0 0 5px 0;
+            font-weight: 400; /* النص بحالته العادية */
+        }
+
+        .text-under h3 {
+            font-family: 'Cairo', sans-serif;
+            color: #ff0000;
+            font-size: 14px; /* الحجم الأساسي لنص الخصم */
+            margin-top: -1px;
+            margin-right: 8.6px;
+            text-transform: uppercase;
+            font-weight: 400; /* النص بحالته العادية لتقليل السماكة */
+        }
+
         .remove-button {
             background-color: transparent;
             border: none;
@@ -224,11 +242,27 @@
             }
 
             .carttext {
-                font-size: 22px; /* حجم أصغر لعربة التسوق على الهواتف */
+                font-size: 20px; /* تصغير حجم النص لعربة التسوق */
             }
 
             .text-under h1 {
-                font-size: 16px; /* تصغير حجم اسم المنتج أكثر على الهواتف */
+                font-size: 15px; /* تصغير حجم اسم المنتج */
+            }
+
+            .text-under h2 {
+                font-size: 12px; /* تصغير حجم النص للعناصر الأخرى */
+            }
+
+            .remove-button span {
+                font-size: 12px; /* تصغير حجم نص زر الحذف */
+            }
+
+            .total-price {
+                font-size: 16px; /* تصغير حجم نص السعر الإجمالي */
+            }
+
+            .back-button {
+                font-size: 14px; /* تصغير حجم نص زر الرجوع */
             }
         }
 
@@ -238,6 +272,13 @@
                 max-width: calc(20% - 20px);
             }
         }
+
+        @media (max-width: 1168px) {
+            .text-under h3 {
+                font-size: 13px !important; /* تصغير حجم نص الخصم لشاشات الهاتف مع إعطاء أولوية */
+            }
+        }
+
 
         #empty-cart-message {
             display: none;
@@ -358,7 +399,7 @@
                                     <div class="number">${product.price}</div>
                                     <div class="letter" style="margin-right: ${letterMargin};">EGP</div>
                                 </div>
-                                <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 12px; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase;">${product.discount}</h3>
+                                <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; margin-top: -1px; margin-right: 8.6px; text-transform: uppercase; font-weight: 400;">${product.discount}</h3>
                             </div>
                             <button class="remove-button" onclick="removeFromCart(${index})">
                                 <span>حذف</span>
