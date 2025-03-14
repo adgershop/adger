@@ -2486,12 +2486,12 @@ menuPopup.addEventListener('touchmove', function(event) {
                 position: relative;
                 width: 100%;
                 padding-top: 100%;
-                background-color: #f1f1f1b2;
+                background-color: #f1f1f1af;
                 border-radius: 4%;
             }
             @media (max-width: 768px) { /* تنطبق على الأجهزة الصغيرة */
                 .image-wrapper{
-                    background-color: #f1f1f179;
+                    background-color: #f1f1f170;
     }
 }
     
@@ -2549,7 +2549,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 transition: background-color 0.3s;
             }
 
-    @media (max-width: 768px) { /* تنطبق على الأجهزة الصغيرة */
+    @media (max-width: 1268px) { /* تنطبق على الأجهزة الصغيرة */
     .add-to-cart {
       left: 6px;
         bottom: 7px;
@@ -2619,7 +2619,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 width: 100%;
             }
     
-            @media (max-width: 768px) {
+            @media (max-width: 1268px) {
                 .container {
                     margin-top: -7px;
                 }
@@ -2729,8 +2729,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                                     <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
                                     <div class="container">
                                         <div class="zero" style="font-size: 24px;"></div>
-                                        <div class="number" style="font-size: 24px;">${product.price}</div>
-                                        <div class="letter" style="margin-right: ${letterMargin}; font-size: 20px;">EGP</div>
+                                        <div class="number" style="font-size: 20px;">${product.price}</div>
+                                        <div class="letter" style="margin-right: ${letterMargin}; font-size: 17px;">EGP</div>
                                     </div>
                                     <div class="product1212">
                                         <h3 class="rotating-text1212" data-texts='${product.discountTexts}'>${JSON.parse(product.discountTexts)[0]}</h3>
