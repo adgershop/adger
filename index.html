@@ -2486,13 +2486,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                 position: relative;
                 width: 100%;
                 padding-top: 100%;
-                background-color: #f1f1f1c5;
+                background-color: #f3f3f3be;
                 border-radius: 9%;
-            }
-            @media (max-width: 499px) { /* تنطبق على الأجهزة الصغيرة */
-                .image-wrapper{
-                    background-color: #f1f1f19f;
-                }
             }
     
             .image-frame img {
@@ -2513,7 +2508,7 @@ menuPopup.addEventListener('touchmove', function(event) {
             }
     
             .image-frame img.white-bg {
-                background-color: #d3d3d3; /* Grey background for images with white background */
+                background-color: #d3d3d3;
             }
     
             .text-under {
@@ -2537,7 +2532,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 position: absolute;
                 bottom: 10px;
                 left: 10px;
-                background-color: #3b3b3b;
+                background-color: #ffffff;
                 border-radius: 50%;
                 width: 40px;
                 height: 40px;
@@ -2549,36 +2544,36 @@ menuPopup.addEventListener('touchmove', function(event) {
                 transition: background-color 0.3s;
             }
     
-            @media (max-width: 1268px) { /* تعديل للهواتف */
+            @media (max-width: 1268px) {
                 .add-to-cart {
                     left: 6px;
                     bottom: 7px;
-                    width: 20px; /* تكبير الزر قليلاً جدًا */
-                    height: 20px; /* تكبير الزر قليلاً جدًا */
-                    padding: 5px; /* الحفاظ على الحشوة */
+                    width: 20px;
+                    height: 20px;
+                    padding: 5px;
                 }
                 .add-to-cart svg {
-                    width: 12px; /* تكبير الأيقونة قليلاً جدًا */
-                    height: 12px; /* تكبير الأيقونة قليلاً جدًا */
+                    width: 12px;
+                    height: 12px;
                 }
             }
     
             .add-to-cart svg {
                 width: 24px;
                 height: 24px;
-                color: #ffffff;
+                color: #000000;
             }
     
             .add-to-cart.checked {
-                background-color: #28a745; /* Green background for checkmark */
+                background-color: #28a745;
             }
     
             .add-to-cart.checked svg {
-                display: none; /* Hide the original icon */
+                display: none;
             }
     
             .add-to-cart.checked::before {
-                content: "✓"; /* Checkmark symbol */
+                content: "✓";
                 font-size: 24px;
                 color: #ffffff;
             }
@@ -2619,7 +2614,7 @@ menuPopup.addEventListener('touchmove', function(event) {
     
             .container {
                 display: flex;
-                align-items: center; /* Center vertically */
+                align-items: center;
                 gap: 5px;
                 width: 100%;
             }
@@ -2651,17 +2646,15 @@ menuPopup.addEventListener('touchmove', function(event) {
                 transform: translateY(0);
             }
     
-            /* إزالة التحديد الأزرق عند النقر على الرابط والصورة */
             .image-frame a,
             .image-frame a *,
             .image-frame a *:focus,
             .image-frame a img {
                 outline: none !important;
                 border: none !important;
-                -webkit-tap-highlight-color: transparent !important; /* للأجهزة المحمولة */
+                -webkit-tap-highlight-color: transparent !important;
             }
     
-            /* إزالة التحديد الأزرق عند التركيز */
             .image-frame a:focus,
             .image-frame a img:focus {
                 outline: none !important;
@@ -2680,23 +2673,9 @@ menuPopup.addEventListener('touchmove', function(event) {
                 element.classList.add('checked');
                 alert("تمت إضافة المنتج إلى سلة التسوق");
                 
-                return false; // منع السلوك الافتراضي
+                return false;
             }
-        
-            // مصفوفة المنتجات
-            const products = [
-                { name: "ساعة تاتش سوداء", dataName: "كتب عصري وأنيق", price: "1,500.00", image: "55.png", sold: 25, discountTexts: '["كان ب 200,000 جنيه", "خصم224245%"]', link: "prod1.html" },
-                { name: "ساعة ذكية رياضية", dataName: "مقاومة للماء ومتعددة الوظائف", price: "2,200.00", image: "images/sport_watch.png", sold: 50, discountTexts: '["كان ب 3,000 جنيه", "خصم27%"]', link: "product2.html" },
-                { name: "ساعة كلاسيك باللمس", dataName: "أناقة مع تقنية اللمس", price: "1,800.00", image: "images/classic_touch.png", sold: 15, discountTexts: '["كان ب 2,500 جنيه", "خصم28%"]', link: "product3.html" },
-                { name: "ساعة أنيقة فضية", dataName: "تصميم فضي أنيق", price: "3,000.00", image: "images/silver_elegant.png", sold: 30, discountTexts: '["كان ب 4,000 جنيه", "خصم32%"]', link: "product4.html" },
-                { name: "ساعة ذهبية فاخرة", dataName: "فخامة بتصميم ذهبي", price: "5,000.00", image: "images/gold_luxury.png", sold: 10, discountTexts: '["كان ب 6,000 جنيه", "خصم16%"]', link: "product5.html" },
-                { name: "ساعة ذكية للأطفال", dataName: "مصممة خصيصًا للأطفال", price: "1,200.00", image: "images/kids_smart.png", sold: 40, discountTexts: '["كان ب 1,500 جنيه", "خصم20%"]', link: "product6.html" },
-                { name: "ساعة تاتش بيضاء", dataName: "تصميم أبيض أنيق", price: "1,600.00", image: "images/white_touch.png", sold: 20, discountTexts: '["كان ب 2,100 جنيه", "خصم24%"]', link: "product7.html" },
-                { name: "ساعة رياضية ضد الماء", dataName: "مقاومة للماء للأنشطة الرياضية", price: "2,500.00", image: "images/waterproof_sport.png", sold: 35, discountTexts: '["كان ب 3,200 جنيه", "خصم22%"]', link: "product8.html" },
-                { name: "ساعة كلاسيك جلد", dataName: "أسوارة جلدية كلاسيكية", price: "2,000.00", image: "images/leather_classic.png", sold: 18, discountTexts: '["كان ب 2,700 جنيه", "خصم26%"]', link: "product9.html" },
-                { name: "ساعة ذكية بتقنية NFC", dataName: "تدعم تقنية NFC للدفع", price: "2,800.00", image: "images/nfc_smart.png", sold: 28, discountTexts: '["كان ب 3,500 جنيه", "خصم20%"]', link: "product10.html" }
-            ];
-        
+    
             // دالة لترتيب المنتجات بشكل عشوائي
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
@@ -2705,102 +2684,120 @@ menuPopup.addEventListener('touchmove', function(event) {
                 }
                 return array;
             }
-        
+    
             // التوليد الديناميكي مع التمرير اللانهائي
             document.addEventListener("DOMContentLoaded", function () {
                 const gallery = document.getElementById('gallery');
                 const itemsPerLoad = 20;
                 let loadedItems = 0;
-        
-                const shuffledProducts = shuffleArray(products);
-        
-                function loadProducts(startIndex, count) {
-                    const endIndex = Math.min(startIndex + count, shuffledProducts.length);
-                    for (let i = startIndex; i < endIndex; i++) {
-                        const product = shuffledProducts[i];
-                        const priceStr = product.price.toString();
-                        const firstDigit = priceStr.charAt(0);
-                        const specialDigits = ['2', '3', '5', '6', '8', '9'];
-                        const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
-        
-                        const productDiv = document.createElement('div');
-                        productDiv.className = 'image-container product';
-                        productDiv.setAttribute('data-name', product.dataName);
-                        productDiv.innerHTML = `
-                            <div class="image-frame">
-                                <a href="${product.link}" onclick="return true;">
-                                    <div class="image-wrapper">
-                                        <img data-src="${product.image}" alt="${product.name}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                                        <div class="add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); addToCart(this); return false;">
-                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                                            </svg>
+    
+                // جلب المنتجات من ملف JSON
+                fetch('products.json')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(products => {
+                        const shuffledProducts = shuffleArray(products);
+    
+                        function loadProducts(startIndex, count) {
+                            const endIndex = Math.min(startIndex + count, shuffledProducts.length);
+                            for (let i = startIndex; i < endIndex; i++) {
+                                const product = shuffledProducts[i];
+                                const priceStr = product.price.toString();
+                                const firstDigit = priceStr.charAt(0);
+                                const specialDigits = ['2', '3', '5', '6', '8', '9'];
+                                const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
+    
+                                const productDiv = document.createElement('div');
+                                productDiv.className = 'image-container product';
+                                productDiv.setAttribute('data-name', product.dataName);
+                                productDiv.innerHTML = `
+                                    <div class="image-frame">
+                                        <a href="${product.link}" onclick="return true;">
+                                            <div class="image-wrapper">
+                                                <img data-src="${product.image}" alt="${product.name}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
+                                                <div class="add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); addToCart(this); return false;">
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="text-under">
+                                            <h1>${product.name}</h1>
+                                            <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
+                                            <div class="container">
+                                                <div class="zero" style="font-size: 24px;"></div>
+                                                <div class="number" style="font-size: 20px;">${product.price}</div>
+                                                <div class="letter" style="margin-right: ${letterMargin}; font-size: 17px;">EGP</div>
+                                            </div>
+                                            <div class="product1212">
+                                                <h3 class="rotating-text1212" data-texts='${JSON.stringify(product.discountTexts)}'>${product.discountTexts[0]}</h3>
+                                            </div>
                                         </div>
                                     </div>
-                                </a>
-                                <div class="text-under">
-                                    <h1>${product.name}</h1>
-                                    <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
-                                    <div class="container">
-                                        <div class="zero" style="font-size: 24px;"></div>
-                                        <div class="number" style="font-size: 20px;">${product.price}</div>
-                                        <div class="letter" style="margin-right: ${letterMargin}; font-size: 17px;">EGP</div>
-                                    </div>
-                                    <div class="product1212">
-                                        <h3 class="rotating-text1212" data-texts='${product.discountTexts}'>${JSON.parse(product.discountTexts)[0]}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        gallery.appendChild(productDiv);
-                    }
-                    loadedItems = endIndex;
-        
-                    const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                    lazyImages.forEach(img => observer.observe(img));
-                    
-                    document.querySelectorAll('.add-to-cart').forEach(button => {
-                        button.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            addToCart(this);
-                            return false;
-                        });
-                    });
-                }
-        
-                const observer = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            img.src = img.dataset.src;
-                            img.onload = () => {
-                                img.classList.add("loaded");
-                                if (isWhiteBackground(img)) {
-                                    img.classList.add("white-bg");
-                                }
-                            };
-                            observer.unobserve(img);
+                                `;
+                                gallery.appendChild(productDiv);
+                            }
+                            loadedItems = endIndex;
+    
+                            const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+                            lazyImages.forEach(img => observer.observe(img));
+    
+                            document.querySelectorAll('.add-to-cart').forEach(button => {
+                                button.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    addToCart(this);
+                                    return false;
+                                });
+                            });
                         }
+    
+                        const observer = new IntersectionObserver((entries, observer) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    const img = entry.target;
+                                    img.src = img.dataset.src;
+                                    img.onload = () => {
+                                        img.classList.add("loaded");
+                                        if (isWhiteBackground(img)) {
+                                            img.classList.add("white-bg");
+                                        }
+                                    };
+                                    observer.unobserve(img);
+                                }
+                            });
+                        }, { rootMargin: "0px 0px 200px 0px" });
+    
+                        // تحميل الدفعة الأولى
+                        loadProducts(0, itemsPerLoad);
+    
+                        // التمرير اللانهائي
+                        document.addEventListener('scroll', function () {
+                            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && loadedItems < shuffledProducts.length) {
+                                loadProducts(loadedItems, itemsPerLoad);
+                            }
+                        });
+    
+                        // إعادة مراقبة الصور عند تغيير الحجم
+                        window.addEventListener('resize', function () {
+                            const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+                            lazyImages.forEach(img => observer.observe(img));
+                        });
+    
+                        // بدء تدوير النصوص
+                        startRotatingText(".rotating-text1212");
+                    })
+                    .catch(error => {
+                        console.error('خطأ في جلب المنتجات:', error);
+                        alert('حدث خطأ أثناء تحميل المنتجات. تأكد من: 1) وجود ملف products.json في نفس المجلد، 2) تشغيل الصفحة عبر خادم محلي أو على الإنترنت.');
                     });
-                }, { rootMargin: "0px 0px 200px 0px" });
-        
-                loadProducts(0, itemsPerLoad);
-        
-                document.addEventListener('scroll', function () {
-                    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && loadedItems < shuffledProducts.length) {
-                        loadProducts(loadedItems, itemsPerLoad);
-                    }
-                });
-        
-                window.addEventListener('resize', function () {
-                    const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                    lazyImages.forEach(img => observer.observe(img));
-                });
-        
-                startRotatingText(".rotating-text1212");
             });
-        
+    
             function startRotatingText(selector) {
                 document.querySelectorAll(selector).forEach(element => {
                     const texts = JSON.parse(element.getAttribute("data-texts"));
