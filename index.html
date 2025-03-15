@@ -1003,7 +1003,7 @@
             cursor: pointer;
             border-radius: 33px 33px 0 0; /* جعل الحدود العلوية مدورة فقط */
             transition: transform 0.3s;
-            background: #00c3ff23;
+            background: #6e6e6e1c;
             object-fit: cover;
             display: block;
             margin: 0;
@@ -2487,7 +2487,7 @@ menuPopup.addEventListener('touchmove', function(event) {
             .image-frame {
                 border: 2px solid #cfcfcf;
                 border-radius: 32px;
-                padding: 10px;
+                padding: 0; /* الصورة تلتصق بالإطار */
                 text-align: center;
                 background-color: #ffffff;
                 position: relative;
@@ -2527,6 +2527,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 font-size: 14px;
                 line-height: 1.5;
                 text-align: right;
+                padding: 10px; /* إضافة حشوة لتعويض إزالة padding من .image-frame */
             }
     
             .text-under h1 {
@@ -2541,8 +2542,8 @@ menuPopup.addEventListener('touchmove', function(event) {
     
             .add-to-cart {
                 position: absolute;
-                bottom: 10px;
-                left: 10px;
+                bottom: 12px;
+                left: 12px;
                 background-color: #ffffff;
                 border-radius: 50%;
                 width: 40px;
@@ -2557,8 +2558,8 @@ menuPopup.addEventListener('touchmove', function(event) {
     
             @media (max-width: 1268px) {
                 .add-to-cart {
-                    left: 6px;
-                    bottom: 7px;
+                    left: 8px;
+                    bottom: 9px;
                     width: 20px;
                     height: 20px;
                     padding: 5px;
@@ -2628,6 +2629,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 align-items: center;
                 gap: 5px;
                 width: 100%;
+                margin-top: -7px;
             }
     
             @media (max-width: 1268px) {
@@ -2930,9 +2932,6 @@ menuPopup.addEventListener('touchmove', function(event) {
         </script>
     </body>
     </html>
-
-
-
 
 
 
