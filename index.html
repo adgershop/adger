@@ -1003,7 +1003,7 @@
             cursor: pointer;
             border-radius: 33px 33px 0 0; /* جعل الحدود العلوية مدورة فقط */
             transition: transform 0.3s;
-            background: #6e6e6e1c;
+            background: #a8a8a81c;
             object-fit: cover;
             display: block;
             margin: 0;
@@ -2529,14 +2529,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 text-align: right;
                 padding: 10px;
             }
-            @media (max-width: 768px) {
-                .text-under{
-                    margin-top: -7px;
-                }
-                .text-under h1 {
-                    font-size: 13px; /* Reduced by 2px from original 15px */
-                }
-            }
     
             .text-under h1 {
                 font-family: Cairo, sans-serif;
@@ -2546,6 +2538,15 @@ menuPopup.addEventListener('touchmove', function(event) {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 width: 100%;
+            }
+    
+            @media (max-width: 1268px) {
+                .text-under {
+                    margin-top: -7px;
+                }
+                .text-under h1 {
+                    font-size: 14px !important; /* Reduced by 1px for screens up to 1120px */
+                }
             }
     
             .add-to-cart {
@@ -2617,7 +2618,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 }
             }
     
-            @media (min-width: 769px) {
+            @media (min-width: 1121px) {
                 .text-under h1 {
                     font-size: 16px;
                 }
@@ -2627,10 +2628,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 .image-container {
                     flex: 1 1 calc(20% - 20px);
                     max-width: calc(20% - 20px);
-                }
-    
-                .text-under h1 {
-                    font-size: 16px;
                 }
             }
     
