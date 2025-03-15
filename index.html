@@ -994,17 +994,16 @@
             padding: 0;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             flex: 0 0 auto;
-            overflow: hidden;
-            direction: rtl; /* اتجاه من اليمين لليسار للعنصر بأكمله */
+            overflow: hidden; /* لضمان عدم خروج الصورة عن الإطار */
         }
 
         .carousel-item img {
             width: 100%;
             height: 200px;
             cursor: pointer;
-            border-radius: 33px 33px 0 0;
+            border-radius: 33px 33px 0 0; /* جعل الحدود العلوية مدورة فقط */
             transition: transform 0.3s;
-            background: #ff0000a2;
+            background: #00c3ff23;
             object-fit: cover;
             display: block;
             margin: 0;
@@ -1022,37 +1021,19 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            padding: 0 5px; /* حشوة متساوية على الجانبين */
-        }
-
-        /* تخصيص اسم المنتج */
-        .carousel-item h1.product-name {
-            padding-right: 10px; /* تقليل المسافة على اليمين */
-            padding-left: 5px; /* مسافة متساوية على اليسار */
-            text-align: right; /* محاذاة النص لليمين */
-        }
-
-        /* تخصيص السعر ليبدأ من اليمين */
-        .carousel-item h1.price-current,
-        .carousel-item h1.price-old {
-            direction: ltr; /* جعل السعر يبدأ من اليمين */
-            text-align: right;
-            display: block;
-            padding-right: 10px; /* حشوة لضمان عدم التجاوز */
-            box-sizing: border-box;
         }
 
         @media (max-width: 768px) {
             .carousel-item {
                 width: 150px;
                 margin: 0 2px;
-                padding: 0;
+                padding: 0; /* إزالة الحشوة لضمان ملء الصورة للإطار */
             }
 
             .carousel-item img {
                 width: 100%;
                 height: 140px;
-                border-radius: 18px 18px 0 0;
+                border-radius: 18px 18px 0 0; /* جعل الحدود العلوية مدورة فقط */
                 margin-bottom: 8px;
             }
 
@@ -1062,15 +1043,15 @@
                 line-height: 19px !important;
             }
 
-            .carousel-item h1.product-name { /* اسم المنتج */
+            .carousel-item h1:nth-child(2) { /* اسم المنتج */
                 font-size: 12px !important;
             }
 
-            .carousel-item h1.price-current { /* السعر الحالي */
+            .carousel-item h1:nth-child(3) { /* السعر الحالي */
                 font-size: 12px !important;
             }
 
-            .carousel-item h1.price-old { /* السعر القديم */
+            .carousel-item h1:nth-child(4) { /* السعر القديم */
                 font-size: 11px !important;
                 margin-top: -4px !important;
             }
@@ -1082,7 +1063,7 @@
                 padding-right: 5px !important;
                 padding-left: 5px !important;
                 margin-right: 13px !important;
-                margin-bottom: 15px !important;
+                margin-bottom: 15px !important; /* زيادة المسافة أسفل نص الخصم في الهواتف */
             }
         }
 
@@ -1120,76 +1101,77 @@
         <div class="carousel">
             <div class="carousel-item" style="margin-right: 12px;" loading="lazy">
                 <img src="55.png" alt="صورة 1" onclick="selectImage('#1.html')" loading="lazy">
-                <h1 class="product-name" style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
-                <h1 class="price-current" style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-                <h1 class="price-old" style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px;">688.00 جنيه</h1>
+                <h1 style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
                 <h1 style="color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px; margin-bottom: 15px;">
                     الخصم 2%
                 </h1>
             </div>
             <div class="carousel-item" style="margin-right: 12px;" loading="lazy">
                 <img src="55.png" alt="صورة 1" onclick="selectImage('#1.html')" loading="lazy">
-                <h1 class="product-name" style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
-                <h1 class="price-current" style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-                <h1 class="price-old" style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px;">688.00 جنيه</h1>
+                <h1 style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
                 <h1 style="color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px; margin-bottom: 15px;">
                     الخصم 2%
                 </h1>
             </div>
             <div class="carousel-item" style="margin-right: 12px;" loading="lazy">
                 <img src="55.png" alt="صورة 1" onclick="selectImage('#1.html')" loading="lazy">
-                <h1 class="product-name" style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
-                <h1 class="price-current" style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-                <h1 class="price-old" style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px;">688.00 جنيه</h1>
+                <h1 style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
                 <h1 style="color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px; margin-bottom: 15px;">
                     الخصم 2%
                 </h1>
             </div>
             <div class="carousel-item" style="margin-right: 12px;" loading="lazy">
                 <img src="55.png" alt="صورة 1" onclick="selectImage('#1.html')" loading="lazy">
-                <h1 class="product-name" style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
-                <h1 class="price-current" style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-                <h1 class="price-old" style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px;">688.00 جنيه</h1>
+                <h1 style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
                 <h1 style="color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px; margin-bottom: 15px;">
                     الخصم 2%
                 </h1>
             </div>
             <div class="carousel-item" style="margin-right: 12px;" loading="lazy">
                 <img src="55.png" alt="صورة 1" onclick="selectImage('#1.html')" loading="lazy">
-                <h1 class="product-name" style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
-                <h1 class="price-current" style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-                <h1 class="price-old" style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px;">688.00 جنيه</h1>
+                <h1 style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
                 <h1 style="color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px; margin-bottom: 15px;">
                     الخصم 2%
                 </h1>
             </div>
             <div class="carousel-item" style="margin-right: 12px;" loading="lazy">
                 <img src="55.png" alt="صورة 1" onclick="selectImage('#1.html')" loading="lazy">
-                <h1 class="product-name" style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
-                <h1 class="price-current" style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-                <h1 class="price-old" style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px;">688.00 جنيه</h1>
+                <h1 style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
                 <h1 style="color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px; margin-bottom: 15px;">
                     الخصم 2%
                 </h1>
             </div>
             <div class="carousel-item" style="margin-right: 12px;" loading="lazy">
                 <img src="55.png" alt="صورة 1" onclick="selectImage('#1.html')" loading="lazy">
-                <h1 class="product-name" style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
-                <h1 class="price-current" style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-                <h1 class="price-old" style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px;">688.00 جنيه</h1>
+                <h1 style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
                 <h1 style="color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px; margin-bottom: 15px;">
                     الخصم 2%
                 </h1>
             </div>
             <div class="carousel-item" style="margin-right: 12px; margin-left: 12px;" loading="lazy">
                 <img src="55.png" alt="صورة 1" onclick="selectImage('#1.html')" loading="lazy">
-                <h1 class="product-name" style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
-                <h1 class="price-current" style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
-                <h1 class="price-old" style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px;">688.00 جنيه</h1>
+                <h1 style="color: #363636; font-size: 16px;">ساعه ذكيه تعمل باللمس</h1>
+                <h1 style="color: #4e4e4e; font-size: 16px;">666.00 جنيه</h1>
+                <h1 style="color: #868686; font-size: 14px; text-decoration: line-through; margin-top: -8px; margin-right: -41px;">688.00 جنيه</h1>
                 <h1 style="color: #ffffff; font-size: 13px; background-color: #ff0000; border-radius: 2px; text-align: center; line-height: 28px; height: 28px; float: right; margin-right: 17px; padding-right: 8px; padding-left: 8px; margin-bottom: 15px;">
                     الخصم 2%
                 </h1>
             </div>
+            <!-- يمكنك إضافة المزيد من العناصر هنا بنفس الطريقة -->
         </div>
     </div>
 
@@ -1288,6 +1270,7 @@
         });
     </script>
 </html>
+
     <div class="line" style="margin-top: 25px;"></div>
 
 
@@ -2504,7 +2487,7 @@ menuPopup.addEventListener('touchmove', function(event) {
             .image-frame {
                 border: 2px solid #cfcfcf;
                 border-radius: 32px;
-                padding: 0;
+                padding: 10px;
                 text-align: center;
                 background-color: #ffffff;
                 position: relative;
@@ -2515,8 +2498,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 width: 100%;
                 padding-top: 100%;
                 background-color: #f3f3f39c;
-                border-radius: 32px;
-                overflow: hidden;
+                border-radius: 9%;
             }
     
             .image-frame img {
@@ -2527,7 +2509,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 height: 100%;
                 object-fit: cover;
                 display: block;
-                border-radius: 32px;
+                border-radius: 4%;
                 opacity: 0;
                 transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
             }
@@ -2545,7 +2527,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 font-size: 14px;
                 line-height: 1.5;
                 text-align: right;
-                margin-right: 10px; /* مسافة معقولة ومتساوية على اليمين */
             }
     
             .text-under h1 {
@@ -2556,7 +2537,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 width: 100%;
-                margin-right: 10px; /* مسافة متساوية على اليمين */
             }
     
             .add-to-cart {
@@ -2648,7 +2628,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 align-items: center;
                 gap: 5px;
                 width: 100%;
-                margin-right: 10px; /* مسافة متساوية على اليمين */
             }
     
             @media (max-width: 1268px) {
@@ -2671,7 +2650,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 color: #ff0000;
                 font-size: 12px;
                 margin-top: 2px;
-                margin-right: 10px; /* تعديل المسافة لتكون متساوية */
+                margin-right: 8.6px;
                 text-transform: uppercase;
                 transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
                 opacity: 1;
@@ -2808,7 +2787,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                     "sold": 15,
                     "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
                     "link": "product3.html"
-                }
+                },
+                // يمكنك إضافة المزيد من المنتجات هنا
             ];
     
             // التوليد الديناميكي مع التمرير اللانهائي
@@ -2845,7 +2825,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                                 </a>
                                 <div class="text-under">
                                     <h1>${product.name}</h1>
-                                    <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px; margin-right: 10px;">${product.sold} مباعه - adger</h2>
+                                    <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
                                     <div class="container">
                                         <div class="zero" style="font-size: 24px;"></div>
                                         <div class="number" style="font-size: 20px;">${product.price}</div>
@@ -2950,6 +2930,7 @@ menuPopup.addEventListener('touchmove', function(event) {
         </script>
     </body>
     </html>
+
 
 
 
