@@ -2714,6 +2714,12 @@ menuPopup.addEventListener('touchmove', function(event) {
             </p>
         </div>
     
+        <!-- محتوى إضافي أسفل المنتجات (مثال) -->
+        <div style="padding: 20px; text-align: center;">
+            <h2>محتوى إضافي</h2>
+            <p>هذا نص تجريبي لمحتوى يظهر أسفل المنتجات.</p>
+        </div>
+    
         <script>
             function addToCart(element) {
                 event.stopPropagation();
@@ -2731,7 +2737,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 return array;
             }
     
-            // المنتجات المدمجة في السكريبت
             const scriptProducts = [
                 {
                     "name": "ساعة تاتش سوداء",
@@ -2853,7 +2858,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 }
     
-                // جلب البيانات من JSON ودمجها مع المنتجات المدمجة
                 fetch('products.json')
                     .then(response => response.json())
                     .then(jsonProducts => {
@@ -2862,7 +2866,9 @@ menuPopup.addEventListener('touchmove', function(event) {
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
                         document.addEventListener('scroll', function () {
-                            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && loadedItems < shuffledProducts.length) {
+                            const triggerHeight = window.innerHeight * 1.5; // تحميل عندما يتبقى 1.5 مرة من ارتفاع الشاشة
+                            const galleryHeight = gallery.scrollHeight; // ارتفاع حاوية المنتجات فقط
+                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
                                 loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
                             }
                         });
@@ -2882,7 +2888,9 @@ menuPopup.addEventListener('touchmove', function(event) {
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
                         document.addEventListener('scroll', function () {
-                            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && loadedItems < shuffledProducts.length) {
+                            const triggerHeight = window.innerHeight * 1.5;
+                            const galleryHeight = gallery.scrollHeight;
+                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
                                 loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
                             }
                         });
@@ -2935,13 +2943,11 @@ menuPopup.addEventListener('touchmove', function(event) {
                 return (whitePixelCount / totalPixelCount) > 0.9;
             }
     
-            // دالة لقراءة معلمة البحث من URL
             function getSearchTermFromURL() {
                 const urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get('search') || '';
             }
     
-            // دالة لتنفيذ البحث
             function performSearch(searchTerm) {
                 const products = document.querySelectorAll('.product');
                 const noResultsMessage = document.getElementById('no-results-message');
@@ -2966,7 +2972,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 }
             }
     
-            // تنفيذ البحث عند تحميل الصفحة
             window.addEventListener('load', function () {
                 const searchTerm = getSearchTermFromURL();
                 if (searchTerm) {
