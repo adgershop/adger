@@ -1,0 +1,36 @@
+[
+    {
+        "id": "1",
+        "name": "ساعة تاتش تعمل باللمس",
+        "price": "44",
+        "shipping": "30",
+        "colors": ["أسود", "أبيض", "أحمر", "أزرق"],
+        "sizes": ["S", "M", "L", "XL"],
+        "media": [
+            {"src": "1.jpg", "type": "image"},
+            {"src": "a2.jpg", "type": "image"},
+            {"src": "a3.jpg", "type": "image"},
+            {"src": "a4.jpg", "type": "image"},
+            {"src": "a5.jpg", "type": "image"},
+            {"src": "a6.jpg", "type": "image"},
+            {"src": "a7.jpg", "type": "image"},
+            {"src": "3e.mp4", "type": "video"}
+        ],
+        "sold": "5",
+        "description": "ساعة ذكية تعمل باللمس مع شاشة عالية الجودة"
+    },
+    {
+        "id": "100",
+        "name": "منتج 100",
+        "price": "50",
+        "shipping": "20",
+        "colors": ["أخضر", "أصفر"],
+        "sizes": ["M", "L"],
+        "media": [
+            {"src": "100_1.jpg", "type": "image"},
+            {"src": "100_2.jpg", "type": "image"}
+        ],
+        "sold": "10",
+        "description": "وصف منتج 100"
+    }
+]
