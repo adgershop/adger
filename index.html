@@ -2707,7 +2707,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                 return array;
             }
     
-            const products = [
+            // البيانات المدمجة كخيار احتياطي
+            const fallbackProducts = [
                 {
                     "name": "ساعة تاتش سوداء",
                     "dataName": "كتب عصري وأنيق",
@@ -2797,7 +2798,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     "sold": 15,
                     "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
                     "link": "product3.html"
-                },
+                }
             ];
     
             document.addEventListener("DOMContentLoaded", function () {
@@ -2805,12 +2806,11 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const itemsPerLoad = 20;
                 let loadedItems = 0;
     
-                const shuffledProducts = shuffleArray(products);
-    
-                function loadProducts(startIndex, count) {
-                    const endIndex = Math.min(startIndex + count, shuffledProducts.length);
+                // دالة لتحميل المنتجات
+                function loadProducts(startIndex, count, products) {
+                    const endIndex = Math.min(startIndex + count, products.length);
                     for (let i = startIndex; i < endIndex; i++) {
-                        const product = shuffledProducts[i];
+                        const product = products[i];
                         const priceStr = product.price.toString();
                         const firstDigit = priceStr.charAt(0);
                         const specialDigits = ['2', '3', '5', '6', '8', '9'];
@@ -2878,20 +2878,44 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
                 }, { rootMargin: "0px 0px 200px 0px" });
     
-                loadProducts(0, itemsPerLoad);
+                // محاولة جلب البيانات من JSON، واستخدام البيانات المدمجة في حال الفشل
+                fetch('products.json')
+                    .then(response => response.json())
+                    .then(products => {
+                        const shuffledProducts = shuffleArray(products);
+                        loadProducts(0, itemsPerLoad, shuffledProducts);
     
-                document.addEventListener('scroll', function () {
-                    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && loadedItems < shuffledProducts.length) {
-                        loadProducts(loadedItems, itemsPerLoad);
-                    }
-                });
+                        document.addEventListener('scroll', function () {
+                            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && loadedItems < shuffledProducts.length) {
+                                loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
+                            }
+                        });
     
-                window.addEventListener('resize', function () {
-                    const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                    lazyImages.forEach(img => observer.observe(img));
-                });
+                        window.addEventListener('resize', function () {
+                            const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+                            lazyImages.forEach(img => observer.observe(img));
+                        });
     
-                startRotatingText(".rotating-text1212");
+                        startRotatingText(".rotating-text1212");
+                    })
+                    .catch(error => {
+                        console.warn('فشل جلب البيانات من JSON، يتم استخدام البيانات المدمجة:', error);
+                        const shuffledProducts = shuffleArray(fallbackProducts);
+                        loadProducts(0, itemsPerLoad, shuffledProducts);
+    
+                        document.addEventListener('scroll', function () {
+                            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && loadedItems < shuffledProducts.length) {
+                                loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
+                            }
+                        });
+    
+                        window.addEventListener('resize', function () {
+                            const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+                            lazyImages.forEach(img => observer.observe(img));
+                        });
+    
+                        startRotatingText(".rotating-text1212");
+                    });
             });
     
             function startRotatingText(selector) {
