@@ -2545,7 +2545,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     margin-top: -7px;
                 }
                 .text-under h1 {
-                    font-size: 14px !important; /* Reduced by 1px for screens up to 1120px */
+                    font-size: 14px !important;
                 }
             }
     
@@ -2692,10 +2692,8 @@ menuPopup.addEventListener('touchmove', function(event) {
             function addToCart(element) {
                 event.stopPropagation();
                 event.preventDefault();
-                
                 element.classList.add('checked');
                 alert("تمت إضافة المنتج إلى سلة التسوق");
-                
                 return false;
             }
     
@@ -2707,8 +2705,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                 return array;
             }
     
-            // البيانات المدمجة كخيار احتياطي
-            const fallbackProducts = [
+            // المنتجات المدمجة في السكريبت (ستظهر دائمًا مع منتجات JSON)
+            const scriptProducts = [
                 {
                     "name": "ساعة تاتش سوداء",
                     "dataName": "كتب عصري وأنيق",
@@ -2735,69 +2733,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                     "sold": 15,
                     "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
                     "link": "product3.html"
-                },
-                {
-                    "name": "ساعة كلاسيك باللمس",
-                    "dataName": "أناقة مع تقنية اللمس",
-                    "price": "1,800.00",
-                    "image": "55.png",
-                    "sold": 15,
-                    "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
-                    "link": "product3.html"
-                },
-                {
-                    "name": "ساعة كلاسيك باللمس",
-                    "dataName": "أناقة مع تقنية اللمس",
-                    "price": "1,800.00",
-                    "image": "55.png",
-                    "sold": 15,
-                    "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
-                    "link": "product3.html"
-                },
-                {
-                    "name": "ساعة كلاسيك باللمس",
-                    "dataName": "أناقة مع تقنية اللمس",
-                    "price": "1,800.00",
-                    "image": "55.png",
-                    "sold": 15,
-                    "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
-                    "link": "product3.html"
-                },
-                {
-                    "name": "ساعة كلاسيك باللمس",
-                    "dataName": "أناقة مع تقنية اللمس",
-                    "price": "1,800.00",
-                    "image": "55.png",
-                    "sold": 15,
-                    "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
-                    "link": "product3.html"
-                },
-                {
-                    "name": "ساعة كلاسيك باللمس",
-                    "dataName": "أناقة مع تقنية اللمس",
-                    "price": "1,800.00",
-                    "image": "55.png",
-                    "sold": 15,
-                    "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
-                    "link": "product3.html"
-                },
-                {
-                    "name": "ساعة كلاسيك باللمس",
-                    "dataName": "أناقة مع تقنية اللمس",
-                    "price": "1,800.00",
-                    "image": "55.png",
-                    "sold": 15,
-                    "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
-                    "link": "product3.html"
-                },
-                {
-                    "name": "ساعة كلاسيك باللمس",
-                    "dataName": "أناقة مع تقنية اللمس",
-                    "price": "1,800.00",
-                    "image": "55.png",
-                    "sold": 15,
-                    "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
-                    "link": "product3.html"
                 }
             ];
     
@@ -2806,7 +2741,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const itemsPerLoad = 20;
                 let loadedItems = 0;
     
-                // دالة لتحميل المنتجات
                 function loadProducts(startIndex, count, products) {
                     const endIndex = Math.min(startIndex + count, products.length);
                     for (let i = startIndex; i < endIndex; i++) {
@@ -2878,11 +2812,13 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
                 }, { rootMargin: "0px 0px 200px 0px" });
     
-                // محاولة جلب البيانات من JSON، واستخدام البيانات المدمجة في حال الفشل
+                // جلب البيانات من JSON وإضافة المنتجات المدمجة دائمًا
                 fetch('products.json')
                     .then(response => response.json())
-                    .then(products => {
-                        const shuffledProducts = shuffleArray(products);
+                    .then(jsonProducts => {
+                        // دمج منتجات JSON مع المنتجات المدمجة في السكريبت
+                        const allProducts = [...jsonProducts, ...scriptProducts];
+                        const shuffledProducts = shuffleArray(allProducts);
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
                         document.addEventListener('scroll', function () {
@@ -2899,8 +2835,9 @@ menuPopup.addEventListener('touchmove', function(event) {
                         startRotatingText(".rotating-text1212");
                     })
                     .catch(error => {
-                        console.warn('فشل جلب البيانات من JSON، يتم استخدام البيانات المدمجة:', error);
-                        const shuffledProducts = shuffleArray(fallbackProducts);
+                        console.warn('فشل جلب البيانات من JSON، يتم استخدام المنتجات المدمجة فقط:', error);
+                        // في حالة فشل JSON، استخدام المنتجات المدمجة فقط
+                        const shuffledProducts = shuffleArray(scriptProducts);
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
                         document.addEventListener('scroll', function () {
