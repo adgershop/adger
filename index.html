@@ -1010,6 +1010,10 @@
             padding: 0;
             margin-bottom: 10px;
         }
+        @media (max-width: 768px) {
+            .carousel-item img {
+                background: #e0e0e01c;
+            }}
 
         .carousel-item p {
             margin: 5px 0;
@@ -2713,9 +2717,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 لا توجد نتائج لـ "<span id="search-term-display"></span>"
             </p>
         </div>
-    
- 
-    
+        
         <script>
             function addToCart(element) {
                 event.stopPropagation();
