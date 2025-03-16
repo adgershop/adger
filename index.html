@@ -77,7 +77,7 @@
     
             .scroll-to-top svg {
                 width: 21px;
-                height: 21;
+                height: 21px;
                 margin-bottom: -14px;
             }
     
@@ -155,16 +155,15 @@
                 isPlaying = !isPlaying;
             });
     
-            // الانتقال إلى أعلى الصفحة بسرعة عند الضغط على زر الصعود
+            // الانتقال إلى أعلى الصفحة بشكل سلس عند الضغط على زر الصعود
             document.querySelector('.scroll-to-top').addEventListener('click', function(event) {
                 event.preventDefault();
-                window.scrollTo({top: 0, behavior: 'auto'});
+                window.scrollTo({top: 0, behavior: 'smooth'});
             });
         </script>
     
     </body>
     </html>
-
 
     
 
