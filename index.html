@@ -1612,16 +1612,18 @@
             }
     
             .adger {
-                font-family: Arial, sans-serif;
-                font-size: 27px;
-                margin-left: 10px;
-                font-weight: bold;
-                background: linear-gradient(to right, #f37420, #ffc4c4);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                cursor: pointer;
-                user-select: none;
-            }
+    font-family: Arial, sans-serif;
+    font-size: 27px;
+    margin-left: 10px;
+    font-weight: bold;
+    background: linear-gradient(to right, #f37420, #ffc4c4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    user-select: none; /* منع تحديد النص */
+    -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
+    outline: none; /* إزالة أي إطار تحديد عند التركيز */
+}
     
             @media (max-width: 767px) {
                 .adger {
