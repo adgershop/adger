@@ -3,9 +3,9 @@
         "name": "ساعة تاتش سوداء",
         "dataName": "كتب عصري وأنيق",
         "price": "1,500.00",
-        "image": "55.png",
+        "image": "a1.jpg",
         "sold": 25,
-        "discountTexts": ["كان ب 200,000 جنيه", "خصم224245%"],
+        "discountTexts": ["كان ب 200,000 جنيه", "خصم24%"],
         "link": "prod1.html"
     },
     {
