@@ -26,27 +26,34 @@
             border-radius: 5px;
             outline: none;
         }
+        /* زر وهمي لإجبار المتصفح على التفاعل */
+        .hidden-button {
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
 
 <div class="search-container">
     <input type="text" id="searchBox" placeholder="ابحث هنا...">
+    <button id="fakeButton" class="hidden-button">اضغط</button> <!-- زر وهمي -->
 </div>
 
 <script>
     window.onload = function() {
         const searchBox = document.getElementById("searchBox");
-        searchBox.focus(); // تركيز تلقائي على مربع البحث
+        const fakeButton = document.getElementById("fakeButton");
 
-        // التحقق مما إذا كان الجهاز هاتف محمول
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        if (isMobile) {
-            setTimeout(() => {
-                searchBox.setSelectionRange(0, 0); // تحريك المؤشر لتحفيز لوحة المفاتيح
-                searchBox.dispatchEvent(new Event('input', { bubbles: true })); // محاكاة إدخال نصي
-            }, 200);
-        }
+        // إضافة حدث "نقر" تلقائي على الزر الوهمي
+        fakeButton.click();
+
+        // تأخير بسيط لضمان تنفيذ النقر قبل التركيز
+        setTimeout(() => {
+            searchBox.focus();
+        }, 300);
     };
 </script>
 
