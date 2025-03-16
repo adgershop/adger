@@ -2468,7 +2468,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 box-sizing: border-box;
                 direction: rtl;
             }
-    
             .gallery {
                 display: flex;
                 flex-wrap: wrap;
@@ -2476,14 +2475,12 @@ menuPopup.addEventListener('touchmove', function(event) {
                 justify-content: center;
                 padding: 20px;
             }
-    
             .image-container {
                 flex: 1 1 calc(16.666% - 20px);
                 max-width: calc(16.666% - 20px);
                 box-sizing: border-box;
                 position: relative;
             }
-    
             .image-frame {
                 border: 2px solid #cfcfcf;
                 border-radius: 32px;
@@ -2492,7 +2489,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 background-color: #ffffff;
                 position: relative;
             }
-    
             .image-wrapper {
                 position: relative;
                 width: 100%;
@@ -2500,7 +2496,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 background-color: #f3f3f39c;
                 border-radius: 30.2px;
             }
-    
             .image-frame img {
                 position: absolute;
                 top: 0;
@@ -2513,15 +2508,12 @@ menuPopup.addEventListener('touchmove', function(event) {
                 opacity: 0;
                 transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
             }
-    
             .image-frame img.loaded {
                 opacity: 1;
             }
-    
             .image-frame img.white-bg {
                 background-color: #d3d3d3;
             }
-    
             .text-under {
                 margin-top: -4px;
                 font-size: 14px;
@@ -2529,7 +2521,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 text-align: right;
                 padding: 10px;
             }
-    
             .text-under h1 {
                 font-family: Cairo, sans-serif;
                 color: #333;
@@ -2539,7 +2530,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 text-overflow: ellipsis;
                 width: 100%;
             }
-    
             @media (max-width: 1268px) {
                 .text-under {
                     margin-top: -7px;
@@ -2548,7 +2538,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                     font-size: 14px !important;
                 }
             }
-    
             .add-to-cart {
                 position: absolute;
                 bottom: 12px;
@@ -2564,7 +2553,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                 transition: background-color 0.3s;
             }
-    
             @media (max-width: 1268px) {
                 .add-to-cart {
                     left: 10px;
@@ -2578,63 +2566,52 @@ menuPopup.addEventListener('touchmove', function(event) {
                     height: 12px;
                 }
             }
-    
             .add-to-cart svg {
                 width: 24px;
                 height: 24px;
                 color: #000000;
             }
-    
             .add-to-cart.checked {
                 background-color: #28a745;
             }
-    
             .add-to-cart.checked svg {
                 display: none;
             }
-    
             .add-to-cart.checked::before {
                 content: "✓";
                 font-size: 24px;
                 color: #ffffff;
             }
-    
             @media (max-width: 1024px) and (min-width: 769px) {
                 .image-container {
                     flex: 1 1 calc(25% - 10px);
                     max-width: calc(25% - 10px);
                 }
             }
-    
             @media (max-width: 768px) {
                 .gallery {
                     padding-left: 5px;
                     padding-right: 5px;
                 }
-    
                 .image-container {
                     flex: 1 1 calc(50% - 5px);
                     max-width: calc(50% - 5px);
                 }
             }
-    
             @media (min-width: 1121px) {
                 .text-under h1 {
                     font-size: 16px;
                 }
             }
-    
             @media (min-width: 1025px) {
                 .image-container {
                     flex: 1 1 calc(20% - 20px);
                     max-width: calc(20% - 20px);
                 }
             }
-    
             .hidden {
                 display: none;
             }
-    
             .container {
                 display: flex;
                 align-items: center;
@@ -2642,7 +2619,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 width: 100%;
                 margin-top: -7px;
             }
-    
             @media (max-width: 1268px) {
                 .container {
                     margin-top: -7px;
@@ -2657,7 +2633,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                     font-size: 14px !important;
                 }
             }
-    
             .rotating-text1212 {
                 font-family: 'Cairo', sans-serif;
                 color: #ff0000;
@@ -2669,7 +2644,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 opacity: 1;
                 transform: translateY(0);
             }
-    
             .image-frame a,
             .image-frame a *,
             .image-frame a *:focus,
@@ -2678,16 +2652,10 @@ menuPopup.addEventListener('touchmove', function(event) {
                 border: none !important;
                 -webkit-tap-highlight-color: transparent !important;
             }
-    
             .image-frame a:focus,
             .image-frame a img:focus {
                 outline: none !important;
             }
-    
-            .product {
-                display: block;
-            }
-    
             #no-results-message {
                 display: none;
                 text-align: center;
@@ -2698,8 +2666,6 @@ menuPopup.addEventListener('touchmove', function(event) {
     </head>
     <body>
         <div id="gallery" class="gallery"></div>
-    
-        <!-- رسالة "لا توجد نتائج" -->
         <div id="no-results-message" style="text-align: center; margin-top: 20px; padding: 20px; border-radius: 10px;">
             <div style="display: inline-block; background-color: #f0f0f0; border-radius: 7%; padding: 10px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2713,7 +2679,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 لا توجد نتائج لـ "<span id="search-term-display"></span>"
             </p>
         </div>
-    
         <script>
             function addToCart(element) {
                 event.stopPropagation();
@@ -2763,7 +2728,7 @@ menuPopup.addEventListener('touchmove', function(event) {
     
             document.addEventListener("DOMContentLoaded", function () {
                 const gallery = document.getElementById('gallery');
-                const itemsPerLoad = 30; // زيادة عدد المنتجات المحملة في كل مرة
+                const itemsPerLoad = 20;
                 let loadedItems = 0;
     
                 function loadProducts(startIndex, count, products) {
@@ -2808,9 +2773,11 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                     loadedItems = endIndex;
     
+                    // Lazy load images
                     const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                     lazyImages.forEach(img => observer.observe(img));
     
+                    // Add event listeners to cart buttons
                     document.querySelectorAll('.add-to-cart').forEach(button => {
                         button.addEventListener('click', function(e) {
                             e.preventDefault();
@@ -2835,15 +2802,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                             observer.unobserve(img);
                         }
                     });
-                }, { rootMargin: "0px 0px 500px 0px" }); // زيادة rootMargin لتحميل الصور مبكرًا
-    
-                function debounce(func, wait) {
-                    let timeout;
-                    return function(...args) {
-                        clearTimeout(timeout);
-                        timeout = setTimeout(() => func.apply(this, args), wait);
-                    };
-                }
+                }, { rootMargin: "0px 0px 500px 0px" }); // Adjust rootMargin for earlier loading
     
                 fetch('products.json')
                     .then(response => response.json())
@@ -2852,11 +2811,11 @@ menuPopup.addEventListener('touchmove', function(event) {
                         const shuffledProducts = shuffleArray(allProducts);
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
-                        document.addEventListener('scroll', debounce(function () {
+                        document.addEventListener('scroll', function () {
                             if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && loadedItems < shuffledProducts.length) {
                                 loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
                             }
-                        }, 100)); // تحميل المنتجات عند 500 بكسل من النهاية مع تأخير 100 مللي ثانية
+                        });
     
                         window.addEventListener('resize', function () {
                             const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
@@ -2870,11 +2829,11 @@ menuPopup.addEventListener('touchmove', function(event) {
                         const shuffledProducts = shuffleArray(scriptProducts);
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
-                        document.addEventListener('scroll', debounce(function () {
+                        document.addEventListener('scroll', function () {
                             if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && loadedItems < shuffledProducts.length) {
                                 loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
                             }
-                        }, 100)); // تحميل المنتجات عند 500 بكسل من النهاية مع تأخير 100 مللي ثانية
+                        });
     
                         window.addEventListener('resize', function () {
                             const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
@@ -2913,13 +2872,11 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const data = imageData.data;
                 let whitePixelCount = 0;
                 let totalPixelCount = data.length / 4;
-    
                 for (let i = 0; i < data.length; i += 4) {
                     if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240) {
                         whitePixelCount++;
                     }
                 }
-    
                 return (whitePixelCount / totalPixelCount) > 0.9;
             }
     
@@ -2932,7 +2889,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const products = document.querySelectorAll('.product');
                 const noResultsMessage = document.getElementById('no-results-message');
                 const searchTermDisplay = document.getElementById('search-term-display');
-    
                 let foundResults = false;
     
                 products.forEach(product => {
@@ -2957,7 +2913,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const searchTerm = getSearchTermFromURL();
                 if (searchTerm) {
                     const searchBox = document.getElementById('search-box');
-                    if (searchBox) searchBox.value = decodeURIComponent(searchTerm);
+                    searchBox.value = decodeURIComponent(searchTerm);
                     performSearch(searchTerm);
                 }
             });
