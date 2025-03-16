@@ -45,18 +45,19 @@
         .image-frame {
             border: 2px solid #cfcfcf;
             border-radius: 32px;
-            padding: 10px;
+            padding: 0;
             text-align: center;
             background-color: #ffffff;
             position: relative;
+            overflow: hidden; /* إضافة لقص أي تجاوز */
         }
 
         .image-frame .image-wrapper {
             position: relative;
             width: 100%;
             padding-top: 100%;
-            background-color: #f0f0f088;
-            border-radius: 22px;
+            background-color: #f3f3f39c;
+            border-radius: 30.2px; /* تعديل لتتناسب مع الإطار */
         }
 
         .image-frame .placeholder {
@@ -65,23 +66,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #e0e0e0;
+            background-color: #f3f3f3;
             opacity: 0.8;
-            border-radius: 22px;
+            border-radius: 32px; /* تعديل لتتناسب مع الإطار */
         }
 
         .image-frame img {
             position: absolute;
             top: 0;
             left: 0;
-            max-width: 100%;
-            height: 100%;
             width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
-            cursor: pointer;
+            border-radius: 30.2px; /* تعديل لتتناسب مع الإطار */
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
         }
 
         .image-frame img.loaded {
@@ -89,38 +89,52 @@
         }
 
         .text-under {
-            margin-top: 10px;
+            margin-top: 3px;
             font-size: 14px;
             line-height: 1.5;
             text-align: right;
+            padding: 10px;
+        }
+
+        @media (max-width: 1270px) {
+            .text-under {
+                margin-top: 1px;
+            }
         }
 
         .text-under h1 {
             font-family: Cairo, sans-serif;
             color: #333;
-            font-size: 17px;
-            font-weight: 500;
+            font-size: 15px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
-            margin: 0 0 5px 0;
+            margin: 0 0 4px 0;
+            font-weight: 400;
         }
 
         .text-under h2 {
             font-family: Cairo, sans-serif;
             color: #ffa600;
             font-size: 13px;
-            margin: 0 0 5px 0;
+            margin: 0 0 4px 0;
             font-weight: 400;
+        }
+
+        .text-under .container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
+            margin: 0 0 4px 0;
         }
 
         .text-under h3 {
             font-family: 'Cairo', sans-serif;
             color: #ff0000;
-            font-size: 14px;
-            margin-top: -1px;
-            margin-right: 8.6px;
+            font-size: 12px;
+            margin: 0 8.6px 0 0;
             text-transform: uppercase;
             font-weight: 400;
         }
@@ -208,12 +222,19 @@
         }
 
         .number {
-            font-size: 19px;
+            font-size: 20px;
             margin-right: 4px;
         }
 
         .letter {
-            font-size: 18px;
+            font-size: 17px;
+        }
+
+        /* تعديل حجم نص الاسم بناءً على حجم الشاشة */
+        @media (min-width: 1270px) {
+            .text-under h1 {
+                font-size: 18px;
+            }
         }
 
         @media (max-width: 1499px) { 
@@ -226,10 +247,12 @@
             }
         }
 
-        @media (max-width: 1168px) {
-            .number,
+        @media (max-width: 1268px) {
+            .number {
+                font-size: 16px;
+            }
             .letter {
-                font-size: 15px;
+                font-size: 14px;
             }
         }
 
@@ -256,15 +279,11 @@
             }
 
             .text-under h1 {
-                font-size: 15px;
+                font-size: 14px;
             }
 
             .text-under h2 {
-                font-size: 12px;
-            }
-
-            .remove-button span {
-                font-size: 12px;
+               font-size: 12px;
             }
 
             .total-price {
@@ -286,7 +305,7 @@
         @media (max-width: 1168px) {
             .text-under h3 {
                 font-size: 12.5px !important;
-                margin-top: -4px !important;
+                margin-top: 0 !important;
             }
         }
 
@@ -329,7 +348,7 @@
             outline: none;
         }
 
-        .add-to-cart, .image-container, .image-frame {
+        .image-container, .image-frame {
             outline: none;
             -webkit-tap-highlight-color: transparent;
         }
@@ -396,14 +415,14 @@
                                 </div>
                             </a>
                             <div class="text-under">
-                                <h1 style="margin: 0 0 5px 0;">${product.name}</h1>
-                                <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin: 0 0 5px 0;">${product.sold}</h2>
-                                <div class="container" style="display: flex; align-items: flex-end; gap: 5px; width: 100%; margin: 0 0 5px 0;">
-                                    <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px;"></div>
+                                <h1>${product.name}</h1>
+                                <h2>${product.sold}</h2>
+                                <div class="container">
+                                    <div class="zero" style="font-size: 24px;"></div>
                                     <div class="number">${product.price}</div>
                                     <div class="letter" style="margin-right: ${letterMargin};">EGP</div>
                                 </div>
-                                <h3 style="font-family: 'Cairo', sans-serif; color: #ff0000; margin-top: -1px; margin-right: 6px; text-transform: uppercase; font-weight: 400;">${product.discount}</h3>
+                                <h3>${product.discount}</h3>
                             </div>
                             <button class="remove-button" onclick="removeFromCart(${index})">
                                 <span>حذف</span>
