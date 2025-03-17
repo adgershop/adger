@@ -1620,11 +1620,11 @@
                 margin-bottom: 10px;
                 object-fit: cover;
                 background-color: #ccc;
-                opacity: 0;
-                transition: opacity 0.3s ease-in-out;
+                opacity: 0; /* تبدأ شفافة */
+                transition: opacity 0.3s ease-in-out; /* تأثير تدريجي مختصر */
             }
             .image32.loaded {
-                opacity: 1;
+                opacity: 1; /* تصبح مرئية بعد التحميل */
             }
             @media (min-width: 768px) {
                 .container32 {
@@ -1638,92 +1638,51 @@
     </head>
     <body>
         <div class="container32">
-            <div class="group" id="imagesGroup"></div>
+            <!-- سيتم إضافة الصور والفيديوهات هنا ديناميكيًا -->
             <div class="group" id="mediaGroup"></div>
         </div>
     
         <script>
-            // جلب معرف المنتج من URL
-            function getProductId() {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get('id');
-            }
-    
-          
-            if (productId) {
-                const fileIndex = Math.ceil(parseInt(productId) / 100);
-                const jsonFile = `products-${fileIndex}.json`;
-    
-                fetch(jsonFile)
-                    .then(response => {
-                        if (!response.ok) throw new Error('الملف غير موجود');
-                        return response.json();
-                    })
+            document.addEventListener("DOMContentLoaded", function () {
+                // جلب البيانات من ملف JSON
+                fetch('media-data.json')
+                    .then(response => response.json())
                     .then(data => {
-                        const product = data.find(p => p.id === productId);
-                        if (!product) {
-                            document.body.innerHTML = '<p>المنتج غير موجود</p>';
-                            return;
-                        }
-    
-                        // إضافة الصور
-                        const imagesGroup = document.getElementById('imagesGroup');
-                        product.images.forEach((imgSrc, index) => {
-                            const img = document.createElement('img');
-                            img.className = 'image32';
-                            img.src = imgSrc;
-                            img.alt = `صورة ${index + 1}`;
-                            img.loading = 'lazy';
-                            imagesGroup.appendChild(img);
-                        });
-    
-                        // إضافة الصورة والفيديو
                         const mediaGroup = document.getElementById('mediaGroup');
-                        const img = document.createElement('img');
-                        img.className = 'image32';
-                        img.src = product.media.image;
-                        img.alt = 'صورة 1';
-                        img.loading = 'lazy';
-                        mediaGroup.appendChild(img);
-    
-                        const video = document.createElement('video');
-                        video.className = 'image32';
-                        video.muted = true;
-                        video.autoplay = true;
-                        video.loop = true;
-                        video.src = product.media.video;
-                        video.loading = 'lazy';
-                        video.innerHTML = 'Your browser does not support the video tag.';
-                        mediaGroup.appendChild(video);
-    
-                        // إضافة تأثير التحميل
-                        document.addEventListener("DOMContentLoaded", function () {
-                            const allElements = document.querySelectorAll(".image32");
-                            allElements.forEach(element => {
-                                if (element.tagName === "IMG") {
-                                    element.onload = function() {
-                                        this.classList.add("loaded");
-                                    };
-                                    if (element.complete) {
-                                        element.classList.add("loaded");
-                                    }
-                                } else if (element.tagName === "VIDEO") {
-                                    element.addEventListener("loadeddata", function() {
-                                        this.classList.add("loaded");
-                                    });
-                                    element.load();
-                                    element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
+                        data.imga.forEach(item => {  // تم تغيير `media` إلى `imga`
+                            let mediaElement;
+                            if (item.type === "image") {
+                                mediaElement = document.createElement('img');
+                                mediaElement.src = item.src;
+                                mediaElement.alt = item.alt;
+                                mediaElement.classList.add('image32');
+                                mediaElement.onload = function() {
+                                    this.classList.add("loaded");
+                                };
+                                if (mediaElement.complete) {
+                                    mediaElement.classList.add("loaded");
                                 }
-                            });
+                            } else if (item.type === "video") {
+                                mediaElement = document.createElement('video');
+                                mediaElement.src = item.src;
+                                mediaElement.alt = item.alt;
+                                mediaElement.classList.add('image32');
+                                mediaElement.muted = true;
+                                mediaElement.autoplay = true;
+                                mediaElement.loop = true;
+                                mediaElement.addEventListener("loadeddata", function() {
+                                    this.classList.add("loaded");
+                                });
+                                mediaElement.load();
+                                mediaElement.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
+                            }
+                            mediaGroup.appendChild(mediaElement);
                         });
                     })
                     .catch(error => {
                         console.error('خطأ في جلب البيانات:', error);
-                        document.body.innerHTML = '<p>حدث خطأ أثناء تحميل البيانات</p>';
                     });
-            } else {
-                document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
-            }
+            });
         </script>
     </body>
     </html>
