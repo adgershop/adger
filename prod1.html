@@ -281,9 +281,9 @@
     <body>
         <div class="gallery">
             <div class="main-media">
-                <img id="mainMedia" src="1.jpg" alt="الصورة الرئيسية">
+                <img id="mainMedia" src="" alt="الصورة الرئيسية">
                 <video id="mainVideo" controls style="display: none;">
-                    <source src="3e.mp4" type="video/mp4">
+                    <source src="" type="video/mp4">
                 </video>
                 <button class="share-button bottom" id="shareButton" onclick="sharePage()" style="color: #ffffff;">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -302,40 +302,9 @@
                 </button>
             </div>
             <div class="media-counter">
-                منتج <span id="currentMedia">1</span>/<span id="totalMedia">8</span>
+                منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
             </div>
-            <div class="thumbnails" id="thumbnails">
-                <div class="thumbnail active" data-src="1.jpg" data-type="image">
-                    <img src="1.jpg" alt="الصورة 1">
-                </div>
-                <div class="thumbnail" data-src="a2.jpg" data-type="image">
-                    <img src="a2.jpg" alt="الصورة 2">
-                </div>
-                <div class="thumbnail" data-src="a3.jpg" data-type="image">
-                    <img src="a3.jpg" alt="الصورة 3">
-                </div>
-                <div class="thumbnail" data-src="a4.jpg" data-type="image">
-                    <img src="a4.jpg" alt="الصورة 4">
-                </div>
-                <div class="thumbnail" data-src="a5.jpg" data-type="image">
-                    <img src="a5.jpg" alt="الصورة 5">
-                </div>
-                <div class="thumbnail" data-src="a6.jpg" data-type="image">
-                    <img src="a6.jpg" alt="الصورة 6">
-                </div>
-                <div class="thumbnail" data-src="a7.jpg" data-type="image">
-                    <img src="a7.jpg" alt="الصورة 7">
-                </div>
-                <div class="thumbnail" data-src="3e.mp4" data-type="video">
-                    <video src="3e.mp4"></video>
-                    <div class="play-icon">
-                        <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path class="play-icon-path" d="M8 5v14l11-7z"/>
-                            <path class="pause-icon-path" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
+            <div class="thumbnails" id="thumbnails"></div>
         </div>
     
         <script>
@@ -346,7 +315,7 @@
             // دالة لجلب بيانات المنتج من JSON
             function loadProductData(id) {
                 const fileIndex = Math.ceil(id / 100); // كل 100 منتج في ملف
-                const jsonFile = `products-${fileIndex}.json`; // استخدام products- كما طلبت
+                const jsonFile = `products-${fileIndex}.json`;
     
                 fetch(jsonFile)
                     .then(response => {
@@ -362,7 +331,7 @@
     
                         const mediaList = product.media || [];
                         const thumbnailsContainer = document.getElementById('thumbnails');
-                        thumbnailsContainer.innerHTML = ''; // إزالة المصغرات الافتراضية
+                        thumbnailsContainer.innerHTML = ''; // إزالة أي محتوى سابق
     
                         // إنشاء المصغرات ديناميكيًا
                         mediaList.forEach((media, index) => {
@@ -584,70 +553,7 @@
                 if (productId) {
                     loadProductData(productId); // جلب البيانات من JSON إذا وُجد معرف
                 } else {
-                    // إذا لم يكن هناك معرف، استخدام البيانات الافتراضية وتهيئة المعرض
-                    calculateTotalMedia();
-                    updateCurrentMedia();
-                    const initialThumbnail = document.querySelector('.thumbnail.active');
-                    updateMainMedia(initialThumbnail);
-    
-                    // إضافة إيماءات اللمس
-                    const mainMediaContainer = document.querySelector('.main-media');
-                    const hammer = new Hammer(mainMediaContainer);
-    
-                    hammer.on('swipeleft', function() {
-                        nextMedia();
-                    });
-    
-                    hammer.on('swiperight', function() {
-                        prevMedia();
-                    });
-    
-                    // التعامل مع النقر على المصغرات
-                    document.querySelectorAll('.thumbnail').forEach(thumb => {
-                        thumb.addEventListener('click', () => {
-                            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                            thumb.classList.add('active');
-                            updateMainMedia(thumb);
-                            setTimeout(updateCurrentMedia, 100);
-                        });
-                    });
-    
-                    // إخفاء/إظهار عداد الوسائط عند تشغيل الفيديو
-                    const lastVideoThumbnail = document.querySelector('.thumbnail[data-type="video"]:last-child');
-                    const mediaCounter = document.querySelector('.media-counter');
-    
-                    lastVideoThumbnail.addEventListener('click', () => {
-                        mediaCounter.style.display = 'none';
-                    });
-    
-                    lastVideoThumbnail.querySelector('video').addEventListener('play', () => {
-                        mediaCounter.style.display = 'none';
-                    });
-    
-                    lastVideoThumbnail.querySelector('video').addEventListener('pause', () => {
-                        mediaCounter.style.display = 'flex';
-                    });
-    
-                    lastVideoThumbnail.querySelector('video').addEventListener('ended', () => {
-                        mediaCounter.style.display = 'flex';
-                    });
-    
-                    document.querySelectorAll('.thumbnail:not([data-type="video"])').forEach(thumb => {
-                        thumb.addEventListener('click', () => {
-                            mediaCounter.style.display = 'flex';
-                        });
-                    });
-    
-                    // السماح بتمرير الصفحة عموديًا عند لمس الصور والفيديوهات
-                    document.querySelectorAll('.main-media img, .main-media video').forEach(media => {
-                        media.addEventListener('touchstart', (event) => {
-                            event.stopPropagation();
-                        });
-    
-                        media.addEventListener('touchmove', (event) => {
-                            event.stopPropagation();
-                        });
-                    });
+                    document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
                 }
             });
         </script>
