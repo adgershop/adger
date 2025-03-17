@@ -1661,11 +1661,13 @@
                 fetch('data.json')
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('فشل في جلب ملف JSON');
+                            throw new Error(`فشل في جلب ملف JSON: ${response.status} - ${response.statusText}`);
                         }
                         return response.json();
                     })
                     .then(data => {
+                        console.log("البيانات تم جلبها بنجاح:", data); // للتأكد من البيانات
+    
                         // تحديث الصور
                         const imageIds = ['img1', 'img2', 'img3', 'img4', 'img5', 'img6'];
                         imageIds.forEach((id, index) => {
@@ -1697,8 +1699,8 @@
                         });
                     })
                     .catch(error => {
-                        console.error('خطأ:', error);
-                        alert('حدث خطأ أثناء جلب البيانات. تحقق من وحدة التحكم لمزيد من التفاصيل.');
+                        console.error('خطأ مفصل:', error.message);
+                        alert('حدث خطأ أثناء جلب البيانات. افتح وحدة التحكم (F12) لمعرفة التفاصيل.');
                     });
             });
         </script>
