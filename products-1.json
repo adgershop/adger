@@ -4,19 +4,19 @@
         "media": [
             {"src": "1.jpg", "type": "image"},
             {"src": "a2.jpg", "type": "image"},
-            {"src": "a3.jpg", "type": "image"},
-            {"src": "a4.jpg", "type": "image"},
-            {"src": "a5.jpg", "type": "image"},
-            {"src": "a6.jpg", "type": "image"},
-            {"src": "a7.jpg", "type": "image"},
             {"src": "3e.mp4", "type": "video"}
-        ]
+        ],
+        "price": "44",
+        "oldPrice": "444",
+        "discount": "خصم أكثر من 80%"
     },
     {
         "id": "2",
         "media": [
-            {"src": "2_1.jpg", "type": "image"},
-            {"src": "2_2.jpg", "type": "image"}
-        ]
+            {"src": "2_1.jpg", "type": "image"}
+        ],
+        "price": "99",
+        "oldPrice": "299",
+        "discount": "خصم 67%"
     }
 ]
