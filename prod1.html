@@ -473,14 +473,100 @@
 
 
 
-<div class="container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; margin-top: 22px;">
-    <div class="price" style="display: flex; align-items: center; gap: 5px;">
-        <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px; margin-right: 22px;">00.</div>
-        <div class="number" style="font-size: 28px;">44</div>
-        <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-        <s id="oldPrice" style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s> <!-- النص المشطوب -->
-        <s id="discount" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم اكثر من 80%</s> <!-- النص المشطوب -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة السعر</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+            width: 100%;
+            margin-top: 22px;
+        }
+        .price {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .zero {
+            margin-top: 15px;
+            margin-left: -6px;
+            font-size: 16px;
+            margin-right: 22px;
+        }
+        .number {
+            font-size: 28px;
+        }
+        .letter {
+            margin-top: 15px;
+            margin-right: -4px;
+            font-size: 16px;
+        }
+        .original-price {
+            font-size: 20px;
+            margin-right: 9px;
+            margin-bottom: -11px;
+            color: #555555;
+            text-decoration: line-through;
+        }
+        .discount-text {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #fc0000;
+            margin-right: 9px;
+            font-family: 'Cairo', sans-serif;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="price" id="price-container">
+            <div class="zero" id="price-decimal">00.</div>
+            <div class="number" id="price-main">44</div>
+            <div class="letter">جنيه</div>
+            <s class="original-price" id="original-price">444</s>
+            <span class="discount-text" id="discount-text">خصم أكثر من 80%</span>
+        </div>
     </div>
+
+    <script>
+        // مثال على جلب بيانات السعر من ملف JSON
+        async function fetchPriceData() {
+            try {
+                // افتراض أن الملف موجود باسم "products-1.json"
+                const response = await fetch('products-1.json');
+                const data = await response.json();
+                
+                // افتراض أن المنتج الأول هو المطلوب
+                const product = data.products[0];
+
+                // تحديث العناصر بناءً على البيانات
+                document.getElementById('price-main').textContent = Math.floor(product.price); // الجزء الصحيح
+                document.getElementById('price-decimal').textContent = (product.price % 1).toFixed(2).substring(1) + '.'; // الجزء العشري
+                document.getElementById('original-price').textContent = product.original_price;
+                document.getElementById('discount-text').textContent = product.discount_text;
+            } catch (error) {
+                console.error('خطأ في جلب البيانات:', error);
+            }
+        }
+
+        // استدعاء الدالة عند تحميل الصفحة
+        window.onload = fetchPriceData;
+    </script>
+</body>
+</html>
 </div>
 
 <script>
