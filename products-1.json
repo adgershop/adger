@@ -32,6 +32,7 @@
     ,
     
         "images": [
+            "1.jpg",
             "a11.jpg",
             "a11.jpg",
             "a11.jpg",
@@ -42,8 +43,7 @@
             "a11.jpg",
             "a11.jpg",
             "a11.jpg",
-            "a11.jpg",
-            "a1.jpg"
+            "a11.jpg"
         ],
         "videos": [
             "path/to/video1.mp4"
