@@ -1334,56 +1334,28 @@
             .then(data => {
                 // تحديث الجدول
                 const table = document.getElementById('productTable');
-                data.tableData.forEach(item => {
-                    const row = document.createElement('tr');
-                    const questionCell = document.createElement('td');
-                    const answerCell = document.createElement('td');
+                if (data.tableData && Array.isArray(data.tableData)) {
+                    data.tableData.forEach(item => {
+                        const row = document.createElement('tr');
+                        const questionCell = document.createElement('td');
+                        const answerCell = document.createElement('td');
 
-                    questionCell.textContent = item.question;
-                    answerCell.textContent = item.answer;
+                        questionCell.textContent = item.question || '';
+                        answerCell.textContent = item.answer || '';
 
-                    row.appendChild(questionCell);
-                    row.appendChild(answerCell);
-                    table.appendChild(row);
-                });
+                        row.appendChild(questionCell);
+                        row.appendChild(answerCell);
+                        table.appendChild(row);
+                    });
+                }
 
                 // تحديث النص الوصفي
                 const description = document.getElementById('productDescription');
-                description.textContent = data.description;
+                description.textContent = data.description || 'لا يوجد وصف متاح';
             })
             .catch(error => {
                 console.error('خطأ في جلب بيانات JSON:', error);
-                // عرض بيانات افتراضية في حالة الفشل
-                const table = document.getElementById('productTable');
-                const defaultData = [
-                    { question: "اللون", answer: "أسود" },
-                    { question: "المادة", answer: "بلاستيك" },
-                    { question: "السعر", answer: "100 دولار" },
-                    { question: "الوزن", answer: "1.5 كجم" },
-                    { question: "الأبعاد", answer: "10x20x30 سم" },
-                    { question: "بلد المنشأ", answer: "الصين" }
-                ];
-                defaultData.forEach(item => {
-                    const row = document.createElement('tr');
-                    const questionCell = document.createElement('td');
-                    const answerCell = document.createElement('td');
-
-                    questionCell.textContent = item.question;
-                    answerCell.textContent = item.answer;
-
-                    row.appendChild(questionCell);
-                    row.appendChild(answerCell);
-                    table.appendChild(row);
-                });
-
-                document.getElementById('productDescription').textContent = 
-                    "كيندل الأسرع في تاريخنا: شاشة Paperwhite الجديدة بحجم 7 بوصات من الجيل القادم تتميز بنسبة تباين أعلى وتقليب الصفحات أسرع بنسبة 25%. " +
-                    "جاهز للسفر: التصميم فائق النحافة يأتي بشاشة أكبر غير عاكسة ليبقى النص واضحًا بغض النظر عن مكان وجودك. " +
-                    "انغمس في كتبك: جهاز الكيندل الخاص بك لا يحتوي على شبكات اجتماعية أو إشعارات أو تطبيقات أخرى قد تشتتك. " +
-                    "بطارية تدوم مع أطول رواية: شحنة واحدة عبر منفذ USB-C تدوم حتى 12 أسبوعًا. " +
-                    "اقرأ في أي إضاءة: قم بتعديل الشاشة من الأبيض إلى الكهرماني للقراءة تحت أشعة الشمس الساطعة أو في الظلام. " +
-                    "مقاوم للماء بلا قلق: خذ قصصك إلى المسبح أو حوض الاستحمام أو أي مكان آخر. " +
-                    "مجموعة هائلة: احصل فورًا على إمكانية الوصول إلى أكثر من 15 مليون عنوان في متجر كيندل حول العالم، وأضف اشتراك Kindle Unlimited للحصول على وصول غير محدود إلى كتالوج يشمل الكتب الأكثر مبيعًا.";
+                document.getElementById('productDescription').textContent = 'حدث خطأ أثناء تحميل البيانات';
             });
     </script>
 </body>
