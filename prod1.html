@@ -57,12 +57,12 @@
                 max-height: 400px;
                 overflow-y: scroll;
                 padding-left: 10px;
-                scrollbar-width: none;
+                scrollbar-width: none; /* إخفاء شريط التمرير */
                 -ms-overflow-style: none;
             }
     
             .thumbnails::-webkit-scrollbar {
-                display: none;
+                display: none; /* إخفاء شريط التمرير في WebKit */
             }
     
             .thumbnail {
@@ -165,7 +165,7 @@
                     overflow-y: hidden;
                     padding-left: 0;
                     width: 311px;
-                    white-space: nowrap;
+                    white-space: nowrap; /* منع التفاف الصور */
                     gap: 10px;
                 }
     
@@ -245,63 +245,15 @@
                     display: none;
                 }
             }
-    
-            .container {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 5px;
-                width: 100%;
-                margin-top: 22px;
-            }
-    
-            .price {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-            }
-    
-            .zero {
-                margin-top: 15px;
-                margin-left: -6px;
-                font-size: 16px;
-                margin-right: 22px;
-            }
-    
-            .number {
-                font-size: 28px;
-            }
-    
-            .letter {
-                margin-top: 15px;
-                margin-right: -4px;
-                font-size: 16px;
-            }
-    
-            s.old-price {
-                font-size: 20px;
-                margin-right: 9px;
-                margin-bottom: -11px;
-                color: #555555;
-            }
-    
-            s.discount-text {
-                margin-top: 12px;
-                font-size: 13px;
-                color: #fc0000;
-                margin-right: 9px;
-                font-family: 'Cairo', sans-serif;
-                text-decoration: none;
-            }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     </head>
     <body>
         <div class="gallery">
             <div class="main-media">
-                <img id="mainMedia" src="" alt="الصورة الرئيسية">
+                <img id="mainMedia" src="1.jpg" alt="الصورة الرئيسية">
                 <video id="mainVideo" controls style="display: none;">
-                    <source src="" type="video/mp4">
+                    <source src="3e.mp4" type="video/mp4">
                 </video>
                 <button class="share-button bottom" id="shareButton" onclick="sharePage()" style="color: #ffffff;">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -320,93 +272,43 @@
                 </button>
             </div>
             <div class="media-counter">
-                منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
+                منتج <span id="currentMedia">1</span>/<span id="totalMedia">8</span>
             </div>
-            <div class="thumbnails" id="thumbnails"></div>
-        </div>
-    
-        <div class="container">
-            <div class="price">
-                <div class="zero">00.</div>
-                <div class="number" id="price">44</div>
-                <div class="letter">جنيه</div>
-                <s class="old-price" id="oldPrice">444</s>
-                <s class="discount-text" id="discount">خصم أكثر من 80%</s>
+            <div class="thumbnails">
+                <div class="thumbnail active" data-src="1.jpg" data-type="image">
+                    <img src="1.jpg" alt="الصورة 1">
+                </div>
+                <div class="thumbnail" data-src="a2.jpg" data-type="image">
+                    <img src="a2.jpg" alt="الصورة 2">
+                </div>
+                <div class="thumbnail" data-src="a3.jpg" data-type="image">
+                    <img src="a3.jpg" alt="الصورة 3">
+                </div>
+                <div class="thumbnail" data-src="a4.jpg" data-type="image">
+                    <img src="a4.jpg" alt="الصورة 4">
+                </div>
+                <div class="thumbnail" data-src="a5.jpg" data-type="image">
+                    <img src="a5.jpg" alt="الصورة 5">
+                </div>
+                <div class="thumbnail" data-src="a6.jpg" data-type="image">
+                    <img src="a6.jpg" alt="الصورة 6">
+                </div>
+                <div class="thumbnail" data-src="a7.jpg" data-type="image">
+                    <img src="a7.jpg" alt="الصورة 7">
+                </div>
+                <div class="thumbnail" data-src="3e.mp4" data-type="video">
+                    <video src="3e.mp4"></video>
+                    <div class="play-icon">
+                        <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path class="play-icon-path" d="M8 5v14l11-7z"/>
+                            <path class="pause-icon-path" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
     
         <script>
-            // جلب معرف المنتج من URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('id');
-    
-            // دالة لجلب بيانات المنتج من JSON
-            function loadProductData(id) {
-                const fileIndex = Math.ceil(id / 100); // كل 100 منتج في ملف
-                const jsonFile = `products-${fileIndex}.json`;
-    
-                fetch(jsonFile)
-                    .then(response => {
-                        if (!response.ok) throw new Error('الملف غير موجود');
-                        return response.json();
-                    })
-                    .then(products => {
-                        const product = products.find(p => p.id === id);
-                        if (!product) {
-                            document.body.innerHTML = '<p>المنتج غير موجود</p>';
-                            return;
-                        }
-    
-                        // تحديث المعرض
-                        const mediaList = product.media || [];
-                        const thumbnailsContainer = document.getElementById('thumbnails');
-                        thumbnailsContainer.innerHTML = '';
-    
-                        mediaList.forEach((media, index) => {
-                            const thumbnail = document.createElement('div');
-                            thumbnail.classList.add('thumbnail');
-                            if (index === 0) thumbnail.classList.add('active');
-                            thumbnail.setAttribute('data-src', media.src);
-                            thumbnail.setAttribute('data-type', media.type);
-    
-                            if (media.type === 'image') {
-                                const img = document.createElement('img');
-                                img.src = media.src;
-                                img.alt = `الصورة ${index + 1}`;
-                                thumbnail.appendChild(img);
-                            } else if (media.type === 'video') {
-                                const video = document.createElement('video');
-                                video.src = media.src;
-                                thumbnail.appendChild(video);
-    
-                                const playIcon = document.createElement('div');
-                                playIcon.classList.add('play-icon');
-                                playIcon.innerHTML = `
-                                    <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                        <path class="play-icon-path" d="M8 5v14l11-7z"/>
-                                        <path class="pause-icon-path" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
-                                    </svg>
-                                `;
-                                thumbnail.appendChild(playIcon);
-                            }
-    
-                            thumbnailsContainer.appendChild(thumbnail);
-                        });
-    
-                        // تحديث نصوص السعر والخصم
-                        document.getElementById('price').textContent = product.price || '0';
-                        document.getElementById('oldPrice').textContent = product.oldPrice || '';
-                        document.getElementById('discount').textContent = product.discount || '';
-    
-                        // تهيئة المعرض بعد جلب البيانات
-                        initializeGallery();
-                    })
-                    .catch(error => {
-                        console.error('خطأ في جلب البيانات:', error);
-                        document.body.innerHTML = '<p>حدث خطأ أثناء تحميل المعرض أو المنتج غير موجود</p>';
-                    });
-            }
-    
             function calculateTotalMedia() {
                 const totalMedia = document.querySelectorAll('.thumbnail').length;
                 document.getElementById('totalMedia').textContent = totalMedia;
@@ -436,17 +338,17 @@
                     mainImage.style.display = 'block';
                     mainVideo.style.display = 'none';
                     mainVideo.pause();
-                    shareButton.style.display = 'flex';
+                    shareButton.style.display = 'flex'; // إظهار زر المشاركة للصور
                 } else if (type === 'video') {
                     mainVideo.querySelector('source').src = src;
                     mainVideo.load();
                     mainVideo.style.display = 'block';
                     mainImage.style.display = 'none';
-                    shareButton.style.display = 'none';
+                    shareButton.style.display = 'none'; // إخفاء زر المشاركة للفيديو
                 }
             }
     
-            function initializeGallery() {
+            document.addEventListener('DOMContentLoaded', function() {
                 calculateTotalMedia();
                 updateCurrentMedia();
                 const initialThumbnail = document.querySelector('.thumbnail.active');
@@ -462,53 +364,16 @@
                 hammer.on('swiperight', function() {
                     prevMedia();
                 });
+            });
     
-                document.querySelectorAll('.thumbnail').forEach(thumb => {
-                    thumb.addEventListener('click', () => {
-                        document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                        thumb.classList.add('active');
-                        updateMainMedia(thumb);
-                        setTimeout(updateCurrentMedia, 100);
-                    });
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                    updateMainMedia(thumb);
+                    setTimeout(updateCurrentMedia, 100);
                 });
-    
-                const lastVideoThumbnail = document.querySelector('.thumbnail[data-type="video"]:last-child');
-                const mediaCounter = document.querySelector('.media-counter');
-    
-                if (lastVideoThumbnail) {
-                    lastVideoThumbnail.addEventListener('click', () => {
-                        mediaCounter.style.display = 'none';
-                    });
-    
-                    lastVideoThumbnail.querySelector('video').addEventListener('play', () => {
-                        mediaCounter.style.display = 'none';
-                    });
-    
-                    lastVideoThumbnail.querySelector('video').addEventListener('pause', () => {
-                        mediaCounter.style.display = 'flex';
-                    });
-    
-                    lastVideoThumbnail.querySelector('video').addEventListener('ended', () => {
-                        mediaCounter.style.display = 'flex';
-                    });
-                }
-    
-                document.querySelectorAll('.thumbnail:not([data-type="video"])').forEach(thumb => {
-                    thumb.addEventListener('click', () => {
-                        mediaCounter.style.display = 'flex';
-                    });
-                });
-    
-                document.querySelectorAll('.main-media img, .main-media video').forEach(media => {
-                    media.addEventListener('touchstart', (event) => {
-                        event.stopPropagation();
-                    });
-    
-                    media.addEventListener('touchmove', (event) => {
-                        event.stopPropagation();
-                    });
-                });
-            }
+            });
     
             function nextMedia() {
                 const thumbnails = document.querySelectorAll('.thumbnail');
@@ -542,6 +407,31 @@
                 }
             }
     
+            const lastVideoThumbnail = document.querySelector('.thumbnail[data-type="video"]:last-child');
+            const mediaCounter = document.querySelector('.media-counter');
+    
+            lastVideoThumbnail.addEventListener('click', () => {
+                mediaCounter.style.display = 'none';
+            });
+    
+            lastVideoThumbnail.querySelector('video').addEventListener('play', () => {
+                mediaCounter.style.display = 'none';
+            });
+    
+            lastVideoThumbnail.querySelector('video').addEventListener('pause', () => {
+                mediaCounter.style.display = 'flex';
+            });
+    
+            lastVideoThumbnail.querySelector('video').addEventListener('ended', () => {
+                mediaCounter.style.display = 'flex';
+            });
+    
+            document.querySelectorAll('.thumbnail:not([data-type="video"])').forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    mediaCounter.style.display = 'flex';
+                });
+            });
+    
             function sharePage() {
                 if (navigator.share) {
                     navigator.share({
@@ -552,6 +442,16 @@
                     console.log('Web Share API not supported');
                 }
             }
+    
+            document.querySelectorAll('.main-media img, .main-media video').forEach(media => {
+                media.addEventListener('touchstart', (event) => {
+                    event.stopPropagation();
+                });
+    
+                media.addEventListener('touchmove', (event) => {
+                    event.stopPropagation();
+                });
+            });
     
             function updateArrowState(currentIndex, totalMedia) {
                 const leftArrow = document.querySelector('.arrow.left');
@@ -569,14 +469,6 @@
                     rightArrow.classList.remove('disabled');
                 }
             }
-    
-            document.addEventListener('DOMContentLoaded', function() {
-                if (productId) {
-                    loadProductData(productId);
-                } else {
-                    document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
-                }
-            });
         </script>
     </body>
     </html>
@@ -591,6 +483,71 @@
 
 
 
+
+
+    <!DOCTYPE html>
+    <html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>عرض السعر</title>
+    </head>
+    <body>
+        <div class="container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; margin-top: 22px;">
+            <div class="price" style="display: flex; align-items: center; gap: 5px;">
+                <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px; margin-right: 22px;">00.</div>
+                <div class="number" id="price" style="font-size: 28px;">44</div>
+                <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+                <s id="oldPrice" style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s>
+                <s id="discount" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم أكثر من 80%</s>
+            </div>
+        </div>
+    
+        <script>
+            // جلب معرف المنتج من URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+    
+            // دالة لجلب بيانات المنتج من JSON
+            function loadPriceData(id) {
+                const fileIndex = Math.ceil(id / 100); // كل 100 منتج في ملف
+                const jsonFile = `products-${fileIndex}.json`;
+    
+                fetch(jsonFile)
+                    .then(response => {
+                        if (!response.ok) throw new Error('الملف غير موجود');
+                        return response.json();
+                    })
+                    .then(products => {
+                        const product = products.find(p => p.id === id);
+                        if (!product) {
+                            document.body.innerHTML = '<p>المنتج غير موجود</p>';
+                            return;
+                        }
+    
+                        // تحديث نصوص السعر والخصم
+                        document.getElementById('price').textContent = product.price || '0';
+                        document.getElementById('oldPrice').textContent = product.oldPrice || '';
+                        document.getElementById('discount').textContent = product.discount || '';
+                    })
+                    .catch(error => {
+                        console.error('خطأ في جلب البيانات:', error);
+                        document.body.innerHTML = '<p>حدث خطأ أثناء تحميل البيانات أو المنتج غير موجود</p>';
+                    });
+            }
+    
+            // تهيئة الصفحة
+            document.addEventListener('DOMContentLoaded', function() {
+                if (productId) {
+                    loadPriceData(productId);
+                } else {
+                    document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
+                }
+            });
+        </script>
+    </body>
+    </html>
+            
 
             <!DOCTYPE html>
 <html lang="ar">
