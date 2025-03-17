@@ -57,12 +57,17 @@
                 max-height: 400px;
                 overflow-y: scroll;
                 padding-left: 10px;
-                scrollbar-width: none;
+                scrollbar-width: thin; /* تمكين التمرير مع شريط رفيع */
                 -ms-overflow-style: none;
             }
     
             .thumbnails::-webkit-scrollbar {
-                display: none;
+                width: 6px;
+            }
+    
+            .thumbnails::-webkit-scrollbar-thumb {
+                background-color: #ccc;
+                border-radius: 3px;
             }
     
             .thumbnail {
@@ -140,23 +145,6 @@
                 height: 24px;
             }
     
-            .fullscreen-button {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                background-color: rgba(0, 0, 0, 0.5);
-                border: none;
-                border-radius: 50%;
-                width: 32px;
-                height: 32px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                z-index: 2;
-            }
-    
             @media (max-width: 555px) {
                 .gallery {
                     flex-direction: column;
@@ -182,6 +170,7 @@
                     overflow-y: hidden;
                     padding-left: 0;
                     width: 311px;
+                    white-space: nowrap; /* منع التفاف الصور */
                     gap: 10px;
                 }
     
@@ -190,11 +179,6 @@
                     flex: 0 0 auto;
                     width: 65px;
                     height: 65px;
-                }
-    
-                .thumbnail img, .thumbnail video {
-                    width: 100%;
-                    height: 100%;
                 }
             }
     
@@ -217,7 +201,6 @@
     
             @media (max-width: 555px) {
                 .media-counter {
-                    background-color: rgba(255, 255, 255, 0.616);
                     bottom: 95px;
                     right: 15px;
                     font-size: 11px;
@@ -241,8 +224,6 @@
                 color: white;
                 font-size: 24px;
                 z-index: 1;
-                opacity: 1;
-                transition: opacity 0.5s ease-in-out;
             }
     
             .arrow.left {
@@ -275,9 +256,9 @@
     <body>
         <div class="gallery">
             <div class="main-media">
-                <img id="mainMedia" src="" alt="الصورة الرئيسية">
+                <img id="mainMedia" src="1.jpg" alt="الصورة الرئيسية">
                 <video id="mainVideo" controls style="display: none;">
-                    <source src="" type="video/mp4">
+                    <source src="3e.mp4" type="video/mp4">
                 </video>
                 <button class="share-button bottom" id="shareButton" onclick="sharePage()" style="color: #ffffff;">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -296,86 +277,88 @@
                 </button>
             </div>
             <div class="media-counter">
-                منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
+                منتج <span id="currentMedia">1</span>/<span id="totalMedia">8</span>
             </div>
-            <div class="thumbnails" id="thumbnails"></div>
+            <div class="thumbnails">
+                <div class="thumbnail active" data-src="1.jpg" data-type="image">
+                    <img src="1.jpg" alt="الصورة 1">
+                </div>
+                <div class="thumbnail" data-src="a2.jpg" data-type="image">
+                    <img src="a2.jpg" alt="الصورة 2">
+                </div>
+                <div class="thumbnail" data-src="a3.jpg" data-type="image">
+                    <img src="a3.jpg" alt="الصورة 3">
+                </div>
+                <div class="thumbnail" data-src="a4.jpg" data-type="image">
+                    <img src="a4.jpg" alt="الصورة 4">
+                </div>
+                <div class="thumbnail" data-src="a5.jpg" data-type="image">
+                    <img src="a5.jpg" alt="الصورة 5">
+                </div>
+                <div class="thumbnail" data-src="a6.jpg" data-type="image">
+                    <img src="a6.jpg" alt="الصورة 6">
+                </div>
+                <div class="thumbnail" data-src="a7.jpg" data-type="image">
+                    <img src="a7.jpg" alt="الصورة 7">
+                </div>
+                <div class="thumbnail" data-src="3e.mp4" data-type="video">
+                    <video src="3e.mp4"></video>
+                    <div class="play-icon">
+                        <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path class="play-icon-path" d="M8 5v14l11-7z"/>
+                            <path class="pause-icon-path" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
         </div>
     
         <script>
-            // جلب معرف المنتج من URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('id');
-    
-            // دالة لجلب بيانات المنتج من JSON
-            function loadProductData(id) {
-                const fileIndex = Math.ceil(id / 100); // كل 100 منتج في ملف
-                const jsonFile = `products-${fileIndex}.json`;
-    
-                fetch(jsonFile)
-                    .then(response => {
-                        if (!response.ok) throw new Error('الملف غير موجود');
-                        return response.json();
-                    })
-                    .then(products => {
-                        const product = products.find(p => p.id === id);
-                        if (!product) {
-                            document.body.innerHTML = '<p>المنتج غير موجود</p>';
-                            return;
-                        }
-    
-                        const mediaList = product.media || [];
-                        const thumbnailsContainer = document.getElementById('thumbnails');
-                        thumbnailsContainer.innerHTML = ''; // إزالة أي محتوى سابق
-    
-                        // إنشاء المصغرات ديناميكيًا
-                        mediaList.forEach((media, index) => {
-                            const thumbnail = document.createElement('div');
-                            thumbnail.classList.add('thumbnail');
-                            if (index === 0) thumbnail.classList.add('active');
-                            thumbnail.setAttribute('data-src', media.src);
-                            thumbnail.setAttribute('data-type', media.type);
-    
-                            if (media.type === 'image') {
-                                const img = document.createElement('img');
-                                img.src = media.src;
-                                img.alt = `الصورة ${index + 1}`;
-                                thumbnail.appendChild(img);
-                            } else if (media.type === 'video') {
-                                const video = document.createElement('video');
-                                video.src = media.src;
-                                thumbnail.appendChild(video);
-    
-                                const playIcon = document.createElement('div');
-                                playIcon.classList.add('play-icon');
-                                playIcon.innerHTML = `
-                                    <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                        <path class="play-icon-path" d="M8 5v14l11-7z"/>
-                                        <path class="pause-icon-path" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
-                                    </svg>
-                                `;
-                                thumbnail.appendChild(playIcon);
-                            }
-    
-                            thumbnailsContainer.appendChild(thumbnail);
-                        });
-    
-                        // تهيئة المعرض بعد جلب البيانات
-                        initializeGallery();
-                    })
-                    .catch(error => {
-                        console.error('خطأ في جلب البيانات:', error);
-                        document.body.innerHTML = '<p>حدث خطأ أثناء تحميل المعرض أو المنتج غير موجود</p>';
-                    });
+            function calculateTotalMedia() {
+                const totalMedia = document.querySelectorAll('.thumbnail').length;
+                document.getElementById('totalMedia').textContent = totalMedia;
             }
     
-            // تهيئة المعرض
-            function initializeGallery() {
+            function updateCurrentMedia() {
+                const thumbnails = document.querySelectorAll('.thumbnail');
+                let currentIndex = 0;
+                thumbnails.forEach((thumb, index) => {
+                    if (thumb.classList.contains('active')) {
+                        currentIndex = index + 1;
+                    }
+                });
+                document.getElementById('currentMedia').textContent = currentIndex;
+                updateArrowState(currentIndex, thumbnails.length);
+            }
+    
+            function updateMainMedia(thumbnail) {
+                const mainImage = document.getElementById('mainMedia');
+                const mainVideo = document.getElementById('mainVideo');
+                const shareButton = document.getElementById('shareButton');
+                const src = thumbnail.getAttribute('data-src');
+                const type = thumbnail.getAttribute('data-type');
+    
+                if (type === 'image') {
+                    mainImage.src = src;
+                    mainImage.style.display = 'block';
+                    mainVideo.style.display = 'none';
+                    mainVideo.pause();
+                    shareButton.style.display = 'flex'; // إظهار زر المشاركة للصور
+                } else if (type === 'video') {
+                    mainVideo.querySelector('source').src = src;
+                    mainVideo.load();
+                    mainVideo.style.display = 'block';
+                    mainImage.style.display = 'none';
+                    shareButton.style.display = 'none'; // إخفاء زر المشاركة للفيديو
+                }
+            }
+    
+            document.addEventListener('DOMContentLoaded', function() {
                 calculateTotalMedia();
                 updateCurrentMedia();
                 const initialThumbnail = document.querySelector('.thumbnail.active');
                 updateMainMedia(initialThumbnail);
     
-                // إضافة إيماءات اللمس
                 const mainMediaContainer = document.querySelector('.main-media');
                 const hammer = new Hammer(mainMediaContainer);
     
@@ -386,99 +369,17 @@
                 hammer.on('swiperight', function() {
                     prevMedia();
                 });
+            });
     
-                // التعامل مع النقر على المصغرات
-                document.querySelectorAll('.thumbnail').forEach(thumb => {
-                    thumb.addEventListener('click', () => {
-                        document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                        thumb.classList.add('active');
-                        updateMainMedia(thumb);
-                        setTimeout(updateCurrentMedia, 100);
-                    });
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                    updateMainMedia(thumb);
+                    setTimeout(updateCurrentMedia, 100);
                 });
+            });
     
-                // إخفاء/إظهار عداد الوسائط عند تشغيل الفيديو
-                const lastVideoThumbnail = document.querySelector('.thumbnail[data-type="video"]:last-child');
-                const mediaCounter = document.querySelector('.media-counter');
-    
-                if (lastVideoThumbnail) {
-                    lastVideoThumbnail.addEventListener('click', () => {
-                        mediaCounter.style.display = 'none';
-                    });
-    
-                    lastVideoThumbnail.querySelector('video').addEventListener('play', () => {
-                        mediaCounter.style.display = 'none';
-                    });
-    
-                    lastVideoThumbnail.querySelector('video').addEventListener('pause', () => {
-                        mediaCounter.style.display = 'flex';
-                    });
-    
-                    lastVideoThumbnail.querySelector('video').addEventListener('ended', () => {
-                        mediaCounter.style.display = 'flex';
-                    });
-                }
-    
-                document.querySelectorAll('.thumbnail:not([data-type="video"])').forEach(thumb => {
-                    thumb.addEventListener('click', () => {
-                        mediaCounter.style.display = 'flex';
-                    });
-                });
-    
-                // السماح بتمرير الصفحة عموديًا عند لمس الصور والفيديوهات
-                document.querySelectorAll('.main-media img, .main-media video').forEach(media => {
-                    media.addEventListener('touchstart', (event) => {
-                        event.stopPropagation();
-                    });
-    
-                    media.addEventListener('touchmove', (event) => {
-                        event.stopPropagation();
-                    });
-                });
-            }
-    
-            // حساب العدد الإجمالي للصور والفيديو
-            function calculateTotalMedia() {
-                const totalMedia = document.querySelectorAll('.thumbnail').length;
-                document.getElementById('totalMedia').textContent = totalMedia;
-            }
-    
-            // تحديث رقم المنتج الحالي
-            function updateCurrentMedia() {
-                const thumbnails = document.querySelectorAll('.thumbnail');
-                let currentIndex = 0;
-    
-                thumbnails.forEach((thumb, index) => {
-                    if (thumb.classList.contains('active')) {
-                        currentIndex = index + 1;
-                    }
-                });
-    
-                document.getElementById('currentMedia').textContent = currentIndex;
-                updateArrowState(currentIndex, thumbnails.length);
-            }
-    
-            // تحديث الوسيطة الرئيسية (صورة أو فيديو)
-            function updateMainMedia(thumbnail) {
-                const mainImage = document.getElementById('mainMedia');
-                const mainVideo = document.getElementById('mainVideo');
-                const src = thumbnail.getAttribute('data-src');
-                const type = thumbnail.getAttribute('data-type');
-    
-                if (type === 'image') {
-                    mainImage.src = src;
-                    mainImage.style.display = 'block';
-                    mainVideo.style.display = 'none';
-                    mainVideo.pause();
-                } else if (type === 'video') {
-                    mainVideo.querySelector('source').src = src;
-                    mainVideo.load();
-                    mainVideo.style.display = 'block';
-                    mainImage.style.display = 'none';
-                }
-            }
-    
-            // الانتقال إلى الوسيطة التالية
             function nextMedia() {
                 const thumbnails = document.querySelectorAll('.thumbnail');
                 let currentIndex = -1;
@@ -495,7 +396,6 @@
                 }
             }
     
-            // الانتقال إلى الوسيطة السابقة
             function prevMedia() {
                 const thumbnails = document.querySelectorAll('.thumbnail');
                 let currentIndex = -1;
@@ -512,7 +412,31 @@
                 }
             }
     
-            // مشاركة الصفحة
+            const lastVideoThumbnail = document.querySelector('.thumbnail[data-type="video"]:last-child');
+            const mediaCounter = document.querySelector('.media-counter');
+    
+            lastVideoThumbnail.addEventListener('click', () => {
+                mediaCounter.style.display = 'none';
+            });
+    
+            lastVideoThumbnail.querySelector('video').addEventListener('play', () => {
+                mediaCounter.style.display = 'none';
+            });
+    
+            lastVideoThumbnail.querySelector('video').addEventListener('pause', () => {
+                mediaCounter.style.display = 'flex';
+            });
+    
+            lastVideoThumbnail.querySelector('video').addEventListener('ended', () => {
+                mediaCounter.style.display = 'flex';
+            });
+    
+            document.querySelectorAll('.thumbnail:not([data-type="video"])').forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    mediaCounter.style.display = 'flex';
+                });
+            });
+    
             function sharePage() {
                 if (navigator.share) {
                     navigator.share({
@@ -524,7 +448,16 @@
                 }
             }
     
-            // تحديث حالة السهام
+            document.querySelectorAll('.main-media img, .main-media video').forEach(media => {
+                media.addEventListener('touchstart', (event) => {
+                    event.stopPropagation();
+                });
+    
+                media.addEventListener('touchmove', (event) => {
+                    event.stopPropagation();
+                });
+            });
+    
             function updateArrowState(currentIndex, totalMedia) {
                 const leftArrow = document.querySelector('.arrow.left');
                 const rightArrow = document.querySelector('.arrow.right');
@@ -541,15 +474,6 @@
                     rightArrow.classList.remove('disabled');
                 }
             }
-    
-            // تهيئة المعرض عند تحميل الصفحة
-            document.addEventListener('DOMContentLoaded', function() {
-                if (productId) {
-                    loadProductData(productId); // جلب البيانات من JSON إذا وُجد معرف
-                } else {
-                    document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
-                }
-            });
         </script>
     </body>
     </html>
