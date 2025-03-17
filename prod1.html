@@ -1638,54 +1638,94 @@
     </head>
     <body>
         <div class="container32">
-            <!-- سيتم إضافة الصور والفيديوهات هنا ديناميكيًا -->
-            <div class="group" id="mediaGroup"></div>
+            <!-- سيتم ملء هذه الحاوية ديناميكيًا -->
         </div>
     
         <script>
+            // دالة لاستخراج معرف المنتج من URL
+            function getProductId() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('id');
+            }
+    
             document.addEventListener("DOMContentLoaded", function () {
-                // جلب البيانات من ملف JSON
-                fetch('media-data.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        const mediaGroup = document.getElementById('mediaGroup');
-                        data.imga.forEach(item => {  // تم تغيير `media` إلى `imga`
-                            let mediaElement;
-                            if (item.type === "image") {
-                                mediaElement = document.createElement('img');
-                                mediaElement.src = item.src;
-                                mediaElement.alt = item.alt;
-                                mediaElement.classList.add('image32');
-                                mediaElement.onload = function() {
-                                    this.classList.add("loaded");
-                                };
-                                if (mediaElement.complete) {
-                                    mediaElement.classList.add("loaded");
-                                }
-                            } else if (item.type === "video") {
-                                mediaElement = document.createElement('video');
-                                mediaElement.src = item.src;
-                                mediaElement.alt = item.alt;
-                                mediaElement.classList.add('image32');
-                                mediaElement.muted = true;
-                                mediaElement.autoplay = true;
-                                mediaElement.loop = true;
-                                mediaElement.addEventListener("loadeddata", function() {
-                                    this.classList.add("loaded");
-                                });
-                                mediaElement.load();
-                                mediaElement.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
+                const productId = getProductId();
+                if (productId) {
+                    // تحديد ملف JSON بناءً على المعرف (يمكنك تعديل هذا الجزء حسب طريقة تنظيمك للملفات)
+                    const jsonFile = 'products.json'; // اسم الملف يمكن تعديله
+    
+                    fetch(jsonFile)
+                        .then(response => {
+                            if (!response.ok) throw new Error('الملف غير موجود');
+                            return response.json();
+                        })
+                        .then(products => {
+                            const product = products.find(p => p.id === productId);
+                            if (!product) {
+                                console.error('المنتج غير موجود');
+                                return;
                             }
-                            mediaGroup.appendChild(mediaElement);
+    
+                            const container = document.querySelector('.container32');
+                            container.innerHTML = ''; // تفريغ المحتوى الحالي
+    
+                            // إنشاء مجموعة واحدة لجميع الوسائط
+                            const group = document.createElement('div');
+                            group.className = 'group';
+    
+                            product.media.forEach(mediaItem => {
+                                if (mediaItem.type === 'image') {
+                                    const img = document.createElement('img');
+                                    img.className = 'image32';
+                                    img.src = mediaItem.src;
+                                    img.alt = 'صورة';
+                                    img.loading = 'lazy';
+                                    group.appendChild(img);
+                                } else if (mediaItem.type === 'video') {
+                                    const video = document.createElement('video');
+                                    video.className = 'image32';
+                                    video.muted = true;
+                                    video.autoplay = true;
+                                    video.loop = true;
+                                    video.src = mediaItem.src;
+                                    video.loading = 'lazy';
+                                    video.textContent = 'Your browser does not support the video tag.';
+                                    group.appendChild(video);
+                                }
+                            });
+    
+                            container.appendChild(group);
+    
+                            // تطبيق تأثير التحميل
+                            const allElements = document.querySelectorAll(".image32");
+                            allElements.forEach(element => {
+                                if (element.tagName === "IMG") {
+                                    element.onload = function() {
+                                        this.classList.add("loaded");
+                                    };
+                                    if (element.complete) {
+                                        element.classList.add("loaded");
+                                    }
+                                } else if (element.tagName === "VIDEO") {
+                                    element.addEventListener("loadeddata", function() {
+                                        this.classList.add("loaded");
+                                    });
+                                    element.load();
+                                    element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
+                                }
+                            });
+                        })
+                        .catch(error => {
+                            console.error('خطأ في جلب البيانات:', error);
                         });
-                    })
-                    .catch(error => {
-                        console.error('خطأ في جلب البيانات:', error);
-                    });
+                } else {
+                    console.error('يرجى تحديد معرف المنتج في URL');
+                }
             });
         </script>
     </body>
     </html>
+
 
 
     <div class="line3"></div>
