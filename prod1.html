@@ -1606,7 +1606,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>صور وفيديو</title>
+        <title>عرض الصور والفيديوهات</title>
         <style>
             .container32 {
                 width: 100%;
@@ -1638,70 +1638,87 @@
     </head>
     <body>
         <div class="container32">
-            <!-- سيتم إضافة العناصر ديناميكيًا هنا -->
+            <!-- سيتم إضافة الصور والفيديوهات هنا ديناميكيًا -->
         </div>
     
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                // جلب بيانات JSON
-                fetch('products-1.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        const container = document.querySelector('.container32');
+                // استخراج معرف المنتج من URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const productId = urlParams.get('id');
     
-                        // حلقة عبر كل مجموعة في JSON
-                        data.groups.forEach(group => {
-                            const groupDiv = document.createElement('div');
-                            groupDiv.classList.add('group');
+                if (productId) {
+                    const productsPerFile = 100; // عدد المنتجات في كل ملف
+                    const fileIndex = Math.ceil(parseInt(productId) / productsPerFile);
+                    const jsonFile = `products-${fileIndex}.json`;
     
-                            // حلقة عبر العناصر داخل كل مجموعة
-                            group.items.forEach(item => {
-                                if (item.endsWith('.mp4')) {
-                                    // إنشاء عنصر فيديو
-                                    const video = document.createElement('video');
-                                    video.classList.add('image32');
-                                    video.src = item;
-                                    video.muted = true;
-                                    video.autoplay = true;
-                                    video.loop = true;
-                                    video.loading = 'lazy';
-                                    video.innerHTML = 'Your browser does not support the video tag.';
-                                    groupDiv.appendChild(video);
-                                } else {
-                                    // إنشاء عنصر صورة
-                                    const img = document.createElement('img');
-                                    img.classList.add('image32');
-                                    img.src = item;
-                                    img.alt = 'صورة';
-                                    img.loading = 'lazy';
-                                    groupDiv.appendChild(img);
-                                }
+                    // جلب ملف JSON
+                    fetch(jsonFile)
+                        .then(response => {
+                            if (!response.ok) throw new Error('الملف غير موجود');
+                            return response.json();
+                        })
+                        .then(products => {
+                            // البحث عن المنتج
+                            const product = products.find(p => p.id === productId);
+                            if (!product) {
+                                console.error('المنتج غير موجود');
+                                return;
+                            }
+    
+                            const container = document.querySelector('.container32');
+                            product.groups.forEach(group => {
+                                const groupDiv = document.createElement('div');
+                                groupDiv.classList.add('group');
+    
+                                // إضافة الصور أو الفيديوهات
+                                group.items.forEach(item => {
+                                    if (item.endsWith('.mp4')) {
+                                        const video = document.createElement('video');
+                                        video.classList.add('image32');
+                                        video.src = item;
+                                        video.muted = true;
+                                        video.autoplay = true;
+                                        video.loop = true;
+                                        video.loading = 'lazy';
+                                        video.innerHTML = 'المتصفح لا يدعم الفيديو.';
+                                        groupDiv.appendChild(video);
+                                    } else {
+                                        const img = document.createElement('img');
+                                        img.classList.add('image32');
+                                        img.src = item;
+                                        img.alt = 'صورة';
+                                        img.loading = 'lazy';
+                                        groupDiv.appendChild(img);
+                                    }
+                                });
+    
+                                container.appendChild(groupDiv);
                             });
     
-                            // إضافة المجموعة إلى الحاوية
-                            container.appendChild(groupDiv);
-                        });
-    
-                        // معالجة تحميل الصور والفيديوهات
-                        const allElements = document.querySelectorAll(".image32");
-                        allElements.forEach(element => {
-                            if (element.tagName === "IMG") {
-                                element.onload = function() {
-                                    this.classList.add("loaded");
-                                };
-                                if (element.complete) {
-                                    element.classList.add("loaded");
+                            // تأثير التحميل التدريجي
+                            const allElements = document.querySelectorAll(".image32");
+                            allElements.forEach(element => {
+                                if (element.tagName === "IMG") {
+                                    element.onload = function() {
+                                        this.classList.add("loaded");
+                                    };
+                                    if (element.complete) {
+                                        element.classList.add("loaded");
+                                    }
+                                } else if (element.tagName === "VIDEO") {
+                                    element.addEventListener("loadeddata", function() {
+                                        this.classList.add("loaded");
+                                    });
+                                    element.load();
+                                    element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
                                 }
-                            } else if (element.tagName === "VIDEO") {
-                                element.addEventListener("loadeddata", function() {
-                                    this.classList.add("loaded");
-                                });
-                                element.load();
-                                element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
-                            }
-                        });
-                    })
-                    .catch(error => console.error('خطأ في جلب بيانات JSON:', error));
+                            });
+                        })
+                        .catch(error => console.error('خطأ في جلب البيانات:', error));
+                } else {
+                    console.error('يرجى تحديد معرف المنتج في URL');
+                }
             });
         </script>
     </body>
