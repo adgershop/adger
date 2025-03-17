@@ -1080,107 +1080,79 @@
             </html>
 
 
-<br><br>
+<br>
     <div class="line"></div>
 
-    <!DOCTYPE html>
     <html lang="ar">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>الصفحة الرئيسية</title>
-        <style>
-            .comment-button {
-                font-family: 'Cairo', sans-serif;
-                padding: 5px 20px;
-                font-size: 15px;
-                background-color: #ececec;
-                color: rgb(22, 22, 22);
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                transition: 0.3s ease-in-out;
-                margin-top: 11px;
-                margin-right: 12px;
-            }
-    
-            .comment-button:hover {
-                background-color: #f0f0f0;
-            }
-        </style>
-    </head>
-    <body>
-        <button id="commentButton1" class="comment-button" onclick="window.location.href='comments.html?commentId=1'">
-            التعليقات 1 (<span id="commentCount1">0</span>)
-        </button>
-    
-        <!-- أضف Firebase SDK -->
-        <script type="module">
-            // استيراد الوظائف المطلوبة من Firebase
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-            import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
-    
-            // تهيئة Firebase
-            const firebaseConfig = {
-                apiKey: "AIzaSyBHJkJA0d6h27iLnO0s3e37OpfMNUxC3qQ",
-                authDomain: "adger-ddb84.firebaseapp.com",
-                databaseURL: "https://adger-ddb84-default-rtdb.firebaseio.com",
-                projectId: "adger-ddb84",
-                storageBucket: "adger-ddb84.firebasestorage.app",
-                messagingSenderId: "767665511626",
-                appId: "1:767665511626:web:0ed485898001cdf4a02833"
-            };
-    
-            const app = initializeApp(firebaseConfig);
-            const database = getDatabase(app);
-            const commentsRef = ref(database, 'comments');
-    
-            // عرض عدد التعليقات
-            const updateCommentCount = (commentId, elementId) => {
-                const commentCountElement = document.getElementById(elementId);
-                if (!commentCountElement) return; // التحقق من وجود العنصر
-                let count = 0;
-                onValue(commentsRef, (snapshot) => {
-                    count = 0; // إعادة تعيين العدد لكل تحديث
-                    snapshot.forEach((childSnapshot) => {
-                        const comment = childSnapshot.val();
-                        if (comment.commentId === commentId) {
-                            count++;
-                        }
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>الصفحة الرئيسية</title>
+            <style>
+                .comment-button {
+                    font-family: 'Cairo', sans-serif;
+                    padding: 5px 20px;
+                    font-size: 15px;
+                    background-color: #ececec;
+                    color: rgb(22, 22, 22);
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: 0.3s ease-in-out;
+                    margin-top: 11px;
+                    margin-right: 12px;
+                }
+        
+                .comment-button:hover {
+                    background-color: #f0f0f0;
+                }
+            </style>
+        </head>
+        <body>
+            <button class="comment-button" onclick="window.location.href='comments.html?commentId=1'">
+                التعليقات 1 (<span id="commentCount1">0</span>)
+            </button>
+        
+            <!-- أضف Firebase SDK -->
+            <script type="module">
+                // استيراد الوظائف المطلوبة من Firebase
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+                import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+        
+                // تهيئة Firebase
+                const firebaseConfig = {
+                    apiKey: "AIzaSyBHJkJA0d6h27iLnO0s3e37OpfMNUxC3qQ",
+                    authDomain: "adger-ddb84.firebaseapp.com",
+                    databaseURL: "https://adger-ddb84-default-rtdb.firebaseio.com",
+                    projectId: "adger-ddb84",
+                    storageBucket: "adger-ddb84.firebasestorage.app",
+                    messagingSenderId: "767665511626",
+                    appId: "1:767665511626:web:0ed485898001cdf4a02833"
+                };
+        
+                const app = initializeApp(firebaseConfig);
+                const database = getDatabase(app);
+                const commentsRef = ref(database, 'comments');
+        
+                // عرض عدد التعليقات
+                const updateCommentCount = (commentId, elementId) => {
+                    const commentCountElement = document.getElementById(elementId);
+                    let count = 0;
+                    onValue(commentsRef, (snapshot) => {
+                        snapshot.forEach((childSnapshot) => {
+                            const comment = childSnapshot.val();
+                            if (comment.commentId === commentId) {
+                                count++;
+                            }
+                        });
+                        commentCountElement.textContent = count;
                     });
-                    commentCountElement.textContent = count;
-                });
-            };
-    
-            // جلب بيانات JSON وتحديث الأزرار
-            fetch('config.json')
-                .then(response => {
-                    if (!response.ok) throw new Error('فشل في جلب ملف JSON');
-                    return response.json();
-                })
-                .then(config => {
-                    config.forEach(item => {
-                        const button = document.getElementById(item.buttonId);
-                        if (button) {
-                            // تحديث رابط الزر بناءً على commentId من JSON
-                            button.onclick = () => {
-                                window.location.href = `comments.html?commentId=${item.commentId}`;
-                            };
-                            // تحديث نص الزر ليعكس commentId
-                            button.childNodes[0].textContent = `التعليقات ${item.commentId} (`;
-                            // تحديث عدد التعليقات بناءً على commentId من JSON
-                            updateCommentCount(item.commentId, item.elementId);
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('خطأ في جلب بيانات JSON:', error);
-                    // إذا فشل جلب JSON، استخدم القيم الافتراضية
-                    updateCommentCount(1, 'commentCount1');
-                });
-        </script>
-    </body>
-    </html>
+                };
+        
+                updateCommentCount(1, 'commentCount1');
+            </script>
+        </body>
+        </html> 
 
     
     
@@ -1324,7 +1296,7 @@
 
     <script>
         // جلب معرف المنتج من URL
-        function getProductId() {
+       function getProductId() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
     return productId;
