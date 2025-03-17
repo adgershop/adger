@@ -1135,29 +1135,6 @@
             const database = getDatabase(app);
             const commentsRef = ref(database, 'comments');
     
-            // جلب بيانات JSON
-            fetch('config.json')
-                .then(response => {
-                    if (!response.ok) throw new Error('فشل في جلب ملف JSON');
-                    return response.json();
-                })
-                .then(config => {
-                    config.forEach(item => {
-                        const button = document.getElementById(item.buttonId);
-                        if (button) {
-                            // تحديث رابط الزر بناءً على commentId من JSON
-                            button.onclick = () => {
-                                window.location.href = `comments.html?commentId=${item.commentId}`;
-                            };
-                            // تحديث عدد التعليقات بناءً على commentId من JSON
-                            updateCommentCount(item.commentId, item.elementId);
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('خطأ في جلب بيانات JSON:', error);
-                });
-    
             // عرض عدد التعليقات
             const updateCommentCount = (commentId, elementId) => {
                 const commentCountElement = document.getElementById(elementId);
@@ -1174,6 +1151,33 @@
                     commentCountElement.textContent = count;
                 });
             };
+    
+            // جلب بيانات JSON وتحديث الأزرار
+            fetch('config.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('فشل في جلب ملف JSON');
+                    return response.json();
+                })
+                .then(config => {
+                    config.forEach(item => {
+                        const button = document.getElementById(item.buttonId);
+                        if (button) {
+                            // تحديث رابط الزر بناءً على commentId من JSON
+                            button.onclick = () => {
+                                window.location.href = `comments.html?commentId=${item.commentId}`;
+                            };
+                            // تحديث نص الزر ليعكس commentId
+                            button.childNodes[0].textContent = `التعليقات ${item.commentId} (`;
+                            // تحديث عدد التعليقات بناءً على commentId من JSON
+                            updateCommentCount(item.commentId, item.elementId);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('خطأ في جلب بيانات JSON:', error);
+                    // إذا فشل جلب JSON، استخدم القيم الافتراضية
+                    updateCommentCount(1, 'commentCount1');
+                });
         </script>
     </body>
     </html>
