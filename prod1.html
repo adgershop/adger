@@ -57,17 +57,12 @@
                 max-height: 400px;
                 overflow-y: scroll;
                 padding-left: 10px;
-                scrollbar-width: thin; /* تمكين التمرير مع شريط رفيع */
+                scrollbar-width: none; /* إخفاء شريط التمرير */
                 -ms-overflow-style: none;
             }
     
             .thumbnails::-webkit-scrollbar {
-                width: 6px;
-            }
-    
-            .thumbnails::-webkit-scrollbar-thumb {
-                background-color: #ccc;
-                border-radius: 3px;
+                display: none; /* إخفاء شريط التمرير في WebKit */
             }
     
             .thumbnail {
