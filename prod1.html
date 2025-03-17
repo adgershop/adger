@@ -1666,11 +1666,17 @@
                         return response.json();
                     })
                     .then(data => {
-                        // اختيار الكائن الأول (id: "1") من المصفوفة
-                        const item = data[0]; // يمكنك تغيير الفهرس لعرض عناصر أخرى مثل data[1]
+                        // اختيار الكائن الأول (id: "1")
+                        const item = data[0];
                         const media = item.media;
     
-                        // تحديث الصور والفيديو بناءً على "media"
+                        // التأكد من وجود بيانات
+                        if (!media) {
+                            throw new Error("لا توجد بيانات media في الكائن الأول");
+                        }
+                        console.log("البيانات المجلوبة:", media);
+    
+                        // تحديث الصور والفيديو
                         const imageIds = ['img1', 'img2', 'img3', 'img4', 'img5', 'img6'];
                         let imageIndex = 0;
     
@@ -1692,6 +1698,9 @@
                                 element.onload = function() {
                                     this.classList.add("loaded");
                                 };
+                                element.onerror = function() {
+                                    console.error(`فشل تحميل الصورة: ${this.src}`);
+                                };
                                 if (element.complete) {
                                     element.classList.add("loaded");
                                 }
@@ -1699,6 +1708,9 @@
                                 element.addEventListener("loadeddata", function() {
                                     this.classList.add("loaded");
                                 });
+                                element.onerror = function() {
+                                    console.error(`فشل تحميل الفيديو: ${this.src}`);
+                                };
                                 element.load();
                                 element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
                             }
