@@ -624,22 +624,22 @@
                     const priceElement = document.getElementById('price');
                     priceElement.textContent = product.price || '0';
 
-                    // تحديث السعر القديم (إخفاء إذا لم يكن موجودًا)
+                    // تحديث السعر القديم مع التحكم في الإخفاء
                     const oldPriceElement = document.getElementById('oldPrice');
-                    if (product.oldPrice) {
+                    if (product.oldPrice && !product.hideOldPrice) {
                         oldPriceElement.textContent = product.oldPrice;
-                        oldPriceElement.style.display = 'inline'; // إظهار العنصر إذا كان موجودًا
+                        oldPriceElement.style.display = 'inline'; // إظهار إذا لم يكن مخفيًا
                     } else {
-                        oldPriceElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
+                        oldPriceElement.style.display = 'none'; // إخفاء إذا كان مخفيًا أو غير موجود
                     }
 
-                    // تحديث نص الخصم (إخفاء إذا لم يكن موجودًا)
+                    // تحديث نص الخصم مع التحكم في الإخفاء
                     const discountElement = document.getElementById('discount');
-                    if (product.discount) {
+                    if (product.discount && !product.hideDiscount) {
                         discountElement.textContent = product.discount;
-                        discountElement.style.display = 'inline'; // إظهار العنصر إذا كان موجودًا
+                        discountElement.style.display = 'inline'; // إظهار إذا لم يكن مخفيًا
                     } else {
-                        discountElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
+                        discountElement.style.display = 'none'; // إخفاء إذا كان مخفيًا أو غير موجود
                     }
 
                     // تحديث النص المتغير
@@ -656,13 +656,14 @@
                         changeText(); // تعيين النص الأول فورًا
                         setInterval(changeText, 5000); // تغيير النص كل 5 ثوانٍ
                     } else {
-                        textContainer.style.display = 'none'; // إخفاء إذا لم يكن هناك نصوص متغيرة
+                        textContainer.style.display = 'none'; // إخفاء إذا لم يكن موجودًا
                     }
 
                     // تحديث النص الطويل
                     const hopContainer = document.getElementById('hop');
                     if (product.longText) {
                         hopContainer.textContent = product.longText;
+                        initializeLongText(); // تهيئة النص الطويل
                     } else {
                         hopContainer.style.display = 'none'; // إخفاء إذا لم يكن موجودًا
                     }
@@ -671,14 +672,8 @@
                     const salesElement = document.getElementById('sales');
                     if (product.sales) {
                         salesElement.textContent = product.sales;
-                        salesElement.style.display = 'block'; // إظهار العنصر إذا كان موجودًا
                     } else {
-                        salesElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
-                    }
-
-                    // تهيئة النص الطويل إذا كان موجودًا
-                    if (product.longText) {
-                        initializeLongText();
+                        salesElement.style.display = 'none'; // إخفاء إذا لم يكن موجودًا
                     }
                 })
                 .catch(error => {
