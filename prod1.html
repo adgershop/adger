@@ -1638,89 +1638,92 @@
     </head>
     <body>
         <div class="container32">
-            <!-- المجموعة الأولى -->
-            <div class="group">
-                <img id="img1" class="image32" src="" alt="صورة 1" loading="lazy">
-                <img id="img2" class="image32" src="" alt="صورة 2" loading="lazy">
-                <img id="img3" class="image32" src="" alt="صورة 3" loading="lazy">
-                <img id="img4" class="image32" src="" alt="صورة 4" loading="lazy">
-                <img id="img5" class="image32" src="" alt="صورة 5" loading="lazy">
-            </div>
-    
-            <!-- المجموعة الثالثة مع فيديو -->
-            <div class="group">
-                <img id="img6" class="image32" src="" alt="صورة 6" loading="lazy">
-                <video id="video1" class="image32" muted autoplay loop src="" loading="lazy">
-                    Your browser does not support the video tag.
-                </video>            
-            </div>
+            <div class="group" id="imagesGroup"></div>
+            <div class="group" id="mediaGroup"></div>
         </div>
     
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                fetch('data.json')
+            // جلب معرف المنتج من URL
+            function getProductId() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('id');
+            }
+    
+          
+            if (productId) {
+                const fileIndex = Math.ceil(parseInt(productId) / 100);
+                const jsonFile = `products-${fileIndex}.json`;
+    
+                fetch(jsonFile)
                     .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`فشل في جلب ملف JSON: ${response.status} - ${response.statusText}`);
-                        }
+                        if (!response.ok) throw new Error('الملف غير موجود');
                         return response.json();
                     })
                     .then(data => {
-                        // اختيار الكائن الأول (id: "1")
-                        const item = data[0];
-                        const media = item.media;
-    
-                        // التأكد من وجود بيانات
-                        if (!media) {
-                            throw new Error("لا توجد بيانات media في الكائن الأول");
+                        const product = data.find(p => p.id === productId);
+                        if (!product) {
+                            document.body.innerHTML = '<p>المنتج غير موجود</p>';
+                            return;
                         }
-                        console.log("البيانات المجلوبة:", media);
     
-                        // تحديث الصور والفيديو
-                        const imageIds = ['img1', 'img2', 'img3', 'img4', 'img5', 'img6'];
-                        let imageIndex = 0;
-    
-                        media.forEach((mediaItem) => {
-                            if (mediaItem.type === "image" && imageIndex < imageIds.length) {
-                                const img = document.getElementById(imageIds[imageIndex]);
-                                img.src = mediaItem.src;
-                                imageIndex++;
-                            } else if (mediaItem.type === "video") {
-                                const video = document.getElementById('video1');
-                                video.src = mediaItem.src;
-                            }
+                        // إضافة الصور
+                        const imagesGroup = document.getElementById('imagesGroup');
+                        product.images.forEach((imgSrc, index) => {
+                            const img = document.createElement('img');
+                            img.className = 'image32';
+                            img.src = imgSrc;
+                            img.alt = `صورة ${index + 1}`;
+                            img.loading = 'lazy';
+                            imagesGroup.appendChild(img);
                         });
     
+                        // إضافة الصورة والفيديو
+                        const mediaGroup = document.getElementById('mediaGroup');
+                        const img = document.createElement('img');
+                        img.className = 'image32';
+                        img.src = product.media.image;
+                        img.alt = 'صورة 1';
+                        img.loading = 'lazy';
+                        mediaGroup.appendChild(img);
+    
+                        const video = document.createElement('video');
+                        video.className = 'image32';
+                        video.muted = true;
+                        video.autoplay = true;
+                        video.loop = true;
+                        video.src = product.media.video;
+                        video.loading = 'lazy';
+                        video.innerHTML = 'Your browser does not support the video tag.';
+                        mediaGroup.appendChild(video);
+    
                         // إضافة تأثير التحميل
-                        const allElements = document.querySelectorAll(".image32");
-                        allElements.forEach(element => {
-                            if (element.tagName === "IMG") {
-                                element.onload = function() {
-                                    this.classList.add("loaded");
-                                };
-                                element.onerror = function() {
-                                    console.error(`فشل تحميل الصورة: ${this.src}`);
-                                };
-                                if (element.complete) {
-                                    element.classList.add("loaded");
+                        document.addEventListener("DOMContentLoaded", function () {
+                            const allElements = document.querySelectorAll(".image32");
+                            allElements.forEach(element => {
+                                if (element.tagName === "IMG") {
+                                    element.onload = function() {
+                                        this.classList.add("loaded");
+                                    };
+                                    if (element.complete) {
+                                        element.classList.add("loaded");
+                                    }
+                                } else if (element.tagName === "VIDEO") {
+                                    element.addEventListener("loadeddata", function() {
+                                        this.classList.add("loaded");
+                                    });
+                                    element.load();
+                                    element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
                                 }
-                            } else if (element.tagName === "VIDEO") {
-                                element.addEventListener("loadeddata", function() {
-                                    this.classList.add("loaded");
-                                });
-                                element.onerror = function() {
-                                    console.error(`فشل تحميل الفيديو: ${this.src}`);
-                                };
-                                element.load();
-                                element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
-                            }
+                            });
                         });
                     })
                     .catch(error => {
-                        console.error('خطأ:', error.message);
-                        alert('حدث خطأ أثناء جلب البيانات. افتح وحدة التحكم (F12) لمعرفة التفاصيل.');
+                        console.error('خطأ في جلب البيانات:', error);
+                        document.body.innerHTML = '<p>حدث خطأ أثناء تحميل البيانات</p>';
                     });
-            });
+            } else {
+                document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
+            }
         </script>
     </body>
     </html>
