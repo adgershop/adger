@@ -1666,8 +1666,6 @@
                         return response.json();
                     })
                     .then(data => {
-                        console.log("البيانات تم جلبها بنجاح:", data); // للتأكد من البيانات
-    
                         // تحديث الصور
                         const imageIds = ['img1', 'img2', 'img3', 'img4', 'img5', 'img6'];
                         imageIds.forEach((id, index) => {
@@ -1699,7 +1697,7 @@
                         });
                     })
                     .catch(error => {
-                        console.error('خطأ مفصل:', error.message);
+                        console.error('خطأ:', error.message);
                         alert('حدث خطأ أثناء جلب البيانات. افتح وحدة التحكم (F12) لمعرفة التفاصيل.');
                     });
             });
