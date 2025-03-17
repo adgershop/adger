@@ -1620,11 +1620,11 @@
                 margin-bottom: 10px;
                 object-fit: cover;
                 background-color: #ccc;
-                opacity: 0; /* تبدأ شفافة */
-                transition: opacity 0.3s ease-in-out; /* تأثير تدريجي مختصر */
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
             }
             .image32.loaded {
-                opacity: 1; /* تصبح مرئية بعد التحميل */
+                opacity: 1;
             }
             @media (min-width: 768px) {
                 .container32 {
@@ -1649,7 +1649,7 @@
     
             <!-- المجموعة الثالثة مع فيديو -->
             <div class="group">
-                <img id="img6" class="image32" src="" alt="صورة 1" loading="lazy">
+                <img id="img6" class="image32" src="" alt="صورة 6" loading="lazy">
                 <video id="video1" class="image32" muted autoplay loop src="" loading="lazy">
                     Your browser does not support the video tag.
                 </video>            
@@ -1659,20 +1659,25 @@
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 fetch('data.json')
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('فشل في جلب ملف JSON');
+                        }
+                        return response.json();
+                    })
                     .then(data => {
-                        // تحديث مسارات الصور
-                        document.getElementById('img1').src = data.images[0];
-                        document.getElementById('img2').src = data.images[1];
-                        document.getElementById('img3').src = data.images[2];
-                        document.getElementById('img4').src = data.images[3];
-                        document.getElementById('img5').src = data.images[4];
-                        document.getElementById('img6').src = data.images[5];
-                        
-                        // تحديث مسار الفيديو
-                        document.getElementById('video1').src = data.videos[0];
+                        // تحديث الصور
+                        const imageIds = ['img1', 'img2', 'img3', 'img4', 'img5', 'img6'];
+                        imageIds.forEach((id, index) => {
+                            const img = document.getElementById(id);
+                            img.src = data.images[index];
+                        });
     
-                        // إضافة الفئة loaded بعد التحميل
+                        // تحديث الفيديو
+                        const video = document.getElementById('video1');
+                        video.src = data.videos[0];
+    
+                        // إضافة تأثير التحميل
                         const allElements = document.querySelectorAll(".image32");
                         allElements.forEach(element => {
                             if (element.tagName === "IMG") {
@@ -1686,12 +1691,15 @@
                                 element.addEventListener("loadeddata", function() {
                                     this.classList.add("loaded");
                                 });
-                                element.load(); // إعادة تحميل الفيديو بالمسار الجديد
+                                element.load();
                                 element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
                             }
                         });
                     })
-                    .catch(error => console.error('خطأ في جلب البيانات:', error));
+                    .catch(error => {
+                        console.error('خطأ:', error);
+                        alert('حدث خطأ أثناء جلب البيانات. تحقق من وحدة التحكم لمزيد من التفاصيل.');
+                    });
             });
         </script>
     </body>
