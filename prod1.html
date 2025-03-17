@@ -473,68 +473,58 @@
 
 
 
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض السعر</title>
-</head>
-<body>
-    <div class="container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; margin-top: 22px;">
-        <div class="price" style="display: flex; align-items: center; gap: 5px;">
-            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px; margin-right: 22px;">00.</div>
-            <div class="number" id="price" style="font-size: 28px;">44</div>
-            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-            <s id="oldPrice" style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s>
-            <s id="discount" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم أكثر من 80%</s>
-        </div>
+<div class="container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; margin-top: 22px;">
+    <div class="price" style="display: flex; align-items: center; gap: 5px;">
+        <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px; margin-right: 22px;">00.</div>
+        <div class="number" id="price" style="font-size: 28px;">44</div>
+        <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
+        <s id="oldPrice" style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s>
+        <s id="discount" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم اكثر من 80%</s>
     </div>
+</div>
 
-    <script>
-        // جلب معرف المنتج من URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
+<script>
+    // جلب معرف المنتج من URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
 
-        // دالة لجلب بيانات المنتج من JSON
-        function loadPriceData(id) {
-            const fileIndex = Math.ceil(id / 100); // كل 100 منتج في ملف
-            const jsonFile = `products-${fileIndex}.json`;
+    // دالة لجلب بيانات المنتج من JSON
+    function loadPriceData(id) {
+        const fileIndex = Math.ceil(id / 100); // كل 100 منتج في ملف
+        const jsonFile = `products-${fileIndex}.json`;
 
-            fetch(jsonFile)
-                .then(response => {
-                    if (!response.ok) throw new Error('الملف غير موجود');
-                    return response.json();
-                })
-                .then(products => {
-                    const product = products.find(p => p.id === id);
-                    if (!product) {
-                        document.body.innerHTML = '<p>المنتج غير موجود</p>';
-                        return;
-                    }
+        fetch(jsonFile)
+            .then(response => {
+                if (!response.ok) throw new Error('الملف غير موجود');
+                return response.json();
+            })
+            .then(products => {
+                const product = products.find(p => p.id === id);
+                if (!product) {
+                    document.body.innerHTML = '<p>المنتج غير موجود</p>';
+                    return;
+                }
 
-                    // تحديث النصوص بناءً على بيانات JSON
-                    document.getElementById('price').textContent = product.price || '0';
-                    document.getElementById('oldPrice').textContent = product.oldPrice || '';
-                    document.getElementById('discount').textContent = product.discount || '';
-                })
-                .catch(error => {
-                    console.error('خطأ في جلب البيانات:', error);
-                    document.body.innerHTML = '<p>حدث خطأ أثناء تحميل البيانات أو المنتج غير موجود</p>';
-                });
+                // تحديث النصوص بناءً على بيانات JSON
+                document.getElementById('price').textContent = product.price || '0';
+                document.getElementById('oldPrice').textContent = product.oldPrice || '';
+                document.getElementById('discount').textContent = product.discount || '';
+            })
+            .catch(error => {
+                console.error('خطأ في جلب البيانات:', error);
+                document.body.innerHTML = '<p>حدث خطأ أثناء تحميل البيانات أو المنتج غير موجود</p>';
+            });
+    }
+
+    // تهيئة الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+        if (productId) {
+            loadPriceData(productId);
+        } else {
+            document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
         }
-
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            if (productId) {
-                loadPriceData(productId);
-            } else {
-                document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
-            }
-        });
-    </script>
-</body>
-</html>
+    });
+</script>
             
 
             <!DOCTYPE html>
