@@ -485,24 +485,19 @@
 
 
     <!DOCTYPE html>
-    <html lang="ar">
+    <html lang="ar" dir="rtl">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
         <title>عرض المنتج</title>
         <style>
-            /* ضبط الحاوية الرئيسية */
-            .container {
-                direction: rtl; /* اتجاه النص من اليمين */
-                text-align: right; /* محاذاة النص إلى اليمين */
-                width: 100%; /* العرض الكامل */
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end; /* محاذاة العناصر إلى اليمين */
-                gap: 5px;
+            body {
+                direction: rtl;
+                text-align: right;
+                font-family: 'Cairo', sans-serif;
             }
-    
+            
             /* تصميم النص مع الخلفية */
             .text-style {
                 display: inline-block;
@@ -513,9 +508,8 @@
                 padding: 4px 14px;
                 border-radius: 555px;
                 margin-top: 7px;
+                margin-right: 25px;
                 font-family: Cairo, sans-serif;
-                direction: rtl; /* اتجاه النص من اليمين */
-                text-align: right; /* محاذاة النص إلى اليمين */
             }
     
             /* تصميم النص الطويل */
@@ -525,56 +519,266 @@
                 font-size: 17px;
                 font-family: 'Cairo', sans-serif;
                 font-weight: 400;
-                direction: rtl; /* اتجاه النص من اليمين */
-                text-align: right; /* محاذاة النص إلى اليمين */
+                margin-right: 16px;
+                margin-left: 16px;
+                direction: rtl;
+                text-align: right;
                 line-height: 1.3;
-                width: 100%; /* لضمان أن النص يبدأ من اليمين عبر العرض الكامل */
+                display: none;
             }
     
-            /* تصميم السعر */
-            .price {
-                direction: rtl; /* اتجاه النص من اليمين */
-                text-align: right; /* محاذاة النص إلى اليمين */
+            #hop .short-text, #hop .full-text {
+                display: inline;
+            }
+    
+            #hop .full-text {
+                display: none;
+            }
+    
+            #hop.expanded .full-text {
+                display: inline;
+            }
+    
+            #hop.expanded .short-text {
+                display: none;
+            }
+    
+            #hop .more-btn {
+                cursor: pointer;
+                display: inline-block;
+                color: #007bff;
+                vertical-align: middle;
+                margin-right: 0;
+                padding: 0;
+            }
+    
+            #hop .last-word-wrapper {
+                display: inline-block;
+                white-space: nowrap;
+            }
+    
+            .container {
                 display: flex;
-                justify-content: flex-end; /* محاذاة العناصر الداخلية إلى اليمين */
+                flex-direction: row-reverse !important;
+                align-items: flex-start;
+                gap: 5px;
+                width: 100%;
+                margin-top: 22px;
+                justify-content: flex-end;
+            }
+    
+            .price {
+                display: flex;
+                flex-direction: row-reverse;
                 align-items: center;
                 gap: 5px;
-                width: 100%; /* العرض الكامل لضمان المحاذاة من اليمين */
             }
     
-            /* تصميم عدد المبيعات */
-            .second-text {
-                direction: rtl; /* اتجاه النص من اليمين */
-                text-align: right; /* محاذاة النص إلى اليمين */
-                font-size: 14px;
-                font-family: Cairo, sans-serif;
-                color: #000;
-                width: 100%; /* العرض الكامل لضمان بدء النص من اليمين */
+            /* تنسيق خاص بالهواتف */
+            @media only screen and (max-width: 768px) {
+                #hop {
+                    position: relative;
+                }
+            }
+    
+            /* للشاشات المتوسطة */
+            @media only screen and (min-width: 769px) and (max-width: 1199px) {
+                #hop {
+                    font-size: 17px;
+                }
+            }
+    
+            /* للشاشات الكبيرة */
+            @media only screen and (min-width: 1200px) and (max-width: 1999px) {
+                #hop {
+                    font-size: 16px;
+                }
+            }
+    
+            /* للشاشات الأكبر من 2000 */
+            @media only screen and (min-width: 2000px) {
+                #hop {
+                    font-size: 16px;
+                }
+                #hop .short-text, #hop .more-btn {
+                    display: none;
+                }
+                #hop .full-text {
+                    display: inline;
+                }
             }
         </style>
     </head>
     <body>
-        <div class="container" style="margin-top: 22px;">
+        <div class="container">
             <div class="price">
-                <div class="zero" style="font-size: 16px;">00.</div>
-                <div class="number" id="price" style="font-size: 28px;">44</div>
-                <div class="letter" style="font-size: 16px;">جنيه</div>
-                <s id="oldPrice" style="font-size: 20px; color: #555555;">444</s>
-                <s id="discount" style="font-size: 13px; color: #fc0000; text-decoration: none;">خصم أكثر من 80%</s>
-            </div>
-    
-            <div id="text-container" class="text-style">
-                النص الأول
-            </div>
-    
-            <h2 id="hop">
-                اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
-            </h2>
-    
-            <div class="second-text" id="sales">
-                5 مباع
+                <div class="zero">00.</div>
+                <div class="number" id="price">44</div>
+                <div class="letter">جنيه</div>
+                <s id="oldPrice">444</s>
+                <s id="discount">خصم أكثر من 80%</s>
             </div>
         </div>
+    
+        <div id="text-container" class="text-style">
+            النص الأول
+        </div>
+    
+        <h2 id="hop">
+            اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+            اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+            اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+            اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+        </h2>
+    
+        <div class="second-text" id="sales">
+            5 مباع
+        </div>
+    
+        <script>
+            // جلب معرف المنتج من URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+    
+            // دالة لجلب بيانات المنتج من JSON
+            function loadProductData(id) {
+                const fileIndex = Math.ceil(id / 100); // كل 100 منتج في ملف
+                const jsonFile = `products-${fileIndex}.json`;
+    
+                fetch(jsonFile)
+                    .then(response => {
+                        if (!response.ok) throw new Error('الملف غير موجود');
+                        return response.json();
+                    })
+                    .then(products => {
+                        const product = products.find(p => p.id === parseInt(id));
+                        if (!product) {
+                            document.body.innerHTML = '<p>المنتج غير موجود</p>';
+                            return;
+                        }
+    
+                        // تحديث السعر
+                        document.getElementById('price').textContent = product.price || '0';
+                        document.getElementById('oldPrice').textContent = product.oldPrice || '';
+                        document.getElementById('discount').textContent = product.discount || '';
+    
+                        // تحديث النص المتغير
+                        const textContainer = document.getElementById('text-container');
+                        const changingTexts = product.changingText || [];
+                        let index = 0;
+    
+                        function changeText() {
+                            textContainer.textContent = changingTexts[index];
+                            index = (index + 1) % changingTexts.length;
+                        }
+    
+                        if (changingTexts.length > 0) {
+                            changeText(); // تعيين النص الأول فورًا
+                            setInterval(changeText, 5000); // تغيير النص كل 5 ثوانٍ
+                        }
+    
+                        // تحديث النص الطويل
+                        const hopContainer = document.getElementById('hop');
+                        hopContainer.textContent = product.longText || '';
+    
+                        // تحديث عدد المبيعات
+                        document.getElementById('sales').textContent = product.sales || '';
+    
+                        // تهيئة النص الطويل
+                        initializeLongText();
+                    })
+                    .catch(error => {
+                        console.error('خطأ في جلب البيانات:', error);
+                        document.body.innerHTML = '<p>حدث خطأ أثناء تحميل البيانات أو المنتج غير موجود</p>';
+                    });
+            }
+    
+            // دالة تهيئة النص الطويل
+            function initializeLongText() {
+                const container = document.getElementById('hop');
+                const originalText = container.textContent.trim();
+                const charLimitMobile = 50;
+                const charLimitTablet = 122;
+                const charLimitLarge = 132;
+    
+                const truncateText = (text, charLimit) => {
+                    if (text.length > charLimit) {
+                        const truncatedText = text.substring(0, charLimit);
+                        const lastSpaceIndex = truncatedText.lastIndexOf(' ');
+                        let shortTextContent = truncatedText;
+                        let lastWord = '';
+    
+                        if (lastSpaceIndex !== -1) {
+                            shortTextContent = truncatedText.substring(0, lastSpaceIndex);
+                            lastWord = truncatedText.substring(lastSpaceIndex + 1);
+                        }
+    
+                        const shortText = document.createElement('span');
+                        shortText.className = 'short-text';
+    
+                        const initialText = document.createElement('span');
+                        initialText.textContent = shortTextContent;
+    
+                        const lastWordWrapper = document.createElement('span');
+                        lastWordWrapper.className = 'last-word-wrapper';
+                        lastWordWrapper.textContent = (lastWord ? ' ' + lastWord : '') + '...';
+    
+                        const fullText = document.createElement('span');
+                        fullText.className = 'full-text';
+                        fullText.textContent = text;
+    
+                        const moreBtn = document.createElement('span');
+                        moreBtn.className = 'more-btn';
+                        moreBtn.innerHTML = `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        `;
+    
+                        container.textContent = '';
+                        shortText.appendChild(initialText);
+                        lastWordWrapper.appendChild(moreBtn);
+                        shortText.appendChild(lastWordWrapper);
+                        container.appendChild(shortText);
+                        container.appendChild(fullText);
+    
+                        moreBtn.addEventListener('click', () => {
+                            container.classList.toggle('expanded');
+                        });
+    
+                        container.style.display = 'block';
+                    } else {
+                        container.style.display = 'block';
+                    }
+                };
+    
+                const updateTextBasedOnScreenSize = () => {
+                    const screenWidth = window.innerWidth;
+                    if (screenWidth <= 768) {
+                        truncateText(originalText, charLimitMobile);
+                    } else if (screenWidth >= 769 && screenWidth <= 1199) {
+                        truncateText(originalText, charLimitTablet);
+                    } else if (screenWidth >= 1200 && screenWidth <= 1999) {
+                        truncateText(originalText, charLimitLarge);
+                    } else {
+                        container.textContent = originalText;
+                        container.style.display = 'block';
+                    }
+                };
+    
+                updateTextBasedOnScreenSize();
+                window.addEventListener('resize', updateTextBasedOnScreenSize);
+            }
+    
+            // تهيئة الصفحة
+            document.addEventListener('DOMContentLoaded', function() {
+                if (productId) {
+                    loadProductData(productId);
+                } else {
+                    document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
+                }
+            });
+        </script>
     </body>
     </html>
            
