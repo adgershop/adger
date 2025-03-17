@@ -471,195 +471,41 @@
 
 
 
-
-
 <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض السعر</title>
-</head>
-<body>
-    <div class="container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; margin-top: 22px;">
-        <div class="price" style="display: flex; align-items: center; gap: 5px;">
-            <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px; margin-right: 22px;">00.</div>
-            <div class="number" style="font-size: 28px;">44</div>
-            <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
-            <s style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s> <!-- النص المشطوب -->
-            <s style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم اكثر من 80%</s> <!-- النص المشطوب -->
-        </div>
-    </div>
-
-    <script>
-        // جلب معرف المنتج من URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
-
-        // دالة لجلب بيانات المنتج من JSON
-        function loadPriceData(id) {
-            const fileIndex = Math.ceil(id / 100); // كل 100 منتج في ملف
-            const jsonFile = `products-${fileIndex}.json`;
-
-            fetch(jsonFile)
-                .then(response => {
-                    if (!response.ok) throw new Error('الملف غير موجود');
-                    return response.json();
-                })
-                .then(products => {
-                    const product = products.find(p => p.id === id);
-                    if (!product) {
-                        document.body.innerHTML = '<p>المنتج غير موجود</p>';
-                        return;
-                    }
-
-                    // تحديد العناصر بناءً على ترتيبها دون تغيير الكود الأصلي
-                    const priceContainer = document.querySelector('.price');
-                    const priceElement = priceContainer.querySelector('.number'); // السعر الحالي
-                    const oldPriceElement = priceContainer.querySelector('s:nth-child(4)'); // السعر القديم
-                    const discountElement = priceContainer.querySelector('s:nth-child(5)'); // نص الخصم
-
-                    // تحديث النصوص بناءً على بيانات JSON
-                    priceElement.textContent = product.price || '0';
-                    oldPriceElement.textContent = product.oldPrice || '';
-                    discountElement.textContent = product.discount || '';
-                })
-                .catch(error => {
-                    console.error('خطأ في جلب البيانات:', error);
-                    document.body.innerHTML = '<p>حدث خطأ أثناء تحميل البيانات أو المنتج غير موجود</p>';
-                });
-        }
-
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            if (productId) {
-                loadPriceData(productId);
-            } else {
-                document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
-            }
-        });
-    </script>
-</body>
-</html>
-</div>
-
-<script>
-    // جلب معرف المنتج من URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
-
-    // دالة لجلب بيانات المنتج من JSON
-    function loadPriceData(id) {
-        const fileIndex = Math.ceil(id / 100); // كل 100 منتج في ملف
-        const jsonFile = `products-${fileIndex}.json`;
-
-        fetch(jsonFile)
-            .then(response => {
-                if (!response.ok) throw new Error('الملف غير موجود');
-                return response.json();
-            })
-            .then(products => {
-                const product = products.find(p => p.id === id);
-                if (!product) {
-                    document.body.innerHTML = '<p>المنتج غير موجود</p>';
-                    return;
-                }
-
-                // تحديث النصوص بناءً على بيانات JSON
-                document.getElementById('price').textContent = product.price || '0';
-                document.getElementById('oldPrice').textContent = product.oldPrice || '';
-                document.getElementById('discount').textContent = product.discount || '';
-            })
-            .catch(error => {
-                console.error('خطأ في جلب البيانات:', error);
-                document.body.innerHTML = '<p>حدث خطأ أثناء تحميل البيانات أو المنتج غير موجود</p>';
-            });
-    }
-
-    // تهيئة الصفحة
-    document.addEventListener('DOMContentLoaded', function() {
-        if (productId) {
-            loadPriceData(productId);
-        } else {
-            document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
-        }
-    });
-</script>
-            
-
-            <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نص متغير مع خلفية مصغرة</title>
-    <style>
-    
-        /* تصميم النص مع الخلفية */
-        .text-style {
-            display: inline-block; /* لجعل الخلفية بحجم النص */
-            font-size: 11px; /* حجم النص مصغر */
-            font-weight: bold;
-            color: #fff; /* لون النص أبيض */
-            background-color: #b3b3b3; /* لون الخلفية داكن */
-            padding: 4px 14px; /* إضافة بعض المساحة حول النص */
-            border-radius: 555px; /* زوايا مدورة */
-            margin-top: 7px;
-            margin-right: 25px;
-            font-family: Cairo, sans-serif;
-        }
-
-    </style>
-</head>
-<body>
-    <div id="text-container" class="text-style">
-        النص الأول
-    </div>
-
-    <script>
-        // النصوص التي ستتغير
-        const texts = [
-            "النص الأول",
-            "النص الثاني",
-            "النص الثالث"
-        ];
-
-        let index = 0;
-        const textElement = document.getElementById('text-container');
-
-        // دالة لتغيير النص كل 5 ثوانٍ
-        function changeText() {
-            textElement.textContent = texts[index];
-            index = (index + 1) % texts.length; // الانتقال للنص التالي
-        }
-
-        // بدء التغيير كل 5 ثوانٍ
-        setInterval(changeText, 5000);
-    </script>
-</body>
-</html>
-
-
-
-<!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>عرض المنتج</title>
     <style>
+        /* تصميم النص مع الخلفية */
+        .text-style {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #b3b3b3;
+            padding: 4px 14px;
+            border-radius: 555px;
+            margin-top: 7px;
+            margin-left: 25px; /* تغيير الهامش من اليمين إلى اليسار */
+            font-family: Cairo, sans-serif;
+        }
+
+        /* تصميم النص الطويل */
         #hop {
             color: #000000;
             margin-top: 10px;
             font-size: 17px;
             font-family: 'Cairo', sans-serif;
             font-weight: 400;
-            margin-right: 16px;
-            margin-left: 16px;
+            margin-left: 16px; /* تغيير الهامش من اليمين إلى اليسار */
+            margin-right: 16px; /* تغيير الهامش من اليسار إلى اليمين */
             direction: rtl;
             text-align: right;
             line-height: 1.3;
-            display: none; /* إخفاء النص الأصلي مؤقتًا */
+            display: none;
         }
 
         #hop .short-text, #hop .full-text {
@@ -683,7 +529,7 @@
             display: inline-block;
             color: #007bff;
             vertical-align: middle;
-            margin-right: 0;
+            margin-left: 0; /* تغيير الهامش من اليمين إلى اليسار */
             padding: 0;
         }
 
@@ -728,6 +574,20 @@
     </style>
 </head>
 <body>
+    <div class="container" style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px; width: 100%; margin-top: 22px;">
+        <div class="price" style="display: flex; align-items: center; gap: 5px;">
+            <div class="zero" style="margin-top: 15px; margin-right: -6px; font-size: 16px; margin-left: 22px;">00.</div>
+            <div class="number" id="price" style="font-size: 28px;">44</div>
+            <div class="letter" style="margin-top: 15px; margin-left: -4px; font-size: 16px;">جنيه</div>
+            <s id="oldPrice" style="font-size: 20px; margin-left: 9px; margin-bottom: -11px; color: #555555;">444</s>
+            <s id="discount" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-left: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم أكثر من 80%</s>
+        </div>
+    </div>
+
+    <div id="text-container" class="text-style">
+        النص الأول
+    </div>
+
     <h2 id="hop">
         اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
         اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
@@ -735,8 +595,70 @@
         اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
     </h2>
 
+    <div class="second-text" id="sales" style="margin-top: -11px; font-size: 14px; font-family: Cairo, sans-serif; color: #000; margin-left: 29px; margin-bottom: 11px;">
+        5 مباع
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        // جلب معرف المنتج من URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        // دالة لجلب بيانات المنتج من JSON
+        function loadProductData(id) {
+            const fileIndex = Math.ceil(id / 100); // كل 100 منتج في ملف
+            const jsonFile = `products-${fileIndex}.json`;
+
+            fetch(jsonFile)
+                .then(response => {
+                    if (!response.ok) throw new Error('الملف غير موجود');
+                    return response.json();
+                })
+                .then(products => {
+                    const product = products.find(p => p.id === id);
+                    if (!product) {
+                        document.body.innerHTML = '<p>المنتج غير موجود</p>';
+                        return;
+                    }
+
+                    // تحديث السعر
+                    document.getElementById('price').textContent = product.price || '0';
+                    document.getElementById('oldPrice').textContent = product.oldPrice || '';
+                    document.getElementById('discount').textContent = product.discount || '';
+
+                    // تحديث النص المتغير
+                    const textContainer = document.getElementById('text-container');
+                    const changingTexts = product.changingText || [];
+                    let index = 0;
+
+                    function changeText() {
+                        textContainer.textContent = changingTexts[index];
+                        index = (index + 1) % changingTexts.length;
+                    }
+
+                    if (changingTexts.length > 0) {
+                        changeText(); // تعيين النص الأول فورًا
+                        setInterval(changeText, 5000); // تغيير النص كل 5 ثوانٍ
+                    }
+
+                    // تحديث النص الطويل
+                    const hopContainer = document.getElementById('hop');
+                    hopContainer.textContent = product.longText || '';
+
+                    // تحديث عدد المبيعات
+                    document.getElementById('sales').textContent = product.sales || '';
+
+                    // تهيئة النص الطويل
+                    initializeLongText();
+                })
+                .catch(error => {
+                    console.error('خطأ في جلب البيانات:', error);
+                    document.body.innerHTML = '<p>حدث خطأ أثناء تحميل البيانات أو المنتج غير موجود</p>';
+                });
+        }
+
+        // دالة تهيئة النص الطويل
+        function initializeLongText() {
             const container = document.getElementById('hop');
             const originalText = container.textContent.trim();
             const charLimitMobile = 50;
@@ -750,7 +672,6 @@
                     let shortTextContent = truncatedText;
                     let lastWord = '';
 
-                    // إذا كان هناك مسافة، افصل الكلمة الأخيرة
                     if (lastSpaceIndex !== -1) {
                         shortTextContent = truncatedText.substring(0, lastSpaceIndex);
                         lastWord = truncatedText.substring(lastSpaceIndex + 1);
@@ -758,7 +679,7 @@
 
                     const shortText = document.createElement('span');
                     shortText.className = 'short-text';
-                    
+
                     const initialText = document.createElement('span');
                     initialText.textContent = shortTextContent;
 
@@ -789,9 +710,9 @@
                         container.classList.toggle('expanded');
                     });
 
-                    container.style.display = 'block'; // إظهار النص بعد الاقتطاع
+                    container.style.display = 'block';
                 } else {
-                    container.style.display = 'block'; // إظهار النص كما هو إذا لم يتم اقتطاعه
+                    container.style.display = 'block';
                 }
             };
 
@@ -805,21 +726,25 @@
                     truncateText(originalText, charLimitLarge);
                 } else {
                     container.textContent = originalText;
-                    container.style.display = 'block'; // إظهار النص كاملاً إذا كانت الشاشة كبيرة
+                    container.style.display = 'block';
                 }
             };
 
             updateTextBasedOnScreenSize();
             window.addEventListener('resize', updateTextBasedOnScreenSize);
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            if (productId) {
+                loadProductData(productId);
+            } else {
+                document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
+            }
         });
     </script>
 </body>
 </html>
-
-
-            <div class="second-text" style="margin-top: -11px;  font-size: 14px; font-family: Cairo, sans-serif; color: #000; margin-right: 29px; margin-bottom: 11px;">
-            5 مباع
-            </div>
            
 
 
