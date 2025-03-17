@@ -1666,16 +1666,24 @@
                         return response.json();
                     })
                     .then(data => {
-                        // تحديث الصور
-                        const imageIds = ['img1', 'img2', 'img3', 'img4', 'img5', 'img6'];
-                        imageIds.forEach((id, index) => {
-                            const img = document.getElementById(id);
-                            img.src = data.images[index];
-                        });
+                        // اختيار الكائن الأول (id: "1") من المصفوفة
+                        const item = data[0]; // يمكنك تغيير الفهرس لعرض عناصر أخرى مثل data[1]
+                        const media = item.media;
     
-                        // تحديث الفيديو
-                        const video = document.getElementById('video1');
-                        video.src = data.videos[0];
+                        // تحديث الصور والفيديو بناءً على "media"
+                        const imageIds = ['img1', 'img2', 'img3', 'img4', 'img5', 'img6'];
+                        let imageIndex = 0;
+    
+                        media.forEach((mediaItem) => {
+                            if (mediaItem.type === "image" && imageIndex < imageIds.length) {
+                                const img = document.getElementById(imageIds[imageIndex]);
+                                img.src = mediaItem.src;
+                                imageIndex++;
+                            } else if (mediaItem.type === "video") {
+                                const video = document.getElementById('video1');
+                                video.src = mediaItem.src;
+                            }
+                        });
     
                         // إضافة تأثير التحميل
                         const allElements = document.querySelectorAll(".image32");
