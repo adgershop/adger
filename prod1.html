@@ -1276,80 +1276,118 @@
 
 
 
-    <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>جدول معلومات المنتج</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                direction: rtl;
-                text-align: right;
-            }
-            .product-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 20px 0;
-            }
-            .product-table th, .product-table td {
-                border: 1px solid #ddd;
-                padding: 8px;
-            }
-            .product-table th {
-                background-color: #f2f2f2;
-            }
-            .product-table tr:hover {
-                background-color: #f1f1f1;
-            }
-        </style>
-    </head>
-    <body>
-        <table class="product-table">
-            <tr>
-                <th>السؤال</th>
-                <th>الإجابة</th>
-            </tr>
-            <tr>
-                <td>اللون</td>
-                <td>أسود</td>
-            </tr>
-            <tr>
-                <td>المادة</td>
-                <td>بلاستيك</td>
-            </tr>
-            <tr>
-                <td>السعر</td>
-                <td>100 دولار</td>
-            </tr>
-            <tr>
-                <td>الوزن</td>
-                <td>1.5 كجم</td>
-            </tr>
-            <tr>
-                <td>الأبعاد</td>
-                <td>10x20x30 سم</td>
-            </tr>
-            <tr>
-                <td>بلد المنشأ</td>
-                <td>الصين</td>
-            </tr>
-        </table>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جدول معلومات المنتج</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+        }
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .product-table th, .product-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .product-table th {
+            background-color: #f2f2f2;
+        }
+        .product-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .description {
+            color: #5e5e5e;
+            font-size: 15px;
+            font-family: Cairo, sans-serif;
+            padding: 0 15px;
+        }
+    </style>
+</head>
+<body>
+    <table class="product-table" id="productTable">
+        <tr>
+            <th>السؤال</th>
+            <th>الإجابة</th>
+        </tr>
+        <!-- سيتم ملء الجدول ديناميكيًا من JSON -->
+    </table>
 
-
-    <p style="color: #5e5e5e; font-size: 15px; font-family: Cairo, sans-serif; padding: 0 15px;">
-        كيندل الأسرع في تاريخنا: شاشة Paperwhite الجديدة بحجم 7 بوصات من الجيل القادم تتميز بنسبة تباين أعلى وتقليب الصفحات أسرع بنسبة 25%.  
-        جاهز للسفر: التصميم فائق النحافة يأتي بشاشة أكبر غير عاكسة ليبقى النص واضحًا بغض النظر عن مكان وجودك.  
-        انغمس في كتبك: جهاز الكيندل الخاص بك لا يحتوي على شبكات اجتماعية أو إشعارات أو تطبيقات أخرى قد تشتتك.  
-        بطارية تدوم مع أطول رواية: شحنة واحدة عبر منفذ USB-C تدوم حتى 12 أسبوعًا.  
-        اقرأ في أي إضاءة: قم بتعديل الشاشة من الأبيض إلى الكهرماني للقراءة تحت أشعة الشمس الساطعة أو في الظلام.  
-        مقاوم للماء بلا قلق: خذ قصصك إلى المسبح أو حوض الاستحمام أو أي مكان آخر.  
-        مجموعة هائلة: احصل فورًا على إمكانية الوصول إلى أكثر من 15 مليون عنوان في متجر كيندل حول العالم، وأضف اشتراك Kindle Unlimited للحصول على وصول غير محدود إلى كتالوج يشمل الكتب الأكثر مبيعًا.  
+    <p id="productDescription" class="description">
+        <!-- سيتم ملء النص الوصفي ديناميكيًا من JSON -->
     </p>
 
+    <script>
+        // جلب بيانات JSON
+        fetch('product.json')
+            .then(response => {
+                if (!response.ok) throw new Error('فشل في جلب ملف JSON');
+                return response.json();
+            })
+            .then(data => {
+                // تحديث الجدول
+                const table = document.getElementById('productTable');
+                data.tableData.forEach(item => {
+                    const row = document.createElement('tr');
+                    const questionCell = document.createElement('td');
+                    const answerCell = document.createElement('td');
+
+                    questionCell.textContent = item.question;
+                    answerCell.textContent = item.answer;
+
+                    row.appendChild(questionCell);
+                    row.appendChild(answerCell);
+                    table.appendChild(row);
+                });
+
+                // تحديث النص الوصفي
+                const description = document.getElementById('productDescription');
+                description.textContent = data.description;
+            })
+            .catch(error => {
+                console.error('خطأ في جلب بيانات JSON:', error);
+                // عرض بيانات افتراضية في حالة الفشل
+                const table = document.getElementById('productTable');
+                const defaultData = [
+                    { question: "اللون", answer: "أسود" },
+                    { question: "المادة", answer: "بلاستيك" },
+                    { question: "السعر", answer: "100 دولار" },
+                    { question: "الوزن", answer: "1.5 كجم" },
+                    { question: "الأبعاد", answer: "10x20x30 سم" },
+                    { question: "بلد المنشأ", answer: "الصين" }
+                ];
+                defaultData.forEach(item => {
+                    const row = document.createElement('tr');
+                    const questionCell = document.createElement('td');
+                    const answerCell = document.createElement('td');
+
+                    questionCell.textContent = item.question;
+                    answerCell.textContent = item.answer;
+
+                    row.appendChild(questionCell);
+                    row.appendChild(answerCell);
+                    table.appendChild(row);
+                });
+
+                document.getElementById('productDescription').textContent = 
+                    "كيندل الأسرع في تاريخنا: شاشة Paperwhite الجديدة بحجم 7 بوصات من الجيل القادم تتميز بنسبة تباين أعلى وتقليب الصفحات أسرع بنسبة 25%. " +
+                    "جاهز للسفر: التصميم فائق النحافة يأتي بشاشة أكبر غير عاكسة ليبقى النص واضحًا بغض النظر عن مكان وجودك. " +
+                    "انغمس في كتبك: جهاز الكيندل الخاص بك لا يحتوي على شبكات اجتماعية أو إشعارات أو تطبيقات أخرى قد تشتتك. " +
+                    "بطارية تدوم مع أطول رواية: شحنة واحدة عبر منفذ USB-C تدوم حتى 12 أسبوعًا. " +
+                    "اقرأ في أي إضاءة: قم بتعديل الشاشة من الأبيض إلى الكهرماني للقراءة تحت أشعة الشمس الساطعة أو في الظلام. " +
+                    "مقاوم للماء بلا قلق: خذ قصصك إلى المسبح أو حوض الاستحمام أو أي مكان آخر. " +
+                    "مجموعة هائلة: احصل فورًا على إمكانية الوصول إلى أكثر من 15 مليون عنوان في متجر كيندل حول العالم، وأضف اشتراك Kindle Unlimited للحصول على وصول غير محدود إلى كتالوج يشمل الكتب الأكثر مبيعًا.";
+            });
+    </script>
+</body>
+</html>
 
 
     <br>
