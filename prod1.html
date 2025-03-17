@@ -581,7 +581,6 @@
             <s id="oldPrice" style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s>
             <s id="discount" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم اكثر من 80%</s>
         </div>
-    </div>
     
     <div id="text-container" class="text-style">
         النص الأول
@@ -624,22 +623,22 @@
                     const priceElement = document.getElementById('price');
                     priceElement.textContent = product.price || '0';
 
-                    // تحديث السعر القديم مع التحكم في الإخفاء
+                    // تحديث السعر القديم (إخفاء إذا لم يكن موجودًا)
                     const oldPriceElement = document.getElementById('oldPrice');
-                    if (product.oldPrice && !product.hideOldPrice) {
+                    if (product.oldPrice) {
                         oldPriceElement.textContent = product.oldPrice;
-                        oldPriceElement.style.display = 'inline'; // إظهار إذا لم يكن مخفيًا
+                        oldPriceElement.style.display = 'inline'; // إظهار العنصر إذا كان موجودًا
                     } else {
-                        oldPriceElement.style.display = 'none'; // إخفاء إذا كان مخفيًا أو غير موجود
+                        oldPriceElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
                     }
 
-                    // تحديث نص الخصم مع التحكم في الإخفاء
+                    // تحديث نص الخصم (إخفاء إذا لم يكن موجودًا)
                     const discountElement = document.getElementById('discount');
-                    if (product.discount && !product.hideDiscount) {
+                    if (product.discount) {
                         discountElement.textContent = product.discount;
-                        discountElement.style.display = 'inline'; // إظهار إذا لم يكن مخفيًا
+                        discountElement.style.display = 'inline'; // إظهار العنصر إذا كان موجودًا
                     } else {
-                        discountElement.style.display = 'none'; // إخفاء إذا كان مخفيًا أو غير موجود
+                        discountElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
                     }
 
                     // تحديث النص المتغير
@@ -656,14 +655,13 @@
                         changeText(); // تعيين النص الأول فورًا
                         setInterval(changeText, 5000); // تغيير النص كل 5 ثوانٍ
                     } else {
-                        textContainer.style.display = 'none'; // إخفاء إذا لم يكن موجودًا
+                        textContainer.style.display = 'none'; // إخفاء إذا لم يكن هناك نصوص متغيرة
                     }
 
                     // تحديث النص الطويل
                     const hopContainer = document.getElementById('hop');
                     if (product.longText) {
                         hopContainer.textContent = product.longText;
-                        initializeLongText(); // تهيئة النص الطويل
                     } else {
                         hopContainer.style.display = 'none'; // إخفاء إذا لم يكن موجودًا
                     }
@@ -672,8 +670,14 @@
                     const salesElement = document.getElementById('sales');
                     if (product.sales) {
                         salesElement.textContent = product.sales;
+                        salesElement.style.display = 'block'; // إظهار العنصر إذا كان موجودًا
                     } else {
-                        salesElement.style.display = 'none'; // إخفاء إذا لم يكن موجودًا
+                        salesElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
+                    }
+
+                    // تهيئة النص الطويل إذا كان موجودًا
+                    if (product.longText) {
+                        initializeLongText();
                     }
                 })
                 .catch(error => {
@@ -1106,7 +1110,7 @@
         </style>
     </head>
     <body>
-        <button class="comment-button" onclick="window.location.href='comments.html?commentId=1'">
+        <button id="commentButton1" class="comment-button" onclick="window.location.href='comments.html?commentId=1'">
             التعليقات 1 (<span id="commentCount1">0</span>)
         </button>
     
@@ -1131,11 +1135,36 @@
             const database = getDatabase(app);
             const commentsRef = ref(database, 'comments');
     
+            // جلب بيانات JSON
+            fetch('config.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('فشل في جلب ملف JSON');
+                    return response.json();
+                })
+                .then(config => {
+                    config.forEach(item => {
+                        const button = document.getElementById(item.buttonId);
+                        if (button) {
+                            // تحديث رابط الزر بناءً على commentId من JSON
+                            button.onclick = () => {
+                                window.location.href = `comments.html?commentId=${item.commentId}`;
+                            };
+                            // تحديث عدد التعليقات بناءً على commentId من JSON
+                            updateCommentCount(item.commentId, item.elementId);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('خطأ في جلب بيانات JSON:', error);
+                });
+    
             // عرض عدد التعليقات
             const updateCommentCount = (commentId, elementId) => {
                 const commentCountElement = document.getElementById(elementId);
+                if (!commentCountElement) return; // التحقق من وجود العنصر
                 let count = 0;
                 onValue(commentsRef, (snapshot) => {
+                    count = 0; // إعادة تعيين العدد لكل تحديث
                     snapshot.forEach((childSnapshot) => {
                         const comment = childSnapshot.val();
                         if (comment.commentId === commentId) {
@@ -1145,8 +1174,6 @@
                     commentCountElement.textContent = count;
                 });
             };
-    
-            updateCommentCount(1, 'commentCount1');
         </script>
     </body>
     </html>
