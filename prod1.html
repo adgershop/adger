@@ -1638,94 +1638,66 @@
     </head>
     <body>
         <div class="container32">
-            <div class="group" id="group1"></div>
-            <div class="group" id="group2"></div>
+            <!-- المجموعة الأولى -->
+            <div class="group">
+                <img id="img1" class="image32" src="1.jpg" alt="صورة 1" loading="lazy">
+                <img id="img2" class="image32" src="1.2.jpg" alt="صورة 2" loading="lazy">
+                <img id="img3" class="image32" src="1.3.jpg" alt="صورة 3" loading="lazy">
+                <img id="img4" class="image32" src="1.4.jpg" alt="صورة 4" loading="lazy">
+                <img id="img5" class="image32" src="1.jpg" alt="صورة 5" loading="lazy">
+            </div>
+    
+            <!-- المجموعة الثالثة مع فيديو -->
+            <div class="group">
+                <img id="img6" class="image32" src="1.jpg" alt="صورة 1" loading="lazy">
+                <video id="video1" class="image32" muted autoplay loop src="3e.mp4" loading="lazy">
+                    Your browser does not support the video tag.
+                </video>            
+            </div>
         </div>
     
         <script>
-            // جلب معرف المنتج من URL
-            (() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    window.productId = urlParams.get('id');
-})();
-            if (productId) {
-                const fileIndex = Math.ceil(parseInt(productId) / 100);
-                const jsonFile = `media-${fileIndex}.json`;
-    
-                fetch(jsonFile)
-                    .then(response => {
-                        if (!response.ok) throw new Error('الملف غير موجود');
-                        return response.json();
-                    })
+            document.addEventListener("DOMContentLoaded", function () {
+                fetch('data.json')
+                    .then(response => response.json())
                     .then(data => {
-                        const media = data.find(item => item.id === productId);
-                        if (!media) {
-                            document.body.innerHTML = '<p>البيانات غير موجودة</p>';
-                            return;
-                        }
-    
-                        // تعبئة المجموعة الأولى (الصور)
-                        const group1 = document.getElementById('group1');
-                        media.images.forEach(imgSrc => {
-                            const img = document.createElement('img');
-                            img.className = 'image32';
-                            img.src = imgSrc;
-                            img.alt = 'صورة المنتج';
-                            img.loading = 'lazy';
-                            group1.appendChild(img);
-                        });
-    
-                        // تعبئة المجموعة الثانية (صورة وفيديو)
-                        const group2 = document.getElementById('group2');
+                        // تحديث مسارات الصور
+                        document.getElementById('img1').src = data.images[0];
+                        document.getElementById('img2').src = data.images[1];
+                        document.getElementById('img3').src = data.images[2];
+                        document.getElementById('img4').src = data.images[3];
+                        document.getElementById('img5').src = data.images[4];
+                        document.getElementById('img6').src = data.images[5];
                         
-                        const img = document.createElement('img');
-                        img.className = 'image32';
-                        img.src = media.image;
-                        img.alt = 'صورة المنتج';
-                        img.loading = 'lazy';
-                        group2.appendChild(img);
+                        // تحديث مسار الفيديو
+                        document.getElementById('video1').src = data.videos[0];
     
-                        const video = document.createElement('video');
-                        video.className = 'image32';
-                        video.src = media.video;
-                        video.muted = true;
-                        video.autoplay = true;
-                        video.loop = true;
-                        video.loading = 'lazy';
-                        video.innerHTML = 'Your browser does not support the video tag.';
-                        group2.appendChild(video);
-    
-                        // إضافة تأثير التحميل
-                        document.addEventListener("DOMContentLoaded", function () {
-                            const allElements = document.querySelectorAll(".image32");
-                            allElements.forEach(element => {
-                                if (element.tagName === "IMG") {
-                                    element.onload = function() {
-                                        this.classList.add("loaded");
-                                    };
-                                    if (element.complete) {
-                                        element.classList.add("loaded");
-                                    }
-                                } else if (element.tagName === "VIDEO") {
-                                    element.addEventListener("loadeddata", function() {
-                                        this.classList.add("loaded");
-                                    });
-                                    element.load();
-                                    element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
+                        // إضافة الفئة loaded بعد التحميل
+                        const allElements = document.querySelectorAll(".image32");
+                        allElements.forEach(element => {
+                            if (element.tagName === "IMG") {
+                                element.onload = function() {
+                                    this.classList.add("loaded");
+                                };
+                                if (element.complete) {
+                                    element.classList.add("loaded");
                                 }
-                            });
+                            } else if (element.tagName === "VIDEO") {
+                                element.addEventListener("loadeddata", function() {
+                                    this.classList.add("loaded");
+                                });
+                                element.load(); // إعادة تحميل الفيديو بالمسار الجديد
+                                element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
+                            }
                         });
                     })
-                    .catch(error => {
-                        console.error('خطأ في جلب البيانات:', error);
-                        document.body.innerHTML = '<p>حدث خطأ أثناء تحميل البيانات</p>';
-                    });
-            } else {
-                document.body.innerHTML = '<p>يرجى تحديد معرف المنتج في URL</p>';
-            }
+                    .catch(error => console.error('خطأ في جلب البيانات:', error));
+            });
         </script>
     </body>
     </html>
+
+
     <div class="line3"></div>
 
     <!DOCTYPE html>
