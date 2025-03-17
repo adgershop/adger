@@ -35,7 +35,7 @@
             {
                 "type": "images",
                 "items": [
-                    "path/to/image1.jpg",
+                    "1.jpg",
                     "path/to/image2.jpg",
                     "path/to/image3.jpg",
                     "path/to/image4.jpg",
