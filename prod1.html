@@ -287,7 +287,13 @@
         <script>
             // جلب معرف المنتج من URL
             const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('id') || "1"; // الافتراضي ID 1 إذا لم يُحدد
+            const productId = urlParams.get('id');
+    
+            // إذا لم يكن هناك ID، انتقل إلى product.html
+            if (!productId) {
+                window.location.href = 'product.html';
+                throw new Error('لا يوجد معرف منتج، يتم إعادة التوجيه إلى product.html');
+            }
     
             // حساب ملف JSON المناسب بناءً على معرف المنتج
             const getJsonFile = (id) => {
@@ -413,7 +419,7 @@
                 })
                 .catch(error => {
                     console.error('خطأ في جلب البيانات:', error);
-                    document.body.innerHTML = '<p>حدث خطأ أثناء تحميل المعرض</p>';
+                    document.body.innerHTML = '<p>حدث خطأ أثناء تحميل المعرض أو المنتج غير موجود</p>';
                 });
     
             // تحديث الوسيطة الرئيسية
