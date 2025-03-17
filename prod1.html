@@ -470,8 +470,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -581,9 +579,9 @@
             <div class="number" id="price" style="font-size: 28px;">44</div>
             <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
             <s id="oldPrice" style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s>
-            <s id="discount" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم أكثر من 80%</s>
+            <s id="discount" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم اكثر من 80%</s>
         </div>
-        
+    
     <div id="text-container" class="text-style">
         النص الأول
     </div>
@@ -622,9 +620,26 @@
                     }
 
                     // تحديث السعر
-                    document.getElementById('price').textContent = product.price || '0';
-                    document.getElementById('oldPrice').textContent = product.oldPrice || '';
-                    document.getElementById('discount').textContent = product.discount || '';
+                    const priceElement = document.getElementById('price');
+                    priceElement.textContent = product.price || '0';
+
+                    // تحديث السعر القديم (إخفاء إذا لم يكن موجودًا)
+                    const oldPriceElement = document.getElementById('oldPrice');
+                    if (product.oldPrice) {
+                        oldPriceElement.textContent = product.oldPrice;
+                        oldPriceElement.style.display = 'inline'; // إظهار العنصر إذا كان موجودًا
+                    } else {
+                        oldPriceElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
+                    }
+
+                    // تحديث نص الخصم (إخفاء إذا لم يكن موجودًا)
+                    const discountElement = document.getElementById('discount');
+                    if (product.discount) {
+                        discountElement.textContent = product.discount;
+                        discountElement.style.display = 'inline'; // إظهار العنصر إذا كان موجودًا
+                    } else {
+                        discountElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
+                    }
 
                     // تحديث النص المتغير
                     const textContainer = document.getElementById('text-container');
@@ -639,17 +654,31 @@
                     if (changingTexts.length > 0) {
                         changeText(); // تعيين النص الأول فورًا
                         setInterval(changeText, 5000); // تغيير النص كل 5 ثوانٍ
+                    } else {
+                        textContainer.style.display = 'none'; // إخفاء إذا لم يكن هناك نصوص متغيرة
                     }
 
                     // تحديث النص الطويل
                     const hopContainer = document.getElementById('hop');
-                    hopContainer.textContent = product.longText || '';
+                    if (product.longText) {
+                        hopContainer.textContent = product.longText;
+                    } else {
+                        hopContainer.style.display = 'none'; // إخفاء إذا لم يكن موجودًا
+                    }
 
                     // تحديث عدد المبيعات
-                    document.getElementById('sales').textContent = product.sales || '';
+                    const salesElement = document.getElementById('sales');
+                    if (product.sales) {
+                        salesElement.textContent = product.sales;
+                        salesElement.style.display = 'block'; // إظهار العنصر إذا كان موجودًا
+                    } else {
+                        salesElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
+                    }
 
-                    // تهيئة النص الطويل
-                    initializeLongText();
+                    // تهيئة النص الطويل إذا كان موجودًا
+                    if (product.longText) {
+                        initializeLongText();
+                    }
                 })
                 .catch(error => {
                     console.error('خطأ في جلب البيانات:', error);
