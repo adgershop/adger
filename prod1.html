@@ -1620,11 +1620,11 @@
                 margin-bottom: 10px;
                 object-fit: cover;
                 background-color: #ccc;
-                opacity: 0; /* تبدأ شفافة */
-                transition: opacity 0.3s ease-in-out; /* تأثير تدريجي مختصر */
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
             }
             .image32.loaded {
-                opacity: 1; /* تصبح مرئية بعد التحميل */
+                opacity: 1;
             }
             @media (min-width: 768px) {
                 .container32 {
@@ -1638,89 +1638,70 @@
     </head>
     <body>
         <div class="container32">
-            <!-- سيتم ملء هذه الحاوية ديناميكيًا -->
+            <!-- سيتم إضافة العناصر ديناميكيًا هنا -->
         </div>
     
         <script>
-            // دالة لاستخراج معرف المنتج من URL
-            function getProductId() {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get('id');
-            }
-    
             document.addEventListener("DOMContentLoaded", function () {
-                const productId = getProductId();
-                if (productId) {
-                    // تحديد ملف JSON بناءً على المعرف (يمكنك تعديل هذا الجزء حسب طريقة تنظيمك للملفات)
-                    const jsonFile = 'products.json'; // اسم الملف يمكن تعديله
+                // جلب بيانات JSON
+                fetch('data.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const container = document.querySelector('.container32');
     
-                    fetch(jsonFile)
-                        .then(response => {
-                            if (!response.ok) throw new Error('الملف غير موجود');
-                            return response.json();
-                        })
-                        .then(products => {
-                            const product = products.find(p => p.id === productId);
-                            if (!product) {
-                                console.error('المنتج غير موجود');
-                                return;
-                            }
+                        // حلقة عبر كل مجموعة في JSON
+                        data.groups.forEach(group => {
+                            const groupDiv = document.createElement('div');
+                            groupDiv.classList.add('group');
     
-                            const container = document.querySelector('.container32');
-                            container.innerHTML = ''; // تفريغ المحتوى الحالي
-    
-                            // إنشاء مجموعة واحدة لجميع الوسائط
-                            const group = document.createElement('div');
-                            group.className = 'group';
-    
-                            product.media.forEach(mediaItem => {
-                                if (mediaItem.type === 'image') {
-                                    const img = document.createElement('img');
-                                    img.className = 'image32';
-                                    img.src = mediaItem.src;
-                                    img.alt = 'صورة';
-                                    img.loading = 'lazy';
-                                    group.appendChild(img);
-                                } else if (mediaItem.type === 'video') {
+                            // حلقة عبر العناصر داخل كل مجموعة
+                            group.items.forEach(item => {
+                                if (item.endsWith('.mp4')) {
+                                    // إنشاء عنصر فيديو
                                     const video = document.createElement('video');
-                                    video.className = 'image32';
+                                    video.classList.add('image32');
+                                    video.src = item;
                                     video.muted = true;
                                     video.autoplay = true;
                                     video.loop = true;
-                                    video.src = mediaItem.src;
                                     video.loading = 'lazy';
-                                    video.textContent = 'Your browser does not support the video tag.';
-                                    group.appendChild(video);
+                                    video.innerHTML = 'Your browser does not support the video tag.';
+                                    groupDiv.appendChild(video);
+                                } else {
+                                    // إنشاء عنصر صورة
+                                    const img = document.createElement('img');
+                                    img.classList.add('image32');
+                                    img.src = item;
+                                    img.alt = 'صورة';
+                                    img.loading = 'lazy';
+                                    groupDiv.appendChild(img);
                                 }
                             });
     
-                            container.appendChild(group);
-    
-                            // تطبيق تأثير التحميل
-                            const allElements = document.querySelectorAll(".image32");
-                            allElements.forEach(element => {
-                                if (element.tagName === "IMG") {
-                                    element.onload = function() {
-                                        this.classList.add("loaded");
-                                    };
-                                    if (element.complete) {
-                                        element.classList.add("loaded");
-                                    }
-                                } else if (element.tagName === "VIDEO") {
-                                    element.addEventListener("loadeddata", function() {
-                                        this.classList.add("loaded");
-                                    });
-                                    element.load();
-                                    element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
-                                }
-                            });
-                        })
-                        .catch(error => {
-                            console.error('خطأ في جلب البيانات:', error);
+                            // إضافة المجموعة إلى الحاوية
+                            container.appendChild(groupDiv);
                         });
-                } else {
-                    console.error('يرجى تحديد معرف المنتج في URL');
-                }
+    
+                        // معالجة تحميل الصور والفيديوهات
+                        const allElements = document.querySelectorAll(".image32");
+                        allElements.forEach(element => {
+                            if (element.tagName === "IMG") {
+                                element.onload = function() {
+                                    this.classList.add("loaded");
+                                };
+                                if (element.complete) {
+                                    element.classList.add("loaded");
+                                }
+                            } else if (element.tagName === "VIDEO") {
+                                element.addEventListener("loadeddata", function() {
+                                    this.classList.add("loaded");
+                                });
+                                element.load();
+                                element.play().catch(error => console.log("خطأ في تشغيل الفيديو:", error));
+                            }
+                        });
+                    })
+                    .catch(error => console.error('خطأ في جلب بيانات JSON:', error));
             });
         </script>
     </body>
