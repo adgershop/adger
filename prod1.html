@@ -2052,10 +2052,6 @@
 
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2126,17 +2122,16 @@
             margin: 5px 0 0 8px;
         }
 
-      .bottom-buttons {
-    position: fixed;
-    bottom: -3px;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    z-index: 1;
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* لون أفتح */
-    margin-bottom: 3px; /* رفع الخط قليلاً */
-}
-
+        .bottom-buttons {
+            position: fixed;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 3px;
+        }
 
         .buttons-wrapper {
             display: flex;
@@ -2157,13 +2152,13 @@
             justify-content: center;
             border-radius: 45px;
             user-select: none;
-            box-sizing: border-box; /* يضمن احتساب الحدود ضمن الارتفاع */
+            box-sizing: border-box;
         }
 
         .add-to-cart-text {
             background-color: #ffffff;
             color: #1a1a1a;
-            border: 1px solid black; /* سمك الخط تم تقليله إلى 1px */
+            border: 1px solid black;
         }
 
         .add-to-cart-text:hover {
@@ -2180,41 +2175,82 @@
     </style>
 </head>
 <body>
-    <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
+    <div class="image-container product">
         <div class="image-frame" style="display: none;">
-            <a href="1.html">
-                <img src="1.jpg" alt="ساعة تاتتش تعمل باللمس">
+            <a href="#">
+                <img src="" alt="">
             </a>
             <div class="text-under">
-                <h1>ساعة تاتش تعمل باللمس</h1>
-                <h2>22 مباعه - adger</h2>
+                <h1></h1>
+                <h2></h2>
                 <div class="container">
                     <div class="zero">00.</div>
-                    <div class="number">44</div>
+                    <div class="number"></div>
                     <div class="letter">جنيه</div>
                 </div>
-                <h3>خصم 323%</h3>
+                <h3></h3>
             </div>
         </div>
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
-                <div class="buy-now-text" onclick="buyNow('ساعة تاتتش تعمل باللمس', '#1', '200', '100', ['أسود', 'أبيض', 'أحمر', 'أزرق'], ['S', 'M', 'L', 'XL', 'XXL'])">شراء الآن</div>
-                <script>
-                    function buyNow(productName, productId, productPrice, shippingPrice) {
-                        // توجيه المستخدم إلى صفحة buy.html مع إضافة المعلمات إلى عنوان URL
-                        window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}`;
-                    }
-                    </script>
-                   <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
-                </div>
+                <div class="buy-now-text" onclick="buyNow()">شراء الآن</div>
+                <div class="add-to-cart-text" onclick="addToCart()">إضافة إلى العربة</div>
             </div>
-            
-            <script>
-                function addToCart() {
-                    alert("تمت إضافة المنتج إلى العربة!");
-                }
-            
-            </script>
+        </div>
+    </div>
+    <script>
+        // متغير عام لتخزين بيانات المنتج
+        let productData;
+
+        // جلب البيانات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            if (!id) {
+                alert('لم يتم توفير معرف المنتج');
+                return;
+            }
+            fetch(`products-${id}.json`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('فشل في جلب بيانات المنتج');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    productData = data;
+                    // تحديث عناصر HTML
+                    document.querySelector('.text-under h1').textContent = data.name;
+                    document.querySelector('.image-frame img').src = data.image;
+                    document.querySelector('.image-frame img').alt = data.name;
+                    document.querySelector('.text-under h2').textContent = `${data.sold} مباعه - ${data.location}`;
+                    document.querySelector('.container .number').textContent = data.displayPrice;
+                    document.querySelector('h3').textContent = `discount ${data.discount}`;
+                    // إظهار إطار الصورة بعد التحميل
+                    document.querySelector('.image-frame').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('خطأ في جلب بيانات المنتج:', error);
+                    alert('خطأ في تحميل بيانات المنتج');
+                });
+        });
+
+        // دالة شراء الآن
+        function buyNow() {
+            if (!productData) {
+                alert('بيانات المنتج غير محملة');
+                return;
+            }
+            window.location.href = `buy.html?name=${encodeURIComponent(productData.name)}&id=${encodeURIComponent(productData.id)}&price=${encodeURIComponent(productData.price)}&shipping=${encodeURIComponent(productData.shippingPrice)}`;
+        }
+
+        // دالة إضافة إلى العربة
+        function addToCart() {
+            alert("تمت إضافة المنتج إلى العربة!");
+        }
+    </script>
+</body>
+</html>
             
             </body>
         
