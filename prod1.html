@@ -2210,7 +2210,7 @@
         fetch(jsonFile)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`خطأ في الاستجابة: ${response.status}`);
+                    throw new Error(`خطأ في جلب الملف: ${response.status} - ${response.statusText}`);
                 }
                 return response.json();
             })
@@ -2219,7 +2219,7 @@
             })
             .catch(error => {
                 console.error('خطأ في جلب بيانات JSON:', error);
-                alert('حدث خطأ أثناء جلب بيانات المنتج.');
+                alert(`حدث خطأ أثناء جلب بيانات المنتج: ${error.message}\nتأكد من وجود ملف ${jsonFile} وأن تنسيقه صحيح.`);
             });
 
         // تعبئة بيانات المنتج والنصوص
@@ -2227,8 +2227,14 @@
             const product = data.product;
             const texts = data.texts;
 
+            // تحقق من وجود البيانات
+            if (!product || !texts) {
+                throw new Error('بيانات المنتج أو النصوص غير موجودة في ملف JSON');
+            }
+
             // تعبئة بيانات المنتج
-            document.getElementById('product-frame').style.display = 'block';
+            const productFrame = document.getElementById('product-frame');
+            productFrame.style.display = 'block !important'; // إصلاح مشكلة العرض
             document.getElementById('product-link').href = `${product.pageId}.html`;
             document.getElementById('product-image').src = product.image;
             document.getElementById('product-image').alt = product.name;
