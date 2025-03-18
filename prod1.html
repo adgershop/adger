@@ -2051,9 +2051,6 @@
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2189,29 +2186,16 @@
                 <div class="container">
                     <div class="zero">00.</div>
                     <div class="number" id="product-price"></div>
-                    <div class="letter">جنيه</div>
+                    <div class="letter" id="currency"></div>
                 </div>
                 <h3 id="product-discount"></h3>
             </div>
         </div>
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
-                <div class="buy-now-text" id="buy-now-btn">شراء الآن</div>
-            </script>
-            <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
-         </div>
-     </div>
-     
-     <script>
-         function addToCart() {
-             alert("تمت إضافة المنتج إلى العربة!");
-         }
-     
-     </script>
-     
-     </body>
- 
- 
+                <div class="buy-now-text" id="buy-now-btn"></div>
+                <div class="add-to-cart-text" id="add-to-cart-btn"></div>
+            </div>
         </div>
     </div>
 
@@ -2230,29 +2214,42 @@
                 return response.json();
             })
             .then(data => {
-                const product = data[0]; // أول منتج في الملف
-                populateProduct(product);
+                const productData = data[0]; // أول منتج في الملف
+                populateProduct(productData);
             })
             .catch(error => {
                 console.error('خطأ في جلب بيانات JSON:', error);
-                alert('حدث خطأ أثناء جلب بيانات المنتج.');
+                alert('حدث خطأ أثناء جلب بيانات المنتج: ' + error.message);
             });
 
         // تعبئة بيانات المنتج
-        function populateProduct(product) {
-            document.getElementById('product-frame').style.display = 'block';
+        function populateProduct(data) {
+            const product = data.product;
+            const texts = data.texts;
+
+            // إظهار الإطار
+            document.getElementById('product-frame').style.display = 'block !important';
             document.getElementById('product-link').href = `${product.pageId}.html`;
             document.getElementById('product-image').src = product.image;
             document.getElementById('product-image').alt = product.name;
             document.getElementById('product-name').textContent = product.name;
             document.getElementById('product-sold').textContent = `${product.sold} مباعه - ${product.location}`;
             document.getElementById('product-price').textContent = product.price;
-            document.getElementById('product-discount').textContent = `discount ${product.discount}%`;
+            document.getElementById('currency').textContent = texts.currency;
+            document.getElementById('product-discount').textContent = `${texts.discountLabel} ${product.discount}%`;
 
             // تحديث زر "شراء الآن"
             const buyNowBtn = document.getElementById('buy-now-btn');
+            buyNowBtn.textContent = texts.buyNow;
             buyNowBtn.onclick = function() {
                 buyNow(product.name, product.productId, product.price, product.shippingPrice, product.colors, product.sizes);
+            };
+
+            // تحديث زر "إضافة إلى العربة"
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+            addToCartBtn.textContent = texts.addToCart;
+            addToCartBtn.onclick = function() {
+                addToCart();
             };
         }
 
@@ -2268,7 +2265,6 @@
     </script>
 </body>
 </html>
-
 
 
 
