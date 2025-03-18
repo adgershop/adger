@@ -2050,6 +2050,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2201,27 +2203,23 @@
         // جلب رقم الصفحة من URL
         const url = new URL(window.location.href);
         const pageNumber = url.searchParams.get('page') || '1';
-        const jsonFile = `products-${pageNumber}.json?t=${Date.now()}`; // إضافة طابع زمني لتجنب التخزين المؤقت
+        const jsonFile = `products-${pageNumber}.json`;
 
         // جلب بيانات JSON
-        fetch(jsonFile, { cache: 'no-store' })
+        fetch(jsonFile)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`خطأ في الاستجابة: ${response.status} - ${response.statusText}`);
+                    throw new Error(`خطأ في الاستجابة: ${response.status}`);
                 }
                 return response.json();
             })
             .then(data => {
-                if (!data || data.length === 0) {
-                    throw new Error('ملف JSON فارغ أو غير صالح');
-                }
                 const product = data[0]; // أول منتج في الملف
-                console.log('البيانات المجلوبة من JSON:', JSON.stringify(product, null, 2)); // عرض البيانات بشكل واضح
                 populateProduct(product);
             })
             .catch(error => {
                 console.error('خطأ في جلب بيانات JSON:', error);
-                alert('حدث خطأ أثناء جلب بيانات المنتج: ' + error.message);
+                alert('حدث خطأ أثناء جلب بيانات المنتج.');
             });
 
         // تعبئة بيانات المنتج
@@ -2232,7 +2230,7 @@
             document.getElementById('product-image').alt = product.name;
             document.getElementById('product-name').textContent = product.name;
             document.getElementById('product-sold').textContent = `${product.sold} مباعه - ${product.location}`;
-            document.getElementById('product-price').textContent = parseFloat(product.price).toFixed(2);
+            document.getElementById('product-price').textContent = parseFloat(product.price).toFixed(2); // تنسيق السعر
             document.getElementById('product-discount').textContent = `discount ${product.discount}%`;
 
             // تحديث زر "شراء الآن"
@@ -2244,26 +2242,8 @@
 
         // دالة شراء الآن
         function buyNow(productName, productId, productPrice, shippingPrice, colors, sizes) {
-            // التحقق من البيانات قبل الإرسال
-            const safeColors = Array.isArray(colors) ? colors : [];
-            const safeSizes = Array.isArray(sizes) ? sizes : [];
-            console.log('البيانات المرسلة إلى buy.html:', { 
-                productName, 
-                productId, 
-                productPrice, 
-                shippingPrice, 
-                colors: safeColors, 
-                sizes: safeSizes 
-            });
-
-            // تحويل البيانات إلى JSON وتشفيرها
-            const colorsString = JSON.stringify(safeColors);
-            const sizesString = JSON.stringify(safeSizes);
-
-            // تكوين الـ URL
-            const buyUrl = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(colorsString)}&sizes=${encodeURIComponent(sizesString)}`;
-            console.log('الـ URL المولد:', buyUrl);
-            window.location.href = buyUrl;
+            console.log('البيانات المرسلة:', { productName, productId, productPrice, shippingPrice, colors, sizes });
+            window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(JSON.stringify(colors))}&sizes=${encodeURIComponent(JSON.stringify(sizes))}`;
         }
 
         // دالة إضافة إلى العربة

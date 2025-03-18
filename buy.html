@@ -289,7 +289,7 @@
         }
 
         .confirm-btn:hover {
-            background-color: #ff3333;
+            background-color: #ff0000;
         }
 
         .line2 {
@@ -472,7 +472,6 @@
     </div>
 
     <script>
-    // تهيئة Firebase
     firebase.initializeApp({
         apiKey: "AIzaSyBkEIs1GP17POkhQd378yl0_2ZcPqYNiDM",
         authDomain: "buy-from-adger.firebaseapp.com",
@@ -485,7 +484,6 @@
 
     const database = firebase.database();
 
-    // فتح نافذة التوصيل
     function openModal() {
         const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
         if (savedDeliveryInfo) {
@@ -502,13 +500,11 @@
         document.getElementById('deliveryModal').style.display = 'flex';
     }
 
-    // إغلاق نافذة التوصيل
     function closeModal() {
         document.getElementById('overlay').style.display = 'none';
         document.getElementById('deliveryModal').style.display = 'none';
     }
 
-    // حفظ معلومات التوصيل
     function saveDeliveryInfo() {
         const name = document.getElementById('name').value.trim();
         const phone = document.getElementById('phone').value.trim();
@@ -581,7 +577,6 @@
         }
     }
 
-    // إتمام الشراء
     function confirmPurchase() {
         const purchaseSuccess = document.getElementById('purchaseSuccess');
         const loadingDots = purchaseSuccess.querySelector('.loading-dots');
@@ -691,17 +686,13 @@
     const productPrice = parseFloat(productPriceRaw) || 0;
     const shippingPrice = parseFloat(shippingPriceRaw) || 0;
 
-    // تحليل الألوان والمقاسات مع تسجيل للتحقق
+    // تحليل الألوان والمقاسات
     let colors, sizes;
     try {
-        console.log('الألوان الخام:', colorsRaw);
-        console.log('المقاسات الخام:', sizesRaw);
         colors = JSON.parse(colorsRaw);
         sizes = JSON.parse(sizesRaw);
         if (!Array.isArray(colors)) colors = [];
         if (!Array.isArray(sizes)) sizes = [];
-        console.log('الألوان المحللة:', colors);
-        console.log('المقاسات المحللة:', sizes);
     } catch (error) {
         console.error('خطأ في تحليل colors أو sizes:', error);
         colors = [];
@@ -813,6 +804,7 @@
     </script>
 </body>
 </html>
+
 
 
 
