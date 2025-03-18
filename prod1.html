@@ -2080,7 +2080,6 @@
 
         .image-frame img {
             max-width: 100%;
-            height: auto;
             border-radius: 8px;
         }
 
@@ -2184,7 +2183,7 @@
                 <h1 id="productName"></h1>
                 <h2 id="productStats"></h2>
                 <div class="container">
-                    <div class="zero">00.</div>
+                    <div class="zero" id="priceZero">00.</div>
                     <div class="number" id="productPrice"></div>
                     <div class="letter">جنيه</div>
                 </div>
@@ -2206,13 +2205,8 @@
             const productId = urlParams.get('id');
 
             if (productId) {
-                // تحديد رقم ملف JSON بناءً على معرف المنتج
-                const productsPerFile = 100; // عدد المنتجات في كل ملف JSON
-                const fileIndex = Math.ceil(parseInt(productId) / productsPerFile);
-                const jsonFile = `products-${fileIndex}.json`;
-
                 // جلب البيانات من ملف JSON
-                fetch(jsonFile)
+                fetch('products.json')
                     .then(response => {
                         if (!response.ok) throw new Error('الملف غير موجود');
                         return response.json();
@@ -2224,18 +2218,19 @@
                             return;
                         }
 
-                        // تحديث العناصر ببيانات المنتج
+                        // تحديث العناصر بالبيانات من JSON
                         document.getElementById('productLink').href = product.link || '#';
                         document.getElementById('productImage').src = product.image;
                         document.getElementById('productImage').alt = product.name;
                         document.getElementById('productName').textContent = product.name;
                         document.getElementById('productStats').textContent = `${product.sold} مباعة - ${product.location}`;
+                        document.getElementById('priceZero').textContent = product.priceZero || '00.';
                         document.getElementById('productPrice').textContent = product.price;
                         document.getElementById('productDiscount').textContent = `خصم ${product.discount}%`;
 
                         // تحديث زر "شراء الآن"
                         document.getElementById('buyNowButton').onclick = function() {
-                            window.location.href = `buy.html?name=${encodeURIComponent(product.name)}&id=${encodeURIComponent(product.id)}&price=${encodeURIComponent(product.price)}&shipping=${encodeURIComponent(product.shipping)}`;
+                            window.location.href = `buy.html?name=${encodeURIComponent(product.name)}&id=${encodeURIComponent(product.id)}&price=${encodeURIComponent(product.price)}&shipping=${encodeURIComponent(product.shipping)}&colors=${encodeURIComponent(JSON.stringify(product.colors))}&sizes=${encodeURIComponent(JSON.stringify(product.sizes))}`;
                         };
 
                         // تحديث زر "إضافة إلى العربة"
