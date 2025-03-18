@@ -607,7 +607,7 @@
             return;
         }
 
-        const username = localStorage.getItem('username'); // استرجاع اسم المستخدم
+        const username = localStorage.getItem('username');
         if (!username) {
             alert('يرجى تسجيل الدخول أولاً لإتمام الشراء.');
             window.location.href = 'account.html';
@@ -674,23 +674,20 @@
     const url = new URL(window.location.href);
     const productName = decodeURIComponent(url.searchParams.get('name') || '');
     const productId = decodeURIComponent(url.searchParams.get('id') || '');
-    const productPriceRaw = url.searchParams.get('price') || '0';
-    const shippingPriceRaw = url.searchParams.get('shipping') || '0';
-    const colorsEncoded = url.searchParams.get('colors') || '[]';
-    const sizesEncoded = url.searchParams.get('sizes') || '[]';
+    const productPriceRaw = decodeURIComponent(url.searchParams.get('price') || '0');
+    const shippingPriceRaw = decodeURIComponent(url.searchParams.get('shipping') || '0');
+    const colorsRaw = decodeURIComponent(url.searchParams.get('colors') || '[]');
+    const sizesRaw = decodeURIComponent(url.searchParams.get('sizes') || '[]');
 
-    // تحويل الأسعار إلى أرقام بشكل صحيح
-    const productPrice = parseFloat(decodeURIComponent(productPriceRaw)) || 0;
-    const shippingPrice = parseFloat(decodeURIComponent(shippingPriceRaw)) || 0;
+    // تحويل الأسعار إلى أرقام
+    const productPrice = parseFloat(productPriceRaw) || 0;
+    const shippingPrice = parseFloat(shippingPriceRaw) || 0;
 
-    // تحليل المصفوفات من JSON مع التحقق من الصيغة
+    // تحليل الألوان والمقاسات
     let colors, sizes;
     try {
-        const decodedColors = decodeURIComponent(colorsEncoded);
-        const decodedSizes = decodeURIComponent(sizesEncoded);
-        colors = JSON.parse(decodedColors);
-        sizes = JSON.parse(decodedSizes);
-        // التأكد من أنها مصفوفات وليست نصوص
+        colors = JSON.parse(colorsRaw);
+        sizes = JSON.parse(sizesRaw);
         if (!Array.isArray(colors)) colors = [];
         if (!Array.isArray(sizes)) sizes = [];
     } catch (error) {
@@ -715,11 +712,12 @@
         const colorField = document.getElementById('colorField');
         colorField.style.display = 'block';
         const colorOptionsContainer = document.getElementById('colorOptions');
+        colorOptionsContainer.innerHTML = ''; // تفريغ المحتوى القديم
         let firstColorSpan = null;
         colors.forEach((color, index) => {
             const colorSpan = document.createElement('span');
             colorSpan.className = 'color-option';
-            colorSpan.textContent = color; // النص فقط بدون أقواس
+            colorSpan.textContent = color;
             colorSpan.dataset.color = color;
             colorSpan.onclick = function() {
                 document.querySelectorAll('.color-option').forEach(option => option.classList.remove('selected'));
@@ -735,11 +733,12 @@
         const sizeField = document.getElementById('sizeField');
         sizeField.style.display = 'block';
         const sizeOptionsContainer = document.getElementById('sizeOptions');
+        sizeOptionsContainer.innerHTML = ''; // تفريغ المحتوى القديم
         let firstSizeSpan = null;
         sizes.forEach((size, index) => {
             const sizeSpan = document.createElement('span');
             sizeSpan.className = 'size-option';
-            sizeSpan.textContent = size; // النص فقط بدون أقواس
+            sizeSpan.textContent = size;
             sizeSpan.dataset.size = size;
             sizeSpan.onclick = function() {
                 document.querySelectorAll('.size-option').forEach(option => option.classList.remove('selected'));
@@ -789,6 +788,7 @@
         document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2);
     }
 
+    // استدعاء التحديث الأولي للسعر الإجمالي
     updateTotalPrice();
     </script>
 </body>
