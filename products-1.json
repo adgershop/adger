@@ -49,21 +49,23 @@
             }
         ],
         "product": {
-            "image": "https://via.placeholder.com/300",
-            "name": "اسم المنتج",
-            "sold": "100",
-            "location": "القاهرة",
-            "price": "500",
-            "discount": "20",
-            "pageId": "product1",
+            "pageId": "product-1",
+            "image": "images/product-1.jpg",
+            "name": "منتج 1",
+            "sold": 100,
+            "location": "المدينة A",
+            "price": "250",
+            "discount": 20,
             "productId": "12345",
-            "shippingPrice": "570",
-            "colors": ["أح4مر", "أزرق"],
+            "shippingPrice": "15",
+            "colors": ["أحمر", "أزرق", "أخضر"],
             "sizes": ["S", "M", "L"]
         },
         "texts": {
-            "currency": "جنيه",
-            "discountLabel": "خصم"
+            "currency": "ر.س",
+            "discountLabel": "خصم",
+            "buyNow": "اشترِ الآن",
+            "addToCart": "أضف إلى العربة"
         }
     }
 ]
