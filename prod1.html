@@ -2057,7 +2057,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض المنتجات</title>
+    <title>كود هام لزر الشراء و الاضافه الى العربة</title>
     <style>
         body {
             font-family: 'Cairo', sans-serif;
@@ -2076,7 +2076,6 @@
             position: relative;
             text-align: center;
             margin-bottom: 20px;
-            width: 100%;
         }
 
         .image-frame img {
@@ -2125,18 +2124,18 @@
 
         .bottom-buttons {
             position: fixed;
-            bottom: 0;
+            bottom: -3px;
             left: 0;
             width: 100%;
             background-color: white;
-            z-index: 1000;
+            z-index: 1;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 8px;
-            box-sizing: border-box;
+            margin-bottom: 3px;
         }
 
         .buttons-wrapper {
             display: flex;
+            padding: 8px;
             gap: 10px;
         }
 
@@ -2176,88 +2175,82 @@
     </style>
 </head>
 <body>
-    <div id="products-container" class="image-container"></div>
-    
-    <div class="bottom-buttons">
-        <div class="buttons-wrapper">
-            <div class="buy-now-text" onclick="buyNow()">شراء الآن</div>
-            <div class="add-to-cart-text" onclick="addToCart()">إضافة إلى العربة</div>
+    <div class="image-container product">
+        <div class="image-frame">
+            <a href="#" id="productLink">
+                <img id="productImage" src="" alt="">
+            </a>
+            <div class="text-under">
+                <h1 id="productName"></h1>
+                <h2 id="productStats"></h2>
+                <div class="container">
+                    <div class="zero">00.</div>
+                    <div class="number" id="productPrice"></div>
+                    <div class="letter">جنيه</div>
+                </div>
+                <h3 id="productDiscount"></h3>
+            </div>
+        </div>
+        <div class="bottom-buttons">
+            <div class="buttons-wrapper">
+                <div class="buy-now-text" id="buyNowButton">شراء الآن</div>
+                <div class="add-to-cart-text" id="addToCartButton">إضافة إلى العربة</div>
+            </div>
         </div>
     </div>
 
     <script>
-        // الحصول على رقم الصفحة من URL
-        const prodId = urlParams.get('prodId');
-        const page = urlParams.get('page');
-                const currentPage = urlParams.get('page') || 1;
-        let currentProduct = null;
+        document.addEventListener("DOMContentLoaded", function () {
+            // استخراج معرف المنتج من URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
 
-        // تحميل البيانات من الملف المناسب
-        fetch(`products-${currentPage}.json`)
-            .then(response => response.json())
-            .then(products => {
-                const container = document.getElementById('products-container');
-                
-                products.forEach(product => {
-                    const productDiv = document.createElement('div');
-                    productDiv.className = 'image-frame';
-                    productDiv.innerHTML = `
-                        <a href="?page=${currentPage}&product=${product.id}">
-                            <img src="${product.image}" alt="${product.name}">
-                        </a>
-                        <div class="text-under">
-                            <h1>${product.name}</h1>
-                            <h2>${product.sold} مباعه - adger</h2>
-                            <div class="container">
-                                <div class="zero">00.</div>
-                                <div class="number">${product.price}</div>
-                                <div class="letter">جنيه</div>
-                            </div>
-                            <h3>${product.discount}</h3>
-                        </div>
-                    `;
-                    
-                    // تخزين بيانات المنتج في السمة data
-                    productDiv.dataset.product = JSON.stringify(product);
-                    
-                    // إضافة حدث عند النقر على المنتج
-                    productDiv.querySelector('a').addEventListener('click', (e) => {
-                        e.preventDefault();
-                        currentProduct = product;
-                        window.location.href = `buy.html?page=${currentPage}&product=${product.id}`;
+            if (productId) {
+                // تحديد رقم ملف JSON بناءً على معرف المنتج
+                const productsPerFile = 100; // عدد المنتجات في كل ملف JSON
+                const fileIndex = Math.ceil(parseInt(productId) / productsPerFile);
+                const jsonFile = `products-${fileIndex}.json`;
+
+                // جلب البيانات من ملف JSON
+                fetch(jsonFile)
+                    .then(response => {
+                        if (!response.ok) throw new Error('الملف غير موجود');
+                        return response.json();
+                    })
+                    .then(products => {
+                        const product = products.find(p => p.id === productId);
+                        if (!product) {
+                            document.getElementById('productName').textContent = 'المنتج غير موجود';
+                            return;
+                        }
+
+                        // تحديث العناصر ببيانات المنتج
+                        document.getElementById('productLink').href = product.link || '#';
+                        document.getElementById('productImage').src = product.image;
+                        document.getElementById('productImage').alt = product.name;
+                        document.getElementById('productName').textContent = product.name;
+                        document.getElementById('productStats').textContent = `${product.sold} مباعة - ${product.location}`;
+                        document.getElementById('productPrice').textContent = product.price;
+                        document.getElementById('productDiscount').textContent = `خصم ${product.discount}%`;
+
+                        // تحديث زر "شراء الآن"
+                        document.getElementById('buyNowButton').onclick = function() {
+                            window.location.href = `buy.html?name=${encodeURIComponent(product.name)}&id=${encodeURIComponent(product.id)}&price=${encodeURIComponent(product.price)}&shipping=${encodeURIComponent(product.shipping)}`;
+                        };
+
+                        // تحديث زر "إضافة إلى العربة"
+                        document.getElementById('addToCartButton').onclick = function() {
+                            alert(`تمت إضافة ${product.name} إلى العربة!`);
+                        };
+                    })
+                    .catch(error => {
+                        console.error('خطأ في جلب البيانات:', error);
+                        document.getElementById('productName').textContent = 'حدث خطأ أثناء تحميل البيانات';
                     });
-
-                    container.appendChild(productDiv);
-                });
-            })
-            .catch(error => {
-                console.error('حدث خطأ أثناء تحميل البيانات:', error);
-                document.getElementById('products-container').innerHTML = '<p>عذراً، حدث خطأ أثناء تحميل البيانات.</p>';
-            });
-
-        function buyNow() {
-            if (currentProduct) {
-                window.location.href = `buy.html?page=${currentPage}&product=${currentProduct.id}`;
+            } else {
+                document.getElementById('productName').textContent = 'يرجى تحديد معرف المنتج في URL';
             }
-        }
-
-        function addToCart() {
-            if (currentProduct) {
-                let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                cart.push(currentProduct);
-                localStorage.setItem('cart', JSON.stringify(cart));
-                alert('تمت إضافة المنتج إلى العربة!');
-                updateCartCount();
-            }
-        }
-
-        function updateCartCount() {
-            const count = JSON.parse(localStorage.getItem('cart'))?.length || 0;
-            document.querySelector('.cart-count')?.innerText = count;
-        }
-
-        // تحديث عدد العربة عند التحميل
-        updateCartCount();
+        });
     </script>
 </body>
 </html>
