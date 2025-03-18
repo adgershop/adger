@@ -388,9 +388,6 @@
     <div class="product-info">
         <strong>سعر الشحن:</strong> <span id="shippingPriceText"></span> جنيه
     </div>
-    <div class="product-info">
-        <strong>السعر الإجمالي:</strong> <span id="totalPriceText"></span> جنيه
-    </div>
     <br>
 
     <button type="button" onclick="openModal()" style="
@@ -610,7 +607,7 @@
             return;
         }
 
-        const username = localStorage.getItem('username');
+        const username = localStorage.getItem('username'); // استرجاع اسم المستخدم
         if (!username) {
             alert('يرجى تسجيل الدخول أولاً لإتمام الشراء.');
             window.location.href = 'account.html';
@@ -677,20 +674,23 @@
     const url = new URL(window.location.href);
     const productName = decodeURIComponent(url.searchParams.get('name') || '');
     const productId = decodeURIComponent(url.searchParams.get('id') || '');
-    const productPriceRaw = decodeURIComponent(url.searchParams.get('price') || '0');
-    const shippingPriceRaw = decodeURIComponent(url.searchParams.get('shipping') || '0');
-    const colorsRaw = decodeURIComponent(url.searchParams.get('colors') || '[]');
-    const sizesRaw = decodeURIComponent(url.searchParams.get('sizes') || '[]');
+    const productPriceRaw = url.searchParams.get('price') || '0';
+    const shippingPriceRaw = url.searchParams.get('shipping') || '0';
+    const colorsEncoded = url.searchParams.get('colors') || '[]';
+    const sizesEncoded = url.searchParams.get('sizes') || '[]';
 
-    // تحويل الأسعار إلى أرقام
-    const productPrice = parseFloat(productPriceRaw) || 0;
-    const shippingPrice = parseFloat(shippingPriceRaw) || 0;
+    // تحويل الأسعار إلى أرقام بشكل صحيح
+    const productPrice = parseFloat(decodeURIComponent(productPriceRaw)) || 0;
+    const shippingPrice = parseFloat(decodeURIComponent(shippingPriceRaw)) || 0;
 
-    // تحليل الألوان والمقاسات
+    // تحليل المصفوفات من JSON مع التحقق من الصيغة
     let colors, sizes;
     try {
-        colors = JSON.parse(colorsRaw);
-        sizes = JSON.parse(sizesRaw);
+        const decodedColors = decodeURIComponent(colorsEncoded);
+        const decodedSizes = decodeURIComponent(sizesEncoded);
+        colors = JSON.parse(decodedColors);
+        sizes = JSON.parse(decodedSizes);
+        // التأكد من أنها مصفوفات وليست نصوص
         if (!Array.isArray(colors)) colors = [];
         if (!Array.isArray(sizes)) sizes = [];
     } catch (error) {
@@ -707,19 +707,19 @@
 
     // إعداد خيارات الألوان والمقاسات
     const optionsContainer = document.getElementById('optionsContainer');
-    const colorField = document.getElementById('colorField');
-    const sizeField = document.getElementById('sizeField');
+    if (colors.length > 0 || sizes.length > 0) {
+        optionsContainer.style.display = 'block';
+    }
 
     if (colors.length > 0) {
-        optionsContainer.style.display = 'block';
+        const colorField = document.getElementById('colorField');
         colorField.style.display = 'block';
         const colorOptionsContainer = document.getElementById('colorOptions');
-        colorOptionsContainer.innerHTML = ''; // تفريغ المحتوى القديم
         let firstColorSpan = null;
         colors.forEach((color, index) => {
             const colorSpan = document.createElement('span');
             colorSpan.className = 'color-option';
-            colorSpan.textContent = color;
+            colorSpan.textContent = color; // النص فقط بدون أقواس
             colorSpan.dataset.color = color;
             colorSpan.onclick = function() {
                 document.querySelectorAll('.color-option').forEach(option => option.classList.remove('selected'));
@@ -729,20 +729,17 @@
             if (index === 0) firstColorSpan = colorSpan;
         });
         if (firstColorSpan) firstColorSpan.classList.add('selected');
-    } else {
-        colorField.style.display = 'none';
     }
 
     if (sizes.length > 0) {
-        optionsContainer.style.display = 'block';
+        const sizeField = document.getElementById('sizeField');
         sizeField.style.display = 'block';
         const sizeOptionsContainer = document.getElementById('sizeOptions');
-        sizeOptionsContainer.innerHTML = ''; // تفريغ المحتوى القديم
         let firstSizeSpan = null;
         sizes.forEach((size, index) => {
             const sizeSpan = document.createElement('span');
             sizeSpan.className = 'size-option';
-            sizeSpan.textContent = size;
+            sizeSpan.textContent = size; // النص فقط بدون أقواس
             sizeSpan.dataset.size = size;
             sizeSpan.onclick = function() {
                 document.querySelectorAll('.size-option').forEach(option => option.classList.remove('selected'));
@@ -752,12 +749,6 @@
             if (index === 0) firstSizeSpan = sizeSpan;
         });
         if (firstSizeSpan) firstSizeSpan.classList.add('selected');
-    } else {
-        sizeField.style.display = 'none';
-    }
-
-    if (colors.length === 0 && sizes.length === 0) {
-        optionsContainer.style.display = 'none';
     }
 
     // استرجاع معلومات التوصيل المحفوظة
@@ -795,11 +786,9 @@
         const productPrice = parseFloat(document.getElementById('productPriceText').textContent) || 0;
         const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent) || 0;
         const totalPrice = (productPrice * quantity) + shippingPrice;
-        document.getElementById('totalPriceText').textContent = totalPrice.toFixed(2); // السعر الإجمالي أسفل سعر الشحن
-        document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2); // السعر الإجمالي في الأسفل
+        document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2);
     }
 
-    // استدعاء التحديث الأولي للسعر الإجمالي
     updateTotalPrice();
     </script>
 </body>
