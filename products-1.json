@@ -53,27 +53,25 @@
         
         
             
-        
-            "product": {
-              "image": "https://example.com/product-image.jpg",
-              "name": "اسم المنتج",
-              "sold": "100",
-              "location": "القاهرة",
-              "price": "500",
-              "discount": "20",
-              "pageId": "product1",
-              "productId": "12345",
-              "shippingPrice": "50",
-              "colors": ["أحمر", "أزرق"],
-              "sizes": ["S", "M", "L"]
-            },
-            "texts": {
-              "buyNow": "اشتري الآن",
-              "addToCart": "أضف إلى السلة",
-              "currency": "جنيه",
-              "discountLabel": "خصم"
-            }
-          
+        "product": {
+            "image": "https://via.placeholder.com/300",
+            "name": "اسم المنتج",
+            "sold": "100",
+            "location": "القاهرة",
+            "price": "500",
+            "discount": "20",
+            "pageId": "product1",
+            "productId": "12345",
+            "shippingPrice": "50",
+            "colors": ["أحمر", "أزرق"],
+            "sizes": ["S", "M", "L"]
+          },
+          "texts": {
+            "buyNow": "اشتري الآن",
+            "addToCart": "أضف إلى السلة",
+            "currency": "جنيه",
+            "discountLabel": "خصم"
+          }
         
     
     },
