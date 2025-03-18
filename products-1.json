@@ -58,8 +58,7 @@
             "pageId": "product1",
             "productId": "12345",
             "shippingPrice": "570",
-            "colors": ["أح4مر", "أزرق"],
-            "sizes": ["S", "M", "L"]
+            "colors": ["أح4مر", "أزرق"]
         },
         "texts": {
             "currency": "جنيه",
