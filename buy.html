@@ -388,6 +388,9 @@
     <div class="product-info">
         <strong>سعر الشحن:</strong> <span id="shippingPriceText"></span> جنيه
     </div>
+    <div class="product-info">
+        <strong>السعر الإجمالي:</strong> <span id="totalPriceText"></span> جنيه
+    </div>
     <br>
 
     <button type="button" onclick="openModal()" style="
@@ -704,12 +707,11 @@
 
     // إعداد خيارات الألوان والمقاسات
     const optionsContainer = document.getElementById('optionsContainer');
-    if (colors.length > 0 || sizes.length > 0) {
-        optionsContainer.style.display = 'block';
-    }
+    const colorField = document.getElementById('colorField');
+    const sizeField = document.getElementById('sizeField');
 
     if (colors.length > 0) {
-        const colorField = document.getElementById('colorField');
+        optionsContainer.style.display = 'block';
         colorField.style.display = 'block';
         const colorOptionsContainer = document.getElementById('colorOptions');
         colorOptionsContainer.innerHTML = ''; // تفريغ المحتوى القديم
@@ -727,10 +729,12 @@
             if (index === 0) firstColorSpan = colorSpan;
         });
         if (firstColorSpan) firstColorSpan.classList.add('selected');
+    } else {
+        colorField.style.display = 'none';
     }
 
     if (sizes.length > 0) {
-        const sizeField = document.getElementById('sizeField');
+        optionsContainer.style.display = 'block';
         sizeField.style.display = 'block';
         const sizeOptionsContainer = document.getElementById('sizeOptions');
         sizeOptionsContainer.innerHTML = ''; // تفريغ المحتوى القديم
@@ -748,6 +752,12 @@
             if (index === 0) firstSizeSpan = sizeSpan;
         });
         if (firstSizeSpan) firstSizeSpan.classList.add('selected');
+    } else {
+        sizeField.style.display = 'none';
+    }
+
+    if (colors.length === 0 && sizes.length === 0) {
+        optionsContainer.style.display = 'none';
     }
 
     // استرجاع معلومات التوصيل المحفوظة
@@ -785,7 +795,8 @@
         const productPrice = parseFloat(document.getElementById('productPriceText').textContent) || 0;
         const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent) || 0;
         const totalPrice = (productPrice * quantity) + shippingPrice;
-        document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2);
+        document.getElementById('totalPriceText').textContent = totalPrice.toFixed(2); // السعر الإجمالي أسفل سعر الشحن
+        document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2); // السعر الإجمالي في الأسفل
     }
 
     // استدعاء التحديث الأولي للسعر الإجمالي
