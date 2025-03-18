@@ -2238,7 +2238,7 @@
 
             const buyNowBtn = document.getElementById('buy-now-btn');
             buyNowBtn.onclick = function() {
-                buyNow(product.name, product.productId, product.price, product.shippingPrice);
+                buyNow(product.name, product.productId, product.price, product.shippingPrice, product.colors, product.sizes);
             };
 
             const addToCartBtn = document.getElementById('add-to-cart-btn');
@@ -2247,9 +2247,9 @@
             };
         }
 
-        // دالة شراء الآن (بدون ألوان أو مقاسات)
-        function buyNow(productName, productId, productPrice, shippingPrice) {
-            window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}`;
+        // دالة شراء الآن
+        function buyNow(productName, productId, productPrice, shippingPrice, colors, sizes) {
+            window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(JSON.stringify(colors))}&sizes=${encodeURIComponent(JSON.stringify(sizes))}`;
         }
 
         // دالة إضافة إلى العربة
