@@ -2049,8 +2049,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2205,11 +2203,14 @@
         const pageNumber = url.searchParams.get('page') || '1';
         const jsonFile = `products-${pageNumber}.json`;
 
+        // إضافة طابع زمني لتجنب الذاكرة المؤقتة
+        const jsonUrl = `${jsonFile}?t=${Date.now()}`;
+
         // جلب بيانات JSON
-        fetch(jsonFile)
+        fetch(jsonUrl)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`خطأ في الاستجابة: ${response.status}`);
+                    throw new Error(`خطأ في الاستجابة: ${response.status} - ${response.statusText}`);
                 }
                 return response.json();
             })
@@ -2224,6 +2225,7 @@
 
         // تعبئة بيانات المنتج
         function populateProduct(data) {
+            console.log("البيانات المستلمة من JSON:", data); // للتحقق من البيانات
             const product = data.product;
             const texts = data.texts;
 
@@ -2238,7 +2240,7 @@
             document.getElementById('currency').textContent = texts.currency;
             document.getElementById('product-discount').textContent = `${texts.discountLabel} ${product.discount}%`;
 
-            // تحديث زر "شراء الآن" (النص موجود في HTML، نضيف الحدث فقط)
+            // تحديث زر "شراء الآن"
             const buyNowBtn = document.getElementById('buy-now-btn');
             buyNowBtn.onclick = function() {
                 buyNow(product.name, product.productId, product.price, product.shippingPrice, product.colors, product.sizes);
@@ -2250,10 +2252,10 @@
             window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(JSON.stringify(colors))}&sizes=${encodeURIComponent(JSON.stringify(sizes))}`;
         }
 
-        // دالة إضافة إلى العربة مع دعم المعامل "this"
+        // دالة إضافة إلى العربة
         function addToCart(element) {
             alert("تمت إضافة المنتج إلى العربة!");
-            console.log("تم النقر على الزر:", element); // للتحقق من المعامل "this"
+            console.log("تم النقر على الزر:", element);
         }
     </script>
 </body>
