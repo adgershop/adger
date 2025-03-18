@@ -369,17 +369,15 @@
         <button onclick="increaseQuantity()" style="padding: 5px 10px; margin: 0 5px; border: none; background-color: #f0f0f0; cursor: pointer;">+</button>
     </div>
 
-    <div class="options" id="optionsContainer" style="display: none;">
-        <div class="product-info" id="colorField" style="display: none;">
-            <strong>اللون:</strong>
-            <br>
-            <div class="color-options" id="colorOptions"></div>
-        </div>
-        <div class="product-info" id="sizeField" style="display: none;">
-            <strong>المقاس:</strong>
-            <br>
-            <div class="size-options" id="sizeOptions"></div>
-        </div>
+    <div class="product-info" id="colorField" style="display: none;">
+        <strong>اللون:</strong>
+        <br>
+        <div class="color-options" id="colorOptions"></div>
+    </div>
+    <div class="product-info" id="sizeField" style="display: none;">
+        <strong>المقاس:</strong>
+        <br>
+        <div class="size-options" id="sizeOptions"></div>
     </div>
 
     <div class="product-info product-price">
@@ -607,7 +605,7 @@
             return;
         }
 
-        const username = localStorage.getItem('username'); // استرجاع اسم المستخدم
+        const username = localStorage.getItem('username');
         if (!username) {
             alert('يرجى تسجيل الدخول أولاً لإتمام الشراء.');
             window.location.href = 'account.html';
@@ -628,7 +626,7 @@
             shippingPrice,
             quantity,
             totalPrice,
-            username, // إضافة اسم المستخدم
+            username,
             deliveryInfo,
             timestamp: Date.now()
         };
@@ -670,32 +668,44 @@
             });
     }
 
+    // جلب المعلمات من URL
     const urlParams = new URLSearchParams(window.location.search);
     const productName = urlParams.get('name');
     const productId = urlParams.get('id');
     const productPrice = parseFloat(urlParams.get('price')) || 0;
     const shippingPrice = parseFloat(urlParams.get('shipping')) || 0;
-    const colorsParam = decodeURIComponent(urlParams.get('colors') || '');
-    const sizesParam = decodeURIComponent(urlParams.get('sizes') || '');
+    const colorsParam = urlParams.get('colors') ? decodeURIComponent(urlParams.get('colors')) : '[]';
+    const sizesParam = urlParams.get('sizes') ? decodeURIComponent(urlParams.get('sizes')) : '[]';
 
-    const colors = colorsParam ? colorsParam.split(',') : [];
-    const sizes = sizesParam ? sizesParam.split(',') : [];
+    // تحليل الألوان والمقاسات باستخدام JSON.parse
+    let colors = [];
+    let sizes = [];
+    try {
+        colors = JSON.parse(colorsParam);
+        if (!Array.isArray(colors)) colors = [];
+    } catch (e) {
+        console.error("خطأ في تحليل الألوان:", e);
+        colors = [];
+    }
+    try {
+        sizes = JSON.parse(sizesParam);
+        if (!Array.isArray(sizes)) sizes = [];
+    } catch (e) {
+        console.error("خطأ في تحليل المقاسات:", e);
+        sizes = [];
+    }
 
+    // تعبئة البيانات الأساسية
     document.getElementById('productNameText').textContent = decodeURIComponent(productName);
     document.getElementById('productIdText').textContent = decodeURIComponent(productId);
     document.getElementById('productPriceText').textContent = productPrice.toFixed(2);
     document.getElementById('shippingPriceText').textContent = shippingPrice.toFixed(2);
 
-    const optionsContainer = document.getElementById('optionsContainer');
-    if (colors.length > 0 || sizes.length > 0) {
-        optionsContainer.style.display = 'block';
-    }
-
+    // عرض حقل الألوان فقط إذا كانت هناك ألوان
     if (colors.length > 0) {
         const colorField = document.getElementById('colorField');
         colorField.style.display = 'block';
         const colorOptionsContainer = document.getElementById('colorOptions');
-        let firstColorSpan = null;
         colors.forEach((color, index) => {
             const colorSpan = document.createElement('span');
             colorSpan.className = 'color-option';
@@ -706,16 +716,16 @@
                 colorSpan.classList.add('selected');
             };
             colorOptionsContainer.appendChild(colorSpan);
-            if (index === 0) firstColorSpan = colorSpan;
+            if (index === 0) colorSpan.classList.add('selected');
         });
-        if (firstColorSpan) firstColorSpan.classList.add('selected');
     }
 
+    // عرض حقل المقاسات فقط إذا كانت هناك مقاسات
     if (sizes.length > 0) {
         const sizeField = document.getElementById('sizeField');
         sizeField.style.display = 'block';
         const sizeOptionsContainer = document.getElementById('sizeOptions');
-        sizes.forEach(size => {
+        sizes.forEach((size, index) => {
             const sizeSpan = document.createElement('span');
             sizeSpan.className = 'size-option';
             sizeSpan.textContent = size;
@@ -725,9 +735,11 @@
                 sizeSpan.classList.add('selected');
             };
             sizeOptionsContainer.appendChild(sizeSpan);
+            if (index === 0) sizeSpan.classList.add('selected');
         });
     }
 
+    // استرجاع معلومات التوصيل المحفوظة
     const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
     if (savedDeliveryInfo) {
         const deliveryInfo = JSON.parse(savedDeliveryInfo);
