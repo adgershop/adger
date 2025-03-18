@@ -2049,132 +2049,108 @@
 
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كود هام لزر الشراء و الاضافه الى العربة</title>
+    <title>صفحة المنتج</title>
     <style>
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
         }
-
-        .image-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px;
+        .product {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
-
         .image-frame {
             position: relative;
-            text-align: center;
-            margin-bottom: 20px;
-            display: none !important;
         }
-
         .image-frame img {
-            max-width: 100%;
+            width: 100%;
             height: auto;
-            border-radius: 8px;
+            display: block;
         }
-
         .text-under {
+            padding: 15px;
             text-align: center;
-            margin-top: 10px;
         }
-
         .text-under h1 {
-            font-size: 18px;
-            margin: 5px 0;
+            font-size: 24px;
+            margin: 0 0 10px;
+            color: #333;
         }
-
         .text-under h2 {
-            font-size: 13px;
-            color: #ffc400;
-            margin-top: -5px;
+            font-size: 16px;
+            color: #777;
+            margin: 0 0 10px;
         }
-
         .container {
             display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 10px;
+            justify-content: center;
+            align-items: baseline;
+            margin: 10px 0;
         }
-
-        .container .zero, .container .number, .container .letter {
-            font-size: 16px;
+        .zero {
+            font-size: 18px;
+            color: #000;
         }
-
-        .container .number {
+        .number {
             font-size: 28px;
+            font-weight: bold;
+            color: #e91e63;
+            margin: 0 5px;
         }
-
-        h3 {
-            font-size: 12px;
-            color: #ff0000;
-            text-transform: uppercase;
-            margin: 5px 0 0 8px;
+        .letter {
+            font-size: 18px;
+            color: #000;
         }
-
+        .text-under h3 {
+            font-size: 14px;
+            color: #d32f2f;
+            margin: 10px 0 0;
+        }
         .bottom-buttons {
-            position: fixed;
-            bottom: -3px;
-            left: 0;
-            width: 100%;
-            background-color: white;
-            z-index: 1;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            margin-bottom: 3px;
+            padding: 15px;
+            background-color: #fafafa;
+            text-align: center;
         }
-
         .buttons-wrapper {
             display: flex;
-            padding: 8px;
+            justify-content: space-between;
             gap: 10px;
         }
-
-        .add-to-cart-text, .buy-now-text {
+        .buy-now-text, .add-to-cart-text {
             flex: 1;
-            color: #ffffff;
-            font-size: 18px;
-            text-align: center;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 45px;
-            user-select: none;
-            box-sizing: border-box;
+            text-align: center;
         }
-
-        .add-to-cart-text {
-            background-color: #ffffff;
-            color: #1a1a1a;
-            border: 1px solid black;
-        }
-
-        .add-to-cart-text:hover {
-            background-color: #c2c2c23f;
-        }
-
         .buy-now-text {
-            background-color: #ff6600;
+            background-color: #ff5722;
         }
-
-        .buy-now-text:hover {
-            background-color: #ff5100;
+        .add-to-cart-text {
+            background-color: #4caf50;
         }
     </style>
 </head>
 <body>
     <div class="image-container product" id="product-container">
-        <div class="image-frame" id="product-frame" style="display: none;">
+        <div class="image-frame" id="product-frame">
             <a id="product-link" href="">
                 <img id="product-image" src="" alt="">
             </a>
@@ -2191,8 +2167,8 @@
         </div>
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
-                <div class="buy-now-text" id="buy-now-btn">اشتري الآن</div>
-                <div class="add-to-cart-text" id="add-to-cart-btn" onclick="addToCart(this)">أضف إلى السلة</div>
+                <div class="buy-now-text" id="buy-now-btn">اشترِ الآن</div>
+                <div class="add-to-cart-text" id="add-to-cart-btn">أضف إلى السلة</div>
             </div>
         </div>
     </div>
@@ -2203,34 +2179,29 @@
         const pageNumber = url.searchParams.get('page') || '1';
         const jsonFile = `products-${pageNumber}.json`;
 
-        // إضافة طابع زمني لتجنب الذاكرة المؤقتة
-        const jsonUrl = `${jsonFile}?t=${Date.now()}`;
-
         // جلب بيانات JSON
-        fetch(jsonUrl)
+        fetch(jsonFile)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`خطأ في الاستجابة: ${response.status} - ${response.statusText}`);
+                    throw new Error(`خطأ في جلب الملف: ${response.status}`);
                 }
                 return response.json();
             })
             .then(data => {
-                const productData = data[0]; // أول منتج في الملف
+                // نأخذ أول عنصر من المصفوفة لأن JSON يحتوي على مصفوفة
+                const productData = data[0];
                 populateProduct(productData);
             })
             .catch(error => {
                 console.error('خطأ في جلب بيانات JSON:', error);
-                alert('حدث خطأ أثناء جلب بيانات المنتج: ' + error.message);
+                alert(`حدث خطأ أثناء جلب بيانات المنتج: ${error.message}\nتأكد من وجود ملف ${jsonFile} وأن تنسيقه صحيح.`);
             });
 
-        // تعبئة بيانات المنتج
+        // دالة تعبئة بيانات المنتج والنصوص
         function populateProduct(data) {
-            console.log("البيانات المستلمة من JSON:", data); // للتحقق من البيانات
             const product = data.product;
             const texts = data.texts;
 
-            // إظهار الإطار
-            document.getElementById('product-frame').style.display = 'block !important';
             document.getElementById('product-link').href = `${product.pageId}.html`;
             document.getElementById('product-image').src = product.image;
             document.getElementById('product-image').alt = product.name;
@@ -2240,10 +2211,15 @@
             document.getElementById('currency').textContent = texts.currency;
             document.getElementById('product-discount').textContent = `${texts.discountLabel} ${product.discount}%`;
 
-            // تحديث زر "شراء الآن"
+            // ربط الأزرار بالدوال
             const buyNowBtn = document.getElementById('buy-now-btn');
             buyNowBtn.onclick = function() {
                 buyNow(product.name, product.productId, product.price, product.shippingPrice, product.colors, product.sizes);
+            };
+
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+            addToCartBtn.onclick = function() {
+                addToCart();
             };
         }
 
@@ -2253,9 +2229,8 @@
         }
 
         // دالة إضافة إلى العربة
-        function addToCart(element) {
+        function addToCart() {
             alert("تمت إضافة المنتج إلى العربة!");
-            console.log("تم النقر على الزر:", element);
         }
     </script>
 </body>
