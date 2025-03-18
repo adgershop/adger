@@ -2200,7 +2200,7 @@
     </div>
 
     <script>
-        // جلب رقم الصفحة من URL (اختياري، يمكنك تحديد ملف ثابت إذا أردت)
+        // جلب رقم الصفحة من URL
         const url = new URL(window.location.href);
         const pageNumber = url.searchParams.get('page') || '1';
         const jsonFile = `products-${pageNumber}.json`;
@@ -2214,7 +2214,9 @@
                 return response.json();
             })
             .then(data => {
-                populateProduct(data);
+                // نأخذ أول عنصر من المصفوفة لأن JSON يحتوي على مصفوفة
+                const productData = data[0];
+                populateProduct(productData);
             })
             .catch(error => {
                 console.error('خطأ في جلب بيانات JSON:', error);
