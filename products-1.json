@@ -55,9 +55,9 @@
         "image": "1.jpg",
         "sold": "22",
         "location": "adger",
-        "price": "44",
-        "discount": "323",
-        "shipping": "1"
+        "itemCost": "44",
+        "saleOffer": "323",
+        "shipping": "100"
     
     },
 

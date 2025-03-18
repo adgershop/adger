@@ -2162,10 +2162,10 @@
                 <h2 id="productStats"></h2>
                 <div class="container">
                     <div class="zero" id="priceZero">00.</div>
-                    <div class="number" id="priceNumber"></div>
+                    <div class="number" id="itemCost"></div>
                     <div class="letter">جنيه</div>
                 </div>
-                <h3 id="discountText"></h3>
+                <h3 id="saleOffer"></h3>
             </div>
         </div>
         <div class="bottom-buttons">
@@ -2178,12 +2178,11 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // استخراج معرف المنتج من URL
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
 
             if (productId) {
-                const productsPerFile = 100; // عدد المنتجات في كل ملف
+                const productsPerFile = 100;
                 const fileIndex = Math.ceil(parseInt(productId) / productsPerFile);
                 const jsonFile = `products-${fileIndex}.json`;
 
@@ -2205,12 +2204,12 @@
                         document.getElementById('productImage').alt = product.name;
                         document.getElementById('productName').textContent = product.name;
                         document.getElementById('productStats').textContent = `${product.sold} مباعة - ${product.location}`;
-                        document.getElementById('priceNumber').textContent = product.price;
-                        document.getElementById('discountText').textContent = `خصم ${product.discount}%`;
+                        document.getElementById('itemCost').textContent = product.itemCost;
+                        document.getElementById('saleOffer').textContent = `خصم ${product.saleOffer}%`;
 
                         // تحديث زر "شراء الآن" مع البيانات
                         document.getElementById('buyNowButton').onclick = function() {
-                            window.location.href = `buy.html?name=${encodeURIComponent(product.name)}&id=${encodeURIComponent(product.id)}&price=${encodeURIComponent(product.price)}&shipping=${encodeURIComponent(product.shipping)}`;
+                            window.location.href = `buy.html?name=${encodeURIComponent(product.name)}&id=${encodeURIComponent(product.id)}&price=${encodeURIComponent(product.itemCost)}&shipping=${encodeURIComponent(product.shipping)}`;
                         };
 
                         // تحديث زر "إضافة إلى العربة"
