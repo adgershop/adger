@@ -33,20 +33,11 @@
             {
                 "type": "images",
                 "items": [
-                    "1.jpg",
-                    "path/to/image2.jpg",
-                    "path/to/image3.jpg",
-                    "path/to/image4.jpg",
-                    "path/to/image5.jpg"
-                ]
-            },
-            {
-                "type": "mixed",
-                "items": [
-                    "path/to/image6.jpg",
-                    "path/to/video1.mp4"
+                    "1.jpg"
+              
                 ]
             }
+           
         ],
         "product": {
             "image": "https://via.placeholder.com/300",
@@ -58,7 +49,8 @@
             "pageId": "product1",
             "productId": "12345",
             "shippingPrice": "570",
-            "colors": ["أح4مر", "أزرق"]
+            "colors": ["أح4مر", "أزرق"],
+            "sizes": ["S", "M", "L"]
         },
         "texts": {
             "currency": "جنيه",
