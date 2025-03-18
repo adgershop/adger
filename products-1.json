@@ -49,24 +49,21 @@
             }
         ],
         "product": {
-            "pageId": "product-1",
-            "image": "images/product-1.jpg",
-            "name": "منتج 1",
-            "sold": 100,
-            "location": "المدينة A",
+            "pageId": "001",
+            "image": "https://example.com/product1.jpg",
+            "name": "سماعات لاسلكية",
+            "sold": "1200",
+            "location": "الرياض",
             "price": "250",
-            "discount": 20,
-            "productId": "12345",
-            "shippingPrice": "15",
-            "colors": ["أحمر", "أزرق", "أخ5ضر"],
-            "sizes": ["S", "M", "L"]
+            "discount": "15",
+            "productId": "SM123",
+            "shippingPrice": "20",
+            "colors": ["أسود", "أبيض"],
+            "sizes": ["واحد"]
         },
         "texts": {
-            "currency": "ر.س",
-            "discountLabel": "خصم",
-            "buyNow": "اشترِ الآن",
-            "addToCart": "أضف إلى العربة"
+            "currency": "ريال",
+            "discountLabel": "تخفيض"
         }
-    
     }
 ]
