@@ -54,21 +54,26 @@
         
             
         
-            
-        "pageId": "1",
-        "productId": "11",
-        "name": "ساعة تاتش تعمل باللمس",
-        "image": "1.jpg",
-        "sold": "22",
-        "location": "adger",
-        "price": "200",
-        "shippingPrice": "100",
-        "discount": "323",
-        "colors": ["أسود", "أبيض"],
-        "sizes": ["S", "M"]
-        
-
-            
+            "product": {
+              "image": "https://example.com/product-image.jpg",
+              "name": "اسم المنتج",
+              "sold": "100",
+              "location": "القاهرة",
+              "price": "500",
+              "discount": "20",
+              "pageId": "product1",
+              "productId": "12345",
+              "shippingPrice": "50",
+              "colors": ["أحمر", "أزرق"],
+              "sizes": ["S", "M", "L"]
+            },
+            "texts": {
+              "buyNow": "اشتري الآن",
+              "addToCart": "أضف إلى السلة",
+              "currency": "جنيه",
+              "discountLabel": "خصم"
+            }
+          
         
     
     },
