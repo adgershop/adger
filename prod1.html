@@ -2052,8 +2052,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2078,7 +2076,6 @@
             position: relative;
             text-align: center;
             margin-bottom: 20px;
-            display: none !important;
         }
 
         .image-frame img {
@@ -2197,21 +2194,8 @@
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
                 <div class="buy-now-text" id="buy-now-btn">شراء الآن</div>
-            </script>
-            <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
-         </div>
-     </div>
-     
-     <script>
-         function addToCart() {
-             alert("تمت إضافة المنتج إلى العربة!");
-         }
-     
-     </script>
-     
-     </body>
- 
- 
+                <div class="add-to-cart-text" onclick="addToCart()">إضافة إلى العربة</div>
+            </div>
         </div>
     </div>
 
@@ -2246,7 +2230,7 @@
             document.getElementById('product-image').alt = product.name;
             document.getElementById('product-name').textContent = product.name;
             document.getElementById('product-sold').textContent = `${product.sold} مباعه - ${product.location}`;
-            document.getElementById('product-price').textContent = product.price;
+            document.getElementById('product-price').textContent = parseFloat(product.price).toFixed(2); // تنسيق السعر
             document.getElementById('product-discount').textContent = `discount ${product.discount}%`;
 
             // تحديث زر "شراء الآن"
@@ -2258,6 +2242,7 @@
 
         // دالة شراء الآن
         function buyNow(productName, productId, productPrice, shippingPrice, colors, sizes) {
+            console.log('البيانات المرسلة:', { productName, productId, productPrice, shippingPrice, colors, sizes });
             window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(JSON.stringify(colors))}&sizes=${encodeURIComponent(JSON.stringify(sizes))}`;
         }
 
@@ -2268,7 +2253,6 @@
     </script>
 </body>
 </html>
-
 
 
 
