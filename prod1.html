@@ -2050,8 +2050,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2205,8 +2203,8 @@
         const pageNumber = url.searchParams.get('page') || '1';
         const jsonFile = `products-${pageNumber}.json`;
 
-        // جلب بيانات JSON
-        fetch(jsonFile)
+        // جلب بيانات JSON مع تجاهل التخزين المؤقت
+        fetch(jsonFile, { cache: 'no-store' })
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`خطأ في الاستجابة: ${response.status}`);
@@ -2215,6 +2213,7 @@
             })
             .then(data => {
                 const product = data[0]; // أول منتج في الملف
+                console.log('البيانات المجلوبة من JSON:', product); // للتحقق من البيانات
                 populateProduct(product);
             })
             .catch(error => {
@@ -2242,8 +2241,10 @@
 
         // دالة شراء الآن
         function buyNow(productName, productId, productPrice, shippingPrice, colors, sizes) {
-            console.log('البيانات المرسلة:', { productName, productId, productPrice, shippingPrice, colors, sizes });
-            window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(JSON.stringify(colors))}&sizes=${encodeURIComponent(JSON.stringify(sizes))}`;
+            console.log('البيانات المرسلة إلى buy.html:', { productName, productId, productPrice, shippingPrice, colors, sizes });
+            const colorsString = Array.isArray(colors) ? JSON.stringify(colors) : '[]';
+            const sizesString = Array.isArray(sizes) ? JSON.stringify(sizes) : '[]';
+            window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(colorsString)}&sizes=${encodeURIComponent(sizesString)}`;
         }
 
         // دالة إضافة إلى العربة
