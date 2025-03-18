@@ -2189,8 +2189,8 @@
         </div>
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
-                <div class="buy-now-text" id="buy-now-btn"></div>
-                <div class="add-to-cart-text" id="add-to-cart-btn"></div>
+                <div class="buy-now-text" id="buy-now-btn">اشترِ الآن</div>
+                <div class="add-to-cart-text" id="add-to-cart-btn">أضف إلى العربة</div>
             </div>
         </div>
     </div>
@@ -2219,10 +2219,9 @@
                 alert(`حدث خطأ أثناء جلب بيانات المنتج: ${error.message}\nتأكد من وجود ملف ${jsonFile} وأن تنسيقه صحيح.`);
             });
 
-        // دالة تعبئة بيانات المنتج والنصوص
+        // دالة تعبئة بيانات المنتج
         function populateProduct(data) {
             const product = data.product;
-            const texts = data.texts;
 
             document.getElementById('product-link').href = `${product.pageId}.html`;
             document.getElementById('product-image').src = product.image;
@@ -2230,17 +2229,15 @@
             document.getElementById('product-name').textContent = product.name;
             document.getElementById('product-sold').textContent = `${product.sold} مباعه - ${product.location}`;
             document.getElementById('product-price').textContent = product.price;
-            document.getElementById('currency').textContent = texts.currency;
-            document.getElementById('product-discount').textContent = `${texts.discountLabel} ${product.discount}%`;
+            document.getElementById('currency').textContent = "ر.س"; // العملة ثابتة هنا
+            document.getElementById('product-discount').textContent = `خصم ${product.discount}%`;
 
             const buyNowBtn = document.getElementById('buy-now-btn');
-            buyNowBtn.textContent = texts.buyNow;
             buyNowBtn.onclick = function() {
                 buyNow(product.name, product.productId, product.price, product.shippingPrice, product.colors, product.sizes);
             };
 
             const addToCartBtn = document.getElementById('add-to-cart-btn');
-            addToCartBtn.textContent = texts.addToCart;
             addToCartBtn.onclick = function() {
                 addToCart();
             };
