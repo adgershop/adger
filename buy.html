@@ -469,307 +469,318 @@
     </div>
 
     <script>
-    firebase.initializeApp({
-        apiKey: "AIzaSyBkEIs1GP17POkhQd378yl0_2ZcPqYNiDM",
-        authDomain: "buy-from-adger.firebaseapp.com",
-        databaseURL: "https://buy-from-adger-default-rtdb.firebaseio.com",
-        projectId: "buy-from-adger",
-        storageBucket: "buy-from-adger.appspot.com",
-        messagingSenderId: "396020785601",
-        appId: "1:396020785601:web:yourWebAppID" // استبدل بـ appId الخاص بك
-    });
-
-    const database = firebase.database();
-
-    function openModal() {
+        firebase.initializeApp({
+            apiKey: "AIzaSyBkEIs1GP17POkhQd378yl0_2ZcPqYNiDM",
+            authDomain: "buy-from-adger.firebaseapp.com",
+            databaseURL: "https://buy-from-adger-default-rtdb.firebaseio.com",
+            projectId: "buy-from-adger",
+            storageBucket: "buy-from-adger.appspot.com",
+            messagingSenderId: "396020785601",
+            appId: "1:396020785601:web:yourWebAppID" // استبدل بـ appId الخاص بك
+        });
+        
+        const database = firebase.database();
+        
+        function openModal() {
+            const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
+            if (savedDeliveryInfo) {
+                const deliveryInfo = JSON.parse(savedDeliveryInfo);
+                document.getElementById('name').value = deliveryInfo.name;
+                document.getElementById('phone').value = deliveryInfo.phone;
+                document.getElementById('email').value = deliveryInfo.email || '';
+                document.getElementById('governorate').value = deliveryInfo.governorate;
+                document.getElementById('city').value = deliveryInfo.city;
+                document.getElementById('street').value = deliveryInfo.street;
+                document.getElementById('landmark').value = deliveryInfo.landmark;
+            }
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('deliveryModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('deliveryModal').style.display = 'none';
+        }
+        
+        function saveDeliveryInfo() {
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const governorate = document.getElementById('governorate').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const street = document.getElementById('street').value.trim();
+            const landmark = document.getElementById('landmark').value.trim();
+        
+            document.querySelectorAll('.error-icon').forEach(error => error.style.display = 'none');
+        
+            let isValid = true;
+        
+            if (!name) {
+                document.getElementById('nameError').style.display = 'inline';
+                isValid = false;
+            }
+            if (!phone) {
+                document.getElementById('phoneError').style.display = 'inline';
+                isValid = false;
+            }
+            if (!email) {
+                document.getElementById('emailError').style.display = 'inline';
+                isValid = false;
+            }
+            if (!governorate) {
+                document.getElementById('governorateError').style.display = 'inline';
+                isValid = false;
+            }
+            if (!city) {
+                document.getElementById('cityError').style.display = 'inline';
+                isValid = false;
+            }
+            if (!street) {
+                document.getElementById('streetError').style.display = 'inline';
+                isValid = false;
+            }
+            if (!landmark) {
+                document.getElementById('landmarkError').style.display = 'inline';
+                isValid = false;
+            }
+        
+            const phoneRegex = /^01[0-2,5]{1}[0-9]{8}$/;
+            if (!phoneRegex.test(phone)) {
+                document.getElementById('phoneError').style.display = 'inline';
+                isValid = false;
+            }
+        
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').style.display = 'inline';
+                isValid = false;
+            }
+        
+            if (isValid) {
+                document.getElementById('displayName').textContent = name;
+                document.getElementById('displayPhone').textContent = phone;
+                document.getElementById('displayEmail').textContent = email;
+                document.getElementById('displayGovernorate').textContent = governorate;
+                document.getElementById('displayCity').textContent = city;
+                document.getElementById('displayStreet').textContent = street;
+                document.getElementById('displayLandmark').textContent = landmark;
+        
+                document.getElementById('deliveryInfoDisplay').style.display = 'block';
+        
+                const deliveryInfo = { name, phone, email, governorate, city, street, landmark };
+                localStorage.setItem('deliveryInfo', JSON.stringify(deliveryInfo));
+        
+                closeModal();
+            }
+        }
+        
+        function confirmPurchase() {
+            const purchaseSuccess = document.getElementById('purchaseSuccess');
+            const loadingDots = purchaseSuccess.querySelector('.loading-dots');
+            const checkmark = purchaseSuccess.querySelector('.checkmark-circle');
+            const successText = purchaseSuccess.querySelector('.success-text');
+        
+            if (purchaseSuccess.classList.contains('visible')) {
+                alert('لقد تم إتمام الشراء بالفعل!');
+                return;
+            }
+        
+            const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo')) || {};
+            
+            if (!deliveryInfo.name || !deliveryInfo.phone || !deliveryInfo.email || !deliveryInfo.governorate || !deliveryInfo.city || !deliveryInfo.street || !deliveryInfo.landmark) {
+                alert('يرجى إدخال جميع معلومات التوصيل أولاً.');
+                openModal();
+                return;
+            }
+        
+            const colorFieldVisible = document.getElementById('colorField').style.display === 'block';
+            const sizeFieldVisible = document.getElementById('sizeField').style.display === 'block';
+            const selectedColor = colorFieldVisible ? document.querySelector('.color-option.selected')?.dataset.color : null;
+            const selectedSize = sizeFieldVisible ? document.querySelector('.size-option.selected')?.dataset.size : null;
+        
+            if (colorFieldVisible && !selectedColor) {
+                alert('يرجى اختيار اللون أولاً.');
+                return;
+            }
+            if (sizeFieldVisible && !selectedSize) {
+                alert('يرجى اختيار المقاس أولاً.');
+                return;
+            }
+        
+            const username = localStorage.getItem('username');
+            if (!username) {
+                alert('يرجى تسجيل الدخول أولاً لإتمام الشراء.');
+                window.location.href = 'account.html';
+                return;
+            }
+        
+            const productName = document.getElementById('productNameText').textContent;
+            const productId = document.getElementById('productIdText').textContent;
+            const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
+            const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
+            const quantity = parseInt(document.getElementById('quantityValue').textContent);
+            const totalPrice = parseFloat(document.getElementById('totalPriceValue').textContent);
+        
+            const purchaseData = {
+                productName,
+                productId,
+                productPrice,
+                shippingPrice,
+                quantity,
+                totalPrice,
+                username,
+                deliveryInfo,
+                timestamp: Date.now()
+            };
+        
+            if (colorFieldVisible) purchaseData.color = selectedColor;
+            if (sizeFieldVisible) purchaseData.size = selectedSize;
+        
+            purchaseSuccess.classList.add('visible');
+            loadingDots.style.display = 'flex';
+            checkmark.style.display = 'none';
+            successText.style.display = 'none';
+        
+            database.ref('purchases').push(purchaseData)
+                .then(() => {
+                    loadingDots.style.display = 'none';
+                    checkmark.style.display = 'flex';
+                    successText.style.display = 'block';
+                    document.getElementById('confirmButtonText').textContent = 'تم الشراء';
+                    document.getElementById('confirmButton').disabled = true;
+        
+                    const purchaseParams = new URLSearchParams({
+                        productName: encodeURIComponent(productName),
+                        productId: encodeURIComponent(productId),
+                        productPrice: productPrice.toFixed(2),
+                        shippingPrice: shippingPrice.toFixed(2),
+                        totalPrice: totalPrice.toFixed(2),
+                        quantity: quantity,
+                        timestamp: purchaseData.timestamp
+                    });
+                    setTimeout(() => {
+                        window.location.href = `account.html?${purchaseParams.toString()}`;
+                    }, 1500);
+                })
+                .catch((error) => {
+                    console.error("Error writing to Firebase:", error);
+                    alert('حدث خطأ أثناء حفظ البيانات، يرجى المحاولة مرة أخرى.');
+                    purchaseSuccess.classList.remove('visible');
+                    loadingDots.style.display = 'none';
+                });
+        }
+        
+        // جلب البيانات من URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productName = urlParams.get('name');
+        const productId = urlParams.get('id');
+        const productPrice = parseFloat(urlParams.get('price')) || 0;
+        const shippingPrice = parseFloat(urlParams.get('shipping')) || 0;
+        const colorsParam = urlParams.get('colors'); // نأخذ القيمة كما هي دون فك التشفير مباشرة
+        const sizesParam = urlParams.get('sizes');
+        
+        // تحليل الألوان والمقاسات بشكل صحيح
+        let colors = [];
+        let sizes = [];
+        try {
+            colors = colorsParam ? JSON.parse(decodeURIComponent(colorsParam)) : [];
+            sizes = sizesParam ? JSON.parse(decodeURIComponent(sizesParam)) : [];
+        } catch (e) {
+            console.error('خطأ في تحليل الألوان أو المقاسات:', e);
+        }
+        
+        document.getElementById('productNameText').textContent = decodeURIComponent(productName);
+        document.getElementById('productIdText').textContent = decodeURIComponent(productId);
+        document.getElementById('productPriceText').textContent = productPrice.toFixed(2);
+        document.getElementById('shippingPriceText').textContent = shippingPrice.toFixed(2);
+        
+        const optionsContainer = document.getElementById('optionsContainer');
+        if (colors.length > 0 || sizes.length > 0) {
+            optionsContainer.style.display = 'block';
+        }
+        
+        if (colors.length > 0) {
+            const colorField = document.getElementById('colorField');
+            colorField.style.display = 'block';
+            const colorOptionsContainer = document.getElementById('colorOptions');
+            let firstColorSpan = null;
+            colors.forEach((color, index) => {
+                const colorSpan = document.createElement('span');
+                colorSpan.className = 'color-option';
+                colorSpan.textContent = color;
+                colorSpan.dataset.color = color;
+                colorSpan.onclick = function() {
+                    document.querySelectorAll('.color-option').forEach(option => option.classList.remove('selected'));
+                    colorSpan.classList.add('selected');
+                };
+                colorOptionsContainer.appendChild(colorSpan);
+                if (index === 0) firstColorSpan = colorSpan;
+            });
+            if (firstColorSpan) firstColorSpan.classList.add('selected');
+        } else {
+            document.getElementById('colorField').style.display = 'none'; // إخفاء حقل الألوان إذا لم تكن موجودة
+        }
+        
+        if (sizes.length > 0) {
+            const sizeField = document.getElementById('sizeField');
+            sizeField.style.display = 'block';
+            const sizeOptionsContainer = document.getElementById('sizeOptions');
+            let firstSizeSpan = null;
+            sizes.forEach((size, index) => {
+                const sizeSpan = document.createElement('span');
+                sizeSpan.className = 'size-option';
+                sizeSpan.textContent = size;
+                sizeSpan.dataset.size = size;
+                sizeSpan.onclick = function() {
+                    document.querySelectorAll('.size-option').forEach(option => option.classList.remove('selected'));
+                    sizeSpan.classList.add('selected');
+                };
+                sizeOptionsContainer.appendChild(sizeSpan);
+                if (index === 0) firstSizeSpan = sizeSpan;
+            });
+            if (firstSizeSpan) firstSizeSpan.classList.add('selected');
+        } else {
+            document.getElementById('sizeField').style.display = 'none'; // إخفاء حقل المقاسات إذا لم تكن موجودة
+        }
+        
         const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
         if (savedDeliveryInfo) {
             const deliveryInfo = JSON.parse(savedDeliveryInfo);
-            document.getElementById('name').value = deliveryInfo.name;
-            document.getElementById('phone').value = deliveryInfo.phone;
-            document.getElementById('email').value = deliveryInfo.email || '';
-            document.getElementById('governorate').value = deliveryInfo.governorate;
-            document.getElementById('city').value = deliveryInfo.city;
-            document.getElementById('street').value = deliveryInfo.street;
-            document.getElementById('landmark').value = deliveryInfo.landmark;
-        }
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('deliveryModal').style.display = 'flex';
-    }
-
-    function closeModal() {
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('deliveryModal').style.display = 'none';
-    }
-
-    function saveDeliveryInfo() {
-        const name = document.getElementById('name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const governorate = document.getElementById('governorate').value.trim();
-        const city = document.getElementById('city').value.trim();
-        const street = document.getElementById('street').value.trim();
-        const landmark = document.getElementById('landmark').value.trim();
-
-        document.querySelectorAll('.error-icon').forEach(error => error.style.display = 'none');
-
-        let isValid = true;
-
-        if (!name) {
-            document.getElementById('nameError').style.display = 'inline';
-            isValid = false;
-        }
-        if (!phone) {
-            document.getElementById('phoneError').style.display = 'inline';
-            isValid = false;
-        }
-        if (!email) {
-            document.getElementById('emailError').style.display = 'inline';
-            isValid = false;
-        }
-        if (!governorate) {
-            document.getElementById('governorateError').style.display = 'inline';
-            isValid = false;
-        }
-        if (!city) {
-            document.getElementById('cityError').style.display = 'inline';
-            isValid = false;
-        }
-        if (!street) {
-            document.getElementById('streetError').style.display = 'inline';
-            isValid = false;
-        }
-        if (!landmark) {
-            document.getElementById('landmarkError').style.display = 'inline';
-            isValid = false;
-        }
-
-        const phoneRegex = /^01[0-2,5]{1}[0-9]{8}$/;
-        if (!phoneRegex.test(phone)) {
-            document.getElementById('phoneError').style.display = 'inline';
-            isValid = false;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            document.getElementById('emailError').style.display = 'inline';
-            isValid = false;
-        }
-
-        if (isValid) {
-            document.getElementById('displayName').textContent = name;
-            document.getElementById('displayPhone').textContent = phone;
-            document.getElementById('displayEmail').textContent = email;
-            document.getElementById('displayGovernorate').textContent = governorate;
-            document.getElementById('displayCity').textContent = city;
-            document.getElementById('displayStreet').textContent = street;
-            document.getElementById('displayLandmark').textContent = landmark;
-
+            document.getElementById('displayName').textContent = deliveryInfo.name;
+            document.getElementById('displayPhone').textContent = deliveryInfo.phone;
+            document.getElementById('displayEmail').textContent = deliveryInfo.email || '';
+            document.getElementById('displayGovernorate').textContent = deliveryInfo.governorate;
+            document.getElementById('displayCity').textContent = deliveryInfo.city;
+            document.getElementById('displayStreet').textContent = deliveryInfo.street;
+            document.getElementById('displayLandmark').textContent = deliveryInfo.landmark;
             document.getElementById('deliveryInfoDisplay').style.display = 'block';
-
-            const deliveryInfo = { name, phone, email, governorate, city, street, landmark };
-            localStorage.setItem('deliveryInfo', JSON.stringify(deliveryInfo));
-
-            closeModal();
         }
-    }
-
-    function confirmPurchase() {
-        const purchaseSuccess = document.getElementById('purchaseSuccess');
-        const loadingDots = purchaseSuccess.querySelector('.loading-dots');
-        const checkmark = purchaseSuccess.querySelector('.checkmark-circle');
-        const successText = purchaseSuccess.querySelector('.success-text');
-
-        if (purchaseSuccess.classList.contains('visible')) {
-            alert('لقد تم إتمام الشراء بالفعل!');
-            return;
-        }
-
-        const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo')) || {};
         
-        if (!deliveryInfo.name || !deliveryInfo.phone || !deliveryInfo.email || !deliveryInfo.governorate || !deliveryInfo.city || !deliveryInfo.street || !deliveryInfo.landmark) {
-            alert('يرجى إدخال جميع معلومات التوصيل أولاً.');
-            openModal();
-            return;
-        }
-
-        const colorFieldVisible = document.getElementById('colorField').style.display === 'block';
-        const sizeFieldVisible = document.getElementById('sizeField').style.display === 'block';
-        const selectedColor = colorFieldVisible ? document.querySelector('.color-option.selected')?.dataset.color : null;
-        const selectedSize = sizeFieldVisible ? document.querySelector('.size-option.selected')?.dataset.size : null;
-
-        if (colorFieldVisible && !selectedColor) {
-            alert('يرجى اختيار اللون أولاً.');
-            return;
-        }
-        if (sizeFieldVisible && !selectedSize) {
-            alert('يرجى اختيار المقاس أولاً.');
-            return;
-        }
-
-        const username = localStorage.getItem('username'); // استرجاع اسم المستخدم
-        if (!username) {
-            alert('يرجى تسجيل الدخول أولاً لإتمام الشراء.');
-            window.location.href = 'account.html';
-            return;
-        }
-
-        const productName = document.getElementById('productNameText').textContent;
-        const productId = document.getElementById('productIdText').textContent;
-        const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
-        const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
-        const quantity = parseInt(document.getElementById('quantityValue').textContent);
-        const totalPrice = parseFloat(document.getElementById('totalPriceValue').textContent);
-
-        const purchaseData = {
-            productName,
-            productId,
-            productPrice,
-            shippingPrice,
-            quantity,
-            totalPrice,
-            username, // إضافة اسم المستخدم
-            deliveryInfo,
-            timestamp: Date.now()
-        };
-
-        if (colorFieldVisible) purchaseData.color = selectedColor;
-        if (sizeFieldVisible) purchaseData.size = selectedSize;
-
-        purchaseSuccess.classList.add('visible');
-        loadingDots.style.display = 'flex';
-        checkmark.style.display = 'none';
-        successText.style.display = 'none';
-
-        database.ref('purchases').push(purchaseData)
-            .then(() => {
-                loadingDots.style.display = 'none';
-                checkmark.style.display = 'flex';
-                successText.style.display = 'block';
-                document.getElementById('confirmButtonText').textContent = 'تم الشراء';
-                document.getElementById('confirmButton').disabled = true;
-
-                const purchaseParams = new URLSearchParams({
-                    productName: encodeURIComponent(productName),
-                    productId: encodeURIComponent(productId),
-                    productPrice: productPrice.toFixed(2),
-                    shippingPrice: shippingPrice.toFixed(2),
-                    totalPrice: totalPrice.toFixed(2),
-                    quantity: quantity,
-                    timestamp: purchaseData.timestamp
-                });
-                setTimeout(() => {
-                    window.location.href = `account.html?${purchaseParams.toString()}`;
-                }, 1500);
-            })
-            .catch((error) => {
-                console.error("Error writing to Firebase:", error);
-                alert('حدث خطأ أثناء حفظ البيانات، يرجى المحاولة مرة أخرى.');
-                purchaseSuccess.classList.remove('visible');
-                loadingDots.style.display = 'none';
-            });
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const productName = urlParams.get('name');
-    const productId = urlParams.get('id');
-    const productPrice = parseFloat(urlParams.get('price')) || 0;
-    const shippingPrice = parseFloat(urlParams.get('shipping')) || 0;
-    const colorsParam = decodeURIComponent(urlParams.get('colors') || '');
-    const sizesParam = decodeURIComponent(urlParams.get('sizes') || '');
-
-    const colors = colorsParam ? colorsParam.split(',') : [];
-    const sizes = sizesParam ? sizesParam.split(',') : [];
-
-    document.getElementById('productNameText').textContent = decodeURIComponent(productName);
-    document.getElementById('productIdText').textContent = decodeURIComponent(productId);
-    document.getElementById('productPriceText').textContent = productPrice.toFixed(2);
-    document.getElementById('shippingPriceText').textContent = shippingPrice.toFixed(2);
-
-    const optionsContainer = document.getElementById('optionsContainer');
-    if (colors.length > 0 || sizes.length > 0) {
-        optionsContainer.style.display = 'block';
-    }
-
-    if (colors.length > 0) {
-        const colorField = document.getElementById('colorField');
-        colorField.style.display = 'block';
-        const colorOptionsContainer = document.getElementById('colorOptions');
-        let firstColorSpan = null;
-        colors.forEach((color, index) => {
-            const colorSpan = document.createElement('span');
-            colorSpan.className = 'color-option';
-            colorSpan.textContent = color;
-            colorSpan.dataset.color = color;
-            colorSpan.onclick = function() {
-                document.querySelectorAll('.color-option').forEach(option => option.classList.remove('selected'));
-                colorSpan.classList.add('selected');
-            };
-            colorOptionsContainer.appendChild(colorSpan);
-            if (index === 0) firstColorSpan = colorSpan;
-        });
-        if (firstColorSpan) firstColorSpan.classList.add('selected');
-    }
-
-    if (sizes.length > 0) {
-        const sizeField = document.getElementById('sizeField');
-        sizeField.style.display = 'block';
-        const sizeOptionsContainer = document.getElementById('sizeOptions');
-        sizes.forEach(size => {
-            const sizeSpan = document.createElement('span');
-            sizeSpan.className = 'size-option';
-            sizeSpan.textContent = size;
-            sizeSpan.dataset.size = size;
-            sizeSpan.onclick = function() {
-                document.querySelectorAll('.size-option').forEach(option => option.classList.remove('selected'));
-                sizeSpan.classList.add('selected');
-            };
-            sizeOptionsContainer.appendChild(sizeSpan);
-        });
-    }
-
-    const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
-    if (savedDeliveryInfo) {
-        const deliveryInfo = JSON.parse(savedDeliveryInfo);
-        document.getElementById('displayName').textContent = deliveryInfo.name;
-        document.getElementById('displayPhone').textContent = deliveryInfo.phone;
-        document.getElementById('displayEmail').textContent = deliveryInfo.email || '';
-        document.getElementById('displayGovernorate').textContent = deliveryInfo.governorate;
-        document.getElementById('displayCity').textContent = deliveryInfo.city;
-        document.getElementById('displayStreet').textContent = deliveryInfo.street;
-        document.getElementById('displayLandmark').textContent = deliveryInfo.landmark;
-        document.getElementById('deliveryInfoDisplay').style.display = 'block';
-    }
-
-    let quantity = 1;
-
-    function increaseQuantity() {
-        quantity++;
-        document.getElementById('quantityValue').textContent = quantity;
-        updateTotalPrice();
-    }
-
-    function decreaseQuantity() {
-        if (quantity > 1) {
-            quantity--;
+        let quantity = 1;
+        
+        function increaseQuantity() {
+            quantity++;
             document.getElementById('quantityValue').textContent = quantity;
             updateTotalPrice();
         }
-    }
-
-    function updateTotalPrice() {
-        const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
-        const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
-        const totalPrice = (productPrice * quantity) + shippingPrice;
-        document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2);
-    }
-
-    updateTotalPrice();
-    </script>
-</body>
-</html>
-
-
+        
+        function decreaseQuantity() {
+            if (quantity > 1) {
+                quantity--;
+                document.getElementById('quantityValue').textContent = quantity;
+                updateTotalPrice();
+            }
+        }
+        
+        function updateTotalPrice() {
+            const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
+            const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
+            const totalPrice = (productPrice * quantity) + shippingPrice;
+            document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2);
+        }
+        
+        updateTotalPrice();
+        </script>
 
 
 
