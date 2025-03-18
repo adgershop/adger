@@ -51,14 +51,16 @@
         ]
         ,
         "name": "ساعة تاتتش تعمل باللمس",
-    "image": "1.jpg",
-    "sold": 22,
-    "location": "adger",
-    "displayPrice": "44",
-    "discount": "323%",
-    "price": "200",
-    "shippingPrice": "100"
-
+        "image": "1.jpg",
+        "link": "1.html",
+        "sold": "22",
+        "location": "adger",
+        "price": "200",
+        "discount": "323",
+        "shippingPrice": "100",
+        "colors": ["أسود", "أبيض", "أحمر", "أزرق"],
+        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "id": "#1"
     
     },
 

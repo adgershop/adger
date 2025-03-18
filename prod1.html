@@ -2176,72 +2176,64 @@
 </head>
 <body>
     <div class="image-container product">
-        <div class="image-frame" style="display: none;">
-            <a href="#">
-                <img src="" alt="">
+        <div class="image-frame" id="product-frame" style="display: none;">
+            <a id="product-link">
+                <img id="product-image" alt="">
             </a>
             <div class="text-under">
-                <h1></h1>
-                <h2></h2>
+                <h1 id="product-name"></h1>
+                <h2 id="product-sold"></h2>
                 <div class="container">
                     <div class="zero">00.</div>
-                    <div class="number"></div>
+                    <div class="number" id="product-price"></div>
                     <div class="letter">جنيه</div>
                 </div>
-                <h3></h3>
+                <h3 id="product-discount"></h3>
             </div>
         </div>
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
-                <div class="buy-now-text" onclick="buyNow()">شراء الآن</div>
+                <div class="buy-now-text" id="buy-now-btn">شراء الآن</div>
                 <div class="add-to-cart-text" onclick="addToCart()">إضافة إلى العربة</div>
             </div>
         </div>
     </div>
-    <script>
-        // متغير عام لتخزين بيانات المنتج
-        let productData;
 
-        // جلب البيانات عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
-            if (!id) {
-                alert('لم يتم توفير معرف المنتج');
-                return;
-            }
-            fetch(`products-${id}.json`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('فشل في جلب بيانات المنتج');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    productData = data;
-                    // تحديث عناصر HTML
-                    document.querySelector('.text-under h1').textContent = data.name;
-                    document.querySelector('.image-frame img').src = data.image;
-                    document.querySelector('.image-frame img').alt = data.name;
-                    document.querySelector('.text-under h2').textContent = `${data.sold} مباعه - ${data.location}`;
-                    document.querySelector('.container .number').textContent = data.displayPrice;
-                    document.querySelector('h3').textContent = `discount ${data.discount}`;
-                    // إظهار إطار الصورة بعد التحميل
-                    document.querySelector('.image-frame').style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('خطأ في جلب بيانات المنتج:', error);
-                    alert('خطأ في تحميل بيانات المنتج');
-                });
-        });
+    <script>
+        // تحديد رقم الصفحة (يمكن تمريره عبر URL أو يدويًا)
+        const pageNumber = 1; // يمكنك تغييره لـ 2، 3، إلخ لتحميل ملفات JSON مختلفة
+        const jsonFile = `products-${pageNumber}.json`;
+
+        // جلب بيانات JSON
+        fetch(jsonFile)
+            .then(response => response.json())
+            .then(data => {
+                const product = data[0]; // افتراض أن كل ملف يحتوي على منتج واحد فقط في هذا المثال
+                loadProduct(product);
+            })
+            .catch(error => console.error('خطأ في جلب بيانات JSON:', error));
+
+        // تحميل بيانات المنتج في الصفحة
+        function loadProduct(product) {
+            document.getElementById('product-frame').style.display = 'block';
+            document.getElementById('product-link').href = product.link;
+            document.getElementById('product-image').src = product.image;
+            document.getElementById('product-image').alt = product.name;
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-sold').textContent = `${product.sold} مباعه - ${product.location}`;
+            document.getElementById('product-price').textContent = product.price;
+            document.getElementById('product-discount').textContent = `discount ${product.discount}%`;
+
+            // إعداد زر "شراء الآن" مع البيانات من JSON
+            const buyNowBtn = document.getElementById('buy-now-btn');
+            buyNowBtn.onclick = function() {
+                buyNow(product.name, product.id, product.price, product.shippingPrice, product.colors, product.sizes);
+            };
+        }
 
         // دالة شراء الآن
-        function buyNow() {
-            if (!productData) {
-                alert('بيانات المنتج غير محملة');
-                return;
-            }
-            window.location.href = `buy.html?name=${encodeURIComponent(productData.name)}&id=${encodeURIComponent(productData.id)}&price=${encodeURIComponent(productData.price)}&shipping=${encodeURIComponent(productData.shippingPrice)}`;
+        function buyNow(productName, productId, productPrice, shippingPrice, colors, sizes) {
+            window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(colors.join(','))}&sizes=${encodeURIComponent(sizes.join(','))}`;
         }
 
         // دالة إضافة إلى العربة
