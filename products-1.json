@@ -62,8 +62,6 @@
             "sizes": ["S", "M", "L"]
         },
         "texts": {
-            "buyNow": "اشتري الآن",
-            "addToCart": "أضف إلى السلة",
             "currency": "جنيه",
             "discountLabel": "خصم"
         }

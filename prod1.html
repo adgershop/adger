@@ -2193,8 +2193,8 @@
         </div>
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
-                <div class="buy-now-text" id="buy-now-btn"></div>
-                <div class="add-to-cart-text" id="add-to-cart-btn" onclick="addToCart(this)"></div>
+                <div class="buy-now-text" id="buy-now-btn">اشتري الآن</div>
+                <div class="add-to-cart-text" id="add-to-cart-btn" onclick="addToCart(this)">أضف إلى السلة</div>
             </div>
         </div>
     </div>
@@ -2238,16 +2238,11 @@
             document.getElementById('currency').textContent = texts.currency;
             document.getElementById('product-discount').textContent = `${texts.discountLabel} ${product.discount}%`;
 
-            // تحديث زر "شراء الآن"
+            // تحديث زر "شراء الآن" (النص موجود في HTML، نضيف الحدث فقط)
             const buyNowBtn = document.getElementById('buy-now-btn');
-            buyNowBtn.textContent = texts.buyNow;
             buyNowBtn.onclick = function() {
                 buyNow(product.name, product.productId, product.price, product.shippingPrice, product.colors, product.sizes);
             };
-
-            // تحديث زر "إضافة إلى العربة" (النص فقط، الحدث معرف في HTML)
-            const addToCartBtn = document.getElementById('add-to-cart-btn');
-            addToCartBtn.textContent = texts.addToCart;
         }
 
         // دالة شراء الآن
