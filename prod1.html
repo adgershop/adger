@@ -2054,7 +2054,6 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2125,17 +2124,16 @@
             margin: 5px 0 0 8px;
         }
 
-      .bottom-buttons {
-    position: fixed;
-    bottom: -3px;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    z-index: 1;
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* لون أفتح */
-    margin-bottom: 3px; /* رفع الخط قليلاً */
-}
-
+        .bottom-buttons {
+            position: fixed;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 3px;
+        }
 
         .buttons-wrapper {
             display: flex;
@@ -2156,13 +2154,13 @@
             justify-content: center;
             border-radius: 45px;
             user-select: none;
-            box-sizing: border-box; /* يضمن احتساب الحدود ضمن الارتفاع */
+            box-sizing: border-box;
         }
 
         .add-to-cart-text {
             background-color: #ffffff;
             color: #1a1a1a;
-            border: 1px solid black; /* سمك الخط تم تقليله إلى 1px */
+            border: 1px solid black;
         }
 
         .add-to-cart-text:hover {
@@ -2179,8 +2177,6 @@
     </style>
 </head>
 <body>
-
-
     <div class="image-container product" id="product-container">
         <div class="image-frame" id="product-frame" style="display: none;">
             <a id="product-link" href="">
@@ -2200,15 +2196,21 @@
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
                 <div class="buy-now-text" id="buy-now-btn">شراء الآن</div>
-                <script>
-                    function buyNow(productName, productId, productPrice, shippingPrice) {
-                        // توجيه المستخدم إلى صفحة buy.html مع إضافة المعلمات إلى عنوان URL
-                        window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}`;
-                    }
-                    </script>
-                   <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
-                </div>
-            </div>
+            </script>
+            <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
+         </div>
+     </div>
+     
+     <script>
+         function addToCart() {
+             alert("تمت إضافة المنتج إلى العربة!");
+         }
+     
+     </script>
+     
+     </body>
+ 
+ 
         </div>
     </div>
 
@@ -2265,11 +2267,6 @@
     </script>
 </body>
 </html>
-
-
-    
-        
-
 
 
 
