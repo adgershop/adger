@@ -50,14 +50,17 @@
                 ]
             }
         ],
-        "name": "ساعة تاتش تعمل باللمس",
-        "link": "1.html",
+        "name": "ساعة تاتتش تعمل باللمس",
         "image": "1.jpg",
-        "sold": "22",
-        "location": "adger",
-        "itemCost": "44",
-        "saleOffer": "323",
-        "shipping": "100"
+        "link": "1.html",
+        "newDescription": "ساعة تاتش تعمل باللمس",
+        "sold": "22 مباعه - adger",
+        "priceId": "P001",
+        "newPrice": "200",
+        "shippingPrice": "100",
+        "currency": "جنيه",
+        "discountId": "D001",
+        "newDiscount": "323%"
     
     },
 
