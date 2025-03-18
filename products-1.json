@@ -49,9 +49,20 @@
                     "path/to/video1.mp4"
                 ]
             }
-        ]
+        ],
+        "name": "ساعة تاتش تعمل باللمس",
+        "link": "1.html",
+        "image": "1.jpg",
+        "sold": "22",
+        "location": "adger",
+        "price": "44",
+        "discount": "323",
+        "shipping": "1"
     
     },
+
+
+    
     {
         "id": "2",
         "media": [

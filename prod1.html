@@ -1725,7 +1725,6 @@
     </html>
 
 
-
     <div class="line3"></div>
 
     <!DOCTYPE html>
@@ -2047,10 +2046,6 @@
 
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2063,82 +2058,68 @@
             margin: 0;
             padding: 0;
         }
-
         .image-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 20px;
         }
-
         .image-frame {
             position: relative;
             text-align: center;
             margin-bottom: 20px;
         }
-
         .image-frame img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
         }
-
         .text-under {
             text-align: center;
             margin-top: 10px;
         }
-
         .text-under h1 {
             font-size: 18px;
             margin: 5px 0;
         }
-
         .text-under h2 {
             font-size: 13px;
             color: #ffc400;
             margin-top: -5px;
         }
-
         .container {
             display: flex;
             align-items: center;
             gap: 5px;
             margin-top: 10px;
         }
-
         .container .zero, .container .number, .container .letter {
             font-size: 16px;
         }
-
         .container .number {
             font-size: 28px;
         }
-
         h3 {
             font-size: 12px;
             color: #ff0000;
             text-transform: uppercase;
             margin: 5px 0 0 8px;
         }
-
-      .bottom-buttons {
-    position: fixed;
-    bottom: -3px;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    z-index: 1;
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* لون أفتح */
-    margin-bottom: 3px; /* رفع الخط قليلاً */
-}
-
-
+        .bottom-buttons {
+            position: fixed;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 3px;
+        }
         .buttons-wrapper {
             display: flex;
             padding: 8px;
             gap: 10px;
         }
-
         .add-to-cart-text, .buy-now-text {
             flex: 1;
             color: #ffffff;
@@ -2152,66 +2133,102 @@
             justify-content: center;
             border-radius: 45px;
             user-select: none;
-            box-sizing: border-box; /* يضمن احتساب الحدود ضمن الارتفاع */
+            box-sizing: border-box;
         }
-
         .add-to-cart-text {
             background-color: #ffffff;
             color: #1a1a1a;
-            border: 1px solid black; /* سمك الخط تم تقليله إلى 1px */
+            border: 1px solid black;
         }
-
         .add-to-cart-text:hover {
             background-color: #c2c2c23f;
         }
-
         .buy-now-text {
             background-color: #ff6600;
         }
-
         .buy-now-text:hover {
             background-color: #ff5100;
         }
     </style>
 </head>
 <body>
-    <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
-        <div class="image-frame" style="display: none;">
-            <a href="1.html">
-                <img src="1.jpg" alt="ساعة تاتتش تعمل باللمس">
+    <div class="image-container product">
+        <div class="image-frame">
+            <a href="#" id="productLink">
+                <img id="productImage" src="" alt="">
             </a>
             <div class="text-under">
-                <h1>ساعة تاتش تعمل باللمس</h1>
-                <h2>22 مباعه - adger</h2>
+                <h1 id="productName"></h1>
+                <h2 id="productStats"></h2>
                 <div class="container">
-                    <div class="zero">00.</div>
-                    <div class="number">44</div>
+                    <div class="zero" id="priceZero">00.</div>
+                    <div class="number" id="priceNumber"></div>
                     <div class="letter">جنيه</div>
                 </div>
-                <h3>خصم 323%</h3>
+                <h3 id="discountText"></h3>
             </div>
         </div>
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
-                <div class="buy-now-text" onclick="buyNow('ساعة تاتتش تعمل باللمس', '#1', '200', '100', ['أسود', 'أبيض', 'أحمر', 'أزرق'], ['S', 'M', 'L', 'XL', 'XXL'])">شراء الآن</div>
-                <script>
-                    function buyNow(productName, productId, productPrice, shippingPrice) {
-                        // توجيه المستخدم إلى صفحة buy.html مع إضافة المعلمات إلى عنوان URL
-                        window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}`;
-                    }
-                    </script>
-                   <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
-                </div>
+                <div class="buy-now-text" id="buyNowButton">شراء الآن</div>
+                <div class="add-to-cart-text" id="addToCartButton">إضافة إلى العربة</div>
             </div>
-            
-            <script>
-                function addToCart() {
-                    alert("تمت إضافة المنتج إلى العربة!");
-                }
-            
-            </script>
-            
-            </body>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // استخراج معرف المنتج من URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+
+            if (productId) {
+                const productsPerFile = 100; // عدد المنتجات في كل ملف
+                const fileIndex = Math.ceil(parseInt(productId) / productsPerFile);
+                const jsonFile = `products-${fileIndex}.json`;
+
+                fetch(jsonFile)
+                    .then(response => {
+                        if (!response.ok) throw new Error('الملف غير موجود');
+                        return response.json();
+                    })
+                    .then(products => {
+                        const product = products.find(p => p.id === productId);
+                        if (!product) {
+                            document.getElementById('productName').textContent = 'المنتج غير موجود';
+                            return;
+                        }
+
+                        // تحديث العناصر بالبيانات من JSON
+                        document.getElementById('productLink').href = product.link || '#';
+                        document.getElementById('productImage').src = product.image;
+                        document.getElementById('productImage').alt = product.name;
+                        document.getElementById('productName').textContent = product.name;
+                        document.getElementById('productStats').textContent = `${product.sold} مباعة - ${product.location}`;
+                        document.getElementById('priceNumber').textContent = product.price;
+                        document.getElementById('discountText').textContent = `خصم ${product.discount}%`;
+
+                        // تحديث زر "شراء الآن" مع البيانات
+                        document.getElementById('buyNowButton').onclick = function() {
+                            window.location.href = `buy.html?name=${encodeURIComponent(product.name)}&id=${encodeURIComponent(product.id)}&price=${encodeURIComponent(product.price)}&shipping=${encodeURIComponent(product.shipping)}`;
+                        };
+
+                        // تحديث زر "إضافة إلى العربة"
+                        document.getElementById('addToCartButton').onclick = function() {
+                            alert(`تمت إضافة ${product.name} إلى العربة!`);
+                        };
+                    })
+                    .catch(error => {
+                        console.error('خطأ في جلب البيانات:', error);
+                        document.getElementById('productName').textContent = 'حدث خطأ أثناء تحميل البيانات';
+                    });
+            } else {
+                document.getElementById('productName').textContent = 'يرجى تحديد معرف المنتج في URL';
+            }
+        });
+    </script>
+</body>
+</html>
         
         
 
