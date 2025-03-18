@@ -2076,7 +2076,6 @@
             position: relative;
             text-align: center;
             margin-bottom: 20px;
-            display: none !important;
         }
 
         .image-frame img {
@@ -2177,7 +2176,7 @@
 </head>
 <body>
     <div class="image-container product" id="product-container">
-        <div class="image-frame" id="product-frame" style="display: none;">
+        <div class="image-frame" id="product-frame">
             <a id="product-link" href="">
                 <img id="product-image" src="" alt="">
             </a>
@@ -2201,40 +2200,37 @@
     </div>
 
     <script>
-        // جلب رقم الصفحة من URL
-        const url = new URL(window.location.href);
-        const pageNumber = url.searchParams.get('page') || '1';
-        const jsonFile = `products-${pageNumber}.json`;
+        // بيانات مدمجة داخل الكود
+        const data = {
+            product: {
+                image: "https://via.placeholder.com/300", // رابط صورة تجريبية
+                name: "اسم المنتج",
+                sold: "100",
+                location: "القاهرة",
+                price: "500",
+                discount: "20",
+                pageId: "product1",
+                productId: "12345",
+                shippingPrice: "50",
+                colors: ["أحمر", "أزرق"],
+                sizes: ["S", "M", "L"]
+            },
+            texts: {
+                buyNow: "اشتري الآن",
+                addToCart: "أضف إلى السلة",
+                currency: "جنيه",
+                discountLabel: "خصم"
+            }
+        };
 
-        // جلب بيانات JSON
-        fetch(jsonFile)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`خطأ في جلب الملف: ${response.status} - ${response.statusText}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                populateProduct(data);
-            })
-            .catch(error => {
-                console.error('خطأ في جلب بيانات JSON:', error);
-                alert(`حدث خطأ أثناء جلب بيانات المنتج: ${error.message}\nتأكد من وجود ملف ${jsonFile} وأن تنسيقه صحيح.`);
-            });
+        // تعبئة البيانات مباشرة
+        populateProduct(data);
 
-        // تعبئة بيانات المنتج والنصوص
+        // دالة تعبئة بيانات المنتج والنصوص
         function populateProduct(data) {
             const product = data.product;
             const texts = data.texts;
 
-            // تحقق من وجود البيانات
-            if (!product || !texts) {
-                throw new Error('بيانات المنتج أو النصوص غير موجودة في ملف JSON');
-            }
-
-            // تعبئة بيانات المنتج
-            const productFrame = document.getElementById('product-frame');
-            productFrame.style.display = 'block !important'; // إصلاح مشكلة العرض
             document.getElementById('product-link').href = `${product.pageId}.html`;
             document.getElementById('product-image').src = product.image;
             document.getElementById('product-image').alt = product.name;
@@ -2244,7 +2240,6 @@
             document.getElementById('currency').textContent = texts.currency;
             document.getElementById('product-discount').textContent = `${texts.discountLabel} ${product.discount}%`;
 
-            // تعبئة نصوص الأزرار
             const buyNowBtn = document.getElementById('buy-now-btn');
             buyNowBtn.textContent = texts.buyNow;
             buyNowBtn.onclick = function() {
