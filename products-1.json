@@ -48,30 +48,22 @@
                 ]
             }
         ],
-        
-            
-        
-            
-                "product": {
-                    "pageId": "product-1",
-                    "image": "images/product-1.jpg",
-                    "name": "منتج معدل",
-                    "sold": 150,
-                    "location": "المدينة B",
-                    "price": "300",
-                    "discount": 25,
-                    "productId": "67890",
-                    "shippingPrice": "20",
-                    "colors": ["أبيض", "أسود"],
-                    "sizes": ["M", "L", "XL"]
-                },
-                "texts": {
-                    "currency": "ر.س",
-                    "discountLabel": "خصم"
-                }
-            
-        
-            
-        
+        "product": {
+            "image": "https://via.placeholder.com/300",
+            "name": "اسم المنتج",
+            "sold": "100",
+            "location": "القاهرة",
+            "price": "500",
+            "discount": "20",
+            "pageId": "product1",
+            "productId": "12345",
+            "shippingPrice": "570",
+            "colors": ["أح4مر", "أزرق"],
+            "sizes": ["S", "M", "L"]
+        },
+        "texts": {
+            "currency": "جنيه",
+            "discountLabel": "خصم"
+        }
     }
 ]
