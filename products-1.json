@@ -57,7 +57,9 @@
             "price": "250",
             "discount": "15",
             "productId": "SM123",
-            "shippingPrice": "20"
+            "shippingPrice": "20",
+            "colors": ["أسود", "أبيض"],
+            "sizes": ["واحد"]
         },
         "texts": {
             "currency": "ريال",
