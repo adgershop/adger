@@ -542,37 +542,46 @@
             white-space: nowrap;
         }
 
+        /* تصميم نص الوصف */
+        #productDesc {
+            color: #000000;
+            margin-top: 15px;
+            font-size: 15px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 400;
+            margin-right: 16px;
+            margin-left: 16px;
+            direction: rtl;
+            text-align: right;
+            line-height: 1.5;
+            display: none;
+        }
+
         /* تنسيق خاص بالهواتف */
         @media only screen and (max-width: 768px) {
-            #hop {
+            #hop, #productDesc {
                 position: relative;
             }
         }
 
         /* للشاشات المتوسطة */
         @media only screen and (min-width: 769px) and (max-width: 1199px) {
-            #hop {
+            #hop, #productDesc {
                 font-size: 17px;
             }
         }
 
         /* للشاشات الكبيرة */
         @media only screen and (min-width: 1200px) and (max-width: 1999px) {
-            #hop {
+            #hop, #productDesc {
                 font-size: 16px;
             }
         }
 
         /* للشاشات الأكبر من 2000 */
         @media only screen and (min-width: 2000px) {
-            #hop {
+            #hop, #productDesc {
                 font-size: 16px;
-            }
-            #hop .short-text, #hop .more-btn {
-                display: none;
-            }
-            #hop .full-text {
-                display: inline;
             }
         }
     </style>
@@ -600,6 +609,10 @@
 
     <div class="second-text" id="sales" style="margin-top: -11px; font-size: 14px; font-family: Cairo, sans-serif; color: #000; margin-right: 29px; margin-bottom: 11px;">
         5 مباع
+    </div>
+
+    <div id="productDesc">
+        <!-- سيتم ملء هذا الحقل بنص الوصف من JSON -->
     </div>
 
     <script>
@@ -667,6 +680,8 @@
                     const hopContainer = document.getElementById('hop');
                     if (product.longText) {
                         hopContainer.textContent = product.longText;
+                        hopContainer.style.display = 'block'; // إظهار النص الطويل
+                        initializeLongText();
                     } else {
                         hopContainer.style.display = 'none';
                     }
@@ -680,9 +695,13 @@
                         salesElement.style.display = 'none';
                     }
 
-                    // تهيئة النص الطويل إذا كان موجودًا
-                    if (product.longText) {
-                        initializeLongText();
+                    // تحديث نص الوصف
+                    const descElement = document.getElementById('productDesc');
+                    if (product.desc) {
+                        descElement.textContent = product.desc;
+                        descElement.style.display = 'block'; // إظهار الوصف
+                    } else {
+                        descElement.style.display = 'none';
                     }
                 })
                 .catch(error => {
@@ -743,10 +762,6 @@
                     moreBtn.addEventListener('click', () => {
                         container.classList.toggle('expanded');
                     });
-
-                    container.style.display = 'block';
-                } else {
-                    container.style.display = 'block';
                 }
             };
 
@@ -760,7 +775,6 @@
                     truncateText(originalText, charLimitLarge);
                 } else {
                     container.textContent = originalText;
-                    container.style.display = 'block';
                 }
             };
 
@@ -778,6 +792,7 @@
         });
     </script>
 </body>
+</html>
 </html>
            
 
