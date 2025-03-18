@@ -33,18 +33,14 @@
             {
                 "type": "images",
                 "items": [
-                    "1.jpg",
-                    "path/to/image2.jpg",
-                    "path/to/image3.jpg",
-                    "path/to/image4.jpg",
-                    "path/to/image5.jpg"
+                    "1.jpg"
+                 
                 ]
             },
             {
                 "type": "mixed",
                 "items": [
-                    "path/to/image6.jpg",
-                    "path/to/video1.mp4"
+              
                 ]
             }
         ],
@@ -57,7 +53,9 @@
             "discount": "20",
             "pageId": "product1",
             "productId": "12345",
-            "shippingPrice": "50"
+            "shippingPrice": "50",
+            "colors": ["أحمر", "أزرق"],
+            "sizes": ["S", "M", "L"]
         },
         "texts": {
             "currency": "جنيه",
