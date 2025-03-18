@@ -48,18 +48,22 @@
                 ]
             }
         ],
+        
+            
+        
+            
         "product": {
             "pageId": "product-1",
             "image": "images/product-1.jpg",
-            "name": "منتج 1",
-            "sold": 100,
-            "location": "المدينة A",
-            "price": "250",
-            "discount": 20,
-            "productId": "12345",
-            "shippingPrice": "15",
-            "colors": ["أحمر", "أزرق", "أخضر"],
-            "sizes": ["S", "M", "L"]
+            "name": "منتج معدل",
+            "sold": 150,
+            "location": "المدينة B",
+            "price": "300",
+            "discount": 25,
+            "productId": "67890",
+            "shippingPrice": "20",
+            "colors": ["أبيض", "أسود"],
+            "sizes": ["M", "L", "XL"]
         },
         "texts": {
             "currency": "ر.س",
@@ -67,5 +71,9 @@
             "buyNow": "اشترِ الآن",
             "addToCart": "أضف إلى العربة"
         }
+            
+        
+            
+        
     }
 ]
