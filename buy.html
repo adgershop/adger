@@ -388,9 +388,6 @@
     <div class="product-info">
         <strong>سعر الشحن:</strong> <span id="shippingPriceText"></span> جنيه
     </div>
-    <div class="product-info">
-        <strong>السعر الإجمالي:</strong> <span id="totalPriceText"></span> جنيه
-    </div>
     <br>
 
     <button type="button" onclick="openModal()" style="
@@ -631,7 +628,7 @@
             shippingPrice,
             quantity,
             totalPrice,
-            username,
+            username, // إضافة اسم المستخدم
             deliveryInfo,
             timestamp: Date.now()
         };
@@ -678,18 +675,16 @@
     const productId = urlParams.get('id');
     const productPrice = parseFloat(urlParams.get('price')) || 0;
     const shippingPrice = parseFloat(urlParams.get('shipping')) || 0;
-    const colorsParam = urlParams.get('colors') ? decodeURIComponent(urlParams.get('colors')) : '[]';
-    const sizesParam = urlParams.get('sizes') ? decodeURIComponent(urlParams.get('sizes')) : '[]';
+    const colorsParam = decodeURIComponent(urlParams.get('colors') || '');
+    const sizesParam = decodeURIComponent(urlParams.get('sizes') || '');
 
-    // تحليل المصفوفات بشكل صحيح باستخدام JSON.parse
-    const colors = JSON.parse(colorsParam);
-    const sizes = JSON.parse(sizesParam);
+    const colors = colorsParam ? colorsParam.split(',') : [];
+    const sizes = sizesParam ? sizesParam.split(',') : [];
 
     document.getElementById('productNameText').textContent = decodeURIComponent(productName);
     document.getElementById('productIdText').textContent = decodeURIComponent(productId);
     document.getElementById('productPriceText').textContent = productPrice.toFixed(2);
     document.getElementById('shippingPriceText').textContent = shippingPrice.toFixed(2);
-    document.getElementById('totalPriceText').textContent = (productPrice + shippingPrice).toFixed(2);
 
     const optionsContainer = document.getElementById('optionsContainer');
     if (colors.length > 0 || sizes.length > 0) {
@@ -720,8 +715,7 @@
         const sizeField = document.getElementById('sizeField');
         sizeField.style.display = 'block';
         const sizeOptionsContainer = document.getElementById('sizeOptions');
-        let firstSizeSpan = null;
-        sizes.forEach((size, index) => {
+        sizes.forEach(size => {
             const sizeSpan = document.createElement('span');
             sizeSpan.className = 'size-option';
             sizeSpan.textContent = size;
@@ -731,9 +725,7 @@
                 sizeSpan.classList.add('selected');
             };
             sizeOptionsContainer.appendChild(sizeSpan);
-            if (index === 0) firstSizeSpan = sizeSpan;
         });
-        if (firstSizeSpan) firstSizeSpan.classList.add('selected');
     }
 
     const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
@@ -769,8 +761,7 @@
         const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
         const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
         const totalPrice = (productPrice * quantity) + shippingPrice;
-        document.getElementById('totalPriceText').textContent = totalPrice.toFixed(2); // تحديث السعر الإجمالي أسفل سعر الشحن
-        document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2); // تحديث السعر الإجمالي في الفوتر
+        document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2);
     }
 
     updateTotalPrice();
