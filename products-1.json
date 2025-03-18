@@ -49,28 +49,40 @@
                     "path/to/video1.mp4"
                 ]
             }
-        ],
-        "name": "ساعة تاتتش تعمل باللمس",
-        "image": "1.jpg",
-        "link": "1.html",
-        "newDescription": "ساعة تاتش تعمل باللمس",
-        "sold": "22 مباعه - adger",
-        "priceId": "P001",
-        "newPrice": "200",
-        "shippingPrice": "100",
-        "currency": "جنيه",
-        "discountId": "D001",
-        "newDiscount": "323%"
+        ]
+        
     
     },
 
 
     
-    {
-        "id": "2",
-        "media": [
-            {"src": "2_1.jpg", "type": "image"},
-            {"src": "2_2.jpg", "type": "image"}
-        ]
-    }
-]
+    
+        {
+            "id": "1",
+            "name": "ساعة تاتتش تعمل باللمس",
+            "image": "1.jpg",
+            "link": "1.html",
+            "description": "ساعة تاتش تعمل باللمس",
+            "sold": "22 مباعه - adger",
+            "price": "200",
+            "shippingPrice": "100",
+            "currency": "جنيه",
+            "discount": "323%",
+            "colors": ["أسود", "أبيض", "أحمر", "أزرق"],
+            "sizes": ["S", "M", "L", "XL", "XXL"]
+        },
+        {
+            "id": "2",
+            "name": "سماعات بلوتوث لاسلكية",
+            "image": "2.jpg",
+            "link": "2.html",
+            "description": "سماعات بلوتوث عالية الجودة",
+            "sold": "50 مباعه - techzone",
+            "price": "150",
+            "shippingPrice": "50",
+            "currency": "جنيه",
+            "discount": "150%",
+            "colors": ["أسود", "أبيض"],
+            "sizes": []
+        }
+    ]
