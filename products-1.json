@@ -59,8 +59,9 @@
             "location": "adger",
             "price": "200",
             "shippingPrice": "100",
-            "discount": "323"
-       
+            "discount": "323",
+            "colors": ["أس4ود", "أبيض", "أحمر", "أزرق"],
+            "sizes": ["S", "M", "L", "XL", "XXL"]
         
             
         
