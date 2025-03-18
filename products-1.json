@@ -50,20 +50,17 @@
             }
         ]
         ,
-        
-            "id": "1",
-            "name": "ساعة تاتش تعمل باللمس",
-            "link": "1.html",
-            "image": "1.jpg",
-            "sold": "22",
-            "location": "adger",
-            "priceZero": "00.",
-            "price": "44",
-            "discount": "323",
-            "shipping": "100",
-            "colors": ["أسود", "أبيض", "أحمر", "أزرق"],
-            "sizes": ["S", "M", "L", "XL", "XXL"]
-        
+        "pageId": "1",
+        "productId": "1-1",
+        "name": "ساعة تاتش تعمل باللمس",
+        "image": "1.jpg",
+        "sold": "22",
+        "location": "adger",
+        "price": "200",
+        "shippingPrice": "100",
+        "discount": "323",
+        "colors": ["أسود", "أبيض", "أحمر", "أزرق"],
+        "sizes": ["S", "M", "L", "XL", "XXL"]
     
     },
 
