@@ -2206,7 +2206,7 @@
         const jsonUrl = `${jsonFile}?t=${Date.now()}`;
 
         // جلب بيانات JSON
-        fetch(jsonUrl, { cache: 'no-store' })
+        fetch(jsonUrl)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`خطأ في الاستجابة: ${response.status} - ${response.statusText}`);
@@ -2224,10 +2224,11 @@
 
         // تعبئة بيانات المنتج
         function populateProduct(data) {
-            console.log("البيانات المستلمة من JSON:", data);
+            console.log("البيانات المستلمة من JSON:", data); // للتحقق من البيانات
             const product = data.product;
             const texts = data.texts;
 
+            // إظهار الإطار
             document.getElementById('product-frame').style.display = 'block !important';
             document.getElementById('product-link').href = `${product.pageId}.html`;
             document.getElementById('product-image').src = product.image;
@@ -2238,6 +2239,7 @@
             document.getElementById('currency').textContent = texts.currency;
             document.getElementById('product-discount').textContent = `${texts.discountLabel} ${product.discount}%`;
 
+            // تحديث زر "شراء الآن"
             const buyNowBtn = document.getElementById('buy-now-btn');
             buyNowBtn.onclick = function() {
                 buyNow(product.name, product.productId, product.price, product.shippingPrice, product.colors, product.sizes);
@@ -2246,9 +2248,9 @@
 
         // دالة شراء الآن
         function buyNow(productName, productId, productPrice, shippingPrice, colors, sizes) {
-            const url = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(JSON.stringify(colors || []))}&sizes=${encodeURIComponent(JSON.stringify(sizes || []))}`;
-            console.log("رابط الانتقال:", url);
-            window.location.href = url;
+            console.log("الألوان الممررة:", colors); // للتحقق من الألوان قبل التمرير
+            console.log("المقاسات الممررة:", sizes); // للتحقق من المقاسات قبل التمرير
+            window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(JSON.stringify(colors))}&sizes=${encodeURIComponent(JSON.stringify(sizes))}`;
         }
 
         // دالة إضافة إلى العربة
