@@ -628,7 +628,7 @@
             shippingPrice,
             quantity,
             totalPrice,
-            username, // إضافة اسم المستخدم
+            username,
             deliveryInfo,
             timestamp: Date.now()
         };
@@ -670,22 +670,42 @@
             });
     }
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const productName = urlParams.get('name');
-    const productId = urlParams.get('id');
-    const productPrice = parseFloat(urlParams.get('price')) || 0;
-    const shippingPrice = parseFloat(urlParams.get('shipping')) || 0;
-    const colorsParam = decodeURIComponent(urlParams.get('colors') || '');
-    const sizesParam = decodeURIComponent(urlParams.get('sizes') || '');
+    // جلب البيانات من URL
+    const url = new URL(window.location.href);
+    const productName = decodeURIComponent(url.searchParams.get('name') || '');
+    const productId = decodeURIComponent(url.searchParams.get('id') || '');
+    const productPriceRaw = url.searchParams.get('price') || '0';
+    const shippingPriceRaw = url.searchParams.get('shipping') || '0';
+    const colorsEncoded = url.searchParams.get('colors') || '[]';
+    const sizesEncoded = url.searchParams.get('sizes') || '[]';
 
-    const colors = colorsParam ? colorsParam.split(',') : [];
-    const sizes = sizesParam ? sizesParam.split(',') : [];
+    // تحويل الأسعار إلى أرقام بشكل صحيح
+    const productPrice = parseFloat(decodeURIComponent(productPriceRaw)) || 0;
+    const shippingPrice = parseFloat(decodeURIComponent(shippingPriceRaw)) || 0;
 
-    document.getElementById('productNameText').textContent = decodeURIComponent(productName);
-    document.getElementById('productIdText').textContent = decodeURIComponent(productId);
+    // تحليل المصفوفات من JSON مع التحقق من الصيغة
+    let colors, sizes;
+    try {
+        const decodedColors = decodeURIComponent(colorsEncoded);
+        const decodedSizes = decodeURIComponent(sizesEncoded);
+        colors = JSON.parse(decodedColors);
+        sizes = JSON.parse(decodedSizes);
+        // التأكد من أنها مصفوفات وليست نصوص
+        if (!Array.isArray(colors)) colors = [];
+        if (!Array.isArray(sizes)) sizes = [];
+    } catch (error) {
+        console.error('خطأ في تحليل colors أو sizes:', error);
+        colors = [];
+        sizes = [];
+    }
+
+    // تعبئة بيانات المنتج
+    document.getElementById('productNameText').textContent = productName;
+    document.getElementById('productIdText').textContent = productId;
     document.getElementById('productPriceText').textContent = productPrice.toFixed(2);
     document.getElementById('shippingPriceText').textContent = shippingPrice.toFixed(2);
 
+    // إعداد خيارات الألوان والمقاسات
     const optionsContainer = document.getElementById('optionsContainer');
     if (colors.length > 0 || sizes.length > 0) {
         optionsContainer.style.display = 'block';
@@ -699,7 +719,7 @@
         colors.forEach((color, index) => {
             const colorSpan = document.createElement('span');
             colorSpan.className = 'color-option';
-            colorSpan.textContent = color;
+            colorSpan.textContent = color; // النص فقط بدون أقواس
             colorSpan.dataset.color = color;
             colorSpan.onclick = function() {
                 document.querySelectorAll('.color-option').forEach(option => option.classList.remove('selected'));
@@ -715,19 +735,23 @@
         const sizeField = document.getElementById('sizeField');
         sizeField.style.display = 'block';
         const sizeOptionsContainer = document.getElementById('sizeOptions');
-        sizes.forEach(size => {
+        let firstSizeSpan = null;
+        sizes.forEach((size, index) => {
             const sizeSpan = document.createElement('span');
             sizeSpan.className = 'size-option';
-            sizeSpan.textContent = size;
+            sizeSpan.textContent = size; // النص فقط بدون أقواس
             sizeSpan.dataset.size = size;
             sizeSpan.onclick = function() {
                 document.querySelectorAll('.size-option').forEach(option => option.classList.remove('selected'));
                 sizeSpan.classList.add('selected');
             };
             sizeOptionsContainer.appendChild(sizeSpan);
+            if (index === 0) firstSizeSpan = sizeSpan;
         });
+        if (firstSizeSpan) firstSizeSpan.classList.add('selected');
     }
 
+    // استرجاع معلومات التوصيل المحفوظة
     const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
     if (savedDeliveryInfo) {
         const deliveryInfo = JSON.parse(savedDeliveryInfo);
@@ -741,6 +765,7 @@
         document.getElementById('deliveryInfoDisplay').style.display = 'block';
     }
 
+    // إدارة الكمية والسعر الإجمالي
     let quantity = 1;
 
     function increaseQuantity() {
@@ -758,8 +783,8 @@
     }
 
     function updateTotalPrice() {
-        const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
-        const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
+        const productPrice = parseFloat(document.getElementById('productPriceText').textContent) || 0;
+        const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent) || 0;
         const totalPrice = (productPrice * quantity) + shippingPrice;
         document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2);
     }
@@ -821,7 +846,7 @@
             }
             @media (min-width: 768px) { /* تعديل المارغن فقط للشاشات الأكبر من الهواتف */
     .search-wrapper {
-        margin-right: 4px;
+        margin-right: 6px;
         margin-left: 11px;
     }
     }
@@ -924,6 +949,9 @@
     
             .cart-icon {
                 position: relative;
+                user-select: none; /* منع تحديد النص */
+    -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
+    outline: none;
             }
     
             .cart-count {
@@ -1060,6 +1088,9 @@
     
             .menu-icon {
                 margin-left: 10px;
+                user-select: none; /* منع تحديد النص */
+    -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
+    outline: none;
             }
     
             /* إخفاء العنصر على الهواتف */
@@ -1079,6 +1110,9 @@
                 -webkit-text-fill-color: transparent;
                 cursor: pointer;
                 user-select: none;
+                user-select: none; /* منع تحديد النص */
+    -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
+    outline: none;
             }
     
             @media (max-width: 767px) {
