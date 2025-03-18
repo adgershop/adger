@@ -2052,6 +2052,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2187,16 +2189,29 @@
                 <div class="container">
                     <div class="zero">00.</div>
                     <div class="number" id="product-price"></div>
-                    <div class="letter" id="currency"></div>
+                    <div class="letter">جنيه</div>
                 </div>
                 <h3 id="product-discount"></h3>
             </div>
         </div>
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
-                <div class="buy-now-text" id="buy-now-btn">اشتري الآن</div>
-                <div class="add-to-cart-text" id="add-to-cart-btn" onclick="addToCart(this)">أضف إلى السلة</div>
-            </div>
+                <div class="buy-now-text" id="buy-now-btn">شراء الآن</div>
+            </script>
+            <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
+         </div>
+     </div>
+     
+     <script>
+         function addToCart() {
+             alert("تمت إضافة المنتج إلى العربة!");
+         }
+     
+     </script>
+     
+     </body>
+ 
+ 
         </div>
     </div>
 
@@ -2206,42 +2221,33 @@
         const pageNumber = url.searchParams.get('page') || '1';
         const jsonFile = `products-${pageNumber}.json`;
 
-        // إضافة طابع زمني لتجنب الذاكرة المؤقتة
-        const jsonUrl = `${jsonFile}?t=${Date.now()}`;
-
         // جلب بيانات JSON
-        fetch(jsonUrl)
+        fetch(jsonFile)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`خطأ في الاستجابة: ${response.status} - ${response.statusText}`);
+                    throw new Error(`خطأ في الاستجابة: ${response.status}`);
                 }
                 return response.json();
             })
             .then(data => {
-                const productData = data[0]; // أول منتج في الملف
-                populateProduct(productData);
+                const product = data[0]; // أول منتج في الملف
+                populateProduct(product);
             })
             .catch(error => {
                 console.error('خطأ في جلب بيانات JSON:', error);
-                alert('حدث خطأ أثناء جلب بيانات المنتج: ' + error.message);
+                alert('حدث خطأ أثناء جلب بيانات المنتج.');
             });
 
         // تعبئة بيانات المنتج
-        function populateProduct(data) {
-            console.log("البيانات المستلمة من JSON:", data); // للتحقق من البيانات
-            const product = data.product;
-            const texts = data.texts;
-
-            // إظهار الإطار
-            document.getElementById('product-frame').style.display = 'block !important';
+        function populateProduct(product) {
+            document.getElementById('product-frame').style.display = 'block';
             document.getElementById('product-link').href = `${product.pageId}.html`;
             document.getElementById('product-image').src = product.image;
             document.getElementById('product-image').alt = product.name;
             document.getElementById('product-name').textContent = product.name;
             document.getElementById('product-sold').textContent = `${product.sold} مباعه - ${product.location}`;
             document.getElementById('product-price').textContent = product.price;
-            document.getElementById('currency').textContent = texts.currency;
-            document.getElementById('product-discount').textContent = `${texts.discountLabel} ${product.discount}%`;
+            document.getElementById('product-discount').textContent = `discount ${product.discount}%`;
 
             // تحديث زر "شراء الآن"
             const buyNowBtn = document.getElementById('buy-now-btn');
@@ -2256,13 +2262,13 @@
         }
 
         // دالة إضافة إلى العربة
-        function addToCart(element) {
+        function addToCart() {
             alert("تمت إضافة المنتج إلى العربة!");
-            console.log("تم النقر على الزر:", element);
         }
     </script>
 </body>
 </html>
+
 
 
 
