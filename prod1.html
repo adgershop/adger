@@ -2052,8 +2052,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2197,21 +2195,8 @@
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
                 <div class="buy-now-text" id="buy-now-btn">شراء الآن</div>
-            </script>
-            <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
-         </div>
-     </div>
-     
-     <script>
-         function addToCart() {
-             alert("تمت إضافة المنتج إلى العربة!");
-         }
-     
-     </script>
-     
-     </body>
- 
- 
+                <div class="add-to-cart-text" onclick="addToCart()">إضافة إلى العربة</div>
+            </div>
         </div>
     </div>
 
@@ -2230,6 +2215,9 @@
                 return response.json();
             })
             .then(data => {
+                if (!data || data.length === 0) {
+                    throw new Error("لا توجد بيانات في ملف JSON");
+                }
                 const product = data[0]; // أول منتج في الملف
                 populateProduct(product);
             })
@@ -2240,6 +2228,13 @@
 
         // تعبئة بيانات المنتج
         function populateProduct(product) {
+            // تحقق من وجود جميع الخصائص المطلوبة
+            if (!product.image || !product.name || !product.sold || !product.location || 
+                !product.price || !product.discount || !product.pageId || 
+                !product.productId || !product.shippingPrice || !product.colors || !product.sizes) {
+                console.error('بيانات المنتج غير كاملة');
+                return;
+            }
             document.getElementById('product-frame').style.display = 'block';
             document.getElementById('product-link').href = `${product.pageId}.html`;
             document.getElementById('product-image').src = product.image;
@@ -2258,7 +2253,9 @@
 
         // دالة شراء الآن
         function buyNow(productName, productId, productPrice, shippingPrice, colors, sizes) {
-            window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(JSON.stringify(colors))}&sizes=${encodeURIComponent(JSON.stringify(sizes))}`;
+            const colorsStr = JSON.stringify(colors);
+            const sizesStr = JSON.stringify(sizes);
+            window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}&colors=${encodeURIComponent(colorsStr)}&sizes=${encodeURIComponent(sizesStr)}`;
         }
 
         // دالة إضافة إلى العربة
@@ -2268,7 +2265,6 @@
     </script>
 </body>
 </html>
-
 
 
 
