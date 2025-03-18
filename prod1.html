@@ -2075,7 +2075,6 @@
             position: relative;
             text-align: center;
             margin-bottom: 20px;
-            display: none !important;
         }
 
         .image-frame img {
@@ -2176,7 +2175,7 @@
 </head>
 <body>
     <div class="image-container product" id="product-container">
-        <div class="image-frame" id="product-frame" style="display: none;">
+        <div class="image-frame" id="product-frame">
             <a id="product-link" href="">
                 <img id="product-image" src="" alt="">
             </a>
@@ -2193,10 +2192,18 @@
         </div>
         <div class="bottom-buttons">
             <div class="buttons-wrapper">
-                <div class="buy-now-text" id="buy-now-btn"></div>
-                <div class="add-to-cart-text" id="add-to-cart-btn"></div>
-            </div>
-        </div>
+                <div class="buy-now-text" id="buy-now-btn">شراء الآن</div>
+            </script>
+            <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
+         </div>
+     </div>
+     
+     <script>
+         function addToCart() {
+             alert("تمت إضافة المنتج إلى العربة!");
+         }
+     
+     </script>
     </div>
 
     <script>
@@ -2209,26 +2216,25 @@
         fetch(jsonFile)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`خطأ في الاستجابة: ${response.status}`);
+                    throw new Error(`خطأ في جلب الملف: ${response.status}`);
                 }
                 return response.json();
             })
             .then(data => {
-                const productData = data[0]; // أول منتج في الملف
+                // نأخذ أول عنصر من المصفوفة لأن JSON يحتوي على مصفوفة
+                const productData = data[0];
                 populateProduct(productData);
             })
             .catch(error => {
                 console.error('خطأ في جلب بيانات JSON:', error);
-                alert('حدث خطأ أثناء جلب بيانات المنتج: ' + error.message);
+                alert(`حدث خطأ أثناء جلب بيانات المنتج: ${error.message}\nتأكد من وجود ملف ${jsonFile} وأن تنسيقه صحيح.`);
             });
 
-        // تعبئة بيانات المنتج
+        // دالة تعبئة بيانات المنتج والنصوص
         function populateProduct(data) {
             const product = data.product;
             const texts = data.texts;
 
-            // إظهار الإطار
-            document.getElementById('product-frame').style.display = 'block !important';
             document.getElementById('product-link').href = `${product.pageId}.html`;
             document.getElementById('product-image').src = product.image;
             document.getElementById('product-image').alt = product.name;
@@ -2238,14 +2244,12 @@
             document.getElementById('currency').textContent = texts.currency;
             document.getElementById('product-discount').textContent = `${texts.discountLabel} ${product.discount}%`;
 
-            // تحديث زر "شراء الآن"
             const buyNowBtn = document.getElementById('buy-now-btn');
             buyNowBtn.textContent = texts.buyNow;
             buyNowBtn.onclick = function() {
                 buyNow(product.name, product.productId, product.price, product.shippingPrice, product.colors, product.sizes);
             };
 
-            // تحديث زر "إضافة إلى العربة"
             const addToCartBtn = document.getElementById('add-to-cart-btn');
             addToCartBtn.textContent = texts.addToCart;
             addToCartBtn.onclick = function() {
