@@ -58,7 +58,7 @@
             "discount": 20,
             "productId": "12345",
             "shippingPrice": "15",
-            "colors": ["أحمر", "أزرق", "أخضر"],
+            "colors": ["أحمر", "أزرق", "أخ5ضر"],
             "sizes": ["S", "M", "L"]
         },
         "texts": {
