@@ -475,8 +475,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -581,12 +579,12 @@
 </head>
 <body>
     <div class="container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; margin-top: 22px;">
-        <div class="price" style="display: flex; align-items: center; gap: 5px;">
+        <div class="productPrice" style="display: flex; align-items: center; gap: 5px;">
             <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px; margin-right: 22px;">00.</div>
-            <div class="number" id="price" style="font-size: 28px;">44</div>
+            <div class="number" id="productPri" style="font-size: 28px;">44</div>
             <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
             <s id="oldPrice" style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s>
-            <s id="discount" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم اكثر من 80%</s>
+            <s id="productDis" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم اكثر من 80%</s>
         </div>
     
     <div id="text-container" class="text-style">
@@ -627,25 +625,25 @@
                     }
 
                     // تحديث السعر
-                    const priceElement = document.getElementById('price');
-                    priceElement.textContent = product.price || '0';
+                    const priElement = document.getElementById('productPri');
+                    priElement.textContent = product.pri || '0';
 
                     // تحديث السعر القديم (إخفاء إذا لم يكن موجودًا)
                     const oldPriceElement = document.getElementById('oldPrice');
                     if (product.oldPrice) {
                         oldPriceElement.textContent = product.oldPrice;
-                        oldPriceElement.style.display = 'inline'; // إظهار العنصر إذا كان موجودًا
+                        oldPriceElement.style.display = 'inline';
                     } else {
-                        oldPriceElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
+                        oldPriceElement.style.display = 'none';
                     }
 
                     // تحديث نص الخصم (إخفاء إذا لم يكن موجودًا)
-                    const discountElement = document.getElementById('discount');
-                    if (product.discount) {
-                        discountElement.textContent = product.discount;
-                        discountElement.style.display = 'inline'; // إظهار العنصر إذا كان موجودًا
+                    const disElement = document.getElementById('productDis');
+                    if (product.dis) {
+                        disElement.textContent = product.dis;
+                        disElement.style.display = 'inline';
                     } else {
-                        discountElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
+                        disElement.style.display = 'none';
                     }
 
                     // تحديث النص المتغير
@@ -659,10 +657,10 @@
                     }
 
                     if (changingTexts.length > 0) {
-                        changeText(); // تعيين النص الأول فورًا
-                        setInterval(changeText, 5000); // تغيير النص كل 5 ثوانٍ
+                        changeText();
+                        setInterval(changeText, 5000);
                     } else {
-                        textContainer.style.display = 'none'; // إخفاء إذا لم يكن هناك نصوص متغيرة
+                        textContainer.style.display = 'none';
                     }
 
                     // تحديث النص الطويل
@@ -670,16 +668,16 @@
                     if (product.longText) {
                         hopContainer.textContent = product.longText;
                     } else {
-                        hopContainer.style.display = 'none'; // إخفاء إذا لم يكن موجودًا
+                        hopContainer.style.display = 'none';
                     }
 
                     // تحديث عدد المبيعات
                     const salesElement = document.getElementById('sales');
                     if (product.sales) {
                         salesElement.textContent = product.sales;
-                        salesElement.style.display = 'block'; // إظهار العنصر إذا كان موجودًا
+                        salesElement.style.display = 'block';
                     } else {
-                        salesElement.style.display = 'none'; // إخفاء العنصر إذا لم يكن موجودًا
+                        salesElement.style.display = 'none';
                     }
 
                     // تهيئة النص الطويل إذا كان موجودًا
@@ -2044,12 +2042,18 @@
 
 
 
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كود هام لزر الشراء و الإضافة إلى العربة</title>
+    <title>كود هام لزر الشراء و الاضافه الى العربة</title>
     <style>
         body {
             font-family: 'Cairo', sans-serif;
@@ -2114,16 +2118,17 @@
             margin: 5px 0 0 8px;
         }
 
-        .bottom-buttons {
-            position: fixed;
-            bottom: -3px;
-            left: 0;
-            width: 100%;
-            background-color: white;
-            z-index: 1;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            margin-bottom: 3px;
-        }
+      .bottom-buttons {
+    position: fixed;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1;
+    border-top: 1px solid rgba(0, 0, 0, 0.1); /* لون أفتح */
+    margin-bottom: 3px; /* رفع الخط قليلاً */
+}
+
 
         .buttons-wrapper {
             display: flex;
@@ -2144,13 +2149,13 @@
             justify-content: center;
             border-radius: 45px;
             user-select: none;
-            box-sizing: border-box;
+            box-sizing: border-box; /* يضمن احتساب الحدود ضمن الارتفاع */
         }
 
         .add-to-cart-text {
             background-color: #ffffff;
             color: #1a1a1a;
-            border: 1px solid black;
+            border: 1px solid black; /* سمك الخط تم تقليله إلى 1px */
         }
 
         .add-to-cart-text:hover {
@@ -2167,73 +2172,43 @@
     </style>
 </head>
 <body>
-    <div class="image-container product" id="product-container">
-        <!-- سيتم إضافة المنتجات هنا ديناميكيًا -->
-    </div>
-
-    <script>
-        // وظيفة لتحميل البيانات من ملف JSON
-        async function loadProducts(pageNumber) {
-            try {
-                const response = await fetch(`products-${pageNumber}.json`);
-                const products = await response.json();
-                displayProducts(products);
-            } catch (error) {
-                console.error("حدث خطأ أثناء تحميل البيانات:", error);
-            }
-        }
-
-        // وظيفة لعرض المنتجات في الصفحة
-        function displayProducts(products) {
-            const container = document.getElementById('product-container');
-            container.innerHTML = ''; // مسح أي محتوى سابق
-
-            products.forEach(product => {
-                const productDiv = document.createElement('div');
-                productDiv.className = 'image-frame';
-                productDiv.style.display = 'block'; // عرض المنتج
-
-                productDiv.innerHTML = `
-                    <a href="${product.link}">
-                        <img src="${product.image}" alt="${product.name}">
-                    </a>
-                    <div class="text-under">
-                        <h1>${product.name}</h1>
-                        <h2>${product.sold}</h2>
-                        <div class="container">
-                            <div class="zero">00.</div>
-                            <div class="number">${product.price}</div>
-                            <div class="letter">${product.currency}</div>
-                        </div>
-                        <h3>خصم (${product.discountId}): ${product.discount}</h3>
-                    </div>
-                    <div class="bottom-buttons">
-                        <div class="buttons-wrapper">
-                            <div class="buy-now-text" onclick="buyNow('${product.name}', '${product.id}', '${product.priceId}', '${product.shippingPrice}')">شراء الآن</div>
-                            <div class="add-to-cart-text" onclick="addToCart('${product.name}')">إضافة إلى العربة</div>
-                        </div>
-                    </div>
-                `;
-
-                container.appendChild(productDiv);
-            });
-        }
-
-        // وظيفة شراء المنتج
-        function buyNow(productName, productId, priceId, shippingPrice) {
-            window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&priceId=${encodeURIComponent(priceId)}&shipping=${encodeURIComponent(shippingPrice)}`;
-        }
-
-        // وظيفة إضافة المنتج إلى العربة
-        function addToCart(productName) {
-            alert(`تمت إضافة المنتج "${productName}" إلى العربة!`);
-        }
-
-        // تحميل المنتجات عند تحميل الصفحة
-        loadProducts(1); // يمكنك تغيير الرقم للصفحة التي تريد تحميلها
-    </script>
-</body>
-</html>
+    <div class="image-container product" data-name="ساعة تاتتش تعمل باللمس">
+        <div class="image-frame" style="display: none;">
+            <a href="1.html">
+                <img src="1.jpg" alt="ساعة تاتتش تعمل باللمس">
+            </a>
+            <div class="text-under">
+                <h1>ساعة تاتش تعمل باللمس</h1>
+                <h2>22 مباعه - adger</h2>
+                <div class="container">
+                    <div class="zero">00.</div>
+                    <div class="number">44</div>
+                    <div class="letter">جنيه</div>
+                </div>
+                <h3>خصم 323%</h3>
+            </div>
+        </div>
+        <div class="bottom-buttons">
+            <div class="buttons-wrapper">
+                <div class="buy-now-text" onclick="buyNow('ساعة تاتتش تعمل باللمس', '#1', '200', '100', ['أسود', 'أبيض', 'أحمر', 'أزرق'], ['S', 'M', 'L', 'XL', 'XXL'])">شراء الآن</div>
+                <script>
+                    function buyNow(productName, productId, productPrice, shippingPrice) {
+                        // توجيه المستخدم إلى صفحة buy.html مع إضافة المعلمات إلى عنوان URL
+                        window.location.href = `buy.html?name=${encodeURIComponent(productName)}&id=${encodeURIComponent(productId)}&price=${encodeURIComponent(productPrice)}&shipping=${encodeURIComponent(shippingPrice)}`;
+                    }
+                    </script>
+                   <div class="add-to-cart-text" onclick="addToCart(this)">إضافة إلى العربة</div>
+                </div>
+            </div>
+            
+            <script>
+                function addToCart() {
+                    alert("تمت إضافة المنتج إلى العربة!");
+                }
+            
+            </script>
+            
+            </body>
         
         
 
