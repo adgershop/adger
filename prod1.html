@@ -475,6 +475,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -542,45 +544,30 @@
             white-space: nowrap;
         }
 
-        /* تصميم نص الوصف */
-        #productDesc {
-            color: #000000;
-            margin-top: 10px;
-            font-size: 17px;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 400;
-            margin-right: 16px;
-            margin-left: 16px;
-            direction: rtl;
-            text-align: right;
-            line-height: 1.3;
-            display: none;
-        }
-
         /* تنسيق خاص بالهواتف */
         @media only screen and (max-width: 768px) {
-            #hop, #productDesc {
+            #hop {
                 position: relative;
             }
         }
 
         /* للشاشات المتوسطة */
         @media only screen and (min-width: 769px) and (max-width: 1199px) {
-            #hop, #productDesc {
+            #hop {
                 font-size: 17px;
             }
         }
 
         /* للشاشات الكبيرة */
         @media only screen and (min-width: 1200px) and (max-width: 1999px) {
-            #hop, #productDesc {
+            #hop {
                 font-size: 16px;
             }
         }
 
         /* للشاشات الأكبر من 2000 */
         @media only screen and (min-width: 2000px) {
-            #hop, #productDesc {
+            #hop {
                 font-size: 16px;
             }
             #hop .short-text, #hop .more-btn {
@@ -596,30 +583,26 @@
     <div class="container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; margin-top: 22px;">
         <div class="productPrice" style="display: flex; align-items: center; gap: 5px;">
             <div class="zero" style="margin-top: 15px; margin-left: -6px; font-size: 16px; margin-right: 22px;">00.</div>
-            <div class="number" id="productPri" style="font-size: 28px;">44</div>
+            <div class="number" id="price" style="font-size: 28px;">44</div>
             <div class="letter" style="margin-top: 15px; margin-right: -4px; font-size: 16px;">جنيه</div>
             <s id="oldPrice" style="font-size: 20px; margin-right: 9px; margin-bottom: -11px; color: #555555;">444</s>
             <s id="productDis" style="margin-top: 12px; font-size: 13px; color: #fc0000; margin-right: 9px; font-family: Cairo, sans-serif; text-decoration: none;">خصم اكثر من 80%</s>
         </div>
     
-        <div id="text-container" class="text-style">
-            النص الأول
-        </div>
+    <div id="text-container" class="text-style">
+        النص الأول
+    </div>
 
-        <h2 id="hop">
-            اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
-            اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
-            اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
-            اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
-        </h2>
+    <h2 id="hop">
+        اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+        اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+        اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+        اسفل النص الاصلى ساعه تعمل باللمس وم ب العمل الكترونى هذا نص آخر تحت النص الإضافي.
+    </h2>
 
-        <div class="second-text" id="sales" style="margin-top: -11px; font-size: 14px; font-family: Cairo, sans-serif; color: #000; margin-right: 29px; margin-bottom: 11px;">
-            5 مباع
-        </div>
-
-        <div id="productDesc">
-            <!-- سيتم ملء هذا الحقل بنص الوصف من JSON -->
-        </div>
+    <div class="second-text" id="sales" style="margin-top: -11px; font-size: 14px; font-family: Cairo, sans-serif; color: #000; margin-right: 29px; margin-bottom: 11px;">
+        5 مباع
+    </div>
 
     <script>
         // جلب معرف المنتج من URL
@@ -801,8 +784,6 @@
         });
     </script>
 </body>
-</html>
-</html>
            
 
 
