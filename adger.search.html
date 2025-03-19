@@ -1198,7 +1198,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 box-sizing: border-box;
                 direction: rtl;
             }
-    
             .gallery {
                 display: flex;
                 flex-wrap: wrap;
@@ -1206,14 +1205,12 @@ menuPopup.addEventListener('touchmove', function(event) {
                 justify-content: center;
                 padding: 20px;
             }
-    
             .image-container {
                 flex: 1 1 calc(16.666% - 20px);
                 max-width: calc(16.666% - 20px);
                 box-sizing: border-box;
                 position: relative;
             }
-    
             .image-frame {
                 border: 2px solid #cfcfcf;
                 border-radius: 32px;
@@ -1222,7 +1219,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 background-color: #ffffff;
                 position: relative;
             }
-    
             .image-wrapper {
                 position: relative;
                 width: 100%;
@@ -1230,7 +1226,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 background-color: #f3f3f39c;
                 border-radius: 30.2px;
             }
-    
             .image-frame img {
                 position: absolute;
                 top: 0;
@@ -1243,15 +1238,12 @@ menuPopup.addEventListener('touchmove', function(event) {
                 opacity: 0;
                 transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
             }
-    
             .image-frame img.loaded {
                 opacity: 1;
             }
-    
             .image-frame img.white-bg {
                 background-color: #d3d3d3;
             }
-    
             .text-under {
                 margin-top: -4px;
                 font-size: 14px;
@@ -1259,7 +1251,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 text-align: right;
                 padding: 10px;
             }
-    
             .text-under h1 {
                 font-family: Cairo, sans-serif;
                 color: #333;
@@ -1269,7 +1260,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 text-overflow: ellipsis;
                 width: 100%;
             }
-    
             @media (max-width: 1268px) {
                 .text-under {
                     margin-top: -7px;
@@ -1278,7 +1268,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                     font-size: 14px !important;
                 }
             }
-    
             .add-to-cart {
                 position: absolute;
                 bottom: 12px;
@@ -1294,7 +1283,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                 transition: background-color 0.3s;
             }
-    
             @media (max-width: 1268px) {
                 .add-to-cart {
                     left: 10px;
@@ -1308,63 +1296,52 @@ menuPopup.addEventListener('touchmove', function(event) {
                     height: 12px;
                 }
             }
-    
             .add-to-cart svg {
                 width: 24px;
                 height: 24px;
                 color: #000000;
             }
-    
             .add-to-cart.checked {
                 background-color: #28a745;
             }
-    
             .add-to-cart.checked svg {
                 display: none;
             }
-    
             .add-to-cart.checked::before {
                 content: "✓";
                 font-size: 24px;
                 color: #ffffff;
             }
-    
             @media (max-width: 1024px) and (min-width: 769px) {
                 .image-container {
                     flex: 1 1 calc(25% - 10px);
                     max-width: calc(25% - 10px);
                 }
             }
-    
             @media (max-width: 768px) {
                 .gallery {
                     padding-left: 5px;
                     padding-right: 5px;
                 }
-    
                 .image-container {
                     flex: 1 1 calc(50% - 5px);
                     max-width: calc(50% - 5px);
                 }
             }
-    
             @media (min-width: 1121px) {
                 .text-under h1 {
                     font-size: 16px;
                 }
             }
-    
             @media (min-width: 1025px) {
                 .image-container {
                     flex: 1 1 calc(20% - 20px);
                     max-width: calc(20% - 20px);
                 }
             }
-    
             .hidden {
                 display: none;
             }
-    
             .container {
                 display: flex;
                 align-items: center;
@@ -1372,7 +1349,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 width: 100%;
                 margin-top: -7px;
             }
-    
             @media (max-width: 1268px) {
                 .container {
                     margin-top: -7px;
@@ -1387,7 +1363,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                     font-size: 14px !important;
                 }
             }
-    
             .rotating-text1212 {
                 font-family: 'Cairo', sans-serif;
                 color: #ff0000;
@@ -1399,7 +1374,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 opacity: 1;
                 transform: translateY(0);
             }
-    
             .image-frame a,
             .image-frame a *,
             .image-frame a *:focus,
@@ -1408,16 +1382,13 @@ menuPopup.addEventListener('touchmove', function(event) {
                 border: none !important;
                 -webkit-tap-highlight-color: transparent !important;
             }
-    
             .image-frame a:focus,
             .image-frame a img:focus {
                 outline: none !important;
             }
-    
             .product {
                 display: block;
             }
-    
             #no-results-message {
                 display: none;
                 text-align: center;
@@ -1493,22 +1464,11 @@ menuPopup.addEventListener('touchmove', function(event) {
     
             document.addEventListener("DOMContentLoaded", function () {
                 const gallery = document.getElementById('gallery');
-                const noResultsMessage = document.getElementById('no-results-message');
-                const searchTermDisplay = document.getElementById('search-term-display');
                 const itemsPerLoad = 20;
                 let loadedItems = 0;
                 let allProducts = [];
-                let filteredProducts = [];
-    
-                // دالة لتصفية المنتجات بناءً على البحث
-                function filterProducts(searchTerm) {
-                    if (!searchTerm) {
-                        return allProducts; // إذا لم يكن هناك بحث، إرجاع جميع المنتجات
-                    }
-                    return allProducts.filter(product =>
-                        product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
-                    );
-                }
+                let shuffledProducts = []; // تعريف shuffledProducts في نطاق أوسع
+                let filteredProducts = []; // إضافة متغير جديد للمنتجات المصفاة
     
                 function loadProducts(startIndex, count, products) {
                     const endIndex = Math.min(startIndex + count, products.length);
@@ -1593,26 +1553,12 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 }
     
-                // تعديل دالة performSearch لتحديث المنتجات المعروضة بناءً على البحث
-                function performSearch(searchTerm) {
-                    filteredProducts = filterProducts(searchTerm); // تصفية المنتجات
-                    loadedItems = 0; // إعادة تعيين العناصر المحملة
-                    gallery.innerHTML = ''; // مسح المعرض لتحميل المنتجات الجديدة
-                    if (filteredProducts.length > 0) {
-                        loadProducts(0, itemsPerLoad, filteredProducts); // تحميل المنتجات المطابقة
-                        noResultsMessage.style.display = 'none'; // إخفاء رسالة "لا توجد نتائج"
-                    } else {
-                        noResultsMessage.style.display = 'block'; // إظهار رسالة "لا توجد نتائج"
-                        searchTermDisplay.textContent = searchTerm; // عرض نص البحث
-                    }
-                }
-    
                 fetch('products.json')
                     .then(response => response.json())
                     .then(jsonProducts => {
                         allProducts = [...jsonProducts, ...scriptProducts];
-                        const shuffledProducts = shuffleArray(allProducts);
-                        filteredProducts = shuffledProducts; // تعيين المنتجات الأولية
+                        shuffledProducts = shuffleArray(allProducts);
+                        filteredProducts = shuffledProducts; // تهيئة filteredProducts مع جميع المنتجات
                         loadProducts(0, itemsPerLoad, filteredProducts);
     
                         document.addEventListener('scroll', function () {
@@ -1629,14 +1575,13 @@ menuPopup.addEventListener('touchmove', function(event) {
                         });
     
                         startRotatingText(".rotating-text1212");
-                        const searchTerm = getSearchTermFromURL() || '';
-                        performSearch(searchTerm); // تنفيذ البحث عند التحميل
+                        performSearch(getSearchTermFromURL() || '');
                     })
                     .catch(error => {
                         console.warn('فشل جلب البيانات من JSON، يتم استخدام المنتجات المدمجة فقط:', error);
                         allProducts = scriptProducts;
-                        const shuffledProducts = shuffleArray(allProducts);
-                        filteredProducts = shuffledProducts; // تعيين المنتجات الأولية
+                        shuffledProducts = shuffleArray(allProducts);
+                        filteredProducts = shuffledProducts; // تهيئة filteredProducts مع جميع المنتجات
                         loadProducts(0, itemsPerLoad, filteredProducts);
     
                         document.addEventListener('scroll', function () {
@@ -1653,53 +1598,106 @@ menuPopup.addEventListener('touchmove', function(event) {
                         });
     
                         startRotatingText(".rotating-text1212");
-                        const searchTerm = getSearchTermFromURL() || '';
-                        performSearch(searchTerm); // تنفيذ البحث عند التحميل
+                        performSearch(getSearchTermFromURL() || '');
                     });
-            });
     
-            function startRotatingText(selector) {
-                document.querySelectorAll(selector).forEach(element => {
-                    const texts = JSON.parse(element.getAttribute("data-texts"));
-                    let currentIndex = 0;
-                    setInterval(() => {
-                        element.style.transition = "opacity 0.5s, transform 0.5s";
-                        element.style.opacity = "0";
-                        element.style.transform = "translateY(20px)";
-                        setTimeout(() => {
-                            currentIndex = (currentIndex + 1) % texts.length;
-                            element.textContent = texts[currentIndex];
-                            element.style.opacity = "1";
-                            element.style.transform = "translateY(0)";
-                        }, 500);
-                    }, 5000);
-                });
-            }
+                function startRotatingText(selector) {
+                    document.querySelectorAll(selector).forEach(element => {
+                        const texts = JSON.parse(element.getAttribute("data-texts"));
+                        let currentIndex = 0;
+                        setInterval(() => {
+                            element.style.transition = "opacity 0.5s, transform 0.5s";
+                            element.style.opacity = "0";
+                            element.style.transform = "translateY(20px)";
+                            setTimeout(() => {
+                                currentIndex = (currentIndex + 1) % texts.length;
+                                element.textContent = texts[currentIndex];
+                                element.style.opacity = "1";
+                                element.style.transform = "translateY(0)";
+                            }, 500);
+                        }, 5000);
+                    });
+                }
     
-            function isWhiteBackground(img) {
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-                canvas.width = img.naturalWidth;
-                canvas.height = img.naturalHeight;
-                context.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
-                const imageData = context.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
-                const data = imageData.data;
-                let whitePixelCount = 0;
-                let totalPixelCount = data.length / 4;
+                function isWhiteBackground(img) {
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
+                    context.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+                    const imageData = context.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
+                    const data = imageData.data;
+                    let whitePixelCount = 0;
+                    let totalPixelCount = data.length / 4;
     
-                for (let i = 0; i < data.length; i += 4) {
-                    if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240) {
-                        whitePixelCount++;
+                    for (let i = 0; i < data.length; i += 4) {
+                        if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240) {
+                            whitePixelCount++;
+                        }
+                    }
+    
+                    return (whitePixelCount / totalPixelCount) > 0.9;
+                }
+    
+                function getSearchTermFromURL() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get('search') || '';
+                }
+    
+                function performSearch(searchTerm) {
+                    const products = document.querySelectorAll('.product');
+                    const noResultsMessage = document.getElementById('no-results-message');
+                    const searchTermDisplay = document.getElementById('search-term-display');
+                    let foundResults = false;
+    
+                    // تصفية المنتجات بناءً على مصطلح البحث
+                    if (searchTerm === '') {
+                        filteredProducts = shuffledProducts; // إذا لم يكن هناك بحث، استخدم جميع المنتجات
+                    } else {
+                        filteredProducts = shuffledProducts.filter(product =>
+                            product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
+                        );
+                    }
+    
+                    // مسح المعرض وإعادة تحميل المنتجات المصفاة
+                    gallery.innerHTML = '';
+                    loadedItems = 0;
+                    loadProducts(0, itemsPerLoad, filteredProducts);
+    
+                    // إظهار أو إخفاء رسالة "لا توجد نتائج"
+                    if (filteredProducts.length > 0) {
+                        noResultsMessage.style.display = 'none';
+                    } else {
+                        noResultsMessage.style.display = 'block';
+                        searchTermDisplay.textContent = searchTerm;
+                    }
+    
+                    // الاحتفاظ بالسلوك الأصلي لإظهار/إخفاء المنتجات
+                    products.forEach(product => {
+                        const productDataName = product.getAttribute('data-name').toLowerCase();
+                        if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
+                            product.style.display = 'block';
+                            foundResults = true;
+                        } else {
+                            product.style.display = 'none';
+                        }
+                    });
+    
+                    if (foundResults || searchTerm === '') {
+                        noResultsMessage.style.display = 'none';
+                    } else {
+                        noResultsMessage.style.display = 'block';
+                        searchTermDisplay.textContent = searchTerm;
                     }
                 }
     
-                return (whitePixelCount / totalPixelCount) > 0.9;
-            }
-    
-            function getSearchTermFromURL() {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get('search') || '';
-            }
+                window.addEventListener('load', function () {
+                    const searchTerm = getSearchTermFromURL();
+                    if (searchTerm) {
+                        performSearch(searchTerm);
+                    }
+                });
+            });
         </script>
     </body>
     </html>
