@@ -1482,6 +1482,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
                         productDiv.setAttribute('data-name', product.dataName || product.name);
+                        productDiv.setAttribute('data-product-name', product.name);
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -1526,7 +1527,6 @@ menuPopup.addEventListener('touchmove', function(event) {
     
                     preloadNextImages(products, endIndex);
     
-                    // إذا كان هناك بحث نشط، قم بتصفية المنتجات الجديدة
                     if (isSearchActive) {
                         performSearch(searchTerm);
                     }
@@ -1566,7 +1566,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
                         document.addEventListener('scroll', function () {
-                            if (!isSearchActive) { // تحميل المزيد فقط إذا لم يكن هناك بحث نشط
+                            if (!isSearchActive) {
                                 const triggerHeight = window.innerHeight * 1.5;
                                 const galleryHeight = gallery.scrollHeight;
                                 if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
@@ -1591,7 +1591,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
                         document.addEventListener('scroll', function () {
-                            if (!isSearchActive) { // تحميل المزيد فقط إذا لم يكن هناك بحث نشط
+                            if (!isSearchActive) {
                                 const triggerHeight = window.innerHeight * 1.5;
                                 const galleryHeight = gallery.scrollHeight;
                                 if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
@@ -1663,8 +1663,9 @@ menuPopup.addEventListener('touchmove', function(event) {
                 let foundResults = false;
     
                 products.forEach(product => {
+                    const productName = product.getAttribute('data-product-name').toLowerCase();
                     const productDataName = product.getAttribute('data-name').toLowerCase();
-                    if (term === '' || productDataName.includes(term.toLowerCase())) {
+                    if (term === '' || productName.includes(term.toLowerCase()) || productDataName.includes(term.toLowerCase())) {
                         product.style.display = 'block';
                         foundResults = true;
                     } else {
