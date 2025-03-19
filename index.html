@@ -2762,7 +2762,7 @@ menuPopup.addEventListener('touchmove', function(event) {
             const scriptProducts = [
                 {
                     "name": "ساعة تاتش سوداء",
-                    "dataName": "كتب عصري وأنيق",
+                    "dataName": "كتب هواتف وأنيق",
                     "price": "1,500.00",
                     "image": "a1.jpg",
                     "sold": 25,
@@ -2806,7 +2806,7 @@ menuPopup.addEventListener('touchmove', function(event) {
     
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        productDiv.setAttribute('data-name', product.dataName || product.name);
+                        productDiv.setAttribute('data-name', product.dataName || product.name || '');
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -2878,7 +2878,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 }
     
-                fetch('products.json')
+                fetch('products.json?cache=' + new Date().getTime())
                     .then(response => response.json())
                     .then(jsonProducts => {
                         allProducts = [...jsonProducts, ...scriptProducts];
@@ -2888,7 +2888,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         document.addEventListener('scroll', function () {
                             const noResultsMessage = document.getElementById('no-results-message');
                             if (noResultsMessage.style.display === 'block') {
-                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
+                                return;
                             }
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
@@ -2914,7 +2914,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         document.addEventListener('scroll', function () {
                             const noResultsMessage = document.getElementById('no-results-message');
                             if (noResultsMessage.style.display === 'block') {
-                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
+                                return;
                             }
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
@@ -2983,7 +2983,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 let foundResults = false;
     
                 products.forEach(product => {
-                    const productDataName = product.getAttribute('data-name').toLowerCase();
+                    const productDataName = (product.getAttribute('data-name') || '').toLowerCase();
                     if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
                         product.style.display = 'block';
                         foundResults = true;
