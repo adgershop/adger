@@ -1198,6 +1198,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 box-sizing: border-box;
                 direction: rtl;
             }
+    
             .gallery {
                 display: flex;
                 flex-wrap: wrap;
@@ -1205,12 +1206,14 @@ menuPopup.addEventListener('touchmove', function(event) {
                 justify-content: center;
                 padding: 20px;
             }
+    
             .image-container {
                 flex: 1 1 calc(16.666% - 20px);
                 max-width: calc(16.666% - 20px);
                 box-sizing: border-box;
                 position: relative;
             }
+    
             .image-frame {
                 border: 2px solid #cfcfcf;
                 border-radius: 32px;
@@ -1219,6 +1222,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 background-color: #ffffff;
                 position: relative;
             }
+    
             .image-wrapper {
                 position: relative;
                 width: 100%;
@@ -1226,6 +1230,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 background-color: #f3f3f39c;
                 border-radius: 30.2px;
             }
+    
             .image-frame img {
                 position: absolute;
                 top: 0;
@@ -1238,12 +1243,15 @@ menuPopup.addEventListener('touchmove', function(event) {
                 opacity: 0;
                 transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
             }
+    
             .image-frame img.loaded {
                 opacity: 1;
             }
+    
             .image-frame img.white-bg {
                 background-color: #d3d3d3;
             }
+    
             .text-under {
                 margin-top: -4px;
                 font-size: 14px;
@@ -1251,6 +1259,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 text-align: right;
                 padding: 10px;
             }
+    
             .text-under h1 {
                 font-family: Cairo, sans-serif;
                 color: #333;
@@ -1260,6 +1269,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 text-overflow: ellipsis;
                 width: 100%;
             }
+    
             @media (max-width: 1268px) {
                 .text-under {
                     margin-top: -7px;
@@ -1268,6 +1278,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     font-size: 14px !important;
                 }
             }
+    
             .add-to-cart {
                 position: absolute;
                 bottom: 12px;
@@ -1283,6 +1294,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                 transition: background-color 0.3s;
             }
+    
             @media (max-width: 1268px) {
                 .add-to-cart {
                     left: 10px;
@@ -1296,52 +1308,63 @@ menuPopup.addEventListener('touchmove', function(event) {
                     height: 12px;
                 }
             }
+    
             .add-to-cart svg {
                 width: 24px;
                 height: 24px;
                 color: #000000;
             }
+    
             .add-to-cart.checked {
                 background-color: #28a745;
             }
+    
             .add-to-cart.checked svg {
                 display: none;
             }
+    
             .add-to-cart.checked::before {
                 content: "✓";
                 font-size: 24px;
                 color: #ffffff;
             }
+    
             @media (max-width: 1024px) and (min-width: 769px) {
                 .image-container {
                     flex: 1 1 calc(25% - 10px);
                     max-width: calc(25% - 10px);
                 }
             }
+    
             @media (max-width: 768px) {
                 .gallery {
                     padding-left: 5px;
                     padding-right: 5px;
                 }
+    
                 .image-container {
                     flex: 1 1 calc(50% - 5px);
                     max-width: calc(50% - 5px);
                 }
             }
+    
             @media (min-width: 1121px) {
                 .text-under h1 {
                     font-size: 16px;
                 }
             }
+    
             @media (min-width: 1025px) {
                 .image-container {
                     flex: 1 1 calc(20% - 20px);
                     max-width: calc(20% - 20px);
                 }
             }
+    
             .hidden {
                 display: none;
             }
+    
             .container {
                 display: flex;
                 align-items: center;
@@ -1349,6 +1372,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 width: 100%;
                 margin-top: -7px;
             }
+    
             @media (max-width: 1268px) {
                 .container {
                     margin-top: -7px;
@@ -1363,6 +1387,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     font-size: 14px !important;
                 }
             }
+    
             .rotating-text1212 {
                 font-family: 'Cairo', sans-serif;
                 color: #ff0000;
@@ -1374,6 +1399,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 opacity: 1;
                 transform: translateY(0);
             }
+    
             .image-frame a,
             .image-frame a *,
             .image-frame a *:focus,
@@ -1382,18 +1408,18 @@ menuPopup.addEventListener('touchmove', function(event) {
                 border: none !important;
                 -webkit-tap-highlight-color: transparent !important;
             }
+    
             .image-frame a:focus,
             .image-frame a img:focus {
                 outline: none !important;
             }
+    
             .product {
-                display: block; /* إظهار المنتج بشكل افتراضي */
+                display: block;
             }
-            .hidden {
-                display: none; /* إخفاء المنتج */
-            }
+    
             #no-results-message {
-                display: none; /* إخفاء الرسالة بشكل افتراضي */
+                display: none;
                 text-align: center;
                 font-size: 20px;
                 color: #202020;
@@ -1402,6 +1428,7 @@ menuPopup.addEventListener('touchmove', function(event) {
     </head>
     <body>
         <div id="gallery" class="gallery"></div>
+    
         <!-- رسالة "لا توجد نتائج" -->
         <div id="no-results-message" style="text-align: center; margin-top: 20px; padding: 20px; border-radius: 10px;">
             <div style="display: inline-block; background-color: #f0f0f0; border-radius: 7%; padding: 10px;">
@@ -1416,6 +1443,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 لا توجد نتائج لـ "<span id="search-term-display"></span>"
             </p>
         </div>
+    
         <script>
             function addToCart(element) {
                 event.stopPropagation();
@@ -1424,6 +1452,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 alert("تمت إضافة المنتج إلى سلة التسوق");
                 return false;
             }
+    
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -1431,6 +1460,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 }
                 return array;
             }
+    
             const scriptProducts = [
                 {
                     "name": "ساعة تاتش سوداء",
@@ -1460,11 +1490,13 @@ menuPopup.addEventListener('touchmove', function(event) {
                     "link": "product3.html"
                 }
             ];
+    
             document.addEventListener("DOMContentLoaded", function () {
                 const gallery = document.getElementById('gallery');
                 const itemsPerLoad = 20;
                 let loadedItems = 0;
                 let allProducts = [];
+    
                 function loadProducts(startIndex, count, products) {
                     const endIndex = Math.min(startIndex + count, products.length);
                     for (let i = startIndex; i < endIndex; i++) {
@@ -1473,10 +1505,10 @@ menuPopup.addEventListener('touchmove', function(event) {
                         const firstDigit = priceStr.charAt(0);
                         const specialDigits = ['2', '3', '5', '6', '8', '9'];
                         const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
+    
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        // التأكد من تعيين data-name بشكل صحيح
-                        productDiv.setAttribute('data-name', product.dataName || product.name); // استخدام dataName أو الاسم إذا لم يكن موجودًا
+                        productDiv.setAttribute('data-name', product.dataName || product.name);
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -1506,8 +1538,10 @@ menuPopup.addEventListener('touchmove', function(event) {
                         gallery.appendChild(productDiv);
                     }
                     loadedItems = endIndex;
+    
                     const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                     lazyImages.forEach(img => observer.observe(img));
+    
                     document.querySelectorAll('.add-to-cart').forEach(button => {
                         button.addEventListener('click', function(e) {
                             e.preventDefault();
@@ -1516,8 +1550,10 @@ menuPopup.addEventListener('touchmove', function(event) {
                             return false;
                         });
                     });
+    
                     preloadNextImages(products, endIndex);
                 }
+    
                 const observer = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1533,6 +1569,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         }
                     });
                 }, { rootMargin: "0px 0px 200px 0px" });
+    
                 function preloadNextImages(products, currentIndex) {
                     const preloadCount = 10;
                     const endIndex = Math.min(currentIndex + preloadCount, products.length);
@@ -1542,23 +1579,31 @@ menuPopup.addEventListener('touchmove', function(event) {
                         img.src = product.image;
                     }
                 }
+    
                 fetch('products.json')
                     .then(response => response.json())
                     .then(jsonProducts => {
                         allProducts = [...jsonProducts, ...scriptProducts];
                         const shuffledProducts = shuffleArray(allProducts);
                         loadProducts(0, itemsPerLoad, shuffledProducts);
+    
                         document.addEventListener('scroll', function () {
+                            const noResultsMessage = document.getElementById('no-results-message');
+                            if (noResultsMessage.style.display === 'block') {
+                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
+                            }
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
                             if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
                                 loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
                             }
                         });
+    
                         window.addEventListener('resize', function () {
                             const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                             lazyImages.forEach(img => observer.observe(img));
                         });
+    
                         startRotatingText(".rotating-text1212");
                         performSearch(getSearchTermFromURL() || '');
                     })
@@ -1567,21 +1612,29 @@ menuPopup.addEventListener('touchmove', function(event) {
                         allProducts = scriptProducts;
                         const shuffledProducts = shuffleArray(allProducts);
                         loadProducts(0, itemsPerLoad, shuffledProducts);
+    
                         document.addEventListener('scroll', function () {
+                            const noResultsMessage = document.getElementById('no-results-message');
+                            if (noResultsMessage.style.display === 'block') {
+                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
+                            }
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
                             if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
                                 loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
                             }
                         });
+    
                         window.addEventListener('resize', function () {
                             const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                             lazyImages.forEach(img => observer.observe(img));
                         });
+    
                         startRotatingText(".rotating-text1212");
                         performSearch(getSearchTermFromURL() || '');
                     });
             });
+    
             function startRotatingText(selector) {
                 document.querySelectorAll(selector).forEach(element => {
                     const texts = JSON.parse(element.getAttribute("data-texts"));
@@ -1599,6 +1652,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }, 5000);
                 });
             }
+    
             function isWhiteBackground(img) {
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
@@ -1609,22 +1663,27 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const data = imageData.data;
                 let whitePixelCount = 0;
                 let totalPixelCount = data.length / 4;
+    
                 for (let i = 0; i < data.length; i += 4) {
                     if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240) {
                         whitePixelCount++;
                     }
                 }
+    
                 return (whitePixelCount / totalPixelCount) > 0.9;
             }
+    
             function getSearchTermFromURL() {
                 const urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get('search') || '';
             }
+    
             function performSearch(searchTerm) {
                 const products = document.querySelectorAll('.product');
                 const noResultsMessage = document.getElementById('no-results-message');
                 const searchTermDisplay = document.getElementById('search-term-display');
                 let foundResults = false;
+    
                 products.forEach(product => {
                     const productDataName = product.getAttribute('data-name').toLowerCase();
                     if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
@@ -1634,6 +1693,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         product.style.display = 'none';
                     }
                 });
+    
                 if (foundResults || searchTerm === '') {
                     noResultsMessage.style.display = 'none';
                 } else {
@@ -1641,6 +1701,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     searchTermDisplay.textContent = searchTerm;
                 }
             }
+    
             window.addEventListener('load', function () {
                 const searchTerm = getSearchTermFromURL();
                 if (searchTerm) {
