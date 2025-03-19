@@ -1468,7 +1468,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 let loadedItems = 0;
                 let allProducts = [];
                 let isSearchActive = false;
-                let searchTerm = '';
     
                 function loadProducts(startIndex, count, products) {
                     const endIndex = Math.min(startIndex + count, products.length);
@@ -1482,7 +1481,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
                         productDiv.setAttribute('data-name', product.dataName || product.name);
-                        productDiv.setAttribute('data-product-name', product.name);
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -1528,7 +1526,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     preloadNextImages(products, endIndex);
     
                     if (isSearchActive) {
-                        performSearch(searchTerm);
+                        performSearch(getSearchTermFromURL() || '');
                     }
                 }
     
@@ -1581,8 +1579,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         });
     
                         startRotatingText(".rotating-text1212");
-                        searchTerm = getSearchTermFromURL() || '';
-                        performSearch(searchTerm);
+                        performSearch(getSearchTermFromURL() || '');
                     })
                     .catch(error => {
                         console.warn('فشل جلب البيانات من JSON، يتم استخدام المنتجات المدمجة فقط:', error);
@@ -1606,8 +1603,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         });
     
                         startRotatingText(".rotating-text1212");
-                        searchTerm = getSearchTermFromURL() || '';
-                        performSearch(searchTerm);
+                        performSearch(getSearchTermFromURL() || '');
                     });
             });
     
@@ -1654,30 +1650,47 @@ menuPopup.addEventListener('touchmove', function(event) {
                 return urlParams.get('search') || '';
             }
     
-            function performSearch(term) {
-                searchTerm = term;
-                isSearchActive = term !== '';
+            function performSearch(searchTerm) {
+                isSearchActive = searchTerm !== '';
                 const products = document.querySelectorAll('.product');
                 const noResultsMessage = document.getElementById('no-results-message');
                 const searchTermDisplay = document.getElementById('search-term-display');
-                let foundResults = false;
     
-                products.forEach(product => {
-                    const productName = product.getAttribute('data-product-name').toLowerCase();
-                    const productDataName = product.getAttribute('data-name').toLowerCase();
-                    if (term === '' || productName.includes(term.toLowerCase()) || productDataName.includes(term.toLowerCase())) {
+                // التحقق من وجود مصطلح البحث في allProducts
+                const searchTermLower = searchTerm.toLowerCase();
+                const matchExists = allProducts.some(product => 
+                    (product.dataName || product.name).toLowerCase().includes(searchTermLower)
+                );
+    
+                if (!searchTerm) {
+                    // إذا لم يكن هناك بحث، أظهر كل المنتجات
+                    products.forEach(product => {
                         product.style.display = 'block';
-                        foundResults = true;
-                    } else {
-                        product.style.display = 'none';
-                    }
-                });
-    
-                if (foundResults || term === '') {
+                    });
                     noResultsMessage.style.display = 'none';
-                } else {
+                } else if (!matchExists) {
+                    // إذا لم يكن المصطلح موجودًا في أي منتج، أخفِ كل المنتجات
+                    products.forEach(product => {
+                        product.style.display = 'none';
+                    });
                     noResultsMessage.style.display = 'block';
-                    searchTermDisplay.textContent = term;
+                    searchTermDisplay.textContent = searchTerm;
+                } else {
+                    // إذا وُجد المصطلح، أظهر فقط المنتجات المطابقة
+                    let foundResults = false;
+                    products.forEach(product => {
+                        const productDataName = product.getAttribute('data-name').toLowerCase();
+                        if (productDataName.includes(searchTermLower)) {
+                            product.style.display = 'block';
+                            foundResults = true;
+                        } else {
+                            product.style.display = 'none';
+                        }
+                    });
+                    noResultsMessage.style.display = foundResults ? 'none' : 'block';
+                    if (!foundResults) {
+                        searchTermDisplay.textContent = searchTerm;
+                    }
                 }
             }
     
