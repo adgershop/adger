@@ -2051,6 +2051,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2767,6 +2768,17 @@
                 </div>
             </div>
         </div>
+        <script>
+            // تحديث عدد المنتجات عند تحميل الصفحة
+            document.getElementById('cartCount').textContent = localStorage.getItem('cartCount') || 0;
+        
+            // الاستماع إلى تغييرات localStorage
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'cartCount') {
+                    document.getElementById('cartCount').textContent = event.newValue;
+                }
+            });
+        </script>
     
         <!-- نافذة القائمة الجانبية -->
         <div class="menu-popup" id="menuPopup">
