@@ -1697,33 +1697,27 @@
             <div class="right-elements">
                 <style>
                     .adger-container {
-                      display: flex;
-                      align-items: center;
+                        display: flex;
+                        align-items: center;
                     }
-            
-                    
                     /* Set cursor for both SVG and text within the container */
                     .adger-container svg, .adger-container h2 {
-                      cursor: pointer;
+                        cursor: pointer;
                     }
-                    
                     /* Differentiate click areas */
                     .adger-container h2 {
-                      margin-left: 5px; /* To ensure space from the arrow */
+                        margin-left: 5px; /* To ensure space from the arrow */
                     }
-
                     @media only screen and (max-width: 767px) {
                         .adger-container h2 {
-                          margin-left: 9px;
-                          margin-right: -7px;
+                            margin-left: 9px;
+                            margin-right: -7px;
                         }
                     }
                 </style>
-                
                 <div class="adger-container">
                     <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
                 </div>
-                
                 <style>
                     /* إخفاء العنصر على الهواتف */
                     @media only screen and (max-width: 767px) {
@@ -1775,7 +1769,6 @@
                 function redirectToSearch(event) {
                     // منع التركيز على صندوق الإدخال
                     event.preventDefault();
-                    
                     // تنفيذ إعادة التوجيه إلى صفحة البحث
                     window.location.href = "search.html";
                 }
@@ -1790,18 +1783,15 @@
                             display: none;
                         }
                     }
-    
                     /* منع النص من الانقسام */
                     .country-code {
                         white-space: nowrap;
                     }
-    
                     .flag {
                         width: 20px;
                         height: auto;
                         margin-left: 5px;
                     }
-    
                     /* إضافة مسافة بين العنصر والزر */
                     .country-code {
                         margin-right: 20px;
@@ -1830,13 +1820,13 @@
                     <span style="font-family: Cairo, sans-serif;">مراسلة</span>
                 </div>
                 
-                <div class="cart-icon">
+                <div class="cart-icon" onclick="window.location.href='cart.html'">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
                         <circle cx="20" cy="21" r="1"></circle>
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                     </svg>
-                    <span class="cart-count">0</span>
+                    <span class="cart-count" id="cartCount">0</span>
                 </div>
                 
                 <div class="menu-icon" onclick="toggleMenu()">
@@ -1848,6 +1838,18 @@
                 </div>
             </div>
         </div>
+        
+        <script>
+            // تحديث عدد المنتجات عند تحميل الصفحة
+            document.getElementById('cartCount').textContent = localStorage.getItem('cartCount') || 0;
+        
+            // الاستماع إلى تغييرات localStorage
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'cartCount') {
+                    document.getElementById('cartCount').textContent = event.newValue;
+                }
+            });
+        </script>
     
         <!-- الشريط الأبيض الثابت أسفل الشريط العلوي -->
           <!-- الشريط الأبيض الثابت أسفل الشريط العلوي -->
