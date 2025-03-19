@@ -1697,27 +1697,33 @@
             <div class="right-elements">
                 <style>
                     .adger-container {
-                        display: flex;
-                        align-items: center;
+                      display: flex;
+                      align-items: center;
                     }
+            
+                    
                     /* Set cursor for both SVG and text within the container */
                     .adger-container svg, .adger-container h2 {
-                        cursor: pointer;
+                      cursor: pointer;
                     }
+                    
                     /* Differentiate click areas */
                     .adger-container h2 {
-                        margin-left: 5px; /* To ensure space from the arrow */
+                      margin-left: 5px; /* To ensure space from the arrow */
                     }
+
                     @media only screen and (max-width: 767px) {
                         .adger-container h2 {
-                            margin-left: 9px;
-                            margin-right: -7px;
+                          margin-left: 9px;
+                          margin-right: -7px;
                         }
                     }
                 </style>
+                
                 <div class="adger-container">
                     <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
                 </div>
+                
                 <style>
                     /* إخفاء العنصر على الهواتف */
                     @media only screen and (max-width: 767px) {
@@ -1769,6 +1775,7 @@
                 function redirectToSearch(event) {
                     // منع التركيز على صندوق الإدخال
                     event.preventDefault();
+                    
                     // تنفيذ إعادة التوجيه إلى صفحة البحث
                     window.location.href = "search.html";
                 }
@@ -1783,15 +1790,18 @@
                             display: none;
                         }
                     }
+    
                     /* منع النص من الانقسام */
                     .country-code {
                         white-space: nowrap;
                     }
+    
                     .flag {
                         width: 20px;
                         height: auto;
                         margin-left: 5px;
                     }
+    
                     /* إضافة مسافة بين العنصر والزر */
                     .country-code {
                         margin-right: 20px;
@@ -1820,13 +1830,13 @@
                     <span style="font-family: Cairo, sans-serif;">مراسلة</span>
                 </div>
                 
-                <div class="cart-icon" onclick="window.location.href='cart.html'">
+                <div class="cart-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
                         <circle cx="20" cy="21" r="1"></circle>
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                     </svg>
-                    <span class="cart-count" id="cartCount">0</span>
+                    <span class="cart-count">0</span>
                 </div>
                 
                 <div class="menu-icon" onclick="toggleMenu()">
@@ -1838,7 +1848,6 @@
                 </div>
             </div>
         </div>
-        
         <script>
             // تحديث عدد المنتجات عند تحميل الصفحة
             document.getElementById('cartCount').textContent = localStorage.getItem('cartCount') || 0;
@@ -2478,7 +2487,7 @@ menuPopup.addEventListener('touchmove', function(event) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>معرض الصور</title>
+        <title>المنتجات</title>
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
         <style>
             body {
@@ -2733,7 +2742,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 لا توجد نتائج لـ "<span id="search-term-display"></span>"
             </p>
         </div>
-        
+    
         <script>
             function addToCart(element) {
                 event.stopPropagation();
@@ -2798,7 +2807,8 @@ menuPopup.addEventListener('touchmove', function(event) {
     
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        productDiv.setAttribute('data-name', product.dataName);
+                        // التأكد من تعيين data-name بشكل صحيح
+                        productDiv.setAttribute('data-name', product.dataName || product.name); // استخدام dataName أو الاسم إذا لم يكن موجودًا
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -2841,7 +2851,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                         });
                     });
     
-                    // تحميل الصور مسبقًا للمنتجات التالية
                     preloadNextImages(products, endIndex);
                 }
     
@@ -2861,9 +2870,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
                 }, { rootMargin: "0px 0px 200px 0px" });
     
-                // دالة لتحميل الصور مسبقًا
                 function preloadNextImages(products, currentIndex) {
-                    const preloadCount = 10; // عدد المنتجات التي سيتم تحميلها مسبقًا
+                    const preloadCount = 10;
                     const endIndex = Math.min(currentIndex + preloadCount, products.length);
                     for (let i = currentIndex; i < endIndex; i++) {
                         const product = products[i];
@@ -2880,8 +2888,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
                         document.addEventListener('scroll', function () {
-                            const triggerHeight = window.innerHeight * 1.5; // تحميل عندما يتبقى 1.5 مرة من ارتفاع الشاشة
-                            const galleryHeight = gallery.scrollHeight; // ارتفاع حاوية المنتجات فقط
+                            const triggerHeight = window.innerHeight * 1.5;
+                            const galleryHeight = gallery.scrollHeight;
                             if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
                                 loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
                             }
@@ -2969,8 +2977,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                 let foundResults = false;
     
                 products.forEach(product => {
-                    const productName = product.getAttribute('data-name').toLowerCase();
-                    if (searchTerm === '' || productName.includes(searchTerm.toLowerCase())) {
+                    const productDataName = product.getAttribute('data-name').toLowerCase();
+                    if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
                         product.style.display = 'block';
                         foundResults = true;
                     } else {
@@ -2995,8 +3003,6 @@ menuPopup.addEventListener('touchmove', function(event) {
         </script>
     </body>
     </html>
-
-
 
 
 
