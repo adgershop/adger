@@ -1186,7 +1186,6 @@ menuPopup.addEventListener('touchmove', function(event) {
 
     
 
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -1447,7 +1446,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 لا توجد نتائج لـ "<span id="search-term-display"></span>"
             </p>
         </div>
-        
+    
         <script>
             function addToCart(element) {
                 event.stopPropagation();
@@ -1512,7 +1511,8 @@ menuPopup.addEventListener('touchmove', function(event) {
     
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        productDiv.setAttribute('data-name', product.dataName);
+                        // التأكد من تعيين data-name بشكل صحيح
+                        productDiv.setAttribute('data-name', product.dataName || product.name); // استخدام dataName أو الاسم إذا لم يكن موجودًا
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -1555,7 +1555,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                         });
                     });
     
-                    // تحميل الصور مسبقًا للمنتجات التالية
                     preloadNextImages(products, endIndex);
                 }
     
@@ -1575,9 +1574,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
                 }, { rootMargin: "0px 0px 200px 0px" });
     
-                // دالة لتحميل الصور مسبقًا
                 function preloadNextImages(products, currentIndex) {
-                    const preloadCount = 10; // عدد المنتجات التي سيتم تحميلها مسبقًا
+                    const preloadCount = 10;
                     const endIndex = Math.min(currentIndex + preloadCount, products.length);
                     for (let i = currentIndex; i < endIndex; i++) {
                         const product = products[i];
@@ -1594,8 +1592,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
                         document.addEventListener('scroll', function () {
-                            const triggerHeight = window.innerHeight * 1.5; // تحميل عندما يتبقى 1.5 مرة من ارتفاع الشاشة
-                            const galleryHeight = gallery.scrollHeight; // ارتفاع حاوية المنتجات فقط
+                            const triggerHeight = window.innerHeight * 1.5;
+                            const galleryHeight = gallery.scrollHeight;
                             if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
                                 loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
                             }
@@ -1683,8 +1681,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                 let foundResults = false;
     
                 products.forEach(product => {
-                    const productName = product.getAttribute('data-name').toLowerCase();
-                    if (searchTerm === '' || productName.includes(searchTerm.toLowerCase())) {
+                    const productDataName = product.getAttribute('data-name').toLowerCase();
+                    if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
                         product.style.display = 'block';
                         foundResults = true;
                     } else {
@@ -1709,9 +1707,6 @@ menuPopup.addEventListener('touchmove', function(event) {
         </script>
     </body>
     </html>
-
-
-
 
 
 
