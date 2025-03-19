@@ -439,16 +439,12 @@
             }
 
             calculateTotalPrice();
-            // تحديث عدد المنتجات في localStorage ليتم استخدامه في الصفحة الرئيسية
-            localStorage.setItem('cartCount', cart.length);
         }
 
         function removeFromCart(index) {
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-            // تحديث عدد المنتجات في localStorage عند الحذف
-            localStorage.setItem('cartCount', cart.length);
         }
 
         function calculateTotalPrice() {
