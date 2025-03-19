@@ -1387,10 +1387,13 @@ menuPopup.addEventListener('touchmove', function(event) {
                 outline: none !important;
             }
             .product {
-                display: block;
+                display: block; /* إظهار المنتج بشكل افتراضي */
+            }
+            .hidden {
+                display: none; /* إخفاء المنتج */
             }
             #no-results-message {
-                display: none;
+                display: none; /* إخفاء الرسالة بشكل افتراضي */
                 text-align: center;
                 font-size: 20px;
                 color: #202020;
@@ -1399,7 +1402,6 @@ menuPopup.addEventListener('touchmove', function(event) {
     </head>
     <body>
         <div id="gallery" class="gallery"></div>
-    
         <!-- رسالة "لا توجد نتائج" -->
         <div id="no-results-message" style="text-align: center; margin-top: 20px; padding: 20px; border-radius: 10px;">
             <div style="display: inline-block; background-color: #f0f0f0; border-radius: 7%; padding: 10px;">
@@ -1414,7 +1416,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 لا توجد نتائج لـ "<span id="search-term-display"></span>"
             </p>
         </div>
-    
         <script>
             function addToCart(element) {
                 event.stopPropagation();
@@ -1423,7 +1424,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 alert("تمت إضافة المنتج إلى سلة التسوق");
                 return false;
             }
-    
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -1431,7 +1431,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 }
                 return array;
             }
-    
             const scriptProducts = [
                 {
                     "name": "ساعة تاتش سوداء",
@@ -1461,15 +1460,11 @@ menuPopup.addEventListener('touchmove', function(event) {
                     "link": "product3.html"
                 }
             ];
-    
             document.addEventListener("DOMContentLoaded", function () {
                 const gallery = document.getElementById('gallery');
                 const itemsPerLoad = 20;
                 let loadedItems = 0;
                 let allProducts = [];
-                let shuffledProducts = []; // تعريف shuffledProducts في نطاق أوسع
-                let filteredProducts = []; // إضافة متغير جديد للمنتجات المصفاة
-    
                 function loadProducts(startIndex, count, products) {
                     const endIndex = Math.min(startIndex + count, products.length);
                     for (let i = startIndex; i < endIndex; i++) {
@@ -1478,10 +1473,10 @@ menuPopup.addEventListener('touchmove', function(event) {
                         const firstDigit = priceStr.charAt(0);
                         const specialDigits = ['2', '3', '5', '6', '8', '9'];
                         const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
-    
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        productDiv.setAttribute('data-name', product.dataName || product.name);
+                        // التأكد من تعيين data-name بشكل صحيح
+                        productDiv.setAttribute('data-name', product.dataName || product.name); // استخدام dataName أو الاسم إذا لم يكن موجودًا
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -1511,10 +1506,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                         gallery.appendChild(productDiv);
                     }
                     loadedItems = endIndex;
-    
                     const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                     lazyImages.forEach(img => observer.observe(img));
-    
                     document.querySelectorAll('.add-to-cart').forEach(button => {
                         button.addEventListener('click', function(e) {
                             e.preventDefault();
@@ -1523,10 +1516,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                             return false;
                         });
                     });
-    
                     preloadNextImages(products, endIndex);
                 }
-    
                 const observer = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -1542,7 +1533,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                         }
                     });
                 }, { rootMargin: "0px 0px 200px 0px" });
-    
                 function preloadNextImages(products, currentIndex) {
                     const preloadCount = 10;
                     const endIndex = Math.min(currentIndex + preloadCount, products.length);
@@ -1552,151 +1542,110 @@ menuPopup.addEventListener('touchmove', function(event) {
                         img.src = product.image;
                     }
                 }
-    
                 fetch('products.json')
                     .then(response => response.json())
                     .then(jsonProducts => {
                         allProducts = [...jsonProducts, ...scriptProducts];
-                        shuffledProducts = shuffleArray(allProducts);
-                        filteredProducts = shuffledProducts; // تهيئة filteredProducts مع جميع المنتجات
-                        loadProducts(0, itemsPerLoad, filteredProducts);
-    
+                        const shuffledProducts = shuffleArray(allProducts);
+                        loadProducts(0, itemsPerLoad, shuffledProducts);
                         document.addEventListener('scroll', function () {
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
-                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < filteredProducts.length) {
-                                loadProducts(loadedItems, itemsPerLoad, filteredProducts);
+                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
+                                loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
                             }
                         });
-    
                         window.addEventListener('resize', function () {
                             const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                             lazyImages.forEach(img => observer.observe(img));
                         });
-    
                         startRotatingText(".rotating-text1212");
                         performSearch(getSearchTermFromURL() || '');
                     })
                     .catch(error => {
                         console.warn('فشل جلب البيانات من JSON، يتم استخدام المنتجات المدمجة فقط:', error);
                         allProducts = scriptProducts;
-                        shuffledProducts = shuffleArray(allProducts);
-                        filteredProducts = shuffledProducts; // تهيئة filteredProducts مع جميع المنتجات
-                        loadProducts(0, itemsPerLoad, filteredProducts);
-    
+                        const shuffledProducts = shuffleArray(allProducts);
+                        loadProducts(0, itemsPerLoad, shuffledProducts);
                         document.addEventListener('scroll', function () {
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
-                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < filteredProducts.length) {
-                                loadProducts(loadedItems, itemsPerLoad, filteredProducts);
+                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
+                                loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
                             }
                         });
-    
                         window.addEventListener('resize', function () {
                             const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                             lazyImages.forEach(img => observer.observe(img));
                         });
-    
                         startRotatingText(".rotating-text1212");
                         performSearch(getSearchTermFromURL() || '');
                     });
-    
-                function startRotatingText(selector) {
-                    document.querySelectorAll(selector).forEach(element => {
-                        const texts = JSON.parse(element.getAttribute("data-texts"));
-                        let currentIndex = 0;
-                        setInterval(() => {
-                            element.style.transition = "opacity 0.5s, transform 0.5s";
-                            element.style.opacity = "0";
-                            element.style.transform = "translateY(20px)";
-                            setTimeout(() => {
-                                currentIndex = (currentIndex + 1) % texts.length;
-                                element.textContent = texts[currentIndex];
-                                element.style.opacity = "1";
-                                element.style.transform = "translateY(0)";
-                            }, 500);
-                        }, 5000);
-                    });
-                }
-    
-                function isWhiteBackground(img) {
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.width = img.naturalWidth;
-                    canvas.height = img.naturalHeight;
-                    context.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
-                    const imageData = context.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
-                    const data = imageData.data;
-                    let whitePixelCount = 0;
-                    let totalPixelCount = data.length / 4;
-    
-                    for (let i = 0; i < data.length; i += 4) {
-                        if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240) {
-                            whitePixelCount++;
-                        }
+            });
+            function startRotatingText(selector) {
+                document.querySelectorAll(selector).forEach(element => {
+                    const texts = JSON.parse(element.getAttribute("data-texts"));
+                    let currentIndex = 0;
+                    setInterval(() => {
+                        element.style.transition = "opacity 0.5s, transform 0.5s";
+                        element.style.opacity = "0";
+                        element.style.transform = "translateY(20px)";
+                        setTimeout(() => {
+                            currentIndex = (currentIndex + 1) % texts.length;
+                            element.textContent = texts[currentIndex];
+                            element.style.opacity = "1";
+                            element.style.transform = "translateY(0)";
+                        }, 500);
+                    }, 5000);
+                });
+            }
+            function isWhiteBackground(img) {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+                context.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+                const imageData = context.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
+                const data = imageData.data;
+                let whitePixelCount = 0;
+                let totalPixelCount = data.length / 4;
+                for (let i = 0; i < data.length; i += 4) {
+                    if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240) {
+                        whitePixelCount++;
                     }
-    
-                    return (whitePixelCount / totalPixelCount) > 0.9;
                 }
-    
-                function getSearchTermFromURL() {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    return urlParams.get('search') || '';
-                }
-    
-                function performSearch(searchTerm) {
-                    const products = document.querySelectorAll('.product');
-                    const noResultsMessage = document.getElementById('no-results-message');
-                    const searchTermDisplay = document.getElementById('search-term-display');
-                    let foundResults = false;
-    
-                    // تصفية المنتجات بناءً على مصطلح البحث
-                    if (searchTerm === '') {
-                        filteredProducts = shuffledProducts; // إذا لم يكن هناك بحث، استخدم جميع المنتجات
+                return (whitePixelCount / totalPixelCount) > 0.9;
+            }
+            function getSearchTermFromURL() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('search') || '';
+            }
+            function performSearch(searchTerm) {
+                const products = document.querySelectorAll('.product');
+                const noResultsMessage = document.getElementById('no-results-message');
+                const searchTermDisplay = document.getElementById('search-term-display');
+                let foundResults = false;
+                products.forEach(product => {
+                    const productDataName = product.getAttribute('data-name').toLowerCase();
+                    if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
+                        product.style.display = 'block';
+                        foundResults = true;
                     } else {
-                        filteredProducts = shuffledProducts.filter(product =>
-                            product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
-                        );
-                    }
-    
-                    // مسح المعرض وإعادة تحميل المنتجات المصفاة
-                    gallery.innerHTML = '';
-                    loadedItems = 0;
-                    loadProducts(0, itemsPerLoad, filteredProducts);
-    
-                    // إظهار أو إخفاء رسالة "لا توجد نتائج"
-                    if (filteredProducts.length > 0) {
-                        noResultsMessage.style.display = 'none';
-                    } else {
-                        noResultsMessage.style.display = 'block';
-                        searchTermDisplay.textContent = searchTerm;
-                    }
-    
-                    // الاحتفاظ بالسلوك الأصلي لإظهار/إخفاء المنتجات
-                    products.forEach(product => {
-                        const productDataName = product.getAttribute('data-name').toLowerCase();
-                        if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
-                            product.style.display = 'block';
-                            foundResults = true;
-                        } else {
-                            product.style.display = 'none';
-                        }
-                    });
-    
-                    if (foundResults || searchTerm === '') {
-                        noResultsMessage.style.display = 'none';
-                    } else {
-                        noResultsMessage.style.display = 'block';
-                        searchTermDisplay.textContent = searchTerm;
-                    }
-                }
-    
-                window.addEventListener('load', function () {
-                    const searchTerm = getSearchTermFromURL();
-                    if (searchTerm) {
-                        performSearch(searchTerm);
+                        product.style.display = 'none';
                     }
                 });
+                if (foundResults || searchTerm === '') {
+                    noResultsMessage.style.display = 'none';
+                } else {
+                    noResultsMessage.style.display = 'block';
+                    searchTermDisplay.textContent = searchTerm;
+                }
+            }
+            window.addEventListener('load', function () {
+                const searchTerm = getSearchTermFromURL();
+                if (searchTerm) {
+                    performSearch(searchTerm);
+                }
             });
         </script>
     </body>
