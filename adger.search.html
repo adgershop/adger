@@ -1183,9 +1183,6 @@ menuPopup.addEventListener('touchmove', function(event) {
 
 
 
-
-    
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -1496,9 +1493,21 @@ menuPopup.addEventListener('touchmove', function(event) {
     
             document.addEventListener("DOMContentLoaded", function () {
                 const gallery = document.getElementById('gallery');
-                const itemsPerLoad = 20;
-                let loadedItems = 0;
+                const noResultsMessage = document.getElementById('no-results-message');
+                const searchTermDisplay = document.getElementById('search-term-display');
                 let allProducts = [];
+                let filteredProducts = [];
+                let loadedItems = 0;
+                const itemsPerLoad = 20;
+    
+                function filterProducts(searchTerm) {
+                    if (!searchTerm) {
+                        return allProducts;
+                    }
+                    return allProducts.filter(product =>
+                        product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                }
     
                 function loadProducts(startIndex, count, products) {
                     const endIndex = Math.min(startIndex + count, products.length);
@@ -1511,8 +1520,7 @@ menuPopup.addEventListener('touchmove', function(event) {
     
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        // التأكد من تعيين data-name بشكل صحيح
-                        productDiv.setAttribute('data-name', product.dataName || product.name); // استخدام dataName أو الاسم إذا لم يكن موجودًا
+                        productDiv.setAttribute('data-name', product.dataName || product.name);
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -1584,18 +1592,31 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 }
     
+                function performSearch(searchTerm) {
+                    filteredProducts = filterProducts(searchTerm);
+                    loadedItems = 0;
+                    gallery.innerHTML = ''; // مسح المنتجات الحالية
+                    if (filteredProducts.length > 0) {
+                        loadProducts(0, itemsPerLoad, filteredProducts);
+                        noResultsMessage.style.display = 'none';
+                    } else {
+                        noResultsMessage.style.display = 'block';
+                        searchTermDisplay.textContent = searchTerm;
+                    }
+                }
+    
                 fetch('products.json')
                     .then(response => response.json())
                     .then(jsonProducts => {
                         allProducts = [...jsonProducts, ...scriptProducts];
-                        const shuffledProducts = shuffleArray(allProducts);
-                        loadProducts(0, itemsPerLoad, shuffledProducts);
+                        const searchTerm = getSearchTermFromURL() || '';
+                        performSearch(searchTerm);
     
                         document.addEventListener('scroll', function () {
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
-                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
-                                loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
+                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < filteredProducts.length) {
+                                loadProducts(loadedItems, itemsPerLoad, filteredProducts);
                             }
                         });
     
@@ -1605,19 +1626,18 @@ menuPopup.addEventListener('touchmove', function(event) {
                         });
     
                         startRotatingText(".rotating-text1212");
-                        performSearch(getSearchTermFromURL() || '');
                     })
                     .catch(error => {
                         console.warn('فشل جلب البيانات من JSON، يتم استخدام المنتجات المدمجة فقط:', error);
                         allProducts = scriptProducts;
-                        const shuffledProducts = shuffleArray(allProducts);
-                        loadProducts(0, itemsPerLoad, shuffledProducts);
+                        const searchTerm = getSearchTermFromURL() || '';
+                        performSearch(searchTerm);
     
                         document.addEventListener('scroll', function () {
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
-                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
-                                loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
+                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < filteredProducts.length) {
+                                loadProducts(loadedItems, itemsPerLoad, filteredProducts);
                             }
                         });
     
@@ -1627,7 +1647,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                         });
     
                         startRotatingText(".rotating-text1212");
-                        performSearch(getSearchTermFromURL() || '');
                     });
             });
     
@@ -1673,137 +1692,9 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get('search') || '';
             }
-    
-            function performSearch(searchTerm) {
-                const products = document.querySelectorAll('.product');
-                const noResultsMessage = document.getElementById('no-results-message');
-                const searchTermDisplay = document.getElementById('search-term-display');
-                let foundResults = false;
-    
-                products.forEach(product => {
-                    const productDataName = product.getAttribute('data-name').toLowerCase();
-                    if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
-                        product.style.display = 'block';
-                        foundResults = true;
-                    } else {
-                        product.style.display = 'none';
-                    }
-                });
-    
-                if (foundResults || searchTerm === '') {
-                    noResultsMessage.style.display = 'none';
-                } else {
-                    noResultsMessage.style.display = 'block';
-                    searchTermDisplay.textContent = searchTerm;
-                }
-            }
-    
-            window.addEventListener('load', function () {
-                const searchTerm = getSearchTermFromURL();
-                if (searchTerm) {
-                    performSearch(searchTerm);
-                }
-            });
         </script>
     </body>
     </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-        </body>
-        </html>
-<style>
-      .product {
-            display: block; /* إظهار المنتج بشكل افتراضي */
-        }
-
-        .hidden {
-            display: none; /* إخفاء المنتج */
-        }
-
-        #no-results-message {
-            display: none; /* إخفاء الرسالة بشكل افتراضي */
-            text-align: center;
-            font-size: 20px;
-            color: #202020;
-        }
-</style>
-
-
-   <!-- رسالة "لا توجد نتائج" -->
-<div id="no-results-message" style="text-align: center; margin-top: 20px; padding: 20px; border-radius: 10px;">
-    <!-- رمز بحث مخصص -->
-    <div style="display: inline-block; background-color: #f0f0f0; border-radius: 7%; padding: 10px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            <line x1="8" y1="8" x2="14" y2="14"></line>
-            <line x1="14" y1="8" x2="8" y2="14"></line>
-        </svg>
-    </div>
-    <p style="font-size: 24px; margin-top: 10px;">
-        لا توجد نتائج لـ "<span id="search-term-display"></span>"
-    </p>
-</div>
-
-    
-    <script>
-        // دالة لقراءة معلمة البحث من URL
-        function getSearchTermFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('search'); // الحصول على قيمة معلمة "search"
-        }
-
-        // دالة لتنفيذ البحث
-        function performSearch(searchTerm) {
-            const products = document.querySelectorAll('.product'); // جميع المنتجات
-            const noResultsMessage = document.getElementById('no-results-message'); // رسالة "لا توجد نتائج"
-            const searchTermDisplay = document.getElementById('search-term-display'); // العنصر الذي يعرض النص المدخل
-
-            let foundResults = false; // متغير لتتبع وجود نتائج
-
-            products.forEach(product => {
-                const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
-                if (productName.includes(searchTerm.toLowerCase())) {
-                    product.style.display = 'block'; // إظهار المنتج إذا تطابق
-                    foundResults = true; // تم العثور على نتائج
-                } else {
-                    product.style.display = 'none'; // إخفاء المنتج إذا لم يتطابق
-                }
-            });
-
-            // إظهار أو إخفاء رسالة "لا توجد نتائج"
-            if (foundResults) {
-                noResultsMessage.style.display = 'none'; // إخفاء الرسالة إذا وجدت نتائج
-            } else {
-                noResultsMessage.style.display = 'block'; // إظهار الرسالة إذا لم توجد نتائج
-                searchTermDisplay.textContent = searchTerm; // عرض النص المدخل في الرسالة
-            }
-        }
-
-        // تعبئة صندوق البحث وتنفيذ البحث تلقائيًا
-        window.addEventListener('load', function () {
-            const searchTerm = getSearchTermFromURL(); // قراءة معلمة البحث
-            if (searchTerm) {
-                const searchBox = document.getElementById('search-box'); // صندوق البحث في الصفحة الرئيسية
-                searchBox.value = decodeURIComponent(searchTerm); // تعبئة صندوق البحث بالنص
-                performSearch(searchTerm); // تنفيذ البحث تلقائيًا
-            }
-        });
-    </script>
-</body>
-</html>
 
 
 
