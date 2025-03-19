@@ -1495,14 +1495,15 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const gallery = document.getElementById('gallery');
                 const noResultsMessage = document.getElementById('no-results-message');
                 const searchTermDisplay = document.getElementById('search-term-display');
+                const itemsPerLoad = 20;
+                let loadedItems = 0;
                 let allProducts = [];
                 let filteredProducts = [];
-                let loadedItems = 0;
-                const itemsPerLoad = 20;
     
+                // دالة لتصفية المنتجات بناءً على البحث
                 function filterProducts(searchTerm) {
                     if (!searchTerm) {
-                        return allProducts;
+                        return allProducts; // إذا لم يكن هناك بحث، إرجاع جميع المنتجات
                     }
                     return allProducts.filter(product =>
                         product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -1592,16 +1593,17 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 }
     
+                // تعديل دالة performSearch لتحديث المنتجات المعروضة بناءً على البحث
                 function performSearch(searchTerm) {
-                    filteredProducts = filterProducts(searchTerm);
-                    loadedItems = 0;
-                    gallery.innerHTML = ''; // مسح المنتجات الحالية
+                    filteredProducts = filterProducts(searchTerm); // تصفية المنتجات
+                    loadedItems = 0; // إعادة تعيين العناصر المحملة
+                    gallery.innerHTML = ''; // مسح المعرض لتحميل المنتجات الجديدة
                     if (filteredProducts.length > 0) {
-                        loadProducts(0, itemsPerLoad, filteredProducts);
-                        noResultsMessage.style.display = 'none';
+                        loadProducts(0, itemsPerLoad, filteredProducts); // تحميل المنتجات المطابقة
+                        noResultsMessage.style.display = 'none'; // إخفاء رسالة "لا توجد نتائج"
                     } else {
-                        noResultsMessage.style.display = 'block';
-                        searchTermDisplay.textContent = searchTerm;
+                        noResultsMessage.style.display = 'block'; // إظهار رسالة "لا توجد نتائج"
+                        searchTermDisplay.textContent = searchTerm; // عرض نص البحث
                     }
                 }
     
@@ -1609,8 +1611,9 @@ menuPopup.addEventListener('touchmove', function(event) {
                     .then(response => response.json())
                     .then(jsonProducts => {
                         allProducts = [...jsonProducts, ...scriptProducts];
-                        const searchTerm = getSearchTermFromURL() || '';
-                        performSearch(searchTerm);
+                        const shuffledProducts = shuffleArray(allProducts);
+                        filteredProducts = shuffledProducts; // تعيين المنتجات الأولية
+                        loadProducts(0, itemsPerLoad, filteredProducts);
     
                         document.addEventListener('scroll', function () {
                             const triggerHeight = window.innerHeight * 1.5;
@@ -1626,12 +1629,15 @@ menuPopup.addEventListener('touchmove', function(event) {
                         });
     
                         startRotatingText(".rotating-text1212");
+                        const searchTerm = getSearchTermFromURL() || '';
+                        performSearch(searchTerm); // تنفيذ البحث عند التحميل
                     })
                     .catch(error => {
                         console.warn('فشل جلب البيانات من JSON، يتم استخدام المنتجات المدمجة فقط:', error);
                         allProducts = scriptProducts;
-                        const searchTerm = getSearchTermFromURL() || '';
-                        performSearch(searchTerm);
+                        const shuffledProducts = shuffleArray(allProducts);
+                        filteredProducts = shuffledProducts; // تعيين المنتجات الأولية
+                        loadProducts(0, itemsPerLoad, filteredProducts);
     
                         document.addEventListener('scroll', function () {
                             const triggerHeight = window.innerHeight * 1.5;
@@ -1647,6 +1653,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                         });
     
                         startRotatingText(".rotating-text1212");
+                        const searchTerm = getSearchTermFromURL() || '';
+                        performSearch(searchTerm); // تنفيذ البحث عند التحميل
                     });
             });
     
