@@ -2481,7 +2481,6 @@ menuPopup.addEventListener('touchmove', function(event) {
 
 
     <h1  style=" font-family: 'Cairo', sans-serif; color: #464646; font-size: 16px; text-align: center;">*اَلـــمـــحـــتـــوى* </h1>
-
     <!DOCTYPE html>
     <html lang="ar">
     <head>
@@ -2807,8 +2806,7 @@ menuPopup.addEventListener('touchmove', function(event) {
     
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        // التأكد من تعيين data-name بشكل صحيح
-                        productDiv.setAttribute('data-name', product.dataName || product.name); // استخدام dataName أو الاسم إذا لم يكن موجودًا
+                        productDiv.setAttribute('data-name', product.dataName || product.name);
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -2888,6 +2886,10 @@ menuPopup.addEventListener('touchmove', function(event) {
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
                         document.addEventListener('scroll', function () {
+                            const noResultsMessage = document.getElementById('no-results-message');
+                            if (noResultsMessage.style.display === 'block') {
+                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
+                            }
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
                             if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
@@ -2910,6 +2912,10 @@ menuPopup.addEventListener('touchmove', function(event) {
                         loadProducts(0, itemsPerLoad, shuffledProducts);
     
                         document.addEventListener('scroll', function () {
+                            const noResultsMessage = document.getElementById('no-results-message');
+                            if (noResultsMessage.style.display === 'block') {
+                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
+                            }
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
                             if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
