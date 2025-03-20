@@ -2743,9 +2743,6 @@ menuPopup.addEventListener('touchmove', function(event) {
         </div>
     
         <script>
-            // متغير عالمي لتخزين مصطلح البحث الحالي
-            let currentSearchTerm = getSearchTermFromURL() || '';
-    
             function addToCart(element) {
                 event.stopPropagation();
                 event.preventDefault();
@@ -2797,6 +2794,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const itemsPerLoad = 20;
                 let loadedItems = 0;
                 let allProducts = [];
+                const searchTerm = getSearchTermFromURL(); // جلب مصطلح البحث مبكرًا
     
                 function loadProducts(startIndex, count, products) {
                     const endIndex = Math.min(startIndex + count, products.length);
@@ -2809,7 +2807,8 @@ menuPopup.addEventListener('touchmove', function(event) {
     
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        productDiv.setAttribute('data-name', product.dataName || product.name);
+                        productDiv.setAttribute('data-name', (product.dataName || product.name || '').toLowerCase());
+                        productDiv.setAttribute('data-main-name', (product.name || '').toLowerCase());
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -2881,60 +2880,42 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 }
     
+                function initializeGallery(products) {
+                    const shuffledProducts = shuffleArray(products);
+                    loadProducts(0, itemsPerLoad, shuffledProducts);
+    
+                    document.addEventListener('scroll', function () {
+                        const noResultsMessage = document.getElementById('no-results-message');
+                        if (noResultsMessage.style.display === 'block') {
+                            return;
+                        }
+                        const triggerHeight = window.innerHeight * 1.5;
+                        const galleryHeight = gallery.scrollHeight;
+                        if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
+                            loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
+                        }
+                    });
+    
+                    window.addEventListener('resize', function () {
+                        const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+                        lazyImages.forEach(img => observer.observe(img));
+                    });
+    
+                    startRotatingText(".rotating-text1212");
+                    // استدعاء البحث بعد تحميل المنتجات
+                    performSearch(searchTerm || '');
+                }
+    
                 fetch('products.json')
                     .then(response => response.json())
                     .then(jsonProducts => {
                         allProducts = [...jsonProducts, ...scriptProducts];
-                        const shuffledProducts = shuffleArray(allProducts);
-                        loadProducts(0, itemsPerLoad, shuffledProducts);
-    
-                        document.addEventListener('scroll', function () {
-                            const noResultsMessage = document.getElementById('no-results-message');
-                            if (noResultsMessage.style.display === 'block') {
-                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
-                            }
-                            const triggerHeight = window.innerHeight * 1.5;
-                            const galleryHeight = gallery.scrollHeight;
-                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
-                                loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
-                                performSearch(currentSearchTerm); // إعادة تطبيق البحث بعد تحميل المنتجات الجديدة
-                            }
-                        });
-    
-                        window.addEventListener('resize', function () {
-                            const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                            lazyImages.forEach(img => observer.observe(img));
-                        });
-    
-                        startRotatingText(".rotating-text1212");
-                        performSearch(currentSearchTerm);
+                        initializeGallery(allProducts);
                     })
                     .catch(error => {
                         console.warn('فشل جلب البيانات من JSON، يتم استخدام المنتجات المدمجة فقط:', error);
                         allProducts = scriptProducts;
-                        const shuffledProducts = shuffleArray(allProducts);
-                        loadProducts(0, itemsPerLoad, shuffledProducts);
-    
-                        document.addEventListener('scroll', function () {
-                            const noResultsMessage = document.getElementById('no-results-message');
-                            if (noResultsMessage.style.display === 'block') {
-                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
-                            }
-                            const triggerHeight = window.innerHeight * 1.5;
-                            const galleryHeight = gallery.scrollHeight;
-                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
-                                loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
-                                performSearch(currentSearchTerm); // إعادة تطبيق البحث بعد تحميل المنتجات الجديدة
-                            }
-                        });
-    
-                        window.addEventListener('resize', function () {
-                            const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                            lazyImages.forEach(img => observer.observe(img));
-                        });
-    
-                        startRotatingText(".rotating-text1212");
-                        performSearch(currentSearchTerm);
+                        initializeGallery(allProducts);
                     });
             });
     
@@ -2982,15 +2963,17 @@ menuPopup.addEventListener('touchmove', function(event) {
             }
     
             function performSearch(searchTerm) {
-                const trimmedSearchTerm = searchTerm.trim().toLowerCase();
                 const products = document.querySelectorAll('.product');
                 const noResultsMessage = document.getElementById('no-results-message');
                 const searchTermDisplay = document.getElementById('search-term-display');
                 let foundResults = false;
     
                 products.forEach(product => {
-                    const productDataName = product.getAttribute('data-name').toLowerCase().trim();
-                    if (trimmedSearchTerm === '' || productDataName.includes(trimmedSearchTerm)) {
+                    const productDataName = product.getAttribute('data-name') || '';
+                    const productMainName = product.getAttribute('data-main-name') || '';
+                    const searchText = searchTerm.toLowerCase();
+    
+                    if (searchTerm === '' || productDataName.includes(searchText) || productMainName.includes(searchText)) {
                         product.style.display = 'block';
                         foundResults = true;
                     } else {
@@ -2998,19 +2981,13 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 });
     
-                if (foundResults || trimmedSearchTerm === '') {
+                if (foundResults || searchTerm === '') {
                     noResultsMessage.style.display = 'none';
                 } else {
                     noResultsMessage.style.display = 'block';
-                    searchTermDisplay.textContent = searchTerm; // نعرض المصطلح الأصلي
+                    searchTermDisplay.textContent = searchTerm;
                 }
             }
-    
-            window.addEventListener('load', function () {
-                if (currentSearchTerm) {
-                    performSearch(currentSearchTerm);
-                }
-            });
         </script>
     </body>
     </html>
