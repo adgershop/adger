@@ -817,35 +817,33 @@
                         display: flex;
                         align-items: center;
                         padding: 0 20px;
-                        overflow-x: auto; /* التمرير الأفقي */
-                        scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
-                        -ms-overflow-style: none; /* إخفاء شريط التمرير في IE و Edge */
+                        overflow-x: auto;
+                        scrollbar-width: none;
+                        -ms-overflow-style: none;
                     }
-                    @media (max-width: 769px) { /* الهواتف */
+                    @media (max-width: 769px) {
                         .sub-header {
                             top: 55px;
                         }
                     }
             
-                    /* إخفاء شريط التمرير في WebKit (Chrome, Safari) */
                     .sub-header::-webkit-scrollbar {
                         display: none;
                     }
             
-                    /* قائمة العناصر في الشريط الأبيض */
                     .sub-header nav {
                         display: flex;
                         gap: 30px;
                         position: relative;
-                        white-space: nowrap; /* منع النص من الانتقال لسطر جديد */
+                        white-space: nowrap;
                     }
-                    @media (max-width: 499px) { /* الهواتف */
+                    @media (max-width: 499px) {
                         .sub-header nav {
                             gap: 22px;
                             margin-right: -9px;
                         }
                     }
-                    @media (max-width: 769px) { /* الهواتف */
+                    @media (max-width: 769px) {
                         .sub-header nav {
                             margin-right: -9px;
                         }
@@ -856,15 +854,14 @@
                         color: #333;
                         font-size: 16px;
                         cursor: pointer;
-                        padding: 10px 0; /* إضافة حشو لتحسين المظهر */
+                        padding: 10px 0;
                     }
             
-                    /* الخط الرصاصي الرفيع تحت العنصر المحدد */
                     .underline {
                         position: absolute;
-                        bottom: 0; /* التأكد من أن الخط أسفل النص تمامًا */
+                        bottom: 0;
                         height: 2px;
-                        background-color: #000000; /* لون الخط */
+                        background-color: #000000;
                         transition: all 0.3s ease;
                     }
             
@@ -882,6 +879,7 @@
                         gap: 10px;
                         justify-content: center;
                         padding: 20px;
+                        margin-top: 120px; /* لتجنب التداخل مع sub-header */
                     }
             
                     .image-container {
@@ -1137,16 +1135,14 @@
                        ontouchend="setTimeout(() => this.style.color='black', 300)">
                         <span style="pointer-events: none;">حسابي</span>
                     </p>
-                    
                     <p onclick="window.location.href='about.html'" 
-                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black siennal;"
                        onmouseover="this.style.color='#888'" 
                        onmouseout="this.style.color='black'"
                        ontouchstart="this.style.color='#888'" 
                        ontouchend="setTimeout(() => this.style.color='black', 300)">
                         <span style="pointer-events: none;">سياسات وأحكام</span>
                     </p>
-                    
                     <p onclick="window.location.href='return.html'" 
                        style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
                        onmouseover="this.style.color='#888'" 
@@ -1155,7 +1151,6 @@
                        ontouchend="setTimeout(() => this.style.color='black', 300)">
                         <span style="pointer-events: none;">طلب استرجاع</span>
                     </p>
-                    
                     <p onclick="window.location.href='deals.html'" 
                        style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
                        onmouseover="this.style.color='#888'" 
@@ -1164,7 +1159,6 @@
                        ontouchend="setTimeout(() => this.style.color='black', 300)">
                         <span style="pointer-events: none;">صفقة رابحة</span>
                     </p>
-                    
                     <p onclick="window.location.href='wholesale.html'" 
                        style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
                        onmouseover="this.style.color='#888'" 
@@ -1173,7 +1167,6 @@
                        ontouchend="setTimeout(() => this.style.color='black', 300)">
                         <span style="pointer-events: none;">شراء بالجملة</span>
                     </p>
-                    
                     <p onclick="window.location.href='companies.html'" 
                        style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
                        onmouseover="this.style.color='#888'" 
@@ -1182,7 +1175,6 @@
                        ontouchend="setTimeout(() => this.style.color='black', 300)">
                         <span style="pointer-events: none;">شركات عالمية</span>
                     </p>
-                    
                     <p onclick="window.location.href='categories.html'" 
                        style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
                        onmouseover="this.style.color='#888'" 
@@ -1213,47 +1205,32 @@
                 <script>
                     // استرجاع بيانات المستخدم من localStorage
                     const username = localStorage.getItem('username');
-            
-                    // عرض "أهلاً" مع اسم المستخدم أو نص بديل
                     const welcomeMessage = document.getElementById('welcomeMessage');
                     const usernameDisplay = document.getElementById('usernameDisplay');
             
                     if (username) {
-                        // Function to detect if the name contains Arabic characters
                         function isArabic(text) {
-                            return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
+                            return /[\u0600-\u06FF]/.test(text);
                         }
-            
-                        // Function to truncate the username based on language
                         function truncateUsername(name) {
-                            const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
-                            
-                            // Check if the screen width is less than 966px and name length exceeds maxLength
+                            const maxLength = isArabic(name) ? 12 : 7;
                             if (window.innerWidth < 966 && name.length > maxLength) {
-                                if (isArabic(name)) {
-                                    return name.substring(0, maxLength) + '..'; // Truncate and add ".." at the end for Arabic
-                                } else {
-                                    return '..' + name.substring(0, maxLength); // Truncate and add ".." at the beginning for English
-                                }
+                                return isArabic(name) ? name.substring(0, maxLength) + '..' : '..' + name.substring(0, maxLength);
                             }
-                            return name; // Return the name unchanged if no truncation is needed
+                            return name;
                         }
-            
-                        // Apply the modification on page load and screen resize
                         usernameDisplay.textContent = truncateUsername(username);
                         window.addEventListener('resize', () => {
                             usernameDisplay.textContent = truncateUsername(username);
                         });
-                    } else {
+                    } else if (welcomeMessage) {
                         welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
                     }
             
                     // دالة لتحريك الخط عند النقر على عناصر القائمة
                     const menuItems = document.querySelectorAll('.menu-item');
                     menuItems.forEach(item => {
-                        item.addEventListener('click', () => {
-                            window.scrollTo(0, 0);
-                        });
+                        item.addEventListener('click', () => window.scrollTo(0, 0));
                     });
             
                     // دالة لإظهار أو إخفاء القائمة الجانبية
@@ -1265,96 +1242,79 @@
                             setTimeout(() => {
                                 menuPopup.classList.remove('closing');
                                 menuPopup.style.display = 'none';
-                            }, 300); // يتناسب مع مدة animation
+                            }, 300);
                         } else {
                             menuPopup.style.display = 'block';
-                            setTimeout(() => {
-                                menuPopup.classList.add('active');
-                            }, 10); // تأخير بسيط لضمان تطبيق خاصية display قبل الـ animation
+                            setTimeout(() => menuPopup.classList.add('active'), 10);
                         }
                     }
             
-                    // متغيرات لتتبع السحب
-                    let startX = 0;
-                    let currentX = 0;
-                    let isDragging = false;
-            
+                    // متغيرات ودوال لتتبع السحب
+                    let startX = 0, currentX = 0, isDragging = false;
                     const menuPopup = document.getElementById('menuPopup');
             
-                    // دالة لبدء تتبع السحب
                     function startDrag(event) {
                         if (menuPopup.classList.contains('active') && menuPopup.contains(event.target)) {
                             startX = event.touches[0].clientX;
                             isDragging = true;
                         }
                     }
-            
-                    // دالة لتتبع حركة السحب
                     function drag(event) {
                         if (!isDragging) return;
                         currentX = event.touches[0].clientX;
-                        const diff = currentX - startX;
-                        if (diff < -50) { // إذا تم السحب إلى اليسار بمقدار 50 بكسل
+                        if (currentX - startX < -50) {
                             toggleMenu();
                             isDragging = false;
                         }
                     }
-            
-                    // دالة لإنهاء تتبع السحب
                     function endDrag() {
                         isDragging = false;
                     }
-            
-                    // دالة للتحقق من النقر خارج النافذة
                     function handleClickOutside(event) {
-                        if (menuPopup.classList.contains('active') && !menuPopup.contains(event.target)) {
-                            toggleMenu();
-                        }
+                        if (menuPopup.classList.contains('active') && !menuPopup.contains(event.target)) toggleMenu();
                     }
-            
-                    // إضافة مستمعات الأحداث
                     document.addEventListener('touchstart', startDrag);
                     document.addEventListener('touchmove', drag);
                     document.addEventListener('touchend', endDrag);
                     document.addEventListener('click', handleClickOutside);
-            
-                    // منع التمرير أثناء فتح النافذة
-                    menuPopup.addEventListener('touchmove', function(event) {
-                        if (menuPopup.classList.contains('active')) {
-                            event.preventDefault();
-                        }
+                    menuPopup.addEventListener('touchmove', (event) => {
+                        if (menuPopup.classList.contains('active')) event.preventDefault();
                     }, { passive: false });
             
-                    // متغيرات عالمية لتتبع المنتجات المصفاة
+                    // دالة لإضافة المنتج إلى السلة
+                    function addToCart(element) {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        element.classList.add('checked');
+                        alert("تمت إضافة المنتج إلى سلة التسوق");
+                        return false;
+                    }
+            
+                    // متغيرات عالمية لتتبع المنتجات
                     let filteredProducts = [];
                     const itemsPerLoad = 20;
                     let loadedItems = 0;
             
-                    // دالة لجلب المنتجات من JSON وتصفيتها بناءً على البحث
+                    // دالة لجلب وتصفية المنتجات
                     function fetchAndFilterProducts(searchTerm) {
                         const gallery = document.getElementById('gallery');
                         const noResultsMessage = document.getElementById('no-results-message');
                         const searchTermDisplay = document.getElementById('search-term-display');
-                        const searchBox = document.getElementById('search-box'); // صندوق البحث الموجود مسبقًا
+                        const searchBox = document.getElementById('search-box');
             
-                        // تعبئة صندوق البحث بالنص المستخدم في البحث
-                        if (searchBox) {
-                            searchBox.value = searchTerm;
-                        }
+                        if (searchBox) searchBox.value = searchTerm;
             
                         fetch('products.json')
                             .then(response => response.json())
                             .then(products => {
-                                // تصفية المنتجات بناءً على data-name
                                 filteredProducts = products.filter(product => 
                                     product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
                                 );
-            
-                                gallery.innerHTML = ''; // مسح المحتوى السابق
-                                loadedItems = 0; // إعادة تعيين العدد المحمل
+                                gallery.innerHTML = '';
+                                loadedItems = 0;
             
                                 if (filteredProducts.length > 0) {
-                                    loadProducts(0, itemsPerLoad); // تحميل الدفعة الأولى
+                                    loadProducts(0, itemsPerLoad);
                                     noResultsMessage.style.display = 'none';
                                 } else {
                                     noResultsMessage.style.display = 'block';
@@ -1369,16 +1329,21 @@
                             });
                     }
             
-                    // دالة لتحميل المنتجات المصفاة
+                    // دالة لتحميل المنتجات
                     function loadProducts(startIndex, count) {
                         const gallery = document.getElementById('gallery');
                         const endIndex = Math.min(startIndex + count, filteredProducts.length);
             
                         for (let i = startIndex; i < endIndex; i++) {
                             const product = filteredProducts[i];
+                            const priceStr = product.price.toString();
+                            const firstDigit = priceStr.charAt(0);
+                            const specialDigits = ['2', '3', '5', '6', '8', '9'];
+                            const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
+            
                             const productDiv = document.createElement('div');
                             productDiv.className = 'image-container product';
-                            productDiv.setAttribute('data-name', product.dataName);
+                            productDiv.setAttribute('data-name', product.dataName || product.name);
                             productDiv.innerHTML = `
                                 <div class="image-frame">
                                     <a href="${product.link}" onclick="return true;">
@@ -1393,10 +1358,14 @@
                                     </a>
                                     <div class="text-under">
                                         <h1>${product.name}</h1>
-                                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه</h2>
+                                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
                                         <div class="container">
+                                            <div class="zero" style="font-size: 24px;"></div>
                                             <div class="number" style="font-size: 20px;">${product.price}</div>
-                                            <div class="letter" style="margin-right: -4px; font-size: 17px;">EGP</div>
+                                            <div class="letter" style="margin-right: ${letterMargin}; font-size: 17px;">EGP</div>
+                                        </div>
+                                        <div class="product1212">
+                                            <h3 class="rotating-text1212" data-texts='${JSON.stringify(product.discountTexts)}'>${product.discountTexts[0]}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -1405,13 +1374,12 @@
                         }
             
                         loadedItems = endIndex;
-            
-                        // تفعيل التحميل الكسول للصور
                         const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                         lazyImages.forEach(img => observer.observe(img));
+                        startRotatingText(".rotating-text1212"); // تفعيل النصوص المتغيرة
                     }
             
-                    // مراقب التحميل الكسول للصور
+                    // مراقب التحميل الكسول
                     const observer = new IntersectionObserver((entries, observer) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
@@ -1449,13 +1417,23 @@
                         return (whitePixelCount / totalPixelCount) > 0.9;
                     }
             
-                    // دالة لإضافة المنتج إلى السلة
-                    function addToCart(element) {
-                        event.stopPropagation();
-                        event.preventDefault();
-                        element.classList.add('checked');
-                        alert("تمت إضافة المنتج إلى سلة التسوق");
-                        return false;
+                    // دالة لتدوير النصوص
+                    function startRotatingText(selector) {
+                        document.querySelectorAll(selector).forEach(element => {
+                            const texts = JSON.parse(element.getAttribute("data-texts"));
+                            let currentIndex = 0;
+                            setInterval(() => {
+                                element.style.transition = "opacity 0.5s, transform 0.5s";
+                                element.style.opacity = "0";
+                                element.style.transform = "translateY(20px)";
+                                setTimeout(() => {
+                                    currentIndex = (currentIndex + 1) % texts.length;
+                                    element.textContent = texts[currentIndex];
+                                    element.style.opacity = "1";
+                                    element.style.transform = "translateY(0)";
+                                }, 500);
+                            }, 5000);
+                        });
                     }
             
                     // دالة لقراءة معلمة البحث من URL
@@ -1475,34 +1453,28 @@
                         }
                     });
             
-                    // دالة لتحريك الخط وتنفيذ البحث عند اختيار عنصر
+                    // دالة لتحريك الخط وتنفيذ البحث
                     function selectItem(item, element) {
-                        const searchBox = document.getElementById('search-box'); // صندوق البحث الموجود مسبقًا
+                        const searchBox = document.getElementById('search-box');
             
-                        // تعبئة صندوق البحث بناءً على العنصر المحدد
                         if (searchBox) {
                             if (item === 'الكل') {
-                                searchBox.value = ''; // إفراغ الصندوق عند اختيار "الكل"
+                                searchBox.value = '';
                             } else {
-                                searchBox.value = item; // تعبئة الصندوق بالنص المحدد
+                                searchBox.value = item;
                             }
                         }
             
-                        // تنفيذ البحث بناءً على العنصر المحدد
                         if (item === 'الكل') {
-                            fetchAndFilterProducts(''); // عرض كل المنتجات
+                            fetchAndFilterProducts('');
                         } else if (item) {
-                            fetchAndFilterProducts(item); // تصفية المنتجات بناءً على العنصر المحدد
+                            fetchAndFilterProducts(item);
                         }
             
-                        // إزالة الفئة النشطة من جميع العناصر
                         const allItems = document.querySelectorAll('.sub-header nav a');
                         allItems.forEach(item => item.classList.remove('active'));
-            
-                        // إضافة الفئة النشطة للعنصر المحدد
                         element.classList.add('active');
             
-                        // تحريك الخط
                         const underline = document.querySelector('.underline');
                         const itemRect = element.getBoundingClientRect();
                         const navRect = element.parentElement.getBoundingClientRect();
@@ -1510,7 +1482,6 @@
                         underline.style.width = `${itemRect.width}px`;
                         underline.style.left = `${itemRect.left - navRect.left}px`;
             
-                        // تمرير العنصر إلى منتصف الشاشة إذا كان خارج العرض
                         element.scrollIntoView({
                             behavior: 'smooth',
                             block: 'center',
@@ -1518,29 +1489,24 @@
                         });
                     }
             
-                    // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي وتنفيذ البحث
+                    // عند تحميل الصفحة
                     window.onload = function () {
                         const defaultItem = document.querySelector('.sub-header nav a');
                         const underline = document.querySelector('.underline');
                         if (defaultItem && underline) {
                             const itemRect = defaultItem.getBoundingClientRect();
                             const navRect = defaultItem.parentElement.getBoundingClientRect();
-            
-                            // إضافة الفئة النشطة لعنصر "الكل" بشكل افتراضي
                             defaultItem.classList.add('active');
-            
-                            // ضبط الخط تحت "الكل" بشكل افتراضي
                             underline.style.width = `${itemRect.width}px`;
                             underline.style.left = `${itemRect.left - navRect.left}px`;
                         }
             
-                        // تنفيذ البحث تلقائيًا بناءً على URL وتعبئة صندوق البحث
                         const searchTerm = getSearchTermFromURL();
                         const searchBox = document.getElementById('search-box');
                         if (searchBox && searchTerm) {
-                            searchBox.value = searchTerm; // تعبئة صندوق البحث بنص البحث من URL
+                            searchBox.value = searchTerm;
                         }
-                        fetchAndFilterProducts(searchTerm || ''); // جلب وعرض المنتجات المطابقة فقط
+                        fetchAndFilterProducts(searchTerm || '');
                     };
                 </script>
             </body>
