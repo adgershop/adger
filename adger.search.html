@@ -785,89 +785,9 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Example Page</title>
+                <title>المنتجات</title>
                 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
                 <style>
-                    /* الشريط العلوي الثابت */
-                    .header {
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        height: 66px;
-                        background-color: white;
-                        padding: 0 20px;
-                        z-index: 1;
-                    }
-            
-                    /* الشريط الأبيض الثابت أسفل الشريط العلوي */
-                    .sub-header {
-                        position: fixed;
-                        top: 62px;
-                        left: 0;
-                        right: 0;
-                        height: 51px;
-                        background-color: white;
-                        box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
-                        text-shadow: none;
-                        z-index: 999;
-                        display: flex;
-                        align-items: center;
-                        padding: 0 20px;
-                        overflow-x: auto; /* التمرير الأفقي */
-                        scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
-                        -ms-overflow-style: none; /* إخفاء شريط التمرير في IE و Edge */
-                    }
-                    @media (max-width: 769px) { /* الهواتف */
-                        .sub-header {
-                            top: 55px;
-                        }
-                    }
-            
-                    /* إخفاء شريط التمرير في WebKit (Chrome, Safari) */
-                    .sub-header::-webkit-scrollbar {
-                        display: none;
-                    }
-            
-                    /* قائمة العناصر في الشريط الأبيض */
-                    .sub-header nav {
-                        display: flex;
-                        gap: 30px;
-                        position: relative;
-                        white-space: nowrap; /* منع النص من الانتقال لسطر جديد */
-                    }
-                    @media (max-width: 499px) { /* الهواتف */
-                        .sub-header nav {
-                            gap: 22px;
-                            margin-right: -9px;
-                        }
-                    }
-                    @media (max-width: 769px) { /* الهواتف */
-                        .sub-header nav {
-                            margin-right: -9px;
-                        }
-                    }
-            
-                    .sub-header nav a {
-                        text-decoration: none;
-                        color: #333;
-                        font-size: 16px;
-                        cursor: pointer;
-                        padding: 10px 0; /* إضافة حشو لتحسين المظهر */
-                    }
-            
-                    /* الخط الرصاصي الرفيع تحت العنصر المحدد */
-                    .underline {
-                        position: absolute;
-                        bottom: 0; /* التأكد من أن الخط أسفل النص تمامًا */
-                        height: 2px;
-                        background-color: #000000; /* لون الخط */
-                        transition: all 0.3s ease;
-                    }
-            
                     body {
                         font-family: Arial, sans-serif;
                         margin: 0;
@@ -1018,7 +938,6 @@
                             padding-left: 5px;
                             padding-right: 5px;
                         }
-            
                         .image-container {
                             flex: 1 1 calc(50% - 5px);
                             max-width: calc(50% - 5px);
@@ -1042,159 +961,22 @@
                         display: none;
                     }
             
-                    .container {
-                        display: flex;
-                        align-items: center;
-                        gap: 5px;
-                        width: 100%;
-                        margin-top: -7px;
-                    }
-            
-                    @media (max-width: 1268px) {
-                        .container {
-                            margin-top: -7px;
-                        }
-                        .zero {
-                            font-size: 20px !important;
-                        }
-                        .number {
-                            font-size: 16px !important;
-                        }
-                        .letter {
-                            font-size: 14px !important;
-                        }
-                    }
-            
-                    .rotating-text1212 {
-                        font-family: 'Cairo', sans-serif;
-                        color: #ff0000;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        margin-right: 8.6px;
-                        text-transform: uppercase;
-                        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-            
-                    .image-frame a,
-                    .image-frame a *,
-                    .image-frame a *:focus,
-                    .image-frame a img {
-                        outline: none !important;
-                        border: none !important;
-                        -webkit-tap-highlight-color: transparent !important;
-                    }
-            
-                    .image-frame a:focus,
-                    .image-frame a img:focus {
-                        outline: none !important;
-                    }
-            
-                    .product {
-                        display: block;
-                    }
-            
                     #no-results-message {
                         display: none;
                         text-align: center;
                         font-size: 20px;
                         color: #202020;
+                        margin-top: 20px;
+                        padding: 20px;
+                        border-radius: 10px;
                     }
                 </style>
             </head>
             <body>
-                <!-- Sub Header -->
-                <div class="sub-header">
-                    <nav>
-                        <a href="#" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
-                        <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                        <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                        <div class="underline"></div>
-                    </nav>
-                </div>
-            
-                <!-- نافذة القائمة الجانبية -->
-                <div class="menu-popup" id="menuPopup">
-                    <div class="back-arrow" onclick="toggleMenu()">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 12H5M12 19l-7-7 7-7"></path>
-                        </svg>
-                    </div>
-                    <p onclick="window.location.href='account.html'" 
-                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-                       onmouseover="this.style.color='#888'" 
-                       onmouseout="this.style.color='black'"
-                       ontouchstart="this.style.color='#888'" 
-                       ontouchend="setTimeout(() => this.style.color='black', 300)">
-                        <span style="pointer-events: none;">حسابي</span>
-                    </p>
-                    
-                    <p onclick="window.location.href='about.html'" 
-                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-                       onmouseover="this.style.color='#888'" 
-                       onmouseout="this.style.color='black'"
-                       ontouchstart="this.style.color='#888'" 
-                       ontouchend="setTimeout(() => this.style.color='black', 300)">
-                        <span style="pointer-events: none;">سياسات وأحكام</span>
-                    </p>
-                    
-                    <p onclick="window.location.href='return.html'" 
-                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-                       onmouseover="this.style.color='#888'" 
-                       onmouseout="this.style.color='black'"
-                       ontouchstart="this.style.color='#888'" 
-                       ontouchend="setTimeout(() => this.style.color='black', 300)">
-                        <span style="pointer-events: none;">طلب استرجاع</span>
-                    </p>
-                    
-                    <p onclick="window.location.href='deals.html'" 
-                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-                       onmouseover="this.style.color='#888'" 
-                       onmouseout="this.style.color='black'"
-                       ontouchstart="this.style.color='#888'" 
-                       ontouchend="setTimeout(() => this.style.color='black', 300)">
-                        <span style="pointer-events: none;">صفقة رابحة</span>
-                    </p>
-                    
-                    <p onclick="window.location.href='wholesale.html'" 
-                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-                       onmouseover="this.style.color='#888'" 
-                       onmouseout="this.style.color='black'"
-                       ontouchstart="this.style.color='#888'" 
-                       ontouchend="setTimeout(() => this.style.color='black', 300)">
-                        <span style="pointer-events: none;">شراء بالجملة</span>
-                    </p>
-                    
-                    <p onclick="window.location.href='companies.html'" 
-                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-                       onmouseover="this.style.color='#888'" 
-                       onmouseout="this.style.color='black'"
-                       ontouchstart="this.style.color='#888'" 
-                       ontouchend="setTimeout(() => this.style.color='black', 300)">
-                        <span style="pointer-events: none;">شركات عالمية</span>
-                    </p>
-                    
-                    <p onclick="window.location.href='categories.html'" 
-                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-                       onmouseover="this.style.color='#888'" 
-                       onmouseout="this.style.color='black'"
-                       ontouchstart="this.style.color='#888'" 
-                       ontouchend="setTimeout(() => this.style.color='black', 300)">
-                        <span style="pointer-events: none;">الفئات</span>
-                    </p>
-                </div>
-            
                 <div id="gallery" class="gallery"></div>
             
                 <!-- رسالة "لا توجد نتائج" -->
-                <div id="no-results-message" style="text-align: center; margin-top: 20px; padding: 20px; border-radius: 10px;">
+                <div id="no-results-message">
                     <div style="display: inline-block; background-color: #f0f0f0; border-radius: 7%; padding: 10px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
@@ -1209,503 +991,104 @@
                 </div>
             
                 <script>
-                    // استرجاع بيانات المستخدم من localStorage
-                    const username = localStorage.getItem('username');
+                    // متغيرات عالمية لتتبع المنتجات المصفاة
+                    let filteredProducts = [];
+                    const itemsPerLoad = 20;
+                    let loadedItems = 0;
             
-                    // عرض "أهلاً" مع اسم المستخدم أو نص بديل
-                    const welcomeMessage = document.getElementById('welcomeMessage');
-                    const usernameDisplay = document.getElementById('usernameDisplay');
-            
-                    if (username) {
-                        // Function to detect if the name contains Arabic characters
-                        function isArabic(text) {
-                            return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
-                        }
-            
-                        // Function to truncate the username based on language
-                        function truncateUsername(name) {
-                            const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
-                            
-                            // Check if the screen width is less than 966px and name length exceeds maxLength
-                            if (window.innerWidth < 966 && name.length > maxLength) {
-                                if (isArabic(name)) {
-                                    return name.substring(0, maxLength) + '..'; // Truncate and add ".." at the end for Arabic
-                                } else {
-                                    return '..' + name.substring(0, maxLength); // Truncate and add ".." at the beginning for English
-                                }
-                            }
-                            return name; // Return the name unchanged if no truncation is needed
-                        }
-            
-                        // Apply the modification on page load and screen resize
-                        usernameDisplay.textContent = truncateUsername(username);
-                        window.addEventListener('resize', () => {
-                            usernameDisplay.textContent = truncateUsername(username);
-                        });
-                    } else {
-                        welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
-                    }
-            
-                    // دالة لتحريك الخط عند النقر على عناصر القائمة
-                    const menuItems = document.querySelectorAll('.menu-item');
-                    menuItems.forEach(item => {
-                        item.addEventListener('click', () => {
-                            window.scrollTo(0, 0);
-                        });
-                    });
-            
-                    function selectItem(itemName, element) {
-                        const underline = document.querySelector('.underline');
-                        const navItems = document.querySelectorAll('.sub-header nav a');
-            
-                        navItems.forEach(item => {
-                            item.classList.remove('active');
-                        });
-            
-                        element.classList.add('active');
-                        underline.style.width = element.offsetWidth + 'px';
-                        underline.style.left = element.offsetLeft + 'px';
-                    }
-            
-                    // دالة لإظهار أو إخفاء القائمة الجانبية
-                    function toggleMenu() {
-                        const menuPopup = document.getElementById('menuPopup');
-                        if (menuPopup.classList.contains('active')) {
-                            menuPopup.classList.remove('active');
-                            menuPopup.classList.add('closing');
-                            setTimeout(() => {
-                                menuPopup.classList.remove('closing');
-                                menuPopup.style.display = 'none';
-                            }, 300); // يتناسب مع مدة animation
-                        } else {
-                            menuPopup.style.display = 'block';
-                            setTimeout(() => {
-                                menuPopup.classList.add('active');
-                            }, 10); // تأخير بسيط لضمان تطبيق خاصية display قبل الـ animation
-                        }
-                    }
-            
-                    // دالة لتنفيذ البحث
-                    function performSearch(searchTerm) {
-                        const products = document.querySelectorAll('.product'); // جميع المنتجات
-            
-                        products.forEach(product => {
-                            const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
-                            if (productName.includes(searchTerm.toLowerCase())) {
-                                product.classList.remove('hidden'); // إظهار المنتج إذا تطابق
-                            } else {
-                                product.classList.add('hidden'); // إخفاء المنتج إذا لم يتطابق
-                            }
-                        });
-                    }
-            
-                    // دالة لتحريك الخط ووضع الكلمة في صندوق البحث مع البحث من JSON
-                    function selectItem(item, element) {
-                        const searchBox = document.getElementById('search-box');
+                    // دالة لجلب المنتجات من JSON وتصفيتها بناءً على البحث
+                    function fetchAndFilterProducts(searchTerm) {
                         const gallery = document.getElementById('gallery');
                         const noResultsMessage = document.getElementById('no-results-message');
                         const searchTermDisplay = document.getElementById('search-term-display');
             
-                        // إذا كان العنصر المحدد هو "الكل"، فقط قم بإفراغ صندوق البحث
-                        if (item === 'الكل') {
-                            searchBox.value = '';
-                        } else if (item) {
-                            searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كانت موجودة)
-                        }
-            
-                        // إزالة الفئة النشطة من جميع العناصر
-                        const allItems = document.querySelectorAll('.sub-header nav a');
-                        allItems.forEach(item => item.classList.remove('active'));
-            
-                        // إضافة الفئة النشطة للعنصر المحدد
-                        element.classList.add('active');
-            
-                        // تحريك الخط
-                        const underline = document.querySelector('.underline');
-                        const itemRect = element.getBoundingClientRect();
-                        const navRect = element.parentElement.getBoundingClientRect();
-            
-                        underline.style.width = `${itemRect.width}px`;
-                        underline.style.left = `${itemRect.left - navRect.left}px`;
-            
-                        // تمرير العنصر إلى منتصف الشاشة إذا كان خارج العرض
-                        element.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center',
-                            inline: 'center'
-                        });
-            
-                        // جلب المنتجات من JSON فقط بناءً على data-name
                         fetch('products.json')
                             .then(response => response.json())
-                            .then(jsonProducts => {
-                                const filteredProducts = jsonProducts.filter(product => 
-                                    item === 'الكل' || product.dataName.toLowerCase().includes(item.toLowerCase())
+                            .then(products => {
+                                // تصفية المنتجات بناءً على data-name
+                                filteredProducts = products.filter(product => 
+                                    product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
                                 );
-                                gallery.innerHTML = ''; // مسح المحتوى الحالي
             
-                                if (filteredProducts.length === 0 && item !== 'الكل') {
-                                    noResultsMessage.style.display = 'block';
-                                    searchTermDisplay.textContent = item;
-                                } else {
+                                gallery.innerHTML = ''; // مسح المحتوى السابق
+                                loadedItems = 0; // إعادة تعيين العدد المحمل
+            
+                                if (filteredProducts.length > 0) {
+                                    loadProducts(0, itemsPerLoad); // تحميل الدفعة الأولى
                                     noResultsMessage.style.display = 'none';
-                                    filteredProducts.forEach(product => {
-                                        const priceStr = product.price.toString();
-                                        const firstDigit = priceStr.charAt(0);
-                                        const specialDigits = ['2', '3', '5', '6', '8', '9'];
-                                        const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
-            
-                                        const productDiv = document.createElement('div');
-                                        productDiv.className = 'image-container product';
-                                        productDiv.setAttribute('data-name', product.dataName || product.name);
-                                        productDiv.innerHTML = `
-                                            <div class="image-frame">
-                                                <a href="${product.link}" onclick="return true;">
-                                                    <div class="image-wrapper">
-                                                        <img data-src="${product.image}" alt="${product.name}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                                                        <div class="add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); addToCart(this); return false;">
-                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <div class="text-under">
-                                                    <h1>${product.name}</h1>
-                                                    <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
-                                                    <div class="container">
-                                                        <div class="zero" style="font-size: 24px;"></div>
-                                                        <div class="number" style="font-size: 20px;">${product.price}</div>
-                                                        <div class="letter" style="margin-right: ${letterMargin}; font-size: 17px;">EGP</div>
-                                                    </div>
-                                                    <div class="product1212">
-                                                        <h3 class="rotating-text1212" data-texts='${JSON.stringify(product.discountTexts)}'>${product.discountTexts[0]}</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        `;
-                                        gallery.appendChild(productDiv);
-                                    });
-            
-                                    const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                                    const observer = new IntersectionObserver((entries, observer) => {
-                                        entries.forEach(entry => {
-                                            if (entry.isIntersecting) {
-                                                const img = entry.target;
-                                                img.src = img.dataset.src;
-                                                img.onload = () => {
-                                                    img.classList.add("loaded");
-                                                    if (isWhiteBackground(img)) {
-                                                        img.classList.add("white-bg");
-                                                    }
-                                                };
-                                                observer.unobserve(img);
-                                            }
-                                        });
-                                    }, { rootMargin: "0px 0px 200px 0px" });
-                                    lazyImages.forEach(img => observer.observe(img));
-            
-                                    document.querySelectorAll('.add-to-cart').forEach(button => {
-                                        button.addEventListener('click', function(e) {
-                                            e.preventDefault();
-                                            e.stopPropagation();
-                                            addToCart(this);
-                                            return false;
-                                        });
-                                    });
-            
-                                    startRotatingText(".rotating-text1212");
+                                } else {
+                                    noResultsMessage.style.display = 'block';
+                                    searchTermDisplay.textContent = searchTerm;
                                 }
                             })
                             .catch(error => {
-                                console.warn('فشل جلب البيانات من JSON:', error);
+                                console.error('فشل جلب المنتجات من JSON:', error);
                                 gallery.innerHTML = '';
-                                if (item !== 'الكل') {
-                                    noResultsMessage.style.display = 'block';
-                                    searchTermDisplay.textContent = item;
-                                } else {
-                                    noResultsMessage.style.display = 'none';
-                                }
+                                noResultsMessage.style.display = 'block';
+                                searchTermDisplay.textContent = searchTerm;
                             });
                     }
             
-                    // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
-                    window.onload = function () {
-                        const defaultItem = document.querySelector('.sub-header nav a');
-                        const underline = document.querySelector('.underline');
-                        if (defaultItem && underline) {
-                            const itemRect = defaultItem.getBoundingClientRect();
-                            const navRect = defaultItem.parentElement.getBoundingClientRect();
-            
-                            // إضافة الفئة النشطة لعنصر "الكل" بشكل افتراضي
-                            defaultItem.classList.add('active');
-            
-                            // ضبط الخط تحت "الكل" بشكل افتراضي
-                            underline.style.width = `${itemRect.width}px`;
-                            underline.style.left = `${itemRect.left - navRect.left}px`;
-                        }
-                        selectItem('الكل', defaultItem); // تحميل جميع المنتجات افتراضيًا
-                    };
-            
-                    // متغيرات لتتبع السحب
-                    let startX = 0;
-                    let currentX = 0;
-                    let isDragging = false;
-            
-                    const menuPopup = document.getElementById('menuPopup');
-            
-                    // دالة لبدء تتبع السحب
-                    function startDrag(event) {
-                        if (menuPopup.classList.contains('active') && menuPopup.contains(event.target)) {
-                            startX = event.touches[0].clientX;
-                            isDragging = true;
-                        }
-                    }
-            
-                    // دالة لتتبع حركة السحب
-                    function drag(event) {
-                        if (!isDragging) return;
-                        currentX = event.touches[0].clientX;
-                        const diff = currentX - startX;
-                        if (diff < -50) { // إذا تم السحب إلى اليسار بمقدار 50 بكسل
-                            toggleMenu();
-                            isDragging = false;
-                        }
-                    }
-            
-                    // دالة لإنهاء تتبع السحب
-                    function endDrag() {
-                        isDragging = false;
-                    }
-            
-                    // دالة للتحقق من النقر خارج النافذة
-                    function handleClickOutside(event) {
-                        if (menuPopup.classList.contains('active') && !menuPopup.contains(event.target)) {
-                            toggleMenu();
-                        }
-                    }
-            
-                    // إضافة مستمعات الأحداث
-                    document.addEventListener('touchstart', startDrag);
-                    document.addEventListener('touchmove', drag);
-                    document.addEventListener('touchend', endDrag);
-                    document.addEventListener('click', handleClickOutside);
-            
-                    // منع التمرير أثناء فتح النافذة
-                    menuPopup.addEventListener('touchmove', function(event) {
-                        if (menuPopup.classList.contains('active')) {
-                            event.preventDefault();
-                        }
-                    }, { passive: false });
-            
-                    function addToCart(element) {
-                        event.stopPropagation();
-                        event.preventDefault();
-                        element.classList.add('checked');
-                        alert("تمت إضافة المنتج إلى سلة التسوق");
-                        return false;
-                    }
-            
-                    function shuffleArray(array) {
-                        for (let i = array.length - 1; i > 0; i--) {
-                            const j = Math.floor(Math.random() * (i + 1));
-                            [array[i], array[j]] = [array[j], array[i]];
-                        }
-                        return array;
-                    }
-            
-                    const scriptProducts = [
-                        {
-                            "name": "ساعة تاتش سوداء",
-                            "dataName": "كتب عصري وأنيق",
-                            "price": "1,500.00",
-                            "image": "a1.jpg",
-                            "sold": 25,
-                            "discountTexts": ["كان ب 200,000 جنيه", "خصم24%"],
-                            "link": "prod1.html"
-                        },
-                        {
-                            "name": "ساعة ذكية رياضية",
-                            "dataName": "مقاومة للماء ومتعددة الوظائف",
-                            "price": "2,200.00",
-                            "image": "55.png",
-                            "sold": 50,
-                            "discountTexts": ["كان ب 3,000 جنيه", "خصم27%"],
-                            "link": "product2.html"
-                        },
-                        {
-                            "name": "ساعة كلاسيك باللمس",
-                            "dataName": "أناقة مع تقنية اللمس",
-                            "price": "1,800.00",
-                            "image": "55.png",
-                            "sold": 15,
-                            "discountTexts": ["كان ب 2,500 جنيه", "خصم28%"],
-                            "link": "product3.html"
-                        }
-                    ];
-            
-                    document.addEventListener("DOMContentLoaded", function () {
+                    // دالة لتحميل المنتجات المصفاة
+                    function loadProducts(startIndex, count) {
                         const gallery = document.getElementById('gallery');
-                        const itemsPerLoad = 20;
-                        let loadedItems = 0;
-                        let allProducts = [];
+                        const endIndex = Math.min(startIndex + count, filteredProducts.length);
             
-                        function loadProducts(startIndex, count, products) {
-                            const endIndex = Math.min(startIndex + count, products.length);
-                            for (let i = startIndex; i < endIndex; i++) {
-                                const product = products[i];
-                                const priceStr = product.price.toString();
-                                const firstDigit = priceStr.charAt(0);
-                                const specialDigits = ['2', '3', '5', '6', '8', '9'];
-                                const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
-            
-                                const productDiv = document.createElement('div');
-                                productDiv.className = 'image-container product';
-                                productDiv.setAttribute('data-name', product.dataName || product.name);
-                                productDiv.innerHTML = `
-                                    <div class="image-frame">
-                                        <a href="${product.link}" onclick="return true;">
-                                            <div class="image-wrapper">
-                                                <img data-src="${product.image}" alt="${product.name}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                                                <div class="add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); addToCart(this); return false;">
-                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <div class="text-under">
-                                            <h1>${product.name}</h1>
-                                            <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
-                                            <div class="container">
-                                                <div class="zero" style="font-size: 24px;"></div>
-                                                <div class="number" style="font-size: 20px;">${product.price}</div>
-                                                <div class="letter" style="margin-right: ${letterMargin}; font-size: 17px;">EGP</div>
-                                            </div>
-                                            <div class="product1212">
-                                                <h3 class="rotating-text1212" data-texts='${JSON.stringify(product.discountTexts)}'>${product.discountTexts[0]}</h3>
+                        for (let i = startIndex; i < endIndex; i++) {
+                            const product = filteredProducts[i];
+                            const productDiv = document.createElement('div');
+                            productDiv.className = 'image-container product';
+                            productDiv.setAttribute('data-name', product.dataName);
+                            productDiv.innerHTML = `
+                                <div class="image-frame">
+                                    <a href="${product.link}" onclick="return true;">
+                                        <div class="image-wrapper">
+                                            <img data-src="${product.image}" alt="${product.name}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
+                                            <div class="add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); addToCart(this); return false;">
+                                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                                                </svg>
                                             </div>
                                         </div>
+                                    </a>
+                                    <div class="text-under">
+                                        <h1>${product.name}</h1>
+                                        <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه</h2>
+                                        <div class="container">
+                                            <div class="number" style="font-size: 20px;">${product.price}</div>
+                                            <div class="letter" style="margin-right: -4px; font-size: 17px;">EGP</div>
+                                        </div>
                                     </div>
-                                `;
-                                gallery.appendChild(productDiv);
-                            }
-                            loadedItems = endIndex;
-            
-                            const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                            lazyImages.forEach(img => observer.observe(img));
-            
-                            document.querySelectorAll('.add-to-cart').forEach(button => {
-                                button.addEventListener('click', function(e) {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    addToCart(this);
-                                    return false;
-                                });
-                            });
-            
-                            preloadNextImages(products, endIndex);
+                                </div>
+                            `;
+                            gallery.appendChild(productDiv);
                         }
             
-                        const observer = new IntersectionObserver((entries, observer) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) {
-                                    const img = entry.target;
-                                    img.src = img.dataset.src;
-                                    img.onload = () => {
-                                        img.classList.add("loaded");
-                                        if (isWhiteBackground(img)) {
-                                            img.classList.add("white-bg");
-                                        }
-                                    };
-                                    observer.unobserve(img);
-                                }
-                            });
-                        }, { rootMargin: "0px 0px 200px 0px" });
+                        loadedItems = endIndex;
             
-                        function preloadNextImages(products, currentIndex) {
-                            const preloadCount = 10;
-                            const endIndex = Math.min(currentIndex + preloadCount, products.length);
-                            for (let i = currentIndex; i < endIndex; i++) {
-                                const product = products[i];
-                                const img = new Image();
-                                img.src = product.image;
-                            }
-                        }
-            
-                        fetch('products.json')
-                            .then(response => response.json())
-                            .then(jsonProducts => {
-                                allProducts = [...jsonProducts, ...scriptProducts];
-                                const shuffledProducts = shuffleArray(allProducts);
-                                loadProducts(0, itemsPerLoad, shuffledProducts);
-            
-                                document.addEventListener('scroll', function () {
-                                    const noResultsMessage = document.getElementById('no-results-message');
-                                    if (noResultsMessage.style.display === 'block') {
-                                        return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
-                                    }
-                                    const triggerHeight = window.innerHeight * 1.5;
-                                    const galleryHeight = gallery.scrollHeight;
-                                    if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
-                                        loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
-                                    }
-                                });
-            
-                                window.addEventListener('resize', function () {
-                                    const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                                    lazyImages.forEach(img => observer.observe(img));
-                                });
-            
-                                startRotatingText(".rotating-text1212");
-                                performSearch(getSearchTermFromURL() || '');
-                            })
-                            .catch(error => {
-                                console.warn('فشل جلب البيانات من JSON، يتم استخدام المنتجات المدمجة فقط:', error);
-                                allProducts = scriptProducts;
-                                const shuffledProducts = shuffleArray(allProducts);
-                                loadProducts(0, itemsPerLoad, shuffledProducts);
-            
-                                document.addEventListener('scroll', function () {
-                                    const noResultsMessage = document.getElementById('no-results-message');
-                                    if (noResultsMessage.style.display === 'block') {
-                                        return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
-                                    }
-                                    const triggerHeight = window.innerHeight * 1.5;
-                                    const galleryHeight = gallery.scrollHeight;
-                                    if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
-                                        loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
-                                    }
-                                });
-            
-                                window.addEventListener('resize', function () {
-                                    const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                                    lazyImages.forEach(img => observer.observe(img));
-                                });
-            
-                                startRotatingText(".rotating-text1212");
-                                performSearch(getSearchTermFromURL() || '');
-                            });
-                    });
-            
-                    function startRotatingText(selector) {
-                        document.querySelectorAll(selector).forEach(element => {
-                            const texts = JSON.parse(element.getAttribute("data-texts"));
-                            let currentIndex = 0;
-                            setInterval(() => {
-                                element.style.transition = "opacity 0.5s, transform 0.5s";
-                                element.style.opacity = "0";
-                                element.style.transform = "translateY(20px)";
-                                setTimeout(() => {
-                                    currentIndex = (currentIndex + 1) % texts.length;
-                                    element.textContent = texts[currentIndex];
-                                    element.style.opacity = "1";
-                                    element.style.transform = "translateY(0)";
-                                }, 500);
-                            }, 5000);
-                        });
+                        // تفعيل التحميل الكسول للصور
+                        const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+                        lazyImages.forEach(img => observer.observe(img));
                     }
             
+                    // مراقب التحميل الكسول للصور
+                    const observer = new IntersectionObserver((entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const img = entry.target;
+                                img.src = img.dataset.src;
+                                img.onload = () => {
+                                    img.classList.add("loaded");
+                                    if (isWhiteBackground(img)) {
+                                        img.classList.add("white-bg");
+                                    }
+                                };
+                                observer.unobserve(img);
+                            }
+                        });
+                    }, { rootMargin: "0px 0px 200px 0px" });
+            
+                    // دالة للتحقق من خلفية الصورة البيضاء
                     function isWhiteBackground(img) {
                         const canvas = document.createElement('canvas');
                         const context = canvas.getContext('2d');
@@ -1726,116 +1109,36 @@
                         return (whitePixelCount / totalPixelCount) > 0.9;
                     }
             
+                    // دالة لإضافة المنتج إلى السلة
+                    function addToCart(element) {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        element.classList.add('checked');
+                        alert("تمت إضافة المنتج إلى سلة التسوق");
+                        return false;
+                    }
+            
+                    // دالة لقراءة معلمة البحث من URL
                     function getSearchTermFromURL() {
                         const urlParams = new URLSearchParams(window.location.search);
                         return urlParams.get('search') || '';
                     }
             
-                    function performSearch(searchTerm) {
+                    // تحميل المنتجات عند التمرير
+                    document.addEventListener('scroll', function () {
                         const gallery = document.getElementById('gallery');
-                        const noResultsMessage = document.getElementById('no-results-message');
-                        const searchTermDisplay = document.getElementById('search-term-display');
+                        const triggerHeight = window.innerHeight * 1.5;
+                        const galleryHeight = gallery.scrollHeight;
             
-                        fetch('products.json')
-                            .then(response => response.json())
-                            .then(jsonProducts => {
-                                const filteredProducts = jsonProducts.filter(product => 
-                                    searchTerm === '' || product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
-                                );
-                                gallery.innerHTML = ''; // مسح المحتوى الحالي
+                        if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < filteredProducts.length) {
+                            loadProducts(loadedItems, itemsPerLoad);
+                        }
+                    });
             
-                                if (filteredProducts.length === 0 && searchTerm !== '') {
-                                    noResultsMessage.style.display = 'block';
-                                    searchTermDisplay.textContent = searchTerm;
-                                } else {
-                                    noResultsMessage.style.display = 'none';
-                                    filteredProducts.forEach(product => {
-                                        const priceStr = product.price.toString();
-                                        const firstDigit = priceStr.charAt(0);
-                                        const specialDigits = ['2', '3', '5', '6', '8', '9'];
-                                        const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
-            
-                                        const productDiv = document.createElement('div');
-                                        productDiv.className = 'image-container product';
-                                        productDiv.setAttribute('data-name', product.dataName || product.name);
-                                        productDiv.innerHTML = `
-                                            <div class="image-frame">
-                                                <a href="${product.link}" onclick="return true;">
-                                                    <div class="image-wrapper">
-                                                        <img data-src="${product.image}" alt="${product.name}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                                                        <div class="add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); addToCart(this); return false;">
-                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <div class="text-under">
-                                                    <h1>${product.name}</h1>
-                                                    <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
-                                                    <div class="container">
-                                                        <div class="zero" style="font-size: 24px;"></div>
-                                                        <div class="number" style="font-size: 20px;">${product.price}</div>
-                                                        <div class="letter" style="margin-right: ${letterMargin}; font-size: 17px;">EGP</div>
-                                                    </div>
-                                                    <div class="product1212">
-                                                        <h3 class="rotating-text1212" data-texts='${JSON.stringify(product.discountTexts)}'>${product.discountTexts[0]}</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        `;
-                                        gallery.appendChild(productDiv);
-                                    });
-            
-                                    const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                                    const observer = new IntersectionObserver((entries, observer) => {
-                                        entries.forEach(entry => {
-                                            if (entry.isIntersecting) {
-                                                const img = entry.target;
-                                                img.src = img.dataset.src;
-                                                img.onload = () => {
-                                                    img.classList.add("loaded");
-                                                    if (isWhiteBackground(img)) {
-                                                        img.classList.add("white-bg");
-                                                    }
-                                                };
-                                                observer.unobserve(img);
-                                            }
-                                        });
-                                    }, { rootMargin: "0px 0px 200px 0px" });
-                                    lazyImages.forEach(img => observer.observe(img));
-            
-                                    document.querySelectorAll('.add-to-cart').forEach(button => {
-                                        button.addEventListener('click', function(e) {
-                                            e.preventDefault();
-                                            e.stopPropagation();
-                                            addToCart(this);
-                                            return false;
-                                        });
-                                    });
-            
-                                    startRotatingText(".rotating-text1212");
-                                }
-                            })
-                            .catch(error => {
-                                console.warn('فشل جلب البيانات من JSON:', error);
-                                gallery.innerHTML = '';
-                                if (searchTerm !== '') {
-                                    noResultsMessage.style.display = 'block';
-                                    searchTermDisplay.textContent = searchTerm;
-                                } else {
-                                    noResultsMessage.style.display = 'none';
-                                }
-                            });
-                    }
-            
+                    // تنفيذ البحث عند تحميل الصفحة
                     window.addEventListener('load', function () {
                         const searchTerm = getSearchTermFromURL();
-                        if (searchTerm) {
-                            const searchBox = document.getElementById('search-box');
-                            searchBox.value = decodeURIComponent(searchTerm);
-                            performSearch(searchTerm);
-                        }
+                        fetchAndFilterProducts(searchTerm); // جلب وعرض المنتجات المطابقة فقط
                     });
                 </script>
             </body>
