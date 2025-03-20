@@ -779,7 +779,6 @@
       
 
 
-
             <!DOCTYPE html>
             <html lang="ar">
             <head>
@@ -1107,6 +1106,48 @@
                         padding: 20px;
                         border-radius: 10px;
                     }
+            
+                 /* أسلوب دائرة التحميل */
+#loading-spinner {
+    display: block;
+    text-align: center;
+    margin-top: 20px; /* المسافة العلوية مشابهة لرسالة 'لا توجد نتائج' */
+    padding: 20px;    /* المسافة الداخلية للتناسق */
+    border-radius: 10px;
+}
+.spinner {
+    display: inline-block;
+    position: relative;
+    width: 60px; /* عرض أصغر لتقليل المسافة بين الدائرتين */
+    height: 20px;
+}
+.spinner div {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    animation: dot-flashing 1s infinite linear alternate;
+}
+.spinner div:first-child {
+    background-color: #ff0000; /* لون الدائرة الأولى: أحمر */
+    left: 0;
+}
+.spinner div:last-child {
+    background-color: #0000ff; /* لون الدائرة الثانية: أزرق */
+    right: 0;
+    animation-delay: 0.5s; /* تأخير لتبادل الحركة */
+}
+@keyframes dot-flashing {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5); /* الدائرة تكبر */
+    }
+    100% {
+        transform: scale(1);
+    }
+}
                 </style>
             </head>
             <body>
@@ -1192,6 +1233,14 @@
                 </div>
             
                 <div id="gallery" class="gallery"></div>
+            
+                <!-- النقطتان الدائريتان للتحميل -->
+                <div id="loading-spinner">
+                    <div class="spinner">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
             
                 <!-- رسالة "لا توجد نتائج" -->
                 <div id="no-results-message" style="text-align: center; margin-top: 20px; padding: 20px; border-radius: 10px;">
@@ -1305,10 +1354,16 @@
                     function fetchAndFilterProducts(searchTerm) {
                         const gallery = document.getElementById('gallery');
                         const noResultsMessage = document.getElementById('no-results-message');
+                        const loadingSpinner = document.getElementById('loading-spinner');
                         const searchTermDisplay = document.getElementById('search-term-display');
                         const searchBox = document.getElementById('search-box');
                 
                         if (searchBox) searchBox.value = searchTerm;
+                
+                        // إظهار النقطتين وإخفاء الرسائل الأخرى
+                        loadingSpinner.style.display = 'block';
+                        noResultsMessage.style.display = 'none';
+                        gallery.innerHTML = '';
                 
                         fetch('products.json')
                             .then(response => response.json())
@@ -1319,6 +1374,9 @@
                                 shuffleArray(filteredProducts);
                                 gallery.innerHTML = '';
                                 loadedItems = 0;
+                
+                                // إخفاء النقطتين بعد جلب البيانات
+                                loadingSpinner.style.display = 'none';
                 
                                 if (filteredProducts.length > 0) {
                                     loadProducts(0, itemsPerLoad);
@@ -1331,6 +1389,7 @@
                             .catch(error => {
                                 console.error('فشل جلب المنتجات من JSON:', error);
                                 gallery.innerHTML = '';
+                                loadingSpinner.style.display = 'none';
                                 noResultsMessage.style.display = 'block';
                                 searchTermDisplay.textContent = searchTerm;
                             });
