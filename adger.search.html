@@ -1403,7 +1403,7 @@ menuPopup.addEventListener('touchmove', function(event) {
 
         .image-frame a,
         .image-frame a *,
-        .image-frame a:focus,
+        .image-frame a *:focus,
         .image-frame a img {
             outline: none !important;
             border: none !important;
@@ -1676,42 +1676,47 @@ menuPopup.addEventListener('touchmove', function(event) {
 
         function getSearchTermFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('search'); // الحصول على قيمة معلمة "search"
+            return urlParams.get('search') || '';
         }
 
         function performSearch(searchTerm) {
-            const products = document.querySelectorAll('.product'); // جميع المنتجات
-            const noResultsMessage = document.getElementById('no-results-message'); // رسالة "لا توجد نتائج"
-            const searchTermDisplay = document.getElementById('search-term-display'); // العنصر الذي يعرض النص المدخل
+            const products = document.querySelectorAll('.product');
+            const noResultsMessage = document.getElementById('no-results-message');
+            const searchTermDisplay = document.getElementById('search-term-display');
+            let foundResults = false;
 
-            let foundResults = false; // متغير لتتبع وجود نتائج
+            if (searchTerm === '') {
+                // إذا كان البحث فارغًا، أظهر جميع المنتجات
+                products.forEach(product => {
+                    product.style.display = 'block';
+                });
+                noResultsMessage.style.display = 'none';
+                return;
+            }
 
+            // إذا كان هناك نص بحث، ابحث في data-name فقط
             products.forEach(product => {
-                const productName = product.getAttribute('data-name').toLowerCase(); // اسم المنتج
-                if (productName.includes(searchTerm.toLowerCase())) {
-                    product.style.display = 'block'; // إظهار المنتج إذا تطابق
-                    foundResults = true; // تم العثور على نتائج
+                const productDataName = product.getAttribute('data-name').toLowerCase();
+                if (productDataName.includes(searchTerm.toLowerCase())) {
+                    product.style.display = 'block';
+                    foundResults = true;
                 } else {
-                    product.style.display = 'none'; // إخفاء المنتج إذا لم يتطابق
+                    product.style.display = 'none';
                 }
             });
 
-            // إظهار أو إخفاء رسالة "لا توجد نتائج"
             if (foundResults) {
-                noResultsMessage.style.display = 'none'; // إخفاء الرسالة إذا وجدت نتائج
+                noResultsMessage.style.display = 'none';
             } else {
-                noResultsMessage.style.display = 'block'; // إظهار الرسالة إذا لم توجد نتائج
-                searchTermDisplay.textContent = searchTerm; // عرض النص المدخل في الرسالة
+                noResultsMessage.style.display = 'block';
+                searchTermDisplay.textContent = searchTerm;
             }
         }
 
-        // تعبئة صندوق البحث وتنفيذ البحث تلقائيًا
         window.addEventListener('load', function () {
-            const searchTerm = getSearchTermFromURL(); // قراءة معلمة البحث
+            const searchTerm = getSearchTermFromURL();
             if (searchTerm) {
-                const searchBox = document.getElementById('search-box'); // صندوق البحث في الصفحة الرئيسية
-                searchBox.value = decodeURIComponent(searchTerm); // تعبئة صندوق البحث بالنص
-                performSearch(searchTerm); // تنفيذ البحث تلقائيًا
+                performSearch(searchTerm);
             }
         });
     </script>
