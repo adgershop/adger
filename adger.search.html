@@ -190,8 +190,6 @@
 
 
 
-
-
     <!DOCTYPE html>
     <html lang="ar" dir="rtl">
     <head>
@@ -238,24 +236,22 @@
                 display: flex;
                 align-items: center;
                 padding: 0 20px;
-                overflow-x: auto; /* التمرير الأفقي */
-                scrollbar-width: none; /* إخفاء شريط التمرير في Firefox */
-                -ms-overflow-style: none; /* إخفاء شريط التمرير في IE و Edge */
+                overflow-x: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
             }
     
-            /* إخفاء شريط التمرير في WebKit (Chrome, Safari) */
             .sub-header::-webkit-scrollbar {
                 display: none;
             }
     
-            /* قائمة العناصر في الشريط الأبيض */
             .sub-header nav {
                 display: flex;
                 gap: 30px;
                 position: relative;
-                white-space: nowrap; /* منع النص من الانتقال لسطر جديد */
-                user-select: none; /* منع تحديد النص */
-                -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
+                white-space: nowrap;
+                user-select: none;
+                -webkit-tap-highlight-color: transparent;
                 outline: none;
             }
     
@@ -264,31 +260,41 @@
                 color: #333;
                 font-size: 16px;
                 cursor: pointer;
-                padding: 10px 0; /* إضافة حشو لتحسين المظهر */
+                padding: 10px 0;
             }
     
-            /* الخط الرصاصي الرفيع تحت العنصر المحدد */
             .underline {
                 position: absolute;
-                bottom: 0; /* التأكد من أن الخط أسفل النص تمامًا */
+                bottom: 0;
                 height: 3px;
-                background-color: #000000; /* لون الخط */
+                background-color: #000000;
                 transition: all 0.3s ease;
             }
     
-            /* تنسيق العنصر النشط */
             .sub-header nav a.active {
-                color: #000000 !important; /* لون النص الأسود */
-                font-weight: bold; /* يمكنك إضافة تنسيقات إضافية إذا أردت */
+                color: #000000 !important;
+                font-weight: bold;
             }
     
-            /* بقية التنسيقات كما هي */
+            /* تنسيق المنتجات */
+            .product {
+                padding: 10px;
+                margin: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                display: block;
+                background-color: #f9f9f9;
+                text-align: center;
+                font-family: Cairo, sans-serif;
+            }
+    
+            /* بقية التنسيقات */
             .search-wrapper {
                 flex-grow: 1;
                 margin: 0 10px;
                 position: relative;
             }
-            @media (min-width: 768px) { /* تعديل المارغن فقط للشاشات الأكبر من الهواتف */
+            @media (min-width: 768px) {
                 .search-wrapper {
                     margin-right: 6px;
                     margin-left: 11px;
@@ -393,8 +399,8 @@
     
             .cart-icon {
                 position: relative;
-                user-select: none; /* منع تحديد النص */
-                -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
+                user-select: none;
+                -webkit-tap-highlight-color: transparent;
                 outline: none;
             }
     
@@ -409,20 +415,13 @@
                 border-radius: 50%;
             }
     
-            /* إخفاء العنصر على الهواتف */
             @media only screen and (max-width: 767px) {
                 .cart-icon {
                     margin-left: -10px;
                     margin-right: -8px;
                 }
             }
-            @media only screen and (max-width: 767px) {
-                .cart-icon {
-                    margin-left: -12px;
-                }
-            }
     
-            /* تعديلات النافذة الجانبية */
             .menu-popup {
                 display: none;
                 position: fixed;
@@ -439,21 +438,13 @@
             }
     
             @keyframes slideIn {
-                from {
-                    left: -250px;
-                }
-                to {
-                    left: 0;
-                }
+                from { left: -250px; }
+                to { left: 0; }
             }
     
             @keyframes slideOut {
-                from {
-                    left: 0;
-                }
-                to {
-                    left: -250px;
-                }
+                from { left: 0; }
+                to { left: -250px; }
             }
     
             .menu-popup.active {
@@ -468,38 +459,20 @@
             .menu-popup .back-arrow {
                 cursor: pointer;
                 margin-bottom: 20px;
-                -webkit-tap-highlight-color: transparent; /* إزالة تأثير التظليل */
-            }
-    
-            .menu-popup .back-arrow:focus {
-                outline: none; /* منع ظهور التحديد عند التركيز */
+                -webkit-tap-highlight-color: transparent;
             }
     
             .menu-popup .back-arrow svg {
                 width: 24px;
                 height: 24px;
                 color: #333;
-                pointer-events: none; /* يمنع التأثير على الـ SVG */
+                pointer-events: none;
             }
     
             .menu-popup p {
                 font-size: 18px;
                 color: #333;
                 cursor: pointer;
-            }
-    
-            .menu-icon {
-                margin-left: 10px;
-                user-select: none; /* منع تحديد النص */
-                -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
-                outline: none;
-            }
-    
-            /* إخفاء العنصر على الهواتف */
-            @media only screen and (max-width: 767px) {
-                .menu-icon {
-                    margin-left: -6px;
-                }
             }
     
             .adger {
@@ -511,67 +484,19 @@
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 cursor: pointer;
-                user-select: none; /* منع تحديد النص */
-                -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
-                outline: none; /* إزالة أي إطار تحديد عند التركيز */
+                user-select: none;
+                -webkit-tap-highlight-color: transparent;
+                outline: none;
             }
     
             @media (max-width: 767px) {
-                .adger {
-                    font-size: 20px;
-                }
-            }
-    
-            @media (min-width: 767px) {
-                .adger {
-                    margin-left: 10px;
-                }
-            }
-    
-            .container22 {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-            }
-    
-            .country-code {
-                display: inline-flex;
-                align-items: center;
-                font-size: 18px;
-            }
-    
-            .flag {
-                width: 24px;
-                height: 16px;
-                margin-left: 8px;
-            }
-    
-            /* تعديلات للهواتف */
-            @media only screen and (max-width: 767px) {
-                .search-wrapper {
-                    width: 100%; /* Let the search bar take full width on mobile */
-                    max-width: none;
-                    margin: 0; /* Reset margin for mobile */
-                }
-    
-                #search-box {
-                    padding: 10px 12px 10px 45px; /* Adjust padding for mobile, if needed */
-                    font-size: 14px; /* Smaller font size for mobile */
-                }
-    
-                #search-button {
-                    left: 3px;
-                    width: 45px; /* Smaller button for mobile */
-                    height: 32px;
-                }
+                .adger { font-size: 20px; }
             }
         </style>
     </head>
     <body>
         <!-- الهيكل الرئيسي -->
         <div class="header">
-            <!-- العناصر على اليمين -->
             <div class="right-elements">
                 <div class="adger-container">
                     <h2 class="adger" onclick="window.location.href='index.html';">Adger</h2>
@@ -590,15 +515,8 @@
                 </div>
             </div>
     
-            <!-- صندوق البحث -->
             <div class="search-wrapper">
-                <input 
-                    type="text" 
-                    id="search-box" 
-                    placeholder="ابحث فى أدجر" 
-                    autocomplete="off" 
-                    readonly 
-                    onclick="redirectToSearch(event)">
+                <input type="text" id="search-box" placeholder="ابحث فى أدجر" autocomplete="off" readonly onclick="redirectToSearch(event)">
                 <button id="search-button">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -607,17 +525,6 @@
                 </button>
             </div>
     
-            <script>
-                function redirectToSearch(event) {
-                    // منع التركيز على صندوق الإدخال
-                    event.preventDefault();
-                    
-                    // تنفيذ إعادة التوجيه إلى صفحة البحث
-                    window.location.href = "search.html";
-                }
-            </script>
-    
-            <!-- العناصر على اليسار -->
             <div class="left-elements">
                 <div class="container22">
                     <div class="country-code hide-on-mobile">
@@ -650,7 +557,6 @@
             </div>
         </div>
     
-        <!-- الشريط الأبيض الثابت أسفل الشريط العلوي -->
         <div class="sub-header">
             <nav>
                 <a href="#" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
@@ -660,13 +566,11 @@
             </nav>
         </div>
     
-        <!-- المنتجات -->
         <div class="product" data-name="هواتف">هاتف ذكي</div>
         <div class="product" data-name="كتب">كتاب تعليمي</div>
         <div class="product" data-name="هواتف">هاتف محمول</div>
         <div class="product" data-name="كتب">كتاب قصص</div>
     
-        <!-- نافذة القائمة الجانبية -->
         <div class="menu-popup" id="menuPopup">
             <div class="back-arrow" onclick="toggleMenu()">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -681,7 +585,6 @@
                ontouchend="setTimeout(() => this.style.color='black', 300)">
                 <span style="pointer-events: none;">حسابي</span>
             </p>
-            <!-- إضافة المزيد من العناصر هنا -->
         </div>
     
         <script>
@@ -711,7 +614,11 @@
                 welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
             }
     
-            // دالة لتحريك الخط عند النقر على عناصر القائمة
+            function redirectToSearch(event) {
+                event.preventDefault();
+                window.location.href = "search.html";
+            }
+    
             function selectItem(itemName, element) {
                 const searchBox = document.getElementById('search-box');
                 if (itemName === 'الكل') {
@@ -732,11 +639,12 @@
                 element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
             }
     
-            // دالة لتنفيذ البحث
             function performSearch(searchTerm) {
                 const products = document.querySelectorAll('.product');
+                console.log('مصطلح البحث:', searchTerm.toLowerCase());
                 products.forEach(product => {
                     const productDataName = product.getAttribute('data-name').toLowerCase();
+                    console.log('data-name للمنتج:', productDataName);
                     if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
                         product.style.display = 'block';
                     } else {
@@ -745,7 +653,6 @@
                 });
             }
     
-            // دالة لإظهار أو إخفاء القائمة الجانبية
             function toggleMenu() {
                 const menuPopup = document.getElementById('menuPopup');
                 if (menuPopup.classList.contains('active')) {
@@ -763,7 +670,6 @@
                 }
             }
     
-            // تحديد عنصر "الكل" بشكل افتراضي عند تحميل الصفحة
             window.onload = function () {
                 const defaultItem = document.querySelector('.sub-header nav a');
                 if (defaultItem) {
@@ -773,7 +679,6 @@
         </script>
     </body>
     </html>
-
 
 
 
