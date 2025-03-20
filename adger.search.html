@@ -1299,17 +1299,18 @@
                         });
                     }
             
-                    // دالة لتحريك الخط ووضع الكلمة في صندوق البحث (إن وجدت)
+                    // دالة لتحريك الخط ووضع الكلمة في صندوق البحث مع البحث من JSON
                     function selectItem(item, element) {
                         const searchBox = document.getElementById('search-box');
+                        const gallery = document.getElementById('gallery');
+                        const noResultsMessage = document.getElementById('no-results-message');
+                        const searchTermDisplay = document.getElementById('search-term-display');
             
                         // إذا كان العنصر المحدد هو "الكل"، فقط قم بإفراغ صندوق البحث
                         if (item === 'الكل') {
                             searchBox.value = '';
-                            performSearch(''); // تنفيذ البحث مع سلسلة فارغة لإظهار كل المنتجات
                         } else if (item) {
                             searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كانت موجودة)
-                            performSearch(item); // تنفيذ البحث
                         }
             
                         // إزالة الفئة النشطة من جميع العناصر
@@ -1333,6 +1334,99 @@
                             block: 'center',
                             inline: 'center'
                         });
+            
+                        // جلب المنتجات من JSON فقط بناءً على data-name
+                        fetch('products.json')
+                            .then(response => response.json())
+                            .then(jsonProducts => {
+                                const filteredProducts = jsonProducts.filter(product => 
+                                    item === 'الكل' || product.dataName.toLowerCase().includes(item.toLowerCase())
+                                );
+                                gallery.innerHTML = ''; // مسح المحتوى الحالي
+            
+                                if (filteredProducts.length === 0 && item !== 'الكل') {
+                                    noResultsMessage.style.display = 'block';
+                                    searchTermDisplay.textContent = item;
+                                } else {
+                                    noResultsMessage.style.display = 'none';
+                                    filteredProducts.forEach(product => {
+                                        const priceStr = product.price.toString();
+                                        const firstDigit = priceStr.charAt(0);
+                                        const specialDigits = ['2', '3', '5', '6', '8', '9'];
+                                        const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
+            
+                                        const productDiv = document.createElement('div');
+                                        productDiv.className = 'image-container product';
+                                        productDiv.setAttribute('data-name', product.dataName || product.name);
+                                        productDiv.innerHTML = `
+                                            <div class="image-frame">
+                                                <a href="${product.link}" onclick="return true;">
+                                                    <div class="image-wrapper">
+                                                        <img data-src="${product.image}" alt="${product.name}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
+                                                        <div class="add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); addToCart(this); return false;">
+                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <div class="text-under">
+                                                    <h1>${product.name}</h1>
+                                                    <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
+                                                    <div class="container">
+                                                        <div class="zero" style="font-size: 24px;"></div>
+                                                        <div class="number" style="font-size: 20px;">${product.price}</div>
+                                                        <div class="letter" style="margin-right: ${letterMargin}; font-size: 17px;">EGP</div>
+                                                    </div>
+                                                    <div class="product1212">
+                                                        <h3 class="rotating-text1212" data-texts='${JSON.stringify(product.discountTexts)}'>${product.discountTexts[0]}</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `;
+                                        gallery.appendChild(productDiv);
+                                    });
+            
+                                    const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+                                    const observer = new IntersectionObserver((entries, observer) => {
+                                        entries.forEach(entry => {
+                                            if (entry.isIntersecting) {
+                                                const img = entry.target;
+                                                img.src = img.dataset.src;
+                                                img.onload = () => {
+                                                    img.classList.add("loaded");
+                                                    if (isWhiteBackground(img)) {
+                                                        img.classList.add("white-bg");
+                                                    }
+                                                };
+                                                observer.unobserve(img);
+                                            }
+                                        });
+                                    }, { rootMargin: "0px 0px 200px 0px" });
+                                    lazyImages.forEach(img => observer.observe(img));
+            
+                                    document.querySelectorAll('.add-to-cart').forEach(button => {
+                                        button.addEventListener('click', function(e) {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            addToCart(this);
+                                            return false;
+                                        });
+                                    });
+            
+                                    startRotatingText(".rotating-text1212");
+                                }
+                            })
+                            .catch(error => {
+                                console.warn('فشل جلب البيانات من JSON:', error);
+                                gallery.innerHTML = '';
+                                if (item !== 'الكل') {
+                                    noResultsMessage.style.display = 'block';
+                                    searchTermDisplay.textContent = item;
+                                } else {
+                                    noResultsMessage.style.display = 'none';
+                                }
+                            });
                     }
             
                     // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
@@ -1350,6 +1444,7 @@
                             underline.style.width = `${itemRect.width}px`;
                             underline.style.left = `${itemRect.left - navRect.left}px`;
                         }
+                        selectItem('الكل', defaultItem); // تحميل جميع المنتجات افتراضيًا
                     };
             
                     // متغيرات لتتبع السحب
@@ -1636,7 +1731,6 @@
                         return urlParams.get('search') || '';
                     }
             
-                    // دالة لتنفيذ البحث مع جلب المنتجات من JSON فقط
                     function performSearch(searchTerm) {
                         const gallery = document.getElementById('gallery');
                         const noResultsMessage = document.getElementById('no-results-message');
@@ -1646,11 +1740,11 @@
                             .then(response => response.json())
                             .then(jsonProducts => {
                                 const filteredProducts = jsonProducts.filter(product => 
-                                    product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
+                                    searchTerm === '' || product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
                                 );
                                 gallery.innerHTML = ''; // مسح المحتوى الحالي
             
-                                if (filteredProducts.length === 0 && searchTerm !== '' && searchTerm !== 'الكل') {
+                                if (filteredProducts.length === 0 && searchTerm !== '') {
                                     noResultsMessage.style.display = 'block';
                                     searchTermDisplay.textContent = searchTerm;
                                 } else {
@@ -1726,7 +1820,7 @@
                             .catch(error => {
                                 console.warn('فشل جلب البيانات من JSON:', error);
                                 gallery.innerHTML = '';
-                                if (searchTerm !== '' && searchTerm !== 'الكل') {
+                                if (searchTerm !== '') {
                                     noResultsMessage.style.display = 'block';
                                     searchTermDisplay.textContent = searchTerm;
                                 } else {
