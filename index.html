@@ -1990,11 +1990,11 @@
         <div class="sub-header">
             <nav>
                 <a href="#" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
-                <a onclick="selectItem('هوا4تف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هوا4تف</a>
+                <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
                 <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                <a onclick="selectItem('هوا4تف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هوا4تف</a>
+                <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
                 <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                <a onclick="selectItem('هوا5تف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هوا5تف</a>
+                <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
                 <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
                 <a onclick="selectItem('هواتف', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
                 <a onclick="selectItem('كتب', this)"  class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
@@ -2743,8 +2743,8 @@ menuPopup.addEventListener('touchmove', function(event) {
         </div>
     
         <script>
-            // متغير عالمي لتخزين مصطلح البحث
-            let currentSearchTerm = getSearchTermFromURL();
+            // متغير عالمي لتخزين مصطلح البحث الحالي
+            let currentSearchTerm = '';
     
             function addToCart(element) {
                 event.stopPropagation();
@@ -2809,8 +2809,8 @@ menuPopup.addEventListener('touchmove', function(event) {
     
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        productDiv.setAttribute('data-name', (product.dataName || product.name || '').toLowerCase());
-                        productDiv.setAttribute('data-main-name', (product.name || '').toLowerCase());
+                        // تعيين data-name مع إزالة المسافات الزائدة
+                        productDiv.setAttribute('data-name', (product.dataName || product.name).trim());
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -2854,7 +2854,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
     
                     preloadNextImages(products, endIndex);
-                    // إعادة تطبيق البحث بعد تحميل المنتجات
+                    // إعادة تطبيق البحث على المنتجات الجديدة
                     performSearch(currentSearchTerm);
                 }
     
@@ -2884,42 +2884,58 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 }
     
-                function initializeGallery(products) {
-                    const shuffledProducts = shuffleArray(products);
-                    loadProducts(0, itemsPerLoad, shuffledProducts);
-    
-                    document.addEventListener('scroll', function () {
-                        const noResultsMessage = document.getElementById('no-results-message');
-                        if (noResultsMessage.style.display === 'block') {
-                            return;
-                        }
-                        const triggerHeight = window.innerHeight * 1.5;
-                        const galleryHeight = gallery.scrollHeight;
-                        if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
-                            loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
-                        }
-                    });
-    
-                    window.addEventListener('resize', function () {
-                        const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                        lazyImages.forEach(img => observer.observe(img));
-                    });
-    
-                    startRotatingText(".rotating-text1212");
-                    // تطبيق البحث الأولي باستخدام المتغير العالمي
-                    performSearch(currentSearchTerm);
-                }
-    
                 fetch('products.json')
                     .then(response => response.json())
                     .then(jsonProducts => {
                         allProducts = [...jsonProducts, ...scriptProducts];
-                        initializeGallery(allProducts);
+                        const shuffledProducts = shuffleArray(allProducts);
+                        loadProducts(0, itemsPerLoad, shuffledProducts);
+    
+                        document.addEventListener('scroll', function () {
+                            const noResultsMessage = document.getElementById('no-results-message');
+                            if (noResultsMessage.style.display === 'block') {
+                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
+                            }
+                            const triggerHeight = window.innerHeight * 1.5;
+                            const galleryHeight = gallery.scrollHeight;
+                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
+                                loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
+                            }
+                        });
+    
+                        window.addEventListener('resize', function () {
+                            const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+                            lazyImages.forEach(img => observer.observe(img));
+                        });
+    
+                        startRotatingText(".rotating-text1212");
+                        performSearch(currentSearchTerm);
                     })
                     .catch(error => {
                         console.warn('فشل جلب البيانات من JSON، يتم استخدام المنتجات المدمجة فقط:', error);
                         allProducts = scriptProducts;
-                        initializeGallery(allProducts);
+                        const shuffledProducts = shuffleArray(allProducts);
+                        loadProducts(0, itemsPerLoad, shuffledProducts);
+    
+                        document.addEventListener('scroll', function () {
+                            const noResultsMessage = document.getElementById('no-results-message');
+                            if (noResultsMessage.style.display === 'block') {
+                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
+                            }
+                            const triggerHeight = window.innerHeight * 1.5;
+                            const galleryHeight = gallery.scrollHeight;
+                            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
+                                loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
+                            }
+                        });
+    
+                        window.addEventListener('resize', function () {
+                            const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+                            lazyImages.forEach(img => observer.observe(img));
+                        });
+    
+                        startRotatingText(".rotating-text1212");
+                        performSearch(currentSearchTerm);
                     });
             });
     
@@ -2967,17 +2983,16 @@ menuPopup.addEventListener('touchmove', function(event) {
             }
     
             function performSearch(searchTerm) {
+                // إزالة المسافات الزائدة وتحويل إلى أحرف صغيرة
+                const trimmedSearchTerm = searchTerm.trim().toLowerCase();
                 const products = document.querySelectorAll('.product');
                 const noResultsMessage = document.getElementById('no-results-message');
                 const searchTermDisplay = document.getElementById('search-term-display');
                 let foundResults = false;
     
                 products.forEach(product => {
-                    const productDataName = product.getAttribute('data-name') || '';
-                    const productMainName = product.getAttribute('data-main-name') || '';
-                    const searchText = searchTerm.toLowerCase();
-    
-                    if (searchTerm === '' || productDataName.includes(searchText) || productMainName.includes(searchText)) {
+                    const productDataName = product.getAttribute('data-name').toLowerCase().trim();
+                    if (trimmedSearchTerm === '' || productDataName.includes(trimmedSearchTerm)) {
                         product.style.display = 'block';
                         foundResults = true;
                     } else {
@@ -2985,13 +3000,20 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 });
     
-                if (foundResults || searchTerm === '') {
+                if (foundResults || trimmedSearchTerm === '') {
                     noResultsMessage.style.display = 'none';
                 } else {
                     noResultsMessage.style.display = 'block';
                     searchTermDisplay.textContent = searchTerm;
                 }
             }
+    
+            window.addEventListener('load', function () {
+                currentSearchTerm = getSearchTermFromURL();
+                if (currentSearchTerm) {
+                    performSearch(currentSearchTerm);
+                }
+            });
         </script>
     </body>
     </html>
