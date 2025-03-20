@@ -1018,7 +1018,6 @@
                             padding-left: 5px;
                             padding-right: 5px;
                         }
-            
                         .image-container {
                             flex: 1 1 calc(50% - 5px);
                             max-width: calc(50% - 5px);
@@ -1100,6 +1099,9 @@
                         text-align: center;
                         font-size: 20px;
                         color: #202020;
+                        margin-top: 20px;
+                        padding: 20px;
+                        border-radius: 10px;
                     }
                 </style>
             </head>
@@ -1209,6 +1211,120 @@
                 </div>
             
                 <script>
+                    // استرجاع بيانات المستخدم من localStorage
+                    const username = localStorage.getItem('username');
+            
+                    // عرض "أهلاً" مع اسم المستخدم أو نص بديل
+                    const welcomeMessage = document.getElementById('welcomeMessage');
+                    const usernameDisplay = document.getElementById('usernameDisplay');
+            
+                    if (username) {
+                        // Function to detect if the name contains Arabic characters
+                        function isArabic(text) {
+                            return /[\u0600-\u06FF]/.test(text); // Check for Arabic characters
+                        }
+            
+                        // Function to truncate the username based on language
+                        function truncateUsername(name) {
+                            const maxLength = isArabic(name) ? 12 : 7; // 12 for Arabic names, 7 for English names
+                            
+                            // Check if the screen width is less than 966px and name length exceeds maxLength
+                            if (window.innerWidth < 966 && name.length > maxLength) {
+                                if (isArabic(name)) {
+                                    return name.substring(0, maxLength) + '..'; // Truncate and add ".." at the end for Arabic
+                                } else {
+                                    return '..' + name.substring(0, maxLength); // Truncate and add ".." at the beginning for English
+                                }
+                            }
+                            return name; // Return the name unchanged if no truncation is needed
+                        }
+            
+                        // Apply the modification on page load and screen resize
+                        usernameDisplay.textContent = truncateUsername(username);
+                        window.addEventListener('resize', () => {
+                            usernameDisplay.textContent = truncateUsername(username);
+                        });
+                    } else {
+                        welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+                    }
+            
+                    // دالة لتحريك الخط عند النقر على عناصر القائمة
+                    const menuItems = document.querySelectorAll('.menu-item');
+                    menuItems.forEach(item => {
+                        item.addEventListener('click', () => {
+                            window.scrollTo(0, 0);
+                        });
+                    });
+            
+                    // دالة لإظهار أو إخفاء القائمة الجانبية
+                    function toggleMenu() {
+                        const menuPopup = document.getElementById('menuPopup');
+                        if (menuPopup.classList.contains('active')) {
+                            menuPopup.classList.remove('active');
+                            menuPopup.classList.add('closing');
+                            setTimeout(() => {
+                                menuPopup.classList.remove('closing');
+                                menuPopup.style.display = 'none';
+                            }, 300); // يتناسب مع مدة animation
+                        } else {
+                            menuPopup.style.display = 'block';
+                            setTimeout(() => {
+                                menuPopup.classList.add('active');
+                            }, 10); // تأخير بسيط لضمان تطبيق خاصية display قبل الـ animation
+                        }
+                    }
+            
+                    // متغيرات لتتبع السحب
+                    let startX = 0;
+                    let currentX = 0;
+                    let isDragging = false;
+            
+                    const menuPopup = document.getElementById('menuPopup');
+            
+                    // دالة لبدء تتبع السحب
+                    function startDrag(event) {
+                        if (menuPopup.classList.contains('active') && menuPopup.contains(event.target)) {
+                            startX = event.touches[0].clientX;
+                            isDragging = true;
+                        }
+                    }
+            
+                    // دالة لتتبع حركة السحب
+                    function drag(event) {
+                        if (!isDragging) return;
+                        currentX = event.touches[0].clientX;
+                        const diff = currentX - startX;
+                        if (diff < -50) { // إذا تم السحب إلى اليسار بمقدار 50 بكسل
+                            toggleMenu();
+                            isDragging = false;
+                        }
+                    }
+            
+                    // دالة لإنهاء تتبع السحب
+                    function endDrag() {
+                        isDragging = false;
+                    }
+            
+                    // دالة للتحقق من النقر خارج النافذة
+                    function handleClickOutside(event) {
+                        if (menuPopup.classList.contains('active') && !menuPopup.contains(event.target)) {
+                            toggleMenu();
+                        }
+                    }
+            
+                    // إضافة مستمعات الأحداث
+                    document.addEventListener('touchstart', startDrag);
+                    document.addEventListener('touchmove', drag);
+                    document.addEventListener('touchend', endDrag);
+                    document.addEventListener('click', handleClickOutside);
+            
+                    // منع التمرير أثناء فتح النافذة
+                    menuPopup.addEventListener('touchmove', function(event) {
+                        if (menuPopup.classList.contains('active')) {
+                            event.preventDefault();
+                        }
+                    }, { passive: false });
+            
                     // متغيرات عالمية لتتبع المنتجات المصفاة
                     let filteredProducts = [];
                     const itemsPerLoad = 20;
@@ -1353,11 +1469,62 @@
                         }
                     });
             
-                    // تنفيذ البحث عند تحميل الصفحة
-                    window.addEventListener('load', function () {
+                    // دالة لتحريك الخط وتنفيذ البحث عند اختيار عنصر
+                    function selectItem(item, element) {
+                        const searchBox = document.getElementById('search-box');
+            
+                        // إذا كان العنصر المحدد هو "الكل"، قم بإفراغ صندوق البحث وإظهار كل المنتجات
+                        if (item === 'الكل') {
+                            if (searchBox) searchBox.value = '';
+                            fetchAndFilterProducts(''); // عرض كل المنتجات
+                        } else if (item) {
+                            if (searchBox) searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كان موجودًا)
+                            fetchAndFilterProducts(item); // تصفية المنتجات بناءً على العنصر المحدد
+                        }
+            
+                        // إزالة الفئة النشطة من جميع العناصر
+                        const allItems = document.querySelectorAll('.sub-header nav a');
+                        allItems.forEach(item => item.classList.remove('active'));
+            
+                        // إضافة الفئة النشطة للعنصر المحدد
+                        element.classList.add('active');
+            
+                        // تحريك الخط
+                        const underline = document.querySelector('.underline');
+                        const itemRect = element.getBoundingClientRect();
+                        const navRect = element.parentElement.getBoundingClientRect();
+            
+                        underline.style.width = `${itemRect.width}px`;
+                        underline.style.left = `${itemRect.left - navRect.left}px`;
+            
+                        // تمرير العنصر إلى منتصف الشاشة إذا كان خارج العرض
+                        element.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
+                        });
+                    }
+            
+                    // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
+                    window.onload = function () {
+                        const defaultItem = document.querySelector('.sub-header nav a');
+                        const underline = document.querySelector('.underline');
+                        if (defaultItem && underline) {
+                            const itemRect = defaultItem.getBoundingClientRect();
+                            const navRect = defaultItem.parentElement.getBoundingClientRect();
+            
+                            // إضافة الفئة النشطة لعنصر "الكل" بشكل افتراضي
+                            defaultItem.classList.add('active');
+            
+                            // ضبط الخط تحت "الكل" بشكل افتراضي
+                            underline.style.width = `${itemRect.width}px`;
+                            underline.style.left = `${itemRect.left - navRect.left}px`;
+                        }
+            
+                        // تنفيذ البحث تلقائيًا بناءً على URL
                         const searchTerm = getSearchTermFromURL();
-                        fetchAndFilterProducts(searchTerm); // جلب وعرض المنتجات المطابقة فقط
-                    });
+                        fetchAndFilterProducts(searchTerm || ''); // جلب وعرض المنتجات المطابقة فقط
+                    };
                 </script>
             </body>
             </html>
