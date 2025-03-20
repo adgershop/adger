@@ -1268,9 +1268,7 @@
     
             function getSearchTermFromURL() {
                 const urlParams = new URLSearchParams(window.location.search);
-                const searchTerm = urlParams.get('search') || '';
-                console.log('مصطلح البحث من URL:', searchTerm);
-                return searchTerm;
+                return urlParams.get('search') || '';
             }
     
             function performSearch(searchTerm) {
