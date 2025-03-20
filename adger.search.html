@@ -1335,6 +1335,12 @@
                         const gallery = document.getElementById('gallery');
                         const noResultsMessage = document.getElementById('no-results-message');
                         const searchTermDisplay = document.getElementById('search-term-display');
+                        const searchBox = document.getElementById('search-box'); // صندوق البحث الموجود مسبقًا
+            
+                        // تعبئة صندوق البحث بالنص المستخدم في البحث
+                        if (searchBox) {
+                            searchBox.value = searchTerm;
+                        }
             
                         fetch('products.json')
                             .then(response => response.json())
@@ -1471,14 +1477,21 @@
             
                     // دالة لتحريك الخط وتنفيذ البحث عند اختيار عنصر
                     function selectItem(item, element) {
-                        const searchBox = document.getElementById('search-box');
+                        const searchBox = document.getElementById('search-box'); // صندوق البحث الموجود مسبقًا
             
-                        // إذا كان العنصر المحدد هو "الكل"، قم بإفراغ صندوق البحث وإظهار كل المنتجات
+                        // تعبئة صندوق البحث بناءً على العنصر المحدد
+                        if (searchBox) {
+                            if (item === 'الكل') {
+                                searchBox.value = ''; // إفراغ الصندوق عند اختيار "الكل"
+                            } else {
+                                searchBox.value = item; // تعبئة الصندوق بالنص المحدد
+                            }
+                        }
+            
+                        // تنفيذ البحث بناءً على العنصر المحدد
                         if (item === 'الكل') {
-                            if (searchBox) searchBox.value = '';
                             fetchAndFilterProducts(''); // عرض كل المنتجات
                         } else if (item) {
-                            if (searchBox) searchBox.value = item; // وضع الكلمة في صندوق البحث (إذا كان موجودًا)
                             fetchAndFilterProducts(item); // تصفية المنتجات بناءً على العنصر المحدد
                         }
             
@@ -1505,7 +1518,7 @@
                         });
                     }
             
-                    // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي
+                    // عند تحميل الصفحة، يتم تحديد عنصر "الكل" بشكل افتراضي وتنفيذ البحث
                     window.onload = function () {
                         const defaultItem = document.querySelector('.sub-header nav a');
                         const underline = document.querySelector('.underline');
@@ -1521,8 +1534,12 @@
                             underline.style.left = `${itemRect.left - navRect.left}px`;
                         }
             
-                        // تنفيذ البحث تلقائيًا بناءً على URL
+                        // تنفيذ البحث تلقائيًا بناءً على URL وتعبئة صندوق البحث
                         const searchTerm = getSearchTermFromURL();
+                        const searchBox = document.getElementById('search-box');
+                        if (searchBox && searchTerm) {
+                            searchBox.value = searchTerm; // تعبئة صندوق البحث بنص البحث من URL
+                        }
                         fetchAndFilterProducts(searchTerm || ''); // جلب وعرض المنتجات المطابقة فقط
                     };
                 </script>
