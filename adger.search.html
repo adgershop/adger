@@ -1300,16 +1300,7 @@
                     const itemsPerLoad = 20;
                     let loadedItems = 0;
                 
-                    // دالة لترتيب المصفوفة عشوائيًا (Fisher-Yates Shuffle)
-                    function shuffleArray(array) {
-                        for (let i = array.length - 1; i > 0; i--) {
-                            const j = Math.floor(Math.random() * (i + 1));
-                            [array[i], array[j]] = [array[j], array[i]]; // تبديل العناصر
-                        }
-                        return array;
-                    }
-                
-                    // دالة لجلب وتصفية المنتجات مع ترتيب عشوائي
+                    // دالة لجلب وتصفية المنتجات
                     function fetchAndFilterProducts(searchTerm) {
                         const gallery = document.getElementById('gallery');
                         const noResultsMessage = document.getElementById('no-results-message');
@@ -1321,14 +1312,10 @@
                         fetch('products.json')
                             .then(response => response.json())
                             .then(products => {
-                                // تصفية المنتجات بناءً على البحث
                                 filteredProducts = products.filter(product => 
                                     product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
                                 );
-                                
-                                // ترتيب المنتجات عشوائيًا
-                                filteredProducts = shuffleArray(filteredProducts);
-                
+                                shuffleArray(filteredProducts);
                                 gallery.innerHTML = '';
                                 loadedItems = 0;
                 
@@ -1465,7 +1452,7 @@
                     document.addEventListener('scroll', function () {
                         const gallery = document.getElementById('gallery');
                         const triggerHeight = window.innerHeight * 1.5;
-                        const injuringHeight = gallery.scrollHeight;
+                        const galleryHeight = gallery.scrollHeight;
                 
                         if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < filteredProducts.length) {
                             loadProducts(loadedItems, itemsPerLoad);
@@ -1508,13 +1495,12 @@
                         });
                     }
                 
-                    // دالة لإعادة تحميل المنتجات عشوائيًا كل فترة
-                    function startRandomProductRefresh() {
-                        const refreshInterval = 30000; // كل 30 ثانية (يمكنك تعديل الوقت)
-                        setInterval(() => {
-                            const currentSearchTerm = document.getElementById('search-box')?.value || '';
-                            fetchAndFilterProducts(currentSearchTerm); // إعادة جلب وترتيب المنتجات
-                        }, refreshInterval);
+                    // دالة لخلط مصفوفة عشوائيًا
+                    function shuffleArray(array) {
+                        for (let i = array.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [array[i], array[j]] = [array[j], array[i]];
+                        }
                     }
                 
                     // عند تحميل الصفحة
@@ -1535,11 +1521,10 @@
                             searchBox.value = searchTerm;
                         }
                         fetchAndFilterProducts(searchTerm || '');
-                
-                        // بدء التحديث العشوائي التلقائي
-                        startRandomProductRefresh();
                     };
                 </script>
+                </body>
+                </html>
 
 
 
