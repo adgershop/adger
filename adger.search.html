@@ -1446,8 +1446,8 @@ menuPopup.addEventListener('touchmove', function(event) {
     </div>
 
     <script>
-        // متغير عالمي لتخزين مصطلح البحث
-        let currentSearchTerm = '';
+        // متغير عالمي لتخزين مصطلح البحث الحالي
+        let currentSearchTerm = getSearchTermFromURL() || '';
 
         function addToCart(element) {
             event.stopPropagation();
@@ -1512,7 +1512,8 @@ menuPopup.addEventListener('touchmove', function(event) {
 
                     const productDiv = document.createElement('div');
                     productDiv.className = 'image-container product';
-                    productDiv.setAttribute('data-name', product.dataName || product.name);
+                    // تعيين data-name مع إزالة المسافات الزائدة
+                    productDiv.setAttribute('data-name', (product.dataName || product.name).trim());
                     productDiv.innerHTML = `
                         <div class="image-frame">
                             <a href="${product.link}" onclick="return true;">
@@ -1556,7 +1557,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 });
 
                 preloadNextImages(products, endIndex);
-                performSearch(currentSearchTerm); // إعادة تطبيق البحث بعد تحميل المنتجات
             }
 
             const observer = new IntersectionObserver((entries, observer) => {
@@ -1593,14 +1593,11 @@ menuPopup.addEventListener('touchmove', function(event) {
                     loadProducts(0, itemsPerLoad, shuffledProducts);
 
                     document.addEventListener('scroll', function () {
-                        const noResultsMessage = document.getElementById('no-results-message');
-                        if (noResultsMessage.style.display === 'block') {
-                            return;
-                        }
                         const triggerHeight = window.innerHeight * 1.5;
                         const galleryHeight = gallery.scrollHeight;
                         if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
                             loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
+                            performSearch(currentSearchTerm); // إعادة تطبيق البحث على المنتجات الجديدة
                         }
                     });
 
@@ -1610,6 +1607,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
 
                     startRotatingText(".rotating-text1212");
+                    performSearch(currentSearchTerm);
                 })
                 .catch(error => {
                     console.warn('فشل جلب البيانات من JSON، يتم استخدام المنتجات المدمجة فقط:', error);
@@ -1618,14 +1616,11 @@ menuPopup.addEventListener('touchmove', function(event) {
                     loadProducts(0, itemsPerLoad, shuffledProducts);
 
                     document.addEventListener('scroll', function () {
-                        const noResultsMessage = document.getElementById('no-results-message');
-                        if (noResultsMessage.style.display === 'block') {
-                            return;
-                        }
                         const triggerHeight = window.innerHeight * 1.5;
                         const galleryHeight = gallery.scrollHeight;
                         if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < shuffledProducts.length) {
                             loadProducts(loadedItems, itemsPerLoad, shuffledProducts);
+                            performSearch(currentSearchTerm); // إعادة تطبيق البحث على المنتجات الجديدة
                         }
                     });
 
@@ -1635,6 +1630,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
 
                     startRotatingText(".rotating-text1212");
+                    performSearch(currentSearchTerm);
                 });
         });
 
@@ -1682,7 +1678,8 @@ menuPopup.addEventListener('touchmove', function(event) {
         }
 
         function performSearch(searchTerm) {
-            currentSearchTerm = searchTerm.trim().toLowerCase();
+            // إزالة المسافات الزائدة وتحويل إلى أحرف صغيرة
+            const trimmedSearchTerm = searchTerm.trim().toLowerCase();
             const products = document.querySelectorAll('.product');
             const noResultsMessage = document.getElementById('no-results-message');
             const searchTermDisplay = document.getElementById('search-term-display');
@@ -1690,7 +1687,7 @@ menuPopup.addEventListener('touchmove', function(event) {
 
             products.forEach(product => {
                 const productDataName = product.getAttribute('data-name').toLowerCase().trim();
-                if (currentSearchTerm === '' || productDataName.includes(currentSearchTerm)) {
+                if (trimmedSearchTerm === '' || productDataName.includes(trimmedSearchTerm)) {
                     product.style.display = 'block';
                     foundResults = true;
                 } else {
@@ -1698,7 +1695,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 }
             });
 
-            if (foundResults || currentSearchTerm === '') {
+            if (foundResults || trimmedSearchTerm === '') {
                 noResultsMessage.style.display = 'none';
             } else {
                 noResultsMessage.style.display = 'block';
