@@ -282,10 +282,10 @@
                 margin: 10px;
                 border: 1px solid #ccc;
                 border-radius: 5px;
-                display: block;
                 background-color: #f9f9f9;
                 text-align: center;
                 font-family: Cairo, sans-serif;
+                display: none; /* مخفية افتراضيًا حتى يتم التحكم بها عبر JavaScript */
             }
     
             /* بقية التنسيقات */
@@ -421,6 +421,11 @@
                     margin-right: -8px;
                 }
             }
+            @media only screen and (max-width: 767px) {
+                .cart-icon {
+                    margin-left: -12px;
+                }
+            }
     
             .menu-popup {
                 display: none;
@@ -462,6 +467,10 @@
                 -webkit-tap-highlight-color: transparent;
             }
     
+            .menu-popup .back-arrow:focus {
+                outline: none;
+            }
+    
             .menu-popup .back-arrow svg {
                 width: 24px;
                 height: 24px;
@@ -473,6 +482,19 @@
                 font-size: 18px;
                 color: #333;
                 cursor: pointer;
+            }
+    
+            .menu-icon {
+                margin-left: 10px;
+                user-select: none;
+                -webkit-tap-highlight-color: transparent;
+                outline: none;
+            }
+    
+            @media only screen and (max-width: 767px) {
+                .menu-icon {
+                    margin-left: -6px;
+                }
             }
     
             .adger {
@@ -492,10 +514,51 @@
             @media (max-width: 767px) {
                 .adger { font-size: 20px; }
             }
+    
+            @media (min-width: 767px) {
+                .adger { margin-left: 10px; }
+            }
+    
+            .container22 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+    
+            .country-code {
+                display: inline-flex;
+                align-items: center;
+                font-size: 18px;
+            }
+    
+            .flag {
+                width: 24px;
+                height: 16px;
+                margin-left: 8px;
+            }
+    
+            @media only screen and (max-width: 767px) {
+                .search-wrapper {
+                    width: 100%;
+                    max-width: none;
+                    margin: 0;
+                }
+    
+                #search-box {
+                    padding: 10px 12px 10px 45px;
+                    font-size: 14px;
+                }
+    
+                #search-button {
+                    left: 3px;
+                    width: 45px;
+                    height: 32px;
+                }
+            }
         </style>
     </head>
     <body>
-        <!-- الهيكل الرئيسي -->
         <div class="header">
             <div class="right-elements">
                 <div class="adger-container">
@@ -516,7 +579,13 @@
             </div>
     
             <div class="search-wrapper">
-                <input type="text" id="search-box" placeholder="ابحث فى أدجر" autocomplete="off" readonly onclick="redirectToSearch(event)">
+                <input 
+                    type="text" 
+                    id="search-box" 
+                    placeholder="ابحث فى أدجر" 
+                    autocomplete="off" 
+                    readonly 
+                    onclick="redirectToSearch(event)">
                 <button id="search-button">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -524,6 +593,13 @@
                     </svg>
                 </button>
             </div>
+    
+            <script>
+                function redirectToSearch(event) {
+                    event.preventDefault();
+                    window.location.href = "search.html";
+                }
+            </script>
     
             <div class="left-elements">
                 <div class="container22">
@@ -588,7 +664,6 @@
         </div>
     
         <script>
-            // استرجاع بيانات المستخدم من localStorage
             const username = localStorage.getItem('username');
             const welcomeMessage = document.getElementById('welcomeMessage');
             const usernameDisplay = document.getElementById('usernameDisplay');
@@ -614,11 +689,6 @@
                 welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
             }
     
-            function redirectToSearch(event) {
-                event.preventDefault();
-                window.location.href = "search.html";
-            }
-    
             function selectItem(itemName, element) {
                 const searchBox = document.getElementById('search-box');
                 if (itemName === 'الكل') {
@@ -641,10 +711,11 @@
     
             function performSearch(searchTerm) {
                 const products = document.querySelectorAll('.product');
-                console.log('مصطلح البحث:', searchTerm.toLowerCase());
+                console.log('عدد المنتجات:', products.length);
+                console.log('مصطلح البحث:', searchTerm);
                 products.forEach(product => {
                     const productDataName = product.getAttribute('data-name').toLowerCase();
-                    console.log('data-name للمنتج:', productDataName);
+                    console.log('اسم المنتج:', productDataName);
                     if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
                         product.style.display = 'block';
                     } else {
