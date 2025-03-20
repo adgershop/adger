@@ -2109,746 +2109,746 @@
 
 
     <!DOCTYPE html>
-    <html lang="ar">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Example Page</title>
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
-        <style>
-            /* الشريط العلوي الثابت */
-            .header {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                height: 66px;
-                background-color: white;
-                padding: 0 20px;
-                z-index: 1;
-            }
-    
-            /* الشريط الأبيض الثابت أسفل الشريط العلوي */
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* الشريط العلوي الثابت */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 66px;
+            background-color: white;
+            padding: 0 20px;
+            z-index: 1;
+        }
+
+        /* الشريط الأبيض الثابت أسفل الشريط العلوي */
+        .sub-header {
+            position: fixed;
+            top: 62px;
+            left: 0;
+            right: 0;
+            height: 51px;
+            background-color: white;
+            box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
+            text-shadow: none;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        @media (max-width: 769px) {
             .sub-header {
-                position: fixed;
-                top: 62px;
-                left: 0;
-                right: 0;
-                height: 51px;
-                background-color: white;
-                box-shadow: 0 3px 1px -2px rgba(37, 37, 37, 0.1);
-                text-shadow: none;
-                z-index: 999;
-                display: flex;
-                align-items: center;
-                padding: 0 20px;
-                overflow-x: auto;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
+                top: 55px;
             }
-            @media (max-width: 769px) {
-                .sub-header {
-                    top: 55px;
-                }
-            }
-    
-            .sub-header::-webkit-scrollbar {
-                display: none;
-            }
-    
+        }
+
+        .sub-header::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sub-header nav {
+            display: flex;
+            gap: 30px;
+            position: relative;
+            white-space: nowrap;
+        }
+        @media (max-width: 499px) {
             .sub-header nav {
-                display: flex;
-                gap: 30px;
-                position: relative;
-                white-space: nowrap;
+                gap: 22px;
+                margin-right: -9px;
             }
-            @media (max-width: 499px) {
-                .sub-header nav {
-                    gap: 22px;
-                    margin-right: -9px;
-                }
+        }
+        @media (max-width: 769px) {
+            .sub-header nav {
+                margin-right: -9px;
             }
-            @media (max-width: 769px) {
-                .sub-header nav {
-                    margin-right: -9px;
-                }
-            }
-    
-            .sub-header nav a {
-                text-decoration: none;
-                color: #333;
-                font-size: 16px;
-                cursor: pointer;
-                padding: 10px 0;
-            }
-    
-            .underline {
-                position: absolute;
-                bottom: 0;
-                height: 2px;
-                background-color: #000000;
-                transition: all 0.3s ease;
-            }
-    
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                direction: rtl;
-            }
-    
-            .gallery {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                justify-content: center;
-                padding: 20px;
-                margin-top: 12px; /* لتجنب التداخل مع sub-header */
-            }
-    
-            .image-container {
-                flex: 1 1 calc(16.666% - 20px);
-                max-width: calc(16.666% - 20px);
-                box-sizing: border-box;
-                position: relative;
-            }
-    
-            .image-frame {
-                border: 2px solid #cfcfcf;
-                border-radius: 32px;
-                padding: 0;
-                text-align: center;
-                background-color: #ffffff;
-                position: relative;
-            }
-    
-            .image-wrapper {
-                position: relative;
-                width: 100%;
-                padding-top: 100%;
-                background-color: #f3f3f39c;
-                border-radius: 30.2px;
-            }
-    
-            .image-frame img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                display: block;
-                border-radius: 30.2px;
-                opacity: 0;
-                transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
-            }
-    
-            .image-frame img.loaded {
-                opacity: 1;
-            }
-    
-            .image-frame img.white-bg {
-                background-color: #d3d3d3;
-            }
-    
+        }
+
+        .sub-header nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px 0;
+        }
+
+        .underline {
+            position: absolute;
+            bottom: 0;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            direction: rtl;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 12px; /* لتجنب التداخل مع sub-header */
+        }
+        
+        .image-container {
+            flex: 1 1 calc(16.666% - 20px);
+            max-width: calc(16.666% - 20px);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .image-frame {
+            border: 2px solid #cfcfcf;
+            border-radius: 32px;
+            padding: 0;
+            text-align: center;
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+            background-color: #f3f3f39c;
+            border-radius: 30.2px;
+        }
+
+        .image-frame img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 30.2px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
+        }
+
+        .image-frame img.loaded {
+            opacity: 1;
+        }
+
+        .image-frame img.white-bg {
+            background-color: #d3d3d3;
+        }
+
+        .text-under {
+            margin-top: -4px;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: right;
+            padding: 10px;
+        }
+
+        .text-under h1 {
+            font-family: Cairo, sans-serif;
+            color: #333;
+            font-size: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        @media (max-width: 1268px) {
             .text-under {
-                margin-top: -4px;
-                font-size: 14px;
-                line-height: 1.5;
-                text-align: right;
-                padding: 10px;
-            }
-    
-            .text-under h1 {
-                font-family: Cairo, sans-serif;
-                color: #333;
-                font-size: 15px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                width: 100%;
-            }
-    
-            @media (max-width: 1268px) {
-                .text-under {
-                    margin-top: -7px;
-                }
-                .text-under h1 {
-                    font-size: 14px !important;
-                }
-            }
-    
-            .add-to-cart {
-                position: absolute;
-                bottom: 12px;
-                left: 12px;
-                background-color: #ffffff;
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                transition: background-color 0.3s;
-            }
-    
-            @media (max-width: 1268px) {
-                .add-to-cart {
-                    left: 10px;
-                    bottom: 10px;
-                    width: 20px;
-                    height: 20px;
-                    padding: 5px;
-                }
-                .add-to-cart svg {
-                    width: 12px;
-                    height: 12px;
-                }
-            }
-    
-            .add-to-cart svg {
-                width: 24px;
-                height: 24px;
-                color: #000000;
-            }
-    
-            .add-to-cart.checked {
-                background-color: #28a745;
-            }
-    
-            .add-to-cart.checked svg {
-                display: none;
-            }
-    
-            .add-to-cart.checked::before {
-                content: "✓";
-                font-size: 24px;
-                color: #ffffff;
-            }
-    
-            @media (max-width: 1024px) and (min-width: 769px) {
-                .image-container {
-                    flex: 1 1 calc(25% - 10px);
-                    max-width: calc(25% - 10px);
-                }
-            }
-    
-            @media (max-width: 768px) {
-                .gallery {
-                    padding-left: 5px;
-                    padding-right: 5px;
-                }
-                .image-container {
-                    flex: 1 1 calc(50% - 5px);
-                    max-width: calc(50% - 5px);
-                }
-            }
-    
-            @media (min-width: 1121px) {
-                .text-under h1 {
-                    font-size: 16px;
-                }
-            }
-    
-            @media (min-width: 1025px) {
-                .image-container {
-                    flex: 1 1 calc(20% - 20px);
-                    max-width: calc(20% - 20px);
-                }
-            }
-    
-            .hidden {
-                display: none;
-            }
-    
-            .container {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                width: 100%;
                 margin-top: -7px;
             }
-    
-            @media (max-width: 1268px) {
-                .container {
-                    margin-top: -7px;
-                }
-                .zero {
-                    font-size: 20px !important;
-                }
-                .number {
-                    font-size: 16px !important;
-                }
-                .letter {
-                    font-size: 14px !important;
-                }
+            .text-under h1 {
+                font-size: 14px !important;
             }
-    
-            .rotating-text1212 {
-                font-family: 'Cairo', sans-serif;
-                color: #ff0000;
-                font-size: 12px;
-                margin-top: 2px;
-                margin-right: 8.6px;
-                text-transform: uppercase;
-                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-                opacity: 1;
-                transform: translateY(0);
+        }
+
+        .add-to-cart {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        @media (max-width: 1268px) {
+            .add-to-cart {
+                left: 10px;
+                bottom: 10px;
+                width: 20px;
+                height: 20px;
+                padding: 5px;
             }
-    
-            .image-frame a,
-            .image-frame a *,
-            .image-frame a *:focus,
-            .image-frame a img {
-                outline: none !important;
-                border: none !important;
-                -webkit-tap-highlight-color: transparent !important;
+            .add-to-cart svg {
+                width: 12px;
+                height: 12px;
             }
-    
-            .image-frame a:focus,
-            .image-frame a img:focus {
-                outline: none !important;
+        }
+
+        .add-to-cart svg {
+            width: 24px;
+            height: 24px;
+            color: #000000;
+        }
+
+        .add-to-cart.checked {
+            background-color: #28a745;
+        }
+
+        .add-to-cart.checked svg {
+            display: none;
+        }
+
+        .add-to-cart.checked::before {
+            content: "✓";
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .image-container {
+                flex: 1 1 calc(25% - 10px);
+                max-width: calc(25% - 10px);
             }
-    
-            .product {
-                display: block;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                padding-left: 5px;
+                padding-right: 5px;
             }
-    
-            #no-results-message {
-                display: none;
-                text-align: center;
-                font-size: 20px;
-                color: #202020;
-                margin-top: 20px;
-                padding: 20px;
-                border-radius: 10px;
+            .image-container {
+                flex: 1 1 calc(50% - 5px);
+                max-width: calc(50% - 5px);
             }
-        </style>
-    </head>
-    <body>
-        <!-- Sub Header -->
-        <div class="sub-header">
-            <nav>
-                <a href="#" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
-                <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
-                <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
-                <div class="underline"></div>
-            </nav>
+        }
+
+        @media (min-width: 1121px) {
+            .text-under h1 {
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .image-container {
+                flex: 1 1 calc(20% - 20px);
+                max-width: calc(20% - 20px);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
+            margin-top: -7px;
+        }
+
+        @media (max-width: 1268px) {
+            .container {
+                margin-top: -7px;
+            }
+            .zero {
+                font-size: 20px !important;
+            }
+            .number {
+                font-size: 16px !important;
+            }
+            .letter {
+                font-size: 14px !important;
+            }
+        }
+
+        .rotating-text1212 {
+            font-family: 'Cairo', sans-serif;
+            color: #ff0000;
+            font-size: 12px;
+            margin-top: 2px;
+            margin-right: 8.6px;
+            text-transform: uppercase;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .image-frame a,
+        .image-frame a *,
+        .image-frame a *:focus,
+        .image-frame a img {
+            outline: none !important;
+            border: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .image-frame a:focus,
+        .image-frame a img:focus {
+            outline: none !important;
+        }
+
+        .product {
+            display: block;
+        }
+
+        #no-results-message {
+            display: none;
+            text-align: center;
+            font-size: 20px;
+            color: #202020;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sub Header -->
+    <div class="sub-header">
+        <nav>
+            <a href="#" onclick="selectItem('الكل', this)" style="font-family: Cairo, sans-serif;">الكل</a>
+            <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+            <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+            <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+            <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+            <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+            <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+            <a onclick="selectItem('هواتف', this)" class="menu-item" style="font-family: Cairo, sans-serif;">هواتف</a>
+            <a onclick="selectItem('كتب', this)" class="menu-item" style="font-family: Cairo, sans-serif;">كتب</a>
+            <div class="underline"></div>
+        </nav>
+    </div>
+
+    <!-- نافذة القائمة الجانبية -->
+    <div class="menu-popup" id="menuPopup">
+        <div class="back-arrow" onclick="toggleMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"></path>
+            </svg>
         </div>
-    
-        <!-- نافذة القائمة الجانبية -->
-        <div class="menu-popup" id="menuPopup">
-            <div class="back-arrow" onclick="toggleMenu()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 12H5M12 19l-7-7 7-7"></path>
-                </svg>
-            </div>
-            <p onclick="window.location.href='account.html'" 
-               style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-               onmouseover="this.style.color='#888'" 
-               onmouseout="this.style.color='black'"
-               ontouchstart="this.style.color='#888'" 
-               ontouchend="setTimeout(() => this.style.color='black', 300)">
-                <span style="pointer-events: none;">حسابي</span>
-            </p>
-            <p onclick="window.location.href='about.html'" 
-               style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black siennal;"
-               onmouseover="this.style.color='#888'" 
-               onmouseout="this.style.color='black'"
-               ontouchstart="this.style.color='#888'" 
-               ontouchend="setTimeout(() => this.style.color='black', 300)">
-                <span style="pointer-events: none;">سياسات وأحكام</span>
-            </p>
-            <p onclick="window.location.href='return.html'" 
-               style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-               onmouseover="this.style.color='#888'" 
-               onmouseout="this.style.color='black'"
-               ontouchstart="this.style.color='#888'" 
-               ontouchend="setTimeout(() => this.style.color='black', 300)">
-                <span style="pointer-events: none;">طلب استرجاع</span>
-            </p>
-            <p onclick="window.location.href='deals.html'" 
-               style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-               onmouseover="this.style.color='#888'" 
-               onmouseout="this.style.color='black'"
-               ontouchstart="this.style.color='#888'" 
-               ontouchend="setTimeout(() => this.style.color='black', 300)">
-                <span style="pointer-events: none;">صفقة رابحة</span>
-            </p>
-            <p onclick="window.location.href='wholesale.html'" 
-               style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-               onmouseover="this.style.color='#888'" 
-               onmouseout="this.style.color='black'"
-               ontouchstart="this.style.color='#888'" 
-               ontouchend="setTimeout(() => this.style.color='black', 300)">
-                <span style="pointer-events: none;">شراء بالجملة</span>
-            </p>
-            <p onclick="window.location.href='companies.html'" 
-               style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-               onmouseover="this.style.color='#888'" 
-               onmouseout="this.style.color='black'"
-               ontouchstart="this.style.color='#888'" 
-               ontouchend="setTimeout(() => this.style.color='black', 300)">
-                <span style="pointer-events: none;">شركات عالمية</span>
-            </p>
-            <p onclick="window.location.href='categories.html'" 
-               style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
-               onmouseover="this.style.color='#888'" 
-               onmouseout="this.style.color='black'"
-               ontouchstart="this.style.color='#888'" 
-               ontouchend="setTimeout(() => this.style.color='black', 300)">
-                <span style="pointer-events: none;">الفئات</span>
-            </p>
+        <p onclick="window.location.href='account.html'" 
+           style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+           onmouseover="this.style.color='#888'" 
+           onmouseout="this.style.color='black'"
+           ontouchstart="this.style.color='#888'" 
+           ontouchend="setTimeout(() => this.style.color='black', 300)">
+            <span style="pointer-events: none;">حسابي</span>
+        </p>
+        <p onclick="window.location.href='about.html'" 
+           style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+           onmouseover="this.style.color='#888'" 
+           onmouseout="this.style.color='black'"
+           ontouchstart="this.style.color='#888'" 
+           ontouchend="setTimeout(() => this.style.color='black', 300)">
+            <span style="pointer-events: none;">سياسات وأحكام</span>
+        </p>
+        <p onclick="window.location.href='return.html'" 
+           style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+           onmouseover="this.style.color='#888'" 
+           onmouseout="this.style.color='black'"
+           ontouchstart="this.style.color='#888'" 
+           ontouchend="setTimeout(() => this.style.color='black', 300)">
+            <span style="pointer-events: none;">طلب استرجاع</span>
+        </p>
+        <p onclick="window.location.href='deals.html'" 
+           style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+           onmouseover="this.style.color='#888'" 
+           onmouseout="this.style.color='black'"
+           ontouchstart="this.style.color='#888'" 
+           ontouchend="setTimeout(() => this.style.color='black', 300)">
+            <span style="pointer-events: none;">صفقة رابحة</span>
+        </p>
+        <p onclick="window.location.href='wholesale.html'" 
+           style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+           onmouseover="this.style.color='#888'" 
+           onmouseout="this.style.color='black'"
+           ontouchstart="this.style.color='#888'" 
+           ontouchend="setTimeout(() => this.style.color='black', 300)">
+            <span style="pointer-events: none;">شراء بالجملة</span>
+        </p>
+        <p onclick="window.location.href='companies.html'" 
+           style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+           onmouseover="this.style.color='#888'" 
+           onmouseout="this.style.color='black'"
+           ontouchstart="this.style.color='#888'" 
+           ontouchend="setTimeout(() => this.style.color='black', 300)">
+            <span style="pointer-events: none;">شركات عالمية</span>
+        </p>
+        <p onclick="window.location.href='categories.html'" 
+           style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
+           onmouseover="this.style.color='#888'" 
+           onmouseout="this.style.color='black'"
+           ontouchstart="this.style.color='#888'" 
+           ontouchend="setTimeout(() => this.style.color='black', 300)">
+            <span style="pointer-events: none;">الفئات</span>
+        </p>
+    </div>
+
+    <div id="gallery" class="gallery"></div>
+
+    <!-- رسالة "لا توجد نتائج" -->
+    <div id="no-results-message" style="text-align: center; margin-top: 20px; padding: 20px; border-radius: 10px;">
+        <div style="display: inline-block; background-color: #f0f0f0; border-radius: 7%; padding: 10px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="8" y1="8" x2="14" y2="14"></line>
+                <line x1="14" y1="8" x2="8" y2="14"></line>
+            </svg>
         </div>
+        <p style="font-size: 24px; margin-top: 10px;">
+            لا توجد نتائج لـ "<span id="search-term-display"></span>"
+        </p>
+    </div>
+
+    <script>
+        // استرجاع بيانات المستخدم من localStorage
+        const username = localStorage.getItem('username');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const usernameDisplay = document.getElementById('usernameDisplay');
     
-        <div id="gallery" class="gallery"></div>
-    
-        <!-- رسالة "لا توجد نتائج" -->
-        <div id="no-results-message" style="text-align: center; margin-top: 20px; padding: 20px; border-radius: 10px;">
-            <div style="display: inline-block; background-color: #f0f0f0; border-radius: 7%; padding: 10px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    <line x1="8" y1="8" x2="14" y2="14"></line>
-                    <line x1="14" y1="8" x2="8" y2="14"></line>
-                </svg>
-            </div>
-            <p style="font-size: 24px; margin-top: 10px;">
-                لا توجد نتائج لـ "<span id="search-term-display"></span>"
-            </p>
-        </div>
-    
-        <script>
-            // استرجاع بيانات المستخدم من localStorage
-            const username = localStorage.getItem('username');
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            const usernameDisplay = document.getElementById('usernameDisplay');
-        
-            if (username) {
-                function isArabic(text) {
-                    return /[\u0600-\u06FF]/.test(text);
+        if (username) {
+            function isArabic(text) {
+                return /[\u0600-\u06FF]/.test(text);
+            }
+            function truncateUsername(name) {
+                const maxLength = isArabic(name) ? 12 : 7;
+                if (window.innerWidth < 966 && name.length > maxLength) {
+                    return isArabic(name) ? name.substring(0, maxLength) + '..' : '..' + name.substring(0, maxLength);
                 }
-                function truncateUsername(name) {
-                    const maxLength = isArabic(name) ? 12 : 7;
-                    if (window.innerWidth < 966 && name.length > maxLength) {
-                        return isArabic(name) ? name.substring(0, maxLength) + '..' : '..' + name.substring(0, maxLength);
-                    }
-                    return name;
-                }
+                return name;
+            }
+            usernameDisplay.textContent = truncateUsername(username);
+            window.addEventListener('resize', () => {
                 usernameDisplay.textContent = truncateUsername(username);
-                window.addEventListener('resize', () => {
-                    usernameDisplay.textContent = truncateUsername(username);
-                });
-            } else if (welcomeMessage) {
-                welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
-            }
-        
-            // دالة لتحريك الخط عند النقر على عناصر القائمة
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(item => {
-                item.addEventListener('click', () => window.scrollTo(0, 0));
             });
-        
-            // دالة لإظهار أو إخفاء القائمة الجانبية
-            function toggleMenu() {
-                const menuPopup = document.getElementById('menuPopup');
-                if (menuPopup.classList.contains('active')) {
-                    menuPopup.classList.remove('active');
-                    menuPopup.classList.add('closing');
-                    setTimeout(() => {
-                        menuPopup.classList.remove('closing');
-                        menuPopup.style.display = 'none';
-                    }, 300);
-                } else {
-                    menuPopup.style.display = 'block';
-                    setTimeout(() => menuPopup.classList.add('active'), 10);
-                }
-            }
-        
-            // متغيرات ودوال لتتبع السحب
-            let startX = 0, currentX = 0, isDragging = false;
+        } else if (welcomeMessage) {
+            welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
+        }
+    
+        // دالة لتحريك الخط عند النقر على عناصر القائمة
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => window.scrollTo(0, 0));
+        });
+    
+        // دالة لإظهار أو إخفاء القائمة الجانبية
+        function toggleMenu() {
             const menuPopup = document.getElementById('menuPopup');
-        
-            function startDrag(event) {
-                if (menuPopup.classList.contains('active') && menuPopup.contains(event.target)) {
-                    startX = event.touches[0].clientX;
-                    isDragging = true;
-                }
+            if (menuPopup.classList.contains('active')) {
+                menuPopup.classList.remove('active');
+                menuPopup.classList.add('closing');
+                setTimeout(() => {
+                    menuPopup.classList.remove('closing');
+                    menuPopup.style.display = 'none';
+                }, 300);
+            } else {
+                menuPopup.style.display = 'block';
+                setTimeout(() => menuPopup.classList.add('active'), 10);
             }
-            function drag(event) {
-                if (!isDragging) return;
-                currentX = event.touches[0].clientX;
-                if (currentX - startX < -50) {
-                    toggleMenu();
-                    isDragging = false;
-                }
+        }
+    
+        // متغيرات ودوال لتتبع السحب
+        let startX = 0, currentX = 0, isDragging = false;
+        const menuPopup = document.getElementById('menuPopup');
+    
+        function startDrag(event) {
+            if (menuPopup.classList.contains('active') && menuPopup.contains(event.target)) {
+                startX = event.touches[0].clientX;
+                isDragging = true;
             }
-            function endDrag() {
+        }
+        function drag(event) {
+            if (!isDragging) return;
+            currentX = event.touches[0].clientX;
+            if (currentX - startX < -50) {
+                toggleMenu();
                 isDragging = false;
             }
-            function handleClickOutside(event) {
-                if (menuPopup.classList.contains('active') && !menuPopup.contains(event.target)) toggleMenu();
-            }
-            document.addEventListener('touchstart', startDrag);
-            document.addEventListener('touchmove', drag);
-            document.addEventListener('touchend', endDrag);
-            document.addEventListener('click', handleClickOutside);
-            menuPopup.addEventListener('touchmove', (event) => {
-                if (menuPopup.classList.contains('active')) event.preventDefault();
-            }, { passive: false });
-        
-            // دالة لإضافة المنتج إلى السلة
-            function addToCart(element) {
-                event.stopPropagation();
-                event.preventDefault();
-                element.classList.add('checked');
-                alert("تمت إضافة المنتج إلى سلة التسوق");
-                return false;
-            }
-        
-            // متغيرات عالمية لتتبع المنتجات
-            let filteredProducts = [];
-            const itemsPerLoad = 20;
-            let loadedItems = 0;
-        
-            // دالة لجلب وتصفية المنتجات
-            function fetchAndFilterProducts(searchTerm) {
-                const gallery = document.getElementById('gallery');
-                const noResultsMessage = document.getElementById('no-results-message');
-                const searchTermDisplay = document.getElementById('search-term-display');
-                const searchBox = document.getElementById('search-box');
-        
-                if (searchBox) searchBox.value = searchTerm;
-        
-                fetch('products.json')
-                    .then(response => response.json())
-                    .then(products => {
-                        filteredProducts = products.filter(product => 
-                            product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
-                        );
-                        shuffleArray(filteredProducts);
-                        gallery.innerHTML = '';
-                        loadedItems = 0;
-        
-                        if (filteredProducts.length > 0) {
-                            loadProducts(0, itemsPerLoad);
-                            noResultsMessage.style.display = 'none';
-                        } else {
-                            noResultsMessage.style.display = 'block';
-                            searchTermDisplay.textContent = searchTerm;
-                        }
-                    })
-                    .catch(error => {
-                        console.error('فشل جلب المنتجات من JSON:', error);
-                        gallery.innerHTML = '';
+        }
+        function endDrag() {
+            isDragging = false;
+        }
+        function handleClickOutside(event) {
+            if (menuPopup.classList.contains('active') && !menuPopup.contains(event.target)) toggleMenu();
+        }
+        document.addEventListener('touchstart', startDrag);
+        document.addEventListener('touchmove', drag);
+        document.addEventListener('touchend', endDrag);
+        document.addEventListener('click', handleClickOutside);
+        menuPopup.addEventListener('touchmove', (event) => {
+            if (menuPopup.classList.contains('active')) event.preventDefault();
+        }, { passive: false });
+    
+        // دالة لإضافة المنتج إلى السلة
+        function addToCart(element) {
+            event.stopPropagation();
+            event.preventDefault();
+            element.classList.add('checked');
+            alert("تمت إضافة المنتج إلى سلة التسوق");
+            return false;
+        }
+    
+        // متغيرات عالمية لتتبع المنتجات
+        let filteredProducts = [];
+        const itemsPerLoad = 20;
+        let loadedItems = 0;
+    
+        // دالة لجلب وتصفية المنتجات
+        function fetchAndFilterProducts(searchTerm) {
+            const gallery = document.getElementById('gallery');
+            const noResultsMessage = document.getElementById('no-results-message');
+            const searchTermDisplay = document.getElementById('search-term-display');
+            const searchBox = document.getElementById('search-box');
+    
+            if (searchBox) searchBox.value = searchTerm;
+    
+            fetch('products.json')
+                .then(response => response.json())
+                .then(products => {
+                    filteredProducts = products.filter(product => 
+                        product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                    shuffleArray(filteredProducts);
+                    gallery.innerHTML = '';
+                    loadedItems = 0;
+    
+                    if (filteredProducts.length > 0) {
+                        loadProducts(0, itemsPerLoad);
+                        noResultsMessage.style.display = 'none';
+                    } else {
                         noResultsMessage.style.display = 'block';
                         searchTermDisplay.textContent = searchTerm;
-                    });
-            }
-        
-            // دالة لتحميل المنتجات
-            function loadProducts(startIndex, count) {
-                const gallery = document.getElementById('gallery');
-                const endIndex = Math.min(startIndex + count, filteredProducts.length);
-        
-                for (let i = startIndex; i < endIndex; i++) {
-                    const product = filteredProducts[i];
-                    const priceStr = product.price.toString();
-                    const firstDigit = priceStr.charAt(0);
-                    const specialDigits = ['2', '3', '5', '6', '8', '9'];
-                    const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
-        
-                    const productDiv = document.createElement('div');
-                    productDiv.className = 'image-container product';
-                    productDiv.setAttribute('data-name', product.dataName || product.name);
-                    productDiv.innerHTML = `
-                        <div class="image-frame">
-                            <a href="${product.link}" onclick="return true;">
-                                <div class="image-wrapper">
-                                    <img data-src="${product.image}" alt="${product.name}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
-                                    <div class="add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); addToCart(this); return false;">
-                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="text-under">
-                                <h1>${product.name}</h1>
-                                <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
-                                <div class="container">
-                                    <div class="zero" style="font-size: 24px;"></div>
-                                    <div class="number" style="font-size: 20px;">${product.price}</div>
-                                    <div class="letter" style="margin-right: ${letterMargin}; font-size: 17px;">EGP</div>
-                                </div>
-                                <div class="product1212">
-                                    <h3 class="rotating-text1212" data-texts='${JSON.stringify(product.discountTexts)}'>${product.discountTexts[0]}</h3>
+                    }
+                })
+                .catch(error => {
+                    console.error('فشل جلب المنتجات من JSON:', error);
+                    gallery.innerHTML = '';
+                    noResultsMessage.style.display = 'block';
+                    searchTermDisplay.textContent = searchTerm;
+                });
+        }
+    
+        // دالة لتحميل المنتجات
+        function loadProducts(startIndex, count) {
+            const gallery = document.getElementById('gallery');
+            const endIndex = Math.min(startIndex + count, filteredProducts.length);
+    
+            for (let i = startIndex; i < endIndex; i++) {
+                const product = filteredProducts[i];
+                const priceStr = product.price.toString();
+                const firstDigit = priceStr.charAt(0);
+                const specialDigits = ['2', '3', '5', '6', '8', '9'];
+                const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
+    
+                const productDiv = document.createElement('div');
+                productDiv.className = 'image-container product';
+                productDiv.setAttribute('data-name', product.dataName || product.name);
+                productDiv.innerHTML = `
+                    <div class="image-frame">
+                        <a href="${product.link}" onclick="return true;">
+                            <div class="image-wrapper">
+                                <img data-src="${product.image}" alt="${product.name}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAE9gH8dP5TLgAAAABJRU5ErkJggg==">
+                                <div class="add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); addToCart(this); return false;">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                                    </svg>
                                 </div>
                             </div>
+                        </a>
+                        <div class="text-under">
+                            <h1>${product.name}</h1>
+                            <h2 style="font-family: Cairo, sans-serif; color: #ffa600; font-size: 13px; margin-top: -5px;">${product.sold} مباعه - adger</h2>
+                            <div class="container">
+                                <div class="zero" style="font-size: 24px;"></div>
+                                <div class="number" style="font-size: 20px;">${product.price}</div>
+                                <div class="letter" style="margin-right: ${letterMargin}; font-size: 17px;">EGP</div>
+                            </div>
+                            <div class="product1212">
+                                <h3 class="rotating-text1212" data-texts='${JSON.stringify(product.discountTexts)}'>${product.discountTexts[0]}</h3>
+                            </div>
                         </div>
-                    `;
-                    gallery.appendChild(productDiv);
-                }
-        
-                loadedItems = endIndex;
-                const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
-                lazyImages.forEach(img => observer.observe(img));
-                startRotatingText(".rotating-text1212"); // تفعيل النصوص المتغيرة
+                    </div>
+                `;
+                gallery.appendChild(productDiv);
             }
-        
-            // مراقب التحميل الكسول
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.onload = () => {
-                            img.classList.add("loaded");
-                            if (isWhiteBackground(img)) {
-                                img.classList.add("white-bg");
-                            }
-                        };
-                        observer.unobserve(img);
-                    }
-                });
-            }, { rootMargin: "0px 0px 200px 0px" });
-        
-            // دالة للتحقق من خلفية الصورة البيضاء
-            function isWhiteBackground(img) {
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-                canvas.width = img.naturalWidth;
-                canvas.height = img.naturalHeight;
-                context.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
-                const imageData = context.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
-                const data = imageData.data;
-                let whitePixelCount = 0;
-                let totalPixelCount = data.length / 4;
-        
-                for (let i = 0; i < data.length; i += 4) {
-                    if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240) {
-                        whitePixelCount++;
-                    }
-                }
-        
-                return (whitePixelCount / totalPixelCount) > 0.9;
-            }
-        
-            // دالة لتدوير النصوص
-            function startRotatingText(selector) {
-                document.querySelectorAll(selector).forEach(element => {
-                    const texts = JSON.parse(element.getAttribute("data-texts"));
-                    let currentIndex = 0;
-                    setInterval(() => {
-                        element.style.transition = "opacity 0.5s, transform 0.5s";
-                        element.style.opacity = "0";
-                        element.style.transform = "translateY(20px)";
-                        setTimeout(() => {
-                            currentIndex = (currentIndex + 1) % texts.length;
-                            element.textContent = texts[currentIndex];
-                            element.style.opacity = "1";
-                            element.style.transform = "translateY(0)";
-                        }, 500);
-                    }, 5000);
-                });
-            }
-        
-            // دالة لقراءة معلمة البحث من URL
-            function getSearchTermFromURL() {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get('search') || '';
-            }
-        
-            // تحميل المنتجات عند التمرير
-            document.addEventListener('scroll', function () {
-                const gallery = document.getElementById('gallery');
-                const triggerHeight = window.innerHeight * 1.5;
-                const galleryHeight = gallery.scrollHeight;
-        
-                if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < filteredProducts.length) {
-                    loadProducts(loadedItems, itemsPerLoad);
+    
+            loadedItems = endIndex;
+            const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
+            lazyImages.forEach(img => observer.observe(img));
+            startRotatingText(".rotating-text1212:not(.rotating)"); // تفعيل النصوص المتغيرة فقط على العناصر الجديدة
+        }
+    
+        // مراقب التحميل الكسول
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.onload = () => {
+                        img.classList.add("loaded");
+                        if (isWhiteBackground(img)) {
+                            img.classList.add("white-bg");
+                        }
+                    };
+                    observer.unobserve(img);
                 }
             });
-        
-            // دالة لتحريك الخط وتنفيذ البحث
-            function selectItem(item, element) {
-                const searchBox = document.getElementById('search-box');
-        
-                if (searchBox) {
-                    if (item === 'الكل') {
-                        searchBox.value = '';
-                    } else {
-                        searchBox.value = item;
-                    }
+        }, { rootMargin: "0px 0px 200px 0px" });
+    
+        // دالة للتحقق من خلفية الصورة البيضاء
+        function isWhiteBackground(img) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            context.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+            const imageData = context.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
+            const data = imageData.data;
+            let whitePixelCount = 0;
+            let totalPixelCount = data.length / 4;
+    
+            for (let i = 0; i < data.length; i += 4) {
+                if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240) {
+                    whitePixelCount++;
                 }
-        
+            }
+    
+            return (whitePixelCount / totalPixelCount) > 0.9;
+        }
+    
+        // دالة لتدوير النصوص
+        function startRotatingText(selector) {
+            document.querySelectorAll(selector).forEach(element => {
+                element.classList.add('rotating'); // إضافة فئة للعنصر لمنع التكرار
+                const texts = JSON.parse(element.getAttribute("data-texts"));
+                let currentIndex = 0;
+                setInterval(() => {
+                    element.style.transition = "opacity 0.5s, transform 0.5s";
+                    element.style.opacity = "0";
+                    element.style.transform = "translateY(20px)";
+                    setTimeout(() => {
+                        currentIndex = (currentIndex + 1) % texts.length;
+                        element.textContent = texts[currentIndex];
+                        element.style.opacity = "1";
+                        element.style.transform = "translateY(0)";
+                    }, 500);
+                }, 5000);
+            });
+        }
+    
+        // دالة لقراءة معلمة البحث من URL
+        function getSearchTermFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('search') || '';
+        }
+    
+        // تحميل المنتجات عند التمرير
+        document.addEventListener('scroll', function () {
+            const gallery = document.getElementById('gallery');
+            const triggerHeight = window.innerHeight * 1.5;
+            const galleryHeight = gallery.scrollHeight;
+    
+            if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < filteredProducts.length) {
+                loadProducts(loadedItems, itemsPerLoad);
+            }
+        });
+    
+        // دالة لتحريك الخط وتنفيذ البحث
+        function selectItem(item, element) {
+            const searchBox = document.getElementById('search-box');
+    
+            if (searchBox) {
                 if (item === 'الكل') {
-                    fetchAndFilterProducts('');
-                } else if (item) {
-                    fetchAndFilterProducts(item);
+                    searchBox.value = '';
+                } else {
+                    searchBox.value = item;
                 }
-        
-                const allItems = document.querySelectorAll('.sub-header nav a');
-                allItems.forEach(item => item.classList.remove('active'));
-                element.classList.add('active');
-        
-                const underline = document.querySelector('.underline');
-                const itemRect = element.getBoundingClientRect();
-                const navRect = element.parentElement.getBoundingClientRect();
-        
+            }
+    
+            if (item === 'الكل') {
+                fetchAndFilterProducts('');
+            } else if (item) {
+                fetchAndFilterProducts(item);
+            }
+    
+            const allItems = document.querySelectorAll('.sub-header nav a');
+            allItems.forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+    
+            const underline = document.querySelector('.underline');
+            const itemRect = element.getBoundingClientRect();
+            const navRect = element.parentElement.getBoundingClientRect();
+    
+            underline.style.width = `${itemRect.width}px`;
+            underline.style.left = `${itemRect.left - navRect.left}px`;
+    
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'center'
+            });
+        }
+    
+        // دالة لخلط مصفوفة عشوائيًا
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    
+        // عند تحميل الصفحة
+        window.onload = function () {
+            const defaultItem = document.querySelector('.sub-header nav a');
+            const underline = document.querySelector('.underline');
+            if (defaultItem && underline) {
+                const itemRect = defaultItem.getBoundingClientRect();
+                const navRect = defaultItem.parentElement.getBoundingClientRect();
+                defaultItem.classList.add('active');
                 underline.style.width = `${itemRect.width}px`;
                 underline.style.left = `${itemRect.left - navRect.left}px`;
-        
-                element.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center',
-                    inline: 'center'
-                });
             }
-        
-            // دالة لخلط مصفوفة عشوائيًا
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
+    
+            const searchTerm = getSearchTermFromURL();
+            const searchBox = document.getElementById('search-box');
+            if (searchBox && searchTerm) {
+                searchBox.value = searchTerm;
             }
-        
-            // عند تحميل الصفحة
-            window.onload = function () {
-                const defaultItem = document.querySelector('.sub-header nav a');
-                const underline = document.querySelector('.underline');
-                if (defaultItem && underline) {
-                    const itemRect = defaultItem.getBoundingClientRect();
-                    const navRect = defaultItem.parentElement.getBoundingClientRect();
-                    defaultItem.classList.add('active');
-                    underline.style.width = `${itemRect.width}px`;
-                    underline.style.left = `${itemRect.left - navRect.left}px`;
-                }
-        
-                const searchTerm = getSearchTermFromURL();
-                const searchBox = document.getElementById('search-box');
-                if (searchBox && searchTerm) {
-                    searchBox.value = searchTerm;
-                }
-                fetchAndFilterProducts(searchTerm || '');
-            };
-        </script>
-        </body>
-        </html>
-
+            fetchAndFilterProducts(searchTerm || '');
+        };
+    </script>
+</body>
+</html>
 
 
 
