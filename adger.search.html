@@ -884,8 +884,9 @@
                     
                     @media (max-width: 768px) {
                         .gallery {
-                   margin-top: 85px;
-                        }}
+                            margin-top: 85px;
+                        }
+                    }
             
                     .image-container {
                         flex: 1 1 calc(16.666% - 20px);
@@ -1141,7 +1142,7 @@
                         <span style="pointer-events: none;">حسابي</span>
                     </p>
                     <p onclick="window.location.href='about.html'" 
-                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black siennal;"
+                       style="font-family: Cairo, sans-serif; user-select: none; cursor: pointer; -webkit-tap-highlight-color: transparent; color: black;"
                        onmouseover="this.style.color='#888'" 
                        onmouseout="this.style.color='black'"
                        ontouchstart="this.style.color='#888'" 
@@ -1382,7 +1383,7 @@
                         loadedItems = endIndex;
                         const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                         lazyImages.forEach(img => observer.observe(img));
-                        startRotatingText(".rotating-text1212"); // تفعيل النصوص المتغيرة
+                        startRotatingText(".rotating-text1212:not(.rotating)"); // تفعيل النصوص المتغيرة فقط على العناصر الجديدة
                     }
                 
                     // مراقب التحميل الكسول
@@ -1426,6 +1427,7 @@
                     // دالة لتدوير النصوص
                     function startRotatingText(selector) {
                         document.querySelectorAll(selector).forEach(element => {
+                            element.classList.add('rotating'); // إضافة فئة للعنصر لمنع التكرار
                             const texts = JSON.parse(element.getAttribute("data-texts"));
                             let currentIndex = 0;
                             setInterval(() => {
@@ -1523,8 +1525,8 @@
                         fetchAndFilterProducts(searchTerm || '');
                     };
                 </script>
-                </body>
-                </html>
+            </body>
+            </html>
 
 
 
