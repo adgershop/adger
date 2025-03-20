@@ -2496,6 +2496,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 box-sizing: border-box;
                 direction: rtl;
             }
+    
             .gallery {
                 display: flex;
                 flex-wrap: wrap;
@@ -2503,12 +2504,14 @@ menuPopup.addEventListener('touchmove', function(event) {
                 justify-content: center;
                 padding: 20px;
             }
+    
             .image-container {
                 flex: 1 1 calc(16.666% - 20px);
                 max-width: calc(16.666% - 20px);
                 box-sizing: border-box;
                 position: relative;
             }
+    
             .image-frame {
                 border: 2px solid #cfcfcf;
                 border-radius: 32px;
@@ -2517,6 +2520,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 background-color: #ffffff;
                 position: relative;
             }
+    
             .image-wrapper {
                 position: relative;
                 width: 100%;
@@ -2524,6 +2528,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 background-color: #f3f3f39c;
                 border-radius: 30.2px;
             }
+    
             .image-frame img {
                 position: absolute;
                 top: 0;
@@ -2536,12 +2541,15 @@ menuPopup.addEventListener('touchmove', function(event) {
                 opacity: 0;
                 transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
             }
+    
             .image-frame img.loaded {
                 opacity: 1;
             }
+    
             .image-frame img.white-bg {
                 background-color: #d3d3d3;
             }
+    
             .text-under {
                 margin-top: -4px;
                 font-size: 14px;
@@ -2549,6 +2557,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 text-align: right;
                 padding: 10px;
             }
+    
             .text-under h1 {
                 font-family: Cairo, sans-serif;
                 color: #333;
@@ -2558,6 +2567,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 text-overflow: ellipsis;
                 width: 100%;
             }
+    
             @media (max-width: 1268px) {
                 .text-under {
                     margin-top: -7px;
@@ -2566,6 +2576,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     font-size: 14px !important;
                 }
             }
+    
             .add-to-cart {
                 position: absolute;
                 bottom: 12px;
@@ -2581,6 +2592,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                 transition: background-color 0.3s;
             }
+    
             @media (max-width: 1268px) {
                 .add-to-cart {
                     left: 10px;
@@ -2594,52 +2606,63 @@ menuPopup.addEventListener('touchmove', function(event) {
                     height: 12px;
                 }
             }
+    
             .add-to-cart svg {
                 width: 24px;
                 height: 24px;
                 color: #000000;
             }
+    
             .add-to-cart.checked {
                 background-color: #28a745;
             }
+    
             .add-to-cart.checked svg {
                 display: none;
             }
+    
             .add-to-cart.checked::before {
                 content: "✓";
                 font-size: 24px;
                 color: #ffffff;
             }
+    
             @media (max-width: 1024px) and (min-width: 769px) {
                 .image-container {
                     flex: 1 1 calc(25% - 10px);
                     max-width: calc(25% - 10px);
                 }
             }
+    
             @media (max-width: 768px) {
                 .gallery {
                     padding-left: 5px;
                     padding-right: 5px;
                 }
+    
                 .image-container {
                     flex: 1 1 calc(50% - 5px);
                     max-width: calc(50% - 5px);
                 }
             }
+    
             @media (min-width: 1121px) {
                 .text-under h1 {
                     font-size: 16px;
                 }
             }
+    
             @media (min-width: 1025px) {
                 .image-container {
                     flex: 1 1 calc(20% - 20px);
                     max-width: calc(20% - 20px);
                 }
             }
+    
             .hidden {
                 display: none;
             }
+    
             .container {
                 display: flex;
                 align-items: center;
@@ -2647,6 +2670,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 width: 100%;
                 margin-top: -7px;
             }
+    
             @media (max-width: 1268px) {
                 .container {
                     margin-top: -7px;
@@ -2661,6 +2685,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                     font-size: 14px !important;
                 }
             }
+    
             .rotating-text1212 {
                 font-family: 'Cairo', sans-serif;
                 color: #ff0000;
@@ -2672,6 +2697,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 opacity: 1;
                 transform: translateY(0);
             }
+    
             .image-frame a,
             .image-frame a *,
             .image-frame a *:focus,
@@ -2680,13 +2706,16 @@ menuPopup.addEventListener('touchmove', function(event) {
                 border: none !important;
                 -webkit-tap-highlight-color: transparent !important;
             }
+    
             .image-frame a:focus,
             .image-frame a img:focus {
                 outline: none !important;
             }
+    
             .product {
                 display: block;
             }
+    
             #no-results-message {
                 display: none;
                 text-align: center;
@@ -2777,8 +2806,9 @@ menuPopup.addEventListener('touchmove', function(event) {
     
                         const productDiv = document.createElement('div');
                         productDiv.className = 'image-container product';
-                        console.log('تعيين data-name لـ:', product.dataName || product.name);
-                        productDiv.setAttribute('data-name', product.dataName || product.name);
+                        // تعيين كلا من name و dataName كسمات للبحث لاحقاً
+                        productDiv.setAttribute('data-name', (product.dataName || product.name || '').toLowerCase());
+                        productDiv.setAttribute('data-main-name', (product.name || '').toLowerCase());
                         productDiv.innerHTML = `
                             <div class="image-frame">
                                 <a href="${product.link}" onclick="return true;">
@@ -2850,10 +2880,9 @@ menuPopup.addEventListener('touchmove', function(event) {
                     }
                 }
     
-                fetch('products.json', { cache: 'no-store' })
+                fetch('products.json')
                     .then(response => response.json())
                     .then(jsonProducts => {
-                        console.log('البيانات المحملة من JSON:', jsonProducts);
                         allProducts = [...jsonProducts, ...scriptProducts];
                         const shuffledProducts = shuffleArray(allProducts);
                         loadProducts(0, itemsPerLoad, shuffledProducts);
@@ -2861,7 +2890,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         document.addEventListener('scroll', function () {
                             const noResultsMessage = document.getElementById('no-results-message');
                             if (noResultsMessage.style.display === 'block') {
-                                return;
+                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
                             }
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
@@ -2887,7 +2916,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                         document.addEventListener('scroll', function () {
                             const noResultsMessage = document.getElementById('no-results-message');
                             if (noResultsMessage.style.display === 'block') {
-                                return;
+                                return; // توقف عن تحميل المنتجات إذا كانت رسالة "لا توجد نتائج" مرئية
                             }
                             const triggerHeight = window.innerHeight * 1.5;
                             const galleryHeight = gallery.scrollHeight;
@@ -2946,9 +2975,7 @@ menuPopup.addEventListener('touchmove', function(event) {
     
             function getSearchTermFromURL() {
                 const urlParams = new URLSearchParams(window.location.search);
-                const searchTerm = urlParams.get('search') || '';
-                console.log('مصطلح البحث من URL:', searchTerm);
-                return searchTerm;
+                return urlParams.get('search') || '';
             }
     
             function performSearch(searchTerm) {
@@ -2957,12 +2984,14 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const searchTermDisplay = document.getElementById('search-term-display');
                 let foundResults = false;
     
-                console.log('مصطلح البحث:', searchTerm.toLowerCase());
-    
                 products.forEach(product => {
-                    const productDataName = product.getAttribute('data-name').toLowerCase();
-                    console.log('data-name للمنتج:', productDataName);
-                    if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
+                    // البحث في كلا من data-name و data-main-name
+                    const productDataName = product.getAttribute('data-name') || '';
+                    const productMainName = product.getAttribute('data-main-name') || '';
+                    const searchText = searchTerm.toLowerCase();
+    
+                    // التحقق من وجود النص في أي من الحقلين
+                    if (searchTerm === '' || productDataName.includes(searchText) || productMainName.includes(searchText)) {
                         product.style.display = 'block';
                         foundResults = true;
                     } else {
