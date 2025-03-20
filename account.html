@@ -82,9 +82,13 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-bottom: 10px;
         }
-        .login-container button:hover {
-            background-color: #0056b3;
+        .login-container button.register-btn {
+            background-color: #28a745;
+        }
+        .login-container button.register-btn:hover {
+            background-color: #218838;
         }
         .profile-picture {
             width: 100px;
@@ -95,7 +99,7 @@
         }
         .logout-button {
             background-color: #e6e6e63d !important;
-            margin-top: 10px;
+            margin-top: 5px;
             color: #000 !important;
             border: 1px solid #000000 !important;
         }
@@ -211,12 +215,12 @@
         }
         .modal-buttons button {
             padding: 10px 20px;
-            margin: 0 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         #confirmLogout {
+        margin-left: 11px;
             background-color: #ff0000;
             color: white;
         }
@@ -245,7 +249,7 @@
             background-size: 90px 100%;
         }
         .purchase-item .date-time {
-            color: rgb(66, 66, 66);
+            color: rgb(65, 65, 65);
         }
     </style>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -256,14 +260,26 @@
         <div class="loader" id="loader"></div>
     </div>
 
+    <!-- نموذج تسجيل الدخول -->
     <div class="login-container" id="loginContainer" style="display: none;">
         <h2>تسجيل الدخول</h2>
-        <img src="https://via.placeholder.com/100" alt="صورة المستخدم" class="profile-picture" id="profilePicture">
         <input type="text" id="username" placeholder="اسم المستخدم">
-        <input type="file" id="profileImage" accept="image/*" onchange="previewImage(event)">
-        <button onclick="saveUserData()">تسجيل الدخول</button>
+        <input type="password" id="password" placeholder="كلمة المرور">
+        <button onclick="login()">تسجيل الدخول</button>
+        <button class="register-btn" onclick="showRegisterForm()">إنشاء حساب جديد</button>
     </div>
 
+    <!-- نموذج إنشاء حساب -->
+    <div class="login-container" id="registerContainer" style="display: none;">
+        <h2>إنشاء حساب</h2>
+        <input type="text" id="newUsername" placeholder="اسم المستخدم">
+        <input type="password" id="newPassword" placeholder="كلمة المرور">
+        <input type="file" id="profileImage" accept="image/*" onchange="previewImage(event)">
+        <img src="https://via.placeholder.com/100" alt="صورة المستخدم" class="profile-picture" id="profilePicture">
+        <button onclick="register()">إنشاء حساب</button>
+    </div>
+
+    <!-- ملف تعريف المستخدم -->
     <div class="login-container" id="profileContainer" style="display: none;">
         <h2>حساب المستخدم</h2>
         <img src="https://via.placeholder.com/100" alt="صورة المستخدم" class="profile-picture" id="profilePictureDisplay">
@@ -344,25 +360,63 @@
             }
         }
 
-        function saveUserData() {
-            const username = document.getElementById('username').value;
+        function showRegisterForm() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('registerContainer').style.display = 'block';
+        }
+
+        function register() {
+            const username = document.getElementById('newUsername').value;
+            const password = document.getElementById('newPassword').value;
             const profileImage = document.getElementById('profilePicture').src;
 
-            if (username) {
+            if (username && password) {
                 database.ref('users/' + username).once('value', (snapshot) => {
                     if (snapshot.exists()) {
                         alert('اسم المستخدم موجود بالفعل! يرجى اختيار اسم آخر.');
                     } else {
-                        database.ref('users/' + username).set(true);
+                        database.ref('users/' + username).set({
+                            password: password,
+                            profileImage: profileImage
+                        });
                         localStorage.setItem('username', username);
                         localStorage.setItem('profileImage', profileImage);
                         localStorage.setItem('isLoggedIn', true);
-                        alert('تم تسجيل الدخول بنجاح!');
-                        window.location.reload();
+                        alert('تم إنشاء الحساب بنجاح وتسجيل الدخول!');
+                        document.getElementById('registerContainer').style.display = 'none';
+                        document.getElementById('profileContainer').style.display = 'block';
+                        document.getElementById('usernameDisplay').textContent = username;
+                        document.getElementById('profilePictureDisplay').src = profileImage;
                     }
                 });
             } else {
-                alert('يرجى إدخال اسم المستخدم!');
+                alert('يرجى إدخال اسم المستخدم وكلمة المرور!');
+            }
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                database.ref('users/' + username).once('value', (snapshot) => {
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        if (userData.password === password) {
+                            localStorage.setItem('username', username);
+                            localStorage.setItem('profileImage', userData.profileImage);
+                            localStorage.setItem('isLoggedIn', true);
+                            alert('تم تسجيل الدخول بنجاح!');
+                            window.location.reload();
+                        } else {
+                            alert('كلمة المرور غير صحيحة!');
+                        }
+                    } else {
+                        alert('اسم المستخدم غير موجود!');
+                    }
+                });
+            } else {
+                alert('يرجى إدخال اسم المستخدم وكلمة المرور!');
             }
         }
 
@@ -398,23 +452,18 @@
 
                 if (purchases) {
                     const purchasesArray = Object.values(purchases);
-                    // ترتيب المشتريات حسب الطابع الزمني بترتيب تنازلي
                     purchasesArray.sort((a, b) => b.timestamp - a.timestamp);
 
                     if (purchasesArray.length > 0) {
-                        // عرض آخر منتج تم شراؤه
                         const latestPurchase = purchasesArray[0];
                         const latestPurchaseItem = createPurchaseItem(latestPurchase, true);
                         purchasesList.innerHTML += '<h4 style="margin-top: 3px;">تفاصيل آخر منتج تم شراؤه</h4>';
                         purchasesList.appendChild(latestPurchaseItem);
 
-                        // إضافة الخط الملون
-                        const divider = document.createElement('div');
-                        divider.className = 'colorful-divider';
-                        purchasesList.appendChild(divider);
-
-                        // عرض المنتجات السابقة
                         if (purchasesArray.length > 1) {
+                            const divider = document.createElement('div');
+                            divider.className = 'colorful-divider';
+                            purchasesList.appendChild(divider);
                             purchasesList.innerHTML += '<h4>المنتجات القديمة</h4>';
                             for (let i = 1; i < purchasesArray.length; i++) {
                                 const purchaseItem = createPurchaseItem(purchasesArray[i], false);
@@ -515,7 +564,7 @@
             }
             @media (min-width: 768px) { /* تعديل المارغن فقط للشاشات الأكبر من الهواتف */
     .search-wrapper {
-        margin-right: 4px;
+        margin-right: 6px;
         margin-left: 11px;
     }
 }
@@ -618,6 +667,9 @@
 
         .cart-icon {
             position: relative;
+            user-select: none; /* منع تحديد النص */
+    -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
+    outline: none;
         }
 
         .cart-count {
@@ -713,6 +765,9 @@
 
         .menu-icon {
             margin-left: 10px;
+            user-select: none; /* منع تحديد النص */
+    -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
+    outline: none;
         }
 
         /* إخفاء العنصر على الهواتف */
@@ -732,6 +787,9 @@
             -webkit-text-fill-color: transparent;
             cursor: pointer;
             user-select: none;
+            user-select: none; /* منع تحديد النص */
+    -webkit-tap-highlight-color: transparent; /* إزالة التحديد الأزرق في جوجل كروم */
+    outline: none;
         }
 
         @media (max-width: 767px) {
@@ -1028,6 +1086,18 @@
          <span style="pointer-events: none;">الفئات</span>
      </p>
     </div>
+
+    <script>
+        // تحديث عدد المنتجات عند تحميل الصفحة
+        document.getElementById('cartCount').textContent = localStorage.getItem('cartCount') || 0;
+    
+        // الاستماع إلى تغييرات localStorage
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'cartCount') {
+                document.getElementById('cartCount').textContent = event.newValue;
+            }
+        });
+    </script>
 
     <script>
         function toggleMenu() {

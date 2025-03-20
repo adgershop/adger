@@ -468,319 +468,801 @@
         </div>
     </div>
 
-    <script>
-        firebase.initializeApp({
-            apiKey: "AIzaSyBkEIs1GP17POkhQd378yl0_2ZcPqYNiDM",
-            authDomain: "buy-from-adger.firebaseapp.com",
-            databaseURL: "https://buy-from-adger-default-rtdb.firebaseio.com",
-            projectId: "buy-from-adger",
-            storageBucket: "buy-from-adger.appspot.com",
-            messagingSenderId: "396020785601",
-            appId: "1:396020785601:web:yourWebAppID" // استبدل بـ appId الخاص بك
-        });
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>شراء المنتج</title>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            /* تنسيق النافذة (Modal) */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                overflow: auto;
+            }
+    
+            .modal-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 15px;
+                width: 400px;
+                height: auto;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                position: relative;
+                animation: slideIn 0.3s ease-out;
+                overflow-y: auto;
+            }
+            @media only screen and (max-width: 767px) {
+                .modal-content {
+                    width: 320px;
+                }
+            }
+    
+            @keyframes slideIn {
+                from {
+                    transform: translateY(-50px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+    
+            .modal-content h2 {
+                text-align: center;
+                color: #333;
+                font-family: Cairo, sans-serif;
+                margin-bottom: 20px;
+            }
+    
+            .modal-content input {
+                width: 100%;
+                padding: 12px;
+                margin: 10px 0;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                font-size: 14px;
+                font-family: Cairo, sans-serif;
+                transition: border-color 0.3s ease;
+                padding-left: 30px;
+                box-sizing: border-box;
+            }
+            
+            .modal-content input:focus {
+                border-color: #28a745;
+                outline: none;
+            }
+    
+            .input-container {
+                position: relative;
+                width: 100%;
+            }
+    
+            .error-icon {
+                position: absolute;
+                left: 18px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: red;
+                font-weight: bold;
+                display: none;
+            }
+    
+            .modal-content button {
+                width: 100%;
+                padding: 12px;
+                background-color: #1f1f1f;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                margin: 10px 0;
+                display: block;
+            }
+    
+            .modal-content button:hover {
+                background-color: #4d4d4d;
+            }
+    
+            .close-btn {
+                position: absolute;
+                top: 18px;
+                right: 18px;
+                font-size: 24px;
+                color: #888;
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+    
+            .close-btn:hover {
+                color: #333;
+            }
+    
+            /* خلفية شبه شفافة للصفحة */
+            #overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                display: none;
+            }
+    
+            .delivery-info {
+                margin-top: 20px;
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                background-color: #f9f9f9;
+                font-family: Cairo, sans-serif;
+            }
+    
+            .product-info {
+                font-family: Cairo, sans-serif;
+                font-size: 16px;
+                margin: 10px 0;
+            }
+    
+            .product-price {
+                margin-top: 18px;
+            }
+    
+            .purchase-success {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 300px;
+                height: 200px;
+                background-color: white;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                z-index: 1001;
+                padding: 20px;
+                border-radius: 15px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+    
+            .purchase-success.visible {
+                display: flex;
+                opacity: 1;
+            }
+    
+            .loading-dots {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+                margin-bottom: 20px;
+            }
+    
+            .dot {
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                animation: switch 1.2s infinite ease-in-out;
+            }
+    
+            .dot:nth-child(1) {
+                background-color: #ff0000;
+            }
+    
+            .dot:nth-child(2) {
+                background-color: #0000ff;
+                animation-delay: 0.6s;
+            }
+    
+            @keyframes switch {
+                0% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.5); opacity: 1; }
+                100% { transform: scale(0.5); opacity: 0.5; }
+            }
+    
+            .checkmark-circle {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                background-color: #28a745;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 60px;
+                color: white;
+                margin-top: 18px;
+                margin-bottom: 20px;
+                display: none;
+                animation: scaleIn 0.5s ease-out;
+            }
+    
+            @keyframes scaleIn {
+                from { transform: scale(0); opacity: 0; }
+                to { transform: scale(1); opacity: 1; }
+            }
+    
+            .success-text {
+                font-size: 30px;
+                color: #28a745;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+                font-weight: bold;
+                font-family: Cairo, sans-serif;
+                text-decoration: none;
+                display: none;
+                animation: fadeIn 0.5s ease-out;
+            }
+    
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+    
+            .footer-container {
+                width: 100%;
+                background-color: white;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+                box-shadow: 0 -2px 0 rgba(131, 131, 131, 0.2);
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                box-sizing: border-box;
+                font-family: Cairo, sans-serif;
+            }
+    
+            .total-price {
+                background-color: transparent;
+                text-align: right;
+                font-size: 18px;
+                font-weight: bold;
+                margin: 0;
+                flex: 1;
+                margin-right: 22px;
+            }
+    
+            @media only screen and (max-width: 499px) {
+                .total-price { font-size: 14.6px; margin-right: 16px; }
+                .confirm-btn { font-size: 16px; padding: 10px 15px; }
+            }
+    
+            .confirm-btn {
+                background-color: #ff0000;
+                color: white;
+                text-align: center;
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+                border: none;
+                transition: all 0.3s ease;
+                padding: 10px 20px;
+                border-radius: 5px;
+            }
+    
+            .confirm-btn:hover {
+                background-color: #ff0000;
+            }
+    
+            .line2 {
+                margin-top: 17px;
+                width: 100%;
+                height: 5px;
+                background: repeating-linear-gradient(90deg,
+                    rgb(0, 183, 255) 0 15px,
+                    white 15px 30px,
+                    red 30px 45px,
+                    rgb(0, 183, 255) 45px 60px,
+                    white 60px 75px,
+                    rgb(255, 0, 0) 75px 90px
+                );
+                background-size: 90px 100%;
+            }
+            @media (max-width: 768px) {
+                .line2 { margin-top: -2px; height: 4px; }
+            }
+    
+            .buytext9 {
+                font-size: 18px;
+                color: #000000;
+                margin-right: 4px;
+            }
+    
+            @media (max-width: 768px) {
+                .buytext9 { font-size: 16px; margin-top: 6px; margin-right: 1px; }
+            }
+    
+            .color-options, .size-options {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 5px;
+            }
+    
+            .color-option, .size-option {
+                padding: 5px 10px;
+                background-color: #f0f0f0;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-family: Cairo, sans-serif;
+                font-size: 14px;
+                cursor: pointer;
+                transition: border-color 0.3s ease;
+            }
+    
+            .color-option.selected, .size-option.selected {
+                border-color: #008cff;
+                border-width: 2px;
+            }
+        </style>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    </head>
+    <body>
+        <div id="overlay"></div>
+    
+        <h1 class="buytext9" style="color: #000; font-family: Cairo, sans-serif;">
+            شراء المنتج
+        </h1>
+    
+        <div class="line2"></div>
+        <br>
+    
+        <div class="product-info">
+            <strong>اسم المنتج:</strong> <span id="productNameText"></span>
+        </div>
+        <div class="product-info">
+            <strong>رقم المنتج:</strong> <span id="productIdText"></span>
+        </div>
+        <div class="product-info">
+            <strong>الكمية:</strong>
+            <span id="quantityValue">1</span>
+            <button onclick="decreaseQuantity()" style="padding: 5px 10px; margin: 0 5px; border: none; background-color: #f0f0f0; cursor: pointer;">-</button>
+            <button onclick="increaseQuantity()" style="padding: 5px 10px; margin: 0 5px; border: none; background-color: #f0f0f0; cursor: pointer;">+</button>
+        </div>
+    
+        <div class="options" id="optionsContainer" style="display: none;">
+            <div class="product-info" id="colorField" style="display: none;">
+                <strong>اللون:</strong>
+                <br>
+                <div class="color-options" id="colorOptions"></div>
+            </div>
+            <div class="product-info" id="sizeField" style="display: none;">
+                <strong>المقاس:</strong>
+                <br>
+                <div class="size-options" id="sizeOptions"></div>
+            </div>
+        </div>
+    
+        <div class="product-info product-price">
+            <strong>سعر المنتج:</strong> <span id="productPriceText"></span> جنيه
+        </div>
+        <div class="product-info">
+            <strong>سعر الشحن:</strong> <span id="shippingPriceText"></span> جنيه
+        </div>
+        <br>
+    
+        <button type="button" onclick="openModal()" style="
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        ">
+            موقع التوصيل
+        </button>
+    
+        <div id="deliveryModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">×</span>
+                <h2>موقع التوصيل</h2>
+                <div class="input-container">
+                    <input type="text" id="name" placeholder="الاسم">
+                    <span class="error-icon" id="nameError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="phone" placeholder="رقم الهاتف">
+                    <span class="error-icon" id="phoneError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="email" id="email" placeholder="الإيميل">
+                    <span class="error-icon" id="emailError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="governorate" placeholder="المحافظة">
+                    <span class="error-icon" id="governorateError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="city" placeholder="المدينة">
+                    <span class="error-icon" id="cityError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="street" placeholder="اسم الشارع أو الحي">
+                    <span class="error-icon" id="streetError">!</span>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="landmark" placeholder="أقرب معلم">
+                    <span class="error-icon" id="landmarkError">!</span>
+                </div>
+                <button type="button" onclick="saveDeliveryInfo()">موافق</button>
+            </div>
+        </div>
+    
+        <div id="deliveryInfoDisplay" class="delivery-info" style="display: none;">
+            <h3>معلومات التوصيل:</h3>
+            <p><strong>الاسم:</strong> <span id="displayName"></span></p>
+            <p><strong>رقم الهاتف:</strong> <span id="displayPhone"></span></p>
+            <p><strong>الإيميل:</strong> <span id="displayEmail"></span></p>
+            <p><strong>المحافظة:</strong> <span id="displayGovernorate"></span></p>
+            <p><strong>المدينة:</strong> <span id="displayCity"></span></p>
+            <p><strong>الشارع/الحي:</strong> <span id="displayStreet"></span></p>
+            <p><strong>أقرب معلم:</strong> <span id="displayLandmark"></span></p>
+        </div> <br><br><br><br>
+    
+        <div id="purchaseSuccess" class="purchase-success">
+            <div class="loading-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="checkmark-circle">✓</div>
+            <a href="#" class="success-text">تم الشراء</a>
+        </div>
+    
+        <div class="footer-container">
+            <button class="confirm-btn" onclick="confirmPurchase()" id="confirmButton">
+                <span id="confirmButtonText">موافق / إتمام الشراء</span>
+            </button>
+            <div class="total-price" id="totalPriceDisplay">
+                السعر الإجمالي: <span id="totalPriceValue">0</span> جنيه
+            </div>
+        </div>
         
-        const database = firebase.database();
+        <script>
+            // تحديث عدد المنتجات عند تحميل الصفحة
+            document.getElementById('cartCount').textContent = localStorage.getItem('cartCount') || 0;
         
-        function openModal() {
+            // الاستماع إلى تغييرات localStorage
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'cartCount') {
+                    document.getElementById('cartCount').textContent = event.newValue;
+                }
+            });
+        </script>
+
+        <script>
+            firebase.initializeApp({
+                apiKey: "AIzaSyBkEIs1GP17POkhQd378yl0_2ZcPqYNiDM",
+                authDomain: "buy-from-adger.firebaseapp.com",
+                databaseURL: "https://buy-from-adger-default-rtdb.firebaseio.com",
+                projectId: "buy-from-adger",
+                storageBucket: "buy-from-adger.appspot.com",
+                messagingSenderId: "396020785601",
+                appId: "1:396020785601:web:yourWebAppID" // استبدل بـ appId الخاص بك
+            });
+            
+            const database = firebase.database();
+            
+            function openModal() {
+                const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
+                if (savedDeliveryInfo) {
+                    const deliveryInfo = JSON.parse(savedDeliveryInfo);
+                    document.getElementById('name').value = deliveryInfo.name;
+                    document.getElementById('phone').value = deliveryInfo.phone;
+                    document.getElementById('email').value = deliveryInfo.email || '';
+                    document.getElementById('governorate').value = deliveryInfo.governorate;
+                    document.getElementById('city').value = deliveryInfo.city;
+                    document.getElementById('street').value = deliveryInfo.street;
+                    document.getElementById('landmark').value = deliveryInfo.landmark;
+                }
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('deliveryModal').style.display = 'flex';
+            }
+            
+            function closeModal() {
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('deliveryModal').style.display = 'none';
+            }
+            
+            function saveDeliveryInfo() {
+                const name = document.getElementById('name').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const governorate = document.getElementById('governorate').value.trim();
+                const city = document.getElementById('city').value.trim();
+                const street = document.getElementById('street').value.trim();
+                const landmark = document.getElementById('landmark').value.trim();
+            
+                document.querySelectorAll('.error-icon').forEach(error => error.style.display = 'none');
+            
+                let isValid = true;
+            
+                if (!name) {
+                    document.getElementById('nameError').style.display = 'inline';
+                    isValid = false;
+                }
+                if (!phone) {
+                    document.getElementById('phoneError').style.display = 'inline';
+                    isValid = false;
+                }
+                if (!email) {
+                    document.getElementById('emailError').style.display = 'inline';
+                    isValid = false;
+                }
+                if (!governorate) {
+                    document.getElementById('governorateError').style.display = 'inline';
+                    isValid = false;
+                }
+                if (!city) {
+                    document.getElementById('cityError').style.display = 'inline';
+                    isValid = false;
+                }
+                if (!street) {
+                    document.getElementById('streetError').style.display = 'inline';
+                    isValid = false;
+                }
+                if (!landmark) {
+                    document.getElementById('landmarkError').style.display = 'inline';
+                    isValid = false;
+                }
+            
+                const phoneRegex = /^01[0-2,5]{1}[0-9]{8}$/;
+                if (!phoneRegex.test(phone)) {
+                    document.getElementById('phoneError').style.display = 'inline';
+                    isValid = false;
+                }
+            
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    document.getElementById('emailError').style.display = 'inline';
+                    isValid = false;
+                }
+            
+                if (isValid) {
+                    document.getElementById('displayName').textContent = name;
+                    document.getElementById('displayPhone').textContent = phone;
+                    document.getElementById('displayEmail').textContent = email;
+                    document.getElementById('displayGovernorate').textContent = governorate;
+                    document.getElementById('displayCity').textContent = city;
+                    document.getElementById('displayStreet').textContent = street;
+                    document.getElementById('displayLandmark').textContent = landmark;
+            
+                    document.getElementById('deliveryInfoDisplay').style.display = 'block';
+            
+                    const deliveryInfo = { name, phone, email, governorate, city, street, landmark };
+                    localStorage.setItem('deliveryInfo', JSON.stringify(deliveryInfo));
+            
+                    closeModal();
+                }
+            }
+            
+            function confirmPurchase() {
+                const purchaseSuccess = document.getElementById('purchaseSuccess');
+                const loadingDots = purchaseSuccess.querySelector('.loading-dots');
+                const checkmark = purchaseSuccess.querySelector('.checkmark-circle');
+                const successText = purchaseSuccess.querySelector('.success-text');
+            
+                if (purchaseSuccess.classList.contains('visible')) {
+                    alert('لقد تم إتمام الشراء بالفعل!');
+                    return;
+                }
+            
+                const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo')) || {};
+                
+                if (!deliveryInfo.name || !deliveryInfo.phone || !deliveryInfo.email || !deliveryInfo.governorate || !deliveryInfo.city || !deliveryInfo.street || !deliveryInfo.landmark) {
+                    alert('يرجى إدخال جميع معلومات التوصيل أولاً.');
+                    openModal();
+                    return;
+                }
+            
+                const colorFieldVisible = document.getElementById('colorField').style.display === 'block';
+                const sizeFieldVisible = document.getElementById('sizeField').style.display === 'block';
+                const selectedColor = colorFieldVisible ? document.querySelector('.color-option.selected')?.dataset.color : null;
+                const selectedSize = sizeFieldVisible ? document.querySelector('.size-option.selected')?.dataset.size : null;
+            
+                if (colorFieldVisible && !selectedColor) {
+                    alert('يرجى اختيار اللون أولاً.');
+                    return;
+                }
+                if (sizeFieldVisible && !selectedSize) {
+                    alert('يرجى اختيار المقاس أولاً.');
+                    return;
+                }
+            
+                const username = localStorage.getItem('username');
+                if (!username) {
+                    alert('يرجى تسجيل الدخول أولاً لإتمام الشراء.');
+                    window.location.href = 'account.html';
+                    return;
+                }
+            
+                const productName = document.getElementById('productNameText').textContent;
+                const productId = document.getElementById('productIdText').textContent;
+                const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
+                const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
+                const quantity = parseInt(document.getElementById('quantityValue').textContent);
+                const totalPrice = parseFloat(document.getElementById('totalPriceValue').textContent);
+            
+                const purchaseData = {
+                    productName,
+                    productId,
+                    productPrice,
+                    shippingPrice,
+                    quantity,
+                    totalPrice,
+                    username,
+                    deliveryInfo,
+                    timestamp: Date.now()
+                };
+            
+                if (colorFieldVisible) purchaseData.color = selectedColor;
+                if (sizeFieldVisible) purchaseData.size = selectedSize;
+            
+                purchaseSuccess.classList.add('visible');
+                loadingDots.style.display = 'flex';
+                checkmark.style.display = 'none';
+                successText.style.display = 'none';
+            
+                database.ref('purchases').push(purchaseData)
+                    .then(() => {
+                        loadingDots.style.display = 'none';
+                        checkmark.style.display = 'flex';
+                        successText.style.display = 'block';
+                        document.getElementById('confirmButtonText').textContent = 'تم الشراء';
+                        document.getElementById('confirmButton').disabled = true;
+            
+                        const purchaseParams = new URLSearchParams({
+                            productName: encodeURIComponent(productName),
+                            productId: encodeURIComponent(productId),
+                            productPrice: productPrice.toFixed(2),
+                            shippingPrice: shippingPrice.toFixed(2),
+                            totalPrice: totalPrice.toFixed(2),
+                            quantity: quantity,
+                            timestamp: purchaseData.timestamp
+                        });
+                        setTimeout(() => {
+                            window.location.href = `account.html?${purchaseParams.toString()}`;
+                        }, 1500);
+                    })
+                    .catch((error) => {
+                        console.error("Error writing to Firebase:", error);
+                        alert('حدث خطأ أثناء حفظ البيانات، يرجى المحاولة مرة أخرى.');
+                        purchaseSuccess.classList.remove('visible');
+                        loadingDots.style.display = 'none';
+                    });
+            }
+            
+            // جلب البيانات من URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productName = urlParams.get('name');
+            const productId = urlParams.get('id');
+            const productPrice = parseFloat(urlParams.get('price')) || 0;
+            const shippingPrice = parseFloat(urlParams.get('shipping')) || 0;
+            const colorsParam = urlParams.get('colors'); // نأخذ القيمة كما هي دون فك التشفير مباشرة
+            const sizesParam = urlParams.get('sizes');
+            
+            // تحليل الألوان والمقاسات بشكل صحيح
+            let colors = [];
+            let sizes = [];
+            try {
+                colors = colorsParam ? JSON.parse(decodeURIComponent(colorsParam)) : [];
+                sizes = sizesParam ? JSON.parse(decodeURIComponent(sizesParam)) : [];
+            } catch (e) {
+                console.error('خطأ في تحليل الألوان أو المقاسات:', e);
+            }
+            
+            document.getElementById('productNameText').textContent = decodeURIComponent(productName);
+            document.getElementById('productIdText').textContent = decodeURIComponent(productId);
+            document.getElementById('productPriceText').textContent = productPrice.toFixed(2);
+            document.getElementById('shippingPriceText').textContent = shippingPrice.toFixed(2);
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            if (colors.length > 0 || sizes.length > 0) {
+                optionsContainer.style.display = 'block';
+            }
+            
+            if (colors.length > 0) {
+                const colorField = document.getElementById('colorField');
+                colorField.style.display = 'block';
+                const colorOptionsContainer = document.getElementById('colorOptions');
+                let firstColorSpan = null;
+                colors.forEach((color, index) => {
+                    const colorSpan = document.createElement('span');
+                    colorSpan.className = 'color-option';
+                    colorSpan.textContent = color;
+                    colorSpan.dataset.color = color;
+                    colorSpan.onclick = function() {
+                        document.querySelectorAll('.color-option').forEach(option => option.classList.remove('selected'));
+                        colorSpan.classList.add('selected');
+                    };
+                    colorOptionsContainer.appendChild(colorSpan);
+                    if (index === 0) firstColorSpan = colorSpan;
+                });
+                if (firstColorSpan) firstColorSpan.classList.add('selected');
+            } else {
+                document.getElementById('colorField').style.display = 'none'; // إخفاء حقل الألوان إذا لم تكن موجودة
+            }
+            
+            if (sizes.length > 0) {
+                const sizeField = document.getElementById('sizeField');
+                sizeField.style.display = 'block';
+                const sizeOptionsContainer = document.getElementById('sizeOptions');
+                let firstSizeSpan = null;
+                sizes.forEach((size, index) => {
+                    const sizeSpan = document.createElement('span');
+                    sizeSpan.className = 'size-option';
+                    sizeSpan.textContent = size;
+                    sizeSpan.dataset.size = size;
+                    sizeSpan.onclick = function() {
+                        document.querySelectorAll('.size-option').forEach(option => option.classList.remove('selected'));
+                        sizeSpan.classList.add('selected');
+                    };
+                    sizeOptionsContainer.appendChild(sizeSpan);
+                    if (index === 0) firstSizeSpan = sizeSpan;
+                });
+                if (firstSizeSpan) firstSizeSpan.classList.add('selected');
+            } else {
+                document.getElementById('sizeField').style.display = 'none'; // إخفاء حقل المقاسات إذا لم تكن موجودة
+            }
+            
             const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
             if (savedDeliveryInfo) {
                 const deliveryInfo = JSON.parse(savedDeliveryInfo);
-                document.getElementById('name').value = deliveryInfo.name;
-                document.getElementById('phone').value = deliveryInfo.phone;
-                document.getElementById('email').value = deliveryInfo.email || '';
-                document.getElementById('governorate').value = deliveryInfo.governorate;
-                document.getElementById('city').value = deliveryInfo.city;
-                document.getElementById('street').value = deliveryInfo.street;
-                document.getElementById('landmark').value = deliveryInfo.landmark;
-            }
-            document.getElementById('overlay').style.display = 'block';
-            document.getElementById('deliveryModal').style.display = 'flex';
-        }
-        
-        function closeModal() {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('deliveryModal').style.display = 'none';
-        }
-        
-        function saveDeliveryInfo() {
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const governorate = document.getElementById('governorate').value.trim();
-            const city = document.getElementById('city').value.trim();
-            const street = document.getElementById('street').value.trim();
-            const landmark = document.getElementById('landmark').value.trim();
-        
-            document.querySelectorAll('.error-icon').forEach(error => error.style.display = 'none');
-        
-            let isValid = true;
-        
-            if (!name) {
-                document.getElementById('nameError').style.display = 'inline';
-                isValid = false;
-            }
-            if (!phone) {
-                document.getElementById('phoneError').style.display = 'inline';
-                isValid = false;
-            }
-            if (!email) {
-                document.getElementById('emailError').style.display = 'inline';
-                isValid = false;
-            }
-            if (!governorate) {
-                document.getElementById('governorateError').style.display = 'inline';
-                isValid = false;
-            }
-            if (!city) {
-                document.getElementById('cityError').style.display = 'inline';
-                isValid = false;
-            }
-            if (!street) {
-                document.getElementById('streetError').style.display = 'inline';
-                isValid = false;
-            }
-            if (!landmark) {
-                document.getElementById('landmarkError').style.display = 'inline';
-                isValid = false;
-            }
-        
-            const phoneRegex = /^01[0-2,5]{1}[0-9]{8}$/;
-            if (!phoneRegex.test(phone)) {
-                document.getElementById('phoneError').style.display = 'inline';
-                isValid = false;
-            }
-        
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                document.getElementById('emailError').style.display = 'inline';
-                isValid = false;
-            }
-        
-            if (isValid) {
-                document.getElementById('displayName').textContent = name;
-                document.getElementById('displayPhone').textContent = phone;
-                document.getElementById('displayEmail').textContent = email;
-                document.getElementById('displayGovernorate').textContent = governorate;
-                document.getElementById('displayCity').textContent = city;
-                document.getElementById('displayStreet').textContent = street;
-                document.getElementById('displayLandmark').textContent = landmark;
-        
+                document.getElementById('displayName').textContent = deliveryInfo.name;
+                document.getElementById('displayPhone').textContent = deliveryInfo.phone;
+                document.getElementById('displayEmail').textContent = deliveryInfo.email || '';
+                document.getElementById('displayGovernorate').textContent = deliveryInfo.governorate;
+                document.getElementById('displayCity').textContent = deliveryInfo.city;
+                document.getElementById('displayStreet').textContent = deliveryInfo.street;
+                document.getElementById('displayLandmark').textContent = deliveryInfo.landmark;
                 document.getElementById('deliveryInfoDisplay').style.display = 'block';
-        
-                const deliveryInfo = { name, phone, email, governorate, city, street, landmark };
-                localStorage.setItem('deliveryInfo', JSON.stringify(deliveryInfo));
-        
-                closeModal();
             }
-        }
-        
-        function confirmPurchase() {
-            const purchaseSuccess = document.getElementById('purchaseSuccess');
-            const loadingDots = purchaseSuccess.querySelector('.loading-dots');
-            const checkmark = purchaseSuccess.querySelector('.checkmark-circle');
-            const successText = purchaseSuccess.querySelector('.success-text');
-        
-            if (purchaseSuccess.classList.contains('visible')) {
-                alert('لقد تم إتمام الشراء بالفعل!');
-                return;
-            }
-        
-            const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo')) || {};
             
-            if (!deliveryInfo.name || !deliveryInfo.phone || !deliveryInfo.email || !deliveryInfo.governorate || !deliveryInfo.city || !deliveryInfo.street || !deliveryInfo.landmark) {
-                alert('يرجى إدخال جميع معلومات التوصيل أولاً.');
-                openModal();
-                return;
-            }
-        
-            const colorFieldVisible = document.getElementById('colorField').style.display === 'block';
-            const sizeFieldVisible = document.getElementById('sizeField').style.display === 'block';
-            const selectedColor = colorFieldVisible ? document.querySelector('.color-option.selected')?.dataset.color : null;
-            const selectedSize = sizeFieldVisible ? document.querySelector('.size-option.selected')?.dataset.size : null;
-        
-            if (colorFieldVisible && !selectedColor) {
-                alert('يرجى اختيار اللون أولاً.');
-                return;
-            }
-            if (sizeFieldVisible && !selectedSize) {
-                alert('يرجى اختيار المقاس أولاً.');
-                return;
-            }
-        
-            const username = localStorage.getItem('username');
-            if (!username) {
-                alert('يرجى تسجيل الدخول أولاً لإتمام الشراء.');
-                window.location.href = 'account.html';
-                return;
-            }
-        
-            const productName = document.getElementById('productNameText').textContent;
-            const productId = document.getElementById('productIdText').textContent;
-            const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
-            const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
-            const quantity = parseInt(document.getElementById('quantityValue').textContent);
-            const totalPrice = parseFloat(document.getElementById('totalPriceValue').textContent);
-        
-            const purchaseData = {
-                productName,
-                productId,
-                productPrice,
-                shippingPrice,
-                quantity,
-                totalPrice,
-                username,
-                deliveryInfo,
-                timestamp: Date.now()
-            };
-        
-            if (colorFieldVisible) purchaseData.color = selectedColor;
-            if (sizeFieldVisible) purchaseData.size = selectedSize;
-        
-            purchaseSuccess.classList.add('visible');
-            loadingDots.style.display = 'flex';
-            checkmark.style.display = 'none';
-            successText.style.display = 'none';
-        
-            database.ref('purchases').push(purchaseData)
-                .then(() => {
-                    loadingDots.style.display = 'none';
-                    checkmark.style.display = 'flex';
-                    successText.style.display = 'block';
-                    document.getElementById('confirmButtonText').textContent = 'تم الشراء';
-                    document.getElementById('confirmButton').disabled = true;
-        
-                    const purchaseParams = new URLSearchParams({
-                        productName: encodeURIComponent(productName),
-                        productId: encodeURIComponent(productId),
-                        productPrice: productPrice.toFixed(2),
-                        shippingPrice: shippingPrice.toFixed(2),
-                        totalPrice: totalPrice.toFixed(2),
-                        quantity: quantity,
-                        timestamp: purchaseData.timestamp
-                    });
-                    setTimeout(() => {
-                        window.location.href = `account.html?${purchaseParams.toString()}`;
-                    }, 1500);
-                })
-                .catch((error) => {
-                    console.error("Error writing to Firebase:", error);
-                    alert('حدث خطأ أثناء حفظ البيانات، يرجى المحاولة مرة أخرى.');
-                    purchaseSuccess.classList.remove('visible');
-                    loadingDots.style.display = 'none';
-                });
-        }
-        
-        // جلب البيانات من URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const productName = urlParams.get('name');
-        const productId = urlParams.get('id');
-        const productPrice = parseFloat(urlParams.get('price')) || 0;
-        const shippingPrice = parseFloat(urlParams.get('shipping')) || 0;
-        const colorsParam = urlParams.get('colors'); // نأخذ القيمة كما هي دون فك التشفير مباشرة
-        const sizesParam = urlParams.get('sizes');
-        
-        // تحليل الألوان والمقاسات بشكل صحيح
-        let colors = [];
-        let sizes = [];
-        try {
-            colors = colorsParam ? JSON.parse(decodeURIComponent(colorsParam)) : [];
-            sizes = sizesParam ? JSON.parse(decodeURIComponent(sizesParam)) : [];
-        } catch (e) {
-            console.error('خطأ في تحليل الألوان أو المقاسات:', e);
-        }
-        
-        document.getElementById('productNameText').textContent = decodeURIComponent(productName);
-        document.getElementById('productIdText').textContent = decodeURIComponent(productId);
-        document.getElementById('productPriceText').textContent = productPrice.toFixed(2);
-        document.getElementById('shippingPriceText').textContent = shippingPrice.toFixed(2);
-        
-        const optionsContainer = document.getElementById('optionsContainer');
-        if (colors.length > 0 || sizes.length > 0) {
-            optionsContainer.style.display = 'block';
-        }
-        
-        if (colors.length > 0) {
-            const colorField = document.getElementById('colorField');
-            colorField.style.display = 'block';
-            const colorOptionsContainer = document.getElementById('colorOptions');
-            let firstColorSpan = null;
-            colors.forEach((color, index) => {
-                const colorSpan = document.createElement('span');
-                colorSpan.className = 'color-option';
-                colorSpan.textContent = color;
-                colorSpan.dataset.color = color;
-                colorSpan.onclick = function() {
-                    document.querySelectorAll('.color-option').forEach(option => option.classList.remove('selected'));
-                    colorSpan.classList.add('selected');
-                };
-                colorOptionsContainer.appendChild(colorSpan);
-                if (index === 0) firstColorSpan = colorSpan;
-            });
-            if (firstColorSpan) firstColorSpan.classList.add('selected');
-        } else {
-            document.getElementById('colorField').style.display = 'none'; // إخفاء حقل الألوان إذا لم تكن موجودة
-        }
-        
-        if (sizes.length > 0) {
-            const sizeField = document.getElementById('sizeField');
-            sizeField.style.display = 'block';
-            const sizeOptionsContainer = document.getElementById('sizeOptions');
-            let firstSizeSpan = null;
-            sizes.forEach((size, index) => {
-                const sizeSpan = document.createElement('span');
-                sizeSpan.className = 'size-option';
-                sizeSpan.textContent = size;
-                sizeSpan.dataset.size = size;
-                sizeSpan.onclick = function() {
-                    document.querySelectorAll('.size-option').forEach(option => option.classList.remove('selected'));
-                    sizeSpan.classList.add('selected');
-                };
-                sizeOptionsContainer.appendChild(sizeSpan);
-                if (index === 0) firstSizeSpan = sizeSpan;
-            });
-            if (firstSizeSpan) firstSizeSpan.classList.add('selected');
-        } else {
-            document.getElementById('sizeField').style.display = 'none'; // إخفاء حقل المقاسات إذا لم تكن موجودة
-        }
-        
-        const savedDeliveryInfo = localStorage.getItem('deliveryInfo');
-        if (savedDeliveryInfo) {
-            const deliveryInfo = JSON.parse(savedDeliveryInfo);
-            document.getElementById('displayName').textContent = deliveryInfo.name;
-            document.getElementById('displayPhone').textContent = deliveryInfo.phone;
-            document.getElementById('displayEmail').textContent = deliveryInfo.email || '';
-            document.getElementById('displayGovernorate').textContent = deliveryInfo.governorate;
-            document.getElementById('displayCity').textContent = deliveryInfo.city;
-            document.getElementById('displayStreet').textContent = deliveryInfo.street;
-            document.getElementById('displayLandmark').textContent = deliveryInfo.landmark;
-            document.getElementById('deliveryInfoDisplay').style.display = 'block';
-        }
-        
-        let quantity = 1;
-        
-        function increaseQuantity() {
-            quantity++;
-            document.getElementById('quantityValue').textContent = quantity;
-            updateTotalPrice();
-        }
-        
-        function decreaseQuantity() {
-            if (quantity > 1) {
-                quantity--;
+            let quantity = 1;
+            
+            function increaseQuantity() {
+                quantity++;
                 document.getElementById('quantityValue').textContent = quantity;
                 updateTotalPrice();
             }
-        }
-        
-        function updateTotalPrice() {
-            const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
-            const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
-            const totalPrice = (productPrice * quantity) + shippingPrice;
-            document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2);
-        }
-        
-        updateTotalPrice();
-        </script>
+            
+            function decreaseQuantity() {
+                if (quantity > 1) {
+                    quantity--;
+                    document.getElementById('quantityValue').textContent = quantity;
+                    updateTotalPrice();
+                }
+            }
+            
+            function updateTotalPrice() {
+                const productPrice = parseFloat(document.getElementById('productPriceText').textContent);
+                const shippingPrice = parseFloat(document.getElementById('shippingPriceText').textContent);
+                const totalPrice = (productPrice * quantity) + shippingPrice;
+                document.getElementById('totalPriceValue').textContent = totalPrice.toFixed(2);
+            }
+            
+            updateTotalPrice();
+            </script>
 
 
 
