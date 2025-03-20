@@ -880,6 +880,8 @@
                         justify-content: center;
                         padding: 20px;
                         margin-top: 120px;
+                        position: relative;
+                        min-height: 200px;
                     }
             
                     .image-container {
@@ -1102,16 +1104,25 @@
                         border-radius: 10px;
                     }
             
-                    /* علامة التحميل على طريقة تيك توك */
+                    /* طبقة التغطية داخل الحاوية */
+                    .loader-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(255, 255, 255, 0.8);
+                        display: none;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 10;
+                    }
+            
+                    /* علامة التحميل */
                     .loader {
-                        position: fixed;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
                         width: 60px;
                         height: 60px;
-                        display: none;
-                        z-index: 1000;
+                        position: relative;
                     }
             
                     .loader .circle {
@@ -1245,15 +1256,19 @@
                     </p>
                 </div>
             
-                <!-- علامة التحميل -->
-                <div class="loader" id="loader">
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="circle"></div>
+                <!-- حاوية المنتجات مع علامة التحميل -->
+                <div id="gallery" class="gallery">
+                    <!-- علامة التحميل مع overlay -->
+                    <div class="loader-overlay" id="loaderOverlay">
+                        <div class="loader">
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                    <!-- المنتجات ستُضاف هنا ديناميكيًا -->
                 </div>
-            
-                <div id="gallery" class="gallery"></div>
             
                 <!-- رسالة "لا توجد نتائج" -->
                 <div id="no-results-message" style="text-align: center; margin-top: 20px; padding: 20px; border-radius: 10px;">
@@ -1360,8 +1375,10 @@
             
                     // دالة لإظهار/إخفاء علامة التحميل
                     function showLoader(show) {
-                        const loader = document.getElementById('loader');
-                        loader.style.display = show ? 'block' : 'none';
+                        const loaderOverlay = document.getElementById('loaderOverlay');
+                        const gallery = document.getElementById('gallery');
+                        loaderOverlay.style.display = show ? 'flex' : 'none';
+                        gallery.style.opacity = show ? '0' : '1';
                     }
             
                     function fetchAndFilterProducts(searchTerm) {
@@ -1372,7 +1389,6 @@
             
                         if (searchBox) searchBox.value = searchTerm;
             
-                        // إظهار علامة التحميل
                         showLoader(true);
             
                         fetch('products.json')
@@ -1382,7 +1398,7 @@
                                     product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
                                 );
                                 gallery.innerHTML = '';
-                                loadedItems = 0;
+                                gallery.appendChild(document.getElementById('loaderOverlay'));
             
                                 if (filteredProducts.length > 0) {
                                     loadProducts(0, itemsPerLoad);
@@ -1395,11 +1411,11 @@
                             .catch(error => {
                                 console.error('فشل جلب المنتجات من JSON:', error);
                                 gallery.innerHTML = '';
+                                gallery.appendChild(document.getElementById('loaderOverlay'));
                                 noResultsMessage.style.display = 'block';
                                 searchTermDisplay.textContent = searchTerm;
                             })
                             .finally(() => {
-                                // إخفاء علامة التحميل بعد انتهاء العملية
                                 showLoader(false);
                             });
                     }
