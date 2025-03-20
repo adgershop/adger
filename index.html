@@ -2743,6 +2743,9 @@ menuPopup.addEventListener('touchmove', function(event) {
         </div>
     
         <script>
+            // متغير عالمي لتخزين مصطلح البحث
+            let currentSearchTerm = getSearchTermFromURL();
+    
             function addToCart(element) {
                 event.stopPropagation();
                 event.preventDefault();
@@ -2794,7 +2797,6 @@ menuPopup.addEventListener('touchmove', function(event) {
                 const itemsPerLoad = 20;
                 let loadedItems = 0;
                 let allProducts = [];
-                const searchTerm = getSearchTermFromURL(); // جلب مصطلح البحث مبكرًا
     
                 function loadProducts(startIndex, count, products) {
                     const endIndex = Math.min(startIndex + count, products.length);
@@ -2852,6 +2854,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
     
                     preloadNextImages(products, endIndex);
+                    // إعادة تطبيق البحث بعد تحميل المنتجات
+                    performSearch(currentSearchTerm);
                 }
     
                 const observer = new IntersectionObserver((entries, observer) => {
@@ -2902,8 +2906,8 @@ menuPopup.addEventListener('touchmove', function(event) {
                     });
     
                     startRotatingText(".rotating-text1212");
-                    // استدعاء البحث بعد تحميل المنتجات
-                    performSearch(searchTerm || '');
+                    // تطبيق البحث الأولي باستخدام المتغير العالمي
+                    performSearch(currentSearchTerm);
                 }
     
                 fetch('products.json')
