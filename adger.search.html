@@ -1685,19 +1685,9 @@ menuPopup.addEventListener('touchmove', function(event) {
             const searchTermDisplay = document.getElementById('search-term-display');
             let foundResults = false;
 
-            if (searchTerm === '') {
-                // إذا كان البحث فارغًا، أظهر جميع المنتجات
-                products.forEach(product => {
-                    product.style.display = 'block';
-                });
-                noResultsMessage.style.display = 'none';
-                return;
-            }
-
-            // إذا كان هناك نص بحث، ابحث في data-name فقط
             products.forEach(product => {
                 const productDataName = product.getAttribute('data-name').toLowerCase();
-                if (productDataName.includes(searchTerm.toLowerCase())) {
+                if (searchTerm === '' || productDataName.includes(searchTerm.toLowerCase())) {
                     product.style.display = 'block';
                     foundResults = true;
                 } else {
@@ -1705,7 +1695,7 @@ menuPopup.addEventListener('touchmove', function(event) {
                 }
             });
 
-            if (foundResults) {
+            if (foundResults || searchTerm === '') {
                 noResultsMessage.style.display = 'none';
             } else {
                 noResultsMessage.style.display = 'block';
@@ -1717,6 +1707,8 @@ menuPopup.addEventListener('touchmove', function(event) {
             const searchTerm = getSearchTermFromURL();
             if (searchTerm) {
                 performSearch(searchTerm);
+            } else {
+                performSearch(''); // عرض جميع المنتجات إذا لم يكن هناك مصطلح بحث
             }
         });
     </script>
