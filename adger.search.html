@@ -1212,7 +1212,7 @@
                     const username = localStorage.getItem('username');
                     const welcomeMessage = document.getElementById('welcomeMessage');
                     const usernameDisplay = document.getElementById('usernameDisplay');
-            
+                
                     if (username) {
                         function isArabic(text) {
                             return /[\u0600-\u06FF]/.test(text);
@@ -1231,13 +1231,13 @@
                     } else if (welcomeMessage) {
                         welcomeMessage.innerHTML = 'أهلاً، <span style="color: black; cursor: pointer;" onclick="window.location.href=\'account.html\'">سجل دخولك</span>';
                     }
-            
+                
                     // دالة لتحريك الخط عند النقر على عناصر القائمة
                     const menuItems = document.querySelectorAll('.menu-item');
                     menuItems.forEach(item => {
                         item.addEventListener('click', () => window.scrollTo(0, 0));
                     });
-            
+                
                     // دالة لإظهار أو إخفاء القائمة الجانبية
                     function toggleMenu() {
                         const menuPopup = document.getElementById('menuPopup');
@@ -1253,11 +1253,11 @@
                             setTimeout(() => menuPopup.classList.add('active'), 10);
                         }
                     }
-            
+                
                     // متغيرات ودوال لتتبع السحب
                     let startX = 0, currentX = 0, isDragging = false;
                     const menuPopup = document.getElementById('menuPopup');
-            
+                
                     function startDrag(event) {
                         if (menuPopup.classList.contains('active') && menuPopup.contains(event.target)) {
                             startX = event.touches[0].clientX;
@@ -1285,7 +1285,7 @@
                     menuPopup.addEventListener('touchmove', (event) => {
                         if (menuPopup.classList.contains('active')) event.preventDefault();
                     }, { passive: false });
-            
+                
                     // دالة لإضافة المنتج إلى السلة
                     function addToCart(element) {
                         event.stopPropagation();
@@ -1294,30 +1294,44 @@
                         alert("تمت إضافة المنتج إلى سلة التسوق");
                         return false;
                     }
-            
+                
                     // متغيرات عالمية لتتبع المنتجات
                     let filteredProducts = [];
                     const itemsPerLoad = 20;
                     let loadedItems = 0;
-            
-                    // دالة لجلب وتصفية المنتجات
+                
+                    // دالة لترتيب المصفوفة عشوائيًا (Fisher-Yates Shuffle)
+                    function shuffleArray(array) {
+                        for (let i = array.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [array[i], array[j]] = [array[j], array[i]]; // تبديل العناصر
+                        }
+                        return array;
+                    }
+                
+                    // دالة لجلب وتصفية المنتجات مع ترتيب عشوائي
                     function fetchAndFilterProducts(searchTerm) {
                         const gallery = document.getElementById('gallery');
                         const noResultsMessage = document.getElementById('no-results-message');
                         const searchTermDisplay = document.getElementById('search-term-display');
                         const searchBox = document.getElementById('search-box');
-            
+                
                         if (searchBox) searchBox.value = searchTerm;
-            
+                
                         fetch('products.json')
                             .then(response => response.json())
                             .then(products => {
+                                // تصفية المنتجات بناءً على البحث
                                 filteredProducts = products.filter(product => 
                                     product.dataName.toLowerCase().includes(searchTerm.toLowerCase())
                                 );
+                                
+                                // ترتيب المنتجات عشوائيًا
+                                filteredProducts = shuffleArray(filteredProducts);
+                
                                 gallery.innerHTML = '';
                                 loadedItems = 0;
-            
+                
                                 if (filteredProducts.length > 0) {
                                     loadProducts(0, itemsPerLoad);
                                     noResultsMessage.style.display = 'none';
@@ -1333,19 +1347,19 @@
                                 searchTermDisplay.textContent = searchTerm;
                             });
                     }
-            
+                
                     // دالة لتحميل المنتجات
                     function loadProducts(startIndex, count) {
                         const gallery = document.getElementById('gallery');
                         const endIndex = Math.min(startIndex + count, filteredProducts.length);
-            
+                
                         for (let i = startIndex; i < endIndex; i++) {
                             const product = filteredProducts[i];
                             const priceStr = product.price.toString();
                             const firstDigit = priceStr.charAt(0);
                             const specialDigits = ['2', '3', '5', '6', '8', '9'];
                             const letterMargin = specialDigits.includes(firstDigit) ? '-1px' : '-4px';
-            
+                
                             const productDiv = document.createElement('div');
                             productDiv.className = 'image-container product';
                             productDiv.setAttribute('data-name', product.dataName || product.name);
@@ -1377,13 +1391,13 @@
                             `;
                             gallery.appendChild(productDiv);
                         }
-            
+                
                         loadedItems = endIndex;
                         const lazyImages = document.querySelectorAll("img[data-src]:not(.loaded)");
                         lazyImages.forEach(img => observer.observe(img));
                         startRotatingText(".rotating-text1212"); // تفعيل النصوص المتغيرة
                     }
-            
+                
                     // مراقب التحميل الكسول
                     const observer = new IntersectionObserver((entries, observer) => {
                         entries.forEach(entry => {
@@ -1400,7 +1414,7 @@
                             }
                         });
                     }, { rootMargin: "0px 0px 200px 0px" });
-            
+                
                     // دالة للتحقق من خلفية الصورة البيضاء
                     function isWhiteBackground(img) {
                         const canvas = document.createElement('canvas');
@@ -1412,16 +1426,16 @@
                         const data = imageData.data;
                         let whitePixelCount = 0;
                         let totalPixelCount = data.length / 4;
-            
+                
                         for (let i = 0; i < data.length; i += 4) {
                             if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240) {
                                 whitePixelCount++;
                             }
                         }
-            
+                
                         return (whitePixelCount / totalPixelCount) > 0.9;
                     }
-            
+                
                     // دالة لتدوير النصوص
                     function startRotatingText(selector) {
                         document.querySelectorAll(selector).forEach(element => {
@@ -1440,28 +1454,28 @@
                             }, 5000);
                         });
                     }
-            
+                
                     // دالة لقراءة معلمة البحث من URL
                     function getSearchTermFromURL() {
                         const urlParams = new URLSearchParams(window.location.search);
                         return urlParams.get('search') || '';
                     }
-            
+                
                     // تحميل المنتجات عند التمرير
                     document.addEventListener('scroll', function () {
                         const gallery = document.getElementById('gallery');
                         const triggerHeight = window.innerHeight * 1.5;
-                        const galleryHeight = gallery.scrollHeight;
-            
+                        const injuringHeight = gallery.scrollHeight;
+                
                         if (window.scrollY >= (galleryHeight - triggerHeight) && loadedItems < filteredProducts.length) {
                             loadProducts(loadedItems, itemsPerLoad);
                         }
                     });
-            
+                
                     // دالة لتحريك الخط وتنفيذ البحث
                     function selectItem(item, element) {
                         const searchBox = document.getElementById('search-box');
-            
+                
                         if (searchBox) {
                             if (item === 'الكل') {
                                 searchBox.value = '';
@@ -1469,31 +1483,40 @@
                                 searchBox.value = item;
                             }
                         }
-            
+                
                         if (item === 'الكل') {
                             fetchAndFilterProducts('');
                         } else if (item) {
                             fetchAndFilterProducts(item);
                         }
-            
+                
                         const allItems = document.querySelectorAll('.sub-header nav a');
                         allItems.forEach(item => item.classList.remove('active'));
                         element.classList.add('active');
-            
+                
                         const underline = document.querySelector('.underline');
                         const itemRect = element.getBoundingClientRect();
                         const navRect = element.parentElement.getBoundingClientRect();
-            
+                
                         underline.style.width = `${itemRect.width}px`;
                         underline.style.left = `${itemRect.left - navRect.left}px`;
-            
+                
                         element.scrollIntoView({
                             behavior: 'smooth',
                             block: 'center',
                             inline: 'center'
                         });
                     }
-            
+                
+                    // دالة لإعادة تحميل المنتجات عشوائيًا كل فترة
+                    function startRandomProductRefresh() {
+                        const refreshInterval = 30000; // كل 30 ثانية (يمكنك تعديل الوقت)
+                        setInterval(() => {
+                            const currentSearchTerm = document.getElementById('search-box')?.value || '';
+                            fetchAndFilterProducts(currentSearchTerm); // إعادة جلب وترتيب المنتجات
+                        }, refreshInterval);
+                    }
+                
                     // عند تحميل الصفحة
                     window.onload = function () {
                         const defaultItem = document.querySelector('.sub-header nav a');
@@ -1505,17 +1528,18 @@
                             underline.style.width = `${itemRect.width}px`;
                             underline.style.left = `${itemRect.left - navRect.left}px`;
                         }
-            
+                
                         const searchTerm = getSearchTermFromURL();
                         const searchBox = document.getElementById('search-box');
                         if (searchBox && searchTerm) {
                             searchBox.value = searchTerm;
                         }
                         fetchAndFilterProducts(searchTerm || '');
+                
+                        // بدء التحديث العشوائي التلقائي
+                        startRandomProductRefresh();
                     };
                 </script>
-            </body>
-            </html>
 
 
 
