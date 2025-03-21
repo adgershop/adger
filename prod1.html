@@ -290,16 +290,16 @@
             });
             document.getElementById('currentMedia').textContent = currentIndex;
             updateArrowState(currentIndex, thumbnails.length);
-            scrollThumbnailIntoView(); // إضافة التمرير الديناميكي
+            scrollThumbnailIntoView();
         }
 
         function scrollThumbnailIntoView() {
             const activeThumbnail = document.querySelector('.thumbnail.active');
             if (activeThumbnail) {
                 activeThumbnail.scrollIntoView({
-                    behavior: 'smooth', // تمرير سلس
-                    block: 'nearest',   // للتمرير العمودي على الشاشات الكبيرة
-                    inline: 'center'    // للتمرير الأفقي على الهواتف مع التركيز على المركز
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'center'
                 });
             }
         }
@@ -318,14 +318,14 @@
                 mainVideo.style.display = 'none';
                 mainVideo.pause();
                 shareButton.style.display = 'flex';
-                mediaCounter.style.display = 'flex'; // إظهار عداد الوسائط للصور
+                mediaCounter.style.display = 'flex';
             } else if (type === 'video') {
                 mainVideo.querySelector('source').src = src;
                 mainVideo.load();
                 mainVideo.style.display = 'block';
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
-                mediaCounter.style.display = 'none'; // إخفاء عداد الوسائط للفيديو
+                mediaCounter.style.display = 'none';
             }
         }
 
@@ -393,8 +393,9 @@
 
                         const mainMediaContainer = document.querySelector('.main-media');
                         const hammer = new Hammer(mainMediaContainer);
-                        hammer.on('swipeleft', nextMedia);
-                        hammer.on('swiperight', prevMedia);
+                        // تعديل التمرير باللمس ليكون من اليسار إلى اليمين أولاً
+                        hammer.on('swipeleft', prevMedia);  // التمرير لليسار يعرض الوسائط السابقة
+                        hammer.on('swiperight', nextMedia); // التمرير لليمين يعرض الوسائط التالية
                     })
                     .catch(error => console.error('خطأ في جلب البيانات:', error));
             } else {
