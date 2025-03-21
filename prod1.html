@@ -15,12 +15,6 @@
             background-color: #f4f4f4;
         }
 
-        .line {
-            width: 100%;
-            height: 8px;
-            background-color: #eeeeee;
-        }
-        
         .gallery {
             display: flex;
             align-items: flex-start;
@@ -123,11 +117,6 @@
 
         .share-button.bottom {
             bottom: 11px;
-        }
-
-        .share-button.top {
-            top: 10px;
-            display: none;
         }
 
         .share-button svg {
@@ -270,14 +259,27 @@
             منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
         </div>
         <div class="thumbnails">
-            <!-- سيتم إنشاء المصغرات ديناميكيًا هنا -->
+            <!-- سيتم إنشاء المصغرات ديناميكيًا -->
         </div>
     </div>
 
     <script>
+        // دالة لاستخراج المعلمات من عنوان URL بدون تعارض
+        function getQueryParams() {
+            const query = window.location.search.slice(1);
+            const result = {};
+            query.split('&').forEach(pair => {
+                const [key, val] = pair.split('=');
+                if (key) {
+                    result[key] = val ? decodeURIComponent(val) : '';
+                }
+            });
+            return result;
+        }
+
         // جلب الـ ID من عنوان URL
-// حفظ الـ id مسبقًا في localStorage (مثلاً من صفحة أخرى)
-const id = localStorage.getItem('galleryId') || 'default-id';
+        const params = getQueryParams();
+        const id = params['id'];
 
         // جلب بيانات JSON وتحديث المعرض
         fetch('data.json')
@@ -292,18 +294,16 @@ const id = localStorage.getItem('galleryId') || 'default-id';
             })
             .catch(error => console.error('خطأ في جلب البيانات:', error));
 
-        // دالة لتحديث المعرض بناءً على البيانات
+        // دالة لتحديث المعرض
         function updateGallery(data) {
             const thumbnailsContainer = document.querySelector('.thumbnails');
-            thumbnailsContainer.innerHTML = ''; // إفراغ المحتوى الحالي
+            thumbnailsContainer.innerHTML = '';
 
             // إضافة الصور
             data.images.forEach((img, index) => {
                 const thumbnail = document.createElement('div');
                 thumbnail.classList.add('thumbnail');
-                if (index === 0) {
-                    thumbnail.classList.add('active');
-                }
+                if (index === 0) thumbnail.classList.add('active');
                 thumbnail.setAttribute('data-src', img);
                 thumbnail.setAttribute('data-type', 'image');
                 thumbnail.innerHTML = `<img src="${img}" alt="الصورة ${index + 1}">`;
