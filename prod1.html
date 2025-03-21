@@ -312,17 +312,21 @@
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
-            // إعادة تعيين أيقونة الفيديو السابق إلى "Play" إذا كان هناك فيديو نشط سابقًا
-            const prevActiveThumbnail = document.querySelector('.thumbnail.active');
-            if (prevActiveThumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
-                updatePlayIcon(prevActiveThumbnail, false);
-            }
-
+            // Pause video and update thumbnail icon if switching to image
             if (type === 'image') {
                 mainImage.src = src;
                 mainImage.style.display = 'block';
                 mainVideo.style.display = 'none';
-                mainVideo.pause();
+                if (!mainVideo.paused) {
+                    mainVideo.pause();
+                    const videoThumbnails = document.querySelectorAll('.thumbnail[data-type="video"]');
+                    videoThumbnails.forEach(vt => {
+                        const playIcon = vt.querySelector('.play-icon svg');
+                        if (playIcon) {
+                            playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`; // Pause icon
+                        }
+                    });
+                }
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
             } else if (type === 'video') {
