@@ -262,9 +262,7 @@
             </button>
             <button class="arrow right" onclick="nextMedia()">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 ```
-
-12z" />
+                    <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
                 </svg>
             </button>
         </div>
@@ -300,8 +298,8 @@
             if (activeThumbnail) {
                 activeThumbnail.scrollIntoView({
                     behavior: 'smooth', // تمرير سلس
-                    block: 'nearest',   // للتمرير العمودي
-                    inline: 'nearest'   // للتمرير الأفقي
+                    block: 'nearest',   // للتمرير العمودي على الشاشات الكبيرة
+                    inline: 'center'    // للتمرير الأفقي على الهواتف مع التركيز على المركز
                 });
             }
         }
