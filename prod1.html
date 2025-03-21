@@ -275,9 +275,6 @@
     </div>
 
     <script>
-        // متغير عالمي لتتبع حالة تشغيل الفيديو
-        let videoWasPlaying = false;
-
         function calculateTotalMedia() {
             const totalMedia = document.querySelectorAll('.thumbnail').length;
             document.getElementById('totalMedia').textContent = totalMedia;
@@ -315,15 +312,10 @@
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
-            // التحقق من المربع الصغير النشط السابق
+            // إذا كان المربع النشط السابق فيديو، اجعل أيقونته "Pause" عند التركيز على مربع آخر
             const prevActiveThumbnail = document.querySelector('.thumbnail.active');
-            if (prevActiveThumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
-                // إذا كان الفيديو قد تم تشغيله مسبقًا، نترك الأيقونة في حالة "pause"
-                if (videoWasPlaying) {
-                    updatePlayIcon(prevActiveThumbnail, true); // الحفاظ على حالة "pause"
-                } else {
-                    updatePlayIcon(prevActiveThumbnail, false); // إعادة تعيين إلى "play" إذا لم يكن قيد التشغيل
-                }
+            if (prevActiveThumbnail && prevActiveThumbnail !== thumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
+                updatePlayIcon(prevActiveThumbnail, true); // تعيين أيقونة Pause
             }
 
             if (type === 'image') {
@@ -421,14 +413,12 @@
                             const activeThumbnail = document.querySelector('.thumbnail.active');
                             if (activeThumbnail.getAttribute('data-type') === 'video') {
                                 updatePlayIcon(activeThumbnail, true);
-                                videoWasPlaying = true; // تحديث حالة التشغيل
                             }
                         });
                         mainVideo.addEventListener('pause', () => {
                             const activeThumbnail = document.querySelector('.thumbnail.active');
                             if (activeThumbnail.getAttribute('data-type') === 'video') {
                                 updatePlayIcon(activeThumbnail, false);
-                                videoWasPlaying = false; // تحديث حالة الإيقاف
                             }
                         });
 
