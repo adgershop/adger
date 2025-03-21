@@ -21,29 +21,17 @@
             background-color: #eeeeee;
         }
         
-        /* إضافة مخفي افتراضياً للمعرض لتجنب الحركة أثناء التحميل */
         .gallery {
             display: flex;
             align-items: flex-start;
             flex-direction: row-reverse;
             margin-top: 20px;
             position: relative;
-            opacity: 0; /* إخفاء المعرض حتى يتم تحميل كل شيء */
-            transition: opacity 0.3s ease;
-        }
-        
-        .gallery.loaded {
-            opacity: 1; /* إظهار المعرض بعد التحميل الكامل */
         }
 
-        /* تحديد أبعاد ثابتة للحاويات الرئيسية لمنع التغيير في الحجم أثناء التحميل */
         .main-media {
             margin-left: 20px;
             position: relative;
-            width: 404px; /* العرض مع الحدود */
-            height: 404px; /* الارتفاع مع الحدود */
-            min-width: 404px;
-            min-height: 404px;
         }
 
         .main-media img, .main-media video {
@@ -52,26 +40,20 @@
             border: 2px solid #ccc;
             border-radius: 10px;
             display: block;
-            object-fit: cover; /* تأكد من أن الصور تغطي المساحة بشكل صحيح */
         }
 
         .main-media video:fullscreen {
             border: none;
         }
 
-        /* تحديد أبعاد ثابتة للمصغرات */
         .thumbnails {
             display: flex;
             flex-direction: column;
-            max-height: 404px; /* نفس ارتفاع العنصر الرئيسي */
-            min-height: 404px; /* ضمان حد أدنى للارتفاع */
-            width: 86px; /* عرض ثابت للحاوية (66px للمصغرة + هوامش وحدود) */
-            min-width: 86px;
-            overflow-y: auto;
+            max-height: 400px;
+            overflow-y: scroll;
             padding-left: 10px;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            box-sizing: border-box;
         }
 
         .thumbnails::-webkit-scrollbar {
@@ -88,7 +70,6 @@
             width: 66px;
             height: 66px;
             box-sizing: border-box;
-            background-color: #f0f0f0; /* لون خلفية للمصغرات قبل تحميل الصور */
         }
 
         .thumbnail img, .thumbnail video {
@@ -102,6 +83,18 @@
 
         .thumbnail.active {
             border-color: #ff0000;
+        }
+
+        .thumbnail.placeholder {
+            background-color: #e0e0e0;
+            border: 2px solid #ccc;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
         }
 
         .play-icon {
@@ -154,7 +147,6 @@
             height: 24px;
         }
 
-        /* تعديل الأبعاد للنسخة المحمولة مع الحفاظ على المساحات الثابتة */
         @media (max-width: 555px) {
             .gallery {
                 flex-direction: column;
@@ -166,10 +158,6 @@
             .main-media {
                 margin-left: 0;
                 margin-bottom: 20px;
-                width: 315px;
-                height: 315px;
-                min-width: 315px;
-                min-height: 315px;
             }
 
             .main-media img, .main-media video {
@@ -180,13 +168,10 @@
             .thumbnails {
                 flex-direction: row;
                 max-height: none;
-                min-height: 85px; /* ارتفاع ثابت للحاوية في العرض المحمول */
-                height: 85px;
                 overflow-x: auto;
                 overflow-y: hidden;
                 padding-left: 0;
                 width: 311px;
-                min-width: 311px;
                 white-space: nowrap;
                 gap: 10px;
             }
@@ -199,7 +184,6 @@
             }
         }
 
-        /* حافظ على موضع ثابت لعداد الوسائط */
         .media-counter {
             position: absolute;
             font-family: 'Cairo', sans-serif;
@@ -215,8 +199,6 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            min-width: 50px; /* عرض أدنى لتجنب التغيير في الحجم */
-            text-align: center;
         }
 
         @media (max-width: 555px) {
@@ -270,34 +252,11 @@
                 display: none;
             }
         }
-        
-        /* إضافة مؤشر تحميل */
-        .loading-spinner {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            z-index: 9999;
-        }
-        
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 </head>
 <body>
-    <!-- إضافة مؤشر تحميل -->
-    <div class="loading-spinner" id="loadingSpinner"></div>
-    
-    <div class="gallery" id="gallery">
+    <div class="gallery">
         <div class="main-media">
             <img id="mainMedia" alt="الصورة الرئيسية">
             <video id="mainVideo" controls style="display: none;">
@@ -323,23 +282,23 @@
             منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
         </div>
         <div class="thumbnails">
-            <!-- سيتم إضافة الصور المصغرة هنا ديناميكيًا -->
+            <div class="thumbnail placeholder"></div>
+            <div class="thumbnail placeholder"></div>
+            <div class="thumbnail placeholder"></div>
+            <div class="thumbnail placeholder"></div>
         </div>
     </div>
 
     <script>
         let mainVideoIsPlaying = false;
-        let mediaTotalCount = 0;
-        let loadedMediaCount = 0;
 
         function calculateTotalMedia() {
-            const totalMedia = document.querySelectorAll('.thumbnail').length;
-            document.getElementById('totalMedia').textContent = totalMedia;
-            mediaTotalCount = totalMedia * 2; // عدد الوسائط × 2 (النسخة المصغرة والكبيرة)
+            const totalMedia = document.querySelectorAll('.thumbnail:not(.placeholder)').length;
+            document.get weatheredById('totalMedia').textContent = totalMedia;
         }
 
         function updateCurrentMedia() {
-            const thumbnails = document.querySelectorAll('.thumbnail');
+            const thumbnails = document.querySelectorAll('.thumbnail:not(.placeholder)');
             let currentIndex = 0;
             thumbnails.forEach((thumb, index) => {
                 if (thumb.classList.contains('active')) {
@@ -370,7 +329,6 @@
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
-            // إعادة تعيين أيقونة الفيديو السابق إلى "Play" إذا كان هناك فيديو نشط سابقًا
             const prevActiveThumbnail = document.querySelector('.thumbnail.active');
             if (prevActiveThumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
                 updatePlayIcon(prevActiveThumbnail, false);
@@ -391,9 +349,6 @@
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
-                
-                // Update the play icon based on whether video will autoplay
-                // Initially set to play icon (not playing)
                 updatePlayIcon(thumbnail, false);
                 mainVideoIsPlaying = false;
             }
@@ -403,9 +358,9 @@
             const playIcon = thumbnail.querySelector('.play-icon svg');
             if (playIcon) {
                 if (isPlaying) {
-                    playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`; // Pause icon
+                    playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
                 } else {
-                    playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`; // Play icon
+                    playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
                 }
             }
         }
@@ -413,59 +368,12 @@
         function updateAllVideoIcons() {
             const mainVideo = document.getElementById('mainVideo');
             const isPlaying = !mainVideo.paused && !mainVideo.ended;
-            
-            // Update all video thumbnails
             document.querySelectorAll('.thumbnail[data-type="video"]').forEach(thumbnail => {
-                // Only update the active thumbnail
                 if (thumbnail.classList.contains('active')) {
                     updatePlayIcon(thumbnail, isPlaying);
                 } else {
-                    // Non-active video thumbnails should always show play icon
                     updatePlayIcon(thumbnail, false);
                 }
-            });
-        }
-
-        function incrementLoadedCount() {
-            loadedMediaCount++;
-            if (loadedMediaCount >= mediaTotalCount) {
-                // إخفاء مؤشر التحميل وإظهار المعرض
-                document.getElementById('loadingSpinner').style.display = 'none';
-                document.getElementById('gallery').classList.add('loaded');
-            }
-        }
-
-        function preloadImage(url) {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => {
-                    incrementLoadedCount();
-                    resolve();
-                };
-                img.onerror = () => {
-                    incrementLoadedCount();
-                    reject();
-                };
-                img.src = url;
-            });
-        }
-
-        function preloadVideo(url) {
-            return new Promise((resolve, reject) => {
-                const video = document.createElement('video');
-                video.preload = 'metadata';
-                
-                video.onloadedmetadata = () => {
-                    incrementLoadedCount();
-                    resolve();
-                };
-                
-                video.onerror = () => {
-                    incrementLoadedCount();
-                    reject();
-                };
-                
-                video.src = url;
             });
         }
 
@@ -487,21 +395,12 @@
                         const product = products.find(p => p.id === productId);
                         if (!product || !product.media) {
                             console.error('المنتج أو الوسائط غير موجودة');
-                            document.getElementById('loadingSpinner').style.display = 'none';
                             return;
                         }
-                        
-                        // تحميل مسبق لجميع الوسائط
-                        const preloadPromises = [];
-                        product.media.forEach(mediaItem => {
-                            if (mediaItem.type === 'image') {
-                                preloadPromises.push(preloadImage(mediaItem.src));
-                            } else if (mediaItem.type === 'video') {
-                                preloadPromises.push(preloadVideo(mediaItem.src));
-                            }
-                        });
 
                         const thumbnailsContainer = document.querySelector('.thumbnails');
+                        thumbnailsContainer.innerHTML = ''; // مسح العناصر الوهمية
+
                         product.media.forEach((mediaItem, index) => {
                             const thumbnail = document.createElement('div');
                             thumbnail.classList.add('thumbnail');
@@ -543,8 +442,6 @@
                         updateMainMedia(initialThumbnail);
 
                         const mainVideo = document.getElementById('mainVideo');
-
-                        // Add event listeners to update play/pause icon when video state changes
                         mainVideo.addEventListener('play', () => {
                             mainVideoIsPlaying = true;
                             updateAllVideoIcons();
@@ -560,7 +457,6 @@
                             updateAllVideoIcons();
                         });
 
-                        // Ensure icon is updated if we switch to a different thumbnail
                         document.querySelectorAll('.thumbnail').forEach(thumbnail => {
                             thumbnail.addEventListener('focus', () => {
                                 if (thumbnail.getAttribute('data-type') === 'video' && 
@@ -574,29 +470,15 @@
                         const hammer = new Hammer(mainMediaContainer);
                         hammer.on('swipeleft', prevMedia);
                         hammer.on('swiperight', nextMedia);
-
-                        // كبديل للوعود: تنفيذ الفنكشن بعد 2 ثانية في حالة فشل تحميل بعض العناصر
-                        Promise.all(preloadPromises).catch(err => {
-                            console.error('حدث خطأ أثناء تحميل بعض الوسائط:', err);
-                        }).finally(() => {
-                            setTimeout(() => {
-                                document.getElementById('loadingSpinner').style.display = 'none';
-                                document.getElementById('gallery').classList.add('loaded');
-                            }, 1000);
-                        });
                     })
-                    .catch(error => {
-                        console.error('خطأ في جلب البيانات:', error);
-                        document.getElementById('loadingSpinner').style.display = 'none';
-                    });
+                    .catch(error => console.error('خطأ في جلب البيانات:', error));
             } else {
                 console.error('يرجى تحديد معرف المنتج في URL');
-                document.getElementById('loadingSpinner').style.display = 'none';
             }
         });
 
         function nextMedia() {
-            const thumbnails = document.querySelectorAll('.thumbnail');
+            const thumbnails = document.querySelectorAll('.thumbnail:not(.placeholder)');
             let currentIndex = -1;
             thumbnails.forEach((thumb, index) => {
                 if (thumb.classList.contains('active')) {
@@ -612,7 +494,7 @@
         }
 
         function prevMedia() {
-            const thumbnails = document.querySelectorAll('.thumbnail');
+            const thumbnails = document.querySelectorAll('.thumbnail:not(.placeholder)');
             let currentIndex = -1;
             thumbnails.forEach((thumb, index) => {
                 if (thumb.classList.contains('active')) {
