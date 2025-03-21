@@ -312,6 +312,12 @@
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
+            // إعادة تعيين أيقونة الفيديو السابق إلى "Play" إذا كان هناك فيديو نشط سابقًا
+            const prevActiveThumbnail = document.querySelector('.thumbnail.active');
+            if (prevActiveThumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
+                updatePlayIcon(prevActiveThumbnail, false);
+            }
+
             if (type === 'image') {
                 mainImage.src = src;
                 mainImage.style.display = 'block';
