@@ -59,7 +59,7 @@
     },
     {
         "1": {
-            "images": ["images/1.jpg", "images/a2.jpg", "images/a3.jpg", "images/a4.jpg", "images/a5.jpg", "images/a6.jpg", "images/a7.jpg"],
+            "images": ["1.jpg", "images/a2.jpg", "images/a3.jpg", "images/a4.jpg", "images/a5.jpg", "images/a6.jpg", "images/a7.jpg"],
             "video": "videos/3e.mp4"
         },
         "2": {
