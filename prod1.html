@@ -330,47 +330,44 @@
                     })
                     .then(products => {
                         const product = products.find(p => p.id === productId);
-                        if (!product) {
-                            console.error('المنتج غير موجود');
+                        if (!product || !product.media) {
+                            console.error('المنتج أو الوسائط غير موجودة');
                             return;
                         }
 
                         const thumbnailsContainer = document.querySelector('.thumbnails');
-                        product.groups.forEach(group => {
-                            group.items.forEach((item, index) => {
-                                const thumbnail = document.createElement('div');
-                                thumbnail.classList.add('thumbnail');
-                                if (index === 0) thumbnail.classList.add('active');
-                                thumbnail.setAttribute('data-src', item);
-                                
-                                if (item.endsWith('.mp4')) {
-                                    thumbnail.setAttribute('data-type', 'video');
-                                    const video = document.createElement('video');
-                                    video.src = item;
-                                    const playIcon = document.createElement('div');
-                                    playIcon.classList.add('play-icon');
-                                    playIcon.innerHTML = `
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                            <path class="play-icon-path" d="M8 5v14l11-7z"/>
-                                        </svg>
-                                    `;
-                                    thumbnail.appendChild(video);
-                                    thumbnail.appendChild(playIcon);
-                                } else {
-                                    thumbnail.setAttribute('data-type', 'image');
-                                    const img = document.createElement('img');
-                                    img.src = item;
-                                    img.alt = 'صورة';
-                                    thumbnail.appendChild(img);
-                                }
-                                thumbnailsContainer.appendChild(thumbnail);
+                        product.media.forEach((mediaItem, index) => {
+                            const thumbnail = document.createElement('div');
+                            thumbnail.classList.add('thumbnail');
+                            if (index === 0) thumbnail.classList.add('active');
+                            thumbnail.setAttribute('data-src', mediaItem.src);
+                            thumbnail.setAttribute('data-type', mediaItem.type);
 
-                                thumbnail.addEventListener('click', () => {
-                                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                                    thumbnail.classList.add('active');
-                                    updateMainMedia(thumbnail);
-                                    setTimeout(updateCurrentMedia, 100);
-                                });
+                            if (mediaItem.type === 'video') {
+                                const video = document.createElement('video');
+                                video.src = mediaItem.src;
+                                const playIcon = document.createElement('div');
+                                playIcon.classList.add('play-icon');
+                                playIcon.innerHTML = `
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                        <path class="play-icon-path" d="M8 5v14l11-7z"/>
+                                    </svg>
+                                `;
+                                thumbnail.appendChild(video);
+                                thumbnail.appendChild(playIcon);
+                            } else {
+                                const img = document.createElement('img');
+                                img.src = mediaItem.src;
+                                img.alt = 'صورة';
+                                thumbnail.appendChild(img);
+                            }
+                            thumbnailsContainer.appendChild(thumbnail);
+
+                            thumbnail.addEventListener('click', () => {
+                                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                                thumbnail.classList.add('active');
+                                updateMainMedia(thumbnail);
+                                setTimeout(updateCurrentMedia, 100);
                             });
                         });
 
