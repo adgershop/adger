@@ -314,8 +314,8 @@
 
             // إعادة تعيين أيقونة الفيديو السابق إلى "Play" إذا كان هناك فيديو نشط سابقًا
             const prevActiveThumbnail = document.querySelector('.thumbnail.active');
-            if (prevActiveThumbnail && prevActiveThumbnail !== thumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
-                updatePlayIcon(prevActiveThumbnail, false); // تعيين الأيقونة إلى Play عند التبديل
+            if (prevActiveThumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
+                updatePlayIcon(prevActiveThumbnail, false);
             }
 
             if (type === 'image') {
@@ -332,6 +332,7 @@
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
+                updatePlayIcon(thumbnail, true); // Set play icon to pause when video is active
             }
         }
 
