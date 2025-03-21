@@ -1,7 +1,16 @@
 [
     {
         "id": "1",
-    
+        "media": [
+            {"src": "1.jpg", "type": "image"},
+            {"src": "a12.jpg", "type": "image"},
+            {"src": "a3.jpg", "type": "image"},
+            {"src": "a4.jpg", "type": "image"},
+            {"src": "a5.jpg", "type": "image"},
+            {"src": "a6.jpg", "type": "image"},
+            {"src": "a7.jpg", "type": "image"},
+            {"src": "3e.mp4", "type": "video"}
+        ],
         "pri": "44",
         "oldPrice": "444",
         "dis": "خصم أكثر من 800%",
