@@ -15,6 +15,12 @@
             background-color: #f4f4f4;
         }
 
+        .line {
+            width: 100%;
+            height: 8px;
+            background-color: #eeeeee;
+        }
+        
         .gallery {
             display: flex;
             align-items: flex-start;
@@ -79,12 +85,6 @@
             border-color: #ff0000;
         }
 
-        .line {
-            width: 100%;
-            height: 8px;
-            background-color: #eeeeee;
-        }
-
         .play-icon {
             position: absolute;
             top: 50%;
@@ -135,23 +135,6 @@
             height: 24px;
         }
 
-        .fullscreen-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            z-index: 2;
-        }
-
         @media (max-width: 555px) {
             .gallery {
                 flex-direction: column;
@@ -177,6 +160,7 @@
                 overflow-y: hidden;
                 padding-left: 0;
                 width: 311px;
+                white-space: nowrap;
                 gap: 10px;
             }
 
@@ -185,11 +169,6 @@
                 flex: 0 0 auto;
                 width: 65px;
                 height: 65px;
-            }
-
-            .thumbnail img, .thumbnail video {
-                width: 100%;
-                height: 100%;
             }
         }
 
@@ -212,7 +191,6 @@
 
         @media (max-width: 555px) {
             .media-counter {
-                background-color: rgba(255, 255, 255, 0.616);
                 bottom: 95px;
                 right: 15px;
                 font-size: 11px;
@@ -236,8 +214,6 @@
             color: white;
             font-size: 24px;
             z-index: 1;
-            opacity: 1;
-            transition: opacity 0.5s ease-in-out;
         }
 
         .arrow.left {
@@ -299,138 +275,181 @@
     </div>
 
     <script>
-        // حساب العدد الإجمالي للوسائط
+        let isSwiping = false; // متغير عالمي لتتبع حالة التمرير
+
         function calculateTotalMedia() {
             const totalMedia = document.querySelectorAll('.thumbnail').length;
             document.getElementById('totalMedia').textContent = totalMedia;
         }
 
-        // تحديث رقم المنتج الحالي
         function updateCurrentMedia() {
             const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = 0;
-
             thumbnails.forEach((thumb, index) => {
                 if (thumb.classList.contains('active')) {
                     currentIndex = index + 1;
                 }
             });
-
             document.getElementById('currentMedia').textContent = currentIndex;
             updateArrowState(currentIndex, thumbnails.length);
+            scrollThumbnailIntoView();
         }
 
-        // تحديث الوسيطة الرئيسية (صورة أو فيديو)
+        function scrollThumbnailIntoView() {
+            const activeThumbnail = document.querySelector('.thumbnail.active');
+            if (activeThumbnail) {
+                activeThumbnail.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'center'
+                });
+            }
+        }
+
         function updateMainMedia(thumbnail) {
             const mainImage = document.getElementById('mainMedia');
             const mainVideo = document.getElementById('mainVideo');
+            const shareButton = document.getElementById('shareButton');
+            const mediaCounter = document.querySelector('.media-counter');
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
+
+            const prevActiveThumbnail = document.querySelector('.thumbnail.active');
+            if (prevActiveThumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
+                updatePlayIcon(prevActiveThumbnail, false);
+            }
 
             if (type === 'image') {
                 mainImage.src = src;
                 mainImage.style.display = 'block';
                 mainVideo.style.display = 'none';
                 mainVideo.pause();
+                shareButton.style.display = 'flex';
+                mediaCounter.style.display = 'flex';
             } else if (type === 'video') {
                 mainVideo.querySelector('source').src = src;
                 mainVideo.load();
                 mainVideo.style.display = 'block';
                 mainImage.style.display = 'none';
+                shareButton.style.display = 'none';
+                mediaCounter.style.display = 'none';
             }
         }
 
-        // جلب البيانات من JSON عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('media.json')
-                .then(response => response.json())
-                .then(data => {
-                    const thumbnailsContainer = document.querySelector('.thumbnails');
-                    data.forEach((mediaItem, index) => {
-                        const thumbnail = document.createElement('div');
-                        thumbnail.classList.add('thumbnail');
-                        if (index === 0) thumbnail.classList.add('active');
-                        thumbnail.setAttribute('data-src', mediaItem.src);
-                        thumbnail.setAttribute('data-type', mediaItem.type);
+        function updatePlayIcon(thumbnail, isPlaying) {
+            const playIcon = thumbnail.querySelector('.play-icon svg');
+            if (playIcon) {
+                if (isPlaying) {
+                    playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
+                } else {
+                    playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
+                }
+            }
+        }
 
-                        if (mediaItem.type === 'image') {
-                            const img = document.createElement('img');
-                            img.src = mediaItem.src;
-                            img.alt = 'صورة';
-                            thumbnail.appendChild(img);
-                        } else if (mediaItem.type === 'video') {
-                            const video = document.createElement('video');
-                            video.src = mediaItem.src;
-                            const playIcon = document.createElement('div');
-                            playIcon.classList.add('play-icon');
-                            playIcon.innerHTML = `
-                                <svg class="play-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                    <path class="play-icon-path" d="M8 5v14l11-7z"/>
-                                    <path class="pause-icon-path" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" style="display: none;"/>
-                                </svg>
-                            `;
-                            thumbnail.appendChild(video);
-                            thumbnail.appendChild(playIcon);
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+
+            if (productId) {
+                const productsPerFile = 100;
+                const fileIndex = Math.ceil(parseInt(productId) / productsPerFile);
+                const jsonFile = `products-${fileIndex}.json`;
+
+                fetch(jsonFile)
+                    .then(response => {
+                        if (!response.ok) throw new Error('الملف غير موجود');
+                        return response.json();
+                    })
+                    .then(products => {
+                        const product = products.find(p => p.id === productId);
+                        if (!product || !product.media) {
+                            console.error('المنتج أو الوسائط غير موجودة');
+                            return;
                         }
 
-                        thumbnailsContainer.appendChild(thumbnail);
+                        const thumbnailsContainer = document.querySelector('.thumbnails');
+                        product.media.forEach((mediaItem, index) => {
+                            const thumbnail = document.createElement('div');
+                            thumbnail.classList.add('thumbnail');
+                            if (index === 0) thumbnail.classList.add('active');
+                            thumbnail.setAttribute('data-src', mediaItem.src);
+                            thumbnail.setAttribute('data-type', mediaItem.type);
 
-                        thumbnail.addEventListener('click', () => {
-                            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                            thumbnail.classList.add('active');
-                            updateMainMedia(thumbnail);
-                            setTimeout(updateCurrentMedia, 100);
-
-                            const mediaCounter = document.querySelector('.media-counter');
                             if (mediaItem.type === 'video') {
-                                mediaCounter.style.display = 'none';
+                                const video = document.createElement('video');
+                                video.src = mediaItem.src;
+                                const playIcon = document.createElement('div');
+                                playIcon.classList.add('play-icon');
+                                playIcon.innerHTML = `
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                `;
+                                thumbnail.appendChild(video);
+                                thumbnail.appendChild(playIcon);
                             } else {
-                                mediaCounter.style.display = 'flex';
+                                const img = document.createElement('img');
+                                img.src = mediaItem.src;
+                                img.alt = 'صورة';
+                                thumbnail.appendChild(img);
+                            }
+                            thumbnailsContainer.appendChild(thumbnail);
+
+                            thumbnail.addEventListener('click', () => {
+                                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                                thumbnail.classList.add('active');
+                                updateMainMedia(thumbnail);
+                                setTimeout(updateCurrentMedia, 100);
+                            });
+                        });
+
+                        calculateTotalMedia();
+                        updateCurrentMedia();
+                        const initialThumbnail = document.querySelector('.thumbnail.active');
+                        updateMainMedia(initialThumbnail);
+
+                        const mainVideo = document.getElementById('mainVideo');
+                        mainVideo.addEventListener('play', () => {
+                            const activeThumbnail = document.querySelector('.thumbnail.active');
+                            if (activeThumbnail.getAttribute('data-type') === 'video') {
+                                updatePlayIcon(activeThumbnail, true);
                             }
                         });
-                    });
-
-                    calculateTotalMedia();
-                    updateCurrentMedia();
-                    const initialThumbnail = document.querySelector('.thumbnail.active');
-                    updateMainMedia(initialThumbnail);
-
-                    // إضافة إيماءات اللمس
-                    const mainMediaContainer = document.querySelector('.main-media');
-                    const hammer = new Hammer(mainMediaContainer);
-                    hammer.on('swipeleft', nextMedia);
-                    hammer.on('swiperight', prevMedia);
-
-                    // إخفاء/إظهار عداد الوسائط عند تشغيل الفيديو
-                    const lastVideoThumbnail = document.querySelector('.thumbnail[data-type="video"]:last-child');
-                    if (lastVideoThumbnail) {
-                        const video = lastVideoThumbnail.querySelector('video');
-                        video.addEventListener('play', () => {
-                            document.querySelector('.media-counter').style.display = 'none';
+                        mainVideo.addEventListener('pause', () => {
+                            const activeThumbnail = document.querySelector('.thumbnail.active');
+                            if (activeThumbnail.getAttribute('data-type') === 'video') {
+                                updatePlayIcon(activeThumbnail, false);
+                            }
                         });
-                        video.addEventListener('pause', () => {
-                            document.querySelector('.media-counter').style.display = 'flex';
-                        });
-                        video.addEventListener('ended', () => {
-                            document.querySelector('.media-counter').style.display = 'flex';
-                        });
-                    }
-                })
-                .catch(error => console.error('خطأ في جلب البيانات:', error));
 
-            // السماح بتمرير الصفحة عموديًا عند لمس الصور والفيديوهات
-            document.querySelectorAll('.main-media img, .main-media video').forEach(media => {
-                media.addEventListener('touchstart', (event) => {
-                    event.stopPropagation();
-                });
-                media.addEventListener('touchmove', (event) => {
-                    event.stopPropagation();
-                });
-            });
+                        // إعداد Hammer.js مع تحكم في التمرير
+                        const mainMediaContainer = document.querySelector('.main-media');
+                        const hammer = new Hammer(mainMediaContainer);
+                        hammer.on('swipeleft', function() {
+                            if (!isSwiping) {
+                                isSwiping = true;
+                                prevMedia();
+                                setTimeout(() => { isSwiping = false; }, 300); // تأخير 300 مللي ثانية
+                            }
+                        });
+                        hammer.on('swiperight', function() {
+                            if (!isSwiping) {
+                                isSwiping = true;
+                                nextMedia();
+                                setTimeout(() => { isSwiping = false; }, 300); // تأخير 300 مللي ثانية
+                            }
+                        });
+                    })
+                    .catch(error => console.error('خطأ في جلب البيانات:', error));
+            } else {
+                console.error('يرجى تحديد معرف المنتج في URL');
+            }
         });
 
-        // الانتقال إلى الوسيطة التالية
         function nextMedia() {
+            if (isSwiping) return; // منع التمرير إذا كان هناك تمريرة جارية
+            isSwiping = true;
             const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = -1;
             thumbnails.forEach((thumb, index) => {
@@ -443,15 +462,13 @@
                 thumbnails[currentIndex + 1].classList.add('active');
                 updateMainMedia(thumbnails[currentIndex + 1]);
                 setTimeout(updateCurrentMedia, 100);
-
-                const nextType = thumbnails[currentIndex + 1].getAttribute('data-type');
-                const mediaCounter = document.querySelector('.media-counter');
-                mediaCounter.style.display = nextType === 'video' ? 'none' : 'flex';
             }
+            setTimeout(() => { isSwiping = false; }, 300); // إعادة تعيين العلامة بعد 300 مللي ثانية
         }
 
-        // الانتقال إلى الوسيطة السابقة
         function prevMedia() {
+            if (isSwiping) return; // منع التمرير إذا كان هناك تمريرة جارية
+            isSwiping = true;
             const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = -1;
             thumbnails.forEach((thumb, index) => {
@@ -464,14 +481,10 @@
                 thumbnails[currentIndex - 1].classList.add('active');
                 updateMainMedia(thumbnails[currentIndex - 1]);
                 setTimeout(updateCurrentMedia, 100);
-
-                const prevType = thumbnails[currentIndex - 1].getAttribute('data-type');
-                const mediaCounter = document.querySelector('.media-counter');
-                mediaCounter.style.display = prevType === 'video' ? 'none' : 'flex';
             }
+            setTimeout(() => { isSwiping = false; }, 300); // إعادة تعيين العلامة بعد 300 مللي ثانية
         }
 
-        // مشاركة الصفحة
         function sharePage() {
             if (navigator.share) {
                 navigator.share({
@@ -483,7 +496,6 @@
             }
         }
 
-        // تحديث حالة السهام
         function updateArrowState(currentIndex, totalMedia) {
             const leftArrow = document.querySelector('.arrow.left');
             const rightArrow = document.querySelector('.arrow.right');
