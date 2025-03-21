@@ -296,7 +296,6 @@
             const mainImage = document.getElementById('mainMedia');
             const mainVideo = document.getElementById('mainVideo');
             const shareButton = document.getElementById('shareButton');
-            const mediaCounter = document.querySelector('.media-counter');
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
@@ -306,14 +305,12 @@
                 mainVideo.style.display = 'none';
                 mainVideo.pause();
                 shareButton.style.display = 'flex';
-                mediaCounter.style.display = 'flex'; // إظهار عداد الوسائط للصور
             } else if (type === 'video') {
                 mainVideo.querySelector('source').src = src;
                 mainVideo.load();
                 mainVideo.style.display = 'block';
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
-                mediaCounter.style.display = 'none'; // إخفاء عداد الوسائط للفيديو
             }
         }
 
