@@ -2,14 +2,13 @@
     {
         "id": "1",
         "media": [
-            {"src": "1.jpg", "type": "image"},
+            {"src": "img/1.jpg", "type": "image"},
             {"src": "a2.jpg", "type": "image"},
             {"src": "a3.jpg", "type": "image"},
             {"src": "a4.jpg", "type": "image"},
             {"src": "a5.jpg", "type": "image"},
             {"src": "a6.jpg", "type": "image"},
-            {"src": "a7.jpg", "type": "image"},
-            {"src": "3e.mp4", "type": "video"}
+            {"src": "a7.jpg", "type": "image"}
         ],
         "pri": "44",
         "oldPrice": "444",
