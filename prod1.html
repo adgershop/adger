@@ -32,6 +32,11 @@
         .main-media {
             margin-left: 20px;
             position: relative;
+            background-color: #e0e0e0; /* نفس لون الثمبنيلات الوهمية */
+            width: 400px; /* مطابق لعرض الصورة الكبيرة */
+            height: 400px; /* مطابق لارتفاع الصورة الكبيرة */
+            border: 2px solid #ccc;
+            border-radius: 10px;
         }
 
         .main-media img, .main-media video {
@@ -158,6 +163,8 @@
             .main-media {
                 margin-left: 0;
                 margin-bottom: 20px;
+                width: 311px; /* مطابق للشاشات الصغيرة */
+                height: 311px; /* مطابق للشاشات الصغيرة */
             }
 
             .main-media img, .main-media video {
@@ -324,6 +331,7 @@
         function updateMainMedia(thumbnail) {
             const mainImage = document.getElementById('mainMedia');
             const mainVideo = document.getElementById('mainVideo');
+            const mainMediaContainer = document.querySelector('.main-media');
             const shareButton = document.getElementById('shareButton');
             const mediaCounter = document.querySelector('.media-counter');
             const src = thumbnail.getAttribute('data-src');
@@ -342,6 +350,10 @@
                 mainVideoIsPlaying = false;
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
+                // إزالة لون الخلفية عند تحميل الصورة
+                mainImage.onload = () => {
+                    mainMediaContainer.style.backgroundColor = 'transparent';
+                };
             } else if (type === 'video') {
                 mainVideo.querySelector('source').src = src;
                 mainVideo.load();
@@ -351,6 +363,10 @@
                 mediaCounter.style.display = 'none';
                 updatePlayIcon(thumbnail, false);
                 mainVideoIsPlaying = false;
+                // إزالة لون الخلفية عند تحميل الفيديو
+                mainVideo.onloadeddata = () => {
+                    mainMediaContainer.style.backgroundColor = 'transparent';
+                };
             }
         }
 
