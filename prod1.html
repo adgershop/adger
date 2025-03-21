@@ -70,6 +70,14 @@
             width: 66px;
             height: 66px;
             box-sizing: border-box;
+            background-color: #e0e0e0; /* Placeholder background color */
+            animation: pulse 1.5s infinite ease-in-out; /* Loading animation */
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
         }
 
         .thumbnail img, .thumbnail video {
@@ -83,6 +91,25 @@
 
         .thumbnail.active {
             border-color: #ff0000;
+        }
+
+        .thumbnail.loading::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-top-color: #888;
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         .play-icon {
@@ -240,12 +267,18 @@
                 display: none;
             }
         }
+
+        /* Main media loading state */
+        .main-media.loading {
+            background-color: #e0e0e0;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 </head>
 <body>
     <div class="gallery">
-        <div class="main-media">
+        <div class="main-media loading">
             <img id="mainMedia" alt="الصورة الرئيسية">
             <video id="mainVideo" controls style="display: none;">
                 <source type="video/mp4">
@@ -269,15 +302,30 @@
         <div class="media-counter">
             منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
         </div>
-        <div class="thumbnails">
-            <div id="loading" style="text-align: center; padding: 20px;">جاري التحميل...</div>
-            <!-- سيتم إضافة الصور المصغرة هنا ديناميكيًا -->
+        <div class="thumbnails" id="thumbnailsContainer">
+            <!-- Placeholder thumbnails will be added here -->
         </div>
     </div>
 
     <script>
         let videoIsPlaying = false;
-
+        let isSwiping = false;
+        
+        // Create placeholder thumbnails immediately
+        function createPlaceholderThumbnails(count = 5) {
+            const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+            for (let i = 0; i < count; i++) {
+                const thumbnail = document.createElement('div');
+                thumbnail.classList.add('thumbnail', 'loading');
+                if (i === 0) thumbnail.classList.add('active');
+                thumbnailsContainer.appendChild(thumbnail);
+            }
+            
+            // Update counter with placeholder values
+            document.getElementById('totalMedia').textContent = count;
+            document.getElementById('currentMedia').textContent = '1';
+        }
+        
         function calculateTotalMedia() {
             const totalMedia = document.querySelectorAll('.thumbnail').length;
             document.getElementById('totalMedia').textContent = totalMedia;
@@ -308,6 +356,7 @@
         }
 
         function updateMainMedia(thumbnail) {
+            const mainMediaContainer = document.querySelector('.main-media');
             const mainImage = document.getElementById('mainMedia');
             const mainVideo = document.getElementById('mainVideo');
             const shareButton = document.getElementById('shareButton');
@@ -328,6 +377,11 @@
                 videoIsPlaying = false;
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
+                
+                // Remove loading state once image is loaded
+                mainImage.onload = function() {
+                    mainMediaContainer.classList.remove('loading');
+                };
             } else if (type === 'video') {
                 mainVideo.querySelector('source').src = src;
                 mainVideo.load();
@@ -335,10 +389,16 @@
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
+                
+                // Remove loading state once video metadata is loaded
+                mainVideo.onloadedmetadata = function() {
+                    mainMediaContainer.classList.remove('loading');
+                };
             }
         }
 
         function updateAllVideoThumbnails() {
+            // تحديث جميع المصغرات الفيديو وفقًا لحالة التشغيل
             const videoThumbnails = document.querySelectorAll('.thumbnail[data-type="video"]');
             videoThumbnails.forEach(thumb => {
                 updatePlayIcon(thumb, videoIsPlaying);
@@ -356,7 +416,11 @@
             }
         }
 
+        // Create placeholder thumbnails immediately when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
+            // Show placeholder thumbnails immediately
+            createPlaceholderThumbnails();
+            
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
 
@@ -377,19 +441,17 @@
                             return;
                         }
 
+                        // Clear placeholder thumbnails
                         const thumbnailsContainer = document.querySelector('.thumbnails');
-                        // إزالة عنصر التحميل بعد جلب البيانات
-                        const loadingElement = document.getElementById('loading');
-                        if (loadingElement) {
-                            loadingElement.remove();
-                        }
-
+                        thumbnailsContainer.innerHTML = '';
+                        
                         product.media.forEach((mediaItem, index) => {
                             const thumbnail = document.createElement('div');
                             thumbnail.classList.add('thumbnail');
                             if (index === 0) thumbnail.classList.add('active');
                             thumbnail.setAttribute('data-src', mediaItem.src);
                             thumbnail.setAttribute('data-type', mediaItem.type);
+                            thumbnail.classList.add('loading'); // Add loading state initially
 
                             if (mediaItem.type === 'video') {
                                 const video = document.createElement('video');
@@ -403,11 +465,21 @@
                                 `;
                                 thumbnail.appendChild(video);
                                 thumbnail.appendChild(playIcon);
+                                
+                                // Remove loading class when video metadata is loaded
+                                video.onloadedmetadata = function() {
+                                    thumbnail.classList.remove('loading');
+                                };
                             } else {
                                 const img = document.createElement('img');
                                 img.src = mediaItem.src;
                                 img.alt = 'صورة';
                                 thumbnail.appendChild(img);
+                                
+                                // Remove loading class when image is loaded
+                                img.onload = function() {
+                                    thumbnail.classList.remove('loading');
+                                };
                             }
                             thumbnailsContainer.appendChild(thumbnail);
 
@@ -452,10 +524,7 @@
                             }
                         });
                     })
-                    .catch(error => {
-                        console.error('خطأ في جلب البيانات:', error);
-                        // يمكن إضافة رسالة خطأ هنا إذا لزم الأمر
-                    });
+                    .catch(error => console.error('خطأ في جلب البيانات:', error));
             } else {
                 console.error('يرجى تحديد معرف المنتج في URL');
             }
