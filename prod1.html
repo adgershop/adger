@@ -275,6 +275,8 @@
     </div>
 
     <script>
+        let videoIsPlaying = false;
+
         function calculateTotalMedia() {
             const totalMedia = document.querySelectorAll('.thumbnail').length;
             document.getElementById('totalMedia').textContent = totalMedia;
@@ -312,9 +314,9 @@
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
-            const prevActiveThumbnail = document.querySelector('.thumbnail.active');
-            if (prevActiveThumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
-                updatePlayIcon(prevActiveThumbnail, false);
+            // تحديث حالة أيقونة التشغيل للفيديو السابق
+            if (videoIsPlaying) {
+                updateAllVideoThumbnails();
             }
 
             if (type === 'image') {
@@ -322,6 +324,7 @@
                 mainImage.style.display = 'block';
                 mainVideo.style.display = 'none';
                 mainVideo.pause();
+                videoIsPlaying = false;
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
             } else if (type === 'video') {
@@ -332,6 +335,14 @@
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
             }
+        }
+
+        function updateAllVideoThumbnails() {
+            // تحديث جميع المصغرات الفيديو وفقًا لحالة التشغيل
+            const videoThumbnails = document.querySelectorAll('.thumbnail[data-type="video"]');
+            videoThumbnails.forEach(thumb => {
+                updatePlayIcon(thumb, videoIsPlaying);
+            });
         }
 
         function updatePlayIcon(thumbnail, isPlaying) {
@@ -409,16 +420,12 @@
 
                         const mainVideo = document.getElementById('mainVideo');
                         mainVideo.addEventListener('play', () => {
-                            const activeThumbnail = document.querySelector('.thumbnail.active');
-                            if (activeThumbnail.getAttribute('data-type') === 'video') {
-                                updatePlayIcon(activeThumbnail, true);
-                            }
+                            videoIsPlaying = true;
+                            updateAllVideoThumbnails();
                         });
                         mainVideo.addEventListener('pause', () => {
-                            const activeThumbnail = document.querySelector('.thumbnail.active');
-                            if (activeThumbnail.getAttribute('data-type') === 'video') {
-                                updatePlayIcon(activeThumbnail, false);
-                            }
+                            videoIsPlaying = false;
+                            updateAllVideoThumbnails();
                         });
 
                         // إعداد Hammer.js مع تحكم في التمرير
