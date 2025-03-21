@@ -312,20 +312,17 @@
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
-            // إيقاف الفيديو إذا كان معروضًا وتحديث الأيقونة إلى "Play"
-            if (mainVideo.style.display !== 'none') {
-                mainVideo.pause();
-                const prevActiveThumbnail = document.querySelector('.thumbnail.active');
-                if (prevActiveThumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
-                    updatePlayIcon(prevActiveThumbnail, false); // تعيين إلى "Play"
-                }
+            // إعادة تعيين أيقونة الفيديو السابق إلى "Play" إذا كان هناك فيديو نشط سابقًا
+            const prevActiveThumbnail = document.querySelector('.thumbnail.active');
+            if (prevActiveThumbnail && prevActiveThumbnail !== thumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
+                updatePlayIcon(prevActiveThumbnail, false); // تعيين الأيقونة إلى Play عند التبديل
             }
 
-            // تحديث الوسائط الرئيسية
             if (type === 'image') {
                 mainImage.src = src;
                 mainImage.style.display = 'block';
                 mainVideo.style.display = 'none';
+                mainVideo.pause();
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
             } else if (type === 'video') {
@@ -335,7 +332,6 @@
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
-                updatePlayIcon(thumbnail, false); // تعيين إلى "Play" عند تحميل الفيديو
             }
         }
 
@@ -416,13 +412,13 @@
                         mainVideo.addEventListener('play', () => {
                             const activeThumbnail = document.querySelector('.thumbnail.active');
                             if (activeThumbnail.getAttribute('data-type') === 'video') {
-                                updatePlayIcon(activeThumbnail, true); // تحديث إلى "Pause"
+                                updatePlayIcon(activeThumbnail, true);
                             }
                         });
                         mainVideo.addEventListener('pause', () => {
                             const activeThumbnail = document.querySelector('.thumbnail.active');
                             if (activeThumbnail.getAttribute('data-type') === 'video') {
-                                updatePlayIcon(activeThumbnail, false); // تحديث إلى "Play"
+                                updatePlayIcon(activeThumbnail, false);
                             }
                         });
 
@@ -433,7 +429,7 @@
                     })
                     .catch(error => console.error('خطأ في جلب البيانات:', error));
             } else {
-                console.error(' Yرجى تحديد معرف المنتج في URL');
+                console.error('يرجى تحديد معرف المنتج في URL');
             }
         });
 
