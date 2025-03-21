@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>معرض الصور</title>
+    <title>Adger</title>
+    <link rel="icon" href="logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,12 +17,6 @@
             background-color: #f4f4f4;
         }
 
-        .line {
-            width: 100%;
-            height: 8px;
-            background-color: #eeeeee;
-        }
-        
         .gallery {
             display: flex;
             align-items: flex-start;
@@ -32,9 +28,6 @@
         .main-media {
             margin-left: 20px;
             position: relative;
-            background-color: #e0e0e0; /* لون رصاصي أثناء التحميل */
-            width: 400px; /* مطابق لعرض الصورة */
-            height: 400px; /* مطابق لارتفاع الصورة */
         }
 
         .main-media img, .main-media video {
@@ -43,10 +36,6 @@
             border: 2px solid #ccc;
             border-radius: 10px;
             display: block;
-        }
-
-        .main-media img {
-            display: none; /* إخفاء الصورة الافتراضية حتى يتم تحميلها */
         }
 
         .main-media video:fullscreen {
@@ -92,18 +81,6 @@
             border-color: #ff0000;
         }
 
-        .thumbnail.placeholder {
-            background-color: #e0e0e0;
-            border: 2px solid #ccc;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
         .play-icon {
             position: absolute;
             top: 50%;
@@ -144,55 +121,6 @@
             bottom: 11px;
         }
 
-        .share-button.top {
-            top: 10px;
-            display: none;
-        }
-
-        .share-button svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        @media (max-width: 555px) {
-            .gallery {
-                flex-direction: column;
-                align-items: center;
-                margin-top: 22px;
-                margin-right: 1px;
-            }
-
-            .main-media {
-                margin-left: 0;
-                margin-bottom: 20px;
-                width: 311px; /* للشاشات الصغيرة */
-                height: 311px; /* للشاشات الصغيرة */
-            }
-
-            .main-media img, .main-media video {
-                width: 311px;
-                height: 311px;
-            }
-
-            .thumbnails {
-                flex-direction: row;
-                max-height: none;
-                overflow-x: auto;
-                overflow-y: hidden;
-                padding-left: 0;
-                width: 311px;
-                white-space: nowrap;
-                gap: 10px;
-            }
-
-            .thumbnail {
-                margin: 0;
-                flex: 0 0 auto;
-                width: 65px;
-                height: 65px;
-            }
-        }
-
         .media-counter {
             position: absolute;
             font-family: 'Cairo', sans-serif;
@@ -208,15 +136,6 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        @media (max-width: 555px) {
-            .media-counter {
-                bottom: 95px;
-                right: 15px;
-                font-size: 11px;
-                padding: 3px 13px;
-            }
         }
 
         .arrow {
@@ -235,6 +154,8 @@
             color: white;
             font-size: 24px;
             z-index: 1;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
         }
 
         .arrow.left {
@@ -256,7 +177,49 @@
             cursor: not-allowed;
         }
 
-        @media (max-width: 556px) {
+        @media (max-width: 555px) {
+            .gallery {
+                flex-direction: column;
+                align-items: center;
+                margin-top: 22px;
+                margin-right: 1px;
+            }
+
+            .main-media {
+                margin-left: 0;
+                margin-bottom: 20px;
+            }
+
+            .main-media img, .main-media video {
+                width: 311px;
+                height: 311px;
+            }
+
+            .thumbnails {
+                flex-direction: row;
+                max-height: none;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding-left: 0;
+                width: 311px;
+                gap: 10px;
+            }
+
+            .thumbnail {
+                margin: 0;
+                flex: 0 0 auto;
+                width: 65px;
+                height: 65px;
+            }
+
+            .media-counter {
+                background-color: rgba(255, 255, 255, 0.616);
+                bottom: 95px;
+                right: 15px;
+                font-size: 11px;
+                padding: 3px 13px;
+            }
+
             .arrow {
                 display: none;
             }
@@ -291,23 +254,20 @@
             منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
         </div>
         <div class="thumbnails">
-            <div class="thumbnail placeholder"></div>
-            <div class="thumbnail placeholder"></div>
-            <div class="thumbnail placeholder"></div>
-            <div class="thumbnail placeholder"></div>
+            <!-- سيتم إضافة الصور المصغرة هنا ديناميكيًا -->
         </div>
     </div>
 
     <script>
-        let mainVideoIsPlaying = false;
-
+        // حساب العدد الإجمالي للوسائط
         function calculateTotalMedia() {
-            const totalMedia = document.querySelectorAll('.thumbnail:not(.placeholder)').length;
+            const totalMedia = document.querySelectorAll('.thumbnail').length;
             document.getElementById('totalMedia').textContent = totalMedia;
         }
 
+        // تحديث رقم الوسيطة الحالية
         function updateCurrentMedia() {
-            const thumbnails = document.querySelectorAll('.thumbnail:not(.placeholder)');
+            const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = 0;
             thumbnails.forEach((thumb, index) => {
                 if (thumb.classList.contains('active')) {
@@ -316,46 +276,24 @@
             });
             document.getElementById('currentMedia').textContent = currentIndex;
             updateArrowState(currentIndex, thumbnails.length);
-            scrollThumbnailIntoView();
         }
 
-        function scrollThumbnailIntoView() {
-            const activeThumbnail = document.querySelector('.thumbnail.active');
-            if (activeThumbnail) {
-                activeThumbnail.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest',
-                    inline: 'center'
-                });
-            }
-        }
-
+        // تحديث الوسيطة الرئيسية
         function updateMainMedia(thumbnail) {
             const mainImage = document.getElementById('mainMedia');
             const mainVideo = document.getElementById('mainVideo');
-            const mainMediaContainer = document.querySelector('.main-media');
             const shareButton = document.getElementById('shareButton');
             const mediaCounter = document.querySelector('.media-counter');
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
-
-            const prevActiveThumbnail = document.querySelector('.thumbnail.active');
-            if (prevActiveThumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
-                updatePlayIcon(prevActiveThumbnail, false);
-            }
 
             if (type === 'image') {
                 mainImage.src = src;
                 mainImage.style.display = 'block';
                 mainVideo.style.display = 'none';
                 mainVideo.pause();
-                mainVideoIsPlaying = false;
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
-                // إزالة لون الخلفية عند تحميل الصورة
-                mainImage.onload = () => {
-                    mainMediaContainer.style.backgroundColor = 'transparent';
-                };
             } else if (type === 'video') {
                 mainVideo.querySelector('source').src = src;
                 mainVideo.load();
@@ -363,38 +301,22 @@
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
-                updatePlayIcon(thumbnail, false);
-                mainVideoIsPlaying = false;
-                // إزالة لون الخلفية عند تحميل الفيديو
-                mainVideo.onloadeddata = () => {
-                    mainMediaContainer.style.backgroundColor = 'transparent';
-                };
             }
         }
 
+        // تحديث أيقونة التشغيل/الإيقاف للفيديو
         function updatePlayIcon(thumbnail, isPlaying) {
             const playIcon = thumbnail.querySelector('.play-icon svg');
             if (playIcon) {
                 if (isPlaying) {
-                    playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
+                    playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`; // Pause icon
                 } else {
-                    playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
+                    playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`; // Play icon
                 }
             }
         }
 
-        function updateAllVideoIcons() {
-            const mainVideo = document.getElementById('mainVideo');
-            const isPlaying = !mainVideo.paused && !mainVideo.ended;
-            document.querySelectorAll('.thumbnail[data-type="video"]').forEach(thumbnail => {
-                if (thumbnail.classList.contains('active')) {
-                    updatePlayIcon(thumbnail, isPlaying);
-                } else {
-                    updatePlayIcon(thumbnail, false);
-                }
-            });
-        }
-
+        // جلب البيانات من JSON عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
@@ -417,8 +339,6 @@
                         }
 
                         const thumbnailsContainer = document.querySelector('.thumbnails');
-                        thumbnailsContainer.innerHTML = ''; // مسح العناصر الوهمية
-
                         product.media.forEach((mediaItem, index) => {
                             const thumbnail = document.createElement('div');
                             thumbnail.classList.add('thumbnail');
@@ -461,33 +381,22 @@
 
                         const mainVideo = document.getElementById('mainVideo');
                         mainVideo.addEventListener('play', () => {
-                            mainVideoIsPlaying = true;
-                            updateAllVideoIcons();
+                            const activeThumbnail = document.querySelector('.thumbnail.active');
+                            if (activeThumbnail.getAttribute('data-type') === 'video') {
+                                updatePlayIcon(activeThumbnail, true);
+                            }
                         });
-
                         mainVideo.addEventListener('pause', () => {
-                            mainVideoIsPlaying = false;
-                            updateAllVideoIcons();
-                        });
-
-                        mainVideo.addEventListener('ended', () => {
-                            mainVideoIsPlaying = false;
-                            updateAllVideoIcons();
-                        });
-
-                        document.querySelectorAll('.thumbnail').forEach(thumbnail => {
-                            thumbnail.addEventListener('focus', () => {
-                                if (thumbnail.getAttribute('data-type') === 'video' && 
-                                    thumbnail.classList.contains('active')) {
-                                    updatePlayIcon(thumbnail, mainVideoIsPlaying);
-                                }
-                            });
+                            const activeThumbnail = document.querySelector('.thumbnail.active');
+                            if (activeThumbnail.getAttribute('data-type') === 'video') {
+                                updatePlayIcon(activeThumbnail, false);
+                            }
                         });
 
                         const mainMediaContainer = document.querySelector('.main-media');
                         const hammer = new Hammer(mainMediaContainer);
-                        hammer.on('swipeleft', prevMedia);
-                        hammer.on('swiperight', nextMedia);
+                        hammer.on('swipeleft', nextMedia);
+                        hammer.on('swiperight', prevMedia);
                     })
                     .catch(error => console.error('خطأ في جلب البيانات:', error));
             } else {
@@ -495,8 +404,9 @@
             }
         });
 
+        // الانتقال إلى الوسيطة التالية
         function nextMedia() {
-            const thumbnails = document.querySelectorAll('.thumbnail:not(.placeholder)');
+            const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = -1;
             thumbnails.forEach((thumb, index) => {
                 if (thumb.classList.contains('active')) {
@@ -511,8 +421,9 @@
             }
         }
 
+        // الانتقال إلى الوسيطة السابقة
         function prevMedia() {
-            const thumbnails = document.querySelectorAll('.thumbnail:not(.placeholder)');
+            const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = -1;
             thumbnails.forEach((thumb, index) => {
                 if (thumb.classList.contains('active')) {
@@ -527,6 +438,7 @@
             }
         }
 
+        // مشاركة الصفحة
         function sharePage() {
             if (navigator.share) {
                 navigator.share({
@@ -538,6 +450,7 @@
             }
         }
 
+        // تحديث حالة السهام
         function updateArrowState(currentIndex, totalMedia) {
             const leftArrow = document.querySelector('.arrow.left');
             const rightArrow = document.querySelector('.arrow.right');
