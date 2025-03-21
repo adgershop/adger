@@ -244,16 +244,22 @@
         <div class="thumbnails"></div>
     </div>
     <script>
-        const mediaData = [
-            { id: 1, src: "path/to/image1.jpg", type: "image" },
-            { id: 2, src: "path/to/image2.jpg", type: "image" },
-            { id: 3, src: "path/to/image3.jpg", type: "image" },
-            { id: 4, src: "path/to/video1.mp4", type: "video" }
-        ];
+        const jsonData = {
+            "media": [
+                {"id": 1, "src": "1.jpg", "type": "image"},
+                {"id": 2, "src": "a2.jpg", "type": "image"},
+                {"id": 3, "src": "a3.jpg", "type": "image"},
+                {"id": 4, "src": "a4.jpg", "type": "image"},
+                {"id": 5, "src": "a5.jpg", "type": "image"},
+                {"id": 6, "src": "a6.jpg", "type": "image"},
+                {"id": 7, "src": "a7.jpg", "type": "image"},
+                {"id": 8, "src": "3e.mp4", "type": "video"}
+            ]
+        };
 
         function loadThumbnails() {
             const thumbnailsContainer = document.querySelector('.thumbnails');
-            mediaData.forEach((item, index) => {
+            jsonData.media.forEach((item, index) => {
                 const thumbnailDiv = document.createElement('div');
                 thumbnailDiv.classList.add('thumbnail');
                 if (index === 0) thumbnailDiv.classList.add('active');
@@ -313,26 +319,26 @@
         }
 
         function calculateTotalMedia() {
-            document.getElementById('totalMedia').textContent = mediaData.length;
+            document.getElementById('totalMedia').textContent = jsonData.media.length;
         }
 
         function updateCurrentMedia() {
             const activeThumbnail = document.querySelector('.thumbnail.active');
             const activeId = activeThumbnail.getAttribute('data-id');
-            const currentIndex = mediaData.findIndex(item => item.id == activeId) + 1;
+            const currentIndex = jsonData.media.findIndex(item => item.id == activeId) + 1;
             document.getElementById('currentMedia').textContent = currentIndex;
-            updateArrowState(currentIndex, mediaData.length);
+            updateArrowState(currentIndex, jsonData.media.length);
         }
 
         function nextMedia() {
             const activeThumbnail = document.querySelector('.thumbnail.active');
             const activeId = activeThumbnail.getAttribute('data-id');
-            const currentIndex = mediaData.findIndex(item => item.id == activeId);
-            if (currentIndex < mediaData.length - 1) {
+            const currentIndex = jsonData.media.findIndex(item => item.id == activeId);
+            if (currentIndex < jsonData.media.length - 1) {
                 activeThumbnail.classList.remove('active');
-                const nextThumbnail = document.querySelector(`.thumbnail[data-id="${mediaData[currentIndex + 1].id}"]`);
+                const nextThumbnail = document.querySelector(`.thumbnail[data-id="${jsonData.media[currentIndex + 1].id}"]`);
                 nextThumbnail.classList.add('active');
-                updateMainMedia(mediaData[currentIndex + 1]);
+                updateMainMedia(jsonData.media[currentIndex + 1]);
                 setTimeout(updateCurrentMedia, 100);
             }
         }
@@ -340,12 +346,12 @@
         function prevMedia() {
             const activeThumbnail = document.querySelector('.thumbnail.active');
             const activeId = activeThumbnail.getAttribute('data-id');
-            const currentIndex = mediaData.findIndex(item => item.id == activeId);
+            const currentIndex = jsonData.media.findIndex(item => item.id == activeId);
             if (currentIndex > 0) {
                 activeThumbnail.classList.remove('active');
-                const prevThumbnail = document.querySelector(`.thumbnail[data-id="${mediaData[currentIndex - 1].id}"]`);
+                const prevThumbnail = document.querySelector(`.thumbnail[data-id="${jsonData.media[currentIndex - 1].id}"]`);
                 prevThumbnail.classList.add('active');
-                updateMainMedia(mediaData[currentIndex - 1]);
+                updateMainMedia(jsonData.media[currentIndex - 1]);
                 setTimeout(updateCurrentMedia, 100);
             }
         }
