@@ -14,11 +14,6 @@
             margin: 0;
             background-color: #f4f4f4;
         }
-        .line {
-            width: 100%;
-            height: 8px;
-            background-color: #eeeeee;
-        }
         .gallery {
             display: flex;
             align-items: flex-start;
@@ -36,9 +31,6 @@
             border: 2px solid #ccc;
             border-radius: 10px;
             display: block;
-        }
-        .main-media video:fullscreen {
-            border: none;
         }
         .thumbnails {
             display: flex;
@@ -192,27 +184,33 @@
     </div>
 
     <script>
-        // استخراج الـ ID من URL أو يمكن تمريره بطريقة أخرى
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id') || '1'; // افتراضياً 1 إذا لم يُحدد
+        document.addEventListener('DOMContentLoaded', function() {
+            // استخراج الـ ID من URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || '1'; // افتراضياً 1
 
-        // جلب بيانات JSON من ملف خارجي
-        async function fetchProductData() {
-            try {
-                const response = await fetch('products.json');
-                const products = await response.json();
-                const product = products.find(p => p.id === productId);
-                if (!product) {
-                    console.error('Product not found');
-                    return;
-                }
-                loadThumbnails(product.media);
-            } catch (error) {
-                console.error('Error fetching product data:', error);
-            }
-        }
+            // جلب ملف JSON بناءً على الـ ID
+            fetch(`products-${productId}.json`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('ملف JSON غير موجود');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    loadThumbnails(data.media);
+                })
+                .catch(error => {
+                    console.error('خطأ في جلب البيانات:', error);
+                    document.body.innerHTML += '<p style="color: red; text-align: center;">حدث خطأ أثناء تحميل البيانات</p>';
+                });
 
-        // دالة لتحميل الصور المصغرة
+            const mainMediaContainer = document.querySelector('.main-media');
+            const hammer = new Hammer(mainMediaContainer);
+            hammer.on('swipeleft', nextMedia);
+            hammer.on('swiperight', prevMedia);
+        });
+
         function loadThumbnails(mediaList) {
             const thumbnailsContainer = document.getElementById('thumbnailsContainer');
             thumbnailsContainer.innerHTML = '';
@@ -247,7 +245,6 @@
                 thumbnailsContainer.appendChild(thumbnail);
             });
 
-            // إضافة مستمعي الأحداث
             document.querySelectorAll('.thumbnail').forEach(thumb => {
                 thumb.addEventListener('click', () => {
                     document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
@@ -257,7 +254,6 @@
                 });
             });
 
-            // تحديث العرض الأولي
             calculateTotalMedia();
             updateCurrentMedia();
             const initialThumbnail = document.querySelector('.thumbnail.active');
@@ -302,15 +298,6 @@
                 shareButton.style.display = 'none';
             }
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchProductData();
-
-            const mainMediaContainer = document.querySelector('.main-media');
-            const hammer = new Hammer(mainMediaContainer);
-            hammer.on('swipeleft', nextMedia);
-            hammer.on('swiperight', prevMedia);
-        });
 
         function nextMedia() {
             const thumbnails = document.querySelectorAll('.thumbnail');
