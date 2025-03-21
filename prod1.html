@@ -279,6 +279,7 @@
             const totalMedia = document.querySelectorAll('.thumbnail').length;
             document.getElementById('totalMedia').textContent = totalMedia;
         }
+
         function updateCurrentMedia() {
             const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = 0;
@@ -291,6 +292,7 @@
             updateArrowState(currentIndex, thumbnails.length);
             scrollThumbnailIntoView();
         }
+
         function scrollThumbnailIntoView() {
             const activeThumbnail = document.querySelector('.thumbnail.active');
             if (activeThumbnail) {
@@ -301,6 +303,7 @@
                 });
             }
         }
+
         function updateMainMedia(thumbnail) {
             const mainImage = document.getElementById('mainMedia');
             const mainVideo = document.getElementById('mainVideo');
@@ -308,23 +311,15 @@
             const mediaCounter = document.querySelector('.media-counter');
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
-    
-            // Pause any active video
-            const currentlyActiveThumbnail = document.querySelector('.thumbnail.active');
-            if (currentlyActiveThumbnail && currentlyActiveThumbnail.getAttribute('data-type') === 'video') {
-                const currentPlayIcon = currentlyActiveThumbnail.querySelector('.play-icon svg');
-                if (currentPlayIcon) {
-                    currentPlayIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`; // Reset to play icon
-                }
-            }
-    
+
             if (type === 'image') {
                 mainImage.src = src;
                 mainImage.style.display = 'block';
                 mainVideo.style.display = 'none';
-                mainVideo.pause(); // Ensure video is paused
+                mainVideo.pause();
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
+                updatePlayIcon(thumbnail, false); // Update play icon to pause when switching from video to image
             } else if (type === 'video') {
                 mainVideo.querySelector('source').src = src;
                 mainVideo.load();
@@ -332,8 +327,10 @@
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
+                updatePlayIcon(thumbnail, mainVideo.paused); // Update play icon based on video state
             }
         }
+
         function updatePlayIcon(thumbnail, isPlaying) {
             const playIcon = thumbnail.querySelector('.play-icon svg');
             if (playIcon) {
@@ -344,13 +341,16 @@
                 }
             }
         }
+
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
+
             if (productId) {
                 const productsPerFile = 100;
                 const fileIndex = Math.ceil(parseInt(productId) / productsPerFile);
                 const jsonFile = `products-${fileIndex}.json`;
+
                 fetch(jsonFile)
                     .then(response => {
                         if (!response.ok) throw new Error('الملف غير موجود');
@@ -362,6 +362,7 @@
                             console.error('المنتج أو الوسائط غير موجودة');
                             return;
                         }
+
                         const thumbnailsContainer = document.querySelector('.thumbnails');
                         product.media.forEach((mediaItem, index) => {
                             const thumbnail = document.createElement('div');
@@ -369,6 +370,7 @@
                             if (index === 0) thumbnail.classList.add('active');
                             thumbnail.setAttribute('data-src', mediaItem.src);
                             thumbnail.setAttribute('data-type', mediaItem.type);
+
                             if (mediaItem.type === 'video') {
                                 const video = document.createElement('video');
                                 video.src = mediaItem.src;
@@ -388,6 +390,7 @@
                                 thumbnail.appendChild(img);
                             }
                             thumbnailsContainer.appendChild(thumbnail);
+
                             thumbnail.addEventListener('click', () => {
                                 document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
                                 thumbnail.classList.add('active');
@@ -395,10 +398,12 @@
                                 setTimeout(updateCurrentMedia, 100);
                             });
                         });
+
                         calculateTotalMedia();
                         updateCurrentMedia();
                         const initialThumbnail = document.querySelector('.thumbnail.active');
                         updateMainMedia(initialThumbnail);
+
                         const mainVideo = document.getElementById('mainVideo');
                         mainVideo.addEventListener('play', () => {
                             const activeThumbnail = document.querySelector('.thumbnail.active');
@@ -412,6 +417,7 @@
                                 updatePlayIcon(activeThumbnail, false);
                             }
                         });
+
                         const mainMediaContainer = document.querySelector('.main-media');
                         const hammer = new Hammer(mainMediaContainer);
                         hammer.on('swipeleft', prevMedia);
@@ -422,6 +428,7 @@
                 console.error('يرجى تحديد معرف المنتج في URL');
             }
         });
+
         function nextMedia() {
             const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = -1;
@@ -437,6 +444,7 @@
                 setTimeout(updateCurrentMedia, 100);
             }
         }
+
         function prevMedia() {
             const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = -1;
@@ -452,6 +460,7 @@
                 setTimeout(updateCurrentMedia, 100);
             }
         }
+
         function sharePage() {
             if (navigator.share) {
                 navigator.share({
@@ -462,14 +471,17 @@
                 console.log('Web Share API not supported');
             }
         }
+
         function updateArrowState(currentIndex, totalMedia) {
             const leftArrow = document.querySelector('.arrow.left');
             const rightArrow = document.querySelector('.arrow.right');
+
             if (currentIndex === 1) {
                 leftArrow.classList.add('disabled');
             } else {
                 leftArrow.classList.remove('disabled');
             }
+
             if (currentIndex === totalMedia) {
                 rightArrow.classList.add('disabled');
             } else {
@@ -477,6 +489,8 @@
             }
         }
     </script>
+</body>
+</html>
 
 
 
