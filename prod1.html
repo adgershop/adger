@@ -32,11 +32,9 @@
         .main-media {
             margin-left: 20px;
             position: relative;
-            background-color: #e0e0e0; /* نفس لون الثمبنيلات الوهمية */
-            width: 400px; /* مطابق لعرض الصورة الكبيرة */
-            height: 400px; /* مطابق لارتفاع الصورة الكبيرة */
-            border: 2px solid #ccc;
-            border-radius: 10px;
+            background-color: #e0e0e0; /* لون رصاصي أثناء التحميل */
+            width: 400px; /* مطابق لعرض الصورة */
+            height: 400px; /* مطابق لارتفاع الصورة */
         }
 
         .main-media img, .main-media video {
@@ -45,6 +43,10 @@
             border: 2px solid #ccc;
             border-radius: 10px;
             display: block;
+        }
+
+        .main-media img {
+            display: none; /* إخفاء الصورة الافتراضية حتى يتم تحميلها */
         }
 
         .main-media video:fullscreen {
@@ -163,8 +165,8 @@
             .main-media {
                 margin-left: 0;
                 margin-bottom: 20px;
-                width: 311px; /* مطابق للشاشات الصغيرة */
-                height: 311px; /* مطابق للشاشات الصغيرة */
+                width: 311px; /* للشاشات الصغيرة */
+                height: 311px; /* للشاشات الصغيرة */
             }
 
             .main-media img, .main-media video {
