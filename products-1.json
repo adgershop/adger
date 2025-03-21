@@ -1,7 +1,16 @@
 [
     {
         "id": "1",
-    
+        "media": [
+            {"src": "1.jpg", "type": "image"},
+            {"src": "a12.jpg", "type": "image"},
+            {"src": "a3.jpg", "type": "image"},
+            {"src": "a4.jpg", "type": "image"},
+            {"src": "a5.jpg", "type": "image"},
+            {"src": "a6.jpg", "type": "image"},
+            {"src": "a7.jpg", "type": "image"},
+            {"src": "3e.mp4", "type": "video"}
+        ],
         "pri": "44",
         "oldPrice": "444",
         "dis": "خصم أكثر من 800%",
@@ -55,16 +64,6 @@
         "texts": {
             "currency": "جنيه",
             "discountLabel": "خصم"
-        }
-    },
-    {
-        "1": {
-            "images": ["1.jpg", "images/a2.jpg", "images/a3.jpg", "images/a4.jpg", "images/a5.jpg", "images/a6.jpg", "images/a7.jpg"],
-            "video": "videos/3e.mp4"
-        },
-        "2": {
-            "images": ["images/b1.jpg", "images/b2.jpg", "images/b3.jpg"],
-            "video": "videos/video2.mp4"
         }
     }
 ]
