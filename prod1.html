@@ -312,6 +312,19 @@
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
+            // إعادة تعيين أيقونة الفيديو السابق إلى "Play" إذا كان هناك فيديو نشط سابقًا
+            const prevActiveThumbnail = document.querySelector('.thumbnail.active');
+            if (prevActiveThumbnail && prevActiveThumbnail !== thumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
+                const prevPlayIcon = prevActiveThumbnail.querySelector('.play-icon');
+                if (prevPlayIcon) {
+                    prevPlayIcon.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path class="play-icon-path" d="M8 5v14l11-7z"/>
+                        </svg>
+                    `;
+                }
+            }
+
             if (type === 'image') {
                 mainImage.src = src;
                 mainImage.style.display = 'block';
@@ -319,7 +332,6 @@
                 mainVideo.pause();
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
-                updatePlayIcon(thumbnail, false); // Update play icon to pause when switching from video to image
             } else if (type === 'video') {
                 mainVideo.querySelector('source').src = src;
                 mainVideo.load();
@@ -327,18 +339,6 @@
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
-                updatePlayIcon(thumbnail, mainVideo.paused); // Update play icon based on video state
-            }
-        }
-
-        function updatePlayIcon(thumbnail, isPlaying) {
-            const playIcon = thumbnail.querySelector('.play-icon svg');
-            if (playIcon) {
-                if (isPlaying) {
-                    playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`; // Pause icon
-                } else {
-                    playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`; // Play icon
-                }
             }
         }
 
@@ -378,7 +378,7 @@
                                 playIcon.classList.add('play-icon');
                                 playIcon.innerHTML = `
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
+                                        <path class="play-icon-path" d="M8 5v14l11-7z"/>
                                     </svg>
                                 `;
                                 thumbnail.appendChild(video);
@@ -407,21 +407,36 @@
                         const mainVideo = document.getElementById('mainVideo');
                         mainVideo.addEventListener('play', () => {
                             const activeThumbnail = document.querySelector('.thumbnail.active');
-                            if (activeThumbnail.getAttribute('data-type') === 'video') {
-                                updatePlayIcon(activeThumbnail, true);
+                            if (activeThumbnail && activeThumbnail.getAttribute('data-type') === 'video') {
+                                const playIcon = activeThumbnail.querySelector('.play-icon');
+                                if (playIcon) {
+                                    playIcon.innerHTML = `
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path class="play-icon-path" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                        </svg>
+                                    `;
+                                }
                             }
                         });
+
                         mainVideo.addEventListener('pause', () => {
                             const activeThumbnail = document.querySelector('.thumbnail.active');
-                            if (activeThumbnail.getAttribute('data-type') === 'video') {
-                                updatePlayIcon(activeThumbnail, false);
+                            if (activeThumbnail && activeThumbnail.getAttribute('data-type') === 'video') {
+                                const playIcon = activeThumbnail.querySelector('.play-icon');
+                                if (playIcon) {
+                                    playIcon.innerHTML = `
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path class="play-icon-path" d="M8 5v14l11-7z"/>
+                                        </svg>
+                                    `;
+                                }
                             }
                         });
 
                         const mainMediaContainer = document.querySelector('.main-media');
                         const hammer = new Hammer(mainMediaContainer);
-                        hammer.on('swipeleft', prevMedia);
-                        hammer.on('swiperight', nextMedia);
+                        hammer.on('swipeleft', nextMedia);
+                        hammer.on('swiperight', prevMedia);
                     })
                     .catch(error => console.error('خطأ في جلب البيانات:', error));
             } else {
