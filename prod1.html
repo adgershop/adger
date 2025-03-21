@@ -275,8 +275,6 @@
     </div>
 
     <script>
-        let mainVideoIsPlaying = false;
-
         function calculateTotalMedia() {
             const totalMedia = document.querySelectorAll('.thumbnail').length;
             document.getElementById('totalMedia').textContent = totalMedia;
@@ -325,7 +323,6 @@
                 mainImage.style.display = 'block';
                 mainVideo.style.display = 'none';
                 mainVideo.pause();
-                mainVideoIsPlaying = false;
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
             } else if (type === 'video') {
@@ -335,11 +332,6 @@
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
-                
-                // Update the play icon based on whether video will autoplay
-                // Initially set to play icon (not playing)
-                updatePlayIcon(thumbnail, false);
-                mainVideoIsPlaying = false;
             }
         }
 
@@ -352,22 +344,6 @@
                     playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`; // Play icon
                 }
             }
-        }
-
-        function updateAllVideoIcons() {
-            const mainVideo = document.getElementById('mainVideo');
-            const isPlaying = !mainVideo.paused && !mainVideo.ended;
-            
-            // Update all video thumbnails
-            document.querySelectorAll('.thumbnail[data-type="video"]').forEach(thumbnail => {
-                // Only update the active thumbnail
-                if (thumbnail.classList.contains('active')) {
-                    updatePlayIcon(thumbnail, isPlaying);
-                } else {
-                    // Non-active video thumbnails should always show play icon
-                    updatePlayIcon(thumbnail, false);
-                }
-            });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -433,31 +409,17 @@
                         updateMainMedia(initialThumbnail);
 
                         const mainVideo = document.getElementById('mainVideo');
-
-                        // Add event listeners to update play/pause icon when video state changes
                         mainVideo.addEventListener('play', () => {
-                            mainVideoIsPlaying = true;
-                            updateAllVideoIcons();
+                            const activeThumbnail = document.querySelector('.thumbnail.active');
+                            if (activeThumbnail.getAttribute('data-type') === 'video') {
+                                updatePlayIcon(activeThumbnail, true);
+                            }
                         });
-
                         mainVideo.addEventListener('pause', () => {
-                            mainVideoIsPlaying = false;
-                            updateAllVideoIcons();
-                        });
-
-                        mainVideo.addEventListener('ended', () => {
-                            mainVideoIsPlaying = false;
-                            updateAllVideoIcons();
-                        });
-
-                        // Ensure icon is updated if we switch to a different thumbnail
-                        document.querySelectorAll('.thumbnail').forEach(thumbnail => {
-                            thumbnail.addEventListener('focus', () => {
-                                if (thumbnail.getAttribute('data-type') === 'video' && 
-                                    thumbnail.classList.contains('active')) {
-                                    updatePlayIcon(thumbnail, mainVideoIsPlaying);
-                                }
-                            });
+                            const activeThumbnail = document.querySelector('.thumbnail.active');
+                            if (activeThumbnail.getAttribute('data-type') === 'video') {
+                                updatePlayIcon(activeThumbnail, false);
+                            }
                         });
 
                         const mainMediaContainer = document.querySelector('.main-media');
