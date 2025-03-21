@@ -15,12 +15,6 @@
             background-color: #f4f4f4;
         }
 
-        .line {
-            width: 100%;
-            height: 8px;
-            background-color: #eeeeee;
-        }
-        
         .gallery {
             display: flex;
             align-items: flex-start;
@@ -123,11 +117,6 @@
 
         .share-button.bottom {
             bottom: 11px;
-        }
-
-        .share-button.top {
-            top: 10px;
-            display: none;
         }
 
         .share-button svg {
@@ -315,7 +304,12 @@
 
         function loadMedia() {
             fetch('media.json')
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('خطأ في جلب البيانات: ' + response.statusText);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     mediaData = data.media;
                     const thumbnailsContainer = document.getElementById('thumbnailsContainer');
@@ -385,7 +379,10 @@
                     hammer.on('swipeleft', nextMedia);
                     hammer.on('swiperight', prevMedia);
                 })
-                .catch(error => console.error('خطأ في تحميل الوسائط:', error));
+                .catch(error => {
+                    console.error('خطأ في تحميل الوسائط:', error);
+                    alert('فشل في تحميل البيانات. تأكد من وجود ملف media.json ومن مسارات الوسائط.');
+                });
         }
 
         function nextMedia() {
