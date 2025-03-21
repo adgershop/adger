@@ -270,6 +270,7 @@
             منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
         </div>
         <div class="thumbnails">
+            <div id="loading" style="text-align: center; padding: 20px;">جاري التحميل...</div>
             <!-- سيتم إضافة الصور المصغرة هنا ديناميكيًا -->
         </div>
     </div>
@@ -338,7 +339,6 @@
         }
 
         function updateAllVideoThumbnails() {
-            // تحديث جميع المصغرات الفيديو وفقًا لحالة التشغيل
             const videoThumbnails = document.querySelectorAll('.thumbnail[data-type="video"]');
             videoThumbnails.forEach(thumb => {
                 updatePlayIcon(thumb, videoIsPlaying);
@@ -378,6 +378,12 @@
                         }
 
                         const thumbnailsContainer = document.querySelector('.thumbnails');
+                        // إزالة عنصر التحميل بعد جلب البيانات
+                        const loadingElement = document.getElementById('loading');
+                        if (loadingElement) {
+                            loadingElement.remove();
+                        }
+
                         product.media.forEach((mediaItem, index) => {
                             const thumbnail = document.createElement('div');
                             thumbnail.classList.add('thumbnail');
@@ -446,7 +452,10 @@
                             }
                         });
                     })
-                    .catch(error => console.error('خطأ في جلب البيانات:', error));
+                    .catch(error => {
+                        console.error('خطأ في جلب البيانات:', error);
+                        // يمكن إضافة رسالة خطأ هنا إذا لزم الأمر
+                    });
             } else {
                 console.error('يرجى تحديد معرف المنتج في URL');
             }
