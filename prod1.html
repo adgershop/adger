@@ -47,6 +47,19 @@
             border: none;
         }
 
+        /* الصورة الرمادية البديلة أثناء التحميل */
+        .placeholder-image {
+            width: 400px;
+            height: 400px;
+            background-color: #d3d3d3; /* لون رمادي فاتح */
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 5; /* لتظهر فوق الصورة الأصلية أثناء التحميل */
+        }
+
         .thumbnails {
             display: flex;
             flex-direction: column;
@@ -74,10 +87,8 @@
         }
 
         .thumbnail.loading {
-            background-color: #e0e0e0;
+            background-color: #d3d3d3; /* لون رمادي فاتح للمصغرات أثناء التحميل */
         }
-
-        /* تمت إزالة تأثير الوميض هنا */
         
         .thumbnail img, .thumbnail video {
             width: 100%;
@@ -179,6 +190,11 @@
                 height: 311px;
             }
 
+            .placeholder-image {
+                width: 311px;
+                height: 311px;
+            }
+
             .thumbnails {
                 flex-direction: row;
                 max-height: none;
@@ -209,7 +225,7 @@
             font-size: 13px;
             direction: rtl;
             cursor: pointer;
-            display: flex;
+            display: none; /* تم تغييرها لتكون مخفية افتراضيًا */
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -266,37 +282,13 @@
                 display: none;
             }
         }
-
-        /* تم تعديل حالة تحميل العنصر الرئيسي لإزالة الوميض */
-        .main-media.loading {
-            background-color: transparent;
-        }
-
-        /* إضافة موضع احتياطي للصورة الرئيسية */
-        .main-media-placeholder {
-            width: 400px;
-            height: 400px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        @media (max-width: 555px) {
-            .main-media-placeholder {
-                width: 311px;
-                height: 311px;
-            }
-        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 </head>
 <body>
     <div class="gallery">
         <div class="main-media">
-            <div class="main-media-placeholder"></div>
+            <div class="placeholder-image"></div>
             <img id="mainMedia" alt="الصورة الرئيسية">
             <video id="mainVideo" controls style="display: none;">
                 <source type="video/mp4">
@@ -326,14 +318,13 @@
     </div>
 
     <script>
-        let videoIsPlaying = false;
-        
+        let videoIsPlaying = false;        
         // إنشاء مصغرات احتياطية فارغة فورًا
         function createPlaceholderThumbnails(count = 5) {
             const thumbnailsContainer = document.getElementById('thumbnailsContainer');
             for (let i = 0; i < count; i++) {
                 const thumbnail = document.createElement('div');
-                thumbnail.classList.add('thumbnail');
+                thumbnail.classList.add('thumbnail', 'loading');
                 if (i === 0) thumbnail.classList.add('active');
                 thumbnailsContainer.appendChild(thumbnail);
             }
@@ -373,7 +364,7 @@
         }
 
         function updateMainMedia(thumbnail) {
-            const mainMediaContainer = document.querySelector('.main-media');
+            const placeholderImage = document.querySelector('.placeholder-image');
             const mainImage = document.getElementById('mainMedia');
             const mainVideo = document.getElementById('mainVideo');
             const shareButton = document.getElementById('shareButton');
@@ -386,8 +377,9 @@
                 updateAllVideoThumbnails();
             }
 
-            // إزالة فورية لفئة التحميل
-            mainMediaContainer.classList.remove('loading');
+            // إظهار الصورة الرمادية وإخفاء عداد الصور أثناء التحميل
+            placeholderImage.style.display = 'block';
+            mediaCounter.style.display = 'none';
 
             if (type === 'image') {
                 mainImage.src = src;
@@ -396,14 +388,23 @@
                 mainVideo.pause();
                 videoIsPlaying = false;
                 shareButton.style.display = 'flex';
-                mediaCounter.style.display = 'flex';
+                
+                // إزالة الصورة الرمادية وإظهار عداد الصور بعد اكتمال التحميل
+                mainImage.onload = function() {
+                    placeholderImage.style.display = 'none';
+                    mediaCounter.style.display = 'flex';
+                };
             } else if (type === 'video') {
                 mainVideo.querySelector('source').src = src;
                 mainVideo.load();
                 mainVideo.style.display = 'block';
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
-                mediaCounter.style.display = 'none';
+                
+                // إزالة الصورة الرمادية بعد اكتمال تحميل الفيديو
+                mainVideo.onloadedmetadata = function() {
+                    placeholderImage.style.display = 'none';
+                };
             }
         }
 
@@ -457,7 +458,7 @@
                         
                         product.media.forEach((mediaItem, index) => {
                             const thumbnail = document.createElement('div');
-                            thumbnail.classList.add('thumbnail');
+                            thumbnail.classList.add('thumbnail', 'loading');
                             if (index === 0) thumbnail.classList.add('active');
                             thumbnail.setAttribute('data-src', mediaItem.src);
                             thumbnail.setAttribute('data-type', mediaItem.type);
