@@ -58,7 +58,7 @@
         .placeholder-image {
             width: 400px;
             height: 400px;
-            background-color: #d3d3d3; /* لون رمادي فاتح */
+            background-color: #eeeeee; /* لون رمادي فاتح قريب من الأبيض */
             border: 2px solid #ccc;
             border-radius: 10px;
             position: absolute;
@@ -94,7 +94,7 @@
         }
 
         .thumbnail.loading {
-            background-color: #d3d3d3; /* لون رمادي فاتح للمصغرات أثناء التحميل */
+            background-color: #eeeeee; /* لون رمادي فاتح للمصغرات أثناء التحميل */
         }
         
         .thumbnail img, .thumbnail video {
@@ -232,7 +232,7 @@
             font-size: 13px;
             direction: rtl;
             cursor: pointer;
-            display: none; /* تم تغييرها لتكون مخفية افتراضيًا */
+            display: none; /* مخفية افتراضيًا */
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -290,7 +290,7 @@
             }
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammerleaving.min.js"></script>
 </head>
 <body>
     <div class="gallery">
@@ -325,7 +325,7 @@
     </div>
 
     <script>
-        let videoIsPlaying = false;        
+        let videoIsPlaying = false;
         // إنشاء مصغرات احتياطية فارغة فورًا
         function createPlaceholderThumbnails(count = 5) {
             const thumbnailsContainer = document.getElementById('thumbnailsContainer');
