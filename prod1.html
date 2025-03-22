@@ -40,6 +40,7 @@
             border: 2px solid #ccc;
             border-radius: 10px;
             display: block;
+            object-fit: cover;
         }
 
         .main-media video:fullscreen {
@@ -72,6 +73,12 @@
             box-sizing: border-box;
         }
 
+        .thumbnail.loading {
+            background-color: #e0e0e0;
+        }
+
+        /* تمت إزالة تأثير الوميض هنا */
+        
         .thumbnail img, .thumbnail video {
             width: 100%;
             height: 100%;
@@ -82,7 +89,26 @@
         }
 
         .thumbnail.active {
-            border-color: #000000;
+            border-color: #ff0000;
+        }
+
+        .thumbnail.loading::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-top-color: #888;
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         .play-icon {
@@ -109,7 +135,7 @@
         .share-button {
             position: absolute;
             left: 11px;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(121, 121, 121, 0.8);
             border: none;
             border-radius: 50%;
             width: 40px;
@@ -240,17 +266,42 @@
                 display: none;
             }
         }
+
+        /* تم تعديل حالة تحميل العنصر الرئيسي لإزالة الوميض */
+        .main-media.loading {
+            background-color: transparent;
+        }
+
+        /* إضافة موضع احتياطي للصورة الرئيسية */
+        .main-media-placeholder {
+            width: 400px;
+            height: 400px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        @media (max-width: 555px) {
+            .main-media-placeholder {
+                width: 311px;
+                height: 311px;
+            }
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 </head>
 <body>
     <div class="gallery">
         <div class="main-media">
+            <div class="main-media-placeholder"></div>
             <img id="mainMedia" alt="الصورة الرئيسية">
             <video id="mainVideo" controls style="display: none;">
                 <source type="video/mp4">
             </video>
-            <button class="share-button bottom" id="shareButton" onclick="sharePage()" style="color: #000000;">
+            <button class="share-button bottom" id="shareButton" onclick="sharePage()" style="color: #ffffff;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
                 </svg>
@@ -269,12 +320,29 @@
         <div class="media-counter">
             منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
         </div>
-        <div class="thumbnails">
-            <!-- سيتم إضافة الصور المصغرة هنا ديناميكيًا -->
+        <div class="thumbnails" id="thumbnailsContainer">
+            <!-- سيتم إضافة المصغرات الاحتياطية هنا -->
         </div>
     </div>
 
     <script>
+        let videoIsPlaying = false;
+        
+        // إنشاء مصغرات احتياطية فارغة فورًا
+        function createPlaceholderThumbnails(count = 5) {
+            const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+            for (let i = 0; i < count; i++) {
+                const thumbnail = document.createElement('div');
+                thumbnail.classList.add('thumbnail');
+                if (i === 0) thumbnail.classList.add('active');
+                thumbnailsContainer.appendChild(thumbnail);
+            }
+            
+            // تحديث العداد بالقيم الافتراضية
+            document.getElementById('totalMedia').textContent = count;
+            document.getElementById('currentMedia').textContent = '1';
+        }
+        
         function calculateTotalMedia() {
             const totalMedia = document.querySelectorAll('.thumbnail').length;
             document.getElementById('totalMedia').textContent = totalMedia;
@@ -305,6 +373,7 @@
         }
 
         function updateMainMedia(thumbnail) {
+            const mainMediaContainer = document.querySelector('.main-media');
             const mainImage = document.getElementById('mainMedia');
             const mainVideo = document.getElementById('mainVideo');
             const shareButton = document.getElementById('shareButton');
@@ -312,17 +381,20 @@
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
-            // إعادة تعيين أيقونة الفيديو السابق إلى "Play" إذا كان هناك فيديو نشط سابقًا
-            const prevActiveThumbnail = document.querySelector('.thumbnail.active');
-            if (prevActiveThumbnail && prevActiveThumbnail.getAttribute('data-type') === 'video') {
-                updatePlayIcon(prevActiveThumbnail, false);
+            // تحديث حالة أيقونة التشغيل للفيديو السابق
+            if (videoIsPlaying) {
+                updateAllVideoThumbnails();
             }
+
+            // إزالة فورية لفئة التحميل
+            mainMediaContainer.classList.remove('loading');
 
             if (type === 'image') {
                 mainImage.src = src;
                 mainImage.style.display = 'block';
                 mainVideo.style.display = 'none';
                 mainVideo.pause();
+                videoIsPlaying = false;
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
             } else if (type === 'video') {
@@ -335,18 +407,30 @@
             }
         }
 
+        function updateAllVideoThumbnails() {
+            // تحديث جميع المصغرات الفيديو وفقًا لحالة التشغيل
+            const videoThumbnails = document.querySelectorAll('.thumbnail[data-type="video"]');
+            videoThumbnails.forEach(thumb => {
+                updatePlayIcon(thumb, videoIsPlaying);
+            });
+        }
+
         function updatePlayIcon(thumbnail, isPlaying) {
             const playIcon = thumbnail.querySelector('.play-icon svg');
             if (playIcon) {
                 if (isPlaying) {
-                    playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`; // Pause icon
+                    playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
                 } else {
-                    playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`; // Play icon
+                    playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
                 }
             }
         }
 
+        // إنشاء مصغرات احتياطية فورًا عندما يتم تحميل المستند
         document.addEventListener('DOMContentLoaded', function() {
+            // عرض المصغرات الاحتياطية فورًا
+            createPlaceholderThumbnails();
+            
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
 
@@ -367,7 +451,10 @@
                             return;
                         }
 
+                        // مسح المصغرات الاحتياطية
                         const thumbnailsContainer = document.querySelector('.thumbnails');
+                        thumbnailsContainer.innerHTML = '';
+                        
                         product.media.forEach((mediaItem, index) => {
                             const thumbnail = document.createElement('div');
                             thumbnail.classList.add('thumbnail');
@@ -387,11 +474,21 @@
                                 `;
                                 thumbnail.appendChild(video);
                                 thumbnail.appendChild(playIcon);
+                                
+                                // إزالة فئة التحميل فور تحميل بيانات الفيديو
+                                video.onloadedmetadata = function() {
+                                    thumbnail.classList.remove('loading');
+                                };
                             } else {
                                 const img = document.createElement('img');
                                 img.src = mediaItem.src;
                                 img.alt = 'صورة';
                                 thumbnail.appendChild(img);
+                                
+                                // إزالة فئة التحميل فور تحميل الصورة
+                                img.onload = function() {
+                                    thumbnail.classList.remove('loading');
+                                };
                             }
                             thumbnailsContainer.appendChild(thumbnail);
 
@@ -410,22 +507,31 @@
 
                         const mainVideo = document.getElementById('mainVideo');
                         mainVideo.addEventListener('play', () => {
-                            const activeThumbnail = document.querySelector('.thumbnail.active');
-                            if (activeThumbnail.getAttribute('data-type') === 'video') {
-                                updatePlayIcon(activeThumbnail, true);
-                            }
+                            videoIsPlaying = true;
+                            updateAllVideoThumbnails();
                         });
                         mainVideo.addEventListener('pause', () => {
-                            const activeThumbnail = document.querySelector('.thumbnail.active');
-                            if (activeThumbnail.getAttribute('data-type') === 'video') {
-                                updatePlayIcon(activeThumbnail, false);
-                            }
+                            videoIsPlaying = false;
+                            updateAllVideoThumbnails();
                         });
 
+                        // إعداد Hammer.js مع تحكم في التمرير
                         const mainMediaContainer = document.querySelector('.main-media');
                         const hammer = new Hammer(mainMediaContainer);
-                        hammer.on('swipeleft', prevMedia);
-                        hammer.on('swiperight', nextMedia);
+                        hammer.on('swipeleft', function() {
+                            if (!isSwiping) {
+                                isSwiping = true;
+                                prevMedia();
+                                setTimeout(() => { isSwiping = false; }, 300);
+                            }
+                        });
+                        hammer.on('swiperight', function() {
+                            if (!isSwiping) {
+                                isSwiping = true;
+                                nextMedia();
+                                setTimeout(() => { isSwiping = false; }, 300);
+                            }
+                        });
                     })
                     .catch(error => console.error('خطأ في جلب البيانات:', error));
             } else {
@@ -434,6 +540,8 @@
         });
 
         function nextMedia() {
+            if (isSwiping) return;
+            isSwiping = true;
             const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = -1;
             thumbnails.forEach((thumb, index) => {
@@ -447,9 +555,12 @@
                 updateMainMedia(thumbnails[currentIndex + 1]);
                 setTimeout(updateCurrentMedia, 100);
             }
+            setTimeout(() => { isSwiping = false; }, 300);
         }
 
         function prevMedia() {
+            if (isSwiping) return;
+            isSwiping = true;
             const thumbnails = document.querySelectorAll('.thumbnail');
             let currentIndex = -1;
             thumbnails.forEach((thumb, index) => {
@@ -463,6 +574,7 @@
                 updateMainMedia(thumbnails[currentIndex - 1]);
                 setTimeout(updateCurrentMedia, 100);
             }
+            setTimeout(() => { isSwiping = false; }, 300);
         }
 
         function sharePage() {
