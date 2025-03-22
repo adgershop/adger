@@ -40,7 +40,6 @@
             border: 2px solid #ccc;
             border-radius: 10px;
             display: block;
-            object-fit: cover;
         }
 
         .main-media video:fullscreen {
@@ -71,14 +70,16 @@
             width: 66px;
             height: 66px;
             box-sizing: border-box;
+            background-color: #e0e0e0; /* Placeholder background color */
+            animation: pulse 1.5s infinite ease-in-out; /* Loading animation */
         }
 
-        .thumbnail.loading {
-            background-color: #e0e0e0;
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
         }
 
-        /* تمت إزالة تأثير الوميض هنا */
-        
         .thumbnail img, .thumbnail video {
             width: 100%;
             height: 100%;
@@ -267,36 +268,28 @@
             }
         }
 
-        /* تم تعديل حالة تحميل العنصر الرئيسي لإزالة الوميض */
+        /* Main media loading state */
         .main-media.loading {
-            background-color: transparent;
+            background-color: #e0e0e0;
+            animation: pulse 1.5s infinite ease-in-out;
         }
 
-        /* إضافة موضع احتياطي للصورة الرئيسية */
-        .main-media-placeholder {
-            width: 400px;
-            height: 400px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Remove animation when not loading */
+        .thumbnail:not(.loading) {
+            animation: none;
+            background-color: transparent; /* Remove gray background */
         }
 
-        @media (max-width: 555px) {
-            .main-media-placeholder {
-                width: 311px;
-                height: 311px;
-            }
+        .main-media:not(.loading) {
+            animation: none;
+            background-color: transparent; /* Remove gray background */
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 </head>
 <body>
     <div class="gallery">
-        <div class="main-media">
-            <div class="main-media-placeholder"></div>
+        <div class="main-media loading">
             <img id="mainMedia" alt="الصورة الرئيسية">
             <video id="mainVideo" controls style="display: none;">
                 <source type="video/mp4">
@@ -321,7 +314,7 @@
             منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
         </div>
         <div class="thumbnails" id="thumbnailsContainer">
-            <!-- سيتم إضافة المصغرات الاحتياطية هنا -->
+            <!-- Placeholder thumbnails will be added here -->
         </div>
     </div>
 
@@ -329,17 +322,17 @@
         let videoIsPlaying = false;
         let isSwiping = false;
         
-        // إنشاء مصغرات احتياطية فارغة فورًا
+        // Create placeholder thumbnails immediately
         function createPlaceholderThumbnails(count = 5) {
             const thumbnailsContainer = document.getElementById('thumbnailsContainer');
             for (let i = 0; i < count; i++) {
                 const thumbnail = document.createElement('div');
-                thumbnail.classList.add('thumbnail');
+                thumbnail.classList.add('thumbnail', 'loading');
                 if (i === 0) thumbnail.classList.add('active');
                 thumbnailsContainer.appendChild(thumbnail);
             }
             
-            // تحديث العداد بالقيم الافتراضية
+            // Update counter with placeholder values
             document.getElementById('totalMedia').textContent = count;
             document.getElementById('currentMedia').textContent = '1';
         }
@@ -382,13 +375,13 @@
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
-            // تحديث حالة أيقونة التشغيل للفيديو السابق
+            // Reset loading state
+            mainMediaContainer.classList.add('loading');
+
+            // Update play icon state for previous video
             if (videoIsPlaying) {
                 updateAllVideoThumbnails();
             }
-
-            // إزالة فورية لفئة التحميل
-            mainMediaContainer.classList.remove('loading');
 
             if (type === 'image') {
                 mainImage.src = src;
@@ -398,6 +391,11 @@
                 videoIsPlaying = false;
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
+                
+                // Remove loading state once image is loaded
+                mainImage.onload = function() {
+                    mainMediaContainer.classList.remove('loading');
+                };
             } else if (type === 'video') {
                 mainVideo.querySelector('source').src = src;
                 mainVideo.load();
@@ -405,11 +403,15 @@
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
+                
+                // Remove loading state once video metadata is loaded
+                mainVideo.onloadedmetadata = function() {
+                    mainMediaContainer.classList.remove('loading');
+                };
             }
         }
 
         function updateAllVideoThumbnails() {
-            // تحديث جميع المصغرات الفيديو وفقًا لحالة التشغيل
             const videoThumbnails = document.querySelectorAll('.thumbnail[data-type="video"]');
             videoThumbnails.forEach(thumb => {
                 updatePlayIcon(thumb, videoIsPlaying);
@@ -427,9 +429,9 @@
             }
         }
 
-        // إنشاء مصغرات احتياطية فورًا عندما يتم تحميل المستند
+        // Create placeholder thumbnails immediately when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // عرض المصغرات الاحتياطية فورًا
+            // Show placeholder thumbnails immediately
             createPlaceholderThumbnails();
             
             const urlParams = new URLSearchParams(window.location.search);
@@ -452,13 +454,13 @@
                             return;
                         }
 
-                        // مسح المصغرات الاحتياطية
+                        // Clear placeholder thumbnails
                         const thumbnailsContainer = document.querySelector('.thumbnails');
                         thumbnailsContainer.innerHTML = '';
                         
                         product.media.forEach((mediaItem, index) => {
                             const thumbnail = document.createElement('div');
-                            thumbnail.classList.add('thumbnail');
+                            thumbnail.classList.add('thumbnail', 'loading');
                             if (index === 0) thumbnail.classList.add('active');
                             thumbnail.setAttribute('data-src', mediaItem.src);
                             thumbnail.setAttribute('data-type', mediaItem.type);
@@ -466,6 +468,7 @@
                             if (mediaItem.type === 'video') {
                                 const video = document.createElement('video');
                                 video.src = mediaItem.src;
+                                video.preload = 'metadata'; // Preload metadata for faster loading
                                 const playIcon = document.createElement('div');
                                 playIcon.classList.add('play-icon');
                                 playIcon.innerHTML = `
@@ -476,7 +479,7 @@
                                 thumbnail.appendChild(video);
                                 thumbnail.appendChild(playIcon);
                                 
-                                // إزالة فئة التحميل فور تحميل بيانات الفيديو
+                                // Remove loading class when video metadata is loaded
                                 video.onloadedmetadata = function() {
                                     thumbnail.classList.remove('loading');
                                 };
@@ -486,7 +489,7 @@
                                 img.alt = 'صورة';
                                 thumbnail.appendChild(img);
                                 
-                                // إزالة فئة التحميل فور تحميل الصورة
+                                // Remove loading class when image is loaded
                                 img.onload = function() {
                                     thumbnail.classList.remove('loading');
                                 };
@@ -516,7 +519,7 @@
                             updateAllVideoThumbnails();
                         });
 
-                        // إعداد Hammer.js مع تحكم في التمرير
+                        // Setup Hammer.js for swipe control
                         const mainMediaContainer = document.querySelector('.main-media');
                         const hammer = new Hammer(mainMediaContainer);
                         hammer.on('swipeleft', function() {
