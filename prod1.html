@@ -14,13 +14,11 @@
             margin: 0;
             background-color: #f4f4f4;
         }
-
         .line {
             width: 100%;
             height: 8px;
             background-color: #eeeeee;
         }
-        
         .gallery {
             display: flex;
             align-items: flex-start;
@@ -28,12 +26,10 @@
             margin-top: 20px;
             position: relative;
         }
-
         .main-media {
             margin-left: 20px;
             position: relative;
         }
-
         .main-media img, .main-media video {
             width: 400px;
             height: 400px;
@@ -41,11 +37,9 @@
             border-radius: 10px;
             display: block;
         }
-
         .main-media video:fullscreen {
             border: none;
         }
-
         .thumbnails {
             display: flex;
             flex-direction: column;
@@ -55,11 +49,9 @@
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
-
         .thumbnails::-webkit-scrollbar {
             display: none;
         }
-
         .thumbnail {
             margin: 10px 0;
             cursor: pointer;
@@ -70,16 +62,8 @@
             width: 66px;
             height: 66px;
             box-sizing: border-box;
-            background-color: #e0e0e0; /* لون خلفية مؤقت */
-            animation: pulse 1.5s infinite ease-in-out; /* تحريك أثناء التحميل */
+            background-color: #e0e0e0; /* Placeholder background color */
         }
-
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-
         .thumbnail img, .thumbnail video {
             width: 100%;
             height: 100%;
@@ -87,18 +71,10 @@
             object-fit: cover;
             margin: 0;
             padding: 0;
-            opacity: 0; /* إخفاء أثناء التحميل */
-            transition: opacity 0.3s ease-in-out; /* انتقال سلس */
         }
-
-        .thumbnail:not(.loading) img, .thumbnail:not(.loading) video {
-            opacity: 1; /* إظهار عند اكتمال التحميل */
-        }
-
         .thumbnail.active {
             border-color: #ff0000;
         }
-
         .thumbnail.loading::before {
             content: "";
             position: absolute;
@@ -112,12 +88,10 @@
             border-radius: 50%;
             animation: spin 1s infinite linear;
         }
-
         @keyframes spin {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
-
         .play-icon {
             position: absolute;
             top: 50%;
@@ -132,13 +106,11 @@
             justify-content: center;
             pointer-events: none;
         }
-
         .play-icon svg {
             width: 16px;
             height: 16px;
             fill: white;
         }
-
         .share-button {
             position: absolute;
             left: 11px;
@@ -153,16 +125,17 @@
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-
         .share-button.bottom {
             bottom: 11px;
         }
-
+        .share-button.top {
+            top: 10px;
+            display: none;
+        }
         .share-button svg {
             width: 24px;
             height: 24px;
         }
-
         @media (max-width: 555px) {
             .gallery {
                 flex-direction: column;
@@ -170,17 +143,14 @@
                 margin-top: 22px;
                 margin-right: 1px;
             }
-
             .main-media {
                 margin-left: 0;
                 margin-bottom: 20px;
             }
-
             .main-media img, .main-media video {
                 width: 311px;
                 height: 311px;
             }
-
             .thumbnails {
                 flex-direction: row;
                 max-height: none;
@@ -191,7 +161,6 @@
                 white-space: nowrap;
                 gap: 10px;
             }
-
             .thumbnail {
                 margin: 0;
                 flex: 0 0 auto;
@@ -199,7 +168,6 @@
                 height: 65px;
             }
         }
-
         .media-counter {
             position: absolute;
             font-family: 'Cairo', sans-serif;
@@ -216,7 +184,6 @@
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-
         @media (max-width: 555px) {
             .media-counter {
                 bottom: 95px;
@@ -225,7 +192,6 @@
                 padding: 3px 13px;
             }
         }
-
         .arrow {
             position: absolute;
             top: 50%;
@@ -243,47 +209,29 @@
             font-size: 24px;
             z-index: 1;
         }
-
         .arrow.left {
             left: 2px;
         }
-
         .arrow.right {
             right: 2px;
         }
-
         .arrow svg {
             fill: white;
             width: 30px;
             height: 34px;
         }
-
         .arrow.disabled {
             background-color: rgba(66, 66, 66, 0.253);
             cursor: not-allowed;
         }
-
         @media (max-width: 556px) {
             .arrow {
                 display: none;
             }
         }
-
-        /* حالة التحميل للوسائط الرئيسية */
+        /* Main media loading state */
         .main-media.loading {
             background-color: #e0e0e0;
-            animation: pulse 1.5s infinite ease-in-out;
-        }
-
-        /* إزالة التحريك والخلفية عند عدم التحميل */
-        .thumbnail:not(.loading) {
-            animation: none;
-            background-color: transparent; /* إزالة الخلفية الرمادية */
-        }
-
-        .main-media:not(.loading) {
-            animation: none;
-            background-color: transparent;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
@@ -315,14 +263,14 @@
             منتج <span id="currentMedia">1</span>/<span id="totalMedia">0</span>
         </div>
         <div class="thumbnails" id="thumbnailsContainer">
-            <!-- سيتم إضافة المصغرات هنا -->
+            <!-- Placeholder thumbnails will be added here -->
         </div>
     </div>
-
     <script>
         let videoIsPlaying = false;
-        
-        // إنشاء مصغرات مؤقتة فورًا
+        let isSwiping = false;
+
+        // Create placeholder thumbnails immediately
         function createPlaceholderThumbnails(count = 5) {
             const thumbnailsContainer = document.getElementById('thumbnailsContainer');
             for (let i = 0; i < count; i++) {
@@ -331,12 +279,11 @@
                 if (i === 0) thumbnail.classList.add('active');
                 thumbnailsContainer.appendChild(thumbnail);
             }
-            
-            // تحديث العداد بالقيم المؤقتة
+            // Update counter with placeholder values
             document.getElementById('totalMedia').textContent = count;
             document.getElementById('currentMedia').textContent = '1';
         }
-        
+
         function calculateTotalMedia() {
             const totalMedia = document.querySelectorAll('.thumbnail').length;
             document.getElementById('totalMedia').textContent = totalMedia;
@@ -375,9 +322,6 @@
             const src = thumbnail.getAttribute('data-src');
             const type = thumbnail.getAttribute('data-type');
 
-            // إعادة تعيين حالة التحميل
-            mainMediaContainer.classList.add('loading');
-
             // تحديث حالة أيقونة التشغيل للفيديو السابق
             if (videoIsPlaying) {
                 updateAllVideoThumbnails();
@@ -391,8 +335,8 @@
                 videoIsPlaying = false;
                 shareButton.style.display = 'flex';
                 mediaCounter.style.display = 'flex';
-                
-                // إزالة حالة التحميل عند اكتمال تحميل الصورة
+
+                // Remove loading state once image is loaded
                 mainImage.onload = function() {
                     mainMediaContainer.classList.remove('loading');
                 };
@@ -403,8 +347,8 @@
                 mainImage.style.display = 'none';
                 shareButton.style.display = 'none';
                 mediaCounter.style.display = 'none';
-                
-                // إزالة حالة التحميل عند اكتمال تحميل بيانات الفيديو
+
+                // Remove loading state once video metadata is loaded
                 mainVideo.onloadedmetadata = function() {
                     mainMediaContainer.classList.remove('loading');
                 };
@@ -429,14 +373,13 @@
             }
         }
 
-        // إنشاء المصغرات المؤقتة فور تحميل الـ DOM
+        // Create placeholder thumbnails immediately when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // عرض المصغرات المؤقتة فورًا
+            // Show placeholder thumbnails immediately
             createPlaceholderThumbnails();
-            
+
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
-
             if (productId) {
                 const productsPerFile = 100;
                 const fileIndex = Math.ceil(parseInt(productId) / productsPerFile);
@@ -454,21 +397,21 @@
                             return;
                         }
 
-                        // مسح المصغرات المؤقتة
+                        // Clear placeholder thumbnails
                         const thumbnailsContainer = document.querySelector('.thumbnails');
                         thumbnailsContainer.innerHTML = '';
-                        
+
                         product.media.forEach((mediaItem, index) => {
                             const thumbnail = document.createElement('div');
-                            thumbnail.classList.add('thumbnail', 'loading');
+                            thumbnail.classList.add('thumbnail');
                             if (index === 0) thumbnail.classList.add('active');
                             thumbnail.setAttribute('data-src', mediaItem.src);
                             thumbnail.setAttribute('data-type', mediaItem.type);
+                            thumbnail.classList.add('loading'); // Add loading state initially
 
                             if (mediaItem.type === 'video') {
                                 const video = document.createElement('video');
                                 video.src = mediaItem.src;
-                                video.preload = 'metadata'; // تحميل البيانات الأساسية مسبقًا
                                 const playIcon = document.createElement('div');
                                 playIcon.classList.add('play-icon');
                                 playIcon.innerHTML = `
@@ -478,8 +421,8 @@
                                 `;
                                 thumbnail.appendChild(video);
                                 thumbnail.appendChild(playIcon);
-                                
-                                // إزالة فئة التحميل عند اكتمال تحميل بيانات الفيديو
+
+                                // Remove loading class when video metadata is loaded
                                 video.onloadedmetadata = function() {
                                     thumbnail.classList.remove('loading');
                                 };
@@ -488,12 +431,13 @@
                                 img.src = mediaItem.src;
                                 img.alt = 'صورة';
                                 thumbnail.appendChild(img);
-                                
-                                // إزالة فئة التحميل عند اكتمال تحميل الصورة
+
+                                // Remove loading class when image is loaded
                                 img.onload = function() {
                                     thumbnail.classList.remove('loading');
                                 };
                             }
+
                             thumbnailsContainer.appendChild(thumbnail);
 
                             thumbnail.addEventListener('click', () => {
@@ -506,6 +450,7 @@
 
                         calculateTotalMedia();
                         updateCurrentMedia();
+
                         const initialThumbnail = document.querySelector('.thumbnail.active');
                         updateMainMedia(initialThumbnail);
 
@@ -514,12 +459,13 @@
                             videoIsPlaying = true;
                             updateAllVideoThumbnails();
                         });
+
                         mainVideo.addEventListener('pause', () => {
                             videoIsPlaying = false;
                             updateAllVideoThumbnails();
                         });
 
-                        // إعداد Hammer.js للتحكم بالتمرير
+                        // إعداد Hammer.js مع تحكم في التمرير
                         const mainMediaContainer = document.querySelector('.main-media');
                         const hammer = new Hammer(mainMediaContainer);
                         hammer.on('swipeleft', function() {
@@ -595,13 +541,11 @@
         function updateArrowState(currentIndex, totalMedia) {
             const leftArrow = document.querySelector('.arrow.left');
             const rightArrow = document.querySelector('.arrow.right');
-
             if (currentIndex === 1) {
                 leftArrow.classList.add('disabled');
             } else {
                 leftArrow.classList.remove('disabled');
             }
-
             if (currentIndex === totalMedia) {
                 rightArrow.classList.add('disabled');
             } else {
